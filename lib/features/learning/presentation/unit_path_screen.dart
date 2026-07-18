@@ -9,6 +9,7 @@ import '../../../core/ui/clay.dart';
 import '../../../core/ui/juice.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
+import '../../wardrobe/presentation/cashy_avatar.dart';
 import '../data/lessons_repository.dart';
 
 /// Culorile unei unități, aduse din conținut (câmpul `color` din JSON).
@@ -81,17 +82,32 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
       unlocked = unlocked && u.lessons.every((l) => done.contains(l.id));
     }
 
+    // Atmosfera unității: fundalul se tentează subtil cu culoarea ei.
+    final tint = unit == null
+        ? C.bg
+        : Color.lerp(C.bg, unitLook(unit.color).gradient.colors.first, 0.10)!;
+
     return Scaffold(
       backgroundColor: C.bg,
-      body: Column(
-        children: [
-          const StatusBar(),
-          Expanded(
-            child: unit == null
-                ? const Center(child: CircularProgressIndicator())
-                : _body(unit, done, unlocked: unlocked),
+      body: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [tint, C.bg],
+            stops: const [0.0, 0.5],
           ),
-        ],
+        ),
+        child: Column(
+          children: [
+            const StatusBar(),
+            Expanded(
+              child: unit == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : _body(unit, done, unlocked: unlocked),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -124,9 +140,11 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                   for (var i = 0; i < unit.lessons.length; i++) ...[
                     if (i > 0)
                       _connector(
+                        index: i,
                         fromDx: _dx(i - 1),
                         toDx: _dx(i),
                         done: done.contains(unit.lessons[i - 1].id),
+                        unitColor: unitLook(unit.color).gradient.colors.first,
                       ),
                     _node(
                       unit.lessons[i],
@@ -139,6 +157,19 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                                 : _NodeState.locked),
                     ),
                   ],
+                  _connector(
+                    index: unit.lessons.length,
+                    fromDx: _dx(unit.lessons.length - 1),
+                    toDx: _dx(unit.lessons.length),
+                    done: done.contains(unit.lessons.last.id),
+                    unitColor: unitLook(unit.color).gradient.colors.first,
+                  ),
+                  _finishNode(
+                    unit,
+                    dx: _dx(unit.lessons.length),
+                    complete: unit.lessons.every((l) => done.contains(l.id)),
+                    index: unit.lessons.length,
+                  ),
                 ],
               ),
             ),
@@ -155,81 +186,180 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
       radius: 22,
       gradient: look.gradient,
       shadow: look.shadow,
-      padding: const EdgeInsets.all(14),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Juice.tick();
-              context.pop();
-            },
-            child: Container(
-              width: 38,
-              height: 38,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.22),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              alignment: Alignment.center,
-              child: const SvgIcon(
-                Ic.chevronLeft,
-                size: 18,
-                color: Colors.white,
-                strokeWidth: 2.6,
+      padding: EdgeInsets.zero,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(22),
+        child: Stack(
+          children: [
+            // Filigran: emoji-ul unității, mare și discret, în colțul din dreapta.
+            Positioned(
+              right: -14,
+              top: -18,
+              child: Opacity(
+                opacity: 0.18,
+                child: Text(unit.emoji, style: const TextStyle(fontSize: 96)),
               ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Text(unit.emoji, style: const TextStyle(fontSize: 26)),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Unitatea ${unit.ord} · ${unit.title}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: T.display(
-                    size: 15.5,
-                    weight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  '$doneIn din ${unit.lessons.length} lecții',
-                  style: T.body(
-                    size: 12,
-                    weight: FontWeight.w600,
-                    color: Colors.white70,
-                  ),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(14),
+              child: _headerContent(unit, doneIn),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  /// Poteca dintre două noduri: puncte așezate pe o curbă între offset-ul
-  /// nodului de sus și al celui de jos. Verde după o lecție terminată.
+  Widget _headerContent(LearnUnit unit, int doneIn) {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Juice.tick();
+            context.pop();
+          },
+          child: Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.22),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            alignment: Alignment.center,
+            child: const SvgIcon(
+              Ic.chevronLeft,
+              size: 18,
+              color: Colors.white,
+              strokeWidth: 2.6,
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Text(unit.emoji, style: const TextStyle(fontSize: 26)),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Unitatea ${unit.ord} · ${unit.title}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: T.display(
+                  size: 15.5,
+                  weight: FontWeight.w800,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 6),
+              // Bara de progres a unității, subțire, direct în header.
+              ClipRRect(
+                borderRadius: BorderRadius.circular(R.pill),
+                child: Container(
+                  height: 7,
+                  color: Colors.white.withValues(alpha: 0.25),
+                  child: FractionallySizedBox(
+                    alignment: Alignment.centerLeft,
+                    widthFactor: (doneIn / unit.lessons.length).clamp(
+                      0.04,
+                      1.0,
+                    ),
+                    child: Container(color: Colors.white),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                '$doneIn din ${unit.lessons.length} lecții',
+                style: T.body(
+                  size: 12,
+                  weight: FontWeight.w600,
+                  color: Colors.white70,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Poteca dintre două noduri: o panglică lată în culoarea unității, cu
+  /// puncte pe ea. Punctele se fac verzi după o lecție terminată.
   Widget _connector({
+    required int index,
     required double fromDx,
     required double toDx,
     required bool done,
-  }) => SizedBox(
-    width: double.infinity,
-    height: 42,
-    child: CustomPaint(
-      painter: _TrailPainter(
-        fromDx: fromDx,
-        toDx: toDx,
-        color: done ? C.green.withValues(alpha: 0.55) : C.line2,
+    required Color unitColor,
+  }) => StaggerIn(
+    index: index,
+    child: SizedBox(
+      width: double.infinity,
+      height: 42,
+      child: CustomPaint(
+        painter: _TrailPainter(
+          fromDx: fromDx,
+          toDx: toDx,
+          ribbon: unitColor.withValues(alpha: 0.16),
+          color: done ? C.green.withValues(alpha: 0.6) : C.line2,
+        ),
       ),
     ),
   );
+
+  /// Capătul drumului: trofeul de final de unitate.
+  Widget _finishNode(
+    LearnUnit unit, {
+    required double dx,
+    required bool complete,
+    required int index,
+  }) {
+    final look = unitLook(unit.color);
+    return StaggerIn(
+      index: index,
+      child: Transform.translate(
+        offset: Offset(dx, 0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Column(
+            children: [
+              Container(
+                width: 88,
+                height: 88,
+                decoration: BoxDecoration(
+                  gradient: complete ? look.gradient : null,
+                  color: complete ? null : C.inset,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: complete
+                        ? Colors.white.withValues(alpha: 0.45)
+                        : C.line2,
+                    width: 4,
+                  ),
+                  boxShadow: complete ? look.shadow : Sh.insetSoft,
+                ),
+                alignment: Alignment.center,
+                child: Opacity(
+                  opacity: complete ? 1 : 0.45,
+                  child: Text('🏆', style: const TextStyle(fontSize: 36)),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                complete ? 'Unitate cucerită!' : 'Finalul unității',
+                style: T.display(
+                  size: 13.5,
+                  weight: FontWeight.w800,
+                  color: complete ? C.text : C.text3,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget _node(
     Lesson lesson, {
@@ -272,72 +402,95 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                     ),
                   ),
                 ),
-              GestureDetector(
-                onTap: locked
-                    ? () => ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            '🔒 Finalizează lecția anterioară',
-                            style: T.display(
-                              size: 14,
-                              weight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                          duration: const Duration(seconds: 1),
-                          backgroundColor: C.text,
-                          behavior: SnackBarBehavior.floating,
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  // Cashy stă lângă lecția curentă și arată spre ea, mereu
+                  // dinspre axul drumului (oglindit când nodul e pe stânga).
+                  if (isCurrent)
+                    Positioned(
+                      top: 14,
+                      left: dx >= 0 ? -74 : null,
+                      right: dx < 0 ? -74 : null,
+                      child: Transform.flip(
+                        flipX: dx < 0,
+                        child: const CashySprite(
+                          asset: Cashy.cashyPoint,
+                          width: 64,
                         ),
-                      )
-                    : () {
-                        Juice.tick();
-                        context.push('/learn/lesson/${lesson.id}');
-                      },
-                child: Container(
-                  width: size,
-                  height: size,
-                  decoration: BoxDecoration(
-                    color: switch (state) {
-                      _NodeState.done => C.green,
-                      _NodeState.current => C.surface,
-                      _NodeState.locked => C.inset,
-                    },
-                    shape: BoxShape.circle,
-                    border: switch (state) {
-                      // Inelul alb dă adâncime pe verde; albastrul marchează startul.
-                      _NodeState.done => Border.all(
-                        color: Colors.white.withValues(alpha: 0.45),
-                        width: 4,
                       ),
-                      _NodeState.current => Border.all(color: C.blue, width: 4),
-                      _NodeState.locked => null,
-                    },
-                    boxShadow: switch (state) {
-                      _NodeState.done => Sh.green,
-                      _NodeState.current => Sh.blue,
-                      _NodeState.locked => Sh.insetSoft,
-                    },
+                    ),
+                  GestureDetector(
+                    onTap: locked
+                        ? () => ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                '🔒 Finalizează lecția anterioară',
+                                style: T.display(
+                                  size: 14,
+                                  weight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              duration: const Duration(seconds: 1),
+                              backgroundColor: C.text,
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          )
+                        : () {
+                            Juice.tick();
+                            context.push('/learn/lesson/${lesson.id}');
+                          },
+                    child: Container(
+                      width: size,
+                      height: size,
+                      decoration: BoxDecoration(
+                        color: switch (state) {
+                          _NodeState.done => C.green,
+                          _NodeState.current => C.surface,
+                          _NodeState.locked => C.inset,
+                        },
+                        shape: BoxShape.circle,
+                        border: switch (state) {
+                          // Inelul alb dă adâncime pe verde; albastrul marchează startul.
+                          _NodeState.done => Border.all(
+                            color: Colors.white.withValues(alpha: 0.45),
+                            width: 4,
+                          ),
+                          _NodeState.current => Border.all(
+                            color: C.blue,
+                            width: 4,
+                          ),
+                          _NodeState.locked => null,
+                        },
+                        boxShadow: switch (state) {
+                          _NodeState.done => Sh.green,
+                          _NodeState.current => Sh.blue,
+                          _NodeState.locked => Sh.insetSoft,
+                        },
+                      ),
+                      alignment: Alignment.center,
+                      child: switch (state) {
+                        _NodeState.done => const SvgIcon(
+                          Ic.check,
+                          size: 30,
+                          color: Colors.white,
+                          strokeWidth: 3,
+                        ),
+                        _NodeState.current => Text(
+                          lesson.emoji,
+                          style: const TextStyle(fontSize: 34),
+                        ),
+                        _NodeState.locked => const SvgIcon(
+                          Ic.lock,
+                          size: 24,
+                          color: C.text3,
+                          strokeWidth: 2.2,
+                        ),
+                      },
+                    ),
                   ),
-                  alignment: Alignment.center,
-                  child: switch (state) {
-                    _NodeState.done => const SvgIcon(
-                      Ic.check,
-                      size: 30,
-                      color: Colors.white,
-                      strokeWidth: 3,
-                    ),
-                    _NodeState.current => Text(
-                      lesson.emoji,
-                      style: const TextStyle(fontSize: 34),
-                    ),
-                    _NodeState.locked => const SvgIcon(
-                      Ic.lock,
-                      size: 24,
-                      color: C.text3,
-                      strokeWidth: 2.2,
-                    ),
-                  },
-                ),
+                ],
               ),
               const SizedBox(height: 8),
               SizedBox(
@@ -378,17 +531,20 @@ class _TrailPainter extends CustomPainter {
   const _TrailPainter({
     required this.fromDx,
     required this.toDx,
+    required this.ribbon,
     required this.color,
   });
 
   final double fromDx;
   final double toDx;
+  final Color ribbon;
   final Color color;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final start = Offset(size.width / 2 + fromDx, -2);
-    final end = Offset(size.width / 2 + toDx, size.height + 2);
+    // Depășim puțin capetele ca panglica să intre vizual sub noduri.
+    final start = Offset(size.width / 2 + fromDx, -10);
+    final end = Offset(size.width / 2 + toDx, size.height + 10);
     final path = Path()
       ..moveTo(start.dx, start.dy)
       ..quadraticBezierTo(
@@ -397,6 +553,16 @@ class _TrailPainter extends CustomPainter {
         end.dx,
         end.dy,
       );
+
+    // Panglica lată (drumul), apoi punctele-pași pe ea.
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = ribbon
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 22
+        ..strokeCap = StrokeCap.round,
+    );
     final metric = path.computeMetrics().first;
     final paint = Paint()..color = color;
     const dots = 4;
@@ -410,7 +576,10 @@ class _TrailPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_TrailPainter old) =>
-      old.fromDx != fromDx || old.toDx != toDx || old.color != color;
+      old.fromDx != fromDx ||
+      old.toDx != toDx ||
+      old.ribbon != ribbon ||
+      old.color != color;
 }
 
 enum _NodeState { done, current, locked }
