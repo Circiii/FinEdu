@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -94,6 +96,12 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
     );
   }
 
+  /// Amplitudinea serpentinei: nodurile alternează stânga-dreapta față de ax.
+  static const _amp = 56.0;
+
+  /// Offset-ul orizontal al nodului [i]: 0, dreapta, 0, stânga, 0, ...
+  double _dx(int i) => math.sin(i * math.pi / 2) * _amp;
+
   Widget _body(LearnUnit unit, Set<String> done, {required bool unlocked}) {
     final currentIndex = unlocked
         ? unit.lessons.indexWhere((l) => !done.contains(l.id))
@@ -115,10 +123,15 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                 children: [
                   for (var i = 0; i < unit.lessons.length; i++) ...[
                     if (i > 0)
-                      _connector(done: done.contains(unit.lessons[i - 1].id)),
+                      _connector(
+                        fromDx: _dx(i - 1),
+                        toDx: _dx(i),
+                        done: done.contains(unit.lessons[i - 1].id),
+                      ),
                     _node(
                       unit.lessons[i],
                       index: i,
+                      dx: _dx(i),
                       state: done.contains(unit.lessons[i].id)
                           ? _NodeState.done
                           : (i == currentIndex
@@ -200,148 +213,204 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
     );
   }
 
-  /// Firul traseului dintre două noduri: verde după o lecție terminată,
-  /// gri înaintea celor blocate.
-  Widget _connector({required bool done}) => Container(
-    width: 5,
-    height: 22,
-    decoration: BoxDecoration(
-      color: done ? C.green.withValues(alpha: 0.45) : C.line2,
-      borderRadius: BorderRadius.circular(R.pill),
+  /// Poteca dintre două noduri: puncte așezate pe o curbă între offset-ul
+  /// nodului de sus și al celui de jos. Verde după o lecție terminată.
+  Widget _connector({
+    required double fromDx,
+    required double toDx,
+    required bool done,
+  }) => SizedBox(
+    width: double.infinity,
+    height: 42,
+    child: CustomPaint(
+      painter: _TrailPainter(
+        fromDx: fromDx,
+        toDx: toDx,
+        color: done ? C.green.withValues(alpha: 0.55) : C.line2,
+      ),
     ),
   );
 
-  Widget _node(Lesson lesson, {required int index, required _NodeState state}) {
+  Widget _node(
+    Lesson lesson, {
+    required int index,
+    required double dx,
+    required _NodeState state,
+  }) {
     final locked = state == _NodeState.locked;
     final isCurrent = state == _NodeState.current;
-    final size = isCurrent ? 96.0 : 82.0;
+    final size = isCurrent ? 100.0 : 84.0;
 
     return StaggerIn(
       index: index,
-      child: Padding(
-        key: isCurrent ? _currentKey : null,
-        padding: const EdgeInsets.symmetric(vertical: 6),
-        child: Column(
-          children: [
-            if (isCurrent)
-              Container(
-                margin: const EdgeInsets.only(bottom: 7),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 11,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  gradient: Grad.amber,
-                  borderRadius: BorderRadius.circular(R.pill),
-                  boxShadow: Sh.amber,
-                ),
-                child: Text(
-                  'START',
-                  style: T.display(
-                    size: 11,
-                    weight: FontWeight.w800,
-                    color: Colors.white,
-                    letterSpacing: 1.4,
+      child: Transform.translate(
+        offset: Offset(dx, 0),
+        child: Padding(
+          key: isCurrent ? _currentKey : null,
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Column(
+            children: [
+              if (isCurrent)
+                Container(
+                  margin: const EdgeInsets.only(bottom: 7),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 11,
+                    vertical: 4,
                   ),
-                ),
-              ),
-            GestureDetector(
-              onTap: locked
-                  ? () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          '🔒 Finalizează lecția anterioară',
-                          style: T.display(
-                            size: 14,
-                            weight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                        duration: const Duration(seconds: 1),
-                        backgroundColor: C.text,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    )
-                  : () {
-                      Juice.tick();
-                      context.push('/learn/lesson/${lesson.id}');
-                    },
-              child: Container(
-                width: size,
-                height: size,
-                decoration: BoxDecoration(
-                  color: switch (state) {
-                    _NodeState.done => C.green,
-                    _NodeState.current => C.surface,
-                    _NodeState.locked => C.inset,
-                  },
-                  shape: BoxShape.circle,
-                  border: switch (state) {
-                    // Inelul alb dă adâncime pe verde; albastrul marchează startul.
-                    _NodeState.done => Border.all(
-                      color: Colors.white.withValues(alpha: 0.4),
-                      width: 3,
+                  decoration: BoxDecoration(
+                    gradient: Grad.amber,
+                    borderRadius: BorderRadius.circular(R.pill),
+                    boxShadow: Sh.amber,
+                  ),
+                  child: Text(
+                    'START',
+                    style: T.display(
+                      size: 11,
+                      weight: FontWeight.w800,
+                      color: Colors.white,
+                      letterSpacing: 1.4,
                     ),
-                    _NodeState.current => Border.all(color: C.blue, width: 3),
-                    _NodeState.locked => null,
-                  },
-                  boxShadow: switch (state) {
-                    _NodeState.done => Sh.green,
-                    _NodeState.current => Sh.blue,
-                    _NodeState.locked => Sh.insetSoft,
+                  ),
+                ),
+              GestureDetector(
+                onTap: locked
+                    ? () => ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '🔒 Finalizează lecția anterioară',
+                            style: T.display(
+                              size: 14,
+                              weight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                          duration: const Duration(seconds: 1),
+                          backgroundColor: C.text,
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      )
+                    : () {
+                        Juice.tick();
+                        context.push('/learn/lesson/${lesson.id}');
+                      },
+                child: Container(
+                  width: size,
+                  height: size,
+                  decoration: BoxDecoration(
+                    color: switch (state) {
+                      _NodeState.done => C.green,
+                      _NodeState.current => C.surface,
+                      _NodeState.locked => C.inset,
+                    },
+                    shape: BoxShape.circle,
+                    border: switch (state) {
+                      // Inelul alb dă adâncime pe verde; albastrul marchează startul.
+                      _NodeState.done => Border.all(
+                        color: Colors.white.withValues(alpha: 0.45),
+                        width: 4,
+                      ),
+                      _NodeState.current => Border.all(color: C.blue, width: 4),
+                      _NodeState.locked => null,
+                    },
+                    boxShadow: switch (state) {
+                      _NodeState.done => Sh.green,
+                      _NodeState.current => Sh.blue,
+                      _NodeState.locked => Sh.insetSoft,
+                    },
+                  ),
+                  alignment: Alignment.center,
+                  child: switch (state) {
+                    _NodeState.done => const SvgIcon(
+                      Ic.check,
+                      size: 30,
+                      color: Colors.white,
+                      strokeWidth: 3,
+                    ),
+                    _NodeState.current => Text(
+                      lesson.emoji,
+                      style: const TextStyle(fontSize: 34),
+                    ),
+                    _NodeState.locked => const SvgIcon(
+                      Ic.lock,
+                      size: 24,
+                      color: C.text3,
+                      strokeWidth: 2.2,
+                    ),
                   },
                 ),
-                alignment: Alignment.center,
-                child: switch (state) {
-                  _NodeState.done => const SvgIcon(
-                    Ic.check,
-                    size: 30,
-                    color: Colors.white,
-                    strokeWidth: 3,
-                  ),
-                  _NodeState.current => Text(
-                    lesson.emoji,
-                    style: const TextStyle(fontSize: 34),
-                  ),
-                  _NodeState.locked => const SvgIcon(
-                    Ic.lock,
-                    size: 24,
-                    color: C.text3,
-                    strokeWidth: 2.2,
-                  ),
-                },
               ),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: 230,
-              child: Text(
-                lesson.title,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: T.display(
-                  size: 14.5,
-                  weight: FontWeight.w700,
-                  color: locked ? C.text3 : C.text,
-                  height: 1.15,
+              const SizedBox(height: 8),
+              SizedBox(
+                width: 190,
+                child: Text(
+                  lesson.title,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: T.display(
+                    size: 14.5,
+                    weight: FontWeight.w700,
+                    color: locked ? C.text3 : C.text,
+                    height: 1.15,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              '${lesson.minutes} min · +${lesson.xp} XP',
-              style: T.body(
-                size: 11.5,
-                weight: FontWeight.w600,
-                color: C.text3,
+              const SizedBox(height: 2),
+              Text(
+                '${lesson.minutes} min · +${lesson.xp} XP',
+                style: T.body(
+                  size: 11.5,
+                  weight: FontWeight.w600,
+                  color: C.text3,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+/// Pictează poteca punctată dintre două noduri, pe o curbă lină între
+/// offset-urile serpentinei.
+class _TrailPainter extends CustomPainter {
+  const _TrailPainter({
+    required this.fromDx,
+    required this.toDx,
+    required this.color,
+  });
+
+  final double fromDx;
+  final double toDx;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final start = Offset(size.width / 2 + fromDx, -2);
+    final end = Offset(size.width / 2 + toDx, size.height + 2);
+    final path = Path()
+      ..moveTo(start.dx, start.dy)
+      ..quadraticBezierTo(
+        (start.dx + end.dx) / 2,
+        size.height / 2,
+        end.dx,
+        end.dy,
+      );
+    final metric = path.computeMetrics().first;
+    final paint = Paint()..color = color;
+    const dots = 4;
+    for (var i = 1; i <= dots; i++) {
+      final pos = metric
+          .getTangentForOffset(metric.length * i / (dots + 1))!
+          .position;
+      canvas.drawCircle(pos, 3.6, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_TrailPainter old) =>
+      old.fromDx != fromDx || old.toDx != toDx || old.color != color;
 }
 
 enum _NodeState { done, current, locked }
