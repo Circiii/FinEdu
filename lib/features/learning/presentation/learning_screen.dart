@@ -5,6 +5,7 @@ import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/fmt.dart';
 import '../../../core/ui/juice.dart';
@@ -33,40 +34,46 @@ class LearningScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: C.bg,
-      body: Column(
+      body: Stack(
         children: [
-          const StatusBar(),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(18, 8, 18, 22),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Învață',
-                    style: T.display(
-                      size: 24,
-                      weight: FontWeight.w800,
-                      color: C.text,
-                    ),
+          // Ploaia de ghinde din fundal (pictată o dată, cost minim).
+          const Positioned.fill(child: AcornRain()),
+          Column(
+            children: [
+              const StatusBar(),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(18, 8, 18, 22),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Învață',
+                        style: T.display(
+                          size: 24,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      _hero(
+                        xp,
+                        done.length,
+                        units.fold<int>(0, (n, u) => n + u.lessons.length),
+                      ),
+                      if (due > 0) ...[
+                        const SizedBox(height: 12),
+                        _reviewBanner(context, due),
+                      ],
+                      const SizedBox(height: 6),
+                      ..._unitCards(context, units, done),
+                      const SizedBox(height: 12),
+                      _comingSoon(),
+                    ],
                   ),
-                  const SizedBox(height: 14),
-                  _hero(
-                    xp,
-                    done.length,
-                    units.fold<int>(0, (n, u) => n + u.lessons.length),
-                  ),
-                  if (due > 0) ...[
-                    const SizedBox(height: 12),
-                    _reviewBanner(context, due),
-                  ],
-                  const SizedBox(height: 6),
-                  ..._unitCards(context, units, done),
-                  const SizedBox(height: 12),
-                  _comingSoon(),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),

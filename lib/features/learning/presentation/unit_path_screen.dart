@@ -5,6 +5,7 @@ import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/juice.dart';
 import '../../../core/ui/svg_icon.dart';
@@ -30,8 +31,8 @@ import '../data/lessons_repository.dart';
       _ => (gradient: Grad.blue, shadow: Sh.blue),
     };
 
-/// Traseul unei singure unități: header colorat + drumul lecțiilor pe mijloc.
-/// La deschidere, ecranul derulează singur la lecția curentă.
+/// Traseul unei unități: un drum continuu care șerpuiește prin lecții, cu
+/// porțiunea parcursă colorată. La deschidere sare singur la lecția curentă.
 class UnitPathScreen extends ConsumerStatefulWidget {
   const UnitPathScreen({super.key, required this.unitId});
 
@@ -44,6 +45,15 @@ class UnitPathScreen extends ConsumerStatefulWidget {
 class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
   final _currentKey = GlobalKey();
   bool _autoScrolled = false;
+
+  /// Geometria drumului: sloturi cu înălțime FIXĂ, ca șoseaua să se poată
+  /// picta dintr-o singură bucată prin centrele bulelor.
+  static const _slotH = 192.0;
+  static const _bubbleCY = 78.0;
+  static const _amp = 56.0;
+
+  /// Offset-ul orizontal al nodului [i]: 0, dreapta, 0, stânga, 0, ...
+  double _dx(int i) => math.sin(i * math.pi / 2) * _amp;
 
   /// Derulează o singură dată la nodul curent, după ce lista e pe ecran.
   void _scrollToCurrent() {
@@ -98,13 +108,19 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
             stops: const [0.0, 0.5],
           ),
         ),
-        child: Column(
+        child: Stack(
           children: [
-            const StatusBar(),
-            Expanded(
-              child: unit == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : _body(unit, done, unlocked: unlocked),
+            // Aceeași ploaie de ghinde ca pe pagina principală de învățare.
+            const Positioned.fill(child: AcornRain()),
+            Column(
+              children: [
+                const StatusBar(),
+                Expanded(
+                  child: unit == null
+                      ? const Center(child: CircularProgressIndicator())
+                      : _body(unit, done, unlocked: unlocked),
+                ),
+              ],
             ),
           ],
         ),
@@ -112,17 +128,19 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
     );
   }
 
-  /// Amplitudinea serpentinei: nodurile alternează stânga-dreapta față de ax.
-  static const _amp = 56.0;
-
-  /// Offset-ul orizontal al nodului [i]: 0, dreapta, 0, stânga, 0, ...
-  double _dx(int i) => math.sin(i * math.pi / 2) * _amp;
-
   Widget _body(LearnUnit unit, Set<String> done, {required bool unlocked}) {
+    final n = unit.lessons.length;
     final currentIndex = unlocked
         ? unit.lessons.indexWhere((l) => !done.contains(l.id))
         : -1;
+    final complete = unit.lessons.every((l) => done.contains(l.id));
+    // Drumul e „parcurs" până la bula lecției curente (sau până la trofeu
+    // când unitatea e gata).
+    final reached = !unlocked ? 0 : (complete ? n : currentIndex);
+    final look = unitLook(unit.color);
     _scrollToCurrent();
+
+    final dxs = [for (var i = 0; i <= n; i++) _dx(i)];
 
     return Column(
       children: [
@@ -132,43 +150,56 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
         ),
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(18, 14, 18, 24),
+            padding: const EdgeInsets.fromLTRB(0, 14, 0, 24),
             child: SizedBox(
               width: double.infinity,
-              child: Column(
+              height: (n + 1) * _slotH,
+              child: Stack(
                 children: [
-                  for (var i = 0; i < unit.lessons.length; i++) ...[
-                    if (i > 0)
-                      _connector(
-                        index: i,
-                        fromDx: _dx(i - 1),
-                        toDx: _dx(i),
-                        done: done.contains(unit.lessons[i - 1].id),
-                        unitColor: unitLook(unit.color).gradient.colors.first,
+                  // Șoseaua, dintr-o singură bucată, sub toate nodurile.
+                  Positioned.fill(
+                    child: CustomPaint(
+                      painter: _RoadPainter(
+                        dxs: dxs,
+                        slotH: _slotH,
+                        bubbleCY: _bubbleCY,
+                        reached: reached,
+                        ribbon: look.gradient.colors.first.withValues(
+                          alpha: 0.14,
+                        ),
+                        traveled: C.green.withValues(alpha: 0.22),
+                        dash: look.gradient.colors.last.withValues(alpha: 0.4),
                       ),
-                    _node(
-                      unit.lessons[i],
-                      index: i,
-                      dx: _dx(i),
-                      state: done.contains(unit.lessons[i].id)
-                          ? _NodeState.done
-                          : (i == currentIndex
-                                ? _NodeState.current
-                                : _NodeState.locked),
                     ),
-                  ],
-                  _connector(
-                    index: unit.lessons.length,
-                    fromDx: _dx(unit.lessons.length - 1),
-                    toDx: _dx(unit.lessons.length),
-                    done: done.contains(unit.lessons.last.id),
-                    unitColor: unitLook(unit.color).gradient.colors.first,
                   ),
-                  _finishNode(
-                    unit,
-                    dx: _dx(unit.lessons.length),
-                    complete: unit.lessons.every((l) => done.contains(l.id)),
-                    index: unit.lessons.length,
+                  for (var i = 0; i < n; i++)
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: i * _slotH,
+                      height: _slotH,
+                      child: _node(
+                        unit.lessons[i],
+                        index: i,
+                        dx: _dx(i),
+                        state: done.contains(unit.lessons[i].id)
+                            ? _NodeState.done
+                            : (i == currentIndex
+                                  ? _NodeState.current
+                                  : _NodeState.locked),
+                      ),
+                    ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: n * _slotH,
+                    height: _slotH,
+                    child: _finishNode(
+                      unit,
+                      dx: _dx(n),
+                      complete: complete,
+                      index: n,
+                    ),
                   ),
                 ],
               ),
@@ -284,83 +315,6 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
     );
   }
 
-  /// Poteca dintre două noduri: o panglică lată în culoarea unității, cu
-  /// puncte pe ea. Punctele se fac verzi după o lecție terminată.
-  Widget _connector({
-    required int index,
-    required double fromDx,
-    required double toDx,
-    required bool done,
-    required Color unitColor,
-  }) => StaggerIn(
-    index: index,
-    child: SizedBox(
-      width: double.infinity,
-      height: 42,
-      child: CustomPaint(
-        painter: _TrailPainter(
-          fromDx: fromDx,
-          toDx: toDx,
-          ribbon: unitColor.withValues(alpha: 0.16),
-          color: done ? C.green.withValues(alpha: 0.6) : C.line2,
-        ),
-      ),
-    ),
-  );
-
-  /// Capătul drumului: trofeul de final de unitate.
-  Widget _finishNode(
-    LearnUnit unit, {
-    required double dx,
-    required bool complete,
-    required int index,
-  }) {
-    final look = unitLook(unit.color);
-    return StaggerIn(
-      index: index,
-      child: Transform.translate(
-        offset: Offset(dx, 0),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6),
-          child: Column(
-            children: [
-              Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  gradient: complete ? look.gradient : null,
-                  color: complete ? null : C.inset,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: complete
-                        ? Colors.white.withValues(alpha: 0.45)
-                        : C.line2,
-                    width: 4,
-                  ),
-                  boxShadow: complete ? look.shadow : Sh.insetSoft,
-                ),
-                alignment: Alignment.center,
-                child: Opacity(
-                  opacity: complete ? 1 : 0.45,
-                  child: Text('🏆', style: const TextStyle(fontSize: 36)),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                complete ? 'Unitate cucerită!' : 'Finalul unității',
-                style: T.display(
-                  size: 13.5,
-                  weight: FontWeight.w800,
-                  color: complete ? C.text : C.text3,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _node(
     Lesson lesson, {
     required int index,
@@ -369,49 +323,58 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
   }) {
     final locked = state == _NodeState.locked;
     final isCurrent = state == _NodeState.current;
-    final size = isCurrent ? 100.0 : 84.0;
+    final size = switch (state) {
+      _NodeState.current => 100.0,
+      _NodeState.done => 84.0,
+      _NodeState.locked => 76.0,
+    };
 
     return StaggerIn(
       index: index,
       child: Transform.translate(
         offset: Offset(dx, 0),
-        child: Padding(
+        child: Column(
           key: isCurrent ? _currentKey : null,
-          padding: const EdgeInsets.symmetric(vertical: 6),
-          child: Column(
-            children: [
-              if (isCurrent)
-                Container(
-                  margin: const EdgeInsets.only(bottom: 7),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 11,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: Grad.amber,
-                    borderRadius: BorderRadius.circular(R.pill),
-                    boxShadow: Sh.amber,
-                  ),
-                  child: Text(
-                    'START',
-                    style: T.display(
-                      size: 11,
-                      weight: FontWeight.w800,
-                      color: Colors.white,
-                      letterSpacing: 1.4,
-                    ),
-                  ),
-                ),
-              Stack(
+          children: [
+            // Zona etichetei START are înălțime fixă la toate nodurile, ca
+            // centrul bulei să rămână pe traiectoria pictată a drumului.
+            SizedBox(
+              height: 28,
+              child: isCurrent
+                  ? Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 11,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: Grad.amber,
+                        borderRadius: BorderRadius.circular(R.pill),
+                        boxShadow: Sh.amber,
+                      ),
+                      child: Text(
+                        'START',
+                        style: T.display(
+                          size: 11,
+                          weight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: 1.4,
+                        ),
+                      ),
+                    )
+                  : null,
+            ),
+            SizedBox(
+              height: 100,
+              child: Stack(
                 clipBehavior: Clip.none,
+                alignment: Alignment.center,
                 children: [
                   // Cashy stă lângă lecția curentă și arată spre ea, mereu
                   // dinspre axul drumului (oglindit când nodul e pe stânga).
                   if (isCurrent)
                     Positioned(
-                      top: 14,
-                      left: dx >= 0 ? -74 : null,
-                      right: dx < 0 ? -74 : null,
+                      left: dx >= 0 ? -78 : null,
+                      right: dx < 0 ? -78 : null,
                       child: Transform.flip(
                         flipX: dx < 0,
                         child: const CashySprite(
@@ -445,14 +408,15 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                       width: size,
                       height: size,
                       decoration: BoxDecoration(
+                        gradient: state == _NodeState.done ? Grad.green : null,
                         color: switch (state) {
-                          _NodeState.done => C.green,
+                          _NodeState.done => null,
                           _NodeState.current => C.surface,
                           _NodeState.locked => C.inset,
                         },
                         shape: BoxShape.circle,
                         border: switch (state) {
-                          // Inelul alb dă adâncime pe verde; albastrul marchează startul.
+                          // Inelul alb dă adâncime; albastrul marchează startul.
                           _NodeState.done => Border.all(
                             color: Colors.white.withValues(alpha: 0.45),
                             width: 4,
@@ -479,11 +443,11 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                         ),
                         _NodeState.current => Text(
                           lesson.emoji,
-                          style: const TextStyle(fontSize: 34),
+                          style: const TextStyle(fontSize: 36),
                         ),
                         _NodeState.locked => const SvgIcon(
                           Ic.lock,
-                          size: 24,
+                          size: 22,
                           color: C.text3,
                           strokeWidth: 2.2,
                         ),
@@ -492,94 +456,176 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
-              SizedBox(
-                width: 190,
-                child: Text(
-                  lesson.title,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: T.display(
-                    size: 14.5,
-                    weight: FontWeight.w700,
-                    color: locked ? C.text3 : C.text,
-                    height: 1.15,
+            ),
+            const SizedBox(height: 6),
+            SizedBox(
+              width: 190,
+              height: 36,
+              child: Text(
+                lesson.title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: T.display(
+                  size: 14,
+                  weight: FontWeight.w700,
+                  color: locked ? C.text3 : C.text,
+                  height: 1.15,
+                ),
+              ),
+            ),
+            Text(
+              '${lesson.minutes} min · +${lesson.xp} XP',
+              style: T.body(
+                size: 11.5,
+                weight: FontWeight.w600,
+                color: C.text3,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Capătul drumului: trofeul de final de unitate, pe aceeași geometrie.
+  Widget _finishNode(
+    LearnUnit unit, {
+    required double dx,
+    required bool complete,
+    required int index,
+  }) {
+    final look = unitLook(unit.color);
+    return StaggerIn(
+      index: index,
+      child: Transform.translate(
+        offset: Offset(dx, 0),
+        child: Column(
+          children: [
+            const SizedBox(height: 28),
+            SizedBox(
+              height: 100,
+              child: Center(
+                child: Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    gradient: complete ? look.gradient : null,
+                    color: complete ? null : C.inset,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: complete
+                          ? Colors.white.withValues(alpha: 0.45)
+                          : C.line2,
+                      width: 4,
+                    ),
+                    boxShadow: complete ? look.shadow : Sh.insetSoft,
+                  ),
+                  alignment: Alignment.center,
+                  child: Opacity(
+                    opacity: complete ? 1 : 0.45,
+                    child: const Text('🏆', style: TextStyle(fontSize: 36)),
                   ),
                 ),
               ),
-              const SizedBox(height: 2),
-              Text(
-                '${lesson.minutes} min · +${lesson.xp} XP',
-                style: T.body(
-                  size: 11.5,
-                  weight: FontWeight.w600,
-                  color: C.text3,
-                ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              complete ? 'Unitate cucerită!' : 'Finalul unității',
+              style: T.display(
+                size: 13.5,
+                weight: FontWeight.w800,
+                color: complete ? C.text : C.text3,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-/// Pictează poteca punctată dintre două noduri, pe o curbă lină între
-/// offset-urile serpentinei.
-class _TrailPainter extends CustomPainter {
-  const _TrailPainter({
-    required this.fromDx,
-    required this.toDx,
+/// Pictează șoseaua continuă prin centrele bulelor: panglica lată, porțiunea
+/// parcursă în verde și linia punctată din mijloc. Curbele intră și ies
+/// vertical din fiecare nod, deci drumul trece exact prin bule.
+class _RoadPainter extends CustomPainter {
+  const _RoadPainter({
+    required this.dxs,
+    required this.slotH,
+    required this.bubbleCY,
+    required this.reached,
     required this.ribbon,
-    required this.color,
+    required this.traveled,
+    required this.dash,
   });
 
-  final double fromDx;
-  final double toDx;
+  final List<double> dxs;
+  final double slotH;
+  final double bubbleCY;
+  final int reached;
   final Color ribbon;
-  final Color color;
+  final Color traveled;
+  final Color dash;
+
+  Path _roadThrough(Size size, int upTo) {
+    final cx = size.width / 2;
+    Offset p(int i) => Offset(cx + dxs[i], i * slotH + bubbleCY);
+    final path = Path()..moveTo(p(0).dx, p(0).dy);
+    final k = slotH * 0.45;
+    for (var i = 1; i <= upTo; i++) {
+      final a = p(i - 1);
+      final b = p(i);
+      path.cubicTo(a.dx, a.dy + k, b.dx, b.dy - k, b.dx, b.dy);
+    }
+    return path;
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Depășim puțin capetele ca panglica să intre vizual sub noduri.
-    final start = Offset(size.width / 2 + fromDx, -10);
-    final end = Offset(size.width / 2 + toDx, size.height + 10);
-    final path = Path()
-      ..moveTo(start.dx, start.dy)
-      ..quadraticBezierTo(
-        (start.dx + end.dx) / 2,
-        size.height / 2,
-        end.dx,
-        end.dy,
-      );
+    final full = _roadThrough(size, dxs.length - 1);
 
-    // Panglica lată (drumul), apoi punctele-pași pe ea.
     canvas.drawPath(
-      path,
+      full,
       Paint()
         ..color = ribbon
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 22
+        ..strokeWidth = 34
         ..strokeCap = StrokeCap.round,
     );
-    final metric = path.computeMetrics().first;
-    final paint = Paint()..color = color;
-    const dots = 4;
-    for (var i = 1; i <= dots; i++) {
-      final pos = metric
-          .getTangentForOffset(metric.length * i / (dots + 1))!
-          .position;
-      canvas.drawCircle(pos, 3.6, paint);
+
+    if (reached > 0) {
+      canvas.drawPath(
+        _roadThrough(size, reached),
+        Paint()
+          ..color = traveled
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 34
+          ..strokeCap = StrokeCap.round,
+      );
+    }
+
+    // Linia punctată din mijloc, pe toată lungimea drumului.
+    final paint = Paint()
+      ..color = dash
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round;
+    for (final metric in full.computeMetrics()) {
+      var d = 10.0;
+      while (d + 10 < metric.length) {
+        canvas.drawPath(metric.extractPath(d, d + 10), paint);
+        d += 24;
+      }
     }
   }
 
   @override
-  bool shouldRepaint(_TrailPainter old) =>
-      old.fromDx != fromDx ||
-      old.toDx != toDx ||
+  bool shouldRepaint(_RoadPainter old) =>
+      old.dxs != dxs ||
+      old.reached != reached ||
       old.ribbon != ribbon ||
-      old.color != color;
+      old.traveled != traveled ||
+      old.dash != dash;
 }
 
 enum _NodeState { done, current, locked }
