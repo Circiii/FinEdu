@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +17,7 @@ import '../../features/home/presentation/home_screen.dart';
 import '../../features/learning/presentation/learning_screen.dart';
 import '../../features/learning/presentation/lesson_player_screen.dart';
 import '../../features/learning/presentation/review_screen.dart';
+import '../../features/learning/presentation/unit_path_screen.dart';
 import '../../features/arcade/presentation/arcade_screen.dart';
 import '../../features/arcade/presentation/daily_challenge_screen.dart';
 import '../../features/arcade/presentation/dojo_screen.dart';
@@ -62,7 +63,8 @@ GoRouter buildRouter({String initialLocation = '/onboarding'}) {
 
       // Shell cu taburi și BottomNav mereu vizibil
       StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) => _AppShell(shell: navigationShell),
+        builder: (context, state, navigationShell) =>
+            _AppShell(shell: navigationShell),
         branches: [
           StatefulShellBranch(
             routes: [
@@ -78,7 +80,13 @@ GoRouter buildRouter({String initialLocation = '/onboarding'}) {
                   GoRoute(
                     path: 'lesson/:id',
                     builder: (_, state) => LessonPlayerScreen(
-                        lessonId: state.pathParameters['id']!),
+                      lessonId: state.pathParameters['id']!,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'unit/:uid',
+                    builder: (_, state) =>
+                        UnitPathScreen(unitId: state.pathParameters['uid']!),
                   ),
                 ],
               ),
@@ -93,32 +101,40 @@ GoRouter buildRouter({String initialLocation = '/onboarding'}) {
                   // Jocurile sunt sub-ecrane deschise din hub-ul Arcade.
                   GoRoute(path: 'dojo', builder: (_, _) => const DojoScreen()),
                   GoRoute(
-                      path: 'daily',
-                      builder: (_, _) => const DailyChallengeScreen()),
+                    path: 'daily',
+                    builder: (_, _) => const DailyChallengeScreen(),
+                  ),
                   GoRoute(
-                      path: 'turbo',
-                      builder: (_, _) => const TurboBudgetScreen()),
+                    path: 'turbo',
+                    builder: (_, _) => const TurboBudgetScreen(),
+                  ),
                   // „30 de Zile”: intro → joc → raport. Runda se pasează prin
                   // `extra` (id); dacă lipsește, ecranele cad pe runda activă
                   // / ultima terminată.
                   GoRoute(
-                      path: 'luna',
-                      builder: (_, _) => const LifeMonthIntroScreen()),
+                    path: 'luna',
+                    builder: (_, _) => const LifeMonthIntroScreen(),
+                  ),
                   GoRoute(
-                      path: 'luna/joc',
-                      builder: (_, state) =>
-                          LifeMonthScreen(runId: state.extra as String?)),
+                    path: 'luna/joc',
+                    builder: (_, state) =>
+                        LifeMonthScreen(runId: state.extra as String?),
+                  ),
                   GoRoute(
-                      path: 'luna/raport',
-                      builder: (_, state) =>
-                          LifeMonthReportScreen(runId: state.extra as String?)),
+                    path: 'luna/raport',
+                    builder: (_, state) =>
+                        LifeMonthReportScreen(runId: state.extra as String?),
+                  ),
                 ],
               ),
             ],
           ),
           StatefulShellBranch(
             routes: [
-              GoRoute(path: '/profil', builder: (_, _) => const ProfileScreen()),
+              GoRoute(
+                path: '/profil',
+                builder: (_, _) => const ProfileScreen(),
+              ),
             ],
           ),
         ],

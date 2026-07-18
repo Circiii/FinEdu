@@ -622,7 +622,7 @@ Sursa: `content/lessons/unit1.json` ... `unit7.json`, câte 5 lecții fiecare.
 | 3 | Arta de a NU cumpăra | marketing, ancore de preț, cumpărături impulsive |
 | 4 | Banii din gaming & net | microtranzacții, skin-uri, banii din online |
 | 5 | Scutul Anti-Țeapă | phishing, oferte false, money mule |
-| 6 | Salteaua | fondul de urgență și dobânda compusă |
+| 6 | Economisirea = superputere | fondul de urgență și dobânda compusă |
 | 7 | Primul tău venit | primul job legal, brut și net, contract vs la negru |
 
 ### 12.2 Anatomia unei lecții

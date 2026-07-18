@@ -11,9 +11,10 @@ import '../../../core/ui/tokens.dart';
 import '../../../domain/engine/leitner.dart';
 import '../../home/data/home_providers.dart';
 import '../data/lessons_repository.dart';
+import 'unit_path_screen.dart' show unitLook;
 
-/// Ecranul „Învață": HUD de XP/nivel, banner de recapitulare și traseul
-/// unităților cu deblocare strict secvențială.
+/// Ecranul „Învață": HUD de XP/nivel, banner de recapitulare și unitățile ca
+/// listă compactă. Traseul lecțiilor se deschide per unitate, fără scroll lung.
 class LearningScreen extends ConsumerWidget {
   const LearningScreen({super.key});
 
@@ -57,8 +58,9 @@ class LearningScreen extends ConsumerWidget {
                     const SizedBox(height: 12),
                     _reviewBanner(context, due),
                   ],
-                  ..._unitSections(context, units, done),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 6),
+                  ..._unitCards(context, units, done),
+                  const SizedBox(height: 12),
                   _comingSoon(),
                 ],
               ),
@@ -199,263 +201,138 @@ class LearningScreen extends ConsumerWidget {
     );
   }
 
-  /// Banner-e + trasee de unități; unitatea N+1 se deblochează doar când
-  /// toate lecțiile unității N sunt completate.
-  List<Widget> _unitSections(
+  /// Unitățile ca listă de carduri; unitatea N+1 se deblochează doar când
+  /// toate lecțiile unității N sunt completate. Tap = traseul unității.
+  List<Widget> _unitCards(
     BuildContext context,
     List<LearnUnit> units,
     Set<String> done,
   ) {
-    final sections = <Widget>[];
+    final cards = <Widget>[];
     var unlocked = true;
-    for (final unit in units) {
-      sections
-        ..add(const SizedBox(height: 16))
-        ..add(_unitBanner(unit, done))
-        ..add(const SizedBox(height: 8))
-        ..add(_path(context, unit, done, unlocked: unlocked));
-      unlocked = unlocked && unit.lessons.every((l) => done.contains(l.id));
-    }
-    return sections;
-  }
-
-  /// Fiecare unitate își aduce culoarea din conținut, traseul respiră vizual.
-  static ({LinearGradient gradient, List<BoxShadow> shadow}) _unitLook(
-    String color,
-  ) => switch (color) {
-    'green' => (gradient: Grad.green, shadow: Sh.green),
-    'amber' => (gradient: Grad.amber, shadow: Sh.amber),
-    'violet' => (
-      gradient: const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [Color(0xFFA99CFF), C.violet, C.violetDeep],
-        stops: [0.0, 0.55, 1.0],
-      ),
-      shadow: Sh.violet,
-    ),
-    'danger' => (gradient: Grad.danger, shadow: Sh.danger),
-    _ => (gradient: Grad.blue, shadow: Sh.blue),
-  };
-
-  Widget _unitBanner(LearnUnit unit, Set<String> done) {
-    final doneIn = unit.lessons.where((l) => done.contains(l.id)).length;
-    final look = _unitLook(unit.color);
-    return ClayCard(
-      radius: 22,
-      gradient: look.gradient,
-      shadow: look.shadow,
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Text(unit.emoji, style: const TextStyle(fontSize: 26)),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Unitatea ${unit.ord} · ${unit.title}',
-                  style: T.display(
-                    size: 16,
-                    weight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  '$doneIn din ${unit.lessons.length} lecții',
-                  style: T.body(
-                    size: 12.5,
-                    weight: FontWeight.w600,
-                    color: Colors.white70,
-                  ),
-                ),
-              ],
+    for (var i = 0; i < units.length; i++) {
+      final unit = units[i];
+      final isComplete = unit.lessons.every((l) => done.contains(l.id));
+      cards
+        ..add(const SizedBox(height: 10))
+        ..add(
+          StaggerIn(
+            index: i,
+            child: _unitCard(
+              context,
+              unit,
+              done,
+              unlocked: unlocked,
+              active: unlocked && !isComplete,
             ),
           ),
-        ],
-      ),
-    );
+        );
+      unlocked = unlocked && isComplete;
+    }
+    return cards;
   }
 
-  Widget _path(
+  Widget _unitCard(
     BuildContext context,
     LearnUnit unit,
     Set<String> done, {
     required bool unlocked,
+    required bool active,
   }) {
-    // Current = prima lecție necompletată; restul e locked (strict secvențial).
-    // O unitate ale cărei predecesoare nu sunt terminate nu are niciun nod current.
-    final currentIndex = unlocked
-        ? unit.lessons.indexWhere((l) => !done.contains(l.id))
-        : -1;
+    final doneIn = unit.lessons.where((l) => done.contains(l.id)).length;
+    final look = unitLook(unit.color);
 
-    // Părintele aliniază la stânga (CrossAxisAlignment.start); lățimea plină
-    // lasă nodurile să se centreze pe ecran, nu pe propria coloană îngustă.
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        children: [
-          for (var i = 0; i < unit.lessons.length; i++) ...[
-            if (i > 0) _connector(done: done.contains(unit.lessons[i - 1].id)),
-            _node(
-              context,
-              unit.lessons[i],
-              index: i,
-              state: done.contains(unit.lessons[i].id)
-                  ? _NodeState.done
-                  : (i == currentIndex
-                        ? _NodeState.current
-                        : _NodeState.locked),
+    return GestureDetector(
+      onTap: () {
+        Juice.tick();
+        if (!unlocked) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                '🔒 Termină unitatea anterioară ca să o deblochezi',
+                style: T.display(
+                  size: 14,
+                  weight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+              duration: const Duration(seconds: 1),
+              backgroundColor: C.text,
+              behavior: SnackBarBehavior.floating,
             ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  /// Firul traseului dintre două noduri: verde după o lecție terminată,
-  /// gri înaintea celor blocate.
-  Widget _connector({required bool done}) => Container(
-    width: 5,
-    height: 22,
-    decoration: BoxDecoration(
-      color: done ? C.green.withValues(alpha: 0.45) : C.line2,
-      borderRadius: BorderRadius.circular(R.pill),
-    ),
-  );
-
-  Widget _node(
-    BuildContext context,
-    Lesson lesson, {
-    required int index,
-    required _NodeState state,
-  }) {
-    final locked = state == _NodeState.locked;
-    final isCurrent = state == _NodeState.current;
-    final size = isCurrent ? 96.0 : 82.0;
-
-    return StaggerIn(
-      index: index,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6),
-        child: Column(
+          );
+          return;
+        }
+        context.push('/learn/unit/${unit.id}');
+      },
+      child: ClayCard(
+        radius: 20,
+        gradient: unlocked ? look.gradient : null,
+        color: unlocked ? C.surface : C.inset,
+        shadow: unlocked ? look.shadow : Sh.insetSoft,
+        padding: const EdgeInsets.all(14),
+        child: Row(
           children: [
-            if (isCurrent)
+            Text(
+              unit.emoji,
+              style: TextStyle(fontSize: 26, color: unlocked ? null : C.text3),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Unitatea ${unit.ord} · ${unit.title}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: T.display(
+                      size: 15,
+                      weight: FontWeight.w800,
+                      color: unlocked ? Colors.white : C.text3,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    '$doneIn din ${unit.lessons.length} lecții',
+                    style: T.body(
+                      size: 12,
+                      weight: FontWeight.w600,
+                      color: unlocked ? Colors.white70 : C.text3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            if (!unlocked)
+              const SvgIcon(Ic.lock, size: 18, color: C.text3, strokeWidth: 2.2)
+            else if (active)
               Container(
-                margin: const EdgeInsets.only(bottom: 7),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 11,
-                  vertical: 4,
+                  horizontal: 10,
+                  vertical: 5,
                 ),
                 decoration: BoxDecoration(
-                  gradient: Grad.amber,
+                  color: Colors.white.withValues(alpha: 0.24),
                   borderRadius: BorderRadius.circular(R.pill),
-                  boxShadow: Sh.amber,
                 ),
                 child: Text(
-                  'START',
+                  'Continuă',
                   style: T.display(
-                    size: 11,
+                    size: 11.5,
                     weight: FontWeight.w800,
                     color: Colors.white,
-                    letterSpacing: 1.4,
                   ),
                 ),
+              )
+            else
+              const SvgIcon(
+                Ic.chevronRight,
+                size: 18,
+                color: Colors.white,
+                strokeWidth: 2.4,
               ),
-            GestureDetector(
-              onTap: locked
-                  ? () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          '🔒 Finalizează lecția anterioară',
-                          style: T.display(
-                            size: 14,
-                            weight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                        duration: const Duration(seconds: 1),
-                        backgroundColor: C.text,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    )
-                  : () {
-                      Juice.tick();
-                      context.push('/learn/lesson/${lesson.id}');
-                    },
-              child: Container(
-                width: size,
-                height: size,
-                decoration: BoxDecoration(
-                  color: switch (state) {
-                    _NodeState.done => C.green,
-                    _NodeState.current => C.surface,
-                    _NodeState.locked => C.inset,
-                  },
-                  shape: BoxShape.circle,
-                  border: switch (state) {
-                    // Inelul alb dă adâncime pe verde; albastrul marchează startul.
-                    _NodeState.done => Border.all(
-                      color: Colors.white.withValues(alpha: 0.4),
-                      width: 3,
-                    ),
-                    _NodeState.current => Border.all(color: C.blue, width: 3),
-                    _NodeState.locked => null,
-                  },
-                  boxShadow: switch (state) {
-                    _NodeState.done => Sh.green,
-                    _NodeState.current => Sh.blue,
-                    _NodeState.locked => Sh.insetSoft,
-                  },
-                ),
-                alignment: Alignment.center,
-                child: switch (state) {
-                  _NodeState.done => const SvgIcon(
-                    Ic.check,
-                    size: 30,
-                    color: Colors.white,
-                    strokeWidth: 3,
-                  ),
-                  _NodeState.current => Text(
-                    lesson.emoji,
-                    style: const TextStyle(fontSize: 34),
-                  ),
-                  _NodeState.locked => const SvgIcon(
-                    Ic.lock,
-                    size: 24,
-                    color: C.text3,
-                    strokeWidth: 2.2,
-                  ),
-                },
-              ),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: 230,
-              child: Text(
-                lesson.title,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: T.display(
-                  size: 14.5,
-                  weight: FontWeight.w700,
-                  color: locked ? C.text3 : C.text,
-                  height: 1.15,
-                ),
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              '${lesson.minutes} min · +${lesson.xp} XP',
-              style: T.body(
-                size: 11.5,
-                weight: FontWeight.w600,
-                color: C.text3,
-              ),
-            ),
           ],
         ),
       ),
@@ -481,5 +358,3 @@ class LearningScreen extends ConsumerWidget {
     );
   }
 }
-
-enum _NodeState { done, current, locked }
