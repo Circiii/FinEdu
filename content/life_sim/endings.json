@@ -1,0 +1,113 @@
+{
+  "version": "2.0.0",
+  "endings": [
+    {
+      "id": "arhitectul_lunii",
+      "title": {"ro": "Arhitectul lunii", "en": "Architect of the Month"},
+      "description": {
+        "ro": "Ai proiectat luna cu grijă: facturi la timp, un fond care ține, obiectiv în creștere și viață echilibrată. Puține strategii ating toate cele patru colțuri deodată.",
+        "en": "You designed the month with care: bills on time, a fund that holds, a goal that grows and a balanced life. Few strategies reach all four corners at once."
+      },
+      "thresholds": {"control": 80, "rezilienta": 80, "obiective": 80, "echilibru": 80}
+    },
+    {
+      "id": "strategul",
+      "title": {"ro": "Strategul", "en": "The Strategist"},
+      "description": {
+        "ro": "Ai ținut cheltuielile sub control și ai lăsat un tampon solid pentru surprize. Strategia ta a pus stabilitatea pe primul loc.",
+        "en": "You kept spending under control and left a solid buffer for surprises. Your strategy put stability first."
+      },
+      "thresholds": {"control": 80, "rezilienta": 70}
+    },
+    {
+      "id": "zidarul_de_fond",
+      "title": {"ro": "Zidarul de fond", "en": "The Fund Builder"},
+      "description": {
+        "ro": "Ai construit fondul de urgență zid cu zid. Când au venit șocurile, aveai din ce să le absorbi, fără să apelezi la datorie scumpă.",
+        "en": "You built the emergency fund brick by brick. When the shocks came, you had something to absorb them with, without reaching for costly debt."
+      },
+      "thresholds": {"rezilienta": 85}
+    },
+    {
+      "id": "echilibristul",
+      "title": {"ro": "Echilibristul", "en": "The Tightrope Walker"},
+      "description": {
+        "ro": "Ai jonglat cu banii, sănătatea, energia și relațiile fără să scapi vreo minge. Echilibrul a fost strategia, nu norocul.",
+        "en": "You juggled money, health, energy and relationships without dropping a ball. Balance was the strategy, not luck."
+      },
+      "thresholds": {"echilibru": 80, "total": 65}
+    },
+    {
+      "id": "navigatorul_de_furtuna",
+      "title": {"ro": "Navigatorul de furtună", "en": "The Storm Navigator"},
+      "description": {
+        "ro": "Luna a avut furtuni, dar ai ținut cârma. Ai trecut prin cheltuieli neașteptate și ai ieșit cu direcția intactă.",
+        "en": "The month had storms, but you held the helm. You went through unexpected costs and came out with your bearing intact."
+      },
+      "thresholds": {"total": 60}
+    },
+    {
+      "id": "maratonistul",
+      "title": {"ro": "Maratonistul", "en": "The Marathoner"},
+      "description": {
+        "ro": "Ți-ai ținut ochii pe obiectiv până la capăt. Ai împins constant spre țintă, chiar când ritmul a fost greu de dus.",
+        "en": "You kept your eyes on the goal all the way. You pushed steadily toward the target, even when the pace was hard to keep."
+      },
+      "thresholds": {"obiective": 80}
+    },
+    {
+      "id": "contabilul_calm",
+      "title": {"ro": "Contabilul calm", "en": "The Calm Bookkeeper"},
+      "description": {
+        "ro": "Ai plătit la timp și ai evitat penalizările care se puteau ocoli. Ordinea în cont a fost busola ta.",
+        "en": "You paid on time and avoided the penalties that could be sidestepped. Order in the account was your compass."
+      },
+      "thresholds": {"control": 75}
+    },
+    {
+      "id": "improvizatorul",
+      "title": {"ro": "Improvizatorul", "en": "The Improviser"},
+      "description": {
+        "ro": "Ai citit situația din mers și ai reașezat prioritățile când a fost nevoie. Flexibilitatea a fost unealta ta principală.",
+        "en": "You read the situation on the move and reshuffled priorities when needed. Flexibility was your main tool."
+      },
+      "thresholds": {"echilibru": 65}
+    },
+    {
+      "id": "supravietuitorul_lunii",
+      "title": {"ro": "Supraviețuitorul lunii", "en": "The Month's Survivor"},
+      "description": {
+        "ro": "Ai dus luna la capăt prin decizii pas cu pas. Unele planuri au fost testate din greu, dar ai rămas în picioare.",
+        "en": "You carried the month through with step-by-step decisions. Some plans were tested hard, but you stayed on your feet."
+      },
+      "thresholds": {"total": 45}
+    },
+    {
+      "id": "elevul_lunii",
+      "title": {"ro": "Elevul lunii", "en": "The Month's Student"},
+      "description": {
+        "ro": "Ai învățat cum se mișcă banii pe parcursul lunii. Fiecare decizie a fost o lecție pentru luna care vine.",
+        "en": "You learned how money moves over the course of the month. Every decision was a lesson for the month ahead."
+      },
+      "thresholds": {"total": 35}
+    },
+    {
+      "id": "exploratorul",
+      "title": {"ro": "Exploratorul", "en": "The Explorer"},
+      "description": {
+        "ro": "Ai explorat cum arată o lună pe cont propriu. Ai văzut unde apasă costurile, o hartă utilă pentru data viitoare.",
+        "en": "You explored what a month on your own looks like. You saw where the costs press, a useful map for next time."
+      },
+      "thresholds": {"total": 25}
+    },
+    {
+      "id": "prima_incercare",
+      "title": {"ro": "Prima încercare", "en": "The First Attempt"},
+      "description": {
+        "ro": "Prima lună pe cont propriu e o hartă desenată din mers. Ai pornit la drum, iar drumul se învață mergând.",
+        "en": "The first month on your own is a map drawn as you go. You set out on the road, and the road is learned by walking it."
+      },
+      "thresholds": {}
+    }
+  ]
+}

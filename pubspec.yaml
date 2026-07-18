@@ -1,0 +1,117 @@
+name: finedu_flutter
+description: "FinEdu — educație financiară gamificată pentru tineri"
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+# Dependencies specify other packages that your package needs in order to work.
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # UI / design system
+  cupertino_icons: ^1.0.8
+  flutter_inset_shadow: ^2.0.3
+
+  # State management
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+
+  # Routing
+  go_router: ^14.8.1
+
+  # Formatting / i18n
+  intl: ^0.20.2
+
+  # Connectivity (offline-first groundwork)
+  connectivity_plus: ^6.1.5
+
+  # Local database (offline-first source of truth).
+  # Pinned to the 2.28.0 line: drift_dev 2.28.1+ requires source_gen ^3.0.0,
+  # which conflicts with riverpod_generator 2.6.5 (source_gen ^2.0.0).
+  drift: 2.28.0
+  # 0.2.6+ calls a drift API (isolateDebugLog) that only exists in drift 2.29+,
+  # despite declaring drift ^2.21.0 — keep at 0.2.5 while drift is at 2.28.0.
+  drift_flutter: 0.2.5
+  path_provider: ^2.1.5
+
+  # Backend
+  supabase_flutter: ^2.11.1
+
+  # IDs + models
+  uuid: ^4.5.1
+  freezed_annotation: ^3.0.0
+  json_annotation: ^4.9.0
+
+  # Local notifications (F1 soft-ask reminder; Android-only for now).
+  # The single new dependency permitted by the F1-A spec.
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.10.0
+
+  # Share card 9:16 for Provocarea Zilei (F4) — the organic viral loop.
+  share_plus: ^10.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices.
+  flutter_lints: ^6.0.0
+
+  # Codegen + lints for Riverpod
+  build_runner: ^2.4.15
+  riverpod_generator: ^2.6.5
+  custom_lint: ^0.7.5
+  riverpod_lint: ^2.6.5
+
+  # Codegen: drift schema, freezed models, JSON serialization.
+  # All pinned to the source_gen ^2.0.0 line to stay compatible with
+  # riverpod_generator 2.6.5. The newer 3.x/source_gen ^3 releases of these
+  # tools require riverpod_generator 3.x, deferred until a Riverpod bump.
+  drift_dev: 2.28.0
+  freezed: '>=3.0.0 <3.2.0'
+  json_serializable: '>=6.9.0 <6.10.0'
+
+# The following section is specific to Flutter packages.
+flutter:
+  uses-material-design: true
+
+  # Enables gen-l10n output (app_localizations.dart) generated into .dart_tool.
+  generate: true
+
+  assets:
+    - assets/mascot/
+    - assets/icons/
+    - content/
+    - content/lessons/
+    - content/arcade/
+    - content/cashy/
+    - content/life_sim/
+    - content/life_sim/events/
+
+  fonts:
+    - family: Baloo 2
+      fonts:
+        - asset: assets/fonts/Baloo2-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Baloo2-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Baloo2-ExtraBold.ttf
+          weight: 800
+    - family: Plus Jakarta Sans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/PlusJakartaSans-Bold.ttf
+          weight: 700

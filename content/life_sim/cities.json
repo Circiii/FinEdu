@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "cities": [
+    {
+      "id": "bucuresti",
+      "rent_mult": 1.35,
+      "utilities_mult": 1.2,
+      "transport_mult": 1.15,
+      "note": {
+        "ro": "Capitala: chirii mult peste medie și transport mai scump, dar și cele mai multe oportunități de venit suplimentar.",
+        "en": "The capital: rents well above average and pricier transport, but also the most chances for extra income."
+      }
+    },
+    {
+      "id": "oras_mare",
+      "rent_mult": 1.0,
+      "utilities_mult": 1.0,
+      "transport_mult": 1.0,
+      "note": {
+        "ro": "Oraș mare de reședință (reper de calibrare): costuri la nivelul mediei pe care sunt raportate sumele de bază.",
+        "en": "A large county-seat city (the calibration baseline): costs at the average level the base amounts are quoted against."
+      }
+    },
+    {
+      "id": "oras_mic",
+      "rent_mult": 0.75,
+      "utilities_mult": 0.9,
+      "transport_mult": 0.85,
+      "note": {
+        "ro": "Oraș mic: chirii și transport mai blânde, însă și salariile și opțiunile de venit variabil tind să fie mai mici.",
+        "en": "A small town: gentler rents and transport, though wages and variable-income options also tend to be lower."
+      }
+    }
+  ]
+}

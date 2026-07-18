@@ -1,0 +1,2438 @@
+﻿{
+  "events": [
+    {
+      "id": "scam_curier_sms",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["scams", "phishing", "fraud_defense"],
+      "title": {
+        "ro": "SMS de la „curier”",
+        "en": "SMS from the „courier”"
+      },
+      "narrative": {
+        "ro": "Un SMS: „Coletul tău e blocat. Achită taxa vamală de 2 lei: bit.ly/colet-plata”. Nu aștepți niciun colet, dar linkul pare oficial și grăbit.",
+        "en": "A text: „Your parcel is on hold. Pay the 2 lei customs fee: bit.ly/parcel-pay.” You expect no parcel, but the link looks official and urgent."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Deschizi linkul și introduci datele cardului pentru „2 lei”",
+            "en": "Open the link and enter your card details for the „2 lei”"
+          },
+          "effects": [
+            { "type": "cash", "delta": -200 },
+            { "type": "stat", "stat": "stress", "delta": 2 },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                { "type": "cash", "delta": -2500 }
+              ],
+              "note": {
+                "ro": "O plată mică neautorizată apare pe card înainte să-l blochezi; o contești și o recuperezi parțial.",
+                "en": "A small unauthorized charge appears on the card before you block it; you dispute it and recover part of it."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Linkul cerea datele cardului, nu taxa. Curierii reali nu cer plata unei taxe prin linkuri din SMS. Verifici mereu în aplicația oficială și, dacă ai introdus datele, blochezi cardul imediat.",
+            "en": "The link was harvesting your card, not collecting a fee. Real couriers never ask for a fee through an SMS link. Always check in the official app and, if you entered your details, block the card at once."
+          }
+        },
+        {
+          "label": {
+            "ro": "Verifici în aplicația oficială a curierului",
+            "en": "Check inside the courier’s official app"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Niciun colet real, nicio taxă. Canalul oficial (aplicația sau site-ul tastat de tine) e apărarea de bază: taxele reale apar acolo, nu într-un link primit prin SMS.",
+            "en": "No real parcel, no fee. The official channel, the app or a site you type yourself, is the core defense: real fees show up there, not in a link pushed to your phone."
+          }
+        },
+        {
+          "label": {
+            "ro": "Ștergi mesajul și îl raportezi ca spam",
+            "en": "Delete the message and report it as spam"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Cel mai simplu filtru: un link care cere plată dintr-un SMS neașteptat merge la raportat, nu la deschis. Raportarea ajută și pe alții.",
+            "en": "The simplest filter: a link demanding payment from an unexpected text gets reported, not opened. Reporting also helps others."
+          }
+        }
+      ],
+      "source": {
+        "label": "tipologii de fraudă comune RO 2026 (educațional, anti-fraudă)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_marketplace_avans",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["scams", "fraud_defense", "needs_wants"],
+      "title": {
+        "ro": "Oferta care sună perfect",
+        "en": "The deal that sounds perfect"
+      },
+      "narrative": {
+        "ro": "Pe un site de anunțuri, un telefon bun costă jumătate. Vânzătorul cere avans de 300 lei prin transfer și refuză întâlnirea sau plata la primire.",
+        "en": "On a marketplace, a good phone costs half price. The seller wants a 300 lei deposit by transfer and refuses to meet or accept payment on delivery."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Trimiți avansul de 300 lei ca să-l rezervi",
+            "en": "Send the 300 lei deposit to reserve it"
+          },
+          "effects": [
+            { "type": "cash", "delta": -30000 },
+            { "type": "stat", "stat": "stress", "delta": 2 }
+          ],
+          "debrief": {
+            "ro": "Vânzătorul a dispărut după transfer. Avansul cerut de la un necunoscut, fără întâlnire și fără livrare verificabilă, e semnalul clasic de țeapă. Apărarea: plata la primire sau întâlnire într-un loc public.",
+            "en": "The seller vanished after the transfer. A deposit demanded by a stranger, with no meeting and no verifiable delivery, is the classic scam signal. The defense: pay on delivery or meet in a public place."
+          }
+        },
+        {
+          "label": {
+            "ro": "Ceri întâlnire într-un loc public sau plată la primire",
+            "en": "Ask to meet in public or pay on delivery"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Cererea de întâlnire a făcut vânzătorul să dispară, semn că oferta era falsă. Condiția „văd întâi, plătesc apoi” filtrează majoritatea anunțurilor-capcană.",
+            "en": "Asking to meet made the seller disappear, a sign the offer was fake. The rule „see it first, pay after” filters out most trap listings."
+          }
+        },
+        {
+          "label": {
+            "ro": "Renunți: prețul e nerealist de mic",
+            "en": "Walk away: the price is unrealistically low"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "„Dacă e prea frumos ca să fie adevărat, de obicei nu e” rămâne un filtru bun. Un preț mult sub piață e adesea momeala, nu chilipirul.",
+            "en": "„If it looks too good to be true, it usually isn’t” stays a solid filter. A price far below the market is often the bait, not the bargain."
+          }
+        }
+      ],
+      "source": {
+        "label": "tipologii de fraudă comune RO 2026 (educațional, anti-fraudă)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_job_taxa_training",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 3,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["scams", "fraud_defense"],
+      "title": {
+        "ro": "Jobul care cere bani ca să te angajeze",
+        "en": "The job that asks you to pay to be hired"
+      },
+      "narrative": {
+        "ro": "O „ofertă de muncă de acasă, 6000 lei/lună” pare la îndemână. Înainte de contract, ți se cere o taxă de 150 lei pentru „kitul de training”.",
+        "en": "A „work-from-home job, 6000 lei/month” sounds within reach. Before any contract, you are asked for a 150 lei fee for the „training kit.”"
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Plătești taxa de training de 150 lei",
+            "en": "Pay the 150 lei training fee"
+          },
+          "effects": [
+            { "type": "cash", "delta": -15000 },
+            { "type": "stat", "stat": "stress", "delta": 2 }
+          ],
+          "debrief": {
+            "ro": "Jobul nu s-a mai concretizat. Un angajator real te plătește, nu îți cere bani ca să te angajeze. Taxa în avans pentru „kit” sau „training” e semnalul de fraudă.",
+            "en": "The job never materialized. A real employer pays you; it does not charge you to be hired. An upfront fee for a „kit” or „training” is the fraud signal."
+          }
+        },
+        {
+          "label": {
+            "ro": "Ceri numele firmei, CUI și un contract înainte de orice plată",
+            "en": "Ask for the company name, tax ID and a contract before any payment"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "La cererea de acte, „angajatorul” a tăcut. Verificarea firmei (CUI, contract, adresă) filtrează ofertele false înainte să-ți atingă banii.",
+            "en": "When you asked for documents, the „employer” went quiet. Checking the company (tax ID, contract, address) filters out fake offers before they touch your money."
+          }
+        },
+        {
+          "label": {
+            "ro": "Refuzi: un job real nu-ți cere bani în avans",
+            "en": "Decline: a real job does not ask you for money upfront"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Regula simplă „banii curg spre tine, nu de la tine” dezamorsează majoritatea ofertelor-capcană de angajare.",
+            "en": "The simple rule „money flows to you, not from you” defuses most trap job offers."
+          }
+        }
+      ],
+      "source": {
+        "label": "tipologii de fraudă comune RO 2026 (educațional, anti-fraudă)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_phishing_banca",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 3,
+      "cooldown_days": 0,
+      "min_day": 5,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 3,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["scams", "phishing", "fraud_defense"],
+      "title": {
+        "ro": "„Sunt de la bancă” la telefon",
+        "en": "„I’m calling from the bank”"
+      },
+      "narrative": {
+        "ro": "Sună cineva calm, spune că e „de la banca ta” și că a văzut o „tranzacție suspectă”. Ca s-o „oprească”, îți cere codul primit acum prin SMS.",
+        "en": "A calm caller says they are „from your bank” and spotted a „suspicious transaction.” To „stop” it, they ask for the code you just received by SMS."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Citești codul din SMS ca să „oprești” tranzacția",
+            "en": "Read out the SMS code to „stop” the transaction"
+          },
+          "effects": [
+            { "type": "cash", "delta": -30000 },
+            { "type": "stat", "stat": "stress", "delta": 3 }
+          ],
+          "debrief": {
+            "ro": "Codul nu oprea nimic, el autoriza plata lor. Banca nu îți cere niciodată codul din SMS prin telefon. Apărarea: închizi și suni singur la numărul de pe spatele cardului.",
+            "en": "The code stopped nothing, it authorized their payment. A bank never asks for your SMS code by phone. The defense: hang up and call the number on the back of your own card."
+          }
+        },
+        {
+          "label": {
+            "ro": "Închizi și suni tu la numărul de pe spatele cardului",
+            "en": "Hang up and call the number on the back of your card yourself"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Nu exista nicio tranzacție. Verificarea prin canalul pe care îl inițiezi tu (numărul de pe card) e apărarea corectă, apelul care te sună poate fi oricine.",
+            "en": "There was no transaction. Verifying through a channel you start yourself, the number on the card, is the correct defense; the call coming to you can be anyone."
+          }
+        },
+        {
+          "label": {
+            "ro": "Refuzi să dai codul și raportezi apelul la bancă",
+            "en": "Refuse to share the code and report the call to the bank"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Codurile din SMS sunt semnături pentru plăți, nu se citesc nimănui la telefon. Ai păstrat regula și ai și semnalat tentativa.",
+            "en": "SMS codes are signatures for payments, you never read them to anyone by phone. You kept the rule and flagged the attempt as well."
+          }
+        }
+      ],
+      "source": {
+        "label": "tipologii de fraudă comune RO 2026 (educațional, anti-fraudă)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_giveaway_social",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["scams", "fraud_defense"],
+      "title": {
+        "ro": "„Ai câștigat un telefon!”",
+        "en": "„You’ve won a phone!”"
+      },
+      "narrative": {
+        "ro": "Un cont care imită un brand îți scrie: ai fost „extras câștigător”. Ca să-l primești, ți se cere o „taxă de livrare” de 50 lei și date personale.",
+        "en": "An account imitating a brand messages you: you were „drawn as a winner”. To claim it, you’re asked for a 50 lei „delivery fee” and personal details."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Plătești „taxa de livrare” de 50 lei",
+            "en": "Pay the 50 lei „delivery fee”"
+          },
+          "effects": [
+            { "type": "cash", "delta": -5000 },
+            { "type": "stat", "stat": "stress", "delta": 1 }
+          ],
+          "debrief": {
+            "ro": "Niciun premiu nu a venit. Premiile reale nu cer plată ca să le primești, iar conturile care imită branduri (fără bifă, cu URL ciudat) sunt semnalul. Un „câștig” care cere bani înainte e țeapă.",
+            "en": "No prize arrived. Real prizes never charge you to receive them, and accounts imitating brands, no verified badge, odd URL, are the signal. A „win” that asks for money first is a scam."
+          }
+        },
+        {
+          "label": {
+            "ro": "Verifici contul oficial verificat al brandului",
+            "en": "Check the brand’s official verified account"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Contul real nu anunțase niciun concurs. Compararea cu pagina oficială (bifă, număr de urmăritori, istoric) dezvăluie imitația în câteva secunde.",
+            "en": "The real account had announced no contest. Comparing with the official page, badge, follower count, history, reveals the impostor in seconds."
+          }
+        },
+        {
+          "label": {
+            "ro": "Ignori mesajul și raportezi contul",
+            "en": "Ignore the message and report the account"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Un premiu pe care nu l-ai jucat plus o taxă cerută în avans = două semnale roșii. Ignorarea și raportarea sunt răspunsul curat.",
+            "en": "A prize you never entered plus a fee demanded upfront = two red flags. Ignoring and reporting is the clean response."
+          }
+        }
+      ],
+      "source": {
+        "label": "tipologii de fraudă comune RO 2026 (educațional, anti-fraudă)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_abonament_capcana",
+      "category": "subscriptions",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["scams", "subscriptions", "impulse_control"],
+      "title": {
+        "ro": "Proba „gratuită” cu abonament ascuns",
+        "en": "The „free” trial with a hidden subscription"
+      },
+      "narrative": {
+        "ro": "Un site oferă 3 zile de probă „gratuită”, dar cere cardul. În textul mărunt: dacă nu anulezi, te înscrie automat la un abonament de 120 lei/lună.",
+        "en": "A site offers a 3-day „free” trial but asks for your card. The fine print: if you don’t cancel, it auto-enrolls you in a 120 lei/month subscription."
+      },
+      "illustration": "cashy_learning",
+      "choices": [
+        {
+          "label": {
+            "ro": "Te înscrii, dar citești condițiile și notezi data anulării",
+            "en": "Sign up, but read the terms and note the cancel date"
+          },
+          "effects": [
+            { "type": "setFlag", "flag": "proba_notata" }
+          ],
+          "debrief": {
+            "ro": "Ai folosit proba și ai anulat la timp, zero cost. O probă „gratuită” cu card cerut e ok DOAR dacă știi cine, cât și când te taxează și ai notat data anulării.",
+            "en": "You used the trial and canceled in time, zero cost. A „free” trial that asks for a card is fine ONLY if you know who, how much and when you get charged, and you noted the cancel date."
+          }
+        },
+        {
+          "label": {
+            "ro": "Te înscrii fără să citești textul mărunt",
+            "en": "Sign up without reading the fine print"
+          },
+          "effects": [
+            { "type": "setFlag", "flag": "proba_uitata" },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 4,
+              "effects": [
+                { "type": "cash", "delta": -12000 }
+              ],
+              "note": {
+                "ro": "Proba „gratuită” s-a reînnoit singură: 120 lei pentru abonamentul pe care nu l-ai anulat.",
+                "en": "The „free” trial renewed itself: 120 lei for the subscription you didn’t cancel."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Fără data de anulare notată, proba s-a transformat în abonament. Apărarea nu e memoria, ci un sistem: citești cine te taxează și când, apoi îți pui un memento.",
+            "en": "With no cancel date noted, the trial turned into a subscription. The defense isn’t memory but a system: read who charges you and when, then set a reminder."
+          }
+        },
+        {
+          "label": {
+            "ro": "Cauți un serviciu cu preț afișat clar, fără card la probă",
+            "en": "Look for a service with a clear price and no card for the trial"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Un serviciu care își afișează prețul și nu-ți cere cardul „doar ca formalitate” e mai transparent. Ai evitat capcana din start, nu doar reacția la ea.",
+            "en": "A service that shows its price and doesn’t ask for your card „just as a formality” is more transparent. You avoided the trap upstream, not just reacted to it."
+          }
+        }
+      ],
+      "source": {
+        "label": "tipologii de fraudă comune RO 2026 (educațional, anti-fraudă)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "loterie_bilet",
+      "category": "rare",
+      "rarity": "uncommon",
+      "weight": 3,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 26,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": "loterie",
+      "skill_tags": ["gambling_awareness", "expected_value", "opportunity_cost"],
+      "title": {
+        "ro": "Biletul de loterie de la chioșc",
+        "en": "The lottery ticket at the kiosk"
+      },
+      "narrative": {
+        "ro": "La chioșc vezi biletele de loterie. Unul costă 2 lei, iar marele premiu afișat pare uriaș. Extragerea e peste câteva zile.",
+        "en": "At the kiosk you see the lottery tickets. One costs 2 lei, and the jackpot on the poster looks enormous. The draw is a few days away."
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Cumperi un bilet de 2 lei",
+            "en": "Buy one 2 lei ticket"
+          },
+          "effects": [
+            { "type": "cash", "delta": -200 },
+            { "type": "setFlag", "flag": "bilet_cumparat" },
+            { "type": "scheduleEvent", "delay_days": 2, "event_id": "loterie_extragere" }
+          ],
+          "debrief": {
+            "ro": "Ai un bilet; extragerea vine peste 2 zile. Un bilet ocazional e o cheltuială mică de divertisment, atâta timp cât rămâne mică și știi că șansa marelui premiu e infimă.",
+            "en": "You have a ticket; the draw comes in 2 days. An occasional ticket is a small entertainment expense, as long as it stays small and you know the jackpot odds are tiny."
+          }
+        },
+        {
+          "label": {
+            "ro": "Te uiți, dar nu cumperi",
+            "en": "Look, but don’t buy"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Loteria e divertisment cu șanse minuscule, nu un plan de bani. A nu juca e mereu o opțiune neutră, fără cost și fără regret.",
+            "en": "The lottery is entertainment with tiny odds, not a money plan. Not playing is always a neutral option, no cost, no regret."
+          }
+        },
+        {
+          "label": {
+            "ro": "Pui cei 2 lei în fondul de urgență în loc de bilet",
+            "en": "Put the 2 lei into your emergency fund instead of a ticket"
+          },
+          "effects": [
+            { "type": "cash", "delta": -200 },
+            { "type": "fund", "delta": 200 }
+          ],
+          "debrief": {
+            "ro": "2 lei par nimic, dar direcția lor e alegerea ta: în fond au valoare sigură, în bilet au valoare așteptată sub 2 lei. Repetat, tocmai diferența asta contează.",
+            "en": "2 lei feels like nothing, but its direction is your call: in the fund it holds sure value, in a ticket its expected value is below 2 lei. Repeated, that gap is exactly what matters."
+          }
+        }
+      ],
+      "source": {
+        "label": "principiul valorii așteptate (educațional, siguranță jocuri de noroc)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "loterie_extragere",
+      "category": "rare",
+      "rarity": "rare",
+      "weight": 1,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [
+        { "type": "hasFlag", "flag": "bilet_cumparat" }
+      ],
+      "exclusions": [],
+      "prerequisites": ["loterie_bilet"],
+      "chain_id": "loterie",
+      "skill_tags": ["gambling_awareness", "expected_value"],
+      "title": {
+        "ro": "Ziua extragerii",
+        "en": "Draw day"
+      },
+      "narrative": {
+        "ro": "Se anunță numerele. Biletul tău nu se potrivește, ca marea majoritate. Marele premiu a mers, ca de obicei, la altcineva foarte departe de tine.",
+        "en": "The numbers are announced. Your ticket doesn’t match, like the vast majority of tickets. The jackpot went, as usual, to someone very far from you."
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Te oprești, a fost 2 lei de divertisment",
+            "en": "Stop here, it was 2 lei of entertainment"
+          },
+          "effects": [
+            { "type": "clearFlag", "flag": "bilet_cumparat" }
+          ],
+          "debrief": {
+            "ro": "Bilete cumpărate: 1. Rezultat net: -2 lei. Un bilet costă 2 lei, dar valoarea așteptată a câștigului e mult sub atât, diferența e profitul loteriei. Ca divertisment ocazional e ok; ca economisire, nu merge.",
+            "en": "Tickets bought: 1. Net result: -2 lei. A ticket costs 2 lei, but the expected value of the winnings is far below that, the gap is the lottery’s profit. As occasional fun it’s fine; as a savings method it doesn’t work."
+          }
+        },
+        {
+          "label": {
+            "ro": "Mai cumperi un bilet (2 lei)",
+            "en": "Buy one more ticket (2 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -200 },
+            { "type": "clearFlag", "flag": "bilet_cumparat" }
+          ],
+          "debrief": {
+            "ro": "Al doilea bilet duce totalul la -4 lei. Șansa fiecărui bilet e independentă și rămâne minusculă, a juca deja nu crește șansa următorului. Numărul care contează e totalul cheltuit, nu extragerea următoare.",
+            "en": "A second ticket takes the total to -4 lei. Each ticket’s odds are independent and stay tiny, already playing doesn’t improve the next one. The number that matters is the total spent, not the next draw."
+          }
+        }
+      ],
+      "source": {
+        "label": "principiul valorii așteptate (educațional, siguranță jocuri de noroc)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "pariuri_sportive_invitatie",
+      "category": "friends",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["gambling_awareness", "expected_value", "impulse_control"],
+      "title": {
+        "ro": "Pariul „sigur” al prietenului",
+        "en": "A friend’s „sure” bet"
+      },
+      "narrative": {
+        "ro": "Un prieten te cheamă să pui un pariu „sigur” pe meciul de diseară. Zice că a câștigat săptămâna trecută și că „e clar cine ia meciul”.",
+        "en": "A friend invites you to place a „sure” bet on tonight’s match. He says he won last week and that „it’s obvious who takes the game.”"
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Declini, nu te atrage",
+            "en": "Decline, it’s not for you"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "A refuza e o alegere validă, fără explicații. Pariurile „sigure” nu există: dacă ar exista, casele de pariuri ar da faliment. Marja lor e construită să câștige pe termen lung, nu tu.",
+            "en": "Declining is a valid choice, no explanation owed. „Sure” bets don’t exist: if they did, bookmakers would go bankrupt. Their margin is built to win over time, not you."
+          }
+        },
+        {
+          "label": {
+            "ro": "Pui o miză mică, plafonată la 20 lei, doar de distracție",
+            "en": "Place a small stake, capped at 20 lei, just for fun"
+          },
+          "effects": [
+            { "type": "setFlag", "flag": "pariu_pus" },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 1,
+              "effects": [
+                { "type": "cash", "delta": -2000 }
+              ],
+              "note": {
+                "ro": "Meciul s-a terminat altfel decât „sigur”: miza de 20 lei s-a dus.",
+                "en": "The match ended differently than „sure”: the 20 lei stake is gone."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Ai plafonat miza la 20 lei, un control bun al limitei. Peste multe pariuri, marja casei face valoarea așteptată negativă: în medie primești înapoi mai puțin decât pui. Distracție cu limită, da; sursă de venit, nu.",
+            "en": "You capped the stake at 20 lei, good limit control. Over many bets, the house margin makes the expected value negative: on average you get back less than you put in. Fun with a limit, yes; a source of income, no."
+          }
+        },
+        {
+          "label": {
+            "ro": "Mergeți la meci împreună, dar fără pariu",
+            "en": "Go watch the match together, but without betting"
+          },
+          "effects": [
+            { "type": "stat", "stat": "relationships", "delta": 2 },
+            { "type": "stat", "stat": "stress", "delta": -1 }
+          ],
+          "debrief": {
+            "ro": "Ai păstrat relația și distracția, fără expunerea la pierdere. Socializarea nu are nevoie de miză ca să fie bună.",
+            "en": "You kept the friendship and the fun, without exposure to loss. Socializing doesn’t need a stake to be good."
+          }
+        }
+      ],
+      "source": {
+        "label": "principiul valorii așteptate (educațional, siguranță jocuri de noroc)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "tech_laptop_defect",
+      "category": "tech",
+      "rarity": "uncommon",
+      "weight": 3,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 26,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [
+        { "type": "roleIs", "roles": ["freelancer_creativ", "programator_junior"] }
+      ],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["opportunity_cost", "emergency_fund", "planning"],
+      "title": {
+        "ro": "Laptopul cedează înainte de deadline",
+        "en": "The laptop dies before the deadline"
+      },
+      "narrative": {
+        "ro": "Cu o zi înainte de un deadline plătit, laptopul se stinge și nu mai pornește. Fără el, nu poți livra la timp.",
+        "en": "One day before a paid deadline, the laptop shuts off and won’t turn back on. Without it, you can’t deliver on time."
+      },
+      "illustration": "cashy_worried",
+      "choices": [
+        {
+          "label": {
+            "ro": "Duci laptopul la o reparație rapidă (250 lei)",
+            "en": "Take the laptop for a quick repair (250 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -25000 },
+            { "type": "stat", "stat": "stress", "delta": 1 }
+          ],
+          "debrief": {
+            "ro": "Reparația rapidă a salvat venitul din deadline. Compromisul e clar: 250 lei acum contra riscului de a pierde clientul și plata. Când unealta îți aduce banii, repararea ei e adesea investiția potrivită.",
+            "en": "The quick repair saved the deadline income. The trade-off is clear: 250 lei now versus the risk of losing the client and the payment. When the tool earns your money, fixing it is often the right investment."
+          }
+        },
+        {
+          "label": {
+            "ro": "Cumperi un laptop nou acum (2500 lei)",
+            "en": "Buy a new laptop right now (2500 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -250000 },
+            { "type": "stat", "stat": "stress", "delta": 2 }
+          ],
+          "debrief": {
+            "ro": "Un laptop nou rezolvă și viitorul, dar golește tamponul dintr-o dată. Uneori reparația punctuală acoperă nevoia imediată la un cost de zece ori mai mic, întrebarea utilă e ce problemă rezolvi acum.",
+            "en": "A new laptop also solves the future, but it drains the buffer in one move. Sometimes a targeted repair covers the immediate need at a tenth of the cost, the useful question is which problem you’re solving right now."
+          }
+        },
+        {
+          "label": {
+            "ro": "Rogi un prieten să-ți împrumute laptopul lui pentru o zi",
+            "en": "Ask a friend to lend you their laptop for a day"
+          },
+          "effects": [
+            { "type": "stat", "stat": "relationships", "delta": -1 },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                { "type": "stat", "stat": "stress", "delta": 1 }
+              ],
+              "note": {
+                "ro": "Deadline-ul e livrat, dar laptopul tău tot are nevoie de reparație.",
+                "en": "The deadline is delivered, but your laptop still needs fixing."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Soluția temporară a acoperit urgența fără cost imediat, folosind o favoare. Amânarea gratuită e ok dacă ai un plan pentru problema reală, care rămâne de rezolvat.",
+            "en": "The temporary fix covered the emergency at no immediate cost, by using a favor. Free postponement is fine if you have a plan for the real problem, which still remains to be solved."
+          }
+        }
+      ],
+      "source": {
+        "label": "prețuri service IT RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "tech_telefon_baterie",
+      "category": "tech",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["needs_wants", "opportunity_cost"],
+      "title": {
+        "ro": "Bateria telefonului nu mai ține",
+        "en": "The phone battery won’t hold"
+      },
+      "narrative": {
+        "ro": "Telefonul se descarcă în câteva ore și se stinge brusc la 30%. Încă funcționează bine în rest.",
+        "en": "The phone drains in a few hours and dies abruptly at 30%. Otherwise it still works fine."
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Înlocuiești bateria la un service (120 lei)",
+            "en": "Replace the battery at a repair shop (120 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -12000 }
+          ],
+          "debrief": {
+            "ro": "Schimbarea bateriei prelungește telefonul cu bani puțini. Repararea vs. înlocuirea e compromisul clasic, când restul aparatului e bun, piesa e răspunsul ieftin.",
+            "en": "A new battery extends the phone for little money. Repair versus replace is the classic trade-off, when the rest of the device is good, the part is the cheap answer."
+          }
+        },
+        {
+          "label": {
+            "ro": "Cumperi un telefon nou (1500 lei)",
+            "en": "Buy a new phone (1500 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -150000 }
+          ],
+          "debrief": {
+            "ro": "Un telefon nou aduce confort, dar costă de peste zece ori cât o baterie. Când problema e o singură piesă, întrebarea utilă e ce nevoie rezolvi de fapt.",
+            "en": "A new phone brings comfort but costs over ten times a battery. When the problem is a single part, the useful question is which need you’re actually solving."
+          }
+        },
+        {
+          "label": {
+            "ro": "Te descurci cu un power bank ieftin deocamdată (60 lei)",
+            "en": "Get by with a cheap power bank for now (60 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -6000 },
+            { "type": "setFlag", "flag": "telefon_baterie_amanat" }
+          ],
+          "debrief": {
+            "ro": "Soluția minimă amână decizia cu un cost mic. E ok dacă telefonul își face treaba; o ții minte pentru când chiar te încurcă.",
+            "en": "The minimal fix postpones the decision at a small cost. Fine while the phone does its job; keep it in mind for when it truly gets in the way."
+          }
+        }
+      ],
+      "source": {
+        "label": "prețuri service telefoane RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "tech_date_depasire",
+      "category": "tech",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["needs_wants", "planning"],
+      "title": {
+        "ro": "Ai depășit traficul de date",
+        "en": "You’ve gone over your data"
+      },
+      "narrative": {
+        "ro": "Un SMS te anunță că ai consumat tot traficul de date inclus. De acum, fiecare MB se taxează separat, mai scump.",
+        "en": "A text warns you’ve used up all your included data. From now on, each MB is billed separately, at a higher rate."
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Cumperi o extraopțiune de date (25 lei)",
+            "en": "Buy a data add-on (25 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -2500 }
+          ],
+          "debrief": {
+            "ro": "Extraopțiunea oprește taxarea per-MB, de obicei mai scumpă. Merită când ai nevoie reală de date, compari costul opțiunii cu cât ai consuma la tarif liber.",
+            "en": "The add-on stops the per-MB billing, which is usually pricier. Worth it when you really need the data, compare the add-on cost with what you’d spend at the open rate."
+          }
+        },
+        {
+          "label": {
+            "ro": "Oprești datele mobile și folosești doar Wi-Fi până la reînnoire",
+            "en": "Turn off mobile data and use only Wi-Fi until renewal"
+          },
+          "effects": [
+            { "type": "stat", "stat": "stress", "delta": 1 }
+          ],
+          "debrief": {
+            "ro": "Zero cost, cu puțin disconfort. A te sprijini pe Wi-Fi când e disponibil e o economie reală și un obicei care ține factura sub control.",
+            "en": "Zero cost, with a little inconvenience. Leaning on Wi-Fi when it’s available is a real saving and a habit that keeps the bill in check."
+          }
+        },
+        {
+          "label": {
+            "ro": "Lași taxarea suplimentară să curgă și vezi la factură",
+            "en": "Let the extra charges run and deal with it on the bill"
+          },
+          "effects": [
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                { "type": "cash", "delta": -4000 }
+              ],
+              "note": {
+                "ro": "Datele consumate peste plan apar pe factură, mai mult decât ar fi costat o extraopțiune.",
+                "en": "The over-plan data shows up on the bill, more than an add-on would have cost."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Ignorarea depășirii nu o anulează, ci o mută, mărită, pe factura următoare. Costul întârziat rămâne cost, adesea mai mare decât dacă îl atacai din start.",
+            "en": "Ignoring the overage doesn’t cancel it, it moves it, larger, to the next bill. A delayed cost is still a cost, often bigger than tackling it upfront."
+          }
+        }
+      ],
+      "source": {
+        "label": "tarife telecom RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_rambursare_taxe",
+      "category": "windfall",
+      "rarity": "rare",
+      "weight": 2,
+      "cooldown_days": 0,
+      "min_day": 5,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["emergency_fund", "saving", "planning"],
+      "title": {
+        "ro": "Restituire de la ANAF",
+        "en": "A tax refund from ANAF"
+      },
+      "narrative": {
+        "ro": "Primești o veste bună: ți se restituie o parte din impozit. 300 lei intră în cont, neașteptat.",
+        "en": "Good news arrives: part of your tax is being refunded. 300 lei lands in your account, unexpectedly."
+      },
+      "illustration": "cashy_celebration",
+      "choices": [
+        {
+          "label": {
+            "ro": "Muți toată suma în fondul de urgență",
+            "en": "Move the whole amount into your emergency fund"
+          },
+          "effects": [
+            { "type": "cash", "delta": -30000 },
+            { "type": "fund", "delta": 30000 }
+          ],
+          "debrief": {
+            "ro": "Un venit neașteptat direcționat spre fond crește tamponul fără niciun efort de tăiere. Banii „în plus” tratați ca bază, nu ca bonus de cheltuit, sunt cel mai ușor mod de a construi rezervă.",
+            "en": "An unexpected income sent to the fund grows your buffer with no cutting effort at all. Treating „extra” money as baseline, not as a bonus to spend, is the easiest way to build a reserve."
+          }
+        },
+        {
+          "label": {
+            "ro": "Împarți: o parte pe obiectiv, o parte pentru o bucurie mică",
+            "en": "Split it: part to your goal, part for a small treat"
+          },
+          "effects": [
+            { "type": "cash", "delta": -20000 },
+            { "type": "goal", "delta": 20000 }
+          ],
+          "debrief": {
+            "ro": "Ai împărțit surpriza între obiectiv și o bucurie mică. Un echilibru între disciplină și viață e mai sustenabil decât austeritatea totală, și obiectivul tot avansează.",
+            "en": "You split the surprise between your goal and a small joy. A balance of discipline and life is more sustainable than total austerity, and the goal still moves forward."
+          }
+        },
+        {
+          "label": {
+            "ro": "Lași suma disponibilă în cont, cu un plan pentru ea",
+            "en": "Keep the amount available, with a plan for it"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "A o lăsa disponibilă e ok dacă ai un plan clar. Banii nealocați tind să se topească în cheltuieli mărunte, așa că o direcție decisă din timp îi păstrează utili.",
+            "en": "Keeping it available is fine if you have a clear plan. Unassigned money tends to melt into small purchases, so deciding its direction early keeps it useful."
+          }
+        }
+      ],
+      "source": {
+        "label": "estimări venituri neașteptate RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_portofel_furat",
+      "category": "rare",
+      "rarity": "rare",
+      "weight": 2,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 24,
+      "role_tags": [],
+      "difficulty": 3,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": "portofel",
+      "skill_tags": ["emergency_fund", "fraud_defense", "planning"],
+      "title": {
+        "ro": "Portofelul dispărut în autobuz",
+        "en": "The wallet gone on the bus"
+      },
+      "narrative": {
+        "ro": "În aglomerația din autobuz, îți dispare portofelul din buzunar, cu ceva cash, cardul și buletinul. Îți dai seama abia la coborâre.",
+        "en": "In the crowded bus, your wallet slips from your pocket, with some cash, your card and your ID. You notice only as you step off."
+      },
+      "illustration": "cashy_worried",
+      "choices": [
+        {
+          "label": {
+            "ro": "Blochezi imediat cardul din aplicație și notezi ce ai pierdut",
+            "en": "Block the card in the app at once and note what you lost"
+          },
+          "effects": [
+            { "type": "cash", "delta": -8000 },
+            { "type": "stat", "stat": "stress", "delta": 2 },
+            { "type": "setFlag", "flag": "portofel_furat" },
+            { "type": "scheduleEvent", "delay_days": 2, "event_id": "rare_portofel_documente" }
+          ],
+          "debrief": {
+            "ro": "Ai pierdut cash-ul din portofel, dar blocarea rapidă a cardului a oprit pierderea suplimentară. Primul pas la furt e să tai accesul, nu să cauți vinovatul, restul (actele) vine apoi, la rece.",
+            "en": "You lost the cash in the wallet, but blocking the card fast stopped any further loss. The first step in a theft is to cut access, not to hunt the culprit, the rest (the documents) follows, calmly."
+          }
+        },
+        {
+          "label": {
+            "ro": "Mai aștepți, poate îl găsești, și blochezi cardul mai târziu",
+            "en": "Wait a bit in case it turns up, and block the card later"
+          },
+          "effects": [
+            { "type": "cash", "delta": -8000 },
+            { "type": "stat", "stat": "stress", "delta": 2 },
+            { "type": "setFlag", "flag": "portofel_furat" },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 1,
+              "effects": [
+                { "type": "cash", "delta": -15000 }
+              ],
+              "note": {
+                "ro": "O tranzacție neautorizată a trecut pe card înainte să-l blochezi.",
+                "en": "An unauthorized transaction went through on the card before you blocked it."
+              }
+            },
+            { "type": "scheduleEvent", "delay_days": 2, "event_id": "rare_portofel_documente" }
+          ],
+          "debrief": {
+            "ro": "Fiecare oră fără blocare lasă cardul expus. Întârzierea a adăugat o pierdere care putea fi oprită, la furtul unui card, viteza blocării contează mai mult decât speranța de a-l recupera.",
+            "en": "Every hour without a block leaves the card exposed. The delay added a loss that could have been stopped, with a stolen card, the speed of blocking matters more than the hope of getting it back."
+          }
+        },
+        {
+          "label": {
+            "ro": "Blochezi cardul și anunți poliția pentru buletin",
+            "en": "Block the card and report the ID to the police"
+          },
+          "effects": [
+            { "type": "cash", "delta": -8000 },
+            { "type": "stat", "stat": "stress", "delta": 1 },
+            { "type": "setFlag", "flag": "portofel_furat" },
+            { "type": "scheduleEvent", "delay_days": 2, "event_id": "rare_portofel_documente" }
+          ],
+          "debrief": {
+            "ro": "Ai tăiat accesul la bani și ai documentat pierderea actului. Reclamația ajută la refacerea buletinului și te protejează dacă cineva îl folosește, pașii ordonați scad și stresul.",
+            "en": "You cut off access to the money and documented the lost ID. The report helps you reissue it and protects you if someone misuses it, orderly steps also lower the stress."
+          }
+        }
+      ],
+      "source": {
+        "label": "estimări cost incidente RO 2026 (educațional)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_portofel_documente",
+      "category": "rare",
+      "rarity": "rare",
+      "weight": 1,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [
+        { "type": "hasFlag", "flag": "portofel_furat" }
+      ],
+      "exclusions": [],
+      "prerequisites": ["rare_portofel_furat"],
+      "chain_id": "portofel",
+      "skill_tags": ["planning", "opportunity_cost"],
+      "title": {
+        "ro": "Refacerea actelor",
+        "en": "Replacing the documents"
+      },
+      "narrative": {
+        "ro": "După furt urmează partea plictisitoare: refacerea buletinului pierdut, cu taxă și drum la ghișeu.",
+        "en": "After the theft comes the tedious part: reissuing the lost ID, with a fee and a trip to the counter."
+      },
+      "illustration": "cashy_learning",
+      "choices": [
+        {
+          "label": {
+            "ro": "Îți refaci buletinul acum (taxă + timp)",
+            "en": "Reissue your ID now (fee + time)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -8000 },
+            { "type": "stat", "stat": "energy", "delta": -1 },
+            { "type": "clearFlag", "flag": "portofel_furat" }
+          ],
+          "debrief": {
+            "ro": "Refacerea promptă a actului evită blocaje ulterioare, un colet, un contract sau o formalitate la bancă cer buletin valid. Un cost mic și un drum acum previn unul mai mare mai târziu.",
+            "en": "Reissuing the document promptly avoids later blockages, a parcel, a contract or a bank formality all need a valid ID. A small cost and one trip now prevent a bigger one later."
+          }
+        },
+        {
+          "label": {
+            "ro": "Amâni refacerea actelor pentru mai încolo",
+            "en": "Postpone the document reissue for later"
+          },
+          "effects": [
+            {
+              "type": "scheduleEffect",
+              "delay_days": 5,
+              "effects": [
+                { "type": "stat", "stat": "stress", "delta": 2 },
+                { "type": "cash", "delta": -3000 }
+              ],
+              "note": {
+                "ro": "Fără buletin, o formalitate s-a blocat și a cerut un drum și o cheltuială în plus.",
+                "en": "Without an ID, a formality got stuck and needed an extra trip and expense."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Amânarea pare gratuită, dar un act lipsă blochează lucruri mărunte până îl refaci. Costul nu dispare, se mută în timp pierdut și oportunități ratate.",
+            "en": "Postponing feels free, but a missing document blocks small things until you replace it. The cost doesn’t vanish, it shifts into lost time and missed opportunities."
+          }
+        },
+        {
+          "label": {
+            "ro": "Refaci buletinul și îți pui o alarmă pentru restul actelor",
+            "en": "Reissue the ID and set a reminder for the rest"
+          },
+          "effects": [
+            { "type": "cash", "delta": -8000 },
+            { "type": "clearFlag", "flag": "portofel_furat" },
+            { "type": "setFlag", "flag": "acte_in_refacere" }
+          ],
+          "debrief": {
+            "ro": "Rezolvi ce e urgent acum și planifici restul în pași. Refacerea etapizată, cu un memento clar, ține și costul, și stresul sub control.",
+            "en": "You handle what’s urgent now and plan the rest in steps. Reissuing in stages, with a clear reminder, keeps both the cost and the stress under control."
+          }
+        }
+      ],
+      "source": {
+        "label": "taxe reeliberare acte RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_teava_apa",
+      "category": "rare",
+      "rarity": "rare",
+      "weight": 2,
+      "cooldown_days": 0,
+      "min_day": 5,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["emergency_fund", "opportunity_cost"],
+      "title": {
+        "ro": "Țeava cedează sub chiuvetă",
+        "en": "The pipe bursts under the sink"
+      },
+      "narrative": {
+        "ro": "O țeavă cedează sub chiuvetă și apa începe să inunde bucătăria. Curge până oprești robinetul general.",
+        "en": "A pipe gives way under the sink and water starts flooding the kitchen. It keeps running until you shut the main valve."
+      },
+      "illustration": "cashy_worried",
+      "choices": [
+        {
+          "label": {
+            "ro": "Chemi un instalator de urgență (200 lei)",
+            "en": "Call an emergency plumber (200 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -20000 },
+            { "type": "stat", "stat": "stress", "delta": 1 }
+          ],
+          "debrief": {
+            "ro": "Intervenția rapidă a limitat daunele. Compromisul e între costul urgenței și paguba care crește cu fiecare oră de apă, la o inundație, viteza chiar are preț.",
+            "en": "The quick response limited the damage. The trade-off is between the emergency cost and the damage that grows with every hour of water, with a flood, speed genuinely has a price."
+          }
+        },
+        {
+          "label": {
+            "ro": "Oprești apa și repari singur cu piese de la magazin (60 lei)",
+            "en": "Shut the water and fix it yourself with parts from the store (60 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -6000 },
+            { "type": "stat", "stat": "energy", "delta": -2 }
+          ],
+          "debrief": {
+            "ro": "Reparația proprie a ținut și a costat mult mai puțin. Funcționează când ai priceperea, timpul și scula potrivită, altfel, o reparație ratată poate costa mai mult decât instalatorul.",
+            "en": "The self-repair held and cost far less. It works when you have the skill, the time and the right tool, otherwise a botched fix can cost more than the plumber."
+          }
+        },
+        {
+          "label": {
+            "ro": "Oprești apa și anunți proprietarul/administrația",
+            "en": "Shut the water and notify the owner/building admin"
+          },
+          "effects": [
+            { "type": "stat", "stat": "stress", "delta": 1 }
+          ],
+          "debrief": {
+            "ro": "Dacă defecțiunea ține de instalația clădirii, costul poate cădea pe proprietar sau pe administrație. Verifici cine răspunde înainte să plătești, uneori nu e cheltuiala ta.",
+            "en": "If the fault belongs to the building’s plumbing, the cost may fall on the owner or the admin. Check who’s responsible before you pay, sometimes it isn’t your expense at all."
+          }
+        }
+      ],
+      "source": {
+        "label": "prețuri instalatori RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_mostenire",
+      "category": "windfall",
+      "rarity": "rare",
+      "weight": 1,
+      "cooldown_days": 0,
+      "min_day": 6,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["saving", "emergency_fund", "planning"],
+      "title": {
+        "ro": "O mică moștenire neașteptată",
+        "en": "A small unexpected inheritance"
+      },
+      "narrative": {
+        "ro": "O rudă îndepărtată, pe care abia o cunoșteai, a lăsat o mică moștenire. Îți revin 800 lei.",
+        "en": "A distant relative you barely knew left a small inheritance. 800 lei comes to you."
+      },
+      "illustration": "cashy_celebration",
+      "choices": [
+        {
+          "label": {
+            "ro": "Îngroși fondul de urgență cu toată suma",
+            "en": "Grow your emergency fund with the whole amount"
+          },
+          "effects": [
+            { "type": "cash", "delta": -80000 },
+            { "type": "fund", "delta": 80000 }
+          ],
+          "debrief": {
+            "ro": "Un venit unic direcționat spre fond ridică rezerva dintr-o singură mișcare. Surprizele plăcute sunt cel mai ușor moment de a construi tampon, fără nicio tăiere din trai.",
+            "en": "A one-off income sent to the fund lifts your reserve in a single move. Pleasant surprises are the easiest time to build a buffer, with no cut to your daily life."
+          }
+        },
+        {
+          "label": {
+            "ro": "Împarți în două: jumătate obiectiv, jumătate fond",
+            "en": "Split it in two: half to your goal, half to the fund"
+          },
+          "effects": [
+            { "type": "cash", "delta": -80000 },
+            { "type": "goal", "delta": 40000 },
+            { "type": "fund", "delta": 40000 }
+          ],
+          "debrief": {
+            "ro": "Împărțirea între obiectiv și siguranță avansează două fronturi deodată. Un echilibru între „azi” și „mâine” e adesea mai motivant decât totul într-un singur loc.",
+            "en": "Splitting between the goal and safety advances two fronts at once. A balance of „today” and „tomorrow” is often more motivating than putting it all in one place."
+          }
+        },
+        {
+          "label": {
+            "ro": "Majoritatea pe obiectiv și o bucurie modestă pentru tine",
+            "en": "Most to the goal and a modest treat for yourself"
+          },
+          "effects": [
+            { "type": "cash", "delta": -60000 },
+            { "type": "goal", "delta": 60000 },
+            { "type": "stat", "stat": "relationships", "delta": 1 }
+          ],
+          "debrief": {
+            "ro": "Cea mai mare parte spre obiectiv și o parte mică pentru tine. Disciplina care lasă loc de bucurie ține pe termen lung mai bine decât renunțarea la orice plăcere.",
+            "en": "Most toward the goal and a small share for you. Discipline that leaves room for joy lasts longer than giving up every pleasure."
+          }
+        }
+      ],
+      "source": {
+        "label": "estimări venituri neașteptate RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_power_bank",
+      "category": "rare",
+      "rarity": "rare",
+      "weight": 2,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["fraud_defense", "needs_wants"],
+      "title": {
+        "ro": "„Power bank-ul tău explodează”",
+        "en": "„Your power bank is about to explode”"
+      },
+      "narrative": {
+        "ro": "Un cunoscut te sperie: „power bank-urile explodează, aruncă-l!”. Verifici: doar încărcătorul s-a stricat, power bank-ul e certificat și merge.",
+        "en": "An acquaintance scares you: „power banks explode, toss it now!” You check and find only the charger failed, the power bank is certified and works."
+      },
+      "illustration": "cashy_learning",
+      "choices": [
+        {
+          "label": {
+            "ro": "Verifici informația și cumperi doar un încărcător nou (40 lei)",
+            "en": "Check the claim and buy just a new charger (40 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -4000 }
+          ],
+          "debrief": {
+            "ro": "Mitul „explodează” e mult exagerat: riscul real la acumulatorii certificați, folosiți normal, e minim. Ai plătit doar piesa stricată, nu frica, verificarea a fost economia.",
+            "en": "The „explodes” myth is greatly overblown: the real risk with certified batteries used normally is minimal. You paid only for the broken part, not the fear, checking was the saving."
+          }
+        },
+        {
+          "label": {
+            "ro": "Arunci power bank-ul de frică și cumperi altul (150 lei)",
+            "en": "Toss the power bank out of fear and buy another (150 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -15000 }
+          ],
+          "debrief": {
+            "ro": "Decizia luată din frică a costat de câteva ori mai mult. A verifica o afirmație înainte de a acționa e o economie în sine, panica e adesea cel mai scump sfătuitor.",
+            "en": "A decision made from fear cost several times more. Verifying a claim before acting is a saving in itself, panic is often the most expensive adviser."
+          }
+        },
+        {
+          "label": {
+            "ro": "Cauți surse de încredere despre siguranța acumulatorilor",
+            "en": "Look up trustworthy sources on battery safety"
+          },
+          "effects": [
+            { "type": "setFlag", "flag": "info_verificata" }
+          ],
+          "debrief": {
+            "ro": "Informarea din surse serioase dezumflă panica. Acumulatorii certificați, încărcați cu accesorii potrivite, sunt siguri în uz normal, iar obiceiul de a verifica te ferește de cheltuieli din frică.",
+            "en": "Getting your facts from solid sources deflates the panic. Certified batteries, charged with proper accessories, are safe in normal use, and the habit of checking spares you fear-driven spending."
+          }
+        }
+      ],
+      "source": {
+        "label": "siguranța acumulatorilor litiu-ion, surse tehnice 2026 (educațional)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_cashback_legit",
+      "category": "windfall",
+      "rarity": "rare",
+      "weight": 2,
+      "cooldown_days": 0,
+      "min_day": 5,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["fraud_defense", "saving"],
+      "title": {
+        "ro": "Un cashback real, fără capcană",
+        "en": "A real cashback, no catch"
+      },
+      "narrative": {
+        "ro": "Aplicația băncii tale îți creditează un cashback de 15 lei pentru cumpărăturile lunii. Apare singur în cont, fără să ți se ceară nimic în schimb.",
+        "en": "Your bank’s app credits you a 15 lei cashback for the month’s purchases, it just appears in your account, with nothing asked in return."
+      },
+      "illustration": "cashy_happy",
+      "choices": [
+        {
+          "label": {
+            "ro": "Verifici că e programul oficial din aplicația ta și lași banii în cont",
+            "en": "Confirm it’s the official program in your app and leave the money in"
+          },
+          "effects": [
+            { "type": "cash", "delta": 1500 }
+          ],
+          "debrief": {
+            "ro": "Programele reale de cashback creditează singure, în aplicația oficială, fără să ceară plată sau date. Exact opusul „premiilor” care cer o „taxă de livrare”, un venit real nu-ți cere niciodată bani înapoi.",
+            "en": "Real cashback programs credit automatically, in the official app, asking for no payment or data. The exact opposite of „prizes” that demand a „delivery fee”, real income never asks for money back."
+          }
+        },
+        {
+          "label": {
+            "ro": "Muți cashback-ul direct în fond",
+            "en": "Move the cashback straight into the fund"
+          },
+          "effects": [
+            { "type": "cash", "delta": 1500 },
+            { "type": "cash", "delta": -1500 },
+            { "type": "fund", "delta": 1500 }
+          ],
+          "debrief": {
+            "ro": "Chiar și sumele mici, direcționate constant spre fond, se adună în timp. Un cashback e mic, dar e bani reali, iar micile fluxuri regulate construiesc rezerva pe tăcute.",
+            "en": "Even small amounts, sent consistently to the fund, add up over time. A cashback is small, but it’s real money, and small regular flows quietly build the reserve."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îți iei o cafea din cashback, ca răsplată mică",
+            "en": "Get a coffee with the cashback, as a little reward"
+          },
+          "effects": [
+            { "type": "stat", "stat": "energy", "delta": 2 }
+          ],
+          "debrief": {
+            "ro": "O mică răsplată din bani reali e ok. Diferența față de o țeapă e simplă: aici nimeni nu ți-a cerut nimic ca s-o primești, banii au venit spre tine, nu de la tine.",
+            "en": "A small reward out of real money is fine. The difference from a scam is simple: here no one asked you for anything to receive it, the money flowed to you, not from you."
+          }
+        }
+      ],
+      "source": {
+        "label": "programe cashback bancar RO 2026 (educațional)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "seasonal_1iunie_festival",
+      "category": "seasonal",
+      "rarity": "common",
+      "weight": 5,
+      "cooldown_days": 0,
+      "min_day": 1,
+      "max_day": 8,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["needs_wants", "opportunity_cost"],
+      "title": {
+        "ro": "1 Iunie: festival gratuit în parc",
+        "en": "June 1st: a free festival in the park"
+      },
+      "narrative": {
+        "ro": "De 1 Iunie, orașul face un festival gratuit în parc: concerte, food-truck-uri, activități. Intri gratis, dar mirosurile de la standuri te ademenesc.",
+        "en": "For June 1st, the city holds a free festival in the park: concerts, food trucks, activities. Entry is free, but the stall smells are tempting."
+      },
+      "illustration": "cashy_happy",
+      "choices": [
+        {
+          "label": {
+            "ro": "Mergi la partea gratuită și îți iei o gustare de acasă",
+            "en": "Go for the free part and bring a snack from home"
+          },
+          "effects": [
+            { "type": "stat", "stat": "relationships", "delta": 2 },
+            { "type": "stat", "stat": "energy", "delta": 2 }
+          ],
+          "debrief": {
+            "ro": "Distracție gratuită plus o gustare adusă de acasă = bucurie fără cost. Evenimentele publice sunt aliați ai bugetului: plătești doar extrele pe care le alegi conștient.",
+            "en": "Free fun plus a snack from home = joy at no cost. Public events are budget allies: you pay only for the extras you choose deliberately."
+          }
+        },
+        {
+          "label": {
+            "ro": "Mergi și mănânci la food-truck (70 lei)",
+            "en": "Go and eat at a food truck (70 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -7000 },
+            { "type": "stat", "stat": "relationships", "delta": 2 },
+            { "type": "stat", "stat": "energy", "delta": 2 }
+          ],
+          "debrief": {
+            "ro": "Ai plătit pentru confortul de moment și o experiență plăcută. O cheltuială aleasă conștient, la un eveniment pe care îl savurezi, e o opțiune validă, nu o scăpare.",
+            "en": "You paid for in-the-moment comfort and a pleasant experience. A deliberately chosen expense, at an event you enjoy, is a valid option, not a slip."
+          }
+        },
+        {
+          "label": {
+            "ro": "Rămâi acasă și păstrezi banii pentru altceva",
+            "en": "Stay home and keep the money for something else"
+          },
+          "effects": [
+            { "type": "stat", "stat": "relationships", "delta": -1 }
+          ],
+          "debrief": {
+            "ro": "Ai păstrat banii, dar și socializarea are valoare. Echilibrul nu înseamnă mereu opțiunea cea mai ieftină, uneori o ieșire gratuită merită timpul tău.",
+            "en": "You kept the money, but socializing has value too. Balance doesn’t always mean the cheapest option, sometimes a free outing is worth your time."
+          }
+        }
+      ],
+      "source": {
+        "label": "prețuri retail/evenimente RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "seasonal_canicula",
+      "category": "seasonal",
+      "rarity": "common",
+      "weight": 5,
+      "cooldown_days": 0,
+      "min_day": 8,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["needs_wants", "opportunity_cost"],
+      "title": {
+        "ro": "Caniculă de 38°C",
+        "en": "A 38°C heatwave"
+      },
+      "narrative": {
+        "ro": "Vine canicula: 38°C afară, iar apartamentul se încinge. Noaptea, somnul devine greu în camera fierbinte.",
+        "en": "A heatwave rolls in: 38°C outside, and the flat bakes. At night, sleep gets hard in the hot room."
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Cumperi un aparat de aer condiționat (1200 lei)",
+            "en": "Buy an air conditioner (1200 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -120000 },
+            { "type": "stat", "stat": "energy", "delta": 3 }
+          ],
+          "debrief": {
+            "ro": "AC-ul rezolvă confortul pe termen lung, dar e o cheltuială mare dintr-o dată. Merită dacă vara e lungă și îl folosești ani la rând, altfel, tot bugetul lunii simte lovitura.",
+            "en": "The AC solves comfort for the long run, but it’s a big one-time expense. Worth it if summers are long and you’ll use it for years, otherwise the whole month’s budget feels the hit."
+          }
+        },
+        {
+          "label": {
+            "ro": "Iei un ventilator bun (100 lei)",
+            "en": "Get a good fan (100 lei)"
+          },
+          "effects": [
+            { "type": "cash", "delta": -10000 },
+            { "type": "stat", "stat": "energy", "delta": 2 }
+          ],
+          "debrief": {
+            "ro": "Ventilatorul acoperă nevoia imediată cu bani puțini. Soluția „suficientă acum” lasă bugetul să respire, iar diferența față de AC o poți pune deoparte pentru o decizie la rece.",
+            "en": "The fan covers the immediate need for little money. The „good enough now” option lets the budget breathe, and the difference from an AC can be set aside for a calmer decision."
+          }
+        },
+        {
+          "label": {
+            "ro": "Te descurci cu perdele trase, apă rece și program adaptat",
+            "en": "Cope with drawn curtains, cold water and an adjusted schedule"
+          },
+          "effects": [
+            { "type": "stat", "stat": "energy", "delta": -1 }
+          ],
+          "debrief": {
+            "ro": "Zero cost, cu puțin disconfort. Trucurile gratuite contra căldurii sunt reale și ajută, dar au o limită, dacă valul de căldură ține mult, confortul devine și el o nevoie.",
+            "en": "Zero cost, with a bit of discomfort. Free tricks against the heat are real and help, but they have a limit, if the heatwave lasts, comfort becomes a need too."
+          }
+        }
+      ],
+      "source": {
+        "label": "prețuri climatizare RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "seasonal_mall_marketing",
+      "category": "seasonal",
+      "rarity": "common",
+      "weight": 6,
+      "cooldown_days": 0,
+      "min_day": 1,
+      "max_day": 8,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": ["impulse_control", "needs_wants", "planning"],
+      "title": {
+        "ro": "Început de lună la mall",
+        "en": "Start of the month at the mall"
+      },
+      "narrative": {
+        "ro": "Salariul tocmai a intrat, iar mall-ul e plin de reduceri și afișe „doar azi”. Fiecare vitrină pare să-ți vorbească exact ție.",
+        "en": "Your pay just landed, and the mall is full of sales and „today only” signs. Every shop window seems to speak directly to you."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Mergi cu o listă și cumperi doar ce ți-ai propus",
+            "en": "Go with a list and buy only what you planned"
+          },
+          "effects": [
+            { "type": "cash", "delta": -15000 }
+          ],
+          "debrief": {
+            "ro": "Lista transformă mall-ul din capcană în unealtă. „Doar azi” e o tehnică de grabă, iar un plan făcut dinainte o dezamorsează, cumperi ce voiai, nu ce ți s-a arătat.",
+            "en": "A list turns the mall from a trap into a tool. „Today only” is a rush technique, and a plan made in advance defuses it, you buy what you wanted, not what you were shown."
+          }
+        },
+        {
+          "label": {
+            "ro": "Te lași purtat de reduceri și iei câteva lucruri în plus",
+            "en": "Get carried by the sales and grab a few extra things"
+          },
+          "effects": [
+            { "type": "cash", "delta": -35000 },
+            { "type": "setFlag", "flag": "cumparaturi_impuls" }
+          ],
+          "debrief": {
+            "ro": "Reducerile economisesc doar dacă aveai nevoie oricum de acele lucruri. Presiunea de timp împinge spre cumpărături nepregătite, fără judecată, doar observă tiparul pentru data viitoare.",
+            "en": "Sales save money only if you needed the items anyway. Time pressure pushes toward unplanned buys, no judgment, just notice the pattern for next time."
+          }
+        },
+        {
+          "label": {
+            "ro": "Amâni cumpărăturile cu o zi ca să te gândești",
+            "en": "Put the shopping off by a day to think it over"
+          },
+          "effects": [
+            { "type": "setFlag", "flag": "regula_24h" }
+          ],
+          "debrief": {
+            "ro": "Regula celor 24 de ore filtrează impulsul de moment. Ce mai vrei și mâine chiar contează; ce era doar entuziasm de vitrină, de obicei se stinge peste noapte.",
+            "en": "The 24-hour rule filters the momentary impulse. What you still want tomorrow truly matters; what was only window excitement usually fades overnight."
+          }
+        }
+      ],
+      "source": {
+        "label": "prețuri retail RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_bilete_fals",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "scams",
+        "fraud_defense",
+        "impulse_control"
+      ],
+      "title": {
+        "ro": "Bilete la concert de la un cont fals",
+        "en": "Concert tickets from a fake account"
+      },
+      "narrative": {
+        "ro": "Concertul e sold-out. Un cont care pare oficial oferă bilete, dar cere plata prin transfer către un cont personal, nu prin platforma oficială.",
+        "en": "The concert is sold out. An official-looking account offers tickets, but wants payment by transfer to a personal account, not the official platform."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Plătești 200 lei prin transfer ca să prinzi biletele",
+            "en": "Pay 200 lei by transfer to grab the tickets"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
+          ],
+          "debrief": {
+            "ro": "Biletele n-au venit, iar contul a dispărut. Biletele reale se cumpără de pe platforma oficială, nu prin transfer către o persoană. Un „cont oficial” fără bifă și cu plată privată e semnalul de țeapă.",
+            "en": "The tickets never came and the account vanished. Real tickets are bought on the official platform, not by transfer to a person. An „official account” with no badge and private payment is the scam signal."
+          }
+        },
+        {
+          "label": {
+            "ro": "Verifici pe platforma oficială și pagina cu bifă",
+            "en": "Check the official platform and the verified page"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Pe canalul oficial nu era nicio revânzare, doar contul fals promitea. Compararea cu sursa reală, platformă și bifă, demască imitația în câteva minute.",
+            "en": "On the official channel there was no resale, only the fake account promised it. Comparing with the real source, platform and badge, exposes the imitation in minutes."
+          }
+        },
+        {
+          "label": {
+            "ro": "Renunți și aștepți o revânzare oficială",
+            "en": "Walk away and wait for an official resale"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "A rata un concert e mai ușor de dus decât a pierde banii pe bilete false. Platformele serioase au revânzare cu garanție, care merită așteptarea.",
+            "en": "Missing a concert is easier to bear than losing money on fake tickets. Serious platforms offer guaranteed resale, which is worth the wait."
+          }
+        }
+      ],
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_qr_parcare",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "scams",
+        "phishing",
+        "fraud_defense"
+      ],
+      "title": {
+        "ro": "QR de plată lipit pe parcometru",
+        "en": "A payment QR stuck on the meter"
+      },
+      "narrative": {
+        "ro": "Pe parcometru cineva a lipit un QR: „plătește parcarea aici”. Îl scanezi și se deschide un site care cere datele cardului, dar arată puțin ciudat.",
+        "en": "On the parking meter someone stuck a QR: „pay for parking here”. You scan it and a site opens asking for card details, but it looks a bit off."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Introduci datele cardului pe site-ul din QR",
+            "en": "Enter your card details on the QR site"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -200
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -15000
+                }
+              ],
+              "note": {
+                "ro": "O plată neautorizată apare pe card înainte să-l blochezi; o contești și recuperezi o parte.",
+                "en": "An unauthorized charge appears on the card before you block it; you dispute it and recover part."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "QR-ul ducea la un site fals care fura datele cardului. Parcările reale au aplicații oficiale sau SMS la un număr scurt afișat clar, nu un sticker lipit peste aparat. Verifici sursa înainte să scanezi.",
+            "en": "The QR led to a fake site harvesting your card. Real parking uses official apps or an SMS to a short number shown clearly, not a sticker slapped on the machine. Check the source before you scan."
+          }
+        },
+        {
+          "label": {
+            "ro": "Folosești aplicația oficială sau numărul de pe aparat",
+            "en": "Use the official app or the number on the machine"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -500
+            }
+          ],
+          "debrief": {
+            "ro": "Ai plătit parcarea reală prin canalul oficial, fără să-ți expui cardul unui QR necunoscut. Sursa tastată de tine sau aplicația știută e apărarea de bază.",
+            "en": "You paid the real parking through the official channel, without exposing your card to an unknown QR. A source you type yourself or a known app is the basic defense."
+          }
+        },
+        {
+          "label": {
+            "ro": "Nu scanezi și raportezi sticker-ul suspect",
+            "en": "Don’t scan and report the suspicious sticker"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Un QR lipit peste aparat, care duce la un site ce cere cardul, e un semnal clasic. Raportarea protejează și pe următorul șofer.",
+            "en": "A QR stuck over the machine, leading to a site that asks for your card, is a classic red flag. Reporting protects the next driver too."
+          }
+        }
+      ],
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_amenda_falsa_sms",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "scams",
+        "phishing",
+        "fraud_defense"
+      ],
+      "title": {
+        "ro": "SMS cu „amendă neplătită”",
+        "en": "An SMS about an „unpaid fine”"
+      },
+      "narrative": {
+        "ro": "Un SMS te anunță că ai o „amendă neplătită”. Ai 24 de ore să plătești prin link, altfel „se dublează”. Nu-ți amintești nicio amendă.",
+        "en": "An SMS says you have an „unpaid fine”. You have 24 hours to pay via link, or it „doubles”. You don’t recall any fine."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Plătești repede prin link, ca să nu se dubleze",
+            "en": "Pay via the link fast, so it won’t double"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -10000
+                }
+              ],
+              "note": {
+                "ro": "Cu datele introduse, o a doua plată neautorizată trece înainte să blochezi cardul.",
+                "en": "With your details entered, a second unauthorized charge goes through before you block the card."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Nu exista nicio amendă; linkul fura datele cardului. Amenzile reale nu se anunță prin SMS cu link și termen de „24 de ore”. Le verifici pe portalul oficial, nu prin linkul primit.",
+            "en": "There was no fine; the link harvested your card. Real fines aren’t announced by SMS with a link and a „24 hours” deadline. You check them on the official portal, not through the link you received."
+          }
+        },
+        {
+          "label": {
+            "ro": "Verifici pe portalul oficial dacă ai vreo amendă",
+            "en": "Check the official portal for any real fine"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Pe portalul oficial nu figura nimic: SMS-ul era fals. Verificarea prin sursa pe care o deschizi tu, nu prin link primit, e apărarea corectă contra „amenzilor” inventate.",
+            "en": "The official portal showed nothing: the SMS was fake. Verifying through a source you open yourself, not a received link, is the right defense against invented „fines”."
+          }
+        },
+        {
+          "label": {
+            "ro": "Ștergi mesajul și îl raportezi ca spam",
+            "en": "Delete the message and report it as spam"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Termenul scurt și linkul de plată sunt tehnici de grabă. Un mesaj neașteptat care cere plată imediată merge la raportat, nu la deschis.",
+            "en": "A short deadline and a payment link are rush tactics. An unexpected message demanding immediate payment gets reported, not opened."
+          }
+        }
+      ],
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_investitie_dubla",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 3,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 26,
+      "role_tags": [],
+      "difficulty": 3,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": "investitie",
+      "skill_tags": [
+        "scams",
+        "fraud_defense",
+        "expected_value"
+      ],
+      "title": {
+        "ro": "„Îți dublăm banii într-o săptămână”",
+        "en": "„We’ll double your money in a week”"
+      },
+      "narrative": {
+        "ro": "O pagină lucioasă promite: pui 500 lei într-o „platformă” și primești 1000 într-o săptămână, „garantat”. Testimonialele par regizate.",
+        "en": "A slick page promises: put in 500 lei on a „platform” and get 1000 back in a week, „guaranteed”. The testimonials look staged."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Investești 500 lei, pare o ocazie rară",
+            "en": "Invest 500 lei, it looks like a rare chance"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -50000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "setFlag",
+              "flag": "investitie_teapa"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 3,
+              "event_id": "scam_investitie_recuperare"
+            }
+          ],
+          "debrief": {
+            "ro": "Banii au intrat pe „platformă” și par să crească pe ecran. Un câștig „garantat” care dublează suma nu există: nicio investiție reală nu promite asta. Urmează partea în care vrei să-i scoți.",
+            "en": "The money went into the „platform” and seems to grow on screen. A „guaranteed” win that doubles your money does not exist: no real investment promises that. Next comes the part where you try to withdraw."
+          }
+        },
+        {
+          "label": {
+            "ro": "Ceri detalii și verifici dacă e o firmă reglementată",
+            "en": "Ask for details and check if it’s a regulated firm"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "La întrebări despre reglementare și riscuri, „platforma” a devenit evazivă. Investițiile reale au risc și nu promit dublarea sumei, iar firmele serioase sunt înregistrate la autoritatea pieței.",
+            "en": "Asked about regulation and risk, the „platform” turned evasive. Real investments carry risk and never promise to double your money, and serious firms are registered with the market authority."
+          }
+        },
+        {
+          "label": {
+            "ro": "Refuzi: un câștig „garantat” dublu e semnal clar",
+            "en": "Refuse: a „guaranteed” double is a clear red flag"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "„Randament garantat, fără risc” e formula clasică a schemelor. Cu cât promisiunea e mai mare și mai sigură, cu atât e mai probabil o țeapă.",
+            "en": "„Guaranteed return, no risk” is the classic formula of scams. The bigger and surer the promise, the more likely it is a fraud."
+          }
+        }
+      ],
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "scam_investitie_recuperare",
+      "category": "scams",
+      "rarity": "rare",
+      "weight": 1,
+      "cooldown_days": 0,
+      "min_day": 6,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 3,
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "investitie_teapa"
+        }
+      ],
+      "exclusions": [],
+      "prerequisites": [
+        "scam_investitie_dubla"
+      ],
+      "chain_id": "investitie",
+      "skill_tags": [
+        "scams",
+        "fraud_defense",
+        "planning"
+      ],
+      "title": {
+        "ro": "„Taxă” ca să-ți scoți câștigul",
+        "en": "A „fee” to withdraw your winnings"
+      },
+      "narrative": {
+        "ro": "„Platforma” zice că cei 1000 lei sunt gata. Ca să-i scoți, ți se cere mai întâi o „taxă de deblocare” de 200 lei.",
+        "en": "The „platform” says your 1000 lei is ready. To withdraw it, you are first asked to pay a 200 lei „release fee”."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Plătești „taxa de deblocare” de 200 lei",
+            "en": "Pay the 200 lei „release fee”"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            },
+            {
+              "type": "clearFlag",
+              "flag": "investitie_teapa"
+            }
+          ],
+          "debrief": {
+            "ro": "Nici cei 1000, nici cei 200 nu s-au mai văzut. „Taxa ca să-ți scoți banii” e a doua fază a țepei: cere plăți în plus pentru un câștig care nu există. Pierderea reală e ce ai pus, nu ce „ai câștigat”.",
+            "en": "Neither the 1000 nor the 200 ever showed up. A „fee to release your money” is the scam’s second stage: it demands more for winnings that do not exist. The real loss is what you put in, not what you „won”."
+          }
+        },
+        {
+          "label": {
+            "ro": "Refuzi și te oprești, tratezi cei 500 ca pierduți",
+            "en": "Refuse and stop, treat the 500 as lost"
+          },
+          "effects": [
+            {
+              "type": "clearFlag",
+              "flag": "investitie_teapa"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "A opri pierderea aici e alegerea grea, dar corectă. Banii deja duși nu se recuperează plătind în plus, asta e chiar mecanismul care te ține prins. Cei 500 sunt lecția, nu și alți 200.",
+            "en": "Stopping the loss here is the hard but right call. Money already gone is not recovered by paying more, that is the very mechanism that keeps you hooked. The 500 is the lesson, not another 200."
+          }
+        },
+        {
+          "label": {
+            "ro": "Raportezi „platforma” și-i avertizezi pe alții",
+            "en": "Report the „platform” and warn others"
+          },
+          "effects": [
+            {
+              "type": "clearFlag",
+              "flag": "investitie_teapa"
+            }
+          ],
+          "debrief": {
+            "ro": "Raportarea nu-ți aduce banii înapoi, dar oprește următoarea victimă. Cererea unei „taxe” ca să-ți eliberezi propriul câștig e semnalul sigur al schemei.",
+            "en": "Reporting will not bring your money back, but it stops the next victim. Demanding a „fee” to release your own winnings is the sure sign of the scheme."
+          }
+        }
+      ],
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_bani_geaca",
+      "category": "windfall",
+      "rarity": "rare",
+      "weight": 2,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "saving",
+        "emergency_fund"
+      ],
+      "title": {
+        "ro": "Bani uitați într-o geacă",
+        "en": "Money forgotten in a jacket"
+      },
+      "narrative": {
+        "ro": "Scoți geaca de primăvară din dulap și găsești în buzunar o bancnotă de 50 lei, uitată acolo de anul trecut.",
+        "en": "You pull the spring jacket from the closet and find a 50 lei note in the pocket, forgotten there since last year."
+      },
+      "illustration": "cashy_happy",
+      "choices": [
+        {
+          "label": {
+            "ro": "Pui cei 50 lei în fondul de urgență",
+            "en": "Put the 50 lei into your emergency fund"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 5000
+            },
+            {
+              "type": "cash",
+              "delta": -5000
+            },
+            {
+              "type": "fund",
+              "delta": 5000
+            }
+          ],
+          "debrief": {
+            "ro": "Bani găsiți, direcționați spre fond, cresc tamponul fără niciun efort de tăiere. Chiar și sumele mici, tratate ca rezervă, nu ca bonus de cheltuit, se adună în timp.",
+            "en": "Found money, sent to the fund, grows your buffer with no cutting effort. Even small sums, treated as reserve rather than a bonus to spend, add up over time."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îi păstrezi ca mic tampon în cont",
+            "en": "Keep it as a small buffer in your account"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 5000
+            }
+          ],
+          "debrief": {
+            "ro": "A păstra banii găsiți la îndemână e ok dacă ai un plan pentru ei. Fără o direcție decisă, sumele mici tind să se topească în cheltuieli mărunte.",
+            "en": "Keeping found money at hand is fine if you have a plan for it. Without a decided direction, small sums tend to melt into little purchases."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îți iei o mică bucurie din banii găsiți",
+            "en": "Treat yourself a little with the found money"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 5000
+            },
+            {
+              "type": "cash",
+              "delta": -5000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "O mică răsplată din bani-surpriză e o alegere validă, nu o scăpare. Nu tot ce găsești trebuie economisit; o bucurie mică, aleasă conștient, e sănătoasă.",
+            "en": "A small reward from surprise money is a valid choice, not a slip. Not everything you find must be saved; a small joy, chosen deliberately, is healthy."
+          }
+        }
+      ],
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_cadou_neasteptat",
+      "category": "windfall",
+      "rarity": "rare",
+      "weight": 2,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 30,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "saving",
+        "planning"
+      ],
+      "title": {
+        "ro": "Un cadou neașteptat",
+        "en": "An unexpected gift"
+      },
+      "narrative": {
+        "ro": "O rudă îți trimite din senin 150 lei, „pentru ceva de care ai nevoie”. Nu e nicio ocazie anume, doar un gest frumos.",
+        "en": "A relative sends you 150 lei out of the blue, „for something you need”. No special occasion, just a kind gesture."
+      },
+      "illustration": "cashy_celebration",
+      "choices": [
+        {
+          "label": {
+            "ro": "Direcționezi cadoul spre obiectivul tău",
+            "en": "Direct the gift toward your goal"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 15000
+            },
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "goal",
+              "delta": 15000
+            }
+          ],
+          "debrief": {
+            "ro": "Un dar direcționat spre obiectiv îl apropie fără niciun efort din partea ta. Banii primiți, tratați ca un pas înainte, nu ca un bonus de risipit, mișcă planul mai repede.",
+            "en": "A gift sent to your goal brings it closer with no effort from you. Money received, treated as a step forward rather than a bonus to blow, moves the plan faster."
+          }
+        },
+        {
+          "label": {
+            "ro": "Iei ceva de care aveai nevoie, restul în fond",
+            "en": "Buy something you did need, put the rest in the fund"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 15000
+            },
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "fund",
+              "delta": 7500
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "Ai acoperit o nevoie reală și ai pus deoparte restul. Un cadou care rezolvă ceva util plus un pic de rezervă e un echilibru sănătos între azi și mâine.",
+            "en": "You covered a real need and set the rest aside. A gift that solves something useful plus a little reserve is a healthy balance between today and tomorrow."
+          }
+        },
+        {
+          "label": {
+            "ro": "Le mulțumești și îi inviți la o cafea din cadou",
+            "en": "Thank them and invite them for a coffee from the gift"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 15000
+            },
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 2
+            }
+          ],
+          "debrief": {
+            "ro": "Ai transformat gestul într-un moment împreună. Nu orice bani primiți trebuie economisiți; uneori valoarea lor cea mai mare e relația pe care o hrănesc.",
+            "en": "You turned the gesture into time together. Not every bit of money received must be saved; sometimes its greatest value is the relationship it feeds."
+          }
+        }
+      ],
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "rare_concert_ieftin",
+      "category": "rare",
+      "rarity": "uncommon",
+      "weight": 3,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 28,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "needs_wants",
+        "opportunity_cost",
+        "impulse_control"
+      ],
+      "title": {
+        "ro": "Bilete ieftine la un concert bun",
+        "en": "Cheap tickets to a good concert"
+      },
+      "narrative": {
+        "ro": "Pe platforma oficială apar bilete early-bird la o trupă care-ți place: doar 60 lei, dar oferta reală se termină diseară.",
+        "en": "On the official platform, real early-bird tickets to a band you like: only 60 lei, but the genuine offer ends tonight."
+      },
+      "illustration": "cashy_happy",
+      "choices": [
+        {
+          "label": {
+            "ro": "Cumperi un bilet, intră în bugetul de distracție",
+            "en": "Buy one ticket, it fits your fun budget"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -6000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "O cheltuială plăcută, planificată în bugetul de distracție, e o alegere sănătoasă, nu o scăpare. Diferența față de o țeapă: platforma e oficială, prețul e real și decizia e a ta.",
+            "en": "A pleasant expense, planned into your fun budget, is a healthy choice, not a slip. The difference from a scam: the platform is official, the price is real and the choice is yours."
+          }
+        },
+        {
+          "label": {
+            "ro": "Verifici bugetul lunii înainte să iei biletul",
+            "en": "Check the month’s budget before grabbing it"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -6000
+            },
+            {
+              "type": "setFlag",
+              "flag": "buget_verificat"
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "Un minut de verificare face diferența dintre o cheltuială aleasă și una regretată. Dacă intră în buget, o savurezi fără vină; dacă nu, o lași fără regret.",
+            "en": "A minute of checking is the difference between a chosen expense and a regretted one. If it fits the budget, you enjoy it guilt-free; if not, you skip it without regret."
+          }
+        },
+        {
+          "label": {
+            "ro": "Renunți și păstrezi banii pentru obiectiv",
+            "en": "Skip it and keep the money for your goal"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -6000
+            },
+            {
+              "type": "goal",
+              "delta": 6000
+            }
+          ],
+          "debrief": {
+            "ro": "Ai ales obiectivul în locul serii de concert, o opțiune validă. A rata un eveniment nu e o pierdere dacă alegi conștient unde merg banii, iar planul avansează.",
+            "en": "You chose the goal over the concert night, a valid option. Missing an event is not a loss if you consciously choose where the money goes, and the plan moves forward."
+          }
+        }
+      ],
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    }
+  ]
+}

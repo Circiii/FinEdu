@@ -1,0 +1,611 @@
+﻿{
+  "$schema_note": "Unitatea 5, Track A (14-18): Scutul Anti-Țeapă, pe format 3, conceptul fiecărei lecții e o listă de blocuri vizuale (text, callout, stat, vs, steps, quote) dezvăluite prin tap, cu markup **bold** și ==evidențiat== în textele narative, iar interactivele (swipe, cloze, mcq, reveal, order) se rotesc fără repetare între lecții consecutive. Educație pur defensivă: nimic de aici nu predă cum se comite frauda.",
+  "unit": {
+    "id": "u5",
+    "ord": 5,
+    "format": 3,
+    "track": "A",
+    "emoji": "🎣",
+    "color": "danger",
+    "title": { "ro": "Scutul Anti-Țeapă", "en": "The Anti-Scam Shield" }
+  },
+  "lessons": [
+    {
+      "id": "u5-anatomia-tepei",
+      "emoji": "🧬",
+      "minutes": 4,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Anatomia unei țepe", "en": "The anatomy of a scam" },
+      "hook": {
+        "ro": "SMS-ul cu coletul, emailul de la „bancă\", premiul „câștigat\", par trei pericole diferite. Sunt UNUL singur, în trei costume.",
+        "en": "The stuck-parcel text, the \"bank\" email, the prize you \"won\", they look like three different dangers. They're ONE, in three costumes."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Orice țeapă, oricât de nouă ar părea, e gătită din aceleași **trei ingrediente**. Ambalajul se schimbă săptămânal, colet, bancă, job, premiu. Rețeta nu se poate schimba, pentru că fără ea nu are ce să-ți ia.",
+            "en": "Every scam, however new it looks, is cooked from the same **three ingredients**. The wrapping changes weekly, parcel, bank, job, prize. The recipe can't change, because without it there's nothing to take from you."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            { "ro": "**Urgența**: „acum, în 2 ore, altfel pierzi\", îți fură timpul de verificare.", "en": "**Urgency**: \"now, within 2 hours, or you lose it\", it steals your verification time." },
+            { "ro": "**Emoția**: frică („contul e blocat\") sau lăcomie („ai câștigat!\"), îți oprește gândirea.", "en": "**Emotion**: fear (\"your account is blocked\") or greed (\"you've won!\"), it switches off your thinking." },
+            { "ro": "**Cererea**: bani, datele tale sau un cod, partea care îți golește contul.", "en": "**The ask**: money, your data or a code, the part that empties your account." }
+          ]
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "🚨",
+          "title": { "ro": "Trei din trei?", "en": "Three out of three?" },
+          "text": {
+            "ro": "Țeapă, oricine ar semna mesajul. Nu învăța țepele pe de rost: numără ingredientele. Iar verificarea se face mereu pe canalul oficial, deschis de tine, ==niciodată pe linkul din mesaj==.",
+            "en": "A scam, whoever signs the message. Don't memorize scams: count the ingredients. And you always verify through the official channel, opened by you, ==never through the link in the message==."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Maria, 15 ani, primește: „Felicitări! Ai câștigat un telefon, plătește doar 15 lei transportul, în 2 ore\". Primul gând: 15 lei pentru un telefon? Al doilea gând numără: urgență (2 ore), emoție (premiu!), cerere (card). **Trei din trei**, șterge mesajul și păstrează și banii, și cardul.",
+            "en": "Maria, 15, gets: \"Congrats! You've won a phone, just pay 15 lei shipping, within 2 hours\". First thought: 15 lei for a phone? Second thought counts: urgency (2 hours), emotion (a prize!), the ask (card). **Three out of three**, she deletes it and keeps both the money and the card."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Eu, când văd „ofertă doar azi\", îmi ascund alunele mai adânc. Graba e a lor, timpul e al tău.",
+            "en": "Whenever I see \"today only\", I bury my hazelnuts deeper. The rush is theirs, the time is yours."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "De ce îți dă mesajul doar „2 ore\" să reacționezi?", "en": "Why does the message give you only \"2 hours\" to react?" },
+        "options": [
+          { "text": { "ro": "Instituțiile chiar dau termene scurte când e grav", "en": "Institutions really do set short deadlines when it's serious" }, "why": { "ro": "Invers: cu cât e mai grav, cu atât banca te contactează prin mai multe canale, cu timp de reacție. Termenul de ore, printr-un link, aia e semnătura țeparului.", "en": "The opposite: the more serious it is, the more channels and time a bank gives you. An hours-long deadline through a link, that's the scammer's signature." } },
+          { "text": { "ro": "Ca panica să-ți sară peste pasul de verificare", "en": "So panic skips your verification step" }, "why": { "ro": "Exact. Creierul grăbit execută; creierul cu timp verifică. De-asta primul răspuns corect la orice „urgent\" e: stai 60 de secunde.", "en": "Exactly. A rushed brain executes; a brain with time verifies. That's why the right first response to any \"urgent\" is: wait 60 seconds." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Pe WhatsApp, de pe un număr necunoscut: „Salut, sunt vărul tău, am telefon nou. Am o urgență, îmi trimiți 200 de lei? Îți explic după\".", "en": "On WhatsApp, from an unknown number: \"Hey, it's your cousin, new phone. I've got an emergency, can you send 200 lei? I'll explain later\"." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "Trimit, dacă e chiar o urgență în familie?", "en": "I send it, what if it's a real family emergency?" }, "consequence": { "ro": "Numără ingredientele: emoție (frică pentru familie), urgență („acum\"), cerere (bani). Trei din trei, pe un număr nou, nedovedit. Un apel pe numărul VECHI durează 30 de secunde și salvează 200 de lei.", "en": "Count the ingredients: emotion (fear for family), urgency (\"now\"), the ask (money). Three out of three, on a new, unproven number. One call to the OLD number takes 30 seconds and saves 200 lei." } },
+          { "text": { "ro": "Sun vărul pe numărul lui vechi, să verific", "en": "I call my cousin on his old number to check" }, "consequence": { "ro": "Fix mutarea corectă: verificarea pe un canal separat sparge orice țeapă. Dacă răspunde nedumerit de pe numărul vechi, ai răspunsul complet.", "en": "Exactly the right move: verifying through a separate channel breaks any scam. If he answers confused on the old number, you have your full answer." } },
+          { "text": { "ro": "Îi cer un detaliu pe care doar vărul meu îl știe", "en": "I ask for a detail only my cousin would know" }, "consequence": { "ro": "Mai bine decât nimic, dar detaliile se ghicesc din rețelele sociale, iar pozele se copiază. Canalul separat (apel pe numărul știut) rămâne singurul test care nu dă greș.", "en": "Better than nothing, but details can be guessed from social media, and photos get copied. The separate channel (a call to the known number) remains the only test that doesn't fail." } }
+        ]
+      },
+      "interactive": {
+        "kind": "swipe",
+        "title": { "ro": "Țeapă sau sigur?", "en": "Scam or safe?" },
+        "left": { "ro": "Țeapă", "en": "Scam" },
+        "right": { "ro": "Sigur", "en": "Safe" },
+        "cards": [
+          { "text": { "ro": "„Coletul tău e blocat în vamă. Achită 2,5 lei aici: bit.ly/vama-plata\"", "en": "\"Your parcel is stuck in customs. Pay 2.5 lei here: bit.ly/customs-fee\"" }, "side": "left", "why": { "ro": "Urgență + taxă mică + link scurtat = rețeta completă. Curierul real nu încasează taxe prin linkuri din SMS.", "en": "Urgency + tiny fee + shortened link = the full recipe. Real couriers don't collect fees through links in texts." } },
+          { "text": { "ro": "„Comanda ta #4412 a fost expediată. Livrare estimată: joi.\"", "en": "\"Your order #4412 has shipped. Estimated delivery: Thursday.\"" }, "side": "right", "why": { "ro": "Zero ingrediente: nicio urgență, nicio emoție, nicio cerere. Doar informație, nu-ți vrea nici bani, nici date, nici coduri.", "en": "Zero ingredients: no urgency, no emotion, no ask. Just information, it wants no money, data, or codes." } },
+          { "text": { "ro": "„Contul tău se închide în 2 ore! Confirmă datele cardului: [link]\"", "en": "\"Your account closes in 2 hours! Confirm your card details: [link]\"" }, "side": "left", "why": { "ro": "Frică + termen de ore + cerere de card. Banca nu-ți închide contul prin SMS și nu-ți cere niciodată datele cardului pe link.", "en": "Fear + an hours-long deadline + a card ask. Banks don't close accounts by text and never ask for card details through a link." } },
+          { "text": { "ro": "„Felicitări! Ești vizitatorul norocos. Revendică premiul cu codul de pe card.\"", "en": "\"Congrats! You're the lucky visitor. Claim your prize with the code on your card.\"" }, "side": "left", "why": { "ro": "Lăcomie + cerere de cod. Premiile reale nu cer nimic de pe cardul tău, codul ăla e cheia banilor, nu a premiului.", "en": "Greed + a code ask. Real prizes never need anything from your card, that code is the key to your money, not to a prize." } },
+          { "text": { "ro": "„Codul tău de autentificare este 482913. Nu-l da nimănui.\"", "en": "\"Your verification code is 482913. Don't share it with anyone.\"" }, "side": "right", "why": { "ro": "Mesajul în sine e sigur, informativ, chiar te avertizează. Codul se tastează, nu se spune. Iar dacă apare fără să-l fi cerut TU, cineva îți încearcă parola: nu-l dai și o schimbi imediat.", "en": "The message itself is safe, informational, it even warns you. Codes get typed, never told. And if it arrives without YOU requesting it, someone is trying your password: don't share it and change it right away." } },
+          { "text": { "ro": "„Sunt de la suport tehnic, am detectat un virus. Instalează aplicația asta să te ajut.\"", "en": "\"I'm from tech support, we detected a virus. Install this app so I can help.\"" }, "side": "left", "why": { "ro": "Frică + cerere de instalare = control total asupra telefonului tău. Suportul real nu te contactează primul și nu-ți cere aplicații de acces.", "en": "Fear + an install ask = full control of your phone. Real support doesn't contact you first and never asks for remote-access apps." } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Orice țeapă = URGENȚĂ + EMOȚIE (frică/lăcomie) + CERERE (bani/date/cod)",
+          "Ambalajul se schimbă mereu; rețeta nu poate, numără ingredientele",
+          "Verifici doar pe canalul oficial, deschis de tine, nu pe linkul din mesaj"
+        ],
+        "en": ["Every scam = URGENCY + EMOTION (fear/greed) + THE ASK (money/data/code)", "The wrapping always changes; the recipe can't, count the ingredients", "Verify only through the official channel, opened by you, never the link in the message"]
+      },
+      "action": {
+        "ro": "Joacă o rundă în Scam Dojo acum: vânează rețeta, urgență, emoție, cerere, în fiecare mesaj. Cu ochiul antrenat, ambalajul nu mai contează.",
+        "en": "Play a round of Scam Dojo now: hunt the recipe, urgency, emotion, the ask, in every message. Once your eye is trained, the wrapping stops mattering."
+      },
+      "teaser": { "ro": "Mâine s-ar putea să primești un SMS despre un colet blocat. Taxa: 2,5 lei. Doar că momeala nu e taxa, și asta schimbă tot.", "en": "Tomorrow you might get a text about a stuck parcel. The fee: 2.5 lei. Except the fee isn't the bait, and that changes everything." },
+      "cards": [
+        {
+          "id": "u5l1-c1",
+          "q": { "ro": "Care sunt cele 3 ingrediente din rețeta oricărei țepe?", "en": "What are the 3 ingredients in every scam's recipe?" },
+          "a": { "ro": "Urgența („acum, altfel pierzi\"), emoția (frică sau lăcomie) și cererea (bani, date sau un cod).", "en": "Urgency (\"now, or you lose it\"), emotion (fear or greed) and the ask (money, data or a code)." }
+        },
+        {
+          "id": "u5l1-c2",
+          "q": { "ro": "De ce folosesc țepele urgența?", "en": "Why do scams use urgency?" },
+          "a": { "ro": "Ca panica să-ți sară peste pasul de verificare, creierul grăbit execută, creierul cu timp verifică.", "en": "So panic skips your verification step, a rushed brain executes, a brain with time verifies." }
+        },
+        {
+          "id": "u5l1-c3",
+          "q": { "ro": "Cum verifici un mesaj suspect?", "en": "How do you verify a suspicious message?" },
+          "a": { "ro": "Pe canalul oficial, separat, deschis de tine: suni tu persoana/instituția pe numărul știut, nu folosești linkul sau numărul din mesaj.", "en": "Through a separate official channel opened by you: you call the person/institution on the known number, never the link or number in the message." }
+        }
+      ]
+    },
+    {
+      "id": "u5-coletul-fantoma",
+      "emoji": "📦",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Coletul care nu există", "en": "The parcel that doesn't exist" },
+      "hook": {
+        "ro": "„Coletul tău e blocat: achită 2,5 lei.\" Țeparul nu vrea cei 2,5 lei ai tăi. Vrea cardul întreg.",
+        "en": "\"Your parcel is stuck: pay 2.5 lei.\" The scammer doesn't want your 2.5 lei. They want the whole card."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "**Smishing** = phishing prin SMS: un mesaj fals care te trimite pe o pagină falsă. Clasicul: „coletul tău e blocat, achită o taxă mică\". Doar că pagina nu încasează 2,5 lei, îți copiază tot cardul: număr, dată de expirare, CVV.",
+            "en": "**Smishing** = phishing by SMS: a fake message sending you to a fake page. The classic: \"your parcel is stuck, pay a small fee\". Except the page doesn't charge 2.5 lei, it copies your whole card: number, expiry date, CVV."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🎣",
+          "title": { "ro": "De ce e taxa așa mică?", "en": "Why is the fee so small?" },
+          "text": {
+            "ro": "Suma minusculă e momeala: pare prea măruntă pentru o țeapă, așa că tastezi fără frică. Ținta nu e taxa, e ==cardul întreg==.",
+            "en": "The tiny amount is the bait: it looks too small to be a scam, so you type without fear. The target isn't the fee, it's ==the whole card==."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Pagina din SMS", "en": "The page in the text" },
+            "text": { "ro": "Domeniu aproape identic cu cel real, o literă în plus, o cratimă, „.net\" în loc de „.ro\". Îți cere **datele cardului**.", "en": "An almost identical domain, an extra letter, a hyphen, \".net\" instead of \".ro\". It asks for your **card details**." }
+          },
+          "right": {
+            "title": { "ro": "Curierul real", "en": "The real courier" },
+            "text": { "ro": "Taxele reale apar în aplicația oficială sau se plătesc la livrare. **Niciodată** pe linkuri din SMS.", "en": "Real fees show up in the official app or get paid on delivery. **Never** through links in texts." }
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Ana, 16 ani, chiar așteaptă un colet, rochia de festival. SMS: „colet blocat, achită 2,5 lei\". E la un pas de plată, apoi vede linkul: „curier-express-plati.net\". Deschide aplicația curierului: coletul e „în livrare\", nicio taxă. **40 de secunde** pe canalul oficial, și țeapa moare singură.",
+            "en": "Ana, 16, really is expecting a parcel, her festival dress. Text: \"parcel stuck, pay 2.5 lei\". She's one step from paying, then sees the link: \"courier-express-pay.net\". She opens the courier's app: the parcel is \"out for delivery\", no fee. **40 seconds** on the official channel, and the scam dies on its own."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Coincidența e trucul lor preferat: mai toată lumea așteaptă mereu câte un colet. Eu aștept trei, și tot verific în aplicație.",
+            "en": "Coincidence is their favorite trick: almost everyone is always expecting a parcel. I'm expecting three, and I still check in the app."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "De ce cere „taxa\" din SMS doar 2,5 lei?", "en": "Why does the \"fee\" in the text ask for only 2.5 lei?" },
+        "options": [
+          { "text": { "ro": "Atât costă procesarea, e o taxă normală de vamă", "en": "That's the processing cost, a normal customs fee" }, "why": { "ro": "Vama și curierii nu încasează taxe prin linkuri trimise pe SMS. Taxele reale apar în aplicația oficială sau se plătesc la livrare.", "en": "Customs and couriers don't collect fees through links sent by text. Real fees show up in the official app or are paid on delivery." } },
+          { "text": { "ro": "Ca suma să pară prea mică pentru a fi o țeapă", "en": "So the amount looks too small to be a scam" }, "why": { "ro": "Exact. Ținta nu e taxa, e cardul întreg, pe care îl tastezi „liniștit\" pe pagina falsă.", "en": "Exactly. The target isn't the fee, it's the whole card, which you type \"calmly\" into the fake page." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "SMS de pe un număr necunoscut: „Coletul tău așteaptă în depozit. Achită taxa de 3 lei: curier-plati.net\". Se nimerește fix când aștepți un colet de la bunica.", "en": "A text from an unknown number: \"Your parcel is waiting at the depot. Pay the 3 lei fee: courier-pay.net\". It lands exactly when you're expecting a parcel from your grandma." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "Plătesc, e doar 3 lei și chiar aștept un colet", "en": "I pay, it's just 3 lei and I really am expecting a parcel" }, "consequence": { "ro": "Fix pe coincidența asta se bazează: mai toată lumea așteaptă mereu câte ceva. Pe pagina falsă nu plătești 3 lei, predai cardul întreg. Coletul bunicii ajunge oricum, fără nicio taxă.", "en": "That coincidence is exactly what it counts on: almost everyone is always expecting something. On the fake page you don't pay 3 lei, you hand over the whole card. Grandma's parcel arrives anyway, fee-free." } },
+          { "text": { "ro": "Caut coletul în aplicația sau pe site-ul oficial al curierului", "en": "I look up the parcel in the courier's official app or site" }, "consequence": { "ro": "Mutarea corectă: canalul oficial, deschis de tine. O problemă reală apare acolo; dacă nu apare nimic, SMS-ul tocmai s-a demascat singur.", "en": "The right move: the official channel, opened by you. A real problem shows up there; if nothing shows, the text just unmasked itself." } },
+          { "text": { "ro": "Răspund la SMS să cer detalii", "en": "I reply to the text asking for details" }, "consequence": { "ro": "Orice răspuns confirmă că numărul tău e viu, intri pe lista „numere care răspund\" și urmează valul doi. Cu țeparii nu conversezi: verifici separat, blochezi numărul, raportezi.", "en": "Any reply confirms your number is live, you join the \"numbers that answer\" list and wave two follows. You don't chat with scammers: verify separately, block the number, report." } }
+        ]
+      },
+      "interactive": {
+        "kind": "cloze",
+        "question": {
+          "ro": "Curierul real nu-ți cere niciodată ___ printr-un link din SMS.",
+          "en": "A real courier never asks for your ___ through a link in a text."
+        },
+        "chips": [
+          { "ro": "datele cardului", "en": "card details" },
+          { "ro": "numărul de AWB", "en": "tracking number" },
+          { "ro": "adresa de livrare", "en": "delivery address" }
+        ],
+        "correct": 0,
+        "explain": {
+          "ro": "AWB-ul și adresa sunt informații normale de livrare, curierul le are deja sau i le poți spune liniștit. Datele cardului sunt cheia banilor tăi: plățile reale se fac la ușă sau în aplicația oficială, nu pe linkuri din SMS.",
+          "en": "The tracking number and the address are normal delivery info, the courier already has them or you can share them safely. Card details are the key to your money: real payments happen at the door or in the official app, not through links in texts."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Smishing = phishing prin SMS; taxa minusculă e momeala, cardul întreg e ținta",
+          "Domeniul fals e aproape identic cu cel real, o literă, o cratimă, alt final",
+          "Curierul real nu-ți cere cardul pe link din SMS, verifici în aplicația oficială"
+        ],
+        "en": ["Smishing = phishing by text; the tiny fee is the bait, the whole card is the target", "The fake domain is almost identical to the real one, a letter, a hyphen, a different ending", "A real courier never asks for your card via a text link, check in the official app"]
+      },
+      "action": {
+        "ro": "Ai vreun SMS de la „curier\" în telefon? Nu deschide linkul. Deschide aplicația curierului și caută acolo coletul. Obiceiul ăsta, format o dată, te apără singur.",
+        "en": "Got any \"courier\" texts on your phone? Don't open the link. Open the courier's app and look the parcel up there. Build that habit once, and it protects you on its own."
+      },
+      "teaser": { "ro": "Data viitoare rolurile se inversează: TU vinzi ceva pe OLX. Iar primul „cumpărător\" apare suspect de repede, și e suspect de grăbit să te plătească.", "en": "Next time the roles flip: YOU are selling something on OLX. And the first \"buyer\" shows up suspiciously fast, and is suspiciously eager to pay you." },
+      "cards": [
+        {
+          "id": "u5l2-c1",
+          "q": { "ro": "Ce e smishing-ul?", "en": "What is smishing?" },
+          "a": { "ro": "Phishing prin SMS: mesaje false (clasic: „de la curier\") care te duc pe pagini false ce îți copiază datele cardului.", "en": "Phishing by SMS: fake texts (classic: \"from the courier\") leading to fake pages that copy your card details." }
+        },
+        {
+          "id": "u5l2-c2",
+          "q": { "ro": "De ce e „taxa\" din SMS-ul fals atât de mică?", "en": "Why is the \"fee\" in the fake text so small?" },
+          "a": { "ro": "Suma mică e momeala: pare prea măruntă pentru o țeapă. Ținta reală e cardul întreg, tastat pe pagina falsă.", "en": "The small amount is the bait: it looks too tiny to be a scam. The real target is the whole card, typed into the fake page." }
+        },
+        {
+          "id": "u5l2-c3",
+          "q": { "ro": "Cum verifici corect un mesaj despre un colet?", "en": "How do you correctly verify a parcel message?" },
+          "a": { "ro": "Deschizi TU aplicația sau site-ul oficial al curierului și cauți coletul acolo, niciodată prin linkul din SMS.", "en": "YOU open the courier's official app or site and look the parcel up there, never through the link in the text." }
+        }
+      ]
+    },
+    {
+      "id": "u5-cumparatorul-grabit",
+      "emoji": "🛒",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "„Cumpărătorul\" grăbit de pe OLX", "en": "The hurried OLX \"buyer\"" },
+      "hook": {
+        "ro": "Pe OLX, „cumpărătorul\" care nu se tocmește și plătește în 5 minute pare un vis. E un scenariu, scris de el, cu cardul tău în rolul principal.",
+        "en": "On OLX, the \"buyer\" who doesn't haggle and pays within 5 minutes looks like a dream. It's a script, written by him, with your card in the lead role."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Vlad, 17 ani, își vinde consola veche cu 350 de lei. În 10 minute, primul „cumpărător\": nu negociază, nu întreabă nimic, „am plătit prin OLX Livrare, confirmă aici ca să primești banii\" plus un link care iese din platformă. Pagina cere numărul cardului și CVV-ul, „pentru transfer\".",
+            "en": "Vlad, 17, is selling his old console for 350 lei. Within 10 minutes, the first \"buyer\": no haggling, no questions, \"I paid via OLX Delivery, confirm here to receive the money\" plus a link that leaves the platform. The page asks for his card number and CVV, \"for the transfer\"."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "🔑",
+          "title": { "ro": "Regula de aur", "en": "The golden rule" },
+          "text": {
+            "ro": "Ca să **primești** bani, nu dai niciodată datele cardului sau vreun cod. ==CVV-ul plătește DIN cardul tău, nu ÎN el==, cine ți-l cere vrea să scoată, nu să trimită.",
+            "en": "To **receive** money, you never give card details or any code. ==The CVV pays FROM your card, not INTO it==, whoever asks for it wants to take, not send."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Cumpărătorul real", "en": "The real buyer" },
+            "text": { "ro": "Se poartă ca unul care **dă** bani: întreabă, negociază, vine să vadă produsul.", "en": "Acts like someone **giving** money: asks, haggles, comes to see the item." }
+          },
+          "right": {
+            "title": { "ro": "„Cumpărătorul\" țepar", "en": "The scammer \"buyer\"" },
+            "text": { "ro": "Se poartă ca unul care **ia**: grabă artificială, linkuri externe, coduri.", "en": "Acts like someone **taking**: artificial rush, external links, codes." }
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            { "ro": "Scrie-i propoziția-test: „plata se face doar prin aplicația platformei, la livrare\".", "en": "Send the test sentence: \"payment happens only through the platform's app, on delivery\"." },
+            { "ro": "Confirmarea plății o cauți **în aplicație**, niciodată pe linkuri primite în chat. Escrow-ul fals doar împrumută numele și logo-ul platformei.", "en": "Look for the payment confirmation **in the app**, never through links received in chat. Fake escrow only borrows the platform's name and logo." },
+            { "ro": "Cere card, cod sau te grăbește? Raportezi din platformă și blochezi.", "en": "Asking for a card, a code, or rushing you? Report from the platform and block." }
+          ]
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Cine se grăbește să-ți dea bani vrea, de fapt, să-i ia. Eu în viața mea nu m-am grăbit decât la alune.",
+            "en": "Anyone rushing to give you money actually wants to take it. The only thing I've ever rushed for is hazelnuts."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "„Cumpărătorul\" îți cere numărul cardului și CVV-ul „ca să-ți trimită banii\". Ce e greșit?", "en": "The \"buyer\" asks for your card number and CVV \"to send you the money\". What's wrong?" },
+        "options": [
+          { "text": { "ro": "Nimic, fără ele nu se pot vira banii", "en": "Nothing, money can't be sent without them" }, "why": { "ro": "Ca să primești bani ajunge cel mult IBAN-ul sau confirmarea din aplicație. Numărul complet + CVV fac exact invers: SCOT bani din contul tău.", "en": "To receive money, at most your IBAN or the in-app confirmation is enough. Full number + CVV do the exact opposite: they TAKE money out of your account." } },
+          { "text": { "ro": "Totul, cu CVV-ul se plătește DIN cardul tău, nu ÎN el", "en": "Everything, the CVV pays FROM your card, not INTO it" }, "why": { "ro": "Exact. CVV-ul e cheie de plată, nu de încasare. Cine ți-l cere nu-ți trimite bani, își face cumpărăturile din contul tău.", "en": "Exactly. The CVV is a key for paying, not receiving. Whoever asks for it isn't sending you money, they're shopping from your account." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Vinzi căștile cu 150 de lei. Mesaj: „Le iau! Am trimis banii prin curier, doar confirmă-ți datele aici întâi\" + link extern. Și insistă: „am nevoie de ele azi\".", "en": "You're selling your headphones for 150 lei. Message: \"I'll take them! I sent the money via courier, just confirm your details here first\" + external link. And he pushes: \"I need them today\"." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "Confirm pe link, nu vreau să pierd vânzarea", "en": "I confirm on the link, I don't want to lose the sale" }, "consequence": { "ro": "Pagina falsă îți ia datele cardului, iar „cumpărătorul\" dispare cu tot cu ele. Nu vânzarea era pe masă, contul tău era.", "en": "The fake page takes your card details, and the \"buyer\" vanishes with them. The sale was never on the table, your account was." } },
+          { "text": { "ro": "Îi scriu: plata se face doar prin aplicația OLX, la livrare", "en": "I write back: payment happens only through the OLX app, on delivery" }, "consequence": { "ro": "Propoziția-test: țeparul dispare instant (nu are ce lua), cumpărătorul real acceptă fără probleme. Un singur mesaj, filtru perfect.", "en": "The test sentence: the scammer vanishes instantly (nothing to take), the real buyer agrees without fuss. One message, a perfect filter." } },
+          { "text": { "ro": "Accept să vorbim pe WhatsApp, să-mi explice acolo", "en": "I agree to move to WhatsApp so he can explain there" }, "consequence": { "ro": "Mutarea de pe platformă e fix planul lui: fără istoricul conversației, fără butonul de raportare, fără urme. Discuția rămâne unde există dovezi și „Raportează\".", "en": "Moving off the platform is exactly his plan: no conversation history, no report button, no traces. The chat stays where evidence and \"Report\" exist." } }
+        ]
+      },
+      "interactive": {
+        "kind": "mcq",
+        "question": {
+          "ro": "Vinzi un hanorac pe OLX. Care mesaj vine de la un cumpărător REAL?",
+          "en": "You're selling a hoodie on OLX. Which message comes from a REAL buyer?"
+        },
+        "options": [
+          { "text": { "ro": "„Am plătit prin OLX Livrare, confirmă-ți cardul aici: olx-livrare-plati.net\"", "en": "\"I paid via OLX Delivery, confirm your card here: olx-delivery-pay.net\"" }, "why": { "ro": "Plata reală prin platformă se vede și se confirmă ÎN aplicație. Orice link extern care cere „confirmarea cardului\" e țeapă, oricât de oficial sună numele.", "en": "A real platform payment shows up and gets confirmed IN the app. Any external link asking to \"confirm your card\" is a scam, however official the name sounds." } },
+          { "text": { "ro": "„E negociabil? Pot veni sâmbătă să-l văd?\"", "en": "\"Is the price negotiable? Can I come see it on Saturday?\"" } },
+          { "text": { "ro": "„Trimit curierul meu acum, dă-mi codul primit pe SMS, ca să rezerv coletul\"", "en": "\"I'm sending my courier now, give me the code you got by text, to book the parcel\"" }, "why": { "ro": "Codul de pe SMS autorizează plăți sau loghează conturi, în numele tău. Cine ți-l cere vrea să apese el butonul. Nu se dă. Nimănui.", "en": "The code in your text authorizes payments or logs into accounts, in your name. Whoever asks for it wants to press the button themselves. It's never shared. With anyone." } }
+        ],
+        "correct": 1,
+        "explain": {
+          "ro": "Cumpărătorul real se poartă ca unul care DĂ bani: întreabă, negociază, vine să vadă. Țeparul se poartă ca unul care IA: grabă, linkuri externe, coduri.",
+          "en": "A real buyer acts like someone GIVING money: asks, haggles, comes to see. A scammer acts like someone TAKING: rush, external links, codes."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Regula de aur: ca să PRIMEȘTI bani nu dai niciodată card, CVV sau coduri",
+          "Escrow-ul fals împrumută numele platformei, plata reală se confirmă ÎN aplicație",
+          "Graba e artificială: cumpărătorul real negociază și așteaptă; țeparul „are nevoie azi\""
+        ],
+        "en": ["Golden rule: to RECEIVE money you never give card, CVV or codes", "Fake escrow borrows the platform's name, real payment confirms IN the app", "The rush is artificial: real buyers haggle and wait; the scammer \"needs it today\""]
+      },
+      "action": {
+        "ro": "Scrie-ți regula de aur în notițele telefonului, azi: „Ca să primesc bani, nu dau niciodată card, CVV sau coduri.\" Când vinzi ceva, recitește-o înainte de primul mesaj.",
+        "en": "Write the golden rule in your phone notes today: \"To receive money, I never give card, CVV or codes.\" When you sell something, reread it before the first message."
+      },
+      "teaser": { "ro": "„Profit garantat: 30% pe lună. Locuri limitate.\" Înainte să răspunzi cuiva care promite asta, fă un singur calcul. Ți-l arăt în lecția următoare, transformă „visul\" în aritmetică.", "en": "\"Guaranteed profit: 30% a month. Limited spots.\" Before answering anyone promising that, run one single calculation. I'll show you next lesson, it turns the \"dream\" into arithmetic." },
+      "cards": [
+        {
+          "id": "u5l3-c1",
+          "q": { "ro": "Care e regula de aur când PRIMEȘTI bani?", "en": "What's the golden rule when RECEIVING money?" },
+          "a": { "ro": "Nu dai niciodată numărul cardului, CVV-ul sau coduri. Ca să primești ajunge cel mult IBAN-ul sau confirmarea din aplicație.", "en": "You never give your card number, CVV or codes. To receive, at most your IBAN or the in-app confirmation is enough." }
+        },
+        {
+          "id": "u5l3-c2",
+          "q": { "ro": "Cum arată escrow-ul fals de pe platformele de vânzări?", "en": "What does fake escrow look like on marketplace platforms?" },
+          "a": { "ro": "Un link extern gen „OLX Livrare\" care îți cere datele cardului. Cel real se vede și se confirmă în aplicație, fără linkuri din chat.", "en": "An external \"OLX Delivery\"-style link asking for your card details. The real one shows and confirms in the app, no chat links." }
+        },
+        {
+          "id": "u5l3-c3",
+          "q": { "ro": "De ce te grăbește „cumpărătorul\"?", "en": "Why does the \"buyer\" rush you?" },
+          "a": { "ro": "Graba e artificială, să nu ai timp să verifici. Cumpărătorul real negociază și așteaptă; țeparul are mereu „nevoie azi\".", "en": "The rush is artificial, so you have no time to verify. Real buyers haggle and wait; the scammer always \"needs it today\"." }
+        }
+      ]
+    },
+    {
+      "id": "u5-imbogatirea-lor",
+      "emoji": "💸",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Metode de îmbogățire (a lor)", "en": "Get-rich methods (theirs)" },
+      "hook": {
+        "ro": "„Profit garantat 30% pe lună.\" Cineva chiar se îmbogățește din asta, doar că niciodată cel care intră când reclama ajunge la el. Adică tu.",
+        "en": "\"Guaranteed 30% profit a month.\" Someone really does get rich off this, just never the one joining by the time the ad reaches him. Meaning you."
+      },
+      "guess": {
+        "question": { "ro": "„Profit garantat 30% pe lună.\" Dacă ar fi real, de câte ori s-ar multiplica banii tăi într-un an?", "en": "\"Guaranteed 30% a month.\" If it were real, how many times would your money multiply in a year?" },
+        "min": 2, "max": 50, "step": 1, "actual": 23,
+        "reveal": { "ro": "De vreo 23 de ori (1,3 înmulțit cu el însuși de 12 ori ≈ 23). 100 de lei ar deveni 2.300 într-un an, și peste un milion în trei. Cine ar avea așa ceva n-ar cere banii TĂI. Nu există.", "en": "About 23 times (1.3 multiplied by itself 12 times ≈ 23). 100 lei would become 2,300 in a year, and over a million in three. Anyone who had this wouldn't need YOUR money. It doesn't exist." }
+      },
+      "blocks": [
+        {
+          "t": "stat",
+          "value": 23,
+          "suffix": { "ro": " de ori", "en": " times" },
+          "label": {
+            "ro": "de atâtea ori s-ar înmulți banii într-un singur an, dacă „30% pe lună\" ar fi real",
+            "en": "that's how many times your money would multiply in a single year, if \"30% a month\" were real"
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Ține calculul aproape: 30% pe lună înseamnă de 23 de ori banii într-un an, 100 de lei ar deveni 2.300. Niciun business real nu produce constant așa ceva, deci **„garantat\" plus „uriaș\"** e o contradicție în termeni. Cine ar avea mașina asta de bani n-ar cere banii tăi.",
+            "en": "Keep the math handy: 30% a month means 23 times your money in a year, 100 lei would become 2,300. No real business produces that consistently, so **\"guaranteed\" plus \"huge\"** is a contradiction in terms. Anyone owning that money machine wouldn't need yours."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🧱",
+          "title": { "ro": "De unde vin totuși banii?", "en": "So where does the money come from?" },
+          "text": {
+            "ro": "Primii intrați chiar primesc bani, din depozitele următorilor. Asta e **piramida**: plățile trăiesc doar cât intră oameni noi, deci ==prăbușirea e în proiect, nu un ghinion==. România a trăit-o: Caritas (1992-1994) promitea de 8 ori suma, la prăbușire, cei mai mulți au pierdut tot.",
+            "en": "The first ones in really do get paid, from the next joiners' deposits. That's the **pyramid**: payouts live only while new people join, so ==the collapse is by design, not bad luck==. Romania lived it: Caritas (1992-1994) promised 8 times your money, when it fell, most people lost everything."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Aceeași schemă are și o a doua ușă: nu banii tăi, ci contul tău. „Primești o sumă, o trimiți mai departe, păstrezi 10%\" se numește **money mule** și e spălare de bani: sumele vin din fraude, iar consecința e **dosar penal**, pe numele tău. Adolescenții sunt ținta preferată fix pentru că au conturi „curate\".",
+            "en": "The same scheme has a second door: not your money, your account. \"You receive a sum, send it onward, keep 10%\" is called being a **money mule**, and it's money laundering: the sums come from fraud, and the consequence is a **criminal case**, in your name. Teenagers are the favorite target precisely because their accounts look \"clean\"."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Un job real are muncă reală. „Să plimbi bani\" nu e muncă, e urma pe care o lași anchetei.",
+            "en": "A real job has real work. \"Moving money around\" isn't work, it's the trail you leave for the investigation."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "„Primești 900 de lei în cont, trimiți 800 mai departe, păstrezi 100. Zero efort.\" Ce e asta?", "en": "\"You get 900 lei in your account, send 800 onward, keep 100. Zero effort.\" What is this?" },
+        "options": [
+          { "text": { "ro": "Un mic job de început, plătit modest, dar real", "en": "A small starter job, modest pay, but real" }, "why": { "ro": "Joburile reale au sarcini reale: livrezi, vinzi, programezi, servești. „A plimba bani prin contul tău\" nu e o sarcină, e chiar definiția spălării de bani.", "en": "Real jobs have real tasks: you deliver, sell, code, serve. \"Moving money through your account\" isn't a task, it's the very definition of money laundering." } },
+          { "text": { "ro": "Spălare de bani, cu contul și numele tău pe traseu", "en": "Money laundering, with your account and name on the route" }, "why": { "ro": "Exact. Cei 900 vin dintr-o fraudă, iar primul om pe care îl găsește ancheta e titularul contului: tu.", "en": "Exactly. The 900 comes from a fraud, and the first person the investigation finds is the account holder: you." } }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Radu, 16 ani, primește pe Discord o „ofertă\": „agent de plăți\", păstrează 10% din fiecare transfer, în capul lui, trei ieșiri cu gașca plătite fără efort. Prima zi: intră 1.400 de lei, trimite 1.260, rămâne cu 140. A treia zi: contul blocat și o convocare la bancă, cu părinții. Banii veneau dintr-un card furat, iar traseul lor ducea fix la Radu.",
+        "en": "Radu, 16, gets a Discord \"offer\": \"payment agent\", keep 10% of every transfer, in his head, three nights out with the crew, effort-free. Day one: 1,400 lei comes in, he sends 1,260, keeps 140. Day three: account frozen and a summons to the bank, parents included. The money came from a stolen card, and its trail led straight to Radu."
+      },
+      "interactive": {
+        "kind": "reveal",
+        "title": { "ro": "Miturile îmbogățirii rapide", "en": "Get-rich-quick myths" },
+        "cards": [
+          {
+            "front": { "ro": "„Prietenul meu chiar a primit banii, deci funcționează.\"", "en": "\"My friend actually got paid, so it works.\"" },
+            "back": { "ro": "A primit din depozitele următorilor intrați. Plata primilor e **reclama** schemei, nu dovada, Caritas a plătit și el, până în 1994, când majoritatea au pierdut tot.", "en": "He got paid from the next joiners' deposits. Paying the first ones is the scheme's **advertising**, not proof, Caritas paid too, until 1994, when most people lost everything." }
+          },
+          {
+            "front": { "ro": "„30% pe lună, garantat. Locuri limitate.\"", "en": "\"Guaranteed 30% a month. Limited spots.\"" },
+            "back": { "ro": "30% pe lună = de **23 de ori** banii într-un an. Cine ar avea așa ceva n-ar avea nevoie nici de banii tăi, nici de reclame.", "en": "30% a month = **23 times** your money in a year. Anyone who had that would need neither your money nor ads." }
+          },
+          {
+            "front": { "ro": "„Primești bani, îi trimiți mai departe, păstrezi 10%. Job ușor.\"", "en": "\"You receive money, send it onward, keep 10%. Easy job.\"" },
+            "back": { "ro": "Se numește **money mule** = spălare de bani. Sumele vin din fraude, iar primul găsit de anchetă e titularul contului: tu.", "en": "It's called a **money mule** = money laundering. The sums come from fraud, and the first person the investigation finds is the account holder: you." }
+          }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "„Garantat\" + „randament uriaș\" = contradicție: 30%/lună ar însemna ×23 într-un an",
+          "Piramida plătește din intrările următorilor, prăbușirea e în proiect (vezi Caritas, 1994)",
+          "„Primești bani și-i trimiți mai departe\" = money mule = spălare de bani, dosar penal"
+        ],
+        "en": ["\"Guaranteed\" + \"huge returns\" = contradiction: 30%/month would mean ×23 in a year", "A pyramid pays from the next joiners' money, collapse is by design (see Caritas, 1994)", "\"Receive money and send it onward\" = money mule = money laundering, a criminal case"]
+      },
+      "action": {
+        "ro": "Când vezi o „metodă de îmbogățire\", pune singura întrebare care contează: din ce vin banii, exact? Dacă răspunsul e „din următorii intrați\", ai deja răspunsul.",
+        "en": "When you see a \"get-rich method\", ask the only question that matters: where exactly does the money come from? If the answer is \"from the next joiners\", you already have your answer."
+      },
+      "teaser": { "ro": "Și dacă ai apucat deja să dai click, să tastezi cardul, să trimiți banii? Lecția următoare e planul exact pentru minutul de după. Fără nicio predică.", "en": "And what if you already clicked, typed the card, sent the money? Next lesson is the exact plan for the minute after. Zero lecturing." },
+      "cards": [
+        {
+          "id": "u5l4-c1",
+          "q": { "ro": "De ce e „profit garantat 30% pe lună\" imposibil?", "en": "Why is \"guaranteed 30% a month\" impossible?" },
+          "a": { "ro": "Ar însemna de 23 de ori banii într-un an, niciun business real nu produce constant așa ceva. „Garantat\" + „uriaș\" e o contradicție.", "en": "It would mean 23 times your money in a year, no real business produces that consistently. \"Guaranteed\" + \"huge\" is a contradiction." }
+        },
+        {
+          "id": "u5l4-c2",
+          "q": { "ro": "De unde vin banii într-o piramidă și de ce se prăbușește sigur?", "en": "Where does pyramid money come from, and why does it always collapse?" },
+          "a": { "ro": "Din depozitele următorilor intrați, nu din profit. Când nu mai intră destui, plățile se opresc, matematic, ca la Caritas în 1994.", "en": "From the next joiners' deposits, not from profit. When too few join, payouts stop, mathematically, like Caritas in 1994." }
+        },
+        {
+          "id": "u5l4-c3",
+          "q": { "ro": "Ce e un „money mule\"?", "en": "What is a \"money mule\"?" },
+          "a": { "ro": "Cineva care primește bani din fraude în contul lui și-i trimite mai departe pentru un procent. E spălare de bani, faptă penală, iar traseul duce la contul lui.", "en": "Someone who receives fraud money in their account and sends it onward for a cut. It's money laundering, a criminal offense, and the trail leads to their account." }
+        }
+      ]
+    },
+    {
+      "id": "u5-daca-ai-patit-o",
+      "emoji": "🚨",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Dacă ai pățit-o", "en": "If it happened to you" },
+      "hook": {
+        "ro": "Rușinea e a doua armă a țeparului: prima îți ia banii, a doua te ține tăcut, fix cât să nu-i mai poți recupera.",
+        "en": "Shame is the scammer's second weapon: the first takes your money, the second keeps you silent, just long enough to make it unrecoverable."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Primul lucru de știut: n-ai fost prost, ai fost **atacat**. Același mesaj pleacă spre mii de numere deodată; țeparul era la muncă, tu erai doar pe listă. Al doilea lucru: de-acum contează doar viteza, primele minute decid dacă banii mai pot fi opriți.",
+            "en": "First thing to know: you weren't stupid, you were **attacked**. The same message goes out to thousands of numbers at once; the scammer was at work, you were just on the list. Second thing: from now on only speed matters, the first minutes decide whether the money can still be stopped."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "🤐",
+          "title": { "ro": "A doua armă", "en": "The second weapon" },
+          "text": {
+            "ro": "Prima armă îți ia banii. A doua e **rușinea**: te ține tăcut, iar ==tăcerea îi păstrează câștigul==, fix cât să nu se mai poată recupera nimic.",
+            "en": "The first weapon takes your money. The second is **shame**: it keeps you silent, and ==silence protects his winnings==, just long enough that nothing can be recovered."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            { "ro": "Blochezi cardul din aplicația băncii, există buton dedicat.", "en": "Block the card from your bank's app, there's a dedicated button." },
+            { "ro": "Suni banca și spui exact ce s-a întâmplat.", "en": "Call the bank and say exactly what happened." },
+            { "ro": "Schimbi parolele conturilor atinse, emailul primul.", "en": "Change the passwords of the affected accounts, email first." },
+            { "ro": "Spui unui adult de încredere: nu pentru permisiune, ci pentru un al doilea creier calm.", "en": "Tell a trusted adult: not for permission, but for a second, calm brain." },
+            { "ro": "Raportezi la 1911, linia națională gratuită a DNSC, și la poliție, cu dovezile păstrate.", "en": "Report to 1911, DNSC's free national line, and to the police, with the evidence saved." }
+          ]
+        },
+        {
+          "t": "stat",
+          "value": 30,
+          "suffix": { "ro": " de secunde", "en": " seconds" },
+          "label": {
+            "ro": "atât durează blocarea cardului din aplicație, pasul 1 nu așteaptă pe nimeni",
+            "en": "that's how long blocking the card in the app takes, step 1 waits for no one"
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Ioana, da, fix ea, regina bugetelor, a tastat cardul pe un „site de curierat\" la 7 dimineața. La 7:04 a realizat. 7:05: card blocat din aplicație. 7:12: banca, sunată. Seara, banii erau neatinși, iar cardul nou era pe drum. Nu pentru că Ioana e perfectă, pentru că a acționat în **minute, nu în zile**.",
+            "en": "Ioana, yes, her of all people, the budget queen, typed her card into a \"courier site\" at 7 a.m. At 7:04 she realized. 7:05: card blocked from the app. 7:12: bank called. By evening, the money was untouched and the new card was on its way. Not because Ioana is perfect, because she acted in **minutes, not days**."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Raportarea nu e birocrație: blochează conturile țeparului și îi apără pe următorii. Tăcerea n-a recuperat niciodată nimic.",
+            "en": "Reporting isn't red tape: it blocks the scammer's accounts and protects the next targets. Silence has never recovered a thing."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Realizezi că tocmai ți-au luat datele cardului. Care e PRIMUL pas?", "en": "You realize your card details were just taken. What's the FIRST step?" },
+        "options": [
+          { "text": { "ro": "Sun un prieten să mă sfătuiască", "en": "Call a friend for advice" }, "why": { "ro": "Pierzi fix minutele care contează. Oamenii de sprijin vin la pasul 4, întâi tai accesul: cardul, blocat din aplicație.", "en": "You lose exactly the minutes that matter. Support people come at step 4, first you cut the access: card blocked from the app." } },
+          { "text": { "ro": "Blochez cardul din aplicația băncii", "en": "Block the card from the bank's app" }, "why": { "ro": "Exact, 30 de secunde și robinetul e închis. Restul pașilor au timp; ăsta nu are.", "en": "Exactly, 30 seconds and the tap is shut. The other steps can wait; this one can't." } },
+          { "text": { "ro": "Șterg mesajul și linkul, să dispară", "en": "Delete the message and the link, make them disappear" }, "why": { "ro": "Mesajul e dovadă, pentru bancă, pentru 1911, pentru poliție. Păstrezi tot: SMS, link, capturi de ecran.", "en": "The message is evidence, for the bank, for 1911, for the police. You keep everything: text, link, screenshots." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Fratele tău mai mic vine la tine alb la față: acum o oră a „plătit taxa\" unui colet fals, cu cardul lui. Te roagă să nu spui nimănui.", "en": "Your little brother comes to you white as a sheet: an hour ago he \"paid the fee\" for a fake parcel, with his card. He begs you not to tell anyone." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "Îl ajut să blocheze cardul din aplicație, chiar acum", "en": "I help him block the card from the app, right now" }, "consequence": { "ro": "Primul pas, exact la timp: robinetul se închide în 30 de secunde. Abia apoi vin restul, banca sunată, parolele, un adult, raportarea la 1911.", "en": "The first step, exactly on time: the tap shuts in 30 seconds. Only then come the rest, calling the bank, passwords, an adult, reporting to 1911." } },
+          { "text": { "ro": "Îi păstrez secretul, a fost doar o taxă mică", "en": "I keep his secret, it was just a small fee" }, "consequence": { "ro": "Secretul e fix ce-i trebuie țeparului: datele cardului nu expiră ca o taxă. Cât timp cardul e activ, „taxa mică\" poate deveni cont gol. Îl ajuți mai mult acționând acum decât tăcând.", "en": "The secret is exactly what the scammer needs: card details don't expire like a fee. While the card stays active, the \"small fee\" can become an empty account. You help him more by acting now than by staying quiet." } },
+          { "text": { "ro": "Îl liniștesc întâi: n-a fost prost, a fost atacat, apoi trecem la plan", "en": "I calm him down first: he wasn't stupid, he was attacked, then we run the plan" }, "consequence": { "ro": "Da, rușinea e a doua armă, iar tu tocmai i-ai luat-o. Doar ai grijă ca liniștitul să dureze un minut, nu o seară: blocarea cardului nu așteaptă. Amândouă, în ordinea asta, repede.", "en": "Yes, shame is the second weapon, and you just took it away. Just make sure the calming takes a minute, not an evening: blocking the card doesn't wait. Both, in that order, fast." } }
+        ]
+      },
+      "interactive": {
+        "kind": "order",
+        "title": { "ro": "Ai pățit-o. Pune pașii în ordine", "en": "It happened. Put the steps in order" },
+        "items": [
+          { "text": { "ro": "Blochezi cardul din aplicația băncii", "en": "Block the card from the bank's app" } },
+          { "text": { "ro": "Suni banca și spui ce s-a întâmplat", "en": "Call the bank and say what happened" } },
+          { "text": { "ro": "Schimbi parolele, emailul primul", "en": "Change the passwords, email first" } },
+          { "text": { "ro": "Spui unui adult de încredere", "en": "Tell a trusted adult" } },
+          { "text": { "ro": "Raportezi la 1911 și la poliție, cu dovezile păstrate", "en": "Report to 1911 and the police, with the evidence saved" }, "why": { "ro": "Ordinea are logică: întâi tai accesul la bani (cardul), apoi anunți banca, apoi închizi ușile rămase (parolele), apoi aduci întăriri și raportezi. Dovezile, SMS, link, capturi, nu se șterg: sunt muniția băncii și a poliției.", "en": "The order has logic: first cut access to the money (the card), then alert the bank, then close the remaining doors (passwords), then bring reinforcements and report. The evidence, text, link, screenshots, never gets deleted: it's ammunition for the bank and the police." } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Rușinea te ține tăcut, iar tăcerea e exact ce-i trebuie țeparului",
+          "Ordinea: blochezi cardul din aplicație → suni banca → schimbi parolele → spui unui adult → raportezi",
+          "1911 = linia națională gratuită a DNSC; plus poliția, cu dovezile păstrate, nu șterse"
+        ],
+        "en": ["Shame keeps you silent, and silence is exactly what the scammer needs", "The order: block the card in the app → call the bank → change passwords → tell an adult → report", "1911 = DNSC's free national line; plus the police, with the evidence saved, not deleted"]
+      },
+      "action": {
+        "ro": "Fă pasul 0 de pe acum: găsește butonul de blocare a cardului în aplicația băncii tale și salvează numărul băncii în telefon. Două minute, o singură dată, și planul tău e armat.",
+        "en": "Do step 0 today: find the card-blocking button in your bank's app and save the bank's number in your phone. Two minutes, once, and your plan is armed."
+      },
+      "teaser": { "ro": "Scutul e gata. În Unitatea 6, „Economisirea = superputere\": fondul de urgență care te face greu de zguduit și dobânda compusă, singura creștere „garantată\" care există pe bune. E lentă, e matematică și e a ta.", "en": "The shield is done. In Unit 6, \"Saving = superpower\": the emergency fund that makes you hard to shake, and compound interest, the only \"guaranteed\" growth that truly exists. It's slow, it's math, and it's yours." },
+      "cards": [
+        {
+          "id": "u5l5-c1",
+          "q": { "ro": "De ce e rușinea „a doua armă\" a țeparului?", "en": "Why is shame the scammer's \"second weapon\"?" },
+          "a": { "ro": "Te ține tăcut: nu blochezi, nu suni, nu raportezi, iar banii devin de nerecuperat. Cine a pățit-o a fost atacat, nu „prost\".", "en": "It keeps you silent: no blocking, no calling, no reporting, and the money becomes unrecoverable. Whoever it happened to was attacked, not \"stupid\"." }
+        },
+        {
+          "id": "u5l5-c2",
+          "q": { "ro": "Care e ordinea pașilor dacă ai pățit-o?", "en": "What's the order of steps if it happened to you?" },
+          "a": { "ro": "1) blochezi cardul din aplicație, 2) suni banca, 3) schimbi parolele (emailul primul), 4) spui unui adult, 5) raportezi la 1911 și la poliție.", "en": "1) block the card in the app, 2) call the bank, 3) change passwords (email first), 4) tell an adult, 5) report to 1911 and the police." }
+        },
+        {
+          "id": "u5l5-c3",
+          "q": { "ro": "Ce e 1911?", "en": "What is 1911?" },
+          "a": { "ro": "Linia națională gratuită a DNSC unde raportezi incidentele cibernetice și fraudele online din România.", "en": "DNSC's free national line for reporting cyber incidents and online fraud in Romania." }
+        }
+      ]
+    }
+  ]
+}

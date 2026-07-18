@@ -1,0 +1,609 @@
+﻿{
+  "$schema_note": "Unitatea 3, Track A (14-18), format 3: hook [+ guess opțional] -> pagină de concept din blocuri vizuale (text/callout/stat/vs/steps/quote) dezvăluite prin tap -> check -> scenariu jucabil -> interactiv (rotație fără repetare consecutivă, inclusiv order/pairs/reveal) -> recap în 3 idei + acțiune + teaser. Texte bilingve, cu bold și evidențieri inline mereu în perechi închise.",
+  "unit": {
+    "id": "u3",
+    "ord": 3,
+    "format": 3,
+    "track": "A",
+    "emoji": "🛡️",
+    "color": "violet",
+    "title": { "ro": "Arta de a NU cumpăra", "en": "The art of NOT buying" }
+  },
+  "lessons": [
+    {
+      "id": "u3-nevoie-dorinta",
+      "emoji": "⚖️",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Nevoie sau dorință?", "en": "Need or want?" },
+      "hook": {
+        "ro": "Dorințele nu-s dușmanul. Dușmanul e dorința deghizată în nevoie.",
+        "en": "Wants aren't the enemy. The enemy is a want disguised as a need."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Nevoile te țin în funcțiune: transport, mâncare, școală, sănătate. Dorințele te fac fericit: ieșiri, gaming, haine care-ți plac. **Ambele au loc în buget**, știi deja gălețile 50/30/20. Problema nu e să ai dorințe. ==Problema e să le treci drept nevoi.==",
+            "en": "Needs keep you running: transport, food, school, health. Wants make you happy: nights out, gaming, clothes you love. **Both belong in the budget**, you already know the 50/30/20 buckets. Having wants isn't the problem. ==Labeling them as needs is.=="
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Nevoie", "en": "Need" },
+            "text": { "ro": "Fără ea apare un **blocaj real**: nu ajungi la școală, nu mănânci, nu ești sănătos.", "en": "Without it you hit a **real blocker**: no way to school, no food, no health." }
+          },
+          "right": {
+            "title": { "ro": "Dorință", "en": "Want" },
+            "text": { "ro": "Fără ea trăiești liniștit, doar **mai puțin distrat**. Se planifică, nu se execută pe loc.", "en": "Without it you live just fine, only **less entertained**. It gets planned, not executed on the spot." }
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            { "ro": "Întreabă-te: **ce se întâmplă dacă NU cumpăr o lună?**", "en": "Ask yourself: **what happens if I DON'T buy it for a month?**" },
+            { "ro": "Apoi: **rezolv o problemă sau un chef?**", "en": "Then: **am I solving a problem or a craving?**" },
+            { "ro": "Blocaj real → nevoie. Restul → dorință, în găleata ei.", "en": "Real blocker → need. Everything else → want, in its own bucket." }
+          ]
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🧠",
+          "title": { "ro": "Avocatul din capul tău", "en": "The lawyer in your head" },
+          "text": {
+            "ro": "Creierul pledează excelent pentru dorințe: „chiar **am nevoie** de căștile noi, pentru școală!\". Testul de 2 întrebări îl dă de gol în 10 secunde.",
+            "en": "Your brain pleads brilliantly for wants: \"I really **need** the new headphones, for school!\". The 2-question test exposes it in 10 seconds."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Eu nu-mi refuz alunele, doar le întreb: ești cină sau ești poftă? Alunele sincere răspund repede.",
+            "en": "I never refuse my acorns, I just ask them: are you dinner or a craving? Honest acorns answer fast."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Ieșirea cu prietenii de vineri: nevoie sau dorință?", "en": "Friday night out with friends: need or want?" },
+        "options": [
+          { "text": { "ro": "Dorință, deci ar trebui tăiată", "en": "A want, so it should be cut" }, "why": { "ro": "Prima parte, da. A doua, nu: dorințele sănătoase se PLANIFICĂ în găleata lor, nu se execută.", "en": "First half yes, second half no: healthy wants get PLANNED into their bucket, not executed." } },
+          { "text": { "ro": "Dorință, și e perfect ok să rămână în buget", "en": "A want, and it's fine right there in the budget" }, "why": { "ro": "Exact. Eticheta corectă nu condamnă nimic, doar așază banii la locul lor.", "en": "Exactly. The right label condemns nothing, it just puts money in its place." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Radu, 16 ani: adidașii zilnici tocmai au cedat. La mall, lângă raionul de încălțăminte: hanoracul „ediție limitată\" al trupei lui preferate. În buzunar: 250 de lei.", "en": "Radu, 16: his daily sneakers just died. At the mall, next to the shoe aisle: the \"limited edition\" hoodie of his favorite band. In his pocket: 250 lei." },
+        "question": { "ro": "Care e nevoia lui Radu?", "en": "Which one is Radu's need?" },
+        "options": [
+          { "text": { "ro": "Adidașii, clar", "en": "The sneakers, clearly" }, "consequence": { "ro": "Da: fără ei, mâine merge la școală în șlapi. Nevoie = **blocaj real**, nu etichetă scumpă. Testul a durat 5 secunde.", "en": "Yes: without them, tomorrow it's flip-flops to school. A need is a **real blocker**, not an expensive label. The test took 5 seconds." } },
+          { "text": { "ro": "Hanoracul, e ediție LIMITATĂ", "en": "The hoodie, it's LIMITED edition" }, "consequence": { "ro": "„Limitată\" e un buton, nu o urgență. Radu trăiește liniștit fără el, deci e dorință. Poate intra în planul lunii viitoare, cu tot cu test de 24h.", "en": "\"Limited\" is a button, not an urgency. Radu lives fine without it, so it's a want." } },
+          { "text": { "ro": "Amândouă, dacă împarte banii", "en": "Both, if he splits the money" }, "consequence": { "ro": "Matematic tentant. Practic: adidași decenți de 125 de lei se găsesc greu, iar hanoracul „limitat\" va exista și la reduceri. Spoiler: mereu există.", "en": "Mathematically tempting. In practice: decent 125-lei sneakers are rare, and the \"limited\" hoodie will exist on sale too. Spoiler: it always does." } }
+        ]
+      },
+      "interactive": {
+        "kind": "swipe",
+        "title": { "ro": "Sortează: nevoie sau dorință?", "en": "Sort it: need or want?" },
+        "left": { "ro": "Nevoie", "en": "Need" },
+        "right": { "ro": "Dorință", "en": "Want" },
+        "cards": [
+          { "text": { "ro": "Abonamentul de transport pe luna viitoare", "en": "Next month's transport pass" }, "side": "left", "why": { "ro": "Fără el nu ajungi la școală. Blocaj real = nevoie.", "en": "Without it you can't get to school. Real blocker = need." } },
+          { "text": { "ro": "Boba după ore, a treia săptămâna asta", "en": "Boba after school, third this week" }, "side": "right", "why": { "ro": "Îți place? Perfect. Dar e chef, nu blocaj: dorință, la planificat.", "en": "You love it? Great. Still a craving, not a blocker: a want, to be planned." } },
+          { "text": { "ro": "Pastă de dinți", "en": "Toothpaste" }, "side": "left", "why": { "ro": "Igiena de bază nu se negociază. Nevoie.", "en": "Basic hygiene isn't negotiable. Need." } },
+          { "text": { "ro": "Căști noi, ale tale merg, dar au ieșit altele", "en": "New headphones, yours work, but new ones dropped" }, "side": "right", "why": { "ro": "„Au ieșit altele\" e marketing, nu blocaj. Dorință curată.", "en": "\"New ones dropped\" is marketing, not a blocker. A pure want." } },
+          { "text": { "ro": "Meditația la mate dinaintea tezei", "en": "Math tutoring before the big test" }, "side": "left", "why": { "ro": "Investiție directă în școală: o nevoie, dintre cele deștepte.", "en": "A direct investment in school: a need, one of the smart ones." } },
+          { "text": { "ro": "Skinul nou de sezon", "en": "The new season skin" }, "side": "right", "why": { "ro": "Status și fun, dorință. Are voie în găleata ei, nu în a nevoilor.", "en": "Status and fun, a want. Welcome in its own bucket, not in the needs one." } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Dorințele nu se taie, se etichetează corect",
+          "Testul: ce pățesc dacă NU cumpăr? problemă sau chef?",
+          "Creierul e avocatul dorințelor, testul îl dă de gol"
+        ],
+        "en": ["Wants aren't cut, they're labeled right", "The test: what if I DON'T buy? problem or craving?", "Your brain is the wants' lawyer, the test exposes it"]
+      },
+      "action": {
+        "ro": "Ia ultimele 3 cumpărături din jurnalul tău și pune-le eticheta pe bune: nevoie sau dorință?",
+        "en": "Take your last 3 logged purchases and label them honestly: need or want?"
+      },
+      "teaser": { "ro": "De ce „redus de la 300 la 149\" poate însemna zero economie.", "en": "Why \"reduced from 300 to 149\" can mean zero savings." },
+      "cards": [
+        {
+          "id": "u3l1-c1",
+          "q": { "ro": "Care e testul rapid nevoie vs dorință?", "en": "What's the quick need-vs-want test?" },
+          "a": { "ro": "„Ce se întâmplă dacă NU cumpăr o lună?\" + „Rezolv o problemă sau un chef?\"", "en": "\"What happens if I DON'T buy for a month?\" + \"Problem or craving?\"" }
+        },
+        {
+          "id": "u3l1-c2",
+          "q": { "ro": "Dorințele trebuie eliminate din buget?", "en": "Should wants be cut from the budget?" },
+          "a": { "ro": "Nu, se planifică în găleata lor (30%). Problema e doar etichetarea greșită.", "en": "No, they get planned into their bucket (30%). Only mislabeling is the problem." }
+        },
+        {
+          "id": "u3l1-c3",
+          "q": { "ro": "De ce simți unele dorințe ca pe nevoi?", "en": "Why do some wants feel like needs?" },
+          "a": { "ro": "Creierul le e avocat: găsește justificări („pentru școală!\"). Testul celor 2 întrebări îl dă de gol.", "en": "Your brain is their lawyer: it invents justifications. The 2-question test exposes it." }
+        }
+      ]
+    },
+    {
+      "id": "u3-ancora",
+      "emoji": "🧲",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Prețul-momeală", "en": "The decoy price" },
+      "hook": {
+        "ro": "„Redus de la 300 la 149.\" Întrebarea corectă: a fost VREODATĂ 300?",
+        "en": "\"Reduced from 300 to 149.\" The right question: was it EVER 300?"
+      },
+      "guess": {
+        "question": { "ro": "Hanoracul e „redus de la 300 la 149\", dar n-a costat niciodată 300. Câți lei economisești cumpărându-l?", "en": "The hoodie is \"reduced from 300 to 149\", but it never cost 300. How many lei do you save by buying it?" },
+        "min": 0, "max": 200, "step": 10, "actual": 0,
+        "reveal": { "ro": "Zero. Economisești doar față de un preț REAL. „300\" era o ancoră, un decor pus să facă 149 să pară chilipir.", "en": "Zero. You only save against a REAL price. \"300\" was an anchor, set dressing to make 149 look like a steal." }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "**Ancorarea**: primul număr pe care îl vezi devine punctul de comparație, chiar dacă e inventat. Prețul tăiat de pe etichetă e pus acolo fix ca să compare creierul tău cu EL, nu cu valoarea reală. Nu ești naiv: ==mecanismul merge pe toți==.",
+            "en": "**Anchoring**: the first number you see becomes the reference point, even if it's invented. The crossed-out price is there precisely so your brain compares to IT, not to real value. You're not naive: ==the mechanism works on everyone==."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "🧲",
+          "title": { "ro": "Rudele ancorei", "en": "The anchor's relatives" },
+          "text": {
+            "ro": "**9,99** (creierul reține prima cifră), **„3 la preț de 2\"** (pleci cu 3 în loc de 1), „transport gratuit peste 150 de lei\" (umpli coșul ca să „economisești\" 15). Toate mută întrebarea de la „îmi trebuie?\" la „cât de tare e oferta?\".",
+            "en": "**9.99** (your brain keeps the first digit), **\"3 for 2\"** (you leave with 3 instead of 1), \"free shipping over 150 lei\" (you fill the cart to \"save\" 15). All of them swap \"do I need it?\" for \"how good is the deal?\"."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 179,
+          "suffix": " lei",
+          "label": {
+            "ro": "prețul rucsacului „redus AZI de la 299\", în fiecare săptămână, de două luni. Ana a verificat istoricul.",
+            "en": "the price of the backpack \"reduced TODAY from 299\", every single week, for two months. Ana checked the history."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Antidotul are două piese: **rotunjește mereu în sus** (9,99 = 10 lei) și compară cu **istoricul de preț**, nu cu eticheta tăiată. Economisești doar față de un preț real, față de unul inventat, economia e zero.",
+            "en": "The antidote has two parts: **always round up** (9.99 = 10 lei) and compare with the **price history**, not the crossed-out tag. You only save against a real price, against an invented one, the saving is zero."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Pe mine „redus de la 300\" nu mă impresionează. Întrebarea mea de veveriță: cât costa marțea trecută?",
+            "en": "\"Reduced from 300\" doesn't impress me. My squirrel question: what did it cost last Tuesday?"
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Vezi 9,99 lei. Ce reține creierul tău?", "en": "You see 9.99 lei. What does your brain keep?" },
+        "options": [
+          { "text": { "ro": "„9 lei și ceva\", adică ieftin", "en": "\"9-something\", cheap" }, "why": { "ro": "Da, prima cifră ancorează. De-asta prețurile se termină în 99 de un secol. Antidot: rotunjește mereu în sus.", "en": "Yes, the first digit anchors. That's why prices have ended in 99 for a century. Antidote: always round up." } },
+          { "text": { "ro": "10 lei, evident", "en": "10 lei, obviously" }, "why": { "ro": "Al tău poate, dacă e antrenat. Al majorității reține „9 și ceva\". Rotunjirea în sus e antrenamentul.", "en": "Yours might, if trained. Most brains keep \"9-something\". Rounding up is the training." } }
+        ],
+        "correct": 0
+      },
+      "scenario": {
+        "setup": { "ro": "Rucsacul vechi al Anei tocmai s-a rupt la fermoar, îi trebuie unul nou. În magazin: „299 → 179, doar azi!\". Pe telefon, istoricul de preț arată 179 în fiecare săptămână din ultimele două luni.", "en": "Ana's old backpack just broke at the zipper, she needs a new one. In-store: \"299 → 179, today only!\". Her phone's price history shows 179 every week for the past two months." },
+        "question": { "ro": "Tu ești Ana. Ce faci?", "en": "You're Ana. What do you do?" },
+        "options": [
+          { "text": { "ro": "Îl iau: 179 e prețul lui real și chiar îmi trebuie", "en": "Buy it: 179 is its real price and I actually need it" }, "consequence": { "ro": "Decizie pe nevoie + **preț REAL**, nu pe teatru. „Doar azi\" s-a dovedit „mereu\", dar rucsacul tot bun era. Așa arată o cumpărătură cu ochii deschiși.", "en": "A decision on need + **REAL price**, not theater. \"Today only\" turned out to be \"always\", but the backpack was still right." } },
+          { "text": { "ro": "Îl iau REPEDE, până nu expiră reducerea", "en": "Buy it FAST, before the sale ends" }, "consequence": { "ro": "Același rucsac, dar cumpărat din frică. Azi a nimerit bine. Data viitoare, frica pune în coș și lucruri care nu trebuie.", "en": "Same backpack, bought out of fear. It worked out today. Next time, fear will cart things you don't need." } },
+          { "text": { "ro": "Nu-l mai iau deloc, m-au mințit cu „reducerea\"", "en": "Skip it entirely, they lied about the \"sale\"" }, "consequence": { "ro": "De înțeles. Doar observă: pedepsești teatrul, dar rămâi fără rucsacul care îți trebuia. Decizia matură se ia pe nevoie + preț real, nu pe supărare.", "en": "Understandable. But notice: you punish the theater and stay without the backpack you needed. The mature call runs on need + real price, not on spite." } }
+        ]
+      },
+      "interactive": {
+        "kind": "cloze",
+        "question": {
+          "ro": "Prețul tăiat de pe etichetă e o ___: există ca restul să pară ieftin.",
+          "en": "The crossed-out price on the tag is one big ___: it exists to make the rest look cheap."
+        },
+        "chips": [
+          { "ro": "ancoră", "en": "anchor" },
+          { "ro": "economie", "en": "saving" },
+          { "ro": "garanție", "en": "guarantee" }
+        ],
+        "correct": 0,
+        "explain": {
+          "ro": "Ancora mută comparația de la valoarea reală la un număr inventat. Tu compari cu istoricul de preț, nu cu eticheta.",
+          "en": "The anchor moves the comparison from real value to an invented number. You compare with price history, not the tag."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Primul număr văzut = ancora comparației",
+          "9,99, „3 la preț de 2\", praguri de transport, tot ancore",
+          "Compară cu istoricul de preț, nu cu eticheta tăiată"
+        ],
+        "en": ["The first number seen = the anchor", "9.99, \"3 for 2\", shipping thresholds, all anchors", "Compare with price history, not the crossed-out tag"]
+      },
+      "action": {
+        "ro": "Instalează-ți reflexul: la următoarea „reducere\", caută istoricul prețului. Durează 30 de secunde.",
+        "en": "Install the reflex: at the next \"sale\", look up the price history. It takes 30 seconds."
+      },
+      "teaser": { "ro": "Sistemul în 3 pași care lasă impulsurile fără muniție.", "en": "The 3-step system that starves impulses of ammo." },
+      "cards": [
+        {
+          "id": "u3l2-c1",
+          "q": { "ro": "Ce e ancorarea?", "en": "What is anchoring?" },
+          "a": { "ro": "Primul număr văzut devine punctul de comparație, chiar dacă e inventat.", "en": "The first number seen becomes the reference point, even if invented." }
+        },
+        {
+          "id": "u3l2-c2",
+          "q": { "ro": "„Redus de la 300\", cu ce compari ca să afli adevărul?", "en": "\"Reduced from 300\", what do you compare against?" },
+          "a": { "ro": "Cu istoricul real de preț, nu cu eticheta tăiată.", "en": "The real price history, not the crossed-out tag." }
+        },
+        {
+          "id": "u3l2-c3",
+          "q": { "ro": "De ce te costă bani „transportul gratuit peste 150 de lei\"?", "en": "Why does \"free shipping over 150 lei\" cost you money?" },
+          "a": { "ro": "Adaugi produse ca să „economisești\" 15 lei, cumperi mai mult ca să plătești mai puțin. Ancoră clasică.", "en": "You add products to \"save\" 15 lei, buying more to pay less. Classic anchor." }
+        }
+      ]
+    },
+    {
+      "id": "u3-sistemul-anti-impuls",
+      "emoji": "⏸️",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Wishlist-ul cu răbdare", "en": "The patient wishlist" },
+      "hook": {
+        "ro": "Voința se termină. Sistemele nu. Fă-ți unul din 3 pași.",
+        "en": "Willpower runs out. Systems don't. Build one in 3 steps."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Știi deja din Unitatea 1: impulsul e biologie, iar pauza îl stinge. Voința obosește și se termină, **un sistem nu obosește niciodată**. Al tău are exact trei piese.",
+            "en": "You know from Unit 1: impulse is biology, and the pause extinguishes it. Willpower gets tired and runs out, **a system never does**. Yours has exactly three pieces."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            { "ro": "Orice dorință peste limita ta intră pe **wishlist**, cu data de azi.", "en": "Any want above your limit goes on the **wishlist**, dated today." },
+            { "ro": "Nimic nu se cumpără înainte de **7-30 de zile**, după preț.", "en": "Nothing gets bought before **7-30 days**, scaled by price." },
+            { "ro": "Duminica: **revizia de 2 minute**. Ce-a murit pe listă se șterge.", "en": "Sunday: the **2-minute review**. Whatever died on the list gets deleted." }
+          ]
+        },
+        {
+          "t": "callout",
+          "tone": "green",
+          "icon": "✨",
+          "title": { "ro": "Magia listei", "en": "The list's magic" },
+          "text": {
+            "ro": "Wishlist-ul nu-ți refuză nimic, îți dă TOT, dar mai târziu. Creierul primește „da\"-ul, tu primești timpul. ==Refuzul aprinde dorința; amânarea o lasă să se stingă singură.==",
+            "en": "The wishlist refuses you nothing, it gives you EVERYTHING, just later. Your brain gets its \"yes\", you get the time. ==Refusal inflames desire; postponing lets it burn out on its own.=="
+          }
+        },
+        {
+          "t": "stat",
+          "value": 320,
+          "suffix": " lei",
+          "label": {
+            "ro": "rămași în contul lui Vlad după 3 duminici: tastatura mecanică n-a supraviețuit reviziilor. Bicicleta de pe listă, da.",
+            "en": "left in Vlad's account after 3 Sundays: the mechanical keyboard didn't survive the reviews. The bike on the list did."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Eu îngrop alune toamna și le dezgrop iarna. Jumătate nici nu-mi mai plac, fix asta face și wishlist-ul cu poftele tale.",
+            "en": "I bury acorns in autumn and dig them up in winter. Half of them I don't even want anymore, that's exactly what the wishlist does to your cravings."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Wishlist-ul e o listă de refuzuri?", "en": "Is the wishlist a list of refusals?" },
+        "options": [
+          { "text": { "ro": "Da, un mod elegant de a-ți zice „nu\"", "en": "Yes, an elegant way of saying no" }, "why": { "ro": "Fix invers: e un „da, mai târziu\". Refuzul aprinde dorința; amânarea o lasă să se stingă singură.", "en": "The exact opposite: it's a \"yes, later\". Refusal inflames desire; postponing lets it burn out on its own." } },
+          { "text": { "ro": "Nu, e un „da\" cu dată", "en": "No, it's a \"yes\" with a date" }, "why": { "ro": "Exact. De-asta funcționează: creierul nu se simte pedepsit, iar timpul face treaba grea.", "en": "Exactly. That's why it works: the brain doesn't feel punished, and time does the heavy lifting." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Miercuri. Vezi o tastatură mecanică de 320 de lei, sunet perfect, LED-uri, tot. Limita ta de pauză e 50 de lei. Pe wishlist mai ai 4 lucruri; duminică e ziua de revizie.", "en": "Wednesday. You spot a 320-lei mechanical keyboard, perfect sound, LEDs, everything. Your pause limit is 50 lei. Your wishlist holds 4 items; Sunday is review day." },
+        "question": { "ro": "Mutarea corectă?", "en": "The right move?" },
+        "options": [
+          { "text": { "ro": "O trec pe listă cu data de azi și merg mai departe", "en": "Add it to the list with today's date and move on" }, "consequence": { "ro": "Sistemul lucrează pentru tine: dacă peste 3 duminici tot pe primul loc e, o cumperi cu conștiința împăcată. Dacă a dispărut din cap, ai economisit **320 de lei** fără efort.", "en": "The system works for you: if it still tops the list in 3 Sundays, you buy it guilt-free. If it faded, you saved **320 lei** effortlessly." } },
+          { "text": { "ro": "O iau acum, e peste limită, dar chiar o vreau", "en": "Buy it now, over the limit, but I really want it" }, "consequence": { "ro": "Se întâmplă și la cei mai buni. Observă doar, duminică: mai era pe primul loc? Dacă nu, limita tocmai și-a demonstrat rostul, pe pielea ta.", "en": "Happens to the best. Just notice on Sunday: was it still #1? If not, the limit just proved its point, on your budget." } },
+          { "text": { "ro": "Șterg wishlist-ul, oricum nu-l mai citesc", "en": "Delete the wishlist, I never read it anyway" }, "consequence": { "ro": "Semnal util, nu eșec: veriga slabă era REVIZIA, nu lista. Pune-i alarmă duminică la 18:00. Sistemul ține doar dacă toate cele 3 piese există.", "en": "A useful signal, not failure: the weak link was the REVIEW, not the list. Set a Sunday 6 PM alarm. The system holds only with all 3 pieces in place." } }
+        ]
+      },
+      "interactive": {
+        "kind": "order",
+        "title": { "ro": "Pune sistemul anti-impuls în ordine", "en": "Put the anti-impulse system in order" },
+        "items": [
+          { "text": { "ro": "Vezi tastatura de 320 de lei: „o VREAU\"", "en": "You spot the 320-lei keyboard: \"I WANT it\"" }, "why": { "ro": "Impulsul e startul, nu decizia. Sistemul pornește abia acum.", "en": "The impulse is the start, not the decision. The system kicks in now." } },
+          { "text": { "ro": "O treci pe wishlist, cu data de azi", "en": "You add it to the wishlist, dated today" }, "why": { "ro": "„Da, mai târziu\": creierul primește da-ul, tu primești timpul.", "en": "\"Yes, later\": the brain gets its yes, you get the time." } },
+          { "text": { "ro": "Aștepți pauza: 7-30 de zile, după preț", "en": "You wait out the pause: 7-30 days, by price" }, "why": { "ro": "Pauza crește cu prețul: 7 zile la mărunțișuri, 30 la lovituri mari.", "en": "The pause scales with price: 7 days for small stuff, 30 for big hits." } },
+          { "text": { "ro": "Duminică: revizia de 2 minute", "en": "Sunday: the 2-minute review" }, "why": { "ro": "Două minute pe săptămână, atât costă toată întreținerea sistemului.", "en": "Two minutes a week, the system's entire maintenance cost." } },
+          { "text": { "ro": "Mai e pe primul loc? O cumperi fără vinovăție", "en": "Still #1? You buy it guilt-free" }, "why": { "ro": "Dorința care supraviețuiește pauzei era reală, o cumperi fără regrete. Ce s-a evaporat pe drum era doar marketing.", "en": "A want that survives the pause was real, you buy it regret-free. Whatever evaporated on the way was just marketing." } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Sistemul în 3: wishlist cu dată + pauză 7-30 zile + revizie duminica",
+          "Wishlist = „da, mai târziu\", nu refuz",
+          "Ce moare pe listă era impuls, nu dorință"
+        ],
+        "en": ["The 3-piece system: dated wishlist + 7-30 day pause + Sunday review", "Wishlist = \"yes, later\", not refusal", "What dies on the list was impulse, not desire"]
+      },
+      "action": {
+        "ro": "Deschide notițele și fă-ți wishlist-ul ACUM: 3 coloane, ce, cât costă, data. Pune tot ce-ți dorești azi.",
+        "en": "Open your notes and build the wishlist NOW: 3 columns, what, price, date. Add everything you want today."
+      },
+      "teaser": { "ro": "Black Friday, ziua în care vânătorul ești tu. Sau prada.", "en": "Black Friday, the day you're the hunter. Or the prey." },
+      "cards": [
+        {
+          "id": "u3l3-c1",
+          "q": { "ro": "Care sunt cele 3 piese ale sistemului anti-impuls?", "en": "What are the anti-impulse system's 3 pieces?" },
+          "a": { "ro": "Wishlist cu dată, pauză de 7-30 de zile, revizie săptămânală fixă.", "en": "A dated wishlist, a 7-30 day pause, a fixed weekly review." }
+        },
+        {
+          "id": "u3l3-c2",
+          "q": { "ro": "De ce funcționează wishlist-ul mai bine decât refuzul?", "en": "Why does the wishlist beat refusal?" },
+          "a": { "ro": "E un „da, mai târziu\": creierul nu se simte pedepsit, iar timpul stinge impulsul.", "en": "It's a \"yes, later\": the brain isn't punished, and time extinguishes the impulse." }
+        },
+        {
+          "id": "u3l3-c3",
+          "q": { "ro": "Cum deosebești pe listă dorința reală de impuls?", "en": "On the list, how do you tell real desire from impulse?" },
+          "a": { "ro": "Dorința reală rămâne interesantă și după 3 revizii; impulsul se evaporă.", "en": "Real desire survives 3 reviews; impulse evaporates." }
+        }
+      ]
+    },
+    {
+      "id": "u3-black-friday",
+      "emoji": "🛍️",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Black Friday: cine vânează pe cine", "en": "Black Friday: who hunts whom" },
+      "hook": {
+        "ro": "De Black Friday, cel mai scump lucru din coșul tău e graba.",
+        "en": "On Black Friday, the priciest thing in your cart is the rush."
+      },
+      "guess": {
+        "question": { "ro": "Legea UE spune: „redus de la X\" trebuie raportat la cel mai mic preț din ultimele ___ zile. Câte?", "en": "EU law says: \"reduced from X\" must reference the lowest price of the last ___ days. How many?" },
+        "min": 0, "max": 90, "step": 5, "actual": 30, "unit": { "ro": "zile", "en": "days" },
+        "reveal": { "ro": "30 de zile, „prețul vechi\" legal e minimul din ultimele 30 de zile, nu un număr inventat. Multe „oferte\" pică fix la testul ăsta. Acum știi ce să ceri.", "en": "30 days, the legal \"old price\" is the 30-day minimum, not an invented number. Plenty of \"deals\" fail exactly this test." }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Black Friday apasă **două butoane** deodată. FOMO: „acum sau niciodată\", fals, ofertele revin de Crăciun, de Paște, mereu. Și **ancora umflată**: prețul „vechi\" crescut cu două săptămâni înainte, ca procentul să arate spectaculos.",
+            "en": "Black Friday presses **two buttons** at once. FOMO: \"now or never\", false, the deals return at Christmas, Easter, always. And the **inflated anchor**: the \"old\" price raised two weeks earlier so the percentage looks spectacular."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 19,
+          "suffix": " lei",
+          "label": {
+            "ro": "cu atât plătea Ioana MAI MULT la căștile „−43%\" față de prețul notat de ea cu 2 săptămâni înainte",
+            "en": "how much MORE Ioana would pay for the \"−43%\" headphones versus the price she noted 2 weeks earlier"
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Vânătorul", "en": "The hunter" },
+            "text": { "ro": "Listă făcută **înainte** (direct din wishlist), prețuri notate cu 2 săptămâni în avans, buget fix.", "en": "A list made **in advance** (straight from the wishlist), prices noted 2 weeks early, a fixed budget." }
+          },
+          "right": {
+            "title": { "ro": "Prada", "en": "The prey" },
+            "text": { "ro": "Intră „doar să vadă\", compară cu procentul de pe banner, pleacă cu coșul plin.", "en": "Comes in \"just to look\", compares with the banner's percentage, leaves with a full cart." }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "blue",
+          "icon": "⚖️",
+          "title": { "ro": "Legea e cu tine", "en": "The law is on your side" },
+          "text": {
+            "ro": "În UE, „redus de la X\" trebuie raportat la **cel mai mic preț din ultimele 30 de zile**, nu la un număr inventat. ==Multe „oferte\" pică fix la testul ăsta.==",
+            "en": "In the EU, \"reduced from X\" must reference the **lowest price of the last 30 days**, not an invented number. ==Plenty of \"deals\" fail exactly this test.=="
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Vinerea neagră? Eu îi zic vinerea în care caietul meu cu prețuri devine cea mai citită carte din bârlog.",
+            "en": "Black Friday? I call it the Friday my little price notebook becomes the most-read book in the den."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "„Doar azi, −70%!\" la ceva ce NU era pe lista ta. Ce e?", "en": "\"Today only, −70%!\" on something NOT on your list. What is it?" },
+        "options": [
+          { "text": { "ro": "O ocazie, d-asta aștept Black Friday", "en": "An opportunity, that's why I wait for Black Friday" }, "why": { "ro": "Ocazia o definește LISTA ta, nu procentul lor. −70% la ceva ce nu-ți trebuia = 100% cheltuială în plus.", "en": "YOUR list defines opportunity, not their percentage. −70% on something you didn't need = 100% extra spend." } },
+          { "text": { "ro": "Un buton de FOMO apăsat fix pe tine", "en": "A FOMO button pressed right on you" }, "why": { "ro": "Da. Fără listă, orice procent mare pare ocazie. Lista e armura.", "en": "Yes. Without a list, any big percentage looks like opportunity. The list is the armor." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "10:00, Black Friday. Pe lista Ioanei: căștile (notate la 180 de lei acum 2 săptămâni). Pe site azi: „349 → 199\". Un click mai jos: un smartwatch „−60%\" care NU e pe listă.", "en": "10 AM, Black Friday. On Ioana's list: the headphones (noted at 180 lei two weeks ago). On the site today: \"349 → 199\". One click below: a \"−60%\" smartwatch NOT on the list." },
+        "question": { "ro": "Tu ești Ioana. Ce faci?", "en": "You're Ioana. What do you do?" },
+        "options": [
+          { "text": { "ro": "Compar cu caietul: 199 > 180, nu iau azi", "en": "Compare with my notes: 199 > 180, not today" }, "consequence": { "ro": "Vânător adevărat. Bannerul zicea −43%; caietul tău zicea **+19 lei**. Caietul câștigă mereu, și căștile revin la 180 într-o lună.", "en": "A true hunter. The banner said −43%; your notebook said **+19 lei**. The notebook always wins." } },
+          { "text": { "ro": "Iau căștile, reducerea e reducere", "en": "Buy the headphones, a sale is a sale" }, "consequence": { "ro": "Ai plătit cu 19 lei MAI MULT decât acum 2 săptămâni, bucurându-te că ai „economisit\" 150. Fix asta e magia ancorei: funcționează și când o cunoști.", "en": "You paid 19 lei MORE than two weeks ago while celebrating \"saving\" 150. That's the anchor's magic: it works even when you know it." } },
+          { "text": { "ro": "Iau și smartwatch-ul, dacă tot sunt aici", "en": "Grab the smartwatch too, while I'm here" }, "consequence": { "ro": "Clasicul Black Friday: ai venit după căști, pleci cu 400 de lei minus. Ce nu era pe listă nu era dorință, era decor cu procent.", "en": "Classic Black Friday: you came for headphones, you leave 400 lei lighter. What wasn't on the list wasn't a want, it was scenery with a percentage." } }
+        ]
+      },
+      "interactive": {
+        "kind": "reveal",
+        "title": { "ro": "Miturile Black Friday", "en": "Black Friday myths" },
+        "cards": [
+          {
+            "front": { "ro": "„Redus de la 349 la 199, economisești 150!\"", "en": "\"Reduced from 349 to 199, you save 150!\"" },
+            "back": { "ro": "Economisești doar față de un preț REAL. Căștile Ioanei: **180 de lei** acum 2 săptămâni. „Reducerea\" costa +19.", "en": "You only save against a REAL price. Ioana's headphones: **180 lei** two weeks ago. The \"sale\" cost +19." }
+          },
+          {
+            "front": { "ro": "„Doar azi, apoi dispare!\"", "en": "\"Today only, then it's gone!\"" },
+            "back": { "ro": "Ofertele revin de Crăciun, de Paște, de Valentine's. FOMO e motorul, **calendarul** e antidotul.", "en": "The deals return at Christmas, Easter, Valentine's. FOMO is the engine, the **calendar** is the antidote." }
+          },
+          {
+            "front": { "ro": "„De Black Friday totul e la minimul anului\"", "en": "\"On Black Friday everything hits its yearly low\"" },
+            "back": { "ro": "Un studiu britanic (Which?, 2019) a urmărit ofertele: **peste 9 din 10** erau la fel de ieftine sau MAI ieftine în alte zile ale anului.", "en": "A UK study (Which?, 2019) tracked the deals: **over 9 in 10** were as cheap or CHEAPER on other days of the year." }
+          }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "FOMO + ancore umflate = motorul Black Friday",
+          "Lista făcută înainte definește ce e „ocazie\"",
+          "Compari cu prețul notat de TINE, nu cu procentul lor"
+        ],
+        "en": ["FOMO + inflated anchors = Black Friday's engine", "The list made in advance defines \"opportunity\"", "Compare with YOUR noted price, not their percentage"]
+      },
+      "action": {
+        "ro": "Începe-ți caietul de prețuri azi: notează prețul curent a 2 lucruri de pe wishlist. La reducere, compari cu EL.",
+        "en": "Start your price notebook today: note the current price of 2 wishlist items. At sale time, compare with THAT."
+      },
+      "teaser": { "ro": "Butoanele invizibile din site-uri, și cum le strici doar văzându-le.", "en": "The invisible buttons in websites, and how seeing them breaks them." },
+      "cards": [
+        {
+          "id": "u3l4-c1",
+          "q": { "ro": "Cele 2 butoane pe care apasă Black Friday?", "en": "The 2 buttons Black Friday presses?" },
+          "a": { "ro": "FOMO („acum sau niciodată\") și ancorele umflate (prețul „vechi\" crescut înainte).", "en": "FOMO (\"now or never\") and inflated anchors (the \"old\" price raised beforehand)." }
+        },
+        {
+          "id": "u3l4-c2",
+          "q": { "ro": "Ce definește o „ocazie\" reală de reduceri?", "en": "What defines a real sale \"opportunity\"?" },
+          "a": { "ro": "Era pe lista ta dinainte ȘI e sub prețul notat de tine, nu procentul de pe banner.", "en": "It was on your list beforehand AND below your noted price, not the banner's percentage." }
+        },
+        {
+          "id": "u3l4-c3",
+          "q": { "ro": "Cum arată pregătirea de Black Friday a unui vânător?", "en": "What does a hunter's Black Friday prep look like?" },
+          "a": { "ro": "Listă din wishlist, prețuri notate cu 2 săptămâni înainte, buget fix.", "en": "A wishlist-based list, prices noted 2 weeks ahead, a fixed budget." }
+        }
+      ]
+    },
+    {
+      "id": "u3-dark-patterns",
+      "emoji": "🪤",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Butoanele invizibile", "en": "The invisible buttons" },
+      "hook": {
+        "ro": "Site-urile nu te mint. Doar aranjează adevărul ca să apeși unde vor ele.",
+        "en": "Websites don't lie to you. They just arrange the truth so you tap where they want."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "**Dark patterns**: trucuri de design care te împing spre „da\". Countdown-uri care repornesc, „ultimele 2 bucăți\", „8 oameni se uită acum\", taxe care apar abia la final, refuzul scris rușinos. Site-ul nu te minte, doar aranjează adevărul ca să apeși unde vrea el.",
+            "en": "**Dark patterns**: design tricks that push you toward \"yes\". Restarting countdowns, \"last 2 in stock\", \"8 people are looking right now\", fees appearing only at checkout, refusals worded to shame you. The site doesn't lie, it arranges the truth so you tap where it wants."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Butonul cinstit", "en": "The honest button" },
+            "text": { "ro": "„Nu, mulțumesc.\" Refuzul e o opțiune normală, scrisă normal.", "en": "\"No, thanks.\" Refusal is a normal option, worded normally." }
+          },
+          "right": {
+            "title": { "ro": "Confirmshaming", "en": "Confirmshaming" },
+            "text": { "ro": "„Nu, prefer să plătesc mai mult.\" Refuzul scris ca să te doară.", "en": "\"No, I prefer paying more.\" Refusal worded to sting." }
+          }
+        },
+        {
+          "t": "stat",
+          "value": 74,
+          "suffix": " €",
+          "label": {
+            "ro": "totalul real al biletului „de la 39 de euro\", la pasul 4 din 5: bagaj, loc, „taxă de procesare\", asigurare pre-bifată. Numele trucului: drip pricing.",
+            "en": "the real total of the \"from 39 euros\" ticket, at step 4 of 5: bag, seat, \"processing fee\", pre-ticked insurance. The trick's name: drip pricing."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Nu le poți opri tu, dar le poți VEDEA. ==Un dark pattern văzut e un buton stricat==: în clipa în care zici „aha, confirmshaming\", vraja s-a dus. UE le interzice explicit prin **Digital Services Act**; până ajunge amenda, apărarea cea mai rapidă rămâi tu.",
+            "en": "You can't stop them, but you can SEE them. ==A seen dark pattern is a broken button==: the moment you say \"aha, confirmshaming\", the spell dies. The EU explicitly bans them under the **Digital Services Act**; until the fine arrives, the fastest defense is you."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Când un site îmi scrie „Nu, vreau să rămân neinformat\", eu citesc „aici s-a terminat respectul\". Și plec cu alunele la altul.",
+            "en": "When a site writes \"No, I'd rather stay uninformed\", I read \"this is where the respect ended\". And I take my acorns elsewhere."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "„8 persoane se uită ACUM la acest hotel.\" Informație sau presiune?", "en": "\"8 people are viewing this hotel RIGHT NOW.\" Information or pressure?" },
+        "options": [
+          { "text": { "ro": "Informație, înseamnă că e căutat", "en": "Information, it means it's in demand" }, "why": { "ro": "Poate fi chiar real, dar rostul afișării e unul singur: să te grăbească. Informația utilă era prețul și recenziile.", "en": "It might even be true, but it's displayed for one reason: to rush you. The useful info was the price and the reviews." } },
+          { "text": { "ro": "Presiune în costum de informație", "en": "Pressure in an information costume" }, "why": { "ro": "Da, urgența socială e un buton clasic. Îl vezi = nu mai funcționează.", "en": "Yes, social urgency is a classic button. Seen = broken." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Îți iei bilet de avion: „39 de euro, super ofertă!\". La pasul 4 din 5, totalul sare la 74: bagaj de cală, alegerea locului, „taxă de procesare\" și o asigurare gata bifată.", "en": "You're buying a flight: \"39 euros, super deal!\". At step 4 of 5 the total jumps to 74: checked bag, seat selection, a \"processing fee\" and pre-ticked insurance." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "Plătesc, am ajuns prea departe ca să mă opresc", "en": "Pay, I've come too far to stop" }, "consequence": { "ro": "Fix pe asta mizează drip pricing-ul: efortul investit te ține în coadă. Adevărul: 4 pași de formular nu valorează 35 de euro.", "en": "That's exactly what drip pricing bets on: invested effort keeps you in line. Truth: 4 form steps aren't worth 35 euros." } },
+          { "text": { "ro": "Debifez tot ce nu-mi trebuie și compar TOTALUL final", "en": "Untick everything I don't need and compare the FINAL total" }, "consequence": { "ro": "Asta e mutarea: compari **totaluri finale**, nu prețuri de la pasul 1. Asigurarea pre-bifată zboară prima, ce n-ai bifat tu nu e alegerea ta.", "en": "That's the move: compare **final totals**, not step-1 prices. The pre-ticked insurance goes first, what you didn't tick isn't your choice." } },
+          { "text": { "ro": "Închid tab-ul și caut un site cu totalul la vedere", "en": "Close the tab and find a site showing the total upfront" }, "consequence": { "ro": "Radical și des corect. Doar verifică totalul FINAL și acolo, „de la 39€\" e o specie întreagă, nu o excepție.", "en": "Radical and often right. Just check the FINAL total there too, \"from €39\" is a whole species, not an exception." } }
+        ]
+      },
+      "interactive": {
+        "kind": "pairs",
+        "title": { "ro": "Trucul și fapta", "en": "The trick and the deed" },
+        "pairs": [
+          { "l": { "ro": "Drip pricing", "en": "Drip pricing" }, "r": { "ro": "Taxe care apar abia la final", "en": "Fees that appear only at checkout" } },
+          { "l": { "ro": "Confirmshaming", "en": "Confirmshaming" }, "r": { "ro": "„Nu, prefer să plătesc mai mult\"", "en": "\"No, I prefer paying more\"" } },
+          { "l": { "ro": "Urgență falsă", "en": "Fake urgency" }, "r": { "ro": "Countdown care mâine pornește iar", "en": "A countdown that restarts tomorrow" } },
+          { "l": { "ro": "Roach motel", "en": "Roach motel" }, "r": { "ro": "Intri într-un click, ieși prin 5 meniuri", "en": "One click in, five menus out" } },
+          { "l": { "ro": "Pre-bifare", "en": "Pre-ticking" }, "r": { "ro": "Asigurarea deja pusă în coș", "en": "Insurance already added to your cart" } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Dark patterns = design care te împinge, nu te informează",
+          "Văzut = stricat: numește trucul și butonul moare",
+          "Compară totaluri finale; debifează tot ce n-ai bifat tu"
+        ],
+        "en": ["Dark patterns = design that pushes, not informs", "Seen = broken: name the trick and the button dies", "Compare final totals; untick whatever you didn't tick"]
+      },
+      "action": {
+        "ro": "La următoarea cumpărătură online, numără dark patterns până la checkout. Peste 2? Du-ți totalul în altă parte.",
+        "en": "On your next online purchase, count dark patterns before checkout. More than 2? Take your total elsewhere."
+      },
+      "teaser": { "ro": "În Unitatea 4: jocurile îți vând bani care nu par bani. V-Bucks, cutii cu noroc, „doar 40 de lei\".", "en": "In Unit 4: games sell you money that doesn't feel like money. V-Bucks, loot boxes, \"just 40 lei\"." },
+      "cards": [
+        {
+          "id": "u3l5-c1",
+          "q": { "ro": "Ce e un dark pattern?", "en": "What's a dark pattern?" },
+          "a": { "ro": "Un truc de design care te împinge spre „da\": urgență falsă, pre-bifări, taxe la final, refuz rușinos.", "en": "A design trick pushing you to \"yes\": fake urgency, pre-ticks, fees added only at checkout, shamed refusals." }
+        },
+        {
+          "id": "u3l5-c2",
+          "q": { "ro": "Care e cea mai rapidă apărare contra dark patterns?", "en": "The fastest defense against dark patterns?" },
+          "a": { "ro": "Să le vezi și să le numești, un truc recunoscut nu mai funcționează.", "en": "Seeing and naming them, a recognized trick stops working." }
+        },
+        {
+          "id": "u3l5-c3",
+          "q": { "ro": "La cumpărături online, ce preț compari de fapt?", "en": "Shopping online, which price do you actually compare?" },
+          "a": { "ro": "Totalul FINAL, cu taxele incluse și pre-bifările scoase. Acolo se ascunde diferența.", "en": "The FINAL total, fees in, pre-ticks out. That's where the difference hides." }
+        }
+      ]
+    }
+  ]
+}

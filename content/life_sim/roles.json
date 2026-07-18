@@ -1,0 +1,448 @@
+{
+  "version": "2.0.0",
+  "roles": [
+    {
+      "id": "curier",
+      "emoji": "📦",
+      "name": {"ro": "Curier", "en": "Courier"},
+      "bio": {
+        "ro": "Livrează cu mașina lui prin oraș și cunoaște fiecare scurtătură. Venitul crește cu bacșișurile în zilele bune, dar benzina și mașina veche își cer partea.",
+        "en": "Delivers across the city in his own car and knows every shortcut. Income rises with tips on good days, but fuel and an old car take their cut."
+      },
+      "age": 20,
+      "salary": {
+        "net_min": 3200,
+        "net_max": 4600,
+        "scenario_net": 3800,
+        "source_label": "INS câștigul salarial mediu net 2026 + piața (eJobs/Salario)",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-15",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Venit variabil cu numărul de comenzi și bacșișuri; zilele slabe trag media în jos.",
+          "en": "Income varies with order volume and tips; slow days pull the average down."
+        }
+      },
+      "pay_day": 5,
+      "salary_variability": 0.12,
+      "city_profile": "oras_mare",
+      "housing": "chirie_colocatar",
+      "transport": "masina_veche",
+      "initial_cash": 45000,
+      "initial_fund": 30000,
+      "debts": [
+        {
+          "id": "rata_telefon",
+          "principal": 60000,
+          "monthly": 15000,
+          "due_day": 20,
+          "apr_note": {
+            "ro": "Telefon luat în rate fără dobândă pe 12 luni; mai sunt câteva rate de achitat.",
+            "en": "Phone bought in interest-free installments over 12 months; a few payments remain."
+          }
+        }
+      ],
+      "bills": ["chirie_colocatar", "utilitati_cota", "abonament_telefon", "internet", "asigurare_masina", "combustibil", "spotify"],
+      "benefits": [
+        {"kind": "flag", "id": "are_masina"},
+        {"kind": "flag", "id": "bacsis_livrari"}
+      ],
+      "risks": {
+        "ro": "Venit legat de numărul de comenzi; mașina veche poate cere reparații neașteptate.",
+        "en": "Income tied to the number of orders; the old car can demand unexpected repairs."
+      },
+      "goal_default": "telefon_nou"
+    },
+    {
+      "id": "lucrator_comercial",
+      "emoji": "🛍️",
+      "name": {"ro": "Lucrător comercial", "en": "Retail worker"},
+      "bio": {
+        "ro": "Stă în tura de la magazin și primește tichete de masă pe lângă salariu. Locuiește acasă și contribuie la cheltuieli, așa că pune deoparte cât poate pentru o vacanță.",
+        "en": "Works shifts at the store and gets meal vouchers on top of the wage. Lives at home and chips in for expenses, saving what they can toward a holiday."
+      },
+      "age": 22,
+      "salary": {
+        "net_min": 2800,
+        "net_max": 3800,
+        "scenario_net": 3200,
+        "source_label": "INS câștigul salarial mediu net 2026 + piața (eJobs/Salario)",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-15",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Salariu apropiat de minimul pe economie, plus tichete de masă; orele suplimentare nu sunt garantate.",
+          "en": "Wage near the national minimum, plus meal vouchers; overtime is not guaranteed."
+        }
+      },
+      "pay_day": 1,
+      "salary_variability": 0.05,
+      "city_profile": "oras_mic",
+      "housing": "acasa_contributie",
+      "transport": "stb",
+      "initial_cash": 35000,
+      "initial_fund": 15000,
+      "debts": [
+        {
+          "id": "rata_laptop",
+          "principal": 90000,
+          "monthly": 20000,
+          "due_day": 15,
+          "apr_note": {
+            "ro": "Laptop cumpărat în rate; mai sunt câteva luni de plată.",
+            "en": "Laptop bought on installments; a few months of payments remain."
+          }
+        }
+      ],
+      "bills": ["acasa_contributie", "abonament_telefon", "abonament_stb", "netflix", "mancare_pranz_munca"],
+      "benefits": [
+        {"kind": "flag", "id": "tichete_masa"}
+      ],
+      "risks": {
+        "ro": "Salariu apropiat de minimul pe economie; bugetul are marjă mică la surprize.",
+        "en": "Wage close to the national minimum; the budget has little room for surprises."
+      },
+      "goal_default": "vacanta_vara"
+    },
+    {
+      "id": "programator_junior",
+      "emoji": "💻",
+      "name": {"ro": "Programator junior", "en": "Junior developer"},
+      "bio": {
+        "ro": "Scrie cod la primul job full-time și are cel mai confortabil salariu dintre colegii de generație. Garsoniera, abonamentele și un laptop luat în rate îi umplu însă repede luna.",
+        "en": "Writes code at a first full-time job and has the most comfortable salary of the peer group. A studio flat, subscriptions and a financed laptop fill the month quickly, though."
+      },
+      "age": 24,
+      "salary": {
+        "net_min": 5500,
+        "net_max": 8500,
+        "scenario_net": 6800,
+        "source_label": "INS câștigul salarial mediu net IT 2026 + piața (eJobs/Salario)",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-15",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Salariu peste medie pentru un junior în IT; bonusurile trimestriale nu sunt incluse în scenariu.",
+          "en": "Above-average salary for an IT junior; quarterly bonuses are not included in the scenario."
+        }
+      },
+      "pay_day": 10,
+      "salary_variability": 0.0,
+      "city_profile": "bucuresti",
+      "housing": "chirie_garsoniera",
+      "transport": "stb",
+      "initial_cash": 120000,
+      "initial_fund": 250000,
+      "debts": [
+        {
+          "id": "rata_laptop",
+          "principal": 240000,
+          "monthly": 40000,
+          "due_day": 10,
+          "apr_note": {
+            "ro": "Laptop de lucru performant, luat în rate pe termen mediu.",
+            "en": "A high-performance work laptop, financed over a medium term."
+          }
+        }
+      ],
+      "bills": ["chirie_garsoniera", "curent", "gaze", "internet", "abonament_telefon", "abonament_stb", "netflix", "spotify", "abonament_sala"],
+      "benefits": [
+        {"kind": "flag", "id": "tichete_masa"},
+        {"kind": "flag", "id": "abonament_medical_privat"}
+      ],
+      "risks": {
+        "ro": "Cheltuieli de stil de viață care cresc odată cu salariul; rată de laptop pe termen mediu.",
+        "en": "Lifestyle costs that grow with the salary; a medium-term laptop installment."
+      },
+      "goal_default": "curs_specializare"
+    },
+    {
+      "id": "asistent_medical",
+      "emoji": "🩺",
+      "name": {"ro": "Asistent medical", "en": "Nurse"},
+      "bio": {
+        "ro": "Prinde ture lungi la spital și conduce la muncă indiferent de oră. Pune preț pe siguranță, așa că vrea un fond de urgență care să reziste la orice tură ratată.",
+        "en": "Takes long shifts at the hospital and drives to work at any hour. Values security, so wants an emergency fund that holds up against any missed shift."
+      },
+      "age": 25,
+      "salary": {
+        "net_min": 4200,
+        "net_max": 6000,
+        "scenario_net": 5000,
+        "source_label": "INS câștigul salarial mediu net sănătate 2026 + piața (eJobs/Salario)",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-15",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Sporurile de tură și de gărzi variază de la o lună la alta; scenariul folosește o lună obișnuită.",
+          "en": "Shift and on-call bonuses vary month to month; the scenario uses an ordinary month."
+        }
+      },
+      "pay_day": 5,
+      "salary_variability": 0.08,
+      "city_profile": "oras_mare",
+      "housing": "chirie_colocatar",
+      "transport": "masina_veche",
+      "initial_cash": 60000,
+      "initial_fund": 120000,
+      "debts": [
+        {
+          "id": "rata_telefon",
+          "principal": 45000,
+          "monthly": 15000,
+          "due_day": 18,
+          "apr_note": {
+            "ro": "Telefon în rate fără dobândă; mai sunt trei rate.",
+            "en": "Phone in interest-free installments; three payments left."
+          }
+        }
+      ],
+      "bills": ["chirie_colocatar", "utilitati_cota", "abonament_telefon", "internet", "asigurare_masina", "combustibil", "mancare_pranz_munca"],
+      "benefits": [
+        {"kind": "flag", "id": "are_masina"},
+        {"kind": "flag", "id": "spor_tura"}
+      ],
+      "risks": {
+        "ro": "Program cu ture care obosește; sporurile variază de la o lună la alta.",
+        "en": "A shift schedule that tires; bonuses vary from month to month."
+      },
+      "goal_default": "fond_start"
+    },
+    {
+      "id": "profesor_debutant",
+      "emoji": "📚",
+      "name": {"ro": "Profesor debutant", "en": "First-year teacher"},
+      "bio": {
+        "ro": "Predă la prima catedră și își cumpără singur o parte din materiale. Salariul de debutant e modest, dar vacanțele școlare și un voucher de vacanță ajută planul de economisire.",
+        "en": "Teaches a first post and buys some classroom materials out of pocket. The starting salary is modest, but school breaks and a holiday voucher help the savings plan."
+      },
+      "age": 24,
+      "salary": {
+        "net_min": 3800,
+        "net_max": 4800,
+        "scenario_net": 4300,
+        "source_label": "INS câștigul salarial mediu net învățământ 2026 + piața (eJobs/Salario)",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-15",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Grila de debut e fixă; scenariul nu include ore suplimentare sau meditații.",
+          "en": "The starting pay grade is fixed; the scenario excludes extra hours or tutoring."
+        }
+      },
+      "pay_day": 12,
+      "salary_variability": 0.0,
+      "city_profile": "oras_mic",
+      "housing": "chirie_garsoniera",
+      "transport": "stb",
+      "initial_cash": 50000,
+      "initial_fund": 80000,
+      "debts": [],
+      "bills": ["chirie_garsoniera", "curent", "gaze", "internet", "abonament_telefon", "abonament_stb", "netflix"],
+      "benefits": [
+        {"kind": "flag", "id": "voucher_vacanta"},
+        {"kind": "flag", "id": "vacanta_scolara"}
+      ],
+      "risks": {
+        "ro": "Salariu de debut mic; cheltuieli de serviciu care nu se decontează mereu.",
+        "en": "A small starting salary; work costs that are not always reimbursed."
+      },
+      "goal_default": "bicicleta"
+    },
+    {
+      "id": "freelancer_creativ",
+      "emoji": "🎨",
+      "name": {"ro": "Freelancer creativ", "en": "Creative freelancer"},
+      "bio": {
+        "ro": "Lucrează de acasă la proiecte de design și montaj, cu venit care sare de la o lună la alta. Un fond mai gros îi ține luna dreaptă când clienții întârzie plățile.",
+        "en": "Works from home on design and editing projects, with income that jumps month to month. A thicker buffer keeps the month steady when clients pay late."
+      },
+      "age": 27,
+      "salary": {
+        "net_min": 3000,
+        "net_max": 7000,
+        "scenario_net": 4500,
+        "source_label": "Piața freelancing RO 2026 (Upwork/eJobs) + estimări proprii",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-15",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Venit foarte variabil, dependent de proiecte și de ritmul plăților clienților.",
+          "en": "Highly variable income, dependent on projects and the pace of client payments."
+        }
+      },
+      "pay_day": 1,
+      "salary_variability": 0.25,
+      "city_profile": "bucuresti",
+      "housing": "acasa_contributie",
+      "transport": "pe_jos",
+      "initial_cash": 90000,
+      "initial_fund": 60000,
+      "debts": [
+        {
+          "id": "rata_laptop",
+          "principal": 180000,
+          "monthly": 35000,
+          "due_day": 12,
+          "apr_note": {
+            "ro": "Laptop și tabletă grafică luate în rate, uneltele de bază ale meseriei.",
+            "en": "Laptop and drawing tablet on installments, the core tools of the trade."
+          }
+        }
+      ],
+      "bills": ["acasa_contributie", "internet", "abonament_telefon", "spotify", "netflix", "abonament_sala"],
+      "benefits": [
+        {"kind": "flag", "id": "lucreaza_de_acasa"},
+        {"kind": "flag", "id": "venit_variabil"}
+      ],
+      "risks": {
+        "ro": "Venit foarte variabil; plăți de la clienți care pot întârzia peste scadență.",
+        "en": "Highly variable income; client payments that can slip past their due date."
+      },
+      "goal_default": "casti_studio"
+    },
+    {
+      "id": "ospatar",
+      "emoji": "🍽️",
+      "name": {"ro": "Ospătar", "en": "Waiter"},
+      "bio": {
+        "ro": "Lucrează în tura de seară la un restaurant și pleacă acasă cu bacșișul strâns. Serile pline umflă venitul, dar zilele slabe îl subțiază la loc.",
+        "en": "Works the evening shift at a restaurant and heads home with the tips collected. Busy nights lift the income, quiet days thin it back down."
+      },
+      "age": 21,
+      "salary": {
+        "net_min": 2900,
+        "net_max": 4200,
+        "scenario_net": 3400,
+        "source_label": "INS câștigul salarial mediu net HoReCa 2026 + piața (eJobs/Salario)",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-18",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Salariul de bază e mic, dar bacșișul poate adăuga o parte bună; serile aglomerate fac diferența.",
+          "en": "The base wage is small, but tips can add a good share; busy evenings make the difference."
+        }
+      },
+      "pay_day": 3,
+      "salary_variability": 0.18,
+      "city_profile": "oras_mare",
+      "housing": "chirie_colocatar",
+      "transport": "pe_jos",
+      "initial_cash": 32000,
+      "initial_fund": 18000,
+      "debts": [
+        {
+          "id": "rata_telefon",
+          "principal": 30000,
+          "monthly": 15000,
+          "due_day": 20,
+          "apr_note": {
+            "ro": "Telefon luat în rate fără dobândă; mai sunt două rate de achitat.",
+            "en": "Phone bought in interest-free installments; two payments left."
+          }
+        }
+      ],
+      "bills": ["chirie_colocatar", "utilitati_cota", "abonament_telefon", "internet", "spotify"],
+      "benefits": [
+        {"kind": "flag", "id": "bacsis_tura"}
+      ],
+      "risks": {
+        "ro": "Venitul depinde mult de bacșiș și de cât de plin e restaurantul; picioarele obosesc după ture lungi.",
+        "en": "Income leans heavily on tips and how full the restaurant is; long shifts tire the legs."
+      },
+      "goal_default": "vacanta_vara"
+    },
+    {
+      "id": "student_partime",
+      "emoji": "🎓",
+      "name": {"ro": "Student cu job part-time", "en": "Part-time working student"},
+      "bio": {
+        "ro": "Ține un job de patru ore pe zi și primește și bursă, în timp ce termină facultatea. Locuiește în cămin și învață să întindă fiecare leu până la sfârșitul lunii.",
+        "en": "Holds a four-hour-a-day job and also gets a scholarship while finishing university. Lives in a dorm and learns to stretch every leu to the end of the month."
+      },
+      "age": 20,
+      "salary": {
+        "net_min": 1800,
+        "net_max": 2600,
+        "scenario_net": 2200,
+        "source_label": "INS salariu minim part-time 2026 + bursă studențească + piața (eJobs/Salario)",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-18",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Venitul combină un job de patru ore cu bursa; sesiunea de examene poate reduce orele lucrate.",
+          "en": "Income combines a four-hour job with the scholarship; the exam session can cut the hours worked."
+        }
+      },
+      "pay_day": 7,
+      "salary_variability": 0.1,
+      "city_profile": "oras_mare",
+      "housing": "camin",
+      "transport": "stb",
+      "initial_cash": 25000,
+      "initial_fund": 12000,
+      "debts": [],
+      "bills": ["camin_taxa", "abonament_stb", "abonament_telefon", "netflix"],
+      "benefits": [
+        {"kind": "flag", "id": "program_flexibil"}
+      ],
+      "risks": {
+        "ro": "Bugetul e strâns și lasă marjă mică; sesiunea de examene poate tăia din orele de muncă.",
+        "en": "The budget is tight and leaves a small margin; the exam session can cut into work hours."
+      },
+      "goal_default": "permis_conducere"
+    },
+    {
+      "id": "sofer_ridesharing",
+      "emoji": "🚗",
+      "name": {"ro": "Șofer ridesharing", "en": "Ridesharing driver"},
+      "bio": {
+        "ro": "Face curse prin Capitală pe aplicație și își fixează singur programul. Venitul urcă în serile aglomerate, dar combustibilul și mașina veche își cer partea.",
+        "en": "Runs app-based rides across the capital and sets his own schedule. Income climbs on busy evenings, but fuel and an old car take their cut."
+      },
+      "age": 26,
+      "salary": {
+        "net_min": 3500,
+        "net_max": 6500,
+        "scenario_net": 4800,
+        "source_label": "Piața ridesharing RO 2026 (Bolt/Uber) + estimări proprii",
+        "source_date": "2026-05",
+        "last_reviewed": "2026-07-18",
+        "needs_expert_review": true,
+        "notes": {
+          "ro": "Venit foarte variabil, dependent de numărul de curse și de orele de vârf; costul cu combustibilul se scade din încasări.",
+          "en": "Highly variable income, dependent on the number of rides and peak hours; the fuel cost comes out of the takings."
+        }
+      },
+      "pay_day": 1,
+      "salary_variability": 0.22,
+      "city_profile": "bucuresti",
+      "housing": "chirie_colocatar",
+      "transport": "masina_veche",
+      "initial_cash": 40000,
+      "initial_fund": 35000,
+      "debts": [
+        {
+          "id": "rata_telefon",
+          "principal": 55000,
+          "monthly": 15000,
+          "due_day": 20,
+          "apr_note": {
+            "ro": "Telefon luat în rate fără dobândă; aplicația de curse cere un ecran bun.",
+            "en": "Phone bought in interest-free installments; the ride app needs a good screen."
+          }
+        }
+      ],
+      "bills": ["chirie_colocatar", "utilitati_cota", "abonament_telefon", "internet", "asigurare_masina", "combustibil", "spotify"],
+      "benefits": [
+        {"kind": "flag", "id": "are_masina"},
+        {"kind": "flag", "id": "venit_variabil"}
+      ],
+      "risks": {
+        "ro": "Venitul depinde de orele petrecute la volan; mașina veche poate cere reparații neașteptate.",
+        "en": "Income depends on the hours spent driving; the old car can demand unexpected repairs."
+      },
+      "goal_default": "revizie_masina"
+    }
+  ]
+}

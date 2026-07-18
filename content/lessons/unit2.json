@@ -1,0 +1,551 @@
+﻿{
+  "$schema_note": "Unitatea 2, Track A (14-18), format 3: hook → guess/check → „blocks\" vizuale de concept (text, callout, stat, vs, steps, quote, dezvăluite prin tap) → scenariu jucabil sau exemplu → interactiv (mcq/swipe/checklist/order/pairs/reveal) → recap + pasul de azi + teaser. Fiecare lecție are minim 2 din guess/check/scenario, exact 3 concept cards, rotație de interactive între lecții consecutive și texte bilingve cu markup **bold** și ==evidențiat==.",
+  "unit": {
+    "id": "u2",
+    "ord": 2,
+    "format": 3,
+    "track": "A",
+    "emoji": "📊",
+    "color": "green",
+    "title": { "ro": "Bugetul de licean", "en": "The high-schooler's budget" }
+  },
+  "lessons": [
+    {
+      "id": "u2-planul-nu-pedeapsa",
+      "emoji": "🗺️",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Bugetul: plan, nu pedeapsă", "en": "A budget: plan, not punishment" },
+      "hook": {
+        "ro": "„Buget\" sună a interdicție. E fix invers: e permisiunea de a cheltui fără vinovăție.",
+        "en": "\"Budget\" sounds like a ban. It's the opposite: permission to spend guilt-free."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Un buget e o decizie luată **înainte**: ce treabă are fiecare leu luna asta. Fără buget, decizia se ia oricum, doar că o iau reclamele, pofta de moment și prietenii cu „hai, că mai dai o dată tu\".",
+            "en": "A budget is a decision made **in advance**: what job each leu has this month. Without one, the decision still gets made, just by ads, cravings and friends going \"come on, it's on you again\"."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "violet",
+          "icon": "🧭",
+          "title": { "ro": "Cine decide?", "en": "Who decides?" },
+          "text": {
+            "ro": "Bugetul nu-ți ia libertatea, ==ți-o dă înapoi==. Mută decizia de la vitrină la tine.",
+            "en": "A budget doesn't take your freedom, ==it hands it back==. It moves the decision from the shop window to you."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Partea neintuitivă: un buget care nu iese **nu e un eșec**, e informație. Planul tău s-a întâlnit cu realitatea și ai aflat ceva ce nu știai. Luna viitoare, planul pornește mai deștept. Bugetul perfect din prima nu există la nimeni.",
+            "en": "The unintuitive part: a budget that breaks is **not failure**, it's information. Your plan met reality and you learned something you didn't know. Next month, the plan starts smarter. Nobody nails it on the first try."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Primul meu plan cu alune a murit în ziua a doua. Al doilea a ținut toată iarna. Diferența? Primul nu știa de gaiță.",
+            "en": "My first acorn plan died on day two. The second one lasted all winter. The difference? The first one didn't know about the jay."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Bugetul tău a murit în ziua 9. Ce-ai aflat?", "en": "Your budget died on day 9. What did you learn?" },
+        "options": [
+          { "text": { "ro": "Că nu sunt făcut pentru bugete", "en": "That I'm not built for budgets" }, "why": { "ro": "Nimeni nu e „făcut\" din prima, primul buget al oricui moare devreme. Contează al doilea.", "en": "Nobody is \"built\" for it on try one, everyone's first budget dies early. The second one is what counts." } },
+          { "text": { "ro": "Ceva ce planul meu nu știa", "en": "Something my plan didn't know" }, "why": { "ro": "Exact: e informație, nu verdict. O pui în planul următor și gata, e mai deștept.", "en": "Exactly: it's information, not a verdict. Feed it into the next plan and it's smarter." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Ziua 9. Primul tău buget e mort: ai uitat complet de abonamentul de transport, iar „nevoile\" tocmai au explodat.", "en": "Day 9. Your first budget is dead: you completely forgot the transport pass, and \"needs\" just blew up." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "Renunț, bugetele clar nu sunt pentru mine", "en": "Quit, budgets are clearly not for me" }, "consequence": { "ro": "Verdictul ăsta se dă cel mai des fix în ziua 9. Doar că planul nu ți-a testat caracterul, ==i-a lipsit un rând pe listă==. Atât.", "en": "That verdict gets issued most often exactly on day 9. But the plan wasn't testing your character, ==it was missing one line==. That's all." } },
+          { "text": { "ro": "Îl repar din mers: transportul intră primul pe listă", "en": "Patch it live: transport goes first on the list" }, "consequence": { "ro": "Mutarea Mariei, 15 ani: luna a doua, abonamentul a fost primul rând din buget, și planul a ținut până la final. **Bugetul mort și-a predat lecția.**", "en": "Maria's move, age 15: month two, the pass was the first line of the budget, and the plan held to the end. **The dead budget taught its lesson.**" } },
+          { "text": { "ro": "Cer bani în plus și merg mai departe la fel", "en": "Ask for extra money and carry on the same" }, "consequence": { "ro": "Acoperi luna asta, dar nu și cauza: fără rândul lipsă, gaura revine punctual pe 9. Banii în plus astupă; **informația repară**.", "en": "You cover this month, not the cause: without the missing line, the hole returns punctually on the 9th. Extra money plugs; **information fixes**." } }
+        ]
+      },
+      "interactive": {
+        "kind": "mcq",
+        "question": {
+          "ro": "Ce este, de fapt, un buget?",
+          "en": "What is a budget, really?"
+        },
+        "options": [
+          { "text": { "ro": "O listă de lucruri interzise", "en": "A list of forbidden things" }, "why": { "ro": "Aia e dietă, nu buget, și dietele d-astea se abandonează în două săptămâni.", "en": "That's a diet, not a budget, and diets like that get dropped in two weeks." } },
+          { "text": { "ro": "Un plan făcut ÎNAINTE: ce treabă are fiecare leu", "en": "A plan made IN ADVANCE: a job for each leu" } },
+          { "text": { "ro": "O pedeapsă pentru că ai cheltuit prea mult", "en": "A punishment for overspending" }, "why": { "ro": "Pedeapsa vine după și doare degeaba. Bugetul vine înainte, fix ca să nu mai fie nevoie de pedepse.", "en": "Punishment comes after and hurts for nothing. A budget comes before, precisely so punishment is never needed." } }
+        ],
+        "correct": 1,
+        "explain": {
+          "ro": "Bugetul decide înainte, ca decizia să fie a ta, nu a impulsului de moment.",
+          "en": "A budget decides in advance, so the decision is yours, not the impulse's."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Bugetul = decizia luată înainte, nu interdicția de după",
+          "Fără plan, tot se decide, dar nu de către tine",
+          "Un buget care nu iese e informație, nu eșec"
+        ],
+        "en": ["A budget is a decision made in advance", "Without a plan, someone else decides", "A broken budget is information, not failure"]
+      },
+      "action": {
+        "ro": "Deschide Acasă în FinEdu și uită-te la bugetul lunii. Ăla e planul tău, nu nota ta.",
+        "en": "Open Home in FinEdu and look at this month's budget. That's your plan, not your grade."
+      },
+      "teaser": { "ro": "Există o regulă care împarte orice sumă în 3, în 10 secunde. Lecția următoare ți-o dă.", "en": "There's a rule that splits any amount in 3, in 10 seconds. The next lesson hands it over." },
+      "cards": [
+        {
+          "id": "u2l1-c1",
+          "q": { "ro": "Ce e un buget, într-o propoziție?", "en": "What's a budget, in one sentence?" },
+          "a": { "ro": "Un plan făcut înainte: ce treabă are fiecare leu în luna care vine.", "en": "A plan made in advance: a job for each leu this month." }
+        },
+        {
+          "id": "u2l1-c2",
+          "q": { "ro": "Ce se întâmplă cu deciziile despre bani dacă NU ai buget?", "en": "Who decides your spending if you have no budget?" },
+          "a": { "ro": "Se iau oricum, dar de reclame, impuls și context, nu de tine.", "en": "Decisions still happen, made by ads, impulse and context, not you." }
+        },
+        {
+          "id": "u2l1-c3",
+          "q": { "ro": "Bugetul tău n-a ieșit luna asta. Ce înseamnă asta?", "en": "Your budget broke this month. What does that mean?" },
+          "a": { "ro": "E informație: planul s-a întâlnit cu realitatea, iar luna viitoare îl faci mai deștept.", "en": "It's information: plan met reality; next month's plan gets smarter." }
+        }
+      ]
+    },
+    {
+      "id": "u2-50-30-20",
+      "emoji": "⚖️",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "50/30/20 pe banii tăi", "en": "50/30/20 on your money" },
+      "hook": {
+        "ro": "O singură regulă împarte orice sumă în 3, în 10 secunde. Merge și la 100 de lei, și la 10.000.",
+        "en": "One rule splits any amount in 3, in 10 seconds. Works at 100 lei and at 10,000."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Regula **50/30/20** împarte orice sumă în trei găleți: 50% nevoi (transport, mâncare la școală, rechizite), 30% dorințe (ieșiri, gaming, haine în plus), 20% economii. Destul de simplă cât s-o faci din cap, în autobuz.",
+            "en": "The **50/30/20** rule splits any amount into three buckets: 50% needs (transport, school food, supplies), 30% wants (outings, gaming, extra clothes), 20% savings. Simple enough to do in your head, on the bus."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🥇",
+          "title": { "ro": "Regula de aur", "en": "The golden rule" },
+          "text": {
+            "ro": "Economiile ies **primele**, nu din ce rămâne. ==„Ce rămâne\" nu rămâne niciodată.==",
+            "en": "Savings leave **first**, not from leftovers. ==\"Leftovers\" never survive the month.=="
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Procentele nu sunt sfinte, sunt punct de pornire. La vârsta ta, nevoile ies des sub 50% (stai acasă, mănânci acasă), așa că diferența se mută **conștient**: spre economii sau spre dorințe. Gălețile contează, nu zecimalele.",
+            "en": "The percentages aren't sacred, they're a starting point. At your age, needs often land under 50% (you live at home, eat at home), so the difference moves **consciously**: toward savings or wants. The buckets matter, not the decimals."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 20,
+          "suffix": "%",
+          "label": {
+            "ro": "găleata care lucrează pentru viitorul tău, iese prima din orice sumă",
+            "en": "the bucket working for your future, first out of any amount"
+          }
+        }
+      ],
+      "guess": {
+        "question": { "ro": "Vlad pune deoparte 240 de lei pe lună. Căștile visate: 1.200 de lei. În câte luni le are?", "en": "Vlad sets aside 240 lei a month. The dream headphones: 1,200 lei. In how many months are they his?" },
+        "min": 1, "max": 12, "step": 1, "actual": 5, "unit": { "ro": "luni", "en": "months" },
+        "reveal": { "ro": "1.200 ÷ 240 = **5 luni**. Fără niciun leu în plus, doar cu gălețile așezate altfel: nevoile lui mici i-au lăsat 40% pentru economii.", "en": "1,200 ÷ 240 = **5 months**. Not one extra leu, just buckets arranged differently: his small needs left 40% for savings." }
+      },
+      "check": {
+        "question": { "ro": "Când ies economiile din banii tăi?", "en": "When do savings leave your money?" },
+        "options": [
+          { "text": { "ro": "La final, din ce rămâne după trai", "en": "At the end, from whatever's left" }, "why": { "ro": "„Ce rămâne\" nu rămâne niciodată, luna are grijă de asta. Găleata de economii ar sta veșnic goală.", "en": "\"Whatever's left\" never survives, the month sees to that. The savings bucket would stay forever empty." } },
+          { "text": { "ro": "Primele, restul se împarte după", "en": "First, the rest gets split afterwards" }, "why": { "ro": "Da. Ce iese primul e garantat; ce rămâne la urmă e doar o speranță.", "en": "Yes. What leaves first is guaranteed; what's left at the end is just a hope." } }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Vlad, 17 ani, 600 de lei pe lună. Nevoile lui reale: doar ~180 de lei (30%), pentru că mânca acasă. N-a umflat dorințele, a mutat diferența la economii: **240 de lei pe lună**. Cinci luni mai târziu și-a luat singur căștile pe care le amâna de un an.",
+        "en": "Vlad, 17, 600 lei a month. His real needs: only ~180 lei (30%), because he ate at home. He didn't inflate his wants, he moved the difference into savings: **240 lei a month**. Five months later he bought the headphones he'd been postponing for a year."
+      },
+      "interactive": {
+        "kind": "pairs",
+        "title": { "ro": "Fiecare găleată cu exemplul ei", "en": "Match each bucket with its example" },
+        "pairs": [
+          { "l": { "ro": "Nevoi, 50%", "en": "Needs, 50%" }, "r": { "ro": "abonamentul de transport", "en": "the transport pass" } },
+          { "l": { "ro": "Dorințe, 30%", "en": "Wants, 30%" }, "r": { "ro": "skin nou în joc", "en": "a new in-game skin" } },
+          { "l": { "ro": "Economii, 20%", "en": "Savings, 20%" }, "r": { "ro": "fondul pentru căștile visate", "en": "the dream-headphones fund" } },
+          { "l": { "ro": "Truc de calcul rapid", "en": "Quick math trick" }, "r": { "ro": "10% = tai un zero, apoi dublezi", "en": "10% = drop a zero, then double" } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "3 găleți: 50% nevoi, 30% dorințe, 20% economii",
+          "Economiile ies PRIMELE, nu din ce rămâne",
+          "Procentele se adaptează, gălețile rămân"
+        ],
+        "en": ["3 buckets: 50 needs, 30 wants, 20 savings", "Savings leave FIRST, not from leftovers", "Adapt the percentages, keep the buckets"]
+      },
+      "action": {
+        "ro": "Ia totalul tău lunar (l-ai calculat în Unitatea 1) și împarte-l acum în cele 3 găleți. Scrie cifrele.",
+        "en": "Take your monthly total (from Unit 1) and split it into the 3 buckets now. Write the numbers down."
+      },
+      "teaser": { "ro": "Crezi că știi pe ce ți se duc banii? Memoria ta minte frumos, urmează proba.", "en": "Think you know where your money goes? Your memory lies sweetly, the test is next." },
+      "cards": [
+        {
+          "id": "u2l2-c1",
+          "q": { "ro": "Care sunt cele 3 găleți din regula 50/30/20?", "en": "What are the 3 buckets in 50/30/20?" },
+          "a": { "ro": "Nevoi (50%), dorințe (30%), economii (20%).", "en": "Needs (50%), wants (30%), savings (20%)." }
+        },
+        {
+          "id": "u2l2-c2",
+          "q": { "ro": "De ce ies economiile primele, nu la final?", "en": "Why do savings leave first, not last?" },
+          "a": { "ro": "Ce rămâne „la final\" nu rămâne niciodată, dacă ies primele, sunt garantate.", "en": "Leftovers never survive the month, savings taken first are guaranteed." }
+        },
+        {
+          "id": "u2l2-c3",
+          "q": { "ro": "Nevoile tale sunt doar 30% din bani. Ce faci cu diferența?", "en": "Your needs are only 30%. What about the difference?" },
+          "a": { "ro": "O muți conștient, spre economii sau dorințe, important e să decizi tu.", "en": "Shift it consciously, to savings or wants, the point is that YOU decide." }
+        }
+      ]
+    },
+    {
+      "id": "u2-jurnalul",
+      "emoji": "📝",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Jurnalul de 5 secunde", "en": "The 5-second log" },
+      "hook": {
+        "ro": "Memoria ta minte frumos: „n-am cheltuit mai nimic luna asta\". Jurnalul nu minte deloc.",
+        "en": "Your memory lies sweetly: \"I barely spent anything.\" A log never lies."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Nu poți repara ce nu vezi. Creierul reține cumpărăturile mari și **șterge mărunțișurile**, exact banii care dispar cel mai ușor: un covrig, un suc, o gustare între ore.",
+            "en": "You can't fix what you can't see. Your brain keeps big purchases and **deletes the small stuff**, exactly the money that vanishes easiest: a pretzel, a juice, a snack between classes."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 5,
+          "suffix": { "ro": " secunde", "en": " seconds" },
+          "label": {
+            "ro": "atât durează să loghezi o plată, mai puțin decât un story",
+            "en": "that's how long logging a payment takes, less than a story"
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "green",
+          "icon": "🔦",
+          "title": { "ro": "Nu e regim, e lanternă", "en": "Not a diet, a flashlight" },
+          "text": {
+            "ro": "Jurnalul nu taie nimic, **luminează**. Scurgerea pe care o vezi devine o alegere: ==o păstrezi pentru că îți place, sau o închizi pentru ceva mai bun==.",
+            "en": "The log cuts nothing, it **illuminates**. A leak you can see becomes a choice: ==keep it because you love it, or close it for something better==."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Memoria ta e simpatică, dar jurnalul meu de alune nu m-a mințit niciodată. Nici măcar în noiembrie.",
+            "en": "Your memory is charming, but my acorn ledger has never lied to me. Not even in November."
+          }
+        }
+      ],
+      "guess": {
+        "question": { "ro": "Covrig + suc: cam 10 lei pe zi. Cât adună „nimicurile\" astea într-o lună?", "en": "Pretzel + juice: about 10 lei a day. What do these \"nothings\" add up to in a month?" },
+        "min": 0, "max": 600, "step": 10, "actual": 300,
+        "reveal": { "ro": "~300 de lei, cât un obiectiv întreg de economisire, evaporat în firimituri. ==Memoria nu le vede. Jurnalul, da.==", "en": "~300 lei, a whole savings goal, evaporated in crumbs. ==Memory can't see them. The log can.==" }
+      },
+      "scenario": {
+        "setup": { "ro": "Ai logat o săptămână TOT, ca Ana. Estimarea ta la aplicațiile de livrare: „max 40 de lei\". Jurnalul zice: **90**.", "en": "You logged EVERYTHING for a week, like Ana. Your delivery-app estimate: \"40 lei tops\". The log says: **90**." },
+        "question": { "ro": "Prima ta reacție?", "en": "Your first reaction?" },
+        "options": [
+          { "text": { "ro": "Șterg aplicația. Gata cu livrările", "en": "Delete the app. No more deliveries" }, "consequence": { "ro": "Pedeapsa maximă ține de obicei... două săptămâni. Apoi revine, cu tot cu foame. **Interdicția totală e cel mai fragil plan din lume.**", "en": "Maximum punishment usually lasts... two weeks. Then it's back, hunger included. **A total ban is the world's most fragile plan.**" } },
+          { "text": { "ro": "„Interesant, deci asta fac.\" Aleg ce păstrez", "en": "\"Interesting, so that's what I do.\" I choose what to keep" }, "consequence": { "ro": "Detectiv, nu judecător. Ana a mutat două comenzi pe lună în „gătit cu prietena ei\" și a păstrat restul **fără vinovăție**. Plăcerea a rămas; doar scurgerea s-a închis.", "en": "Detective, not judge. Ana turned two orders a month into \"cooking with her best friend\" and kept the rest **guilt-free**. The joy stayed; only the leak closed." } },
+          { "text": { "ro": "Jurnalul exagerează, eu știu mai bine", "en": "The log exaggerates, I know better" }, "consequence": { "ro": "Jurnalul doar adună bonuri. Memoria e cea care rotunjește mereu în jos, de-asta „40\" părea corect. ==Cifrele bat impresiile.==", "en": "The log just adds up receipts. Memory is the one that always rounds down, that's why \"40\" felt right. ==Numbers beat impressions.==" } }
+        ]
+      },
+      "interactive": {
+        "kind": "checklist",
+        "title": { "ro": "Ritualul jurnalului, bifează ce faci deja", "en": "The logging ritual, tick what you already do" },
+        "items": [
+          { "ro": "Loghez imediat după ce plătesc, nu „mai încolo\"", "en": "I log right after paying, not \"later\"" },
+          { "ro": "Loghez și cash-ul, nu doar cardul", "en": "I log cash too, not just card" },
+          { "ro": "Pun categoria corectă, nu tot la „altele\"", "en": "I pick the right category, not everything under \"other\"" },
+          { "ro": "Seara arunc un ochi: am uitat ceva azi?", "en": "Each evening I check: did I miss anything today?" }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Memoria șterge mărunțișurile, jurnalul le păstrează",
+          "~10 lei/zi = ~300 lei/lună: scurgerile mici contează",
+          "Scopul nu e să tai tot, ci să alegi conștient"
+        ],
+        "en": ["Memory deletes small spending, the log keeps it", "~10 lei/day is ~300 lei/month", "The goal is choosing consciously, not cutting everything"]
+      },
+      "action": {
+        "ro": "Azi loghează TOT, inclusiv covrigul de 5 lei. O zi completă, fără excepții.",
+        "en": "Today, log EVERYTHING, including the 5-lei pretzel. One full day, no exceptions."
+      },
+      "teaser": { "ro": "Ai cifrele. Urmează povestea: 3 categorii îți spun mai mult decât 40 de bonuri.", "en": "You have the numbers. Next comes the story: 3 categories tell you more than 40 receipts." },
+      "cards": [
+        {
+          "id": "u2l3-c1",
+          "q": { "ro": "De ce nu te poți baza pe memorie la cheltuieli mici?", "en": "Why can't you trust memory for small spending?" },
+          "a": { "ro": "Creierul reține cumpărăturile mari și șterge mărunțișurile, exact banii care dispar cel mai ușor.", "en": "The brain keeps big purchases and deletes small ones, the money that vanishes easiest." }
+        },
+        {
+          "id": "u2l3-c2",
+          "q": { "ro": "Cât adună o scurgere de ~10 lei pe zi într-o lună?", "en": "What does a ~10 lei/day leak add up to monthly?" },
+          "a": { "ro": "~300 lei, cât un obiectiv întreg de economisire.", "en": "~300 lei, a whole savings goal." }
+        },
+        {
+          "id": "u2l3-c3",
+          "q": { "ro": "Care e scopul jurnalului: să tai cheltuieli sau altceva?", "en": "Is logging about cutting spending?" },
+          "a": { "ro": "Să alegi conștient: păstrezi ce îți place cu adevărat, închizi ce nu merită.", "en": "It's about conscious choice: keep what you truly love, close what isn't worth it." }
+        }
+      ]
+    },
+    {
+      "id": "u2-unde-s-au-dus",
+      "emoji": "🔍",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Unde s-au dus banii?", "en": "Where did the money go?" },
+      "hook": {
+        "ro": "O grămadă de cheltuieli nu spune nimic. Împărțită pe categorii, devine o poveste, a ta.",
+        "en": "A pile of expenses says nothing. Split into categories, it becomes a story, yours."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Categoriile transformă haosul în poveste. Nu trebuie să optimizezi 20 de lucruri mărunte, găsești **top 3** și te uiți doar acolo. Restul e zgomot.",
+            "en": "Categories turn chaos into a story. You don't have to optimize 20 small things, you find your **top 3** and look only there. The rest is noise."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 70,
+          "suffix": "%",
+          "label": {
+            "ro": "din cheltuieli stau, la aproape oricine, în primele 3 categorii",
+            "en": "of spending sits, for almost anyone, in the top 3 categories"
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Detectivul", "en": "The detective" },
+            "text": { "ro": "„Interesant, deci asta fac.\" Caută tipare, ia notițe, schimbă un obicei.", "en": "\"Interesting, so that's what I do.\" Hunts patterns, takes notes, changes one habit." }
+          },
+          "right": {
+            "title": { "ro": "Judecătorul", "en": "The judge" },
+            "text": { "ro": "„Vai, ce prost sunt.\" Dă sentința, se rușinează... și închide aplicația.", "en": "\"I'm such an idiot.\" Passes sentence, feels ashamed... and closes the app." }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🎭",
+          "title": { "ro": "O lună poate minți", "en": "One month can lie" },
+          "text": {
+            "ro": "Ziua mamei, o excursie, și o categorie explodează o singură dată. Cifra ta reală e ==media pe 2-3 luni==: obiceiurile se repetă, accidentele nu.",
+            "en": "Mom's birthday, a trip, and a category explodes exactly once. Your real number is ==the 2-3 month average==: habits repeat, accidents don't."
+          }
+        }
+      ],
+      "guess": {
+        "question": { "ro": "Radu dă pe mâncare în oraș 40% din cei 600 de lei ai lui. Câți lei pe lună?", "en": "Radu spends 40% of his 600 lei on eating out. How many lei a month?" },
+        "min": 0, "max": 600, "step": 20, "actual": 240,
+        "reveal": { "ro": "**240 de lei**, mai bine de o treime din toți banii lui, într-o singură categorie. Fix de-asta detectivul se uită întâi la top 3.", "en": "**240 lei**, well over a third of all his money, in a single category. Exactly why the detective checks the top 3 first." }
+      },
+      "check": {
+        "question": { "ro": "Luna asta „cadouri\" s-a dublat, a fost ziua mamei. Rescrii bugetul?", "en": "This month \"gifts\" doubled, mom's birthday. Rewrite the budget?" },
+        "options": [
+          { "text": { "ro": "Da, clar nu funcționează", "en": "Yes, it clearly failed" }, "why": { "ro": "Un vârf o singură dată e accident, nu obicei. Bugetul se rescrie pe tipare care se repetă, nu pe evenimente.", "en": "A one-time spike is an accident, not a habit. Budgets get rewritten on repeating patterns, not events." } },
+          { "text": { "ro": "Nu, media pe 2-3 luni decide", "en": "No, the 2-3 month average decides" }, "why": { "ro": "Exact. O lună poate minți; media, nu. Ziua mamei revine abia la anul.", "en": "Exactly. One month can lie; the average can't. Mom's birthday isn't back till next year." } }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Radu, 16 ani, categoria #1: mâncare în oraș, 240 din 600 de lei. N-a tăiat ieșirile cu gașca (alea contau). A mutat două prânzuri pe săptămână de la fast-food la pachet: **120 de lei eliberați pe lună**, distracția neatinsă. Detectiv, nu judecător.",
+        "en": "Radu, 16, category #1: eating out, 240 of his 600 lei. He didn't cut hangouts (those mattered). He swapped two lunches a week from fast-food to packed: **120 lei freed monthly**, fun untouched. Detective, not judge."
+      },
+      "interactive": {
+        "kind": "swipe",
+        "title": { "ro": "Obicei sau accident?", "en": "Habit or accident?" },
+        "left": { "ro": "Obicei", "en": "Habit" },
+        "right": { "ro": "Accident", "en": "Accident" },
+        "cards": [
+          { "text": { "ro": "Covrig și suc în fiecare pauză mare", "en": "Pretzel and juice every long break" }, "side": "left", "why": { "ro": "Se repetă zilnic, apare lună de lună în medie. Material de detectiv.", "en": "Repeats daily, shows up month after month in the average. Detective material." } },
+          { "text": { "ro": "Cadoul de ziua mamei", "en": "Mom's birthday gift" }, "side": "right", "why": { "ro": "O dată pe an. Media pe 2-3 luni îl înghite fără urmă.", "en": "Once a year. The 2-3 month average swallows it without a trace." } },
+          { "text": { "ro": "Comanda de livrare de vineri seara", "en": "The Friday-night delivery order" }, "side": "left", "why": { "ro": "„Doar vinerea\" tot obicei e, de patru ori pe lună, punctual.", "en": "\"Only Fridays\" is still a habit, four times a month, punctually." } },
+          { "text": { "ro": "Ecranul spart, schimbat în service", "en": "The cracked screen fixed at the shop" }, "side": "right", "why": { "ro": "Ghinion, nu tipar. Nu rescrii bugetul după el, dar o pernă l-ar fi amortizat.", "en": "Bad luck, not a pattern. You don't rewrite the budget over it, but a buffer would have cushioned it." } },
+          { "text": { "ro": "Abonamentul lunar din joc", "en": "The monthly in-game subscription" }, "side": "left", "why": { "ro": "Cel mai fidel obicei: cel care se plătește singur. Îl vezi doar dacă loghezi.", "en": "The most loyal habit: the one that pays itself. You only see it if you log." } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Top 3 categorii = de obicei peste 70% din bani",
+          "Detectiv, nu judecător: „interesant\", nu „vinovat\"",
+          "O lună poate minți, media pe 2-3 luni nu"
+        ],
+        "en": ["Top 3 categories hold 70%+ of the money", "Be a detective, not a judge", "One month can lie, the 2-3 month average can't"]
+      },
+      "action": {
+        "ro": "Deschide Acasă și uită-te la categoria ta #1 de luna asta. Întrebarea zilei: te surprinde?",
+        "en": "Open Home and look at your #1 category this month. Today's question: does it surprise you?"
+      },
+      "teaser": { "ro": "Ziua 20, 30 de lei în buzunar, 10 zile de lună. Urmează planul de salvare.", "en": "Day 20, 30 lei in your pocket, 10 days of month left. The rescue plan is next." },
+      "cards": [
+        {
+          "id": "u2l4-c1",
+          "q": { "ro": "Câte categorii adună de obicei 70%+ din cheltuieli?", "en": "How many categories usually hold 70%+ of spending?" },
+          "a": { "ro": "Primele 3, acolo se uită detectivul, nu la toate 20.", "en": "The top 3, that's where the detective looks." }
+        },
+        {
+          "id": "u2l4-c2",
+          "q": { "ro": "Ce înseamnă „detectiv, nu judecător\" când îți vezi cheltuielile?", "en": "What does \"detective, not judge\" mean for your spending?" },
+          "a": { "ro": "Cauți tipare cu curiozitate („interesant, deci asta fac\"), nu îți dai note.", "en": "You look for patterns with curiosity, not guilt." }
+        },
+        {
+          "id": "u2l4-c3",
+          "q": { "ro": "De ce media pe 2-3 luni bate cifra unei singure luni?", "en": "Why does the 2-3 month average beat a single month?" },
+          "a": { "ro": "O lună poate avea evenimente unice (zile de naștere, excursii); media arată obiceiul real.", "en": "One month can hold one-offs; the average shows the real habit." }
+        }
+      ]
+    },
+    {
+      "id": "u2-luna-nu-iese",
+      "emoji": "🧯",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Când luna nu-ți iese", "en": "When the month doesn't add up" },
+      "hook": {
+        "ro": "Ziua 20, mai ai 30 de lei și 10 zile de lună. Panica nu e un plan, dar există unul.",
+        "en": "Day 20, 30 lei left, 10 days to go. Panic isn't a plan, but there is one."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Tuturor le crapă bugetul uneori, inclusiv adulților cu salarii serioase. Diferența nu o face gaura, ci **ce urmează după**. Iar „ce urmează\" are un plan clar, în câteva mutări simple.",
+            "en": "Everyone's budget cracks sometimes, including adults with serious salaries. The difference isn't the hole, it's **what comes next**. And \"what comes next\" has a clear plan, in a few simple moves."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Ioana, 17 ani: ziua 18, mai avea 40 de lei la „dorințe\" pentru 12 zile. A declarat „săptămâna fără cheltuieli fun\", a luat pachet de acasă și a împărțit restul în limite mici de zi. ==A terminat luna fără să atingă economiile.==",
+            "en": "Ioana, 17: day 18, 40 lei of \"wants\" left for 12 days. She declared a no-fun-spend week, packed lunches from home and split the rest into tiny daily limits. ==She finished the month without touching her savings.=="
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "🚨",
+          "title": { "ro": "De unde NU tai", "en": "Where you do NOT cut" },
+          "text": {
+            "ro": "Din economii. Ele au ieșit primele tocmai ca să nu fie plasa de la prima strâmtoare. **Dorințele** se taie, sunt flexibile prin definiție și cresc la loc.",
+            "en": "Savings. They left first precisely so they're not the net at the first squeeze. **Wants** get cut, flexible by definition, they grow back."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 50,
+          "suffix": " lei",
+          "label": {
+            "ro": "perna: suma nealocată nimănui care îndoaie bugetul fără să-l rupă",
+            "en": "the buffer: the unassigned amount that bends a budget without breaking it"
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Iarna vine mereu cu o săptămână mai devreme decât am plănuit. De-asta am două ascunzători de alune, nu una.",
+            "en": "Winter always arrives a week earlier than I planned. That's why I keep two acorn stashes, not one."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Nu-ți iese luna. Din ce tai primul?", "en": "The month isn't adding up. What do you cut first?" },
+        "options": [
+          { "text": { "ro": "Din economii, le pun înapoi luna viitoare", "en": "Savings, I'll put it back next month" }, "why": { "ro": "„Luna viitoare\" e cea mai scumpă promisiune din finanțe, aproape nimeni nu o ține. Economiile rămân neatinse.", "en": "\"Next month\" is finance's most expensive promise, almost nobody keeps it. Savings stay untouched." } },
+          { "text": { "ro": "Din dorințe, sunt flexibile prin definiție", "en": "Wants, they're flexible by definition" }, "why": { "ro": "Da: se taie azi fără pagube permanente și cresc la loc luna viitoare.", "en": "Yes: cut today with no permanent damage, they grow back next month." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Ziua 20. În găleata de dorințe: 30 de lei. Până la banii următori: 10 zile. Diseară te cheamă gașca la film, biletul: 25 de lei.", "en": "Day 20. The wants bucket: 30 lei. Next money: 10 days away. Tonight the crew wants a movie, ticket: 25 lei." },
+        "question": { "ro": "Mutarea ta?", "en": "Your move?" },
+        "options": [
+          { "text": { "ro": "Merg, mă descurc eu cumva după", "en": "Go, I'll manage somehow after" }, "consequence": { "ro": "25 din 30 într-o seară: rămâi cu **50 de bani pe zi** pentru 10 zile. Matematic există; uman, mâine „împrumuți\" din economii. Fix filmul care te costă cel mai scump.", "en": "25 of 30 in one evening: you're left with **50 bani a day** for 10 days. Mathematically it exists; humanly, tomorrow you \"borrow\" from savings." } },
+          { "text": { "ro": "Propun gașcăi film acasă, cei 30 rămân întregi", "en": "Pitch a movie night at home, the 30 stay whole" }, "consequence": { "ro": "Păstrezi și gașca, și limita: 30 ÷ 10 = **3 lei pe zi**, puțin, dar clar și ținibil. Buget mic nu înseamnă viață mică; înseamnă seri creative.", "en": "You keep the crew AND the limit: 30 ÷ 10 = **3 lei a day**, small, but clear and holdable. A small budget isn't a small life; it's creative evenings." } },
+          { "text": { "ro": "Iau 25 din economii, doar de data asta", "en": "Take 25 from savings, just this once" }, "consequence": { "ro": "„Doar de data asta\" e ușa prin care economiile pleacă mereu. ==Economiile nu sunt plasa de siguranță a dorințelor==, pentru surprize există perna.", "en": "\"Just this once\" is the door savings always leave through. ==Savings are not the wants' safety net==, surprises are what the buffer is for." } }
+        ]
+      },
+      "interactive": {
+        "kind": "order",
+        "title": { "ro": "Planul de salvare, pune mutările în ordine", "en": "The rescue plan, put the moves in order" },
+        "items": [
+          { "text": { "ro": "Prinzi gaura devreme, din jurnal", "en": "Catch the gap early, from the log" }, "why": { "ro": "Ziua 18 lasă loc de manevră; ziua 30, nu.", "en": "Day 18 leaves room to maneuver; day 30 doesn't." } },
+          { "text": { "ro": "Îngheți dorințele, economiile rămân neatinse", "en": "Freeze wants, savings stay untouched" }, "why": { "ro": "Tai din flexibil, nu din viitor.", "en": "Cut the flexible part, not the future." } },
+          { "text": { "ro": "Împarți banii rămași la zilele rămase", "en": "Divide money left by days left" }, "why": { "ro": "Un număr mic și clar pe zi bate panica difuză.", "en": "One small clear daily number beats vague panic." } },
+          { "text": { "ro": "Ții limita zilnică până la finalul lunii", "en": "Hold the daily limit to month's end" } },
+          { "text": { "ro": "Luna viitoare pui pernă: 20-50 de lei nealocați", "en": "Next month add a buffer: 20-50 unassigned lei" }, "why": { "ro": "Ăsta e tot planul: vezi devreme, tai din flexibil, împarți, reziști, și data viitoare lași loc de surprize. ==Bugetul cu pernă se îndoaie, nu se rupe.==", "en": "That's the whole plan: see early, cut the flexible, divide, hold, and next time leave room for surprises. ==A budget with a buffer bends, it doesn't break.==" } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Vezi gaura devreme, jurnalul e alarma ta",
+          "Tai din dorințe, economiile rămân neatinse",
+          "Perna (20-50 lei nealocați) îndoaie bugetul fără să-l rupă"
+        ],
+        "en": ["Spot the gap early, the log is your alarm", "Cut wants first, never savings", "A small buffer bends the budget without breaking it"]
+      },
+      "action": {
+        "ro": "Calculează acum: banii rămași ÷ zilele rămase din lună. Aia e limita ta zilnică de azi.",
+        "en": "Do the math now: money left ÷ days left this month. That's your daily limit, starting today."
+      },
+      "teaser": { "ro": "În Unitatea 3: jumătate din „nevoile\" tale sunt dorințe deghizate. Înveți să le demaschezi.", "en": "In Unit 3: half your \"needs\" are wants in disguise. You'll learn to unmask them." },
+      "cards": [
+        {
+          "id": "u2l5-c1",
+          "q": { "ro": "Bugetul nu-ți iese la mijlocul lunii. Din ce tai primul?", "en": "Mid-month, the budget's cracking. What do you cut first?" },
+          "a": { "ro": "Din dorințe, sunt flexibile prin definiție. Economiile rămân neatinse.", "en": "Wants, they're flexible by definition. Savings stay untouched." }
+        },
+        {
+          "id": "u2l5-c2",
+          "q": { "ro": "Cum îți calculezi limita zilnică într-o lună strâmtă?", "en": "How do you compute a daily limit in a tight month?" },
+          "a": { "ro": "Banii rămași ÷ zilele rămase din lună = un număr mic și clar pe zi.", "en": "Money left ÷ days left = one small, clear daily number." }
+        },
+        {
+          "id": "u2l5-c3",
+          "q": { "ro": "Ce e „perna\" din buget și cât de mare e la banii tăi?", "en": "What's a budget \"buffer\" and how big should yours be?" },
+          "a": { "ro": "O sumă mică nealocată (20-50 lei) doar pentru surprize, îndoaie bugetul fără să-l rupă.", "en": "A small unassigned amount (20-50 lei) just for surprises, it bends the budget without breaking it." }
+        }
+      ]
+    }
+  ]
+}

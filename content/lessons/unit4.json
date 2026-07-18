@@ -1,0 +1,605 @@
+{
+  "$schema_note": "Unitatea 4, Track A (14-18), format 3: hook [+ guess opțional] -> pagină de concept din blocuri vizuale (text/callout/stat/vs/quote) dezvăluite prin tap -> check -> exemplu sau scenariu jucabil -> interactiv (rotație fără repetare consecutivă: mcq/cloze/poll/checklist/reveal) -> recap în 3 idei + acțiune + teaser. Texte bilingve, cu bold și evidențieri inline mereu în perechi închise.",
+  "unit": {
+    "id": "u4",
+    "ord": 4,
+    "format": 3,
+    "track": "A",
+    "emoji": "🎮",
+    "color": "amber",
+    "title": { "ro": "Banii din gaming & net", "en": "Money in gaming & online" }
+  },
+  "lessons": [
+    {
+      "id": "u4-monede-ascunse",
+      "emoji": "💎",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Monedele care nu par bani", "en": "The coins that don't feel like money" },
+      "hook": {
+        "ro": "De ce nu poți cumpăra skinul direct cu lei? Pentru că atunci ai vedea cât costă.",
+        "en": "Why can't you buy the skin directly with lei? Because then you'd see what it costs."
+      },
+      "guess": {
+        "question": { "ro": "1.000 V-Bucks: cam câți lei sunt de fapt?", "en": "1,000 V-Bucks: roughly how many lei is that really?" },
+        "min": 5, "max": 200, "step": 5, "actual": 45,
+        "reveal": { "ro": "În jur de 45 de lei. Dacă a trebuit să ghicești, fix ăsta e efectul: moneda din joc te ține departe de lei.", "en": "Around 45 lei. If you had to guess, that's the whole point: in-game currency keeps you away from lei." }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "V-Bucks, Robux, gems. Jocurile își inventează propria monedă, și nu din lene: **moneda intermediară șterge eticheta de preț**. Fără etichetă în lei, „durerea plății\" dispare. Și cheltui mai ușor.",
+            "en": "V-Bucks, Robux, gems. Games invent their own money, and not out of laziness: **the middle currency erases the price tag**. With no price in lei, the \"pain of paying\" vanishes. And you spend more easily."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "1.200 V-Bucks", "en": "1,200 V-Bucks" },
+            "text": { "ro": "Sună a puncte de joc. **Nu doare** deloc.", "en": "Sounds like game points. **Doesn't hurt** at all." }
+          },
+          "right": {
+            "title": { "ro": "≈54 de lei", "en": "≈54 lei" },
+            "text": { "ro": "Sună a bani reali. Doare **exact cât trebuie**.", "en": "Sounds like real money. Hurts **exactly as much as it should**." }
+          }
+        },
+        {
+          "t": "stat",
+          "value": 1200,
+          "suffix": " V-Bucks",
+          "label": {
+            "ro": "costă skinul, dar pachetele sunt doar de 1.000 și 2.800. Suma exactă nu există niciodată, intenționat.",
+            "en": "is the skin's price, but packs come only in 1,000 and 2,800. The exact amount never exists, on purpose."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🧲",
+          "title": { "ro": "Restul captiv", "en": "The captive leftover" },
+          "text": {
+            "ro": "După cumpărătură îți rămân monede blocate în joc: prea puține pentru orice, prea multe ca să le ignori. ==Restul nu e un bonus: e momeala pentru următoarea plată.==",
+            "en": "After the purchase you're left with coins locked in the game: too few for anything, too many to ignore. ==The leftover isn't a bonus: it's the bait for the next payment.=="
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Regula mea de veveriță: dacă nu pot plăti în alune sau în lei, întreb întâi cât e în lei. Mereu e mai mult decât părea.",
+            "en": "My squirrel rule: if I can't pay in acorns or in lei, I first ask what it costs in lei. It's always more than it seemed."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "De ce își inventează jocurile propria monedă?", "en": "Why do games invent their own currency?" },
+        "options": [
+          { "text": { "ro": "Ca plata să fie mai rapidă și mai simplă", "en": "So paying is faster and simpler" }, "why": { "ro": "Cardul salvat era deja instant. Moneda nu grăbește plata. Îi ascunde prețul în lei.", "en": "The saved card was already instant. The currency doesn't speed up payment. It hides the price in lei." } },
+          { "text": { "ro": "Ca să nu mai simți că dai bani reali", "en": "So it stops feeling like real money" }, "why": { "ro": "Exact. Fără etichetă în lei, „durerea plății\" dispare de tot. Și cheltui mai ușor.", "en": "Exactly. With no price tag in lei, the pain of paying vanishes completely. And you spend more easily." } }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Vlad, 17 ani, vrea un skin de 1.200 V-Bucks. Pachetul de 1.000 nu ajunge, așa că ia două: 90 de lei. Skinul „de vreo 54 de lei\" l-a costat 90, iar cei 800 de V-Bucks rămași îi șoptesc deja că „aproape\" ajung pentru următorul.",
+        "en": "Vlad, 17, wants a 1,200 V-Bucks skin. The 1,000 pack isn't enough, so he buys two: 90 lei. The \"54-lei\" skin cost him 90, and the leftover 800 V-Bucks are already whispering they \"almost\" cover the next one."
+      },
+      "interactive": {
+        "kind": "mcq",
+        "question": {
+          "ro": "Skinul costă 1.200 V-Bucks. Pachetele: 1.000 (≈45 lei) sau 2.800 (≈110 lei). Ce cumperi de fapt?",
+          "en": "The skin costs 1,200 V-Bucks. Packs: 1,000 (≈45 lei) or 2,800 (≈110 lei). What do you actually buy?"
+        },
+        "options": [
+          { "text": { "ro": "Fix skinul: plătesc exact cât face", "en": "Exactly the skin: I pay just what it's worth" }, "why": { "ro": "Nu există pachet de 1.200. Intenționat. Sumele „strâmbe\" sunt design, nu întâmplare.", "en": "There is no 1,200 pack. On purpose. Crooked amounts are design, not accident." } },
+          { "text": { "ro": "Mai mult decât skinul, orice aș alege, plus rest captiv", "en": "More than the skin, whatever I pick, plus a captive leftover" } },
+          { "text": { "ro": "Pachetul de 1.000: e cel mai apropiat", "en": "The 1,000 pack: it's the closest one" }, "why": { "ro": "1.000 e sub 1.200. Primul pachet e calibrat să NU ajungă, ca să-l cumperi pe al doilea.", "en": "1,000 is below 1,200. The first pack is calibrated NOT to be enough, so you buy the second." } }
+        ],
+        "correct": 1,
+        "explain": {
+          "ro": "Orice combinație te costă mai mult decât skinul, iar restul rămâne blocat în joc. Ambele sunt intenționate.",
+          "en": "Any combo costs more than the skin, and the leftover stays locked in the game. Both are intentional."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Moneda din joc șterge eticheta de preț: durerea plății dispare",
+          "Pachetele „strâmbe\" te obligă să cumperi mai mult decât îți trebuie",
+          "Restul captiv e momeala pentru următoarea cumpărătură"
+        ],
+        "en": ["In-game currency erases the price tag", "Crooked packs make you overbuy", "The captive leftover baits the next purchase"]
+      },
+      "action": {
+        "ro": "Deschide jocul tău: tradu în lei prețul următorului lucru pe care îl vrei, cu tot cu pachetul pe care ar trebui să-l cumperi de fapt.",
+        "en": "Open your game: translate your next wanted item into lei, including the pack you'd actually have to buy."
+      },
+      "teaser": { "ro": "Cutia cu recompense „aleatorii\" din jocul tău. Mecanismul ei are un nume vechi: păcănea.", "en": "That random-reward box in your game. Its mechanism has an old name: slot machine." },
+      "cards": [
+        {
+          "id": "u4l1-c1",
+          "q": { "ro": "De ce vând jocurile în V-Bucks/Robux, nu în lei?", "en": "Why do games sell in V-Bucks/Robux, not lei?" },
+          "a": { "ro": "Moneda intermediară șterge eticheta de preț: „durerea plății\" dispare și cheltui mai ușor.", "en": "The middle currency erases the price tag: the pain of paying disappears." }
+        },
+        {
+          "id": "u4l1-c2",
+          "q": { "ro": "De ce pachetele de monedă au sume „strâmbe\" față de prețuri?", "en": "Why do coin packs come in crooked amounts?" },
+          "a": { "ro": "Ca să cumperi mai mult decât îți trebuie: primul pachet nu ajunge niciodată.", "en": "So you overbuy: the first pack is never enough." }
+        },
+        {
+          "id": "u4l1-c3",
+          "q": { "ro": "Ce e „restul captiv\" și ce face?", "en": "What is the captive leftover and what does it do?" },
+          "a": { "ro": "Moneda rămasă după cumpărătură, blocată în joc: momeala pentru următoarea achiziție.", "en": "Leftover coins locked in the game: bait for the next purchase." }
+        }
+      ]
+    },
+    {
+      "id": "u4-cutii-noroc",
+      "emoji": "🎰",
+      "minutes": 4,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Cazinoul din buzunar", "en": "The casino in your pocket" },
+      "hook": {
+        "ro": "Cutia de 10 lei din jocul tău e interzisă în Belgia. Nu pentru violență. Pentru că e, legal, o păcănea.",
+        "en": "That 10-lei box in your game is banned in Belgium. Not for violence. Because legally, it's a slot machine."
+      },
+      "guess": {
+        "question": { "ro": "Deschizi 100 de cutii. În cam câte dintre ele pică obiectul „legendary\" pe care îl vrei?", "en": "You open 100 boxes. In roughly how many does the legendary you want drop?" },
+        "min": 0, "max": 50, "step": 1, "actual": 1,
+        "reveal": { "ro": "De obicei sub 1 din 100 la cele mai râvnite. Scrie chiar în șansele publicate de jocurile mari. Restul cutiilor plătesc spectacolul.", "en": "Usually under 1 in 100 for the most wanted items. Big games publish the odds now. The other boxes pay for the show." }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Cutia cu recompense merge pe **recompensă variabilă**: nu știi ce pică, deci creierul tău eliberează dopamină la fiecare deschidere. Plus **„near-miss\"**: obiectul rar „aproape\" a picat. Exact circuitul păcănelelor.",
+            "en": "Loot boxes run on **variable reward**: you don't know what drops, so your brain fires dopamine at every opening. Add the **near-miss**: the rare item \"almost\" dropped. The slot-machine circuit exactly."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 100,
+          "suffix": { "ro": " cutii", "en": " boxes" },
+          "label": {
+            "ro": "deschise, în medie, ca să prinzi UN obiect din cele mai râvnite. Șansele publicate stau de regulă sub 1%",
+            "en": "opened, on average, to land ONE top-tier item. Published odds usually sit under 1%"
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "🎰",
+          "title": { "ro": "Iluzia jucătorului", "en": "The gambler's fallacy" },
+          "text": {
+            "ro": "Cutia nu ține minte ce-ai deschis: **fiecare deschidere o ia de la zero**. Șansele nu cresc după 9 cutii proaste. De-asta ==„încă una și gata\" nu se termină niciodată==.",
+            "en": "The box doesn't remember what you opened: **every opening starts from zero**. Odds don't grow after 9 bad boxes, which is why ==\"just one more\" never ends==."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Nu e morală, e aritmetică: plătești **bani cerți** pe șanse minuscule. Belgia a tras concluzia legală încă din 2018: cutiile plătite sunt jocuri de noroc. Și le-a interzis.",
+            "en": "Not morality. Arithmetic: you pay **certain money** for tiny odds. Belgium drew the legal conclusion back in 2018: paid loot boxes are gambling, and banned them."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "„Aproape a picat\" nu există în cod. Ori pică, ori nu. Spectacolul dintre ele e plătit din alunele tale.",
+            "en": "\"It almost dropped\" doesn't exist in the code. It drops or it doesn't. The show in between is paid with your acorns."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Ai deschis 9 cutii fără nimic bun. A 10-a are șanse mai mari?", "en": "Nine boxes, nothing good. Does box 10 have better odds?" },
+        "options": [
+          { "text": { "ro": "Da, mi se datorează una bună", "en": "Yes, I'm owed a good one" }, "why": { "ro": "Asta e „iluzia jucătorului\": cutia nu ține minte ce-ai deschis. Fiecare deschidere pornește de la aceleași șanse.", "en": "The gambler's fallacy: the box doesn't remember. Every opening starts from the same odds." } },
+          { "text": { "ro": "Nu, fiecare cutie o ia de la zero", "en": "No, every box starts from zero" }, "why": { "ro": "Exact. Șansele sunt independente. De-asta „încă una și gata\" nu se termină niciodată.", "en": "Exactly. Odds are independent, which is why \"just one more\" never ends." } }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Radu, 16 ani, joacă FIFA și vrea un atacant „legendar\". Trei seri, 12 pachete, 120 de lei. De două ori „aproape\": jucători aurii, animație lungă. Doar că „aproape\" nu există în cod: ori pică, ori nu. Cei 120 de lei erau fix banii lui de ieșit în oraș pe două săptămâni.",
+        "en": "Radu, 16, plays FIFA and wants a legendary striker. Three evenings, 12 packs, 120 lei. Twice \"almost\": golden players, long animation. Except \"almost\" doesn't exist in the code: it drops or it doesn't. That 120 lei was exactly two weeks of his eating-out money."
+      },
+      "interactive": {
+        "kind": "cloze",
+        "question": {
+          "ro": "Cutiile cu recompense folosesc recompensa variabilă și „near-miss\", același mecanism ca ___.",
+          "en": "Loot boxes use variable rewards and near-misses, the same mechanism as ___."
+        },
+        "chips": [
+          { "ro": "păcănelele", "en": "slot machines" },
+          { "ro": "o tombolă de școală", "en": "a school raffle" },
+          { "ro": "o reducere de sezon", "en": "a seasonal sale" }
+        ],
+        "correct": 0,
+        "explain": {
+          "ro": "Tombola are un final clar; reducerea are un preț cert. Doar păcănelele vând dopamină pe șanse ascunse, la nesfârșit. Și cutiile fac la fel.",
+          "en": "A raffle ends; a sale has a fixed price. Only slot machines sell dopamine on hidden odds, endlessly. And loot boxes do the same."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Recompensa variabilă + „near-miss\" = circuitul păcănelelor",
+          "Șansele la obiectele râvnite: de regulă sub 1%, și nu cresc",
+          "Belgia le-a interzis ca jocuri de noroc: e lege, nu exagerare"
+        ],
+        "en": ["Variable reward + near-miss = the slot-machine circuit", "Top-item odds: usually under 1%, and they don't grow", "Belgium banned them as gambling: law, not drama"]
+      },
+      "action": {
+        "ro": "Caută în jocul tău pagina cu șansele publicate (drop rates). Citește cifra reală pentru obiectul pe care îl vrei.",
+        "en": "Find your game's published drop rates. Read the real number for the item you want."
+      },
+      "teaser": { "ro": "De ce VREI skinul e perfect normal. Cine decide cât „valorează\", asta e partea ciudată.", "en": "Wanting the skin is perfectly normal. Who decides its \"value\": that's the weird part." },
+      "cards": [
+        {
+          "id": "u4l2-c1",
+          "q": { "ro": "Ce mecanism psihologic folosesc cutiile cu recompense?", "en": "What psychological mechanism do loot boxes use?" },
+          "a": { "ro": "Recompensa variabilă + „near-miss\", același circuit ca păcănelele.", "en": "Variable reward + near-miss, the slot-machine circuit." }
+        },
+        {
+          "id": "u4l2-c2",
+          "q": { "ro": "Cresc șansele dacă deschizi mai multe cutii la rând?", "en": "Do odds grow if you open more boxes in a row?" },
+          "a": { "ro": "Nu, fiecare deschidere e independentă și pornește de la aceleași șanse.", "en": "No, every opening is independent, same odds each time." }
+        },
+        {
+          "id": "u4l2-c3",
+          "q": { "ro": "De ce a interzis Belgia loot box-urile?", "en": "Why did Belgium ban loot boxes?" },
+          "a": { "ro": "Le-a încadrat legal ca jocuri de noroc: plătești bani reali pe un rezultat aleatoriu.", "en": "It classified them legally as gambling: real money on a random outcome." }
+        }
+      ]
+    },
+    {
+      "id": "u4-skinuri-status",
+      "emoji": "🕶️",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Skinul, statusul și piața închisă", "en": "The skin, the status and the closed market" },
+      "hook": {
+        "ro": "Skinul tău „rar\" valorează exact cât decide platforma. Adică, într-o zi, poate zero.",
+        "en": "Your \"rare\" skin is worth exactly what the platform decides. Which can mean, one day, zero."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Să vrei skinul nu e o slăbiciune. La 16 ani, cum arăți în joc e parte din cine ești, **status și identitate**, ca hainele. Întrebarea corectă nu e „de ce îl vreau?\", ci ==„ce primesc la schimb?\"==.",
+            "en": "Wanting the skin isn't a weakness. At 16, how you look in-game is part of who you are, **status and identity**, like clothes. The right question isn't \"why do I want it?\" but ==\"what do I get in return?\"==."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Vlad și-a luat acum doi ani un skin „ultra-rar\": **80 de lei**, invidia serverului. Apoi jocul l-a repus în magazin, pentru toată lumea. Aceiași pixeli, zero raritate. Și nimeni nu l-a întrebat pe Vlad.",
+            "en": "Two years ago Vlad bought an \"ultra-rare\" skin: **80 lei**, the envy of the server. Then the game re-listed it in the shop, for everyone. Same pixels, zero rarity. And nobody asked Vlad."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "O bicicletă", "en": "A bike" },
+            "text": { "ro": "E **a ta**: o vinzi, o împrumuți, o iei cu tine oriunde.", "en": "It's **yours**: sell it, lend it, take it anywhere." }
+          },
+          "right": {
+            "title": { "ro": "Un skin", "en": "A skin" },
+            "text": { "ro": "O **licență** într-o piață închisă: platforma decide cât valorează, sau dacă mai există.", "en": "A **license** in a closed market: the platform decides its value, or its existence." }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "📉",
+          "title": { "ro": "„Skinurile sunt investiție\"", "en": "\"Skins are an investment\"" },
+          "text": {
+            "ro": "Mit. Nicio investiție serioasă nu depinde de decizia unui singur arbitru. Poți plăti pentru plăcere sau status. Legitim. **Doar nu-i spune investiție.**",
+            "en": "A myth. No serious investment depends on a single referee's decision. Paying for fun or status is legitimate. **Just don't call it an investment.**"
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Coada mea stufoasă e gratis și face furori în tot parcul. Statusul deștept e ăla pe care nu ți-l poate șterge un patch.",
+            "en": "My fluffy tail is free and the talk of the whole park. Smart status is the kind no patch can delete."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "„Skinurile sunt o investiție: unele se revând mai scump.\" Adevărat?", "en": "\"Skins are an investment: some resell higher.\" True?" },
+        "options": [
+          { "text": { "ro": "Da, dacă alegi skinurile rare", "en": "Yes, if you pick the rare ones" }, "why": { "ro": "Prețul „de revânzare\" există doar cât și cum vrea platforma. Un patch, o regulă nouă, și „investiția\" dispare. Nu tu controlezi piața.", "en": "The resale price exists only as long as the platform allows it. One patch, one new rule, and the \"investment\" is gone." } },
+          { "text": { "ro": "Nu, valoarea trăiește într-o piață pe care n-o controlezi", "en": "No, the value lives in a market you don't control" }, "why": { "ro": "Exact. Poți plăti pentru plăcere sau status. Legitim. Doar nu-i spune investiție.", "en": "Exactly. Paying for fun or status is legitimate. Just don't call it an investment." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Toți din echipa ta au skinul sezonului. Tu ai 60 de lei strânși, iar skinul costă 40.", "en": "Everyone on your team has this season's skin. You have 60 lei saved; the skin costs 40." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "Îl iau, vreau să arăt bine în echipă", "en": "Buy it, I want to look good on the team" }, "consequence": { "ro": "Legitim: statusul e o nevoie reală, nu o rușine. Doar cumpără-l ca **divertisment**, 40 de lei pe un sezon de plăcere, nu ca „valoare\". Și știi deja: sezonul viitor vine altul.", "en": "Legitimate: status is a real need, not a shame. Just buy it as **entertainment**, 40 lei for a season of fun, not as \"value\". And you already know: next season brings another." } },
+          { "text": { "ro": "Nu-l iau, statusul din skin expiră oricum cu sezonul", "en": "Skip it, skin status expires with the season anyway" }, "consequence": { "ro": "Și asta e o poziție, nu o lipsă. Peste două sezoane, skinul „obligatoriu\" de azi e istorie, iar cei 60 de lei sunt tot ai tăi, în orice piață.", "en": "Also a stance, not a lack. Two seasons on, today's must-have skin is history, and your 60 lei are still yours, in any market." } },
+          { "text": { "ro": "Aștept o reducere sau un skin din evenimentele gratuite", "en": "Wait for a sale or a free-event skin" }, "consequence": { "ro": "Mijlocul pragmatic: multe jocuri dau skinuri pe jucat, nu pe plătit. Primești statusul, păstrezi mare parte din bani, doar că nu pe cel EXACT dorit.", "en": "The pragmatic middle: many games give skins for playing, not paying. You get status and keep most of the money, just not the EXACT one." } }
+        ]
+      },
+      "interactive": {
+        "kind": "poll",
+        "question": {
+          "ro": "Final de sezon. Battle pass-ul expiră mâine: 40 de lei. L-ai juca oricum. Îl iei?",
+          "en": "Season's end. The battle pass expires tomorrow: 40 lei. You'd play anyway. Buy it?"
+        },
+        "options": [
+          { "text": { "ro": "Da, l-am jucat tot sezonul, merită", "en": "Yes, I played all season, it's worth it" }, "comment": { "ro": "Corect gândit: plătești pentru ore de joc deja reale, nu pentru o promisiune. Divertisment cu preț cunoscut, asta e o decizie, nu un impuls.", "en": "Fair thinking: you're paying for real hours already played, not a promise. Entertainment with a known price: a decision, not an impulse." } },
+          { "text": { "ro": "Nu, cei 40 de lei rămân la mine", "en": "No, the 40 lei stay with me" }, "comment": { "ro": "La fel de corect: jocul rămâne jucabil și fără pass. Dacă nu simți lipsa, tocmai ai primit gratis exact ce voiai.", "en": "Equally fair: the game stays playable without the pass. If you don't miss it, you just got what you wanted for free." } },
+          { "text": { "ro": "Decid mâine, în ultima zi, fără graba lor", "en": "I decide tomorrow, on the last day, no rushing" }, "comment": { "ro": "Aha, întorci timerul împotriva lor! Termenul e al platformei, decizia e a ta. Dacă mâine încă îl vrei, ia-l liniștit.", "en": "Turning their timer against them! The deadline is theirs, the decision is yours. If you still want it tomorrow, buy it calmly." } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Să vrei skinul e normal: status și identitate, nu slăbiciune",
+          "Valoarea lui trăiește doar în piața închisă a platformei",
+          "„Skinurile sunt investiție\" = mit: cumpără divertisment, nu „valoare\""
+        ],
+        "en": ["Wanting skins is normal: status, not weakness", "Their value lives only in the platform's closed market", "\"Skins are an investment\" is a myth: buy fun, not \"value\""]
+      },
+      "action": {
+        "ro": "Adună cât ai dat pe skinuri în total, în lei. Nu ca să te cerți cu tine, doar ca cifra să existe.",
+        "en": "Add up what you've spent on skins, in lei. Not to fight yourself, just so the number exists."
+      },
+      "teaser": { "ro": "Abonamentul pe care l-ai uitat nu te-a uitat pe tine. Taxează lunar, în liniște.", "en": "The subscription you forgot didn't forget you. It charges monthly, quietly." },
+      "cards": [
+        {
+          "id": "u4l3-c1",
+          "q": { "ro": "E greșit să-ți dorești skinuri?", "en": "Is it wrong to want skins?" },
+          "a": { "ro": "Nu, statusul și identitatea sunt nevoi normale la vârsta ta. Important e să știi ce primești la schimb.", "en": "No, status and identity are normal needs. Just know what you get in return." }
+        },
+        {
+          "id": "u4l3-c2",
+          "q": { "ro": "Unde „trăiește\" valoarea unui skin?", "en": "Where does a skin's value live?" },
+          "a": { "ro": "Doar în piața închisă a platformei, care o poate devaloriza sau închide oricând.", "en": "Only in the platform's closed market, which can devalue or close it anytime." }
+        },
+        {
+          "id": "u4l3-c3",
+          "q": { "ro": "De ce nu sunt skinurile o investiție?", "en": "Why aren't skins an investment?" },
+          "a": { "ro": "Nu le deții (sunt licență), iar prețul depinde de decizia unui singur arbitru: platforma.", "en": "You don't own them (it's a license), and the price depends on one referee: the platform." }
+        }
+      ]
+    },
+    {
+      "id": "u4-abonamente-fantoma",
+      "emoji": "👻",
+      "minutes": 3,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Abonamentele-fantomă", "en": "Ghost subscriptions" },
+      "hook": {
+        "ro": "Clientul preferat al oricărui abonament e cel care a uitat că plătește. S-ar putea să fii tu, chiar acum.",
+        "en": "Every subscription's favorite customer is the one who forgot they're paying. That might be you, right now."
+      },
+      "guess": {
+        "question": { "ro": "Trei abonamente „mici\" de 25 de lei pe lună. Cât te costă într-un an?", "en": "Three \"small\" 25-lei monthly subscriptions. What's the yearly cost?" },
+        "min": 100, "max": 2000, "step": 50, "actual": 900,
+        "reveal": { "ro": "3 × 25 × 12 = 900 de lei pe an. „Mic\" e o iluzie de lună: anul le adună pe toate.", "en": "3 × 25 × 12 = 900 lei a year. \"Small\" is a monthly illusion: the year adds them all up." }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "„Gratuit 30 de zile: doar adaugă cardul.\" Din ziua 31, plata pornește singură, în tăcere: **auto-renew**. Nicio alarmă, niciun mesaj clar. ==Designul se bazează pe uitarea ta==. De-asta cardul e cerut ÎNAINTE de „gratuit\".",
+            "en": "\"Free for 30 days: just add your card.\" From day 31, payment starts by itself, silently: **auto-renew**. No alarm, no clear message. ==The design counts on you forgetting==. That's why the card is asked for BEFORE the \"free\"."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "👻",
+          "title": { "ro": "Roach motel", "en": "Roach motel" },
+          "text": {
+            "ro": "Intri într-un click, ieși prin cinci meniuri. Capcana clasică: ștergi aplicația și crezi că ai anulat, dar plata e legată de **cont**, nu de icon. Anularea se face din setările contului sau din magazinul de aplicații.",
+            "en": "One click in, five menus out. The classic trap: you delete the app and think you cancelled, but payment is tied to your **account**, not the icon. You cancel from account settings or the app store."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 75,
+          "suffix": " lei",
+          "label": {
+            "ro": "a plătit Ana pentru un trial de editat video uitat din martie, fix un bilet de tren spre festivalul pentru care strângea",
+            "en": "is what Ana paid for a video-editing trial forgotten since March, exactly a train ticket to the festival she was saving for"
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Fantomele astea nu urlă noaptea. Ciupesc 25 de lei pe lună, în liniște. Aprinde lumina: lista ta de abonamente.",
+            "en": "These ghosts don't howl at night. They nibble 25 lei a month, quietly. Turn on the light: your subscriptions list."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Ai șters aplicația. Abonamentul s-a oprit?", "en": "You deleted the app. Did the subscription stop?" },
+        "options": [
+          { "text": { "ro": "Da, fără aplicație, fără plată", "en": "Yes, no app, no payment" }, "why": { "ro": "Capcana „roach motel\": plata e legată de contul și cardul tău, nu de iconul de pe ecran. Aplicația a plecat, factura a rămas.", "en": "The roach-motel trap: payment is tied to your account and card, not the icon. The app left, the bill stayed." } },
+          { "text": { "ro": "Nu, anularea se face din setările contului", "en": "No, you cancel from account settings" }, "why": { "ro": "Exact: din contul platformei sau din abonamentele magazinului de aplicații. Doar acolo scrie „Cancel\".", "en": "Exactly: in the platform account or the app store's subscriptions. That's where \"Cancel\" lives." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Vinerea trecută ți-ai activat un trial „gratuit\" de muzică, cu cardul, evident. Azi, în jurnal: −25,99 lei, „abonament\". Trialul a expirat în tăcere.", "en": "Last Friday you activated a \"free\" music trial, with your card, of course. Today, in your log: −25.99 lei, \"subscription\". The trial expired silently." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "Șterg aplicația, gata, s-a rezolvat", "en": "Delete the app, done, solved" }, "consequence": { "ro": "Fix capcana „roach motel\": plata e legată de cont, nu de icon. Luna viitoare: încă −25,99. Aplicația a plecat, factura a rămas.", "en": "The roach-motel trap exactly: payment is tied to the account, not the icon. Next month: another −25.99. The app left, the bill stayed." } },
+          { "text": { "ro": "Anulez din setările contului, apoi decid dacă îl vreau pe bune", "en": "Cancel from account settings, then decide if I truly want it" }, "consequence": { "ro": "Mutarea corectă, în ordinea corectă: **întâi oprești robinetul**, apoi decizi liniștit. Dacă îți lipsește serviciul peste o săptămână, îl reiei, de data asta ca alegere, nu ca uitare.", "en": "The right move in the right order: **stop the tap first**, decide calmly after. If you miss it in a week, resubscribe, as a choice this time, not an oversight." } },
+          { "text": { "ro": "Îl las, poate îl folosesc de-acum", "en": "Keep it, maybe I'll use it now" }, "consequence": { "ro": "Așa se naște abonamentul-fantomă: „poate\" costă 25,99 pe lună, adică ~312 lei pe an. Dacă alegi să-l ții, pune-i măcar alarmă de verificare peste 2 săptămâni: l-ai folosit?", "en": "That's how a ghost subscription is born: \"maybe\" costs 25.99 a month, ~312 lei a year. If you keep it, at least set a 2-week check-in alarm: did you use it?" } }
+        ]
+      },
+      "interactive": {
+        "kind": "checklist",
+        "title": { "ro": "Auditul anti-fantomă: bifează ce faci deja", "en": "Anti-ghost audit: tick what you already do" },
+        "items": [
+          { "ro": "Știu exact câte abonamente și trialuri am active", "en": "I know exactly how many subscriptions and trials I have" },
+          { "ro": "Am notat data de reînnoire a fiecăruia", "en": "I've noted each renewal date" },
+          { "ro": "Îmi pun alarmă cu 2 zile înainte să expire orice free trial", "en": "I set an alarm 2 days before any free trial ends" },
+          { "ro": "Anulez din setările contului, nu doar șterg aplicația", "en": "I cancel from account settings, not by deleting the app" }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Free trial cu cardul = abonament care pornește singur (auto-renew)",
+          "„Roach motel\": intri ușor, ieși greu. Ștersul aplicației NU anulează",
+          "Auditul: lista abonamentelor + data reînnoirii, cu alarmă la trialuri"
+        ],
+        "en": ["Card-backed free trial = auto-starting subscription", "Roach motel: easy in, hard out. Deleting the app cancels nothing", "The audit: list + renewal dates + trial alarms"]
+      },
+      "action": {
+        "ro": "Fă auditul acum: deschide setările telefonului la „Abonamente\" și numără-le. Toate. Inclusiv trialurile.",
+        "en": "Do the audit now: open your phone's Subscriptions settings and count them. All of them. Trials included."
+      },
+      "teaser": { "ro": "Casa de pariuri nu ghicește mai bine ca tine. Nici nu are nevoie: și-a scris matematica în cote.", "en": "The bookmaker doesn't guess better than you. It doesn't need to: the math is written into the odds." },
+      "cards": [
+        {
+          "id": "u4l4-c1",
+          "q": { "ro": "Ce se întâmplă în ziua 31 a unui „free trial\" cu cardul adăugat?", "en": "What happens on day 31 of a card-backed free trial?" },
+          "a": { "ro": "Pornește plata automat (auto-renew), în tăcere, fără nicio alarmă.", "en": "Payment starts automatically (auto-renew), silently." }
+        },
+        {
+          "id": "u4l4-c2",
+          "q": { "ro": "Ștergi aplicația = anulezi abonamentul?", "en": "Deleting the app = cancelling the subscription?" },
+          "a": { "ro": "Nu. Plata e legată de cont, nu de aplicație. Anulezi din setările contului sau ale magazinului.", "en": "No. Payment is tied to the account. Cancel from account or store settings." }
+        },
+        {
+          "id": "u4l4-c3",
+          "q": { "ro": "Din ce e făcut auditul anti-fantomă?", "en": "What makes up the anti-ghost audit?" },
+          "a": { "ro": "Lista tuturor abonamentelor + data de reînnoire a fiecăruia + alarmă înainte de expirarea trialurilor.", "en": "The full list + each renewal date + alarms before trials end." }
+        }
+      ]
+    },
+    {
+      "id": "u4-pariuri-matematica",
+      "emoji": "🎲",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Matematica pe care casa de pariuri o știe", "en": "The math the bookmaker knows" },
+      "hook": {
+        "ro": "Casa de pariuri nu știe fotbal mai bine ca tine. Nici nu-i trebuie: și-a pus câștigul în cotă, înainte de meci.",
+        "en": "The bookmaker doesn't know football better than you. It doesn't need to: its profit is written into the odds, before kickoff."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Ia un meci perfect echilibrat, 50-50. Cota corectă matematic ar fi **2,00** pe fiecare parte. Casa dă **1,90**. Diferența e marja ei, încorporată în FIECARE pariu: ==casa câștigă indiferent cine câștigă meciul==.",
+            "en": "Take a perfectly balanced match, 50-50. The mathematically fair odds would be **2.00** each way. The house offers **1.90**. The difference is its margin, built into EVERY bet: ==the house wins whoever wins the match==."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Un bilet", "en": "One slip" },
+            "text": { "ro": "Poate ieși: norocul există pe termen scurt. De-asta e atât de convingător.", "en": "It can land: luck exists short-term. That's what makes it so convincing." }
+          },
+          "right": {
+            "title": { "ro": "Media", "en": "The average" },
+            "text": { "ro": "Nu iartă: pe termen lung, marja te bate **garantat**. Aritmetică, nu ghinion.", "en": "Never forgives: long-term, the margin beats you **guaranteed**. Arithmetic, not bad luck." }
+          }
+        },
+        {
+          "t": "stat",
+          "value": 74,
+          "suffix": " lei",
+          "label": {
+            "ro": "minusul Ioanei după o lună de pariuri FICTIVE, pe hârtie, urmând biletele unui tipster celebru, din 300 de lei „jucați\"",
+            "en": "Ioana's loss after one month of FICTIONAL paper bets following a famous tipster's slips, out of 300 lei \"played\""
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "📣",
+          "title": { "ro": "„Sistemul sigur\"", "en": "\"The sure system\"" },
+          "text": {
+            "ro": "E ori **marketing afiliat** (tipsterul câștigă când pariezi TU), ori supraviețuire selectivă: vezi doar biletele câștigătoare, zilele proaste nu se postează. Legal, pariurile încep la 18 ani; matematica e valabilă la orice vârstă.",
+            "en": "It's either **affiliate marketing** (the tipster earns when YOU bet) or survivorship: you only see the winning slips, bad days don't get posted. Legally, betting starts at 18; the math holds at any age."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Dacă aș avea un sistem care nu iartă, crezi că l-aș vinde cu cod în bio? Mi-aș umple scorbura de alune în liniște.",
+            "en": "If I had a system that never missed, would I sell it with a code in my bio? I'd quietly fill my den with acorns."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Meci echilibrat, cota 1,90 în loc de 2,00. Ce e diferența de 0,10?", "en": "Balanced match, odds 1.90 instead of 2.00. What's the missing 0.10?" },
+        "options": [
+          { "text": { "ro": "O rotunjire, n-are efect real", "en": "A rounding, no real effect" }, "why": { "ro": "Are, la fiecare bilet: cu bani pariați pe ambele părți, casa plătește mereu mai puțin decât încasează. Asta e „rotunjirea\".", "en": "It bites on every slip: with money on both sides, the house always pays out less than it takes in." } },
+          { "text": { "ro": "Marja casei: profitul ei, plătit de tine", "en": "The house margin: its profit, paid by you" }, "why": { "ro": "Exact. E scrisă în cotă înainte de meci. De-asta casa nu are nevoie de noroc.", "en": "Exactly. Written into the odds before kickoff. That's why the house needs no luck." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Story pe Instagram: „5 din 5 azi! Sistemul meu nu iartă. Cod în bio.\" Radu ți-l dă forward și te întreabă dacă intrați cu 50 de lei fiecare.", "en": "An Instagram story: \"5 out of 5 today! My system never misses. Code in bio.\" Radu forwards it and asks if you both go in with 50 lei each." },
+        "question": { "ro": "Ce-i răspunzi?", "en": "What do you tell him?" },
+        "options": [
+          { "text": { "ro": "Intrăm, omul are dovezi, sunt capturi de ecran", "en": "We're in, he has proof, there are screenshots" }, "consequence": { "ro": "Poate chiar ies biletele de azi. Dar capturile arată doar zilele bune. Cele proaste nu se postează. „Codul din bio\" înseamnă că el câștigă din intrarea voastră, nu din pariuri. Și un detaliu care nu e detaliu: la 16 ani, contul ar fi pe numele altcuiva: pariurile sub 18 sunt ilegale în România.", "en": "Today's slips might even land. But screenshots show only the good days. Bad ones don't get posted. \"Code in bio\" means he earns from your sign-up, not from betting. And one detail that isn't a detail: at 16, that account would be in someone else's name: betting under 18 is illegal in Romania." } },
+          { "text": { "ro": "Îl întreb pe Radu: ce postează omul ăsta când pierde?", "en": "I ask Radu: what does this guy post when he loses?" }, "consequence": { "ro": "Întrebarea care sparge spectacolul. Nu postează. Asta e **supraviețuirea selectivă**: din 100 de „tipsteri\", câțiva au serii bune din pur noroc, și doar pe ei îi vezi.", "en": "The question that breaks the show. He doesn't post. That's **survivorship**: out of 100 tipsters, a few run hot on pure luck, and those are the only ones you see." } },
+          { "text": { "ro": "Îi arăt lui Radu calculul marjei, pe cotele din bilet", "en": "I show Radu the margin math, on the slip's own odds" }, "consequence": { "ro": "Aritmetica pe masă: la cote de 1,90, media pierde pe termen lung orice „sistem\". Radu decide ce vrea, dar acum decide pe cifre, nu pe capturi.", "en": "Arithmetic on the table: at 1.90 odds, every \"system\" loses on average long-term. Radu decides whatever, but now on numbers, not screenshots." } }
+        ]
+      },
+      "interactive": {
+        "kind": "reveal",
+        "title": { "ro": "Miturile pariurilor", "en": "Betting myths" },
+        "cards": [
+          {
+            "front": { "ro": "„Mă pricep la fotbal, pe termen lung ies pe plus\"", "en": "\"I know football, long-term I come out ahead\"" },
+            "back": { "ro": "Cota include deja tot ce „știi\", plus marja casei: la **1,90** în loc de 2,00, media te bate garantat.", "en": "The odds already price in what you \"know\", plus the margin: at **1.90** instead of 2.00, the average beats you guaranteed." }
+          },
+          {
+            "front": { "ro": "„După 5 pierderi la rând, urmează sigur un câștig\"", "en": "\"After 5 straight losses, a win is due\"" },
+            "back": { "ro": "Biletele n-au memorie: aceleași șanse la fiecare pariu. „Urmează\" e **iluzia jucătorului**, aceeași ca la cutiile cu recompense.", "en": "Slips have no memory: same odds every time. \"Due\" is the **gambler's fallacy**, the same one from loot boxes." }
+          },
+          {
+            "front": { "ro": "„Tipsterul cu 5 din 5 azi trăiește din pariuri\"", "en": "\"The 5-for-5 tipster lives off betting\"" },
+            "back": { "ro": "Trăiește din **codul de afiliere**: e plătit când TU îți faci cont. Testul Ioanei pe biletele lui: −74 de lei într-o lună.", "en": "He lives off the **affiliate code**: paid when YOU sign up. Ioana's paper test on his slips: −74 lei in one month." }
+          },
+          {
+            "front": { "ro": "„Casa ghicește meciurile mai bine decât mine\"", "en": "\"The house predicts matches better than me\"" },
+            "back": { "ro": "Nici nu-i trebuie: profitul e scris în cote înainte de meci. Casa câștigă **orice ar arăta scorul**.", "en": "It doesn't need to: the profit is written into the odds before kickoff. The house wins **whatever the score**." }
+          }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Marja casei e scrisă în cotă: câștigă indiferent de rezultat",
+          "Un bilet poate ieși; media te bate garantat pe termen lung",
+          "„Sistemul sigur\" = marketing afiliat sau supraviețuire selectivă"
+        ],
+        "en": ["The margin lives in the odds: the house wins either way", "One slip can land; the average beats you long-term", "\"Sure systems\" = affiliate marketing or survivorship"]
+      },
+      "action": {
+        "ro": "Vezi un „tipster\" cu serie perfectă? Caută-i postările din zilele proaste. Absența lor e toată lecția.",
+        "en": "See a tipster on a perfect streak? Look for his bad-day posts. Their absence is the whole lesson."
+      },
+      "teaser": { "ro": "În Unitatea 5, „Scutul Anti-Țeapă\": mesajul cu „coletul tău e blocat\", „cumpărătorul\" grăbit de pe OLX și cum îi demontezi pe amândoi în trei secunde.", "en": "In Unit 5, the Anti-Scam Shield: the \"your parcel is stuck\" text, the hurried OLX \"buyer\", and how to take both apart in three seconds." },
+      "cards": [
+        {
+          "id": "u4l5-c1",
+          "q": { "ro": "De unde vine profitul garantat al casei de pariuri?", "en": "Where does the bookmaker's guaranteed profit come from?" },
+          "a": { "ro": "Din marja scrisă în cote (ex.: 1,90 în loc de 2,00), plătită la fiecare pariu.", "en": "From the margin written into the odds (e.g. 1.90 instead of 2.00)." }
+        },
+        {
+          "id": "u4l5-c2",
+          "q": { "ro": "Poți bate casa pe termen lung dacă „știi fotbal\"?", "en": "Can you beat the house long-term if you \"know football\"?" },
+          "a": { "ro": "Nu în medie: cota include deja informația și marja. Un bilet poate ieși; media te bate.", "en": "Not on average: odds already include the info and the margin." }
+        },
+        {
+          "id": "u4l5-c3",
+          "q": { "ro": "Cum câștigă de fapt influencerul cu „sistem sigur\"?", "en": "How does the \"sure system\" influencer actually earn?" },
+          "a": { "ro": "Din marketing afiliat: e plătit când tu îți faci cont și pariezi, nu din propriile pariuri.", "en": "Affiliate marketing: paid when you sign up and bet, not from his own bets." }
+        }
+      ]
+    }
+  ]
+}

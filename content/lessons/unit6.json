@@ -1,0 +1,1072 @@
+﻿{
+  "$schema_note": "Unitatea 6, Track A (14-18): Economisirea = superputere, pe format 3, conceptul fiecărei lecții e o listă de blocuri vizuale (text, callout, stat, vs, steps, quote) dezvăluite prin tap, cu markup **bold** și ==evidențiat== în textele narative. Simulatorul param_sim rămâne coloana vertebrală a unității, în lecțiile 1/3/5, cu pairs și mcq în rotație între ele; onestitate RO: depozite 4-7% pe an, default 5,5%, inflația doar ca model, orice grafic e „model educativ, nu o promisiune\".",
+  "unit": {
+    "id": "u6",
+    "ord": 6,
+    "format": 3,
+    "track": "A",
+    "emoji": "🌱",
+    "color": "blue",
+    "title": {
+      "ro": "Economisirea = superputere",
+      "en": "Saving = a superpower"
+    }
+  },
+  "lessons": [
+    {
+      "id": "u6-miracolul-compus",
+      "emoji": "✨",
+      "minutes": 4,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": {
+        "ro": "Miracolul dobânzii compuse",
+        "en": "The miracle of compound interest"
+      },
+      "hook": {
+        "ro": "Ce alegi: 10.000 de lei acum SAU 1 leu care se dublează în fiecare zi, timp de 20 de zile? Dacă ai ales grămada, tocmai ai refuzat o avere.",
+        "en": "Your pick: 10,000 lei right now OR 1 leu that doubles every day, for 20 days? If you picked the pile, you just turned down a fortune."
+      },
+      "guess": {
+        "question": {
+          "ro": "Cât crezi că face 1 leu dublat 20 de zile?",
+          "en": "How much do you think 1 leu doubled for 20 days comes to?"
+        },
+        "min": 0,
+        "max": 1050000,
+        "step": 10000,
+        "actual": 1048576,
+        "unit": "lei",
+        "reveal": {
+          "ro": "1.048.576 de lei! Dublarea a bătut grămada de 10.000 fără să clipească: 2 înmulțit cu el însuși de 20 de ori. Primele zile par o glumă, 1, 2, 4, 8 lei, apoi vine lavina. Ține minte senzația asta: fix așa lucrează dobânda compusă. Mai lent, dar cu aceeași matematică.",
+          "en": "1,048,576 lei! Doubling beat the 10,000 pile without blinking: 2 multiplied by itself 20 times. The first days look like a joke, 1, 2, 4, 8 lei, then the avalanche arrives. Remember this feeling: that's exactly how compound interest works. Slower, but with the same math."
+        }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "**Dobânda** = banii pe care îi primești pentru banii tăi: lași o sumă la bancă, iar banca îți plătește un procent pe an pentru ea. **Dobânda compusă** e pasul doi, cel magic: dobânda primită intră în grămadă, iar anul următor primești dobândă și la ea. Bani care fac bani, care fac, la rândul lor, bani.",
+            "en": "**Interest** = money you receive for your money: you leave a sum at the bank, and the bank pays you a percentage per year for it. **Compound interest** is step two, the magic one: the interest you earned joins the pile, and next year you earn interest on it too. Money making money, which makes money in turn."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Salteaua", "en": "The mattress" },
+            "text": {
+              "ro": "1.000 de lei rămân 1.000 de lei și peste zece ani, o linie perfect dreaptă.",
+              "en": "1,000 lei is still 1,000 lei ten years later, a perfectly straight line."
+            }
+          },
+          "right": {
+            "title": { "ro": "Depozitul", "en": "The deposit" },
+            "text": {
+              "ro": "Aceeași sumă urcă pe o curbă care se îndoaie în sus: întâi abia se vede, apoi diferența crește de la an la an.",
+              "en": "The same sum climbs a curve that bends upward: barely visible at first, then the gap grows year after year."
+            }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "green",
+          "icon": "⏳",
+          "title": { "ro": "Superputerea nu e procentul", "en": "The superpower isn't the percentage" },
+          "text": {
+            "ro": "În România, depozitele plătesc azi în jur de 4-7% pe an. Nu procentul face minunea, ==timpul o face==. Iar orice cifră de aici e un **model educativ**, nu o promisiune.",
+            "en": "In Romania, deposits currently pay around 4-7% a year. The percentage doesn't work the miracle, ==time does==. And every number here is an **educational model**, not a promise."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Noi, veverițele, știm asta de mult: îngropi o alună, crește un alun, care face alune, care fac aluni. Compunere curată, doar că banca nu-ți cere să sapi.",
+            "en": "We squirrels have known this forever: bury a hazelnut, a hazel grows, it makes hazelnuts, they make hazels. Pure compounding, except the bank doesn't make you dig."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "Pui 1.000 de lei la 5% pe an. Ce se întâmplă în anul 2?",
+          "en": "You put 1,000 lei at 5% a year. What happens in year 2?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Primesc tot 50 de lei, dobânda se calculează mereu doar la banii puși de mine",
+              "en": "I still get 50 lei, interest is always calculated only on the money I put in"
+            },
+            "why": {
+              "ro": "Așa ar arăta dobânda SIMPLĂ: o linie dreaptă, câte 50 de lei pe an, la nesfârșit. Compunerea schimbă regula: dobânda de anul trecut intră în grămadă și începe să producă și ea.",
+              "en": "That would be SIMPLE interest: a straight line, 50 lei a year, forever. Compounding changes the rule: last year's interest joins the pile and starts producing too."
+            }
+          },
+          {
+            "text": {
+              "ro": "Primesc dobândă la 1.050, cei 50 de lei din primul an lucrează acum și ei",
+              "en": "I earn interest on 1,050, the 50 lei from year one is working now too"
+            },
+            "why": {
+              "ro": "Exact, asta e compunerea. Anul 2 aduce 52,5 lei, nu 50. Pare mărunt? Fix diferența asta măruntă, repetată an după an, îndoaie curba în sus.",
+              "en": "Exactly, that's compounding. Year 2 brings 52.5 lei, not 50. Sounds tiny? That tiny difference, repeated year after year, is what bends the curve upward."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Ana, 16 ani, pune deoparte 100 de lei pe lună, disciplina ei de festival, aplicată pe termen lung. În 10 ani ar depune 12.000 de lei. Într-un depozit la 5,5% pe an, modelul arată aproape 16.000. Diferența de vreo 4.000? N-a muncit Ana pentru ea. A muncit dobânda, pentru încă dobândă.",
+        "en": "Ana, 16, sets aside 100 lei a month, her festival discipline, applied long-term. In 10 years she'd deposit 12,000 lei. In a deposit at 5.5% a year, the model shows nearly 16,000. The extra 4,000 or so? Ana didn't work for it. The interest worked, for more interest."
+      },
+      "interactive": {
+        "kind": "param_sim",
+        "title": {
+          "ro": "Mișcă anii și privește",
+          "en": "Move the years and watch"
+        },
+        "config": {
+          "exposed": [
+            "years"
+          ],
+          "monthly_default": 100,
+          "rate_default": 5.5,
+          "years_default": 10,
+          "years_max": 30
+        }
+      },
+      "recap": {
+        "ro": [
+          "Dobânda compusă = dobânda care produce dobândă: zăpada nouă adună și ea zăpadă",
+          "Saltea = linie dreaptă; depozit = curbă care se îndoaie în sus, tot mai abrupt cu anii",
+          "Ingredientul-cheie e timpul, nu procentul, și orice simulare e model educativ, nu promisiune"
+        ],
+        "en": [
+          "Compound interest = interest earning interest: the new snow gathers snow of its own",
+          "Mattress = a straight line; deposit = a curve that bends upward, steeper with the years",
+          "The key ingredient is time, not the percentage, and any simulation is an educational model, not a promise"
+        ]
+      },
+      "action": {
+        "ro": "Întoarce-te la simulator și mută sliderul anilor de la 5 spre 30, încet. Găsește punctul în care curba se desprinde de linia dreaptă, ăla e momentul în care bulgărele începe să se rostogolească singur.",
+        "en": "Go back to the simulator and slide the years from 5 toward 30, slowly. Find the spot where the curve pulls away from the straight line, that's the moment the snowball starts rolling on its own."
+      },
+      "teaser": {
+        "ro": "În câți ani se dublează banii tăi? Există o scurtătură de calcul mental care îți răspunde în 3 secunde, fără calculator. Tot secretul încape într-un singur număr: 72. Îl desfacem în lecția următoare.",
+        "en": "How many years until your money doubles? There's a mental-math shortcut that answers in 3 seconds, no calculator. The whole secret fits in a single number: 72. We crack it open next lesson."
+      },
+      "cards": [
+        {
+          "id": "u6l1-c1",
+          "q": {
+            "ro": "Ce e dobânda compusă?",
+            "en": "What is compound interest?"
+          },
+          "a": {
+            "ro": "Dobânda care produce ea însăși dobândă: primești dobândă și la banii depuși de tine, și la dobânda deja adunată. Bani care fac bani, care fac bani.",
+            "en": "Interest that itself earns interest: you earn interest both on the money you put in and on the interest already gathered. Money making money, making money."
+          }
+        },
+        {
+          "id": "u6l1-c2",
+          "q": {
+            "ro": "De ce se îndoaie curba dobânzii compuse în sus?",
+            "en": "Why does the compound interest curve bend upward?"
+          },
+          "a": {
+            "ro": "Pentru că baza crește în fiecare an: dobânda nouă se calculează la o sumă tot mai mare, deci fiecare an adaugă mai mult decât cel dinainte.",
+            "en": "Because the base grows every year: new interest is calculated on an ever-larger sum, so each year adds more than the one before."
+          }
+        },
+        {
+          "id": "u6l1-c3",
+          "q": {
+            "ro": "De ce e bulgărele de zăpadă metafora dobânzii compuse?",
+            "en": "Why is the snowball the metaphor for compound interest?"
+          },
+          "a": {
+            "ro": "Bulgărele rostogolit adună zăpadă, iar stratul nou adună la rândul lui zăpadă, crește tot mai repede, fără efort în plus. La bani, rolul zăpezii noi îl joacă dobânda.",
+            "en": "A rolling snowball gathers snow, and the new layer gathers snow of its own, it grows faster and faster with no extra effort. With money, the interest plays the part of the new snow."
+          }
+        }
+      ]
+    },
+    {
+      "id": "u6-regula-72",
+      "emoji": "🔁",
+      "minutes": 4,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": {
+        "ro": "Regula lui 72",
+        "en": "The rule of 72"
+      },
+      "hook": {
+        "ro": "„În câți ani mi se dublează banii?\" sună a matematică de facultate. E o împărțire de clasa a patra, iar după lecția asta o faci din cap, în 3 secunde.",
+        "en": "\"How many years until my money doubles?\" sounds like university math. It's fourth-grade division, and after this lesson you'll do it in your head, in 3 seconds."
+      },
+      "guess": {
+        "question": {
+          "ro": "La 6% pe an, în câți ani se dublează banii?",
+          "en": "At 6% a year, in how many years does your money double?"
+        },
+        "min": 2,
+        "max": 30,
+        "step": 1,
+        "actual": 12,
+        "unit": {
+          "ro": "ani",
+          "en": "years"
+        },
+        "reveal": {
+          "ro": "În 12. Iar calculul e o singură împărțire: 72 ÷ 6 = 12. Asta e Regula lui 72, merge la orice dobândă și încape în orice cap. Hai să vezi de ce.",
+          "en": "In 12. And the math is one single division: 72 ÷ 6 = 12. That's the Rule of 72, it works for any rate and fits in any head. Let's see why."
+        }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "**Regula lui 72** e o scurtătură de calcul mental: împarți 72 la dobânda anuală, procentul cu care îți cresc banii pe an, și obții aproximativ anii până la dublare. E o aproximare: cifra exactă diferă cu câteva luni, dar pentru dobânzile obișnuite e surprinzător de precisă. Și rămâne un model, nu o promisiune, dobânzile reale se mișcă de la an la an.",
+            "en": "**The Rule of 72** is a mental-math shortcut: divide 72 by the annual rate, the percentage your money grows per year, and you get roughly the years until it doubles. It's an approximation: the exact figure differs by a few months, but for everyday rates it's surprisingly accurate. And it stays a model, not a promise, real rates move from year to year."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            { "ro": "Ia dobânda anuală: să zicem 6%.", "en": "Take the annual rate: say 6%." },
+            { "ro": "Împarte: 72 ÷ 6 = 12.", "en": "Divide: 72 ÷ 6 = 12." },
+            { "ro": "Citește rezultatul: banii se dublează în vreo 12 ani. Fără calculator.", "en": "Read the result: the money doubles in about 12 years. No calculator." }
+          ]
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "⚡",
+          "title": { "ro": "Partea care păcălește intuiția", "en": "The part that fools intuition" },
+          "text": {
+            "ro": "Diferențele mici de dobândă schimbă masiv timpul: 4% = 18 ani, 6% = 12, 8% = doar 9. Un procent-două în plus par mărunțiș, dar ==taie ani întregi de așteptare==, de-asta compari mereu dobânzile înainte să decizi unde stau economiile.",
+            "en": "Small rate differences change the time massively: 4% = 18 years, 6% = 12, 8% = just 9. One or two extra percent look like pocket change, but ==they cut whole years of waiting==, that's why you always compare rates before deciding where your savings sit."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "72 împărțit la dobândă. Atât. Singura formulă financiară care încape în cap lângă toate ascunzătorile mele de alune.",
+            "en": "72 divided by the rate. That's it. The only financial formula that fits in my head next to all my hazelnut hiding spots."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "O dobândă de 8% pe an: în câți ani se dublează banii, după Regula lui 72?",
+          "en": "A rate of 8% a year: in how many years does the money double, by the Rule of 72?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "În 8 ani, procentul îți spune direct anii",
+              "en": "In 8 years, the percentage tells you the years directly"
+            },
+            "why": {
+              "ro": "Misconcepția-oglindă: procentul și anii doar seamănă, nu coincid. Regula cere împărțirea: 72 ÷ 8 = 9 ani.",
+              "en": "The mirror misconception: the percentage and the years only look alike, they don't coincide. The rule needs the division: 72 ÷ 8 = 9 years."
+            }
+          },
+          {
+            "text": {
+              "ro": "În 9 ani, 72 ÷ 8",
+              "en": "In 9 years, 72 ÷ 8"
+            },
+            "why": {
+              "ro": "Exact. O împărțire, zero calculator. Bonus de reținut: dobândă dublă înseamnă timp de dublare înjumătățit.",
+              "en": "Exactly. One division, zero calculator. Bonus worth keeping: double the rate means half the doubling time."
+            }
+          },
+          {
+            "text": {
+              "ro": "În 12,5 ani, 100 ÷ 8",
+              "en": "In 12.5 years, 100 ÷ 8"
+            },
+            "why": {
+              "ro": "Așa ar fi FĂRĂ dobândă compusă: 8% din suma inițială, an de an, umple 100% în 12,5 ani. Dar dobânda la dobândă scurtează drumul la vreo 9, fix ăsta e avantajul compunerii.",
+              "en": "That's how it would be WITHOUT compound interest: 8% of the initial sum, year after year, fills 100% in 12.5 years. But interest on interest shortens the road to about 9, that's exactly the edge of compounding."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": {
+          "ro": "Un coleg îți arată telefonul, cu ochii mari: „Am găsit o schemă cu randament garantat 20% pe an. Am băgat deja 300 de lei, intră și tu până se ocupă locurile.\"",
+          "en": "A classmate shows you his phone, wide-eyed: \"I found a scheme with a guaranteed 20% return a year. I already put in 300 lei, join before the spots fill up.\""
+        },
+        "question": {
+          "ro": "Ce faci?",
+          "en": "What do you do?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Îl cred pe cuvânt, 20% nu sună chiar imposibil",
+              "en": "I take his word for it, 20% doesn't sound that impossible"
+            },
+            "consequence": {
+              "ro": "Fă întâi împărțirea: 72 ÷ 20 = 3,6, adică dublare garantată la fiecare 3,6 ani, la nesfârșit. Depozitele în România plătesc azi 4-7%. Cine „garantează\" de trei ori piața nu are o afacere magică, are nevoie de banii următorilor intrați. Rețeta de la Scutul Anti-Țeapă, în costum de investiție.",
+              "en": "Do the division first: 72 ÷ 20 = 3.6, guaranteed doubling every 3.6 years, forever. Deposits in Romania pay 4-7% today. Whoever \"guarantees\" three times the market doesn't have a magic business, they need the next joiners' money. The Anti-Scam Shield recipe, in an investment costume."
+            }
+          },
+          {
+            "text": {
+              "ro": "Fac calculul: dublare la fiecare 3,6 ani, și devin suspicios",
+              "en": "I run the math: doubling every 3.6 years, and I get suspicious"
+            },
+            "consequence": {
+              "ro": "Exact la asta servește regula: transformă „visul\" în aritmetică. Dublare garantată la 3,6 ani nu există pe bune, „garantat\" mult peste 8% e, în România, steag roșu, nu ofertă. Cu cât promisiunea sună mai bine prin Regula lui 72, cu atât întrebarea „de unde?\" devine mai urgentă.",
+              "en": "That's exactly what the rule is for: it turns the \"dream\" into arithmetic. Guaranteed doubling every 3.6 years doesn't truly exist, \"guaranteed\" far above 8% is, in Romania, a red flag, not an offer. The better the promise sounds through the Rule of 72, the more urgent the question \"from where?\" becomes."
+            }
+          },
+          {
+            "text": {
+              "ro": "Îl întreb: cine garantează, mai exact, și din ce vin banii?",
+              "en": "I ask him: who exactly guarantees this, and where does the money come from?"
+            },
+            "consequence": {
+              "ro": "Întrebarea care sparge orice schemă, și cronometrează cât durează răspunsul. „Garantat\" pe bune înseamnă mic și plictisitor; randamentul mare vine mereu la pachet cu risc pe măsură. Dacă răspunsul ajunge la „din următorii intrați\", nu mai ai o întrebare, ai o piramidă.",
+              "en": "The question that cracks any scheme, and time how long the answer takes. A real \"guaranteed\" means small and boring; big returns always come bundled with matching risk. If the answer lands on \"from the next joiners\", you no longer have a question, you have a pyramid."
+            }
+          }
+        ]
+      },
+      "interactive": {
+        "kind": "pairs",
+        "title": {
+          "ro": "Unește dobânda cu anii de dublare",
+          "en": "Match the rate with the doubling years"
+        },
+        "pairs": [
+          { "l": { "ro": "4% pe an", "en": "4% a year" }, "r": { "ro": "dublare în 18 ani", "en": "doubles in 18 years" } },
+          { "l": { "ro": "6% pe an", "en": "6% a year" }, "r": { "ro": "dublare în 12 ani", "en": "doubles in 12 years" } },
+          { "l": { "ro": "8% pe an", "en": "8% a year" }, "r": { "ro": "dublare în 9 ani", "en": "doubles in 9 years" } },
+          { "l": { "ro": "12% pe an", "en": "12% a year" }, "r": { "ro": "dublare în 6 ani", "en": "doubles in 6 years" } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Regula lui 72: 72 ÷ dobânda anuală ≈ anii până la dublare, aproximare utilă, nu promisiune",
+          "Diferențele mici de dobândă schimbă enorm dublarea: 4% = 18 ani, 6% = 12, 8% = 9",
+          "„Garantat\" mult peste dobânzile reale (azi 4-7% în România) = steag roșu, întreabă din ce vin banii"
+        ],
+        "en": [
+          "Rule of 72: 72 ÷ the annual rate ≈ years until doubling, a useful approximation, not a promise",
+          "Small rate differences change doubling hugely: 4% = 18 years, 6% = 12, 8% = 9",
+          "\"Guaranteed\" far above real rates (4-7% in Romania today) = red flag, ask where the money comes from"
+        ]
+      },
+      "action": {
+        "ro": "Antrenamentul de azi: ia trei dobânzi, 3%, 6%, 9%, și spune din cap anii de dublare pentru fiecare. Când îți iese sub 5 secunde, ai montat un detector de promisiuni imposibile. E pe viață și nu consumă baterie.",
+        "en": "Today's training: take three rates, 3%, 6%, 9%, and say the doubling years for each from your head. Once you're under 5 seconds, you've installed an impossible-promise detector. It's for life and uses no battery."
+      },
+      "teaser": {
+        "ro": "Regula e a ta. Dar cât e dobânda PE BUNE în România, în 2026? Și mai stă cineva la masă: inflația, care roade exact în sens invers. Lecția următoare pune cifrele reale una lângă alta.",
+        "en": "The rule is yours. But what are rates REALLY like in Romania in 2026? And someone else sits at the table: inflation, gnawing in exactly the opposite direction. Next lesson puts the real numbers side by side."
+      },
+      "cards": [
+        {
+          "id": "u6l2-c1",
+          "q": {
+            "ro": "Cum funcționează Regula lui 72?",
+            "en": "How does the Rule of 72 work?"
+          },
+          "a": {
+            "ro": "Împarți 72 la dobânda anuală (%) și obții aproximativ anii până la dublarea banilor. La 6%: 72 ÷ 6 = 12 ani. E o aproximare bună pentru dobânzile obișnuite, un model, nu o promisiune.",
+            "en": "Divide 72 by the annual rate (%) and you get roughly the years until the money doubles. At 6%: 72 ÷ 6 = 12 years. It's a good approximation for everyday rates, a model, not a promise."
+          }
+        },
+        {
+          "id": "u6l2-c2",
+          "q": {
+            "ro": "Ce se dublează mai repede: banii la 4% sau la 8%?",
+            "en": "Which doubles faster: money at 4% or at 8%?"
+          },
+          "a": {
+            "ro": "La 8%, în vreo 9 ani (72 ÷ 8). La 4% durează dublu: vreo 18 ani. Dobândă dublă = timp de dublare înjumătățit.",
+            "en": "At 8%, in about 9 years (72 ÷ 8). At 4% it takes twice as long: about 18 years. Double the rate = half the doubling time."
+          }
+        },
+        {
+          "id": "u6l2-c3",
+          "q": {
+            "ro": "De ce e „randament garantat 20% pe an\" un steag roșu?",
+            "en": "Why is \"guaranteed 20% a year\" a red flag?"
+          },
+          "a": {
+            "ro": "72 ÷ 20 = dublare garantată la fiecare ~3,6 ani, asta nu oferă nimeni pe bune. Depozitele în România plătesc azi cam 4-7%; cine promite mult peste și „garantat\" plătește din banii următorilor intrați.",
+            "en": "72 ÷ 20 = guaranteed doubling every ~3.6 years, nobody truly offers that. Deposits in Romania pay around 4-7% today; whoever promises far above that, \"guaranteed\", pays from the next joiners' money."
+          }
+        }
+      ]
+    },
+    {
+      "id": "u6-realitatea-ro",
+      "emoji": "🇷🇴",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": {
+        "ro": "Realitatea din România",
+        "en": "The reality in Romania"
+      },
+      "hook": {
+        "ro": "În România lui 2026, un depozit bancar îți dă 4-7% pe an. Internetul îți promite 20% pe lună. Unul dintre ei minte, și nu e cel plictisitor.",
+        "en": "In 2026 Romania, a bank deposit pays you 4-7% a year. The internet promises you 20% a month. One of them is lying, and it's not the boring one."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Cifrele oneste, întâi: un **depozit** (bani lăsați la bancă pe o perioadă, contra unei dobânzi) plătește azi în România cam 4-7% pe an. Nu e spectaculos, dar e real. Iar regula pieței e simplă: **randamentul mare** vine mereu la pachet cu risc mare.",
+            "en": "Honest numbers first: a **deposit** (money left at the bank for a period, in exchange for interest) pays around 4-7% a year in Romania today. Not spectacular, but real. And the market's rule is simple: **big returns** always come bundled with big risk."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Valoarea nominală", "en": "The nominal value" },
+            "text": {
+              "ro": "Cifra din cont. Stă pe loc și arată liniștitor, 300 de lei rămân 300.",
+              "en": "The number in the account. It stands still and looks reassuring, 300 lei stays 300."
+            }
+          },
+          "right": {
+            "title": { "ro": "Valoarea reală", "en": "The real value" },
+            "text": {
+              "ro": "Ce poți cumpăra efectiv cu ea. **Inflația** o roade în fiecare an, în tăcere.",
+              "en": "What you can actually buy with it. **Inflation** gnaws at it every year, in silence."
+            }
+          }
+        },
+        {
+          "t": "stat",
+          "value": 25,
+          "suffix": "%",
+          "label": {
+            "ro": "din puterea de cumpărare pierde salteaua în 10 ani, chiar și la o inflație „cuminte\" de 3% pe an",
+            "en": "of its purchasing power is what the mattress loses in 10 years, even at a \"tame\" 3% yearly inflation"
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "🚩",
+          "title": { "ro": "Detectorul de minciuni", "en": "The lie detector" },
+          "text": {
+            "ro": "Cine promite mult peste 4-7%, „garantat, fără risc\", n-a descoperit un secret, ==a descoperit că tu nu știi încă cifrele astea==. De azi, le știi.",
+            "en": "Whoever promises far above 4-7%, \"guaranteed, risk-free\", hasn't discovered a secret, ==they've discovered you don't know these numbers yet==. Starting today, you do."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Fix de-asta are simulatorul un buton de inflație: curba punctată e **valoarea reală**. Când cele două curbe se despart, nu e o eroare, e lecția. Iar tot graficul rămâne un model educativ, nu o promisiune.",
+            "en": "That's exactly why the simulator has an inflation toggle: the dashed curve is the **real value**. When the two curves drift apart, it's not a bug, it's the lesson. And the whole chart remains an educational model, not a promise."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "Ții 300 de lei sub saltea un an întreg. Ce le face inflația?",
+          "en": "You keep 300 lei under the mattress for a whole year. What does inflation do to them?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Nimic, sunt tot 300, nu s-a atins nimeni de ei",
+              "en": "Nothing, they're still 300, nobody touched them"
+            },
+            "why": {
+              "ro": "Nominal, da: cifra rămâne. Dar prețurile au crescut între timp, deci aceiași 300 de lei cumpără mai puțin. Salteaua nu fură cifra, fură puterea de cumpărare.",
+              "en": "Nominally, yes: the number stays. But prices rose in the meantime, so the same 300 lei buys less. The mattress doesn't steal the number, it steals the purchasing power."
+            }
+          },
+          {
+            "text": {
+              "ro": "Cifra rămâne, dar cumpără mai puțin decât acum un an",
+              "en": "The number stays, but it buys less than a year ago"
+            },
+            "why": {
+              "ro": "Exact. Valoarea nominală stă pe loc, valoarea reală scade. Salteaua pare sigură pentru că pierderea e invizibilă, dar curge în fiecare an.",
+              "en": "Exactly. The nominal value stands still, the real value drops. The mattress feels safe because the loss is invisible, but it drips every single year."
+            }
+          },
+          {
+            "text": {
+              "ro": "Se simte doar dacă inflația e uriașă, altfel nu contează",
+              "en": "It only matters if inflation is huge, otherwise it's nothing"
+            },
+            "why": {
+              "ro": "Contează mereu, doar lent. Chiar și la 3% pe an, în 10 ani salteaua pierde cam un sfert din puterea de cumpărare. Lent nu înseamnă zero, înseamnă neobservat.",
+              "en": "It always matters, just slowly. Even at 3% a year, over 10 years the mattress loses about a quarter of its purchasing power. Slow doesn't mean zero, it means unnoticed."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": {
+          "ro": "Ai strâns 200 de lei și nu-ți trebuie un an de-acum încolo. Trei drumuri îți fac cu ochiul.",
+          "en": "You've saved up 200 lei and won't need them for a year. Three roads are winking at you."
+        },
+        "question": {
+          "ro": "Pe care îl alegi?",
+          "en": "Which one do you take?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "La saltea, măcar știu exact unde sunt",
+              "en": "Under the mattress, at least I know exactly where they are"
+            },
+            "consequence": {
+              "ro": "Știi unde sunt, dar nu și cât mai valorează: la 5% inflație, peste un an cei 200 de lei cumpără cam cât 190 de azi. Salteaua nu pierde spectaculos, pierde lent, invizibil și garantat.",
+              "en": "You know where they are, just not what they're worth: at 5% inflation, in a year those 200 lei buy about what 190 buys today. The mattress doesn't lose spectacularly, it loses slowly, invisibly and guaranteed."
+            }
+          },
+          {
+            "text": {
+              "ro": "Îi las să crească constant, cu dobândă, ca într-un depozit",
+              "en": "I let them grow steadily, with interest, deposit-style"
+            },
+            "consequence": {
+              "ro": "Plictisitor? Absolut. Dar 4-7% pe an bate salteaua, iar ținută ani la rând, dobânda începe să producă propria dobândă. Creșterea reală chiar așa arată: constantă și neinteresantă.",
+              "en": "Boring? Absolutely. But 4-7% a year beats the mattress, and kept up for years, the interest starts earning its own interest. Real growth genuinely looks like this: steady and uninteresting."
+            }
+          },
+          {
+            "text": {
+              "ro": "Un tip de pe net zice că mi-i dublează într-o lună",
+              "en": "Some guy online says he'll double them in a month"
+            },
+            "consequence": {
+              "ro": "Dublare într-o lună = 100% pe lună, când banca reală dă 4-7% pe AN. Nimeni nu are așa ceva de dat, dar toți au de luat. Fix aici își pierd adolescenții primele economii: nu la bancă, la „dublări\".",
+              "en": "Doubling in a month = 100% a month, when a real bank pays 4-7% a YEAR. Nobody has that to give, but everyone has something to take. This is exactly where teens lose their first savings: not at the bank, at \"doublings\"."
+            }
+          }
+        ]
+      },
+      "interactive": {
+        "kind": "param_sim",
+        "title": {
+          "ro": "Acum controlezi tot: ani, sumă, rată",
+          "en": "Now you control it all: years, amount, rate"
+        },
+        "config": {
+          "exposed": [
+            "years",
+            "monthly",
+            "rate"
+          ],
+          "monthly_default": 100,
+          "rate_default": 5.5,
+          "years_default": 10,
+          "years_max": 30,
+          "inflation": true
+        }
+      },
+      "recap": {
+        "ro": [
+          "România 2026: depozitele plătesc ~4-7%/an, „mult peste, garantat, fără risc\" = minciună",
+          "Nominal = cifra din cont; real = ce cumperi cu ea, inflația le desparte în tăcere",
+          "Curba punctată din simulator = valoarea reală; graficul e model educativ, nu o promisiune"
+        ],
+        "en": [
+          "Romania 2026: deposits pay ~4-7%/year, \"way more, guaranteed, risk-free\" = a lie",
+          "Nominal = the number in the account; real = what it buys, inflation splits them silently",
+          "The dashed curve in the simulator = the real value; the chart is an educational model, not a promise"
+        ]
+      },
+      "action": {
+        "ro": "Pornește butonul de inflație în simulatorul de mai sus și stai 30 de secunde cu ochii pe distanța dintre curba plină și cea punctată. Atât durează să nu mai confunzi niciodată cifra cu realitatea.",
+        "en": "Turn on the inflation toggle in the simulator above and spend 30 seconds watching the gap between the solid curve and the dashed one. That's all it takes to never again confuse the number with reality."
+      },
+      "teaser": {
+        "ro": "Lecția următoare: Ana și Vlad pun deoparte exact aceeași sumă pe lună. Ea începe la 16 ani, el la 26. Diferența de la final nu e „ceva mai mult\", e o cifră pe care n-o s-o uiți.",
+        "en": "Next lesson: Ana and Vlad set aside exactly the same amount each month. She starts at 16, he starts at 26. The gap at the end isn't \"a bit more\", it's a number you won't forget."
+      },
+      "cards": [
+        {
+          "id": "u6l3-c1",
+          "q": {
+            "ro": "Cât plătește realist un depozit bancar în România (2026)?",
+            "en": "What does a bank deposit realistically pay in Romania (2026)?"
+          },
+          "a": {
+            "ro": "Cam 4-7% pe an. Orice „ofertă\" care promite mult peste, garantat și fără risc, e o minciună, randamentul mare vine doar la pachet cu risc mare.",
+            "en": "About 4-7% a year. Any \"offer\" promising far more, guaranteed and risk-free, is a lie, big returns only come bundled with big risk."
+          }
+        },
+        {
+          "id": "u6l3-c2",
+          "q": {
+            "ro": "Care e diferența dintre valoarea nominală și cea reală?",
+            "en": "What's the difference between nominal and real value?"
+          },
+          "a": {
+            "ro": "Nominală = cifra din cont; reală = ce poți cumpăra efectiv cu ea. Inflația scade valoarea reală chiar dacă cifra rămâne neschimbată.",
+            "en": "Nominal = the number in the account; real = what you can actually buy with it. Inflation lowers the real value even when the number stays the same."
+          }
+        },
+        {
+          "id": "u6l3-c3",
+          "q": {
+            "ro": "Ce arată curba punctată când activezi inflația în simulator?",
+            "en": "What does the dashed curve show when you turn on inflation in the simulator?"
+          },
+          "a": {
+            "ro": "Valoarea REALĂ a economiilor, ajustată la puterea de cumpărare, nu doar cifra din cont. Și tot graficul e un model educativ, nu o promisiune.",
+            "en": "The REAL value of your savings, adjusted for purchasing power, not just the number in the account. And the whole chart is an educational model, not a promise."
+          }
+        }
+      ]
+    },
+    {
+      "id": "u6-cine-incepe-primul",
+      "emoji": "🏁",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": {
+        "ro": "Cine începe primul",
+        "en": "Who starts first"
+      },
+      "hook": {
+        "ro": "Ana: 100 de lei pe lună, de la 16 ani. Vlad: dublu, 200 pe lună, de la 26. Pare că Vlad recuperează lejer, pune de două ori mai mult. La 36 de ani, curba spune altceva.",
+        "en": "Ana: 100 lei a month, from age 16. Vlad: double that, 200 a month, from 26. Looks like Vlad catches up easily, he's putting in twice as much. At 36, the curve says otherwise."
+      },
+      "guess": {
+        "question": {
+          "ro": "La o dobândă de 5,5% pe an, cu câți lei crezi că e Ana în față la 36 de ani?",
+          "en": "At a 5.5% yearly rate, by how many lei do you think Ana is ahead at 36?"
+        },
+        "min": 0,
+        "max": 20000,
+        "step": 500,
+        "actual": 11650,
+        "unit": "lei",
+        "reveal": {
+          "ro": "Cu vreo 11.650: Ana ajunge pe la 43.550, Vlad pe la 31.900. Și acum partea ciudată: amândoi au depus FIX aceiași bani, 24.000 de lei. Aceeași sumă, aceeași dobândă. Doar leii Anei au muncit mai mult timp; restul l-a făcut timpul. (Cifrele sunt un model educativ la 5,5%, nu o promisiune.)",
+          "en": "By about 11,650: Ana lands around 43,550, Vlad around 31,900. Now the strange part: they both deposited EXACTLY the same money, 24,000 lei. Same amount, same rate. Ana's lei just worked longer; time did the rest. (The figures are an educational model at 5.5%, not a promise.)"
+        }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "La 5,5% pe an, banii se dublează cam la 13 ani, regula lui 72. Asta e unitatea de măsură a dobânzii compuse: **perioada de dublare**. Cine începe la 16 prinde mai multe dublări decât cine începe la 26, nu pentru că e mai deștept, ci pentru că fiecare leu depus devreme are mai mulți ani de muncă în față.",
+            "en": "At 5.5% a year, money doubles roughly every 13 years, the rule of 72. That's compound interest's unit of measure: **the doubling period**. Whoever starts at 16 catches more doublings than whoever starts at 26, not by being smarter, but because every leu deposited early has more working years ahead of it."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Ana, start la 16", "en": "Ana, starts at 16" },
+            "text": {
+              "ro": "100 de lei pe lună. Depune în total 24.000 și ajunge pe la **43.550**.",
+              "en": "100 lei a month. Deposits 24,000 in total and lands around **43,550**."
+            }
+          },
+          "right": {
+            "title": { "ro": "Vlad, start la 26", "en": "Vlad, starts at 26" },
+            "text": {
+              "ro": "200 de lei pe lună, dublu! Depune tot 24.000 și ajunge pe la **31.900**.",
+              "en": "200 lei a month, double! Deposits the same 24,000 and lands around **31,900**."
+            }
+          }
+        },
+        {
+          "t": "stat",
+          "value": 11650,
+          "suffix": " lei",
+          "label": {
+            "ro": "avansul Anei la 36 de ani, din exact aceiași bani depuși, la aceeași dobândă (model la 5,5%)",
+            "en": "Ana's lead at 36, from exactly the same money deposited, at the same rate (a 5.5% model)"
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🥱",
+          "title": { "ro": "Capcana e psihologică", "en": "The trap is psychological" },
+          "text": {
+            "ro": "Primii ani par plictisitori: curba abia se mișcă, dobânda pare mărunțiș, mulți renunță fix aici. Ultimii ani explodează, pentru că procentul crește dintr-o bază tot mai mare. ==Curba răsplătește răbdarea, nu talentul==.",
+            "en": "The first years look boring: the curve barely moves, the interest looks like pocket change, many quit exactly here. The last years explode, because the percentage grows from an ever-bigger base. ==The curve rewards patience, not talent==."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Și încă ceva: Vlad nu e „pierzătorul\" poveștii, 31.900 e departe de zero. Doar că panta lui e mai abruptă: ca să egaleze, ar fi avut nevoie de vreo **273 de lei pe lună**. Discuția corectă nu e „cine a câștigat\", ci „cât costă amânarea\".",
+            "en": "One more thing: Vlad isn't the story's \"loser\", 31,900 is far from zero. His slope is just steeper: to pull even, he'd have needed about **273 lei a month**. The right question isn't \"who won\", it's \"what does the delay cost\"."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Cea mai bună zi să îngropi o alună a fost acum zece ani. A doua cea mai bună e azi, și tu ai fix vârsta perfectă pentru „azi\".",
+            "en": "The best day to bury a hazelnut was ten years ago. The second best is today, and you're at exactly the right age for \"today\"."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "Ana și Vlad au depus amândoi 24.000 de lei, la aceeași dobândă. De ce a ieșit Ana cu ~11.650 în plus?",
+          "en": "Ana and Vlad both deposited 24,000 lei, at the same rate. Why did Ana come out ~11,650 ahead?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "A prins ani cu dobânzi mai bune",
+              "en": "She caught years with better rates"
+            },
+            "why": {
+              "ro": "Nu, modelul folosește fix aceeași dobândă pentru amândoi: 5,5%. Singura variabilă care i-a despărțit a fost timpul, nu rata.",
+              "en": "No, the model uses exactly the same rate for both: 5.5%. The only variable separating them was time, not the rate."
+            }
+          },
+          {
+            "text": {
+              "ro": "Leii ei au stat mai mult la lucru, primii lei depuși prind cele mai multe dublări",
+              "en": "Her lei worked longer, the earliest deposited lei catch the most doublings"
+            },
+            "why": {
+              "ro": "Exact. Un leu depus la 16 ani muncește 20 de ani; unul depus la 26, doar 10. Dobânda compusă plătește vechimea fiecărui leu.",
+              "en": "Exactly. A leu deposited at 16 works for 20 years; one deposited at 26, only 10. Compound interest pays each leu for its seniority."
+            }
+          },
+          {
+            "text": {
+              "ro": "Vlad a pus, de fapt, prea puțin, dublul nu ajunge",
+              "en": "Vlad actually put in too little, double isn't enough"
+            },
+            "why": {
+              "ro": "Aproape, dar inversezi cauza cu efectul. Ca să egaleze, Vlad ar fi avut nevoie de vreo 273 de lei pe lună. Suma mai mare e factura întârzierii, nu greșeala lui.",
+              "en": "Close, but you're swapping cause and effect. To pull even, Vlad would have needed about 273 lei a month. The bigger amount is the delay's invoice, not his mistake."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Vlad, 17 ani, vede graficul și protestează: „deci am pierdut deja?\". Apoi face calculul pentru vârsta LUI: 100 de lei pe lună de acum până la 37 ≈ 43.550, din care doar 24.000 puși de el. Restul? Dobânda. Răsturnarea: în povestea lui, Vlad e Ana. Startul lui devreme e azi.",
+        "en": "Vlad, 17, sees the chart and objects: \"so I've already lost?\". Then he runs the math for HIS age: 100 lei a month from now until 37 ≈ 43,550, of which only 24,000 is his own deposits. The rest? Interest. The twist: in his own story, Vlad is Ana. His early start is today."
+      },
+      "interactive": {
+        "kind": "mcq",
+        "question": {
+          "ro": "Ce contează cel mai mult ca dobânda compusă să lucreze pentru tine?",
+          "en": "What matters most for compound interest to work for you?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Suma: cine pune mai mult pe lună câștigă mereu",
+              "en": "The amount: whoever puts in more per month always wins"
+            },
+            "why": {
+              "ro": "Suma ajută, dar lucrează liniar; timpul lucrează exponențial. Vlad a pus dublu pe lună și tot a terminat cu ~11.650 de lei sub Ana.",
+              "en": "The amount helps, but it works linearly; time works exponentially. Vlad put in double per month and still finished ~11,650 lei behind Ana."
+            }
+          },
+          {
+            "text": {
+              "ro": "Timpul: câți ani stau banii neîntrerupt la lucru",
+              "en": "Time: how many years the money stays at work, uninterrupted"
+            }
+          },
+          {
+            "text": {
+              "ro": "Norocul: să nimerești dobânda perfectă",
+              "en": "Luck: landing the perfect rate"
+            },
+            "why": {
+              "ro": "Ana și Vlad au avut fix aceeași dobândă, și rezultate diferite. Nu rata i-a despărțit, ci anii. Iar „dobânzile spectaculoase garantate\" le știi din Unitatea 5: alea nu sunt noroc, sunt momeală.",
+              "en": "Ana and Vlad had exactly the same rate, and different results. It wasn't the rate that split them, it was the years. And \"guaranteed spectacular rates\" you know from Unit 5: those aren't luck, they're bait."
+            }
+          }
+        ],
+        "correct": 1,
+        "explain": {
+          "ro": "Suma o controlezi de la lună la lună, dobânda abia o alegi, dar timpul e singurul care înmulțește tot ce ating celelalte două. Și e fix resursa la care tu, acum, ești mai bogat decât aproape orice adult.",
+          "en": "You control the amount month to month and barely choose the rate, but time is the one thing that multiplies whatever the other two touch. And it's exactly the resource where you, right now, are richer than almost any adult."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Aceiași 24.000 de lei depuși: startul la 16 → ~43.550; startul la 26 → ~31.900 (model la 5,5%)",
+          "Devreme = mai multe perioade de dublare: primii ani par plați, ultimii explodează",
+          "Cine începe târziu n-a pierdut, doar urcă o pantă mai abruptă, cu sume mai mari"
+        ],
+        "en": [
+          "The same 24,000 lei deposited: starting at 16 → ~43,550; starting at 26 → ~31,900 (a model at 5.5%)",
+          "Early = more doubling periods: the first years look flat, the last ones explode",
+          "Starting late isn't losing, it's just a steeper climb, with bigger amounts"
+        ]
+      },
+      "action": {
+        "ro": "Calculează-ți azi capul de start: 36 minus vârsta ta = anii tăi de avans față de „Vlad de la 26\". Scrie cifra în notițele telefonului, lângă buget. Data viitoare când amâni economisirea „pe la anul\", recitește-o: fiecare an tăiat se plătește la final.",
+        "en": "Work out your head start today: 36 minus your age = your lead over \"Vlad at 26\". Write the number in your phone notes, next to your budget. Next time you postpone saving \"until next year\", reread it: every year you cut gets paid for at the end."
+      },
+      "teaser": {
+        "ro": "Data viitoare îți dau cheile: Laboratorul. Toate sliderele deblocate, anii, suma, dobânda de la 0 la 8%. Fără punctaj, fără întrebări: doar tu, curba și o singură provocare, încearcă să o rupi.",
+        "en": "Next time you get the keys: the Laboratory. Every slider unlocked, years, amount, rate from 0 to 8%. No score, no questions: just you, the curve, and a single dare, try to break it."
+      },
+      "cards": [
+        {
+          "id": "u6l4-c1",
+          "q": {
+            "ro": "Ce contează mai mult la dobânda compusă: timpul sau suma?",
+            "en": "What matters more for compound interest: time or the amount?"
+          },
+          "a": {
+            "ro": "Timpul, suma lucrează liniar, timpul exponențial. 100 de lei/lună de la 16 ani bat 200 de lei/lună de la 26, la aceeași dobândă (~43.550 vs ~31.900, model la 5,5%).",
+            "en": "Time, the amount works linearly, time exponentially. 100 lei/month from age 16 beats 200 lei/month from 26, at the same rate (~43,550 vs ~31,900, a model at 5.5%)."
+          }
+        },
+        {
+          "id": "u6l4-c2",
+          "q": {
+            "ro": "De ce par primii ani de economisire „plați\"?",
+            "en": "Why do the first years of saving look \"flat\"?"
+          },
+          "a": {
+            "ro": "Dobânda e un procent dintr-o bază încă mică, deci abia se vede. Cum baza crește, același procent aduce tot mai mulți lei, curba explodează târziu. De-asta răsplătește răbdarea.",
+            "en": "Interest is a percentage of a still-small base, so it's barely visible. As the base grows, the same percentage brings ever more lei, the curve explodes late. That's why it rewards patience."
+          }
+        },
+        {
+          "id": "u6l4-c3",
+          "q": {
+            "ro": "Ce ne învață Ana și Vlad despre startul întârziat?",
+            "en": "What do Ana and Vlad teach about starting late?"
+          },
+          "a": {
+            "ro": "Cu aceiași 24.000 de lei depuși, startul cu 10 ani mai devreme a adus ~11.650 în plus. Cine începe târziu n-a pierdut, dar recuperarea cere sume lunare mai mari.",
+            "en": "With the same 24,000 lei deposited, starting 10 years earlier brought ~11,650 more. Starting late isn't losing, but catching up takes bigger monthly amounts."
+          }
+        }
+      ]
+    },
+    {
+      "id": "u6-laboratorul",
+      "emoji": "🧪",
+      "minutes": 4,
+      "xp": 25,
+      "difficulty": "advanced",
+      "title": {
+        "ro": "Laboratorul",
+        "en": "The Laboratory"
+      },
+      "hook": {
+        "ro": "Până azi ai privit mașinăria prin geam, manetă cu manetă. Azi primești cheile: tot laboratorul, toate sliderele, cursa Ana-Vlad. Iar misiunea sună ciudat: strică-l. Nu costă nimic, și exact așa se înțeleg mașinăriile.",
+        "en": "Until today you watched the machine through the glass, one lever at a time. Today you get the keys: the whole lab, every slider, the Ana-Vlad race. And the mission sounds odd: break it. It costs nothing, and that's exactly how machines get understood."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Până azi, laboratorul ți-a dat manetele pe rând. De-acum sunt toate ale tale: anii, suma lunară, rata, comutatorul de inflație și cursa Ana-Vlad, Ana începe la 16 ani, Vlad la 26. Regula e una singură: **joacă-te și strică tot**, nu costă nimic, și exact așa se înțeleg mașinăriile.",
+            "en": "Until today, the lab handed you the levers one at a time. Now they're all yours: the years, the monthly amount, the rate, the inflation switch and the Ana-Vlad race, Ana starts at 16, Vlad at 26. There's one rule: **play and break everything**, it costs nothing, and that's exactly how machines get understood."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "violet",
+          "icon": "🎯",
+          "title": { "ro": "Vânează crossover-ul", "en": "Hunt the crossover" },
+          "text": {
+            "ro": "Markerul care pulsează e momentul-cheie: **crossover-ul**, punctul din care dobânda adaugă lunar mai mult decât depui tu. ==De acolo, mașinăria se hrănește singură==.",
+            "en": "The pulsing marker is the key moment: **the crossover**, the point where interest starts adding more each month than you deposit. ==From there, the machine feeds itself==."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            { "ro": "Trage rata la 0, apoi la 8, vezi ce face doar procentul.", "en": "Drag the rate to 0, then to 8, see what the percentage alone does." },
+            { "ro": "Pune 10 lei pe lună, apoi 500, vezi ce face doar suma.", "en": "Set 10 lei a month, then 500, see what the amount alone does." },
+            { "ro": "Pornește inflația și urmărește curba punctată, valoarea reală.", "en": "Turn on inflation and watch the dashed curve, the real value." },
+            { "ro": "Pornește cursa Ana-Vlad și mută anii, privește cum se plimbă crossover-ul.", "en": "Start the Ana-Vlad race and move the years, watch the crossover travel." }
+          ]
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Cu mâinile pe manete, citește și eticheta de pe mașinărie: ăsta e un **model educativ**, nu o promisiune. Modelul presupune rată fixă și depuneri lunare disciplinate; realitatea are comisioane, impozite și dobânzi care se mișcă, la depozitele din România, azi, cam între 4 și 7%.",
+            "en": "Hands on the levers, read the label on the machine too: this is an **educational model**, not a promise. The model assumes a fixed rate and disciplined monthly deposits; reality has fees, taxes and moving rates, Romanian deposits today sit roughly between 4 and 7%."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Cifra exactă o negociezi cu realitatea. Forma curbei, leneșă la început, apoi tot mai grăbită, e a matematicii. Și, de azi, a ta.",
+            "en": "The exact number you'll negotiate with reality. The curve's shape, lazy at first, then faster and faster, belongs to math. And, starting today, to you."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "Markerul pulsează pe grafic: ai atins „crossover\"-ul. Ce s-a întâmplat exact acolo?",
+          "en": "The marker is pulsing on the chart: you've hit the \"crossover\". What exactly happened there?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Banii tăi s-au dublat față de ce ai depus",
+              "en": "Your money doubled compared to what you put in"
+            },
+            "why": {
+              "ro": "Dublarea e alt reper, badge-ul „se dublează în ~N ani\", regula lui 72. Crossover-ul nu compară totaluri: compară cine hrănește creșterea LUNA asta, tu sau dobânda.",
+              "en": "Doubling is a different landmark, the \"doubles in ~N years\" badge, the rule of 72. The crossover doesn't compare totals: it compares who feeds the growth THIS month, you or the interest."
+            }
+          },
+          {
+            "text": {
+              "ro": "Dobânda a început să adauge lunar mai mult decât depui tu",
+              "en": "Interest started adding more each month than you deposit"
+            },
+            "why": {
+              "ro": "Exact. Până aici, motorul principal erai tu; de aici, banii deja strânși depun mai mult decât tine. Mișcă sliderele și uită-te cum se plimbă punctul ăsta.",
+              "en": "Exactly. Up to here, the main engine was you; from here, the money you've already saved deposits more than you do. Move the sliders and watch this point travel."
+            }
+          },
+          {
+            "text": {
+              "ro": "De aici creșterea e garantată, poți opri liniștit depunerile",
+              "en": "From here growth is guaranteed, you can safely stop depositing"
+            },
+            "why": {
+              "ro": "Nimic de pe grafic nu e garantat, modelul ține rata fixă, realitatea nu. Iar depunerile oprite încetinesc fix partea din curbă care abia începea să se distreze.",
+              "en": "Nothing on that chart is guaranteed, the model holds the rate steady, reality doesn't. And stopped deposits slow down exactly the part of the curve that was finally having fun."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": {
+          "ro": "Laboratorul se închide, dar întrebarea rămâne deschisă: planul TĂU, din luna viitoare. Nu al Anei, nu al lui Vlad, al tău.",
+          "en": "The lab closes, but the question stays open: YOUR plan, starting next month. Not Ana's, not Vlad's, yours."
+        },
+        "question": {
+          "ro": "Ce alegi?",
+          "en": "What do you pick?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "30 de lei pe lună, puțin, dar în FIECARE lună",
+              "en": "30 lei a month, tiny, but EVERY month"
+            },
+            "consequence": {
+              "ro": "Minuscul? În model, la 5,5%, 30 de lei pe lună devin în 10 ani aproape 4.800 de lei, din care peste 1.000 nu i-ai depus tu. Dar adevărata avere nu e cifra: e mușchiul. Suma se mărește ușor mai târziu; obiceiul nu se improvizează peste noapte.",
+              "en": "Tiny? In the model, at 5.5%, 30 lei a month becomes nearly 4,800 lei in 10 years, over 1,000 of which you never deposited. But the real treasure isn't the number: it's the muscle. The amount is easy to raise later; the habit can't be improvised overnight."
+            }
+          },
+          {
+            "text": {
+              "ro": "150 de lei pe lună, ambițios, curba arată spectaculos",
+              "en": "150 lei a month, ambitious, the curve looks spectacular"
+            },
+            "consequence": {
+              "ro": "Dacă e sustenabil, e superb. Testul de sinceritate: poți depune 150 și în luna cu festival, și în decembrie? Dacă da, ține-o. Dacă nu, un 50 care rezistă bate un 150 care moare în luna a treia, curba iubește continuitatea, nu eroismul.",
+              "en": "If it's sustainable, it's superb. The honesty test: can you deposit 150 in festival month AND in December? If yes, keep it. If not, a 50 that lasts beats a 150 that dies in month three, the curve loves continuity, not heroism."
+            }
+          },
+          {
+            "text": {
+              "ro": "Aștept primul salariu, atunci încep serios",
+              "en": "I'll wait for my first salary, then I'll start for real"
+            },
+            "consequence": {
+              "ro": "Sună rațional, dar cursa Ana-Vlad tocmai ți-a arătat prețul: anii de început sunt cei mai valoroși din toată curba, pentru că dobânda are nevoie de timp. Și încă ceva: salariul nu vine cu obiceiul inclus. 10 lei de-acum îl construiesc, iar el va ști ce să facă atunci când apare salariul.",
+              "en": "Sounds rational, but the Ana-Vlad race just showed you the price: the early years are the most valuable on the whole curve, because interest needs time. One more thing: a salary doesn't come with the habit included. 10 lei now builds it, and it will know what to do when the salary shows up."
+            }
+          }
+        ]
+      },
+      "interactive": {
+        "kind": "param_sim",
+        "title": {
+          "ro": "Laboratorul: joacă-te liber",
+          "en": "The Laboratory: free play"
+        },
+        "config": {
+          "exposed": [
+            "years",
+            "monthly",
+            "rate"
+          ],
+          "monthly_default": 100,
+          "rate_default": 5.5,
+          "years_default": 15,
+          "years_max": 30,
+          "inflation": true,
+          "race": true
+        }
+      },
+      "recap": {
+        "ro": [
+          "Crossover = punctul din care dobânda adaugă lunar mai mult decât depui tu",
+          "Simulatorul e un model educativ, nu o promisiune, lecția e forma curbei, nu cifra exactă",
+          "Obiceiul bate suma: 30 de lei care rezistă bat 150 care se opresc"
+        ],
+        "en": [
+          "Crossover = the point where interest starts adding more each month than you deposit",
+          "The simulator is an educational model, not a promise, the lesson is the curve's shape, not the exact number",
+          "Habit beats amount: 30 lei that lasts beats 150 that stops"
+        ]
+      },
+      "action": {
+        "ro": "Înainte să pleci, setează în laborator planul tău real, suma pe care o poți ține și în cea mai proastă lună. Uită-te unde cade crossover-ul TĂU și ține minte anul: ăla e reperul tău, nu al Anei.",
+        "en": "Before you leave, set your real plan in the lab, the amount you can hold even in your worst month. See where YOUR crossover lands and remember the year: that's your landmark, not Ana's."
+      },
+      "teaser": {
+        "ro": "Unitatea 6 se închide aici, dar laboratorul rămâne deschis oricând. Urmează Unitatea 7. Un singur indiciu: aceeași curbă exponențială există și de partea cealaltă a mesei, când dobânda nu curge spre tine, ci dinspre tine. Merită s-o vezi venind.",
+        "en": "Unit 6 ends here, but the lab stays open anytime. Unit 7 is on its way. One hint: the same exponential curve exists on the other side of the table, when interest flows not toward you, but away from you. Worth seeing it coming."
+      },
+      "cards": [
+        {
+          "id": "u6l5-c1",
+          "q": {
+            "ro": "Ce înseamnă momentul de „crossover\" din simulator?",
+            "en": "What does the simulator's \"crossover\" moment mean?"
+          },
+          "a": {
+            "ro": "Punctul din care dobânda adaugă lunar mai mult decât depui tu, de acolo, banii deja strânși te întrec la depuneri, iar mașinăria se hrănește singură.",
+            "en": "The point where interest starts adding more each month than you deposit, from there, the money you've already saved out-deposits you, and the machine feeds itself."
+          }
+        },
+        {
+          "id": "u6l5-c2",
+          "q": {
+            "ro": "De ce e simulatorul „un model educativ, nu o promisiune\"?",
+            "en": "Why is the simulator \"an educational model, not a promise\"?"
+          },
+          "a": {
+            "ro": "Modelul presupune rată fixă și depuneri regulate; realitatea are comisioane, impozite și dobânzi care se mișcă (depozitele în România: azi cam 4-7%). Lecția e forma curbei, nu cifra exactă.",
+            "en": "The model assumes a fixed rate and steady deposits; reality has fees, taxes and moving rates (Romanian deposits today: roughly 4-7%). The lesson is the curve's shape, not the exact number."
+          }
+        },
+        {
+          "id": "u6l5-c3",
+          "q": {
+            "ro": "Ce contează mai mult pentru curbă: suma sau obiceiul?",
+            "en": "What matters more for the curve: the amount or the habit?"
+          },
+          "a": {
+            "ro": "Obiceiul. Suma se poate mări oricând pe drum; depunerile care se opresc opresc și curba. 30 de lei în fiecare lună bat 150 abandonați în luna a treia.",
+            "en": "The habit. The amount can be raised anytime along the way; deposits that stop, stop the curve too. 30 lei every month beats 150 abandoned in month three."
+          }
+        }
+      ]
+    }
+  ]
+}

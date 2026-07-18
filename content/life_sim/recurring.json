@@ -1,0 +1,300 @@
+{
+  "version": "2.0.0",
+  "recurring": [
+    {
+      "id": "acasa_contributie",
+      "kind": "bill",
+      "name": {
+        "ro": "Contribuție la cheltuielile casei",
+        "en": "Contribution to household costs"
+      },
+      "amount": 70000,
+      "due_day": 3,
+      "flexible": false,
+      "category": "housing",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 6},
+        {"type": "stat", "stat": "relationships", "delta": -8},
+        {"type": "setFlag", "flag": "contributie_amanata"}
+      ]
+    },
+    {
+      "id": "abonament_stb",
+      "kind": "subscription",
+      "name": {
+        "ro": "Abonament transport public",
+        "en": "Public transport pass"
+      },
+      "amount": 8000,
+      "due_day": 4,
+      "flexible": false,
+      "category": "transport",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 4},
+        {"type": "setFlag", "flag": "fara_abonament_transport"}
+      ]
+    },
+    {
+      "id": "chirie_colocatar",
+      "kind": "bill",
+      "name": {
+        "ro": "Chirie (cu coleg de apartament)",
+        "en": "Rent (with a flatmate)"
+      },
+      "amount": 120000,
+      "due_day": 5,
+      "flexible": false,
+      "category": "housing",
+      "miss_effects": [
+        {"type": "cash", "delta": -8000},
+        {"type": "stat", "stat": "stress", "delta": 10},
+        {"type": "setFlag", "flag": "chirie_intarziata"}
+      ]
+    },
+    {
+      "id": "chirie_garsoniera",
+      "kind": "bill",
+      "name": {
+        "ro": "Chirie garsonieră",
+        "en": "Studio-flat rent"
+      },
+      "amount": 200000,
+      "due_day": 5,
+      "flexible": false,
+      "category": "housing",
+      "miss_effects": [
+        {"type": "cash", "delta": -12000},
+        {"type": "stat", "stat": "stress", "delta": 12},
+        {"type": "setFlag", "flag": "chirie_intarziata"}
+      ]
+    },
+    {
+      "id": "abonament_sala",
+      "kind": "subscription",
+      "name": {
+        "ro": "Abonament sală",
+        "en": "Gym membership"
+      },
+      "amount": 15000,
+      "due_day": 6,
+      "flexible": false,
+      "category": "health",
+      "miss_effects": [
+        {"type": "stat", "stat": "energy", "delta": -2},
+        {"type": "setFlag", "flag": "sala_suspendata"}
+      ]
+    },
+    {
+      "id": "abonament_telefon",
+      "kind": "subscription",
+      "name": {
+        "ro": "Abonament telefon",
+        "en": "Phone plan"
+      },
+      "amount": 4000,
+      "due_day": 8,
+      "flexible": false,
+      "category": "telecom",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 3},
+        {"type": "setFlag", "flag": "telefon_suspendat"}
+      ]
+    },
+    {
+      "id": "internet",
+      "kind": "subscription",
+      "name": {
+        "ro": "Internet acasă",
+        "en": "Home internet"
+      },
+      "amount": 5000,
+      "due_day": 10,
+      "flexible": false,
+      "category": "telecom",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 3},
+        {"type": "setFlag", "flag": "internet_suspendat"}
+      ]
+    },
+    {
+      "id": "utilitati_cota",
+      "kind": "bill",
+      "name": {
+        "ro": "Utilități (cota mea)",
+        "en": "Utilities (my share)"
+      },
+      "amount": 45000,
+      "due_day": 12,
+      "flexible": true,
+      "category": "utilities",
+      "miss_effects": [
+        {"type": "cash", "delta": -3000},
+        {"type": "stat", "stat": "stress", "delta": 6},
+        {"type": "setFlag", "flag": "utilitati_restante"}
+      ]
+    },
+    {
+      "id": "netflix",
+      "kind": "subscription",
+      "name": {
+        "ro": "Abonament streaming filme",
+        "en": "Movie streaming subscription"
+      },
+      "amount": 3500,
+      "due_day": 14,
+      "flexible": false,
+      "category": "entertainment",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 1},
+        {"type": "setFlag", "flag": "streaming_suspendat"}
+      ]
+    },
+    {
+      "id": "curent",
+      "kind": "bill",
+      "name": {
+        "ro": "Curent electric",
+        "en": "Electricity"
+      },
+      "amount": 22000,
+      "due_day": 15,
+      "flexible": true,
+      "category": "utilities",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 6},
+        {"type": "setFlag", "flag": "curent_restant"}
+      ]
+    },
+    {
+      "id": "spotify",
+      "kind": "subscription",
+      "name": {
+        "ro": "Abonament streaming muzică",
+        "en": "Music streaming subscription"
+      },
+      "amount": 2500,
+      "due_day": 16,
+      "flexible": false,
+      "category": "entertainment",
+      "miss_effects": [
+        {"type": "setFlag", "flag": "muzica_suspendata"}
+      ]
+    },
+    {
+      "id": "gaze",
+      "kind": "bill",
+      "name": {
+        "ro": "Gaze naturale",
+        "en": "Natural gas"
+      },
+      "amount": 28000,
+      "due_day": 18,
+      "flexible": true,
+      "category": "utilities",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 6},
+        {"type": "setFlag", "flag": "gaze_restant"}
+      ]
+    },
+    {
+      "id": "rata_telefon_catalog",
+      "kind": "debt_payment",
+      "name": {
+        "ro": "Rată telefon",
+        "en": "Phone installment"
+      },
+      "amount": 15000,
+      "due_day": 20,
+      "flexible": false,
+      "category": "debt",
+      "miss_effects": [
+        {"type": "cash", "delta": -3000},
+        {"type": "stat", "stat": "stress", "delta": 8},
+        {"type": "setFlag", "flag": "rata_telefon_restanta"}
+      ]
+    },
+    {
+      "id": "rata_laptop_catalog",
+      "kind": "debt_payment",
+      "name": {
+        "ro": "Rată laptop",
+        "en": "Laptop installment"
+      },
+      "amount": 20000,
+      "due_day": 22,
+      "flexible": false,
+      "category": "debt",
+      "miss_effects": [
+        {"type": "cash", "delta": -3000},
+        {"type": "stat", "stat": "stress", "delta": 8},
+        {"type": "setFlag", "flag": "rata_laptop_restanta"}
+      ]
+    },
+    {
+      "id": "asigurare_masina",
+      "kind": "bill",
+      "name": {
+        "ro": "Asigurare auto (rată lunară)",
+        "en": "Car insurance (monthly installment)"
+      },
+      "amount": 18000,
+      "due_day": 24,
+      "flexible": false,
+      "category": "transport",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 6},
+        {"type": "setFlag", "flag": "masina_neasigurata"}
+      ]
+    },
+    {
+      "id": "combustibil",
+      "kind": "bill",
+      "name": {
+        "ro": "Combustibil (pe lună)",
+        "en": "Fuel (per month)"
+      },
+      "amount": 40000,
+      "due_day": 26,
+      "flexible": true,
+      "category": "transport",
+      "miss_effects": [
+        {"type": "stat", "stat": "energy", "delta": -4},
+        {"type": "stat", "stat": "stress", "delta": 6},
+        {"type": "setFlag", "flag": "combustibil_lipsa"}
+      ]
+    },
+    {
+      "id": "mancare_pranz_munca",
+      "kind": "bill",
+      "name": {
+        "ro": "Prânzul la muncă",
+        "en": "Lunch at work"
+      },
+      "amount": 30000,
+      "due_day": 28,
+      "flexible": true,
+      "category": "food",
+      "miss_effects": [
+        {"type": "stat", "stat": "energy", "delta": -5},
+        {"type": "stat", "stat": "health", "delta": -3},
+        {"type": "stat", "stat": "stress", "delta": 4}
+      ]
+    },
+    {
+      "id": "camin_taxa",
+      "kind": "bill",
+      "name": {
+        "ro": "Taxă de cămin",
+        "en": "Dorm fee"
+      },
+      "amount": 35000,
+      "due_day": 6,
+      "flexible": false,
+      "category": "housing",
+      "miss_effects": [
+        {"type": "stat", "stat": "stress", "delta": 8},
+        {"type": "setFlag", "flag": "camin_restant"}
+      ]
+    }
+  ]
+}

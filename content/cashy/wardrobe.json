@@ -1,0 +1,31 @@
+{
+  "$schema_note": "Garderoba lui Cashy. REGULI DE GUVERNANȚĂ: id-urile sunt stabile pe viață (nu se șterg iteme, doar se adaugă); fiecare item are PREȚ FIX sau CONDIȚIE de merit (nimic random, nicio a doua monedă); zero avantaj funcțional (pur vizual). Prețuri calibrate pe venit real ~30-60 ghinde/zi activă: comun 150-250 (~3-5 zile), rar 400-600 (~1-2 săptămâni), epic 900-1200, prestigiu 5000 (ancora aspirațională). Sezonierele REVIN anual (luni_disponibile): interzis «ultima șansă»/countdown. slot: background|accessory. cond: streak30|belt_black|unit5|score80 (verificate din datele locale).",
+  "items": [
+    { "id": "bg_ocean", "slot": "background", "tier": "comun", "price": 150, "emoji": "🌊", "name": { "ro": "Ocean", "en": "Ocean" }, "colors": ["FF7FD0F0", "FF2196C9"] },
+    { "id": "bg_menta", "slot": "background", "tier": "comun", "price": 150, "emoji": "🌿", "name": { "ro": "Mentă", "en": "Mint" }, "colors": ["FF4BE08A", "FF12934A"] },
+    { "id": "bg_apus", "slot": "background", "tier": "comun", "price": 200, "emoji": "🌇", "name": { "ro": "Apus", "en": "Sunset" }, "colors": ["FFFFCB63", "FFE08A00"] },
+    { "id": "bg_zmeura", "slot": "background", "tier": "rar", "price": 400, "emoji": "🍓", "name": { "ro": "Zmeură", "en": "Raspberry" }, "colors": ["FFFF8794", "FFD63450"] },
+    { "id": "bg_padure", "slot": "background", "tier": "rar", "price": 450, "emoji": "🌲", "name": { "ro": "Pădurea lui Cashy", "en": "Cashy's Forest" }, "colors": ["FF8BC34A", "FF33691E"] },
+    { "id": "bg_galaxie", "slot": "background", "tier": "epic", "price": 900, "emoji": "🌌", "name": { "ro": "Galaxie", "en": "Galaxy" }, "colors": ["FFB3A7FF", "FF5D45E0"] },
+    { "id": "bg_noapte", "slot": "background", "tier": "epic", "price": 950, "emoji": "🌙", "name": { "ro": "Miez de noapte", "en": "Midnight" }, "colors": ["FF3E5A7E", "FF16233B"] },
+    { "id": "bg_brad", "slot": "background", "tier": "rar", "price": 500, "emoji": "🎄", "name": { "ro": "Sărbători", "en": "Holidays" }, "colors": ["FFE05252", "FF1E7A46"], "luni_disponibile": [11, 12] },
+    { "id": "bg_vara", "slot": "background", "tier": "rar", "price": 500, "emoji": "🏖️", "name": { "ro": "Vară la mare", "en": "Beach summer" }, "colors": ["FFFFD97A", "FF33B6E6"], "luni_disponibile": [6, 7, 8] },
+
+    { "id": "acc_ochelari_soare", "slot": "accessory", "tier": "comun", "price": 150, "emoji": "🕶️", "name": { "ro": "Ochelari de soare", "en": "Sunglasses" } },
+    { "id": "acc_balon", "slot": "accessory", "tier": "comun", "price": 180, "emoji": "🎈", "name": { "ro": "Balon", "en": "Balloon" } },
+    { "id": "acc_fundita", "slot": "accessory", "tier": "comun", "price": 180, "emoji": "🎀", "name": { "ro": "Fundiță", "en": "Bow" } },
+    { "id": "acc_trifoi", "slot": "accessory", "tier": "comun", "price": 250, "emoji": "🍀", "name": { "ro": "Trifoi norocos", "en": "Lucky clover" } },
+    { "id": "acc_palarie", "slot": "accessory", "tier": "rar", "price": 450, "emoji": "🎩", "name": { "ro": "Joben", "en": "Top hat" } },
+    { "id": "acc_coronita", "slot": "accessory", "tier": "rar", "price": 500, "emoji": "🌸", "name": { "ro": "Coroniță de flori", "en": "Flower crown" } },
+    { "id": "acc_casti", "slot": "accessory", "tier": "epic", "price": 1000, "emoji": "🎧", "name": { "ro": "Căști de studio", "en": "Studio headphones" } },
+    { "id": "acc_ghinda_aur", "slot": "accessory", "tier": "epic", "price": 1200, "emoji": "✨", "name": { "ro": "Ghinda de aur", "en": "The golden acorn" } },
+    { "id": "acc_mos", "slot": "accessory", "tier": "rar", "price": 500, "emoji": "🎅", "name": { "ro": "Căciula de sărbători", "en": "Holiday hat" }, "luni_disponibile": [11, 12] },
+
+    { "id": "acc_fular", "slot": "accessory", "tier": "merit", "emoji": "🧣", "name": { "ro": "Fularul Flăcării", "en": "The Flame Scarf" }, "cond": "streak30", "cond_text": { "ro": "Se câștigă: streak de 30 de zile", "en": "Earned: a 30-day streak" } },
+    { "id": "acc_bandana", "slot": "accessory", "tier": "merit", "emoji": "🥷", "name": { "ro": "Bandana Neagră", "en": "The Black Bandana" }, "cond": "belt_black", "cond_text": { "ro": "Se câștigă: centura neagră în Scam Dojo", "en": "Earned: the black belt in Scam Dojo" } },
+    { "id": "acc_scut", "slot": "accessory", "tier": "merit", "emoji": "🛡️", "name": { "ro": "Scutul Anti-Țeapă", "en": "The Anti-Scam Shield" }, "cond": "unit5", "cond_text": { "ro": "Se câștigă: Unitatea 5 completă", "en": "Earned: Unit 5 completed" } },
+    { "id": "acc_monoclu", "slot": "accessory", "tier": "merit", "emoji": "🧐", "name": { "ro": "Monoclul Investitorului", "en": "The Investor's Monocle" }, "cond": "score80", "cond_text": { "ro": "Se câștigă: scor FinEdu 80+ (Expert)", "en": "Earned: FinEdu score 80+ (Expert)" } },
+
+    { "id": "acc_coroana_stejarului", "slot": "accessory", "tier": "prestigiu", "price": 5000, "emoji": "👑", "name": { "ro": "Coroana Stejarului", "en": "The Oak Crown" } }
+  ]
+}

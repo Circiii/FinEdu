@@ -1,0 +1,41 @@
+{
+  "$schema_note": "Notificări v2 (F8-e). Ton: Cashy prietenos, ZERO vinovăție, ZERO amenințare cu pierderea (AADC): interzise «pierzi», «ai stricat», «trebuie», «ultima șansă». Mesajul promite ceva mic și concret, nu cere. Escaladare = doar schimbare de ton (D1 complice, D3 blând, D7 cald și fără presiune), nu de intensitate.",
+  "d1": [
+    {
+      "title": { "ro": "Am găsit niște ghinde bune", "en": "Found some good acorns" },
+      "body": { "ro": "Ți-am pus una deoparte. Provocarea de azi ține 60 de secunde.", "en": "Set one aside for you. Today's challenge takes 60 seconds." }
+    },
+    {
+      "title": { "ro": "Trei ghinde sub o frunză", "en": "Three acorns under a leaf" },
+      "body": { "ro": "Le împărțim? Te așteaptă ceva scurt în aplicație.", "en": "Split them with me? Something short is waiting in the app." }
+    },
+    {
+      "title": { "ro": "Ți-am ținut locul cald", "en": "Kept your spot warm" },
+      "body": { "ro": "Un minut și te prinzi iar în ritm. Trecem printr-o rundă?", "en": "One minute and you're back in the swing. Fancy a round?" }
+    }
+  ],
+  "d3": [
+    {
+      "title": { "ro": "Pauzele sunt ok", "en": "Breaks are okay" },
+      "body": { "ro": "Am stat și eu la soare. Când ai chef, ghindele te așteaptă.", "en": "I sat in the sun too. Whenever you feel like it, the acorns are here." }
+    },
+    {
+      "title": { "ro": "Fără grabă", "en": "No rush" },
+      "body": { "ro": "Poteca nu fuge nicăieri. Trecem azi printr-o provocare mică?", "en": "The path isn't going anywhere. Fancy one small challenge today?" }
+    },
+    {
+      "title": { "ro": "M-am gândit la tine", "en": "Thought of you" },
+      "body": { "ro": "Am o ghindă pusă deoparte și un minut liber. Ne vedem?", "en": "Got an acorn saved and a spare minute. See you?" }
+    }
+  ],
+  "d7": [
+    {
+      "title": { "ro": "Poteca ta e tot aici", "en": "Your path is still here" },
+      "body": { "ro": "Exact unde ai lăsat-o, cu tot cu ghinde. Intri când vrei tu.", "en": "Right where you left it, acorns and all. Come in whenever you want." }
+    },
+    {
+      "title": { "ro": "Ușa a rămas deschisă", "en": "The door stayed open" },
+      "body": { "ro": "Nicio grabă și nicio bătaie de cap. Te aștept cu drag.", "en": "No rush and no fuss. I'm glad to wait for you." }
+    }
+  ]
+}

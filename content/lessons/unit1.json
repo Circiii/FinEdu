@@ -1,0 +1,588 @@
+﻿{
+  "$schema_note": "Unitatea 1, Track A (14-18), format 3: hook → guess/check → „blocks\" vizuale de concept (text, callout, stat, vs, steps, quote, dezvăluite prin tap) → scenariu jucabil sau exemplu → interactiv (mcq/swipe/cloze/order/pairs/reveal) → recap + pasul de azi + teaser. Fiecare lecție are minim 2 din guess/check/scenario, exact 3 concept cards, texte bilingve cu markup **bold** și ==evidențiat==, iar cifrele din guess sunt fapte verificabile.",
+  "unit": {
+    "id": "u1",
+    "ord": 1,
+    "format": 3,
+    "track": "A",
+    "emoji": "💰",
+    "color": "blue",
+    "title": { "ro": "Primii tăi bani", "en": "Your first money" }
+  },
+  "lessons": [
+    {
+      "id": "u1-banii-tai",
+      "emoji": "👛",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "De unde vin banii tăi", "en": "Where your money comes from" },
+      "hook": {
+        "ro": "Alocație, buzunar, cadouri, banii tăi au o poveste. O știi?",
+        "en": "Allowance, pocket money, gifts, your money has a story. Do you know it?"
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Stai o secundă și numără: alocația care pică lunar, banii de buzunar de săptămâna asta, bancnota de la bunica de ziua ta. **Fiecare sursă are ritmul ei**, o dată pe lună, o dată pe săptămână, din când în când. Cine știe ritmul, poate plănui.",
+            "en": "Stop and count for a second: the allowance that lands monthly, this week's pocket money, the birthday bill from grandma. **Each source has its own rhythm**, monthly, weekly, now and then. Know the rhythm and you can plan."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Ana, 16 ani, le-a adunat într-o seară, direct pe telefon: 300 alocație + ~150 de buzunar + ~50 de la bunici. De atunci știe exact cât poate pune deoparte pentru biletul de festival, ==fără să ceară un leu în plus==.",
+            "en": "Ana, 16, added hers up one evening, right on her phone: 300 allowance + ~150 pocket money + ~50 from grandparents. Since then she knows exactly how much she can set aside for the festival ticket, ==without asking for one extra leu==."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 500,
+          "suffix": " lei",
+          "label": {
+            "ro": "venitul lunar al Anei, trei surse mici, o singură cifră clară",
+            "en": "Ana's monthly income, three small sources, one clear number"
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Nu mă întreba câte alune am. Întreabă-mă dacă ȘTIU câte am, asta mă ține sătul toată iarna.",
+            "en": "Don't ask me how many acorns I have. Ask me if I KNOW how many, that's what keeps me fed all winter."
+          }
+        }
+      ],
+      "guess": {
+        "question": { "ro": "Cam cât e alocația de stat lunară pentru un adolescent în România?", "en": "Roughly how big is the monthly state allowance for a Romanian teen?" },
+        "min": 0, "max": 1000, "step": 10, "actual": 300,
+        "reveal": { "ro": "În jur de 300 de lei, și vine automat, în fiecare lună. Primul tău „venit\" oficial.", "en": "Around 300 lei, automatically, every month. Your first official \"income\"." }
+      },
+      "check": {
+        "question": { "ro": "Ce contează mai mult pentru un plan cu banii?", "en": "What matters more for a money plan?" },
+        "options": [
+          { "text": { "ro": "Să primești cât mai mult", "en": "Getting as much as possible" }, "why": { "ro": "Ajută, dar nu e primul pas, sunt oameni cu salarii mari și zero plan. Cifra știută bate cifra mare.", "en": "It helps, but it's not step one, plenty of people earn a lot with zero plan. A known number beats a big one." } },
+          { "text": { "ro": "Să ȘTII cât primești în total", "en": "KNOWING your monthly total" }, "why": { "ro": "Exact. Orice plan pornește de la cifra reală, oricât de mică.", "en": "Exactly. Every plan starts from the real number." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Ziua de alocație. 300 de lei tocmai au aterizat în contul tău. Mai ai 80 de la săptămâna trecută și îți mai vin ~150 de buzunar pe parcurs.", "en": "Allowance day. 300 lei just landed. You still have 80 from last week and ~150 pocket money is coming." },
+        "question": { "ro": "Primul tău gest?", "en": "Your first move?" },
+        "options": [
+          { "text": { "ro": "Îi cheltui repede, sunt ai mei, i-am așteptat", "en": "Spend fast, they're mine, I've waited" }, "consequence": { "ro": "Ai tot dreptul. Doar că pe 20 rămâi pe zero și „împrumuți\" de la mama. **Banii cheltuiți fără cifră** se termină mereu cu o săptămână prea devreme.", "en": "Your right. But by the 20th you're at zero. **Money spent without a number** always runs out a week early." } },
+          { "text": { "ro": "Adun tot: 300 + 80 + ~150 = cifra lunii", "en": "Add it all up: 300 + 80 + ~150 = the month's number" }, "consequence": { "ro": "~530 de lei. Din secunda asta ai un **venit**, nu doar „niște bani\". Fix ce face Ana, și fix de-aici pornește orice plan.", "en": "~530 lei. From this second you have an **income**, not just \"some money\"." } },
+          { "text": { "ro": "Îi las în cont și nu mă gândesc la ei", "en": "Leave them alone and don't think about it" }, "consequence": { "ro": "Pare disciplină, dar banii „la care nu te gândești\" se planifică singuri, de obicei în covrigi și doze. Necunoscutul nu e economisire.", "en": "Feels disciplined, but money you don't think about plans itself, usually into snacks." } }
+        ]
+      },
+      "interactive": {
+        "kind": "pairs",
+        "title": { "ro": "Potrivește sursa cu ritmul ei", "en": "Match each source with its rhythm" },
+        "pairs": [
+          { "l": { "ro": "Alocația de stat", "en": "State allowance" }, "r": { "ro": "lunară, vine automat", "en": "monthly, arrives automatically" } },
+          { "l": { "ro": "Banii de buzunar", "en": "Pocket money" }, "r": { "ro": "săptămânali, de la ai tăi", "en": "weekly, from your folks" } },
+          { "l": { "ro": "Cadourile de la bunici", "en": "Grandparents' gifts" }, "r": { "ro": "ocazionale, sărbători, zile mari", "en": "occasional, holidays, big days" } },
+          { "l": { "ro": "Jobul de vară", "en": "The summer job" }, "r": { "ro": "sezonier, muncit de tine", "en": "seasonal, earned by you" } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Banii tăi au surse și ritmuri, cunoaște-le",
+          "„Venitul\" tău = totalul pe lună, oricât de mic",
+          "Orice plan pornește de la cifra reală"
+        ],
+        "en": ["Your money has sources and rhythms", "Your income = your monthly total", "Every plan starts from the real number"]
+      },
+      "action": {
+        "ro": "Adună acum, pe telefon: cât primești pe lună din TOATE sursele? Ține minte cifra.",
+        "en": "Add it up now: your monthly total from ALL sources. Remember it."
+      },
+      "teaser": { "ro": "Plătești în 2 secunde cu cardul. Exact asta e și problema.", "en": "Cards pay in 2 seconds. That's exactly the problem." },
+      "cards": [
+        {
+          "id": "u1l1-c1",
+          "q": { "ro": "Ce înseamnă „venitul tău\" la vârsta ta?", "en": "What counts as your income at your age?" },
+          "a": { "ro": "Totalul banilor primiți pe lună din toate sursele (alocație + buzunar + cadouri).", "en": "Your monthly total from all sources." }
+        },
+        {
+          "id": "u1l1-c2",
+          "q": { "ro": "De ce contează să știi totalul lunar, nu doar sursele?", "en": "Why does the monthly total matter?" },
+          "a": { "ro": "Pentru că orice plan de cheltuit sau economisit pornește de la cifra reală.", "en": "Because every plan starts from the real number." }
+        },
+        {
+          "id": "u1l1-c3",
+          "q": { "ro": "Alocația vine lunar. Banii de buzunar, săptămânal. Cum le compari?", "en": "Allowance is monthly, pocket money weekly. How do you compare?" },
+          "a": { "ro": "Le aduci pe amândouă la aceeași unitate: pe lună (săptămânal × 4).", "en": "Convert both to monthly (weekly × 4)." }
+        }
+      ]
+    },
+    {
+      "id": "u1-cash-vs-card",
+      "emoji": "💳",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Cash sau card?", "en": "Cash or card?" },
+      "hook": {
+        "ro": "Cu cardul plătești în 2 secunde. Exact asta e și problema.",
+        "en": "Cards pay in 2 seconds. That's exactly the problem."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Cash-ul se termină vizibil: portofel gol, mâna se oprește singură. Cardul nu se termină niciodată sub ochii tăi, cifrele scad undeva, în tăcere. Cercetătorii îi spun **durerea plății**: când n-o simți, cheltui mai ușor.",
+            "en": "Cash visibly runs out: empty wallet, your hand stops by itself. A card never runs out before your eyes, numbers just shrink somewhere, silently. Researchers call it **the pain of paying**: when you don't feel it, you spend more easily."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Ana și-a făcut propriul test, o săptămână: a plătit tot cu cardul, dar a **logat fiecare plată pe loc**. Colega ei de bancă, tot card, zero jurnal. Duminică, Ana știa exact: 87 de lei. Colega a zis „vreo 50\".",
+            "en": "Ana ran her own one-week test: card for everything, but she **logged every payment on the spot**. Her deskmate, card too, zero log. On Sunday Ana knew exactly: 87 lei. Her deskmate guessed \"50-ish\"."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 112,
+          "suffix": " lei",
+          "label": {
+            "ro": "cheltuise de fapt colega, cardul ascunsese diferența",
+            "en": "what her deskmate had actually spent, the card hid the gap"
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Cash", "en": "Cash" },
+            "text": { "ro": "Îl simți în mână și îl vezi terminându-se. Disciplină gratuită la sume mici.", "en": "You feel it and watch it run out. Free discipline for small amounts." }
+          },
+          "right": {
+            "title": { "ro": "Card", "en": "Card" },
+            "text": { "ro": "Sigur, rapid, ține istoricul fiecărui leu. Doar că plata nu doare deloc.", "en": "Safe, fast, keeps a history of every leu. But paying doesn't hurt at all." }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "green",
+          "icon": "🧾",
+          "title": { "ro": "Combinația câștigătoare", "en": "The winning combo" },
+          "text": {
+            "ro": "Card pentru plăți + jurnal completat pe loc: viteza lui, ==vizibilitatea ta==.",
+            "en": "Card for payments + a log filled in on the spot: its speed, ==your visibility==."
+          }
+        }
+      ],
+      "guess": {
+        "question": { "ro": "Experiment celebru la MIT: licitație pentru bilete la un meci, jumătate din participanți plătesc cash, jumătate cu cardul. Cu cât la sută MAI MULT au oferit cei cu cardul?", "en": "A famous MIT experiment: an auction for game tickets, half the bidders paying cash, half by card. How much MORE did the card group offer?" },
+        "min": 0, "max": 200, "step": 10, "actual": 100, "unit": "%",
+        "reveal": { "ro": "Aproape DUBLU, cu până la ~100% mai mult, pentru aceleași bilete („Always Leave Home Without It\", Prelec & Simester, MIT). Când plătește cardul, cifrele dor mai puțin.", "en": "Nearly DOUBLE, up to ~100% more, for the same tickets (\"Always Leave Home Without It\", Prelec & Simester, MIT). When the card pays, numbers hurt less." }
+      },
+      "check": {
+        "question": { "ro": "Deci cardul e „rău\"?", "en": "So cards are \"bad\"?" },
+        "options": [
+          { "text": { "ro": "Da, cash-ul e mereu mai bun", "en": "Yes, cash is always better" }, "why": { "ro": "Nu chiar: cash-ul pierdut e pierdut de tot, iar la sume mari devine riscant. Problema cardului nu e cardul, e invizibilitatea.", "en": "Not quite: lost cash is gone for good. The card's problem isn't the card, it's invisibility." } },
+          { "text": { "ro": "Nu, doar îți ascunde „durerea plății\"", "en": "No, it just hides the pain of paying" }, "why": { "ro": "Fix așa. Cardul e sigur și lasă urme; trebuie doar să-i redai vizibilitatea.", "en": "Exactly. Cards are safe and leave a trail; you just have to give them visibility back." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Coadă lungă la supermarket. Ai și cash numărat (30 de lei), și cardul. Coșul tău: vreo 25 de lei.", "en": "Long supermarket queue. You have counted cash (30 lei) and your card. Your basket: about 25 lei." },
+        "question": { "ro": "Cum plătești?", "en": "How do you pay?" },
+        "options": [
+          { "text": { "ro": "Contactless, 2 secunde și gata", "en": "Contactless, 2 seconds, done" }, "consequence": { "ro": "Rapid și sigur. Doar că **plata nedureroasă se uită instant**: dacă nu o loghezi pe loc, ziua de azi „pierde\" 25 de lei. Jurnalul e portofelul tău vizibil.", "en": "Fast and safe. But **a painless payment is instantly forgotten**: log it on the spot or today \"loses\" 25 lei." } },
+          { "text": { "ro": "Cash, număr bancnotele", "en": "Cash, I count the bills" }, "consequence": { "ro": "Ai SIMȚIT plata, fix „durerea\" care disciplinează. Merge natural la sume mici; doar nu căra sume mari în buzunar.", "en": "You FELT the payment, exactly the pain that disciplines. Works great for small amounts; just don't carry big cash." } },
+          { "text": { "ro": "Card, dar loghez înainte să ies din magazin", "en": "Card, but I log before leaving the shop" }, "consequence": { "ro": "Combinația câștigătoare a lecției: viteza cardului + vizibilitatea jurnalului. ==10 secunde care păstrează adevărul zilei.==", "en": "The lesson's winning combo: the card's speed + the log's visibility. ==Ten seconds that keep the day honest.==" } }
+        ]
+      },
+      "interactive": {
+        "kind": "swipe",
+        "title": { "ro": "Sigur sau riscant?", "en": "Safe or risky?" },
+        "left": { "ro": "Sigur", "en": "Safe" },
+        "right": { "ro": "Riscant", "en": "Risky" },
+        "cards": [
+          { "text": { "ro": "Loghezi cheltuiala imediat după ce plătești", "en": "You log right after paying" }, "side": "left", "why": { "ro": "Redai cardului vizibilitatea, portofelul vizibil în acțiune.", "en": "You give the card its visibility back, the visible wallet at work." } },
+          { "text": { "ro": "Cardul salvat în jocuri, „să fie mai rapid\"", "en": "Card saved in games, \"for speed\"" }, "side": "right", "why": { "ro": "Plata dintr-un tap = zero durere a plății + cumpărături accidentale. Scoate-l.", "en": "One-tap payments = zero pain of paying + accidental buys. Remove it." } },
+          { "text": { "ro": "Limita de contactless fără PIN, setată mică", "en": "A low no-PIN contactless limit" }, "side": "left", "why": { "ro": "Un card pierdut nu poate goli contul în tap-uri mici.", "en": "A lost card can't drain the account in small taps." } },
+          { "text": { "ro": "Plătești fără să te uiți la sold, „că merge\"", "en": "Paying without checking the balance, \"it works\"" }, "side": "right", "why": { "ro": "„Merge\" azi. Cifrele scad în tăcere, fix așa se termină banii „pe neștiute\".", "en": "It \"works\" today. Numbers shrink silently, that's exactly how money ends \"mysteriously\"." } },
+          { "text": { "ro": "Verifici soldul înaintea unei cumpărături mari", "en": "Checking the balance before a big buy" }, "side": "left", "why": { "ro": "Decizia se ia pe cifra reală, nu pe speranță.", "en": "The decision runs on the real number, not on hope." } },
+          { "text": { "ro": "Trial „gratuit\" activat cu cardul și uitat", "en": "A \"free\" trial activated with the card and forgotten" }, "side": "right", "why": { "ro": "Din ziua 31 plătești în tăcere. Povestea completă, în Unitatea 4.", "en": "From day 31 you pay silently. Full story, in Unit 4." } }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Cardul ascunde „durerea plății\", cheltui mai ușor",
+          "Cash-ul dă disciplină, cardul dă siguranță și istoric",
+          "Jurnalul tău = portofelul vizibil al cardului"
+        ],
+        "en": ["Cards hide the pain of paying", "Cash = discipline, card = safety + history", "Your log = the card's visible wallet"]
+      },
+      "action": {
+        "ro": "Setează-ți azi limita de contactless fără PIN din aplicația băncii (sau întreabă un adult cum).",
+        "en": "Set your no-PIN contactless limit today."
+      },
+      "teaser": { "ro": "La 14 ani poți avea propriul cont. Dar știi ce semnezi?", "en": "At 14 you can have your own account. But do you know what you're signing?" },
+      "cards": [
+        {
+          "id": "u1l2-c1",
+          "q": { "ro": "De ce cheltuie oamenii mai mult cu cardul decât cu cash?", "en": "Why do people spend more by card?" },
+          "a": { "ro": "Pentru că dispare „durerea plății\", banii nu se văd scăzând.", "en": "The pain of paying disappears." }
+        },
+        {
+          "id": "u1l2-c2",
+          "q": { "ro": "Un avantaj real al cardului față de cash?", "en": "One real advantage of cards?" },
+          "a": { "ro": "Siguranță + istoric: fiecare leu lasă urmă, iar cardul pierdut se blochează.", "en": "Safety + history; a lost card can be blocked." }
+        },
+        {
+          "id": "u1l2-c3",
+          "q": { "ro": "Cum recuperezi „portofelul vizibil\" când plătești cu cardul?", "en": "How do you get the visible wallet back with a card?" },
+          "a": { "ro": "Loghezi cheltuiala imediat, jurnalul devine portofelul tău vizibil.", "en": "Log the expense immediately." }
+        }
+      ]
+    },
+    {
+      "id": "u1-primul-cont",
+      "emoji": "🏦",
+      "minutes": 4,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": { "ro": "Primul tău cont", "en": "Your first account" },
+      "hook": {
+        "ro": "La 14 ani poți avea propriul cont. Dar știi ce semnezi?",
+        "en": "At 14 you can have your own account. But do you know what you're signing?"
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "În România poți avea **cont și card de la 14 ani**, cu acordul părinților până la 18. Nu e un moft: e primul spațiu care e doar al banilor tăi, pe el primești, din el plătești.",
+            "en": "In Romania you can have **an account and a card from 14**, with parental consent until 18. It's not a whim: it's the first space that belongs only to your money, it receives, it pays."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "blue",
+          "icon": "🏠",
+          "title": { "ro": "IBAN ≠ PIN", "en": "IBAN ≠ PIN" },
+          "text": {
+            "ro": "IBAN-ul e **adresa** banilor tăi, o dai liniștit, pe ea primești bani. PIN-ul, parolele și codurile din SMS sunt cheile casei: ==nu se dau nimănui, niciodată==.",
+            "en": "Your IBAN is your money's **address**, share it freely, money arrives there. PINs, passwords and SMS codes are the house keys: ==they go to no one, ever==."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            { "ro": "Întreabă: are comision de administrare? Multe conturi de minori sunt gratuite.", "en": "Ask: is there an admin fee? Many minor accounts are free." },
+            { "ro": "Întreabă: cât costă o retragere de la bancomat?", "en": "Ask: what does an ATM withdrawal cost?" },
+            { "ro": "Întreabă: are aplicație în care vezi fiecare leu?", "en": "Ask: does it have an app that shows every leu?" }
+          ]
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Băncile câștigă din literele mici pe care nu le citește nimeni. Eu le ronțăi pe toate, fă și tu la fel.",
+            "en": "Banks earn from the small print nobody reads. I nibble through all of it, you do the same."
+          }
+        }
+      ],
+      "guess": {
+        "question": { "ro": "Contul lui Radu: „doar\" 5 lei/lună + 2,5 lei pe retragere. Cu o retragere pe lună, cât plătește într-un an?", "en": "Radu's account: \"only\" 5 lei/month + 2.5 lei per withdrawal. With one withdrawal a month, what's the yearly cost?" },
+        "min": 0, "max": 300, "step": 5, "actual": 90,
+        "reveal": { "ro": "60 din comisionul lunar + 30 din retrageri = 90 de lei pe an. Pentru NIMIC în plus față de contul gratuit al Mariei.", "en": "60 from the monthly fee + 30 from withdrawals = 90 lei a year. For nothing extra vs Maria's free account." }
+      },
+      "check": {
+        "question": { "ro": "IBAN-ul e secret, ca PIN-ul?", "en": "Is the IBAN secret, like the PIN?" },
+        "options": [
+          { "text": { "ro": "Da, nu-l dai nimănui", "en": "Yes, never share it" }, "why": { "ro": "Confuzia clasică. IBAN-ul e ca adresa de acasă: poți primi scrisori pe ea, dar nimeni nu-ți intră în casă cu ea.", "en": "The classic mix-up. An IBAN is like your home address: mail can arrive, nobody gets in with it." } },
+          { "text": { "ro": "Nu, e ca adresa de acasă", "en": "No, it's like your home address" }, "why": { "ro": "Da. Pe IBAN primești bani. Cheile, PIN, parole, coduri din SMS, alea nu se dau NIMĂNUI.", "en": "Yes. Money arrives at your IBAN. The keys, PIN, passwords, SMS codes, go to NO ONE." } }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Doi colegi, două conturi „de elev\": al Mariei, 0 lei/lună și retrageri gratuite la orice bancomat; al lui Radu, „doar\" 5 lei/lună și 2,5 lei/retragere. După un an: Maria a plătit 0, Radu ~90 de lei. **Aceiași bani, alt contract.**",
+        "en": "Two classmates, two student accounts: Maria pays 0; Radu pays \"only\" 5 lei/month + 2.5 lei per withdrawal. After a year: 0 vs ~90 lei. **Same money, different contract.**"
+      },
+      "interactive": {
+        "kind": "cloze",
+        "question": {
+          "ro": "IBAN-ul e ___ banilor tăi, o poți da liniștit. PIN-ul și parolele rămân doar ale tale.",
+          "en": "Your IBAN is your money's ___, safe to share. PINs and passwords stay yours alone."
+        },
+        "chips": [
+          { "ro": "adresa", "en": "address" },
+          { "ro": "parola", "en": "password" },
+          { "ro": "cheia", "en": "key" }
+        ],
+        "correct": 0,
+        "explain": {
+          "ro": "Adresa primește scrisori; cheia deschide ușa. IBAN = adresă publică, PIN = cheie secretă.",
+          "en": "An address receives mail; a key opens the door. IBAN = public address, PIN = secret key."
+        }
+      },
+      "recap": {
+        "ro": [
+          "De la 14 ani poți avea cont propriu (cu acord parental)",
+          "IBAN = adresa banilor tăi; PIN-ul rămâne secret",
+          "Cele 3 întrebări: comision lunar? cost retragere? aplicație?"
+        ],
+        "en": ["Own account from 14 (with consent)", "IBAN = address; PIN = secret", "3 questions: monthly fee? withdrawal cost? app?"]
+      },
+      "action": {
+        "ro": "Dacă ai deja cont: caută în aplicație lista de comisioane. Găsește cât costă o retragere.",
+        "en": "If you have an account: find the fee list. What does a withdrawal cost?"
+      },
+      "teaser": { "ro": "Boxa aia nu costă 400 de lei. Costă o lună de libertate.", "en": "That speaker doesn't cost 400 lei. It costs a month of freedom." },
+      "cards": [
+        {
+          "id": "u1l3-c1",
+          "q": { "ro": "De la ce vârstă poți avea cont bancar propriu în România?", "en": "From what age can you have your own account in Romania?" },
+          "a": { "ro": "De la 14 ani, cu acordul părinților (până la 18).", "en": "From 14, with parental consent until 18." }
+        },
+        {
+          "id": "u1l3-c2",
+          "q": { "ro": "Ce dai liniștit altcuiva: IBAN-ul sau PIN-ul?", "en": "Which can you safely share: IBAN or PIN?" },
+          "a": { "ro": "IBAN-ul, e o adresă publică. PIN-ul nu-l dai NIMĂNUI, nici băncii.", "en": "The IBAN. Never the PIN, to anyone." }
+        },
+        {
+          "id": "u1l3-c3",
+          "q": { "ro": "Cele 3 întrebări înainte de a alege un cont?", "en": "The 3 questions before choosing an account?" },
+          "a": { "ro": "Comision de administrare? Cost pe retragere? Are aplicație bună?", "en": "Admin fee? Withdrawal cost? Good app?" }
+        }
+      ]
+    },
+    {
+      "id": "u1-pretul-real",
+      "emoji": "⏱️",
+      "minutes": 3,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Prețul real al lucrurilor", "en": "The real price of things" },
+      "hook": {
+        "ro": "Boxa aia nu costă 400 de lei. Costă o lună de libertate.",
+        "en": "That speaker doesn't cost 400 lei. It costs a month of freedom."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Un preț în lei nu-ți spune mare lucru, e o cifră pe o etichetă. Tradu-l în **limba ta**: dacă ai 500 de lei pe lună, un hanorac de 250 de lei e jumătate din tot ce ai într-o lună. Brusc, nu mai pare „doar 250\".",
+            "en": "A price in lei tells you little, it's a number on a tag. Translate it into **your language**: on 500 lei a month, a 250-lei hoodie is half of everything you have. Suddenly it's not \"just 250\"."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Radu și-a tradus meniul obișnuit de 60 de lei: trei zile din banii lui de mâncare în oraș. Nu a renunțat la el, dar de atunci îl alege **când chiar merită**, nu din reflex.",
+            "en": "Radu translated his usual 60-lei combo: three days of his eating-out money. He didn't give it up, but now he picks it **when it's truly worth it**, not on reflex."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": { "ro": "Prețul de pe etichetă", "en": "The sticker price" },
+            "text": { "ro": "400 de lei. Sună rezonabil, nu doare.", "en": "400 lei. Sounds reasonable, doesn't hurt." }
+          },
+          "right": {
+            "title": { "ro": "Prețul tradus", "en": "The translated price" },
+            "text": { "ro": "O lună întreagă din venitul tău. Au.", "en": "A whole month of your income. Ouch." }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "violet",
+          "icon": "🧮",
+          "title": { "ro": "Regula traducerii", "en": "The translation rule" },
+          "text": {
+            "ro": "Preț ÷ venitul tău lunar. Nu-ți interzice nimic, ==îți arată târgul pe bune==. Uneori merită. Deseori, nu.",
+            "en": "Price ÷ your monthly income. It forbids nothing, ==it shows the real trade==. Sometimes it's worth it. Often, it isn't."
+          }
+        }
+      ],
+      "guess": {
+        "question": { "ro": "Bilet la Untold: ~700 de lei. Pentru un licean cu 500 de lei/lună, câte SĂPTĂMÂNI de venit înseamnă?", "en": "An Untold ticket: ~700 lei. For a teen on 500 lei/month, how many WEEKS of income is that?" },
+        "min": 1, "max": 20, "step": 1, "actual": 6, "unit": { "ro": "săptămâni", "en": "weeks" },
+        "reveal": { "ro": "Vreo 6 săptămâni: tot iulie ȘI jumătate din august. Formulat așa, decizia se ia altfel, poate tot da, dar pe bune.", "en": "About 6 weeks: all of July AND half of August. Framed like that, the decision changes." }
+      },
+      "check": {
+        "question": { "ro": "Regula traducerii îți interzice lucrurile scumpe?", "en": "Does the translation rule forbid expensive things?" },
+        "options": [
+          { "text": { "ro": "Cam da, te face să nu-ți mai iei nimic", "en": "Kind of, it stops you buying anything" }, "why": { "ro": "Nu. Traducerea nu decide în locul tău, doar îți arată târgul pe bune. Uneori răspunsul rămâne DA.", "en": "No. Translating doesn't decide for you, it just shows the real trade. Sometimes the answer stays YES." } },
+          { "text": { "ro": "Nu, doar îți arată târgul real", "en": "No, it just shows the real trade" }, "why": { "ro": "Exact: preț ÷ venitul tău lunar. Cifra aia e singura care vorbește limba TA.", "en": "Exactly: price ÷ your monthly income. That number speaks YOUR language." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "Vlad, 17 ani, are 600 de lei strânși, primii bani pe care a reușit vreodată să-i țină neatinși; de obicei se evaporau în skinuri. În vitrină: sneakerșii pe care îi vrea din primăvară. Preț: exact 600 de lei.", "en": "Vlad, 17, has 600 lei saved, the first money he's ever managed to keep untouched; it usually evaporated into skins. In the shop window: the sneakers he's wanted since spring. Price: exactly 600 lei." },
+        "question": { "ro": "Tu ești Vlad. Ce faci?", "en": "You're Vlad. What do you do?" },
+        "options": [
+          { "text": { "ro": "Îi iau acum, de-asta am strâns banii", "en": "Buy them now, that's what I saved for" }, "consequence": { "ro": "Dacă pentru EI ai strâns, e o victorie, nu un impuls. Doar că rămâi pe 0: orice surpriză a lunii se rezolvă cu „mamă, îmi dai...\". Prețul real: **toată perna ta**.", "en": "If you saved FOR them, that's a win, not an impulse. But you're at 0: any surprise this month runs through \"mom, can I...\". The real price: **your whole cushion**." } },
+          { "text": { "ro": "Aplic traducerea + pauza de 3 zile", "en": "Apply the translation + a 3-day pause" }, "consequence": { "ro": "600 = o lună și jumătate din venitul lui Vlad. Dacă după 3 zile îi vrea la fel de tare, îi ia cu un plan: păstrează 100 de lei pernă și acoperă diferența din următoarea alocație.", "en": "600 = a month and a half of Vlad's income. If the want survives 3 days, he buys with a plan: keep a 100-lei cushion, cover the rest from the next allowance." } },
+          { "text": { "ro": "Caut același model la reducere sau outlet", "en": "Hunt the same model on sale or outlet" }, "consequence": { "ro": "Răbdarea e reducerea ta personală: modelele „de anul trecut\" scad și cu 40%. Prețul tradus coboară de la 1,5 luni la sub o lună.", "en": "Patience is your personal discount: last season's models drop by up to 40%. The translated price falls from 1.5 months to under a month." } }
+        ]
+      },
+      "interactive": {
+        "kind": "mcq",
+        "question": {
+          "ro": "Ai 400 lei/lună. Sneakerșii sunt 600 de lei. Care e „prețul tradus\"?",
+          "en": "You get 400 lei/month. The sneakers are 600 lei. What's the translated price?"
+        },
+        "options": [
+          { "text": { "ro": "O lună și jumătate din TOT venitul tău", "en": "A month and a half of ALL your income" } },
+          { "text": { "ro": "600 de lei, adică vreo două ieșiri în oraș", "en": "600 lei, like two nights out" }, "why": { "ro": "Ai comparat prețul cu alte cheltuieli, nu cu VENITUL tău. Două ieșiri nu sunt unitatea ta de măsură, luna ta, da.", "en": "You compared the price to other spending, not to your INCOME. Your month is the unit, not nights out." } },
+          { "text": { "ro": "Nu se poate calcula", "en": "It can't be calculated" }, "why": { "ro": "Ba da, într-o singură împărțire: 600 ÷ 400. Nicio scuză.", "en": "It can, in one division: 600 ÷ 400." } }
+        ],
+        "correct": 0,
+        "explain": {
+          "ro": "600 ÷ 400 = 1,5 luni de venit. Asta e cifra care te ajută să decizi.",
+          "en": "600 ÷ 400 = 1.5 months of income."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Prețul în lei ≠ prețul pentru TINE",
+          "Regula traducerii: preț ÷ venitul tău lunar",
+          "Nu interzice, clarifică târgul"
+        ],
+        "en": ["Price in lei ≠ price for YOU", "Translation rule: price ÷ monthly income", "It clarifies, not forbids"]
+      },
+      "action": {
+        "ro": "Ia ultimul lucru pe care ți l-ai dorit. Împarte prețul la venitul tău lunar. Mai merită?",
+        "en": "Take the last thing you wanted. Divide by your monthly income. Still worth it?"
+      },
+      "teaser": { "ro": "Creierul tău vrea lucrul ăla ACUM. Peste 3 zile nici nu-l mai vrea.", "en": "Your brain wants that thing NOW. In 3 days it won't even remember it." },
+      "cards": [
+        {
+          "id": "u1l4-c1",
+          "q": { "ro": "Care e „regula traducerii\" prețurilor?", "en": "What's the price translation rule?" },
+          "a": { "ro": "Împarți prețul la banii tăi pe lună, afli cât din viața ta costă de fapt.", "en": "Divide the price by your monthly money." }
+        },
+        {
+          "id": "u1l4-c2",
+          "q": { "ro": "Hanorac 250 lei, venit 500 lei/lună. Prețul tradus?", "en": "Hoodie 250 lei, income 500/month. Translated price?" },
+          "a": { "ro": "Jumătate din tot ce ai într-o lună.", "en": "Half of your entire month." }
+        },
+        {
+          "id": "u1l4-c3",
+          "q": { "ro": "Regula traducerii îți interzice cumpărăturile scumpe?", "en": "Does the rule forbid expensive buys?" },
+          "a": { "ro": "Nu, doar îți arată târgul real, ca să decizi în cunoștință de cauză.", "en": "No, it just shows the real trade." }
+        }
+      ]
+    },
+    {
+      "id": "u1-banii-si-emotiile",
+      "emoji": "🧠",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": { "ro": "Banii și emoțiile", "en": "Money and emotions" },
+      "hook": {
+        "ro": "Creierul tău vrea lucrul ĂLA acum. Peste 3 zile, nici nu-l mai vrea.",
+        "en": "Your brain wants THAT thing now. In 3 days it won't even remember it."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Cumpărăturile din impuls nu sunt o slăbiciune de caracter, sunt biologie. Când vezi lucrul „perfect\", creierul eliberează **dopamină înainte de cumpărare**. Magazinele și aplicațiile știu asta la miimi de secundă.",
+            "en": "Impulse buying isn't weak character, it's biology. When you see the \"perfect\" thing, your brain releases **dopamine before the purchase**. Shops and apps know this to the millisecond."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "⏰",
+          "title": { "ro": "Butonul de urgență", "en": "The urgency button" },
+          "text": {
+            "ro": "Reduceri „doar azi\", countdown-uri, „ultimele 2 bucăți\", toate apasă același buton. ==Countdown-ul nu măsoară stocul; măsoară răbdarea ta.==",
+            "en": "Today-only deals, countdowns, \"last 2 in stock\", all press the same button. ==The countdown doesn't measure stock; it measures your patience.=="
+          }
+        },
+        {
+          "t": "stat",
+          "value": 24,
+          "suffix": { "ro": " de ore", "en": " hours" },
+          "label": {
+            "ro": "pauza care desparte dorința reală de impuls",
+            "en": "the pause that separates a real want from an impulse"
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Eu îngrop aluna și mă întorc după ea mâine. Dacă o mai vreau, e a mea. Dacă am uitat de ea... n-a fost niciodată foame adevărată.",
+            "en": "I bury the acorn and come back for it tomorrow. If I still want it, it's mine. If I forgot about it... it was never real hunger."
+          }
+        }
+      ],
+      "check": {
+        "question": { "ro": "Cumperi din impuls. Ești slab de caracter?", "en": "You impulse-buy. Weak character?" },
+        "options": [
+          { "text": { "ro": "Da, n-am voință", "en": "Yes, no willpower" }, "why": { "ro": "Nu-i despre voință: dopamina se declanșează ÎNAINTE de cumpărare, la toată lumea. Diferența o face sistemul, nu caracterul.", "en": "It's not willpower: dopamine fires BEFORE the purchase, in everyone. Systems beat character." } },
+          { "text": { "ro": "Nu, e biologie, și magazinele o știu", "en": "No, it's biology, and shops know it" }, "why": { "ro": "Exact. De-asta antidotul nu e rușinea, ci o regulă simplă: pauza.", "en": "Exactly. That's why the antidote isn't shame, it's a simple rule: the pause." } }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": { "ro": "23:47. Boxa pe care o vrei: −40%, countdown 02:59:59, „ultimele 2 bucăți\". Inima zice ACUM.", "en": "11:47 PM. The speaker you want: −40%, countdown 02:59:59, \"last 2 in stock\". Your heart says NOW." },
+        "question": { "ro": "Ce faci?", "en": "What do you do?" },
+        "options": [
+          { "text": { "ro": "O iau acum, dispare oferta!", "en": "Buy now, the deal will vanish!" }, "consequence": { "ro": "A doua zi „oferta\" era tot acolo. Countdown-ul nu măsura stocul, **măsura răbdarea ta**. Iar noaptea, dopamina joacă mereu în echipa magazinului.", "en": "Next day the \"deal\" was still there. The countdown wasn't measuring stock, **it was measuring your patience**." } },
+          { "text": { "ro": "O las în coș și decid mâine", "en": "Leave it in the cart, decide tomorrow" }, "consequence": { "ro": "Pauza de 24h în acțiune. Dacă mâine o mai vrei, e dorință reală, o iei liniștit. De cele mai multe ori însă... ==nici nu mai deschizi coșul==.", "en": "The 24h pause at work. If you still want it tomorrow, it's real, buy it calmly. Usually though... ==you never reopen the cart==." } },
+          { "text": { "ro": "Verific întâi istoricul de preț pe alt site", "en": "Check the price history first" }, "consequence": { "ro": "Detectiv! „−40%\" față de CE preț? Multe „reduceri\" pornesc de la un preț umflat cu o săptămână înainte. Istoricul demontează spectacolul.", "en": "Detective! −40% off WHICH price? Many \"deals\" start from a price inflated a week earlier." } }
+        ]
+      },
+      "interactive": {
+        "kind": "reveal",
+        "title": { "ro": "Trucurile magazinelor, pe față", "en": "Shop tricks, exposed" },
+        "cards": [
+          {
+            "front": { "ro": "„Reducerea e DOAR azi!\"", "en": "\"The sale is TODAY only!\"" },
+            "back": { "ro": "A doua zi, „oferta\" era tot acolo. Și săptămâna următoare. Urgența era decor.", "en": "Next day the \"deal\" was still there. Next week too. The urgency was set dressing." }
+          },
+          {
+            "front": { "ro": "„Ultimele 2 bucăți!\"", "en": "\"Last 2 in stock!\"" },
+            "back": { "ro": "Stocul „se reface\" miraculos peste noapte. E un buton psihologic, nu un inventar.", "en": "The stock \"replenishes\" miraculously overnight. It's a psychology button, not an inventory." }
+          },
+          {
+            "front": { "ro": "„−40%! Chilipir!\"", "en": "\"−40%! Bargain!\"" },
+            "back": { "ro": "Față de CE preț? Multe „reduceri\" pornesc de la un preț umflat cu o săptămână înainte. Verifică istoricul.", "en": "Off WHICH price? Many \"deals\" start from a price inflated a week earlier. Check the history." }
+          },
+          {
+            "front": { "ro": "„N-am voință, asta e.\"", "en": "\"I just have no willpower.\"" },
+            "back": { "ro": "E dopamină, se declanșează la toată lumea, înainte de cumpărare. Pauza de 24 de ore bate voința de fiecare dată.", "en": "It's dopamine, it fires in everyone, before the purchase. The 24-hour pause beats willpower every time." }
+          }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Impulsul e biologie (dopamină), nu slăbiciune",
+          "Countdown-urile și „doar azi\" sunt butoane apăsate intenționat",
+          "Pauza de 24h: dorința reală supraviețuiește, impulsul nu"
+        ],
+        "en": ["Impulse is biology, not weakness", "Countdowns are deliberate buttons", "The 24h pause: real wants survive"]
+      },
+      "action": {
+        "ro": "Stabilește-ți acum limita pauzei: peste ce sumă aștepți 24h? Scrie-o în notițe.",
+        "en": "Set your pause limit now: above what amount do you wait 24h?"
+      },
+      "teaser": { "ro": "În Unitatea 2: bugetul, permisiunea de a cheltui fără vinovăție.", "en": "In Unit 2: the budget, permission to spend guilt-free." },
+      "cards": [
+        {
+          "id": "u1l5-c1",
+          "q": { "ro": "De ce simți nevoia să cumperi ACUM la o reducere „doar azi\"?", "en": "Why do you feel the urge to buy NOW at a today-only deal?" },
+          "a": { "ro": "Dopamina se eliberează înainte de cumpărare, iar urgența artificială o amplifică.", "en": "Dopamine fires before the purchase; fake urgency amplifies it." }
+        },
+        {
+          "id": "u1l5-c2",
+          "q": { "ro": "Care e antidotul cumpărăturilor din impuls?", "en": "What's the antidote to impulse buying?" },
+          "a": { "ro": "Pauza de 24 de ore peste o limită stabilită dinainte.", "en": "The 24-hour pause above a preset limit." }
+        },
+        {
+          "id": "u1l5-c3",
+          "q": { "ro": "Cum deosebești o dorință reală de un impuls?", "en": "How do you tell a real want from an impulse?" },
+          "a": { "ro": "Dorința reală supraviețuiește pauzei de 24h; impulsul dispare.", "en": "Real wants survive the 24h pause; impulses fade." }
+        }
+      ]
+    }
+  ]
+}

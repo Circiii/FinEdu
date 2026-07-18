@@ -1,0 +1,360 @@
+﻿{
+  "@@locale": "ro",
+  "appTitle": "FinEdu",
+  "@appTitle": {
+    "description": "Application title"
+  },
+  "tabHome": "Acasă",
+  "@tabHome": {
+    "description": "Bottom navigation label for the Home tab"
+  },
+  "tabLearn": "Învață",
+  "@tabLearn": {
+    "description": "Bottom navigation label for the Learn tab"
+  },
+  "tabArcade": "Arcade",
+  "@tabArcade": {
+    "description": "Bottom navigation label for the Arcade tab"
+  },
+  "tabProfile": "Profil",
+  "@tabProfile": {
+    "description": "Bottom navigation label for the Profile tab"
+  },
+  "arcadeTitle": "Poiana de Joacă",
+  "@arcadeTitle": {
+    "description": "Title of the Arcade hub screen"
+  },
+  "arcadeSubtitle": "Jocuri care te fac mai isteț cu banii.",
+  "@arcadeSubtitle": {
+    "description": "Subtitle under the Arcade hub title"
+  },
+  "arcadeSoon": "în curând",
+  "@arcadeSoon": {
+    "description": "Label shown on locked Arcade games"
+  },
+  "arcadePlay": "JOACĂ",
+  "@arcadePlay": {
+    "description": "Call-to-action pill on an active Arcade game"
+  },
+  "dojoTitle": "Scam Dojo",
+  "@dojoTitle": {
+    "description": "Title of the Scam Dojo game"
+  },
+
+  "onbBack": "Înapoi",
+  "@onbBack": {
+    "description": "Accessible label for the onboarding back button"
+  },
+
+  "onbEggKicker": "UN NOU ÎNCEPUT",
+  "@onbEggKicker": {
+    "description": "S1 egg screen kicker above the title"
+  },
+  "onbEggTitle": "Un ou de veveriță?\nE al tău acum.",
+  "@onbEggTitle": {
+    "description": "S1 egg screen title"
+  },
+  "onbEggBody": "Înăuntru doarme Cashy, ghidul tău cu banii. Sparge oul ca să-l cunoști.",
+  "@onbEggBody": {
+    "description": "S1 egg screen body copy"
+  },
+  "onbEggCta": "Sparge oul",
+  "@onbEggCta": {
+    "description": "S1 egg screen call to action"
+  },
+  "onbHatchTitle": "Salut! Sunt aici.",
+  "@onbHatchTitle": {
+    "description": "Title shown right after the egg hatches"
+  },
+
+  "onbCeremonyKicker": "FĂ CUNOȘTINȚĂ",
+  "@onbCeremonyKicker": {
+    "description": "S2 ceremony kicker"
+  },
+  "onbCeremonyTitle": "Cum îl cheamă?",
+  "@onbCeremonyTitle": {
+    "description": "S2 ceremony title (naming Cashy)"
+  },
+  "onbCeremonyBody": "Alege-i un nume și o culoare. Poți schimba oricând din Profil.",
+  "@onbCeremonyBody": {
+    "description": "S2 ceremony body copy"
+  },
+  "onbNameHint": "Cashy",
+  "@onbNameHint": {
+    "description": "S2 name field hint / default name"
+  },
+  "onbNameLabel": "Nume",
+  "@onbNameLabel": {
+    "description": "S2 name field label"
+  },
+  "onbColorLabel": "Culoare",
+  "@onbColorLabel": {
+    "description": "S2 color swatch section label"
+  },
+  "onbNameProfane": "Hmm, încearcă alt nume 😅",
+  "@onbNameProfane": {
+    "description": "Error shown when the chosen name is filtered"
+  },
+  "onbCeremonyCta": "Gata, {name}!",
+  "@onbCeremonyCta": {
+    "description": "S2 ceremony CTA with the chosen name",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
+  "onbQuizKicker": "MINI-QUIZ",
+  "@onbQuizKicker": {
+    "description": "S3 quiz kicker"
+  },
+  "onbQuizTitle": "Trei întrebări scurte",
+  "@onbQuizTitle": {
+    "description": "S3 quiz title"
+  },
+  "onbQuizProgress": "{current} din {total}",
+  "@onbQuizProgress": {
+    "description": "S3 quiz question counter",
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "onbQuizContinue": "Continuă",
+  "@onbQuizContinue": {
+    "description": "S3 quiz continue button after an answer"
+  },
+  "onbQuizCorrect": "Corect!",
+  "@onbQuizCorrect": {
+    "description": "S3 quiz correct-answer banner"
+  },
+  "onbQuizWrong": "Aproape!",
+  "@onbQuizWrong": {
+    "description": "S3 quiz wrong-answer banner"
+  },
+  "onbQuizDoneKicker": "+5 🌰 PENTRU CURAJ",
+  "@onbQuizDoneKicker": {
+    "description": "S3 quiz reward kicker (regardless of score)"
+  },
+  "onbQuizDoneTitle": "Ai luat {correct} din {total}",
+  "@onbQuizDoneTitle": {
+    "description": "S3 quiz result title",
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "onbQuizDoneBody": "Nu contează scorul, contează că ai încercat. Ghindele sunt ale tale.",
+  "@onbQuizDoneBody": {
+    "description": "S3 quiz result body copy"
+  },
+  "onbQuizDoneCta": "Ia ghindele",
+  "@onbQuizDoneCta": {
+    "description": "S3 quiz result CTA"
+  },
+
+  "onbAgeKicker": "CÂȚI ANI AI?",
+  "@onbAgeKicker": {
+    "description": "S4 age kicker"
+  },
+  "onbAgeTitle": "În ce an te-ai născut?",
+  "@onbAgeTitle": {
+    "description": "S4 age screen title"
+  },
+  "onbAgeBody": "Ne ajută să-ți dăm lecțiile potrivite. Nu păstrăm anul exact.",
+  "@onbAgeBody": {
+    "description": "S4 age screen body copy"
+  },
+  "onbAgeCta": "Continuă",
+  "@onbAgeCta": {
+    "description": "S4 age screen CTA"
+  },
+  "onbAgeTooYoungTitle": "Ne revedem la 14 ani",
+  "@onbAgeTooYoungTitle": {
+    "description": "Under-14 gate title"
+  },
+  "onbAgeTooYoungBody": "FinEdu e făcut pentru 14 ani și peste. Te așteptăm cu drag când mai crești puțin.",
+  "@onbAgeTooYoungBody": {
+    "description": "Under-14 gate body copy"
+  },
+
+  "onbParentKicker": "UN ADULT ÎN ECHIPĂ",
+  "@onbParentKicker": {
+    "description": "S4b parent email kicker"
+  },
+  "onbParentTitle": "Emailul unui părinte",
+  "@onbParentTitle": {
+    "description": "S4b parent email title"
+  },
+  "onbParentBody": "Sub 16 ani, avem nevoie de acordul unui adult. Îi trimitem un email când activăm conturile online, până atunci folosești FinEdu în mod privat.",
+  "@onbParentBody": {
+    "description": "S4b parent email honest copy"
+  },
+  "onbParentFieldLabel": "Email părinte",
+  "@onbParentFieldLabel": {
+    "description": "S4b parent email field label"
+  },
+  "onbParentHint": "parinte@exemplu.ro",
+  "@onbParentHint": {
+    "description": "S4b parent email field hint"
+  },
+  "onbParentInvalid": "Verifică adresa de email 🙂",
+  "@onbParentInvalid": {
+    "description": "S4b invalid email error"
+  },
+  "onbParentCta": "Continuă",
+  "@onbParentCta": {
+    "description": "S4b parent email CTA"
+  },
+
+  "onbBudgetKicker": "BANII TĂI PE LUNĂ",
+  "@onbBudgetKicker": {
+    "description": "S5 budget kicker"
+  },
+  "onbBudgetTitle": "Cam câți lei ai pe lună?",
+  "@onbBudgetTitle": {
+    "description": "S5 budget title"
+  },
+  "onbBudgetBody": "O estimare e de ajuns. O poți schimba oricând.",
+  "@onbBudgetBody": {
+    "description": "S5 budget body copy"
+  },
+  "onbBudgetSliderLabel": "Buget lunar",
+  "@onbBudgetSliderLabel": {
+    "description": "S5 budget slider label"
+  },
+  "onbBudgetUnit": "lei",
+  "@onbBudgetUnit": {
+    "description": "Currency unit suffix (lei)"
+  },
+  "onbBudgetCta": "Continuă",
+  "@onbBudgetCta": {
+    "description": "S5 budget CTA"
+  },
+
+  "onbExpenseKicker": "PRIMA CHELTUIALĂ",
+  "@onbExpenseKicker": {
+    "description": "S6 first expense kicker"
+  },
+  "onbExpenseTitle": "Pe ce ai dat bani azi?",
+  "@onbExpenseTitle": {
+    "description": "S6 first expense title"
+  },
+  "onbExpenseBody": "Alege o sumă și o categorie. Sau spune-ne că azi n-ai cheltuit, și asta contează.",
+  "@onbExpenseBody": {
+    "description": "S6 first expense body copy"
+  },
+  "onbExpenseAmountLabel": "Sumă",
+  "@onbExpenseAmountLabel": {
+    "description": "S6 quick amount section label"
+  },
+  "onbExpenseCategoryLabel": "Categorie",
+  "@onbExpenseCategoryLabel": {
+    "description": "S6 category grid label"
+  },
+  "onbExpenseNoSpend": "Azi n-am cheltuit",
+  "@onbExpenseNoSpend": {
+    "description": "S6 no-spend button"
+  },
+  "onbExpenseCta": "Loghează {amount} lei",
+  "@onbExpenseCta": {
+    "description": "S6 log expense CTA with the chosen amount",
+    "placeholders": {
+      "amount": { "type": "int" }
+    }
+  },
+  "onbExpenseCtaDisabled": "Alege suma și categoria",
+  "@onbExpenseCtaDisabled": {
+    "description": "S6 CTA label while amount/category are not both picked"
+  },
+  "onbCatFood": "Mâncare",
+  "@onbCatFood": {
+    "description": "Category: food"
+  },
+  "onbCatTransport": "Transport",
+  "@onbCatTransport": {
+    "description": "Category: transport"
+  },
+  "onbCatFun": "Distracție",
+  "@onbCatFun": {
+    "description": "Category: fun"
+  },
+  "onbCatOther": "Altele",
+  "@onbCatOther": {
+    "description": "Category: other"
+  },
+
+  "onbWeekKicker": "PRIMA SĂPTĂMÂNĂ",
+  "@onbWeekKicker": {
+    "description": "S7 first week kicker"
+  },
+  "onbWeekTitle": "Prima Săptămână cu {name}",
+  "@onbWeekTitle": {
+    "description": "S7 first week card title with Cashy's name",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "onbWeekBody": "Ai și pornit! Două bife sunt deja ale tale. Mai sunt câțiva pași mici, le facem împreună.",
+  "@onbWeekBody": {
+    "description": "S7 endowed-progress body copy"
+  },
+  "onbWeekProgress": "{done} din {total} pași",
+  "@onbWeekProgress": {
+    "description": "S7 progress counter",
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "onbWeekDoneEgg": "Ai eclozat pe Cashy",
+  "@onbWeekDoneEgg": {
+    "description": "S7 pre-checked item: egg hatched"
+  },
+  "onbWeekDoneQuiz": "Ai trecut mini-quizul",
+  "@onbWeekDoneQuiz": {
+    "description": "S7 pre-checked item: quiz done"
+  },
+  "onbWeekTodo": "Încă {count} pași mici te așteaptă",
+  "@onbWeekTodo": {
+    "description": "S7 remaining steps line",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "onbWeekCta": "Începem!",
+  "@onbWeekCta": {
+    "description": "S7 CTA"
+  },
+
+  "onbNotifKicker": "UN SINGUR MEMENTO",
+  "@onbNotifKicker": {
+    "description": "S8 notifications kicker"
+  },
+  "onbNotifTitle": "Îți dau un semn mâine?",
+  "@onbNotifTitle": {
+    "description": "S8 notifications soft-ask title"
+  },
+  "onbNotifBody": "Un memento blând mâine seară, ca să nu uiți de noi. Fără spam, o singură notificare, o poți opri oricând.",
+  "@onbNotifBody": {
+    "description": "S8 notifications soft-ask body copy"
+  },
+  "onbNotifYes": "Da, amintește-mi",
+  "@onbNotifYes": {
+    "description": "S8 notifications accept button"
+  },
+  "onbNotifLater": "Mai târziu",
+  "@onbNotifLater": {
+    "description": "S8 notifications decline button"
+  },
+  "onbNotifReminderTitle": "{name} te așteaptă",
+  "@onbNotifReminderTitle": {
+    "description": "Scheduled reminder notification title",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "onbNotifReminderBody": "2 minute pentru banii tăi? Hai să-ți văd ziua.",
+  "@onbNotifReminderBody": {
+    "description": "Scheduled reminder notification body"
+  }
+}

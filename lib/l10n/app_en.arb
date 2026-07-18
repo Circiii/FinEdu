@@ -1,0 +1,136 @@
+﻿{
+  "@@locale": "en",
+  "appTitle": "FinEdu",
+  "tabHome": "Home",
+  "tabLearn": "Learn",
+  "tabArcade": "Arcade",
+  "tabProfile": "Profile",
+  "arcadeTitle": "The Playground",
+  "arcadeSubtitle": "Games that make you smarter with money.",
+  "arcadeSoon": "coming soon",
+  "arcadePlay": "PLAY",
+  "dojoTitle": "Scam Dojo",
+
+  "onbBack": "Back",
+
+  "onbEggKicker": "A NEW START",
+  "onbEggTitle": "A squirrel egg?\nIt's yours now.",
+  "onbEggBody": "Cashy is asleep inside, your money guide. Crack the egg to meet them.",
+  "onbEggCta": "Crack the egg",
+  "onbHatchTitle": "Hi! I'm here.",
+
+  "onbCeremonyKicker": "SAY HELLO",
+  "onbCeremonyTitle": "What's their name?",
+  "onbCeremonyBody": "Pick a name and a color. You can change both anytime from Profile.",
+  "onbNameHint": "Cashy",
+  "onbNameLabel": "Name",
+  "onbColorLabel": "Color",
+  "onbNameProfane": "Hmm, try another name 😅",
+  "onbCeremonyCta": "Done, {name}!",
+  "@onbCeremonyCta": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
+  "onbQuizKicker": "MINI-QUIZ",
+  "onbQuizTitle": "Three quick questions",
+  "onbQuizProgress": "{current} of {total}",
+  "@onbQuizProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "onbQuizContinue": "Continue",
+  "onbQuizCorrect": "Correct!",
+  "onbQuizWrong": "Almost!",
+  "onbQuizDoneKicker": "+5 🌰 FOR TRYING",
+  "onbQuizDoneTitle": "You got {correct} of {total}",
+  "@onbQuizDoneTitle": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "onbQuizDoneBody": "The score doesn't matter, trying does. The acorns are yours.",
+  "onbQuizDoneCta": "Take the acorns",
+
+  "onbAgeKicker": "HOW OLD ARE YOU?",
+  "onbAgeTitle": "What year were you born?",
+  "onbAgeBody": "It helps us pick the right lessons. We don't keep the exact year.",
+  "onbAgeCta": "Continue",
+  "onbAgeTooYoungTitle": "See you at 14",
+  "onbAgeTooYoungBody": "FinEdu is built for ages 14 and up. We'll be happy to see you when you're a little older.",
+
+  "onbParentKicker": "AN ADULT ON THE TEAM",
+  "onbParentTitle": "A parent's email",
+  "onbParentBody": "Under 16, we need an adult's consent. We'll email them when we turn on online accounts, until then you use FinEdu in private mode.",
+  "onbParentFieldLabel": "Parent email",
+  "onbParentHint": "parent@example.com",
+  "onbParentInvalid": "Check the email address 🙂",
+  "onbParentCta": "Continue",
+
+  "onbBudgetKicker": "YOUR MONEY PER MONTH",
+  "onbBudgetTitle": "Roughly how much do you have a month?",
+  "onbBudgetBody": "An estimate is fine. You can change it anytime.",
+  "onbBudgetSliderLabel": "Monthly budget",
+  "onbBudgetUnit": "lei",
+  "onbBudgetCta": "Continue",
+
+  "onbExpenseKicker": "FIRST EXPENSE",
+  "onbExpenseTitle": "What did you spend on today?",
+  "onbExpenseBody": "Pick an amount and a category. Or tell us you didn't spend today, that counts too.",
+  "onbExpenseAmountLabel": "Amount",
+  "onbExpenseCategoryLabel": "Category",
+  "onbExpenseNoSpend": "I didn't spend today",
+  "onbExpenseCta": "Log {amount} lei",
+  "@onbExpenseCta": {
+    "placeholders": {
+      "amount": { "type": "int" }
+    }
+  },
+  "onbExpenseCtaDisabled": "Pick an amount and a category",
+  "onbCatFood": "Food",
+  "onbCatTransport": "Transport",
+  "onbCatFun": "Fun",
+  "onbCatOther": "Other",
+
+  "onbWeekKicker": "FIRST WEEK",
+  "onbWeekTitle": "First Week with {name}",
+  "@onbWeekTitle": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "onbWeekBody": "You're already going! Two check-marks are yours. A few small steps left, we'll do them together.",
+  "onbWeekProgress": "{done} of {total} steps",
+  "@onbWeekProgress": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "onbWeekDoneEgg": "You hatched Cashy",
+  "onbWeekDoneQuiz": "You passed the mini-quiz",
+  "onbWeekTodo": "{count} more small steps await",
+  "@onbWeekTodo": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "onbWeekCta": "Let's go!",
+
+  "onbNotifKicker": "JUST ONE REMINDER",
+  "onbNotifTitle": "Should I nudge you tomorrow?",
+  "onbNotifBody": "A gentle reminder tomorrow evening, so you don't forget us. No spam, a single notification, and you can turn it off anytime.",
+  "onbNotifYes": "Yes, remind me",
+  "onbNotifLater": "Later",
+  "onbNotifReminderTitle": "{name} is waiting for you",
+  "@onbNotifReminderTitle": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "onbNotifReminderBody": "2 minutes for your money? Let me see your day."
+}

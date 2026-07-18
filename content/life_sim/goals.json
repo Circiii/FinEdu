@@ -1,0 +1,101 @@
+{
+  "version": "2.0.0",
+  "goals": [
+    {
+      "id": "casti_studio",
+      "name": {
+        "ro": "Căști de studio",
+        "en": "Studio headphones"
+      },
+      "target_bani": 45000,
+      "why": {
+        "ro": "O pereche bună de căști pentru montaj și muncă concentrată. Un obiectiv mic, atins într-o lună de disciplină ușoară.",
+        "en": "A solid pair of headphones for editing and focused work. A small goal, reachable in a month of light discipline."
+      }
+    },
+    {
+      "id": "telefon_nou",
+      "name": {
+        "ro": "Telefon nou",
+        "en": "New phone"
+      },
+      "target_bani": 250000,
+      "why": {
+        "ro": "Telefonul e unealta de lucru: ecran spart și baterie obosită încetinesc fiecare comandă. Un obiectiv mai mare, care cere plan.",
+        "en": "The phone is a work tool: a cracked screen and tired battery slow down every order. A larger goal that needs a plan."
+      }
+    },
+    {
+      "id": "vacanta_vara",
+      "name": {
+        "ro": "Vacanță de vară",
+        "en": "Summer holiday"
+      },
+      "target_bani": 180000,
+      "why": {
+        "ro": "Câteva zile de pauză după ture lungi. Se strânge cel mai ușor punând deoparte constant, nu în ultima săptămână.",
+        "en": "A few days off after long shifts. It builds up best by setting aside steadily, not in the last week."
+      }
+    },
+    {
+      "id": "fond_start",
+      "name": {
+        "ro": "Fond de start",
+        "en": "Starter fund"
+      },
+      "target_bani": 100000,
+      "why": {
+        "ro": "Prima mie de lei de siguranță, tamponul care transformă o urgență într-un inconvenient. Baza oricărei luni liniștite.",
+        "en": "The first thousand-lei cushion, the buffer that turns an emergency into an inconvenience. The base of any calm month."
+      }
+    },
+    {
+      "id": "bicicleta",
+      "name": {
+        "ro": "Bicicletă",
+        "en": "Bicycle"
+      },
+      "target_bani": 120000,
+      "why": {
+        "ro": "Un mijloc de transport care taie din costul lunar și adaugă mișcare zilei. Obiectiv mediu, cu efect pe termen lung.",
+        "en": "A way to get around that trims the monthly cost and adds movement to the day. A mid-size goal with a long-term payoff."
+      }
+    },
+    {
+      "id": "curs_specializare",
+      "name": {
+        "ro": "Curs de specializare",
+        "en": "Specialization course"
+      },
+      "target_bani": 150000,
+      "why": {
+        "ro": "O investiție în competențe care poate ridica venitul de mâine. Cere planificare pe toată luna, dar se întoarce în timp.",
+        "en": "An investment in skills that can lift tomorrow's income. It takes a full month of planning, but it pays back over time."
+      }
+    },
+    {
+      "id": "permis_conducere",
+      "name": {
+        "ro": "Permis de conducere",
+        "en": "Driving licence"
+      },
+      "target_bani": 200000,
+      "why": {
+        "ro": "Școala de șoferi și taxele de examen, strânse într-un singur obiectiv. Un permis deschide joburi și scurtează drumurile, dar cere pus deoparte constant.",
+        "en": "Driving school and exam fees, gathered into a single goal. A licence opens up jobs and shortens commutes, but it takes steady saving."
+      }
+    },
+    {
+      "id": "revizie_masina",
+      "name": {
+        "ro": "Revizie la mașină",
+        "en": "Car service"
+      },
+      "target_bani": 60000,
+      "why": {
+        "ro": "Un fond pentru schimbul de ulei, filtre și piesele care se uzează. O mașină îngrijită te lasă mai rar pe drumuri și costă mai puțin în timp.",
+        "en": "A fund for the oil change, filters and the parts that wear out. A cared-for car strands you less often and costs less over time."
+      }
+    }
+  ]
+}

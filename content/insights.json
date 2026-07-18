@@ -1,0 +1,143 @@
+{
+  "$schema_note": "Copy-ul cardurilor «Pentru tine». Per regulă: emoji, cta {label,route}, how (formula cu cifrele reale: transparența e diferențiatorul educațional) și 2-3 variants alese cu seed pe zi. LINT DE TON: descrie datele, nu judeca persoana; interzise «prea mult», «iar ai», «trebuie»; corectivele = 1 propoziție de date + 1 opțiune; fără semne de exclamare la corective. Placeholder-ele {x} vin din motorul insight_rules.dart.",
+  "rules": {
+    "pace_over": {
+      "emoji": "🧭",
+      "cta": { "label": { "ro": "Ajustează bugetul", "en": "Adjust budget" }, "route": "/profil" },
+      "how": { "ro": "Cheltuit {spent} lei; la ziua de azi, ritmul bugetului tău ar fi {expected} lei.", "en": "Spent {spent} lei; at today's date, your budget pace would be {expected} lei." },
+      "variants": [
+        { "title": { "ro": "Ritmul lunii, recalculat", "en": "This month's pace, recalculated" }, "body": { "ro": "Ca să închizi luna în buget, ai {perDay} lei pe zi pentru următoarele {daysLeft} zile. Tu decizi cum îi împarți.", "en": "To land the month on budget, you have {perDay} lei per day for the next {daysLeft} days. You decide how to split them." } },
+        { "title": { "ro": "Matematica de azi", "en": "Today's math" }, "body": { "ro": "Bugetul rămas împărțit la {daysLeft} zile înseamnă {perDay} lei pe zi de-acum încolo.", "en": "The remaining budget split across {daysLeft} days means {perDay} lei a day from here." } },
+        { "title": { "ro": "Noul tău număr zilnic", "en": "Your new daily number" }, "body": { "ro": "{perDay} lei pe zi: atât lasă luna asta de aici înainte. Cifra, nu o ceartă.", "en": "{perDay} lei a day: that's what this month leaves from here on. A number, not a lecture." } }
+      ]
+    },
+    "pace_under": {
+      "emoji": "🌤️",
+      "cta": { "label": { "ro": "Pune diferența deoparte", "en": "Set the difference aside" }, "route": "/add?type=saving" },
+      "how": { "ro": "Cheltuit {spent} lei; ritmul bugetului la ziua de azi ar fi {expected} lei.", "en": "Spent {spent} lei; budget pace at today's date would be {expected} lei." },
+      "variants": [
+        { "title": { "ro": "Ești sub ritm!", "en": "You're under pace!" }, "body": { "ro": "Cu {delta} lei sub ritmul lunii, și mai ai {perDay} lei pe zi de jucat. Diferența ar arăta bine pe un obiectiv.", "en": "You're {delta} lei under this month's pace, with {perDay} lei a day still to play with. That difference would look great on a goal." } },
+        { "title": { "ro": "Luna merge bine", "en": "The month is going well" }, "body": { "ro": "{delta} lei sub ritm. Poți să-i lași liberi sau să-i trimiți spre un obiectiv: ambele sunt victorii.", "en": "{delta} lei under pace. Leave them free or send them to a goal: both count as wins." } }
+      ]
+    },
+    "weekly_recap": {
+      "emoji": "📊",
+      "cta": { "label": { "ro": "Vezi tranzacțiile", "en": "See transactions" }, "route": "/home" },
+      "how": { "ro": "Suma ultimelor 7 zile, comparată cu cele 7 dinainte.", "en": "The last 7 days' total, compared with the 7 before." },
+      "variants": [
+        { "title": { "ro": "Săptămâna ta, în cifre", "en": "Your week, in numbers" }, "body": { "ro": "{total} lei săptămâna asta, cel mai mult pe {top}, cu {deltaPct}% {direction} față de săptămâna trecută.", "en": "{total} lei this week, mostly on {top}, {deltaPct}% {direction} than last week." } },
+        { "title": { "ro": "Recapul de luni", "en": "Monday recap" }, "body": { "ro": "Șapte zile, {total} lei, vârful la {top}. Față de săptămâna trecută: {deltaPct}% {direction}.", "en": "Seven days, {total} lei, the peak on {top}. Versus last week: {deltaPct}% {direction}." } }
+      ]
+    },
+    "category_anomaly": {
+      "emoji": "🔍",
+      "cta": { "label": { "ro": "Vezi categoria", "en": "See the category" }, "route": "/home" },
+      "how": { "ro": "Media ta lunară pe {category} din ultimele luni: {avg} lei. Luna asta, până azi: {now} lei.", "en": "Your monthly average on {category}: {avg} lei. This month so far: {now} lei." },
+      "variants": [
+        { "title": { "ro": "Ceva diferit luna asta", "en": "Something's different this month" }, "body": { "ro": "{category} e la {now} lei. De obicei stă pe la {avg} lei. Poate a fost o ocazie; tu știi povestea.", "en": "{category} sits at {now} lei. It's usually around {avg} lei. Maybe there was an occasion; you know the story." } },
+        { "title": { "ro": "Detectivul a observat", "en": "The detective noticed" }, "body": { "ro": "Luna asta, {category}: {now} lei față de media ta de {avg} lei. O privire scurtă lămurește dacă e obicei sau accident.", "en": "This month, {category}: {now} lei versus your {avg} lei average. A quick look tells you if it's a habit or a one-off." } }
+      ]
+    },
+    "category_win": {
+      "emoji": "🌱",
+      "cta": { "label": { "ro": "Pune economia pe obiectiv", "en": "Send it to a goal" }, "route": "/add?type=saving" },
+      "how": { "ro": "Media ta lunară pe {category}: în jur de {saved} lei mai mult decât ai cheltuit până acum luna asta.", "en": "Your monthly average on {category} runs about {saved} lei above this month's spend so far." },
+      "variants": [
+        { "title": { "ro": "Categoria care doarme", "en": "The sleeping category" }, "body": { "ro": "{category} e mult sub media ta, cam {saved} lei rămași la tine. Frumos lucrat.", "en": "{category} is far under your average, about {saved} lei kept in your pocket. Nicely done." } },
+        { "title": { "ro": "Victorie tăcută", "en": "A quiet win" }, "body": { "ro": "Fără niciun anunț, ai lăsat {category} cu ~{saved} lei sub obicei. Astea sunt economiile care nu se simt.", "en": "Without any announcement, you left {category} about {saved} lei under its usual. Those are the savings you don't feel." } }
+      ]
+    },
+    "goal_milestone": {
+      "emoji": "🎯",
+      "cta": { "label": { "ro": "Mai pune ceva", "en": "Add a bit more" }, "route": "/add?type=saving" },
+      "how": { "ro": "{saved} din {target} lei strânși pentru {goal}.", "en": "{saved} of {target} lei saved for {goal}." },
+      "variants": [
+        { "title": { "ro": "{pct}% din drum", "en": "{pct}% of the way" }, "body": { "ro": "{emoji} {goal}: {saved} din {target} lei. Bucata cea mai grea e mereu cea deja pusă.", "en": "{emoji} {goal}: {saved} of {target} lei. The hardest part is always the part already saved." } },
+        { "title": { "ro": "Obiectivul prinde contur", "en": "The goal is taking shape" }, "body": { "ro": "Ai trecut de {pct}% pentru {goal}. Ritmul ăsta se ține singur de-acum.", "en": "You've crossed {pct}% for {goal}. This rhythm carries itself from here." } }
+      ]
+    },
+    "goal_done": {
+      "emoji": "🏆",
+      "cta": { "label": { "ro": "Setează următorul obiectiv", "en": "Set the next goal" }, "route": "/home" },
+      "how": { "ro": "{saved} din {target} lei: obiectiv complet.", "en": "{saved} of {target} lei: goal complete." },
+      "variants": [
+        { "title": { "ro": "OBIECTIV ATINS", "en": "GOAL REACHED" }, "body": { "ro": "{emoji} {goal} e complet: {target} lei, strânși de tine, leu cu leu. Ăsta nu mai e noroc. E sistem.", "en": "{emoji} {goal} is complete: {target} lei, saved by you, leu by leu. That's not luck anymore. That's a system." } },
+        { "title": { "ro": "Gata. L-ai făcut.", "en": "Done. You did it." }, "body": { "ro": "{goal}: 100%. Ia-ți premiul fără vinovăție: pentru asta ai strâns. Și poate începe altul?", "en": "{goal}: 100%. Enjoy the reward guilt-free: that's what you saved for. Maybe start the next one?" } }
+      ]
+    },
+    "recurring_due": {
+      "emoji": "📅",
+      "cta": { "label": { "ro": "Vezi abonamentele", "en": "See subscriptions" }, "route": "/recurring" },
+      "how": { "ro": "Din lista ta de abonamente: {merchant} pe {amount} lei, scadent în {inDays} zile.", "en": "From your subscriptions list: {merchant} at {amount} lei, due in {inDays} days." },
+      "variants": [
+        { "title": { "ro": "Vine {merchant}", "en": "{merchant} is coming" }, "body": { "ro": "{amount} lei în ~{inDays} zile. După plată, bugetul lunii rămâne la {remaining} lei, doar să știi din timp.", "en": "{amount} lei in ~{inDays} days. After it, this month's budget sits at {remaining} lei, just so you know ahead." } },
+        { "title": { "ro": "Plata programată", "en": "Scheduled payment" }, "body": { "ro": "{merchant} taxează {amount} lei în {inDays} zile. Fără surprize: rămâi cu {remaining} lei de buget.", "en": "{merchant} charges {amount} lei in {inDays} days. No surprises: you keep {remaining} lei of budget." } }
+      ]
+    },
+    "recurring_share": {
+      "emoji": "🔁",
+      "cta": { "label": { "ro": "Verifică lista", "en": "Review the list" }, "route": "/recurring" },
+      "how": { "ro": "Suma abonamentelor tale active pe lună: {total} lei, raportată la buget.", "en": "Your active subscriptions per month: {total} lei, relative to budget." },
+      "variants": [
+        { "title": { "ro": "Abonamentele, la lumină", "en": "Subscriptions, in the light" }, "body": { "ro": "Recurentele tale adună {total} lei pe lună, {pct}% din buget. Merită un minut de verificat care mai muncește pentru tine.", "en": "Your recurring payments total {total} lei a month, {pct}% of budget. Worth a minute to check which still earn their keep." } },
+        { "title": { "ro": "Costul pe pilot automat", "en": "The autopilot cost" }, "body": { "ro": "{pct}% din bugetul tău pleacă singur, în abonamente: {total} lei. Alegerea rămâne mereu a ta, doar să fie o alegere.", "en": "{pct}% of your budget leaves on its own, in subscriptions: {total} lei. It stays your choice, as long as it IS a choice." } }
+      ]
+    },
+    "fresh_start": {
+      "emoji": "🌅",
+      "cta": { "label": { "ro": "Setează bugetul lunii", "en": "Set this month's budget" }, "route": "/profil" },
+      "how": { "ro": "Totalurile lunii trecute din jurnalul tău: {spent} lei cheltuiți, {saved} lei economisiți.", "en": "Last month's totals from your log: {spent} lei spent, {saved} lei saved." },
+      "variants": [
+        { "title": { "ro": "Lună nouă, foaie curată", "en": "New month, clean slate" }, "body": { "ro": "Luna trecută: {spent} lei cheltuiți, {saved} lei puși deoparte. Aia e istorie utilă. Azi începe de la zero.", "en": "Last month: {spent} lei spent, {saved} lei set aside. That's useful history. Today starts from zero." } },
+        { "title": { "ro": "Restart de calendar", "en": "Calendar restart" }, "body": { "ro": "S-a închis luna: {spent} lei duși, {saved} lei rămași ai tăi. Cea nouă n-a decis încă nimic. Decide tu primul.", "en": "The month closed: {spent} lei gone, {saved} lei still yours. The new one hasn't decided anything yet. You decide first." } }
+      ]
+    },
+    "saving_total": {
+      "emoji": "🌰",
+      "cta": { "label": { "ro": "Vezi obiectivele", "en": "See goals" }, "route": "/home" },
+      "how": { "ro": "Suma tuturor economiilor logate de tine a trecut de {threshold} lei.", "en": "The sum of all savings you've logged crossed {threshold} lei." },
+      "variants": [
+        { "title": { "ro": "Peste {threshold} lei strânși", "en": "Past {threshold} lei saved" }, "body": { "ro": "Total economisit de când ești aici: peste {threshold} lei. Puși deoparte de tine, nu de întâmplare.", "en": "Total saved since you got here: past {threshold} lei. Set aside by you, not by chance." } },
+        { "title": { "ro": "Borna de {threshold}", "en": "The {threshold} milestone" }, "body": { "ro": "Economiile tale au trecut de {threshold} lei. Cifra asta crește doar într-o direcție când o hrănești.", "en": "Your savings crossed {threshold} lei. This number only grows one way when you feed it." } }
+      ]
+    },
+    "safe_to_spend": {
+      "emoji": "🪙",
+      "cta": { "label": { "ro": "Vezi bugetul", "en": "See the budget" }, "route": "/home" },
+      "how": { "ro": "Buget {budget} lei − cheltuit {spent} lei − plăți recurente care urmează {recurring} lei − puși deoparte luna asta {goals} lei = {safe} lei liberi. Împărțit la {daysLeft} zile: {perDay} lei pe zi. O scădere, nu o predicție.", "en": "Budget {budget} lei − spent {spent} lei − upcoming recurring {recurring} lei − set aside this month {goals} lei = {safe} lei free. Split across {daysLeft} days: {perDay} lei a day. A subtraction, not a prediction." },
+      "variants": [
+        { "title": { "ro": "Liber de cheltuit", "en": "Free to spend" }, "body": { "ro": "Îți rămân {safe} lei liberi până la reset, cam {perDay} lei pe zi. Restul lunii e deja promis: abonamente și economii.", "en": "You have {safe} lei free until reset, about {perDay} lei a day. The rest of the month is already spoken for: subscriptions and savings." } },
+        { "title": { "ro": "Cifra ta de azi", "en": "Your number today" }, "body": { "ro": "{safe} lei cu adevărat liberi pentru următoarele {daysLeft} zile. Împărțiți egal ar fi {perDay} lei pe zi, dar împărțirea e a ta.", "en": "{safe} lei truly free for the next {daysLeft} days. Split evenly that's {perDay} lei a day, but the split is yours." } },
+        { "title": { "ro": "Scădere simplă, nu magie", "en": "Simple subtraction, not magic" }, "body": { "ro": "După plățile care se repetă și banii puși deoparte, rămân {safe} lei ai tăi de decis, {perDay} lei pe zi până la finalul lunii.", "en": "After recurring payments and money set aside, {safe} lei are yours to decide, {perDay} lei a day until month's end." } }
+      ]
+    },
+    "category_anomaly_question": {
+      "emoji": "🤔",
+      "cta": { "label": { "ro": "Vezi categoria", "en": "See the category" }, "route": "/home" },
+      "how": { "ro": "Mijlocul cheltuielilor tale pe {category} din ultimele ~3 luni: ~{median} lei (mediană, rezistentă la extreme). Ultima: {amount} lei, mult în afara intervalului tău obișnuit. E o observație, nu un verdict.", "en": "The middle of your {category} spending over the last ~3 months: ~{median} lei (median, robust to extremes). The latest: {amount} lei, far outside your usual range. An observation, not a verdict." },
+      "variants": [
+        { "title": { "ro": "O întrebare scurtă", "en": "A quick question" }, "body": { "ro": "{amount} lei la {category}, mai mare decât mijlocul tău obișnuit (~{median} lei). Totul ok?", "en": "{amount} lei on {category}, larger than your usual middle (~{median} lei). Everything ok?" } },
+        { "title": { "ro": "Cashy a ridicat o sprânceană", "en": "Cashy raised an eyebrow" }, "body": { "ro": "Ultima pe {category}: {amount} lei, față de ~{median} lei de obicei. A fost o ocazie specială sau ceva de verificat?", "en": "The latest on {category}: {amount} lei, versus ~{median} lei usually. A special occasion, or something worth a look?" } }
+      ]
+    },
+    "recurring_radar": {
+      "emoji": "📡",
+      "cta": { "label": { "ro": "Pune-l pe listă", "en": "Add it to the list" }, "route": "/recurring" },
+      "how": { "ro": "În jurnalul tău: sume aproape identice (~{amount} lei) pe {category}, cam la fiecare {period} zile, de cel puțin 3 ori la rând, tiparul clasic al unei plăți recurente. Etichetă: posibil, nu sigur.", "en": "In your log: nearly identical amounts (~{amount} lei) on {category}, roughly every {period} days, at least 3 times in a row, the classic pattern of a recurring payment. Label: possible, not certain." },
+      "variants": [
+        { "title": { "ro": "Radarul a prins un ritm", "en": "The radar caught a rhythm" }, "body": { "ro": "Văd un ritm: ~{amount} lei la {category} cam la {period} zile. Abonament nedeclarat?", "en": "I see a rhythm: ~{amount} lei on {category} about every {period} days. An undeclared subscription?" } },
+        { "title": { "ro": "Posibil recurent", "en": "Possibly recurring" }, "body": { "ro": "{category} se repetă: ~{amount} lei la fiecare ~{period} zile. Dacă e abonament, pus pe listă devine vizibil în buget din timp.", "en": "{category} keeps repeating: ~{amount} lei every ~{period} days. If it's a subscription, listing it lets the budget see it coming." } }
+      ]
+    }
+  },
+  "education": [
+    { "emoji": "⏸️", "title": { "ro": "Pauza de 24 de ore", "en": "The 24-hour pause" }, "body": { "ro": "La orice cumpărătură neplanificată peste limita ta, așteaptă o zi. Dorința reală supraviețuiește; impulsul nu.", "en": "For any unplanned buy over your limit, wait a day. Real wants survive; impulses don't." }, "route": "/learn" },
+    { "emoji": "🧾", "title": { "ro": "Loghează și cash-ul", "en": "Log cash too" }, "body": { "ro": "Cardul lasă urme singur. Bancnotele nu. Jurnalul complet e singurul care spune adevărul la final de lună.", "en": "Cards leave a trail on their own. Banknotes don't. Only a complete log tells the truth at month's end." }, "route": "/add" },
+    { "emoji": "⚖️", "title": { "ro": "Testul nevoie/dorință", "en": "The need/want test" }, "body": { "ro": "Două întrebări: ce se întâmplă dacă NU cumpăr o lună? Rezolv o problemă sau un chef? 10 secunde, adevăr garantat.", "en": "Two questions: what happens if I DON'T buy for a month? Problem or craving? Ten seconds, guaranteed truth." }, "route": "/learn" },
+    { "emoji": "🥷", "title": { "ro": "O rundă în Dojo ține ochiul antrenat", "en": "A Dojo round keeps the eye sharp" }, "body": { "ro": "Țepele se schimbă săptămânal. Rețeta lor, niciodată. Urgență + emoție + cerere. Vânează ingredientele.", "en": "Scams change weekly. Their recipe never does. Urgency + emotion + the ask. Hunt the ingredients." }, "route": "/arcade/dojo" },
+    { "emoji": "📦", "title": { "ro": "Curierul real nu cere cardul pe SMS", "en": "Real couriers don't ask for cards by text" }, "body": { "ro": "Taxa de 2,5 lei e momeala; cardul întreg e ținta. Verifici coletele doar în aplicația oficială.", "en": "The 2.5 lei fee is bait; the whole card is the target. Check parcels only in the official app." }, "route": "/learn" },
+    { "emoji": "💧", "title": { "ro": "Scurgerile mici se adună", "en": "Small leaks add up" }, "body": { "ro": "~10 lei pe zi înseamnă ~300 lei pe lună, un obiectiv întreg. Nu le tăia pe toate: alege-le conștient.", "en": "~10 lei a day is ~300 lei a month, a whole goal. Don't cut them all: choose them consciously." }, "route": "/learn" },
+    { "emoji": "🎯", "title": { "ro": "Un obiectiv cu nume se strânge singur", "en": "A named goal saves itself" }, "body": { "ro": "„Căști: 600 lei\" bate „economisesc și eu\". Creierul lucrează pentru poze concrete, nu pentru idei vagi.", "en": "\"Headphones: 600 lei\" beats \"saving in general\". Brains work for concrete pictures, not vague ideas." }, "route": "/home" },
+    { "emoji": "🧠", "title": { "ro": "Prima cifră a oricărui plan", "en": "Every plan's first number" }, "body": { "ro": "Cât primești pe lună, în total, din toate sursele? Cine știe cifra asta are deja jumătate de buget.", "en": "How much comes in monthly, in total, from all sources? Whoever knows that number already has half a budget." }, "route": "/learn" }
+  ]
+}

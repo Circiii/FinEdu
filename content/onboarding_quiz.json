@@ -1,0 +1,87 @@
+{
+  "$schema_note": "Quiz de calibrare din onboarding. 3 intrebari, feedback instant, +5 ghinde indiferent de scor. Raspunsurile devin seed pentru Elo. Format bilingv ca lectiile (ro default).",
+  "version": 1,
+  "questions": [
+    {
+      "id": "onb-budget",
+      "skill_tag": "budgeting",
+      "question": {
+        "ro": "Ai 200 de lei pe lună. Ce înseamnă, de fapt, „să ai un buget\"?",
+        "en": "You have 200 lei a month. What does \"having a budget\" actually mean?"
+      },
+      "options": [
+        {
+          "ro": "Notezi pe ce se duc banii și îi împarți pe priorități",
+          "en": "You track where the money goes and split it by priorities"
+        },
+        {
+          "ro": "Nu cheltui nimic, niciodată",
+          "en": "You never spend anything"
+        },
+        {
+          "ro": "Faci o listă cu tot ce ți-ai dori să cumperi",
+          "en": "You make a wishlist of everything you'd like to buy"
+        }
+      ],
+      "correct": 0,
+      "explain": {
+        "ro": "Bugetul nu e interdicție: e să știi TU unde se duc banii tăi.",
+        "en": "A budget isn't a ban: it's YOU knowing where your money goes."
+      }
+    },
+    {
+      "id": "onb-inflation",
+      "skill_tag": "inflation",
+      "question": {
+        "ro": "Ții 500 de lei sub saltea un an întreg. La final, cu ei poți cumpăra...",
+        "en": "You keep 500 lei under the mattress for a whole year. In the end, they buy you..."
+      },
+      "options": [
+        {
+          "ro": "Mai multe lucruri decât azi",
+          "en": "More things than today"
+        },
+        {
+          "ro": "Exact la fel de multe",
+          "en": "Exactly as much"
+        },
+        {
+          "ro": "Mai puține lucruri decât azi",
+          "en": "Fewer things than today"
+        }
+      ],
+      "correct": 2,
+      "explain": {
+        "ro": "Prețurile cresc în timp (inflația): banii care „stau\" își pierd puterea.",
+        "en": "Prices rise over time (inflation): idle money loses its power."
+      }
+    },
+    {
+      "id": "onb-scam",
+      "skill_tag": "scams",
+      "question": {
+        "ro": "Primești SMS: „Coletul tău e blocat. Plătește 5 lei aici: bit.ly/...\". Ce faci?",
+        "en": "You get an SMS: \"Your parcel is blocked. Pay 5 lei here: bit.ly/...\". What do you do?"
+      },
+      "options": [
+        {
+          "ro": "Plătesc repede, e doar 5 lei",
+          "en": "Pay quickly, it's just 5 lei"
+        },
+        {
+          "ro": "Verific direct pe site-ul/aplicația curierului, nu deschid linkul",
+          "en": "Check directly on the courier's official site/app, never open the link"
+        },
+        {
+          "ro": "Răspund la SMS să cer detalii",
+          "en": "Reply to the SMS asking for details"
+        }
+      ],
+      "correct": 1,
+      "explain": {
+        "ro": "Suma mică e momeala: linkul vrea cardul tău. Curierii nu cer plăți prin SMS.",
+        "en": "The small amount is the bait: the link wants your card. Couriers don't ask for SMS payments."
+      }
+    }
+  ]
+}

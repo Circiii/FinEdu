@@ -1,0 +1,1346 @@
+﻿{
+  "$schema_note": "Unitatea 7, Track A: «Primul tău venit», primul job legal, brut vs net, contractul, banii din online și planul primului salariu. Format 3: pagina de concept e compusă din «blocks» (text/callout/stat/vs/steps/quote), interactivele includ noile order/pairs/reveal, iar cifrele fiscale și legale sunt cele valabile în România în iulie 2026 (salariu minim 4.325 brut / 2.699 net, CAS 25%, CASS 10%, impozit 10%, amendă 40.000 lei pentru muncă nedeclarată).",
+  "unit": {
+    "id": "u7",
+    "ord": 7,
+    "format": 3,
+    "track": "A",
+    "emoji": "💼",
+    "color": "green",
+    "title": {
+      "ro": "Primul tău venit",
+      "en": "Your first paycheck"
+    }
+  },
+  "lessons": [
+    {
+      "id": "u7-primul-job",
+      "emoji": "🧭",
+      "minutes": 3,
+      "xp": 15,
+      "difficulty": "beginner",
+      "title": {
+        "ro": "Primul job, legal",
+        "en": "Your first job, legally"
+      },
+      "hook": {
+        "ro": "Vlad, 15 ani, întreabă la un fast-food dacă îl angajează pe vară. «Revino când faci 18», i se spune. Angajatorul greșește: legea îi dă voie lui Vlad să muncească DEJA. Diferența dintre zvon și lege valorează câteva veri de salarii.",
+        "en": "Vlad, 15, asks a fast-food place for a summer job. \"Come back when you turn 18,\" they say. The employer is wrong: the law ALREADY lets Vlad work. The gap between rumor and law is worth a few summers' worth of pay."
+      },
+      "guess": {
+        "question": {
+          "ro": "De la ce vârstă poți semna un contract de muncă în România, dacă părinții sunt de acord?",
+          "en": "From what age can you sign an employment contract in Romania, if your parents agree?"
+        },
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "actual": 15,
+        "unit": {
+          "ro": "ani",
+          "en": "years"
+        },
+        "reveal": {
+          "ro": "De la 15! Cu acordul scris al părinților sau al tutorelui, poți munci legal de la 15 ani; de la 16 semnezi singur, fără să mai întrebi pe nimeni. Sub 15 e interzis complet. Iar «revino la 18» e mit de angajator comod, nu lege.",
+          "en": "From 15! With your parents' or guardian's written consent, you can legally work from 15; from 16 you sign on your own, no permission needed. Under 15 it's completely forbidden. And \"come back at 18\" is a lazy employer's myth, not the law."
+        }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Regula are trei trepte. Sub 15 ani: angajarea e **interzisă**, punct. La 15 ani: poți munci ==doar cu acordul scris al părinților== sau al tutorelui, iar dacă ei se răzgândesc, contractul se oprește. De la **16 ani**: semnezi singur, cu drepturi depline de angajat.",
+            "en": "The rule has three steps. Under 15: employment is **forbidden**, full stop. At 15: you can work ==only with your parents' or guardian's written consent==, and if they change their mind, the contract stops. From **16**: you sign on your own, with full employee rights."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "blue",
+          "icon": "🛡️",
+          "title": {
+            "ro": "Programul unui minor e blindat",
+            "en": "A minor's schedule is armor-plated"
+          },
+          "text": {
+            "ro": "Până la 18 ani, legea te protejează: maxim **6 ore pe zi** și **30 pe săptămână**, fără ore suplimentare și ==fără muncă de noapte==. Jobul n-are voie să-ți pună în pericol sănătatea sau școala, iar astea nu se negociază, nici dacă ai vrea tu.",
+            "en": "Until 18, the law protects you: at most **6 hours a day** and **30 a week**, no overtime and ==no night work==. The job isn't allowed to endanger your health or your schooling, and none of that is negotiable, even if you wanted it to be."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "Unde cauți un job de vară? Site-urile de anunțuri (filtru: «part-time» plus orașul tău), terasele și cafenelele din zonă, retailul, festivalurile care recrutează sezonieri și programele de internship pentru liceeni. **Primul filtru** la orice anunț: se lucrează ==cu contract==. Al doilea: programul încape în regulile de mai sus. Restul sunt detalii.",
+            "en": "Where do you look for a summer job? Job listing sites (filter: \"part-time\" plus your city), local terraces and cafés, retail, festivals hiring seasonal staff, and internship programs for high schoolers. **First filter** on any listing: the work comes ==with a contract==. Second: the schedule fits the rules above. Everything else is detail."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 292,
+          "suffix": " lei",
+          "label": {
+            "ro": "alocația lunară de stat în 2026, venitul pe care îl ai deja, fără niciun job",
+            "en": "the monthly state child allowance in 2026, the income you already have, without any job"
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": {
+              "ro": "Voluntariat",
+              "en": "Volunteering"
+            },
+            "text": {
+              "ro": "Contract de voluntariat, zero lei, dar experiență, oameni și o adeverință care contează la CV și la admitere.",
+              "en": "A volunteering contract, zero lei, but experience, people, and a certificate that counts on your CV and applications."
+            }
+          },
+          "right": {
+            "title": {
+              "ro": "Job",
+              "en": "Job"
+            },
+            "text": {
+              "ro": "Contract de muncă, salariu, contribuții plătite și vechime, primul tău venit oficial.",
+              "en": "An employment contract, a salary, paid contributions and seniority, your first official income."
+            }
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Primul meu «job» a fost să car alune pentru toată familia. Neplătit, dar am ieșit cu o coadă mai musculoasă și o scrisoare de recomandare de la bunica. Azi i se spune voluntariat.",
+            "en": "My first \"job\" was hauling acorns for the whole family. Unpaid, but I came out with a stronger tail and a reference letter from grandma. Nowadays they call it volunteering."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "Ana are 15 ani, iar părinții i-au semnat acordul. Poate lucra legal vara asta?",
+          "en": "Ana is 15, and her parents signed the consent. Can she legally work this summer?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Nu, până la 16 ani e ilegal, orice ar semna părinții",
+              "en": "No, under 16 it's illegal, no matter what her parents sign"
+            },
+            "why": {
+              "ro": "Confuzia clasică: 16 e vârsta de la care semnezi SINGUR. De la 15, contractul e perfect legal cu acordul scris al părinților, plus tot programul protejat de minor.",
+              "en": "The classic mix-up: 16 is the age you sign ON YOUR OWN. From 15, the contract is perfectly legal with written parental consent, plus the full protected minor's schedule."
+            }
+          },
+          {
+            "text": {
+              "ro": "Da, cu program de maxim 6 ore pe zi, doar ziua",
+              "en": "Yes, with at most 6 hours a day, daytime only"
+            },
+            "why": {
+              "ro": "Exact. Acordul părinților plus limitele de minor: 6 ore pe zi, 30 pe săptămână, fără nopți, fără ore suplimentare. Legal și protejat.",
+              "en": "Exactly. Parental consent plus the minor's limits: 6 hours a day, 30 a week, no nights, no overtime. Legal and protected."
+            }
+          },
+          {
+            "text": {
+              "ro": "Da, dar doar fără contract, minorii nu apar în acte",
+              "en": "Yes, but only without a contract, minors don't go on paper"
+            },
+            "why": {
+              "ro": "Fix pe dos: contractul e obligatoriu la orice vârstă, iar pentru minori protecțiile din el contează cel mai mult. «Fără acte» nu e o scurtătură, e o ilegalitate.",
+              "en": "Exactly backwards: the contract is mandatory at any age, and for minors its protections matter most. \"Off the books\" isn't a shortcut, it's illegal."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Vlad revine cu acordul semnat de ambii părinți și primește contract pe 6 ore la o librărie, program 10:00-16:30 cu pauză. La 16 ani va semna singur prelungirea. Iar banii din vara asta n-au mai stat să-l aștepte pe «18».",
+        "en": "Vlad comes back with both parents' signed consent and gets a 6-hour contract at a bookshop, working 10:00-16:30 with a break. At 16 he'll sign the extension himself. And this summer's money didn't sit around waiting for \"18\"."
+      },
+      "interactive": {
+        "kind": "reveal",
+        "title": {
+          "ro": "Mit sau lege?",
+          "en": "Myth or law?"
+        },
+        "cards": [
+          {
+            "front": {
+              "ro": "«Sub 18 ani n-ai voie să muncești»",
+              "en": "\"Under 18 you're not allowed to work\""
+            },
+            "back": {
+              "ro": "Mit. De la 16 semnezi singur contractul; de la 15, cu acordul părinților. Legea nu te oprește, te protejează: program scurt, doar ziua.",
+              "en": "Myth. From 16 you sign the contract yourself; from 15, with parental consent. The law doesn't stop you, it protects you: short hours, daytime only."
+            }
+          },
+          {
+            "front": {
+              "ro": "«Angajatorii nu iau minori, e prea complicat pentru ei»",
+              "en": "\"Employers won't take minors, it's too complicated for them\""
+            },
+            "back": {
+              "ro": "Pe jumătate mit. Au voie s-o facă, cu regulile respectate, doar că unii preferă să nu se complice. Anunțurile pentru 15-17 ani există; le cauți puțin mai atent.",
+              "en": "Half myth. They're allowed to, rules respected, some just prefer not to bother. Listings for 15-17-year-olds exist; you just search a bit harder."
+            }
+          },
+          {
+            "front": {
+              "ro": "«Voluntariatul e muncă pe gratis, adică timp pierdut»",
+              "en": "\"Volunteering is free labor, so it's wasted time\""
+            },
+            "back": {
+              "ro": "Mit. Se semnează contract de voluntariat, iar plata vine în altă monedă: experiență, oameni, adeverință pentru CV și admitere. La 15-16 ani, moneda asta bate deseori un salariu mic.",
+              "en": "Myth. You sign a volunteering contract, and the pay comes in another currency: experience, people, a certificate for your CV and applications. At 15-16, that currency often beats a small salary."
+            }
+          }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "Sub 15, interzis; **15**, cu acordul scris al părinților; **16+**, semnezi singur",
+          "Minor = program blindat: maxim 6 ore pe zi și 30 pe săptămână, fără nopți, fără ore suplimentare",
+          "==Contractul e primul filtru== la orice anunț; voluntariatul plătește în experiență, nu în lei"
+        ],
+        "en": [
+          "Under 15, forbidden; **15**, with written parental consent; **16+**, you sign on your own",
+          "Minor = armored schedule: at most 6 hours a day and 30 a week, no nights, no overtime",
+          "==The contract is the first filter== on any listing; volunteering pays in experience, not in lei"
+        ]
+      },
+      "action": {
+        "ro": "Deschide 2 minute un site de anunțuri, caută «job vară» plus orașul tău și citește 3 anunțuri. Nu aplici, doar bifează la fiecare: scrie «cu contract»? Încape în 6 ore pe zi? Ochiul se antrenează mai repede decât crezi.",
+        "en": "Spend 2 minutes on a job site, search \"summer job\" plus your city and read 3 listings. Don't apply, just check each one: does it say \"with a contract\"? Does it fit in 6 hours a day? The eye trains faster than you think."
+      },
+      "teaser": {
+        "ro": "Ai găsit anunțul: «salariu 4.325 de lei». Vestea proastă: pe card îți intră cu peste 1.600 mai puțin. Vestea și mai ciudată: banii ăia nu dispar, se duc în trei locuri care sunt, tehnic, tot ale tale. Le dăm de urmă în lecția următoare.",
+        "en": "You found the listing: \"salary 4,325 lei\". Bad news: over 1,600 less lands on your card. Stranger news: that money doesn't vanish, it goes to three places that are, technically, still yours. We track it down next lesson."
+      },
+      "cards": [
+        {
+          "id": "u7l1-c1",
+          "q": {
+            "ro": "De la ce vârstă poți munci legal în România?",
+            "en": "From what age can you legally work in Romania?"
+          },
+          "a": {
+            "ro": "De la 16 ani semnezi singur contractul; de la 15, doar cu acordul scris al părinților sau al tutorelui. Sub 15 ani, angajarea e interzisă.",
+            "en": "From 16 you sign the contract yourself; from 15, only with your parents' or guardian's written consent. Under 15, employment is forbidden."
+          }
+        },
+        {
+          "id": "u7l1-c2",
+          "q": {
+            "ro": "Ce limite de program are un angajat sub 18 ani?",
+            "en": "What schedule limits does an employee under 18 have?"
+          },
+          "a": {
+            "ro": "Maxim 6 ore pe zi și 30 pe săptămână, fără ore suplimentare și fără muncă de noapte, iar jobul nu are voie să afecteze școala sau sănătatea.",
+            "en": "At most 6 hours a day and 30 a week, no overtime and no night work, and the job isn't allowed to harm school or health."
+          }
+        },
+        {
+          "id": "u7l1-c3",
+          "q": {
+            "ro": "Ce primești din voluntariat, dacă nu primești bani?",
+            "en": "What do you get from volunteering, if not money?"
+          },
+          "a": {
+            "ro": "Experiență reală, oameni și o adeverință pe baza contractului de voluntariat, linii concrete în CV, utile la admitere și la primul job plătit.",
+            "en": "Real experience, people, and a certificate based on the volunteering contract, concrete CV lines, useful for admissions and your first paid job."
+          }
+        }
+      ]
+    },
+    {
+      "id": "u7-brut-vs-net",
+      "emoji": "🧾",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": {
+        "ro": "Brut vs net",
+        "en": "Gross vs net"
+      },
+      "hook": {
+        "ro": "Primul contract al Anei zice 4.325 de lei. Primul ei fluturaș de salariu zice 2.699. Nimeni n-a furat nimic, nimeni n-a greșit calculul, dar cei 1.626 de lei lipsă au trei nume, iar două dintre ele lucrează pentru ea.",
+        "en": "Ana's first contract says 4,325 lei. Her first payslip says 2,699. Nobody stole anything, nobody botched the math, but the missing 1,626 lei has three names, and two of them work for her."
+      },
+      "guess": {
+        "question": {
+          "ro": "Contractul zice 4.325 de lei brut, salariul minim din iulie 2026. Cât primești în mână?",
+          "en": "The contract says 4,325 lei gross, the minimum wage from July 2026. How much do you take home?"
+        },
+        "min": 2000,
+        "max": 4325,
+        "step": 1,
+        "actual": 2699,
+        "unit": "lei",
+        "reveal": {
+          "ro": "2.699 de lei, cam 62% din cifra din contract. Restul de 1.626 se împarte la trei: pensia ta (CAS), sănătatea ta (CASS) și impozitul pe venit. Urmează-le traseul, leu cu leu, mai jos.",
+          "en": "2,699 lei, about 62% of the number in the contract. The remaining 1,626 splits three ways: your pension (CAS), your healthcare (CASS) and income tax. Follow the trail, leu by leu, below."
+        }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "**Brutul** e cifra din contract și din anunțuri, limba oficială a angajărilor. **Netul** e ce intră efectiv pe card. Între ele stau contribuțiile și impozitul, oprite de angajator și virate statului în numele tău. ==Prima întrebare la orice sumă: brut sau net?== Diferența e de peste o treime.",
+            "en": "**Gross** is the number in contracts and job listings, hiring's official language. **Net** is what actually lands on your card. In between sit the contributions and the tax, withheld by the employer and sent to the state on your behalf. ==First question about any figure: gross or net?== The difference is over a third."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            {
+              "ro": "Pornești de la **brut**: 4.325 de lei, salariul minim pe economie din iulie 2026.",
+              "en": "Start from **gross**: 4,325 lei, the national minimum wage from July 2026."
+            },
+            {
+              "ro": "Statul lasă 200 de lei neatinși, facilitatea pentru salariul minim. La taxare intră 4.125.",
+              "en": "The state leaves 200 lei untouched, the minimum-wage tax break. 4,125 goes into taxation."
+            },
+            {
+              "ro": "**CAS**, pensia: 25% din 4.125 ≈ 1.031 de lei. Puncte adunate la pensia TA.",
+              "en": "**CAS**, the pension: 25% of 4,125 ≈ 1,031 lei. Points stacking up for YOUR pension."
+            },
+            {
+              "ro": "**CASS**, sănătatea: 10% din 4.125 ≈ 413 lei. Ești asigurat: doctor, spital, rețete compensate.",
+              "en": "**CASS**, healthcare: 10% of 4,125 ≈ 413 lei. You're insured: doctor, hospital, subsidized prescriptions."
+            },
+            {
+              "ro": "**Impozitul pe venit**: 10% din ce rămâne după contribuții și după deducerea pentru venituri mici ≈ 182 de lei.",
+              "en": "**Income tax**: 10% of what's left after contributions and the low-income deduction ≈ 182 lei."
+            },
+            {
+              "ro": "Pe card: ==2.699 de lei net==, aproximativ 62% din brut. (Cifre rotunjite la leu.)",
+              "en": "On your card: ==2,699 lei net==, roughly 62% of gross. (Figures rounded to the leu.)"
+            }
+          ]
+        },
+        {
+          "t": "stat",
+          "value": 1626,
+          "suffix": " lei",
+          "label": {
+            "ro": "pleacă lunar din brutul minim spre pensie, sănătate și impozit",
+            "en": "leaves the minimum gross wage each month for pension, healthcare and tax"
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": {
+              "ro": "CAS + CASS = tot ai tăi",
+              "en": "CAS + CASS = still yours"
+            },
+            "text": {
+              "ro": "35% care se întorc la tine: pensia de peste decenii și asigurarea de sănătate valabilă de ACUM.",
+              "en": "35% that comes back to you: a pension decades away and health insurance valid RIGHT NOW."
+            }
+          },
+          "right": {
+            "title": {
+              "ro": "Impozit = partea statului",
+              "en": "Tax = the state's share"
+            },
+            "text": {
+              "ro": "10% din ce rămâne după contribuții, drumuri, școli, spitale. Felia care nu se mai întoarce direct la tine.",
+              "en": "10% of what's left after contributions, roads, schools, hospitals. The slice that doesn't come straight back to you."
+            }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🎣",
+          "title": {
+            "ro": "Capcana de la interviu",
+            "en": "The interview trap"
+          },
+          "text": {
+            "ro": "«Îți dăm 3.000.» Brut sau net? ==Întreabă pe loc==, nu la primul fluturaș. Și ține minte: pentru normă întreagă, brutul nu poate fi legal sub **4.325 de lei** din iulie 2026, sub cifra asta nu e «ofertă», e încălcarea legii.",
+            "en": "\"We'll pay you 3,000.\" Gross or net? ==Ask on the spot==, not at your first payslip. And remember: for full-time work, gross can't legally sit below **4,325 lei** from July 2026, under that figure it's not an \"offer\", it's breaking the law."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Eu când îngrop alune toamna nu le «pierd», le mut la iarnă. Cam asta face și CAS-ul: alune îngropate azi, dezgropate la pensie. Doar că groapa aia ține câteva zeci de ani, deci sapă-ți și una mai aproape.",
+            "en": "When I bury acorns in autumn I don't \"lose\" them, I move them to winter. That's roughly what CAS does: acorns buried today, dug up at retirement. Except that hole takes decades, so dig yourself a closer one too."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "Cei ~1.600 de lei care lipsesc din brutul tău sunt...",
+          "en": "The ~1,600 lei missing from your gross pay is..."
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "un comision pe care îl oprește angajatorul pentru el",
+              "en": "a commission the employer keeps for himself"
+            },
+            "why": {
+              "ro": "Nu, angajatorul nu păstrează nimic din ei; îi virează statului în numele tău. Ba mai plătește și el, separat, o contribuție de 2,25% peste salariul tău brut.",
+              "en": "No, the employer keeps none of it; he forwards it to the state on your behalf. He even pays his own separate 2.25% contribution on top of your gross."
+            }
+          },
+          {
+            "text": {
+              "ro": "pensia, sănătatea și impozitul, plătite în numele tău",
+              "en": "your pension, healthcare and tax, paid on your behalf"
+            },
+            "why": {
+              "ro": "Exact. CAS 25% îți construiește pensia, CASS 10% te ține asigurat la sănătate chiar de la primul job, iar 10% impozit e partea statului. Fluturașul de salariu e chitanța acestui traseu.",
+              "en": "Exactly. CAS 25% builds your pension, CASS 10% keeps you health-insured from your very first job, and the 10% tax is the state's share. The payslip is this journey's receipt."
+            }
+          },
+          {
+            "text": {
+              "ro": "o taxă de începător, care scade odată cu vechimea",
+              "en": "a rookie tax that shrinks as you gain seniority"
+            },
+            "why": {
+              "ro": "Procentele sunt identice la 16 și la 60 de ani, la primul job și la al zecelea. Ce crește cu timpul e brutul, și odată cu el sumele, nu procentele.",
+              "en": "The percentages are identical at 16 and at 60, at your first job and your tenth. What grows with time is the gross, and with it the amounts, not the percentages."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Anunț: «2.000 de lei, program lejer». Ana întreabă: «brut sau net?». E brut, cu normă parțială, deci în mână cam 1.250-1.300, după contribuții și un impozit mic. Nu mai e nici «2.000», nici tragedie: e o cifră reală, pe care acum știe s-o judece.",
+        "en": "Listing: \"2,000 lei, easy schedule\". Ana asks: \"gross or net?\". It's gross, part-time, so roughly 1,250-1,300 in hand, after contributions and a small tax. It's no longer \"2,000\", nor a tragedy: it's a real number she now knows how to judge."
+      },
+      "interactive": {
+        "kind": "pairs",
+        "title": {
+          "ro": "Tradu limba fluturașului de salariu",
+          "en": "Translate payslip language"
+        },
+        "pairs": [
+          {
+            "l": {
+              "ro": "Brut",
+              "en": "Gross"
+            },
+            "r": {
+              "ro": "Cifra din contract, înainte de taxe",
+              "en": "The contract figure, before taxes"
+            }
+          },
+          {
+            "l": {
+              "ro": "Net",
+              "en": "Net"
+            },
+            "r": {
+              "ro": "Ce intră efectiv pe cardul tău",
+              "en": "What actually lands on your card"
+            }
+          },
+          {
+            "l": {
+              "ro": "CAS, 25%",
+              "en": "CAS, 25%"
+            },
+            "r": {
+              "ro": "Contribuția la pensia ta",
+              "en": "The contribution to your pension"
+            }
+          },
+          {
+            "l": {
+              "ro": "CASS, 10%",
+              "en": "CASS, 10%"
+            },
+            "r": {
+              "ro": "Asigurarea ta de sănătate",
+              "en": "Your health insurance"
+            }
+          },
+          {
+            "l": {
+              "ro": "Impozit, 10%",
+              "en": "Tax, 10%"
+            },
+            "r": {
+              "ro": "Partea statului din ce rămâne",
+              "en": "The state's share of the rest"
+            }
+          }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "**Brut** = cifra din contract; **net** = banii de pe card; întreabă mereu ==«brut sau net?»==",
+          "Traseul: −CAS 25% (pensia ta), −CASS 10% (sănătatea ta), −10% impozit pe ce rămâne",
+          "Minimul din iulie 2026: 4.325 brut → **2.699 net**, vreo 62% din cifra din anunț"
+        ],
+        "en": [
+          "**Gross** = the contract figure; **net** = the money on your card; always ask ==\"gross or net?\"==",
+          "The trail: −CAS 25% (your pension), −CASS 10% (your healthcare), −10% tax on the rest",
+          "The July 2026 minimum: 4,325 gross → **2,699 net**, about 62% of the listed figure"
+        ]
+      },
+      "action": {
+        "ro": "Caută «calculator salarii brut net», tastează 4.325 și apoi salariul visurilor tale. Uită-te unde pleacă fiecare felie. După două încercări, creierul tău face conversia singur, la orice anunț.",
+        "en": "Search for a gross-to-net salary calculator, type in 4,325 and then your dream salary. Watch where each slice goes. After two tries, your brain does the conversion by itself, on any listing."
+      },
+      "teaser": {
+        "ro": "Există o «ofertă» care promite să-ți lase TOT brutul: «te plătesc cash, fără hârtii, iese mai mult în mână». Sună a bonus de 35%. E cel mai scump cadou de pe piața muncii, factura, în lecția următoare.",
+        "en": "There's an \"offer\" promising to leave you ALL of your gross: \"I'll pay you cash, no paperwork, more in hand\". Sounds like a 35% bonus. It's the most expensive gift on the job market, the invoice arrives next lesson."
+      },
+      "cards": [
+        {
+          "id": "u7l2-c1",
+          "q": {
+            "ro": "Care e diferența dintre salariul brut și cel net?",
+            "en": "What's the difference between gross and net salary?"
+          },
+          "a": {
+            "ro": "Brutul e suma din contract; netul e ce primești pe card, după CAS 25% (pensie), CASS 10% (sănătate) și impozitul de 10% pe ce rămâne. La minimul din iulie 2026: 4.325 brut → 2.699 net.",
+            "en": "Gross is the contract amount; net is what reaches your card, after CAS 25% (pension), CASS 10% (healthcare) and the 10% tax on the rest. At the July 2026 minimum: 4,325 gross → 2,699 net."
+          }
+        },
+        {
+          "id": "u7l2-c2",
+          "q": {
+            "ro": "Ce sunt CAS și CASS și de ce nu sunt «bani pierduți»?",
+            "en": "What are CAS and CASS, and why aren't they \"lost money\"?"
+          },
+          "a": {
+            "ro": "CAS (25%) îți construiește pensia; CASS (10%) te face asigurat la sănătate, doctor, spital, rețete compensate, chiar de la primul job. Sunt banii tăi, doar pe alt calendar.",
+            "en": "CAS (25%) builds your pension; CASS (10%) makes you health-insured, doctor, hospital, subsidized prescriptions, from your very first job. It's your money, just on a different calendar."
+          }
+        },
+        {
+          "id": "u7l2-c3",
+          "q": {
+            "ro": "Cât e salariul minim în România din iulie 2026?",
+            "en": "What's Romania's minimum wage from July 2026?"
+          },
+          "a": {
+            "ro": "4.325 de lei brut, adică 2.699 de lei net în mână (cu suma netaxabilă de 200 de lei aplicată). Pentru normă întreagă, sub brutul ăsta nicio ofertă nu e legală.",
+            "en": "4,325 lei gross, meaning 2,699 lei net in hand (with the 200-lei tax-free amount applied). For full-time work, no offer below that gross is legal."
+          }
+        }
+      ]
+    },
+    {
+      "id": "u7-contractul",
+      "emoji": "✍️",
+      "minutes": 4,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": {
+        "ro": "Contractul sau nimic",
+        "en": "The contract or nothing"
+      },
+      "hook": {
+        "ro": "«Lucrezi întâi o săptămână de probă, apoi îți facem actele.» Sună rezonabil, se spune des, și e ilegal din primul cuvânt. În săptămâna aia ești invizibil: dacă nu te plătește, n-ai cu ce dovedi nici măcar că ai existat acolo.",
+        "en": "\"You work a trial week first, then we do the paperwork.\" Sounds reasonable, gets said a lot, and it's illegal from the first word. That week, you're invisible: if they don't pay you, you can't even prove you were ever there."
+      },
+      "guess": {
+        "question": {
+          "ro": "Cât riscă un angajator, amendă, pentru FIECARE persoană prinsă muncind fără contract (2026)?",
+          "en": "How much does an employer risk in fines for EACH person caught working without a contract (2026)?"
+        },
+        "min": 0,
+        "max": 50000,
+        "step": 1000,
+        "actual": 40000,
+        "unit": "lei",
+        "reveal": {
+          "ro": "40.000 de lei per persoană, amenda s-a dublat de la 1 ianuarie 2026, cu plafon de un milion la controale mari. De-asta «merge și fără acte» e o minciună scumpă. Dar tu pierzi altfel decât el, și mult mai personal. Vezi mai jos.",
+          "en": "40,000 lei per person, the fine doubled on January 1, 2026, capped at one million for big inspections. That's why \"we'll manage without paperwork\" is an expensive lie. But you lose differently than he does, and far more personally. See below."
+        }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Regula de fier: **contractul se semnează înainte de prima zi de lucru** și se înregistrează în REGES, registrul electronic al salariaților. «Perioada de probă» există, dar e o clauză ÎN contract, cu salariu plătit, nu o etapă înaintea lui. ==Fără contract semnat, nu începi munca.== Nu există «puțin la negru».",
+            "en": "The iron rule: **the contract gets signed before your first day of work** and registered in REGES, the electronic employee registry. The \"trial period\" exists, but it's a clause IN the contract, with paid salary, not a stage before it. ==No signed contract, no starting work.== There's no such thing as \"a little off the books\"."
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": {
+              "ro": "Cu contract",
+              "en": "With a contract"
+            },
+            "text": {
+              "ro": "Vechime la pensie, asigurare de sănătate, venit dovedibil (chirie, credit, vize), iar la neplată, ITM și instanța sunt de partea ta.",
+              "en": "Pension seniority, health insurance, provable income (rent, loans, visas), and if they don't pay, the labor inspectorate and the courts are on your side."
+            }
+          },
+          "right": {
+            "title": {
+              "ro": "«La negru»",
+              "en": "\"Off the books\""
+            },
+            "text": {
+              "ro": "Zero vechime, neasigurat, venit nedovedibil, iar la neplată, cuvântul tău contra al lui. Legal, n-ai fost niciodată acolo.",
+              "en": "Zero seniority, uninsured, unprovable income, and if they don't pay, it's your word against his. Legally, you were never there."
+            }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "danger",
+          "icon": "🚩",
+          "title": {
+            "ro": "Fraze care anunță țeapa",
+            "en": "Phrases that announce the scam"
+          },
+          "text": {
+            "ro": "«Te trecem în acte după probă» · «proba nu se plătește» · «jumate pe card, jumate în plic». Proba neplătită e ilegală, iar plicul înseamnă vechime și pensie calculate la jumătate, ==plus un plic care poate «uita» să mai apară==.",
+            "en": "\"We'll put you on paper after the trial\" · \"the trial is unpaid\" · \"half on card, half in an envelope\". An unpaid trial is illegal, and the envelope means seniority and pension computed on half, ==plus an envelope that can \"forget\" to show up==."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            {
+              "ro": "Salariul **BRUT**, scris în contract, cu netul calculat de tine, ca la lecția trecută.",
+              "en": "The **GROSS** salary, written in the contract, with the net computed by you, like last lesson."
+            },
+            {
+              "ro": "Norma și programul: câte ore, în ce interval, la minori, maxim 6 pe zi, doar ziua.",
+              "en": "The workload and schedule: how many hours, in what window, for minors, at most 6 a day, daytime only."
+            },
+            {
+              "ro": "Durata contractului și **perioada de probă**, trecută în contract și plătită.",
+              "en": "The contract's duration and the **trial period**, written into the contract and paid."
+            },
+            {
+              "ro": "Fișa postului: ce ți se poate cere de fapt, negru pe alb.",
+              "en": "The job description: what can actually be asked of you, in black and white."
+            },
+            {
+              "ro": "Exemplarul TĂU semnat, îl primești și îl păstrezi. Fără el, n-ai dovada înțelegerii.",
+              "en": "YOUR signed copy, you receive it and keep it. Without it, you have no proof of the deal."
+            }
+          ]
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Fără hârtie, munca ta e ca alunele îngropate fără hartă: știi că-s pe undeva, dar n-o poți dovedi nimănui. Iar iarna nu negociază.",
+            "en": "Without paper, your work is like acorns buried with no map: you know they're out there somewhere, but you can't prove it to anyone. And winter doesn't negotiate."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "«Prima săptămână e de probă, neplătită și fără acte, așa e la toată lumea.» Ce spune legea?",
+          "en": "\"The first week is a trial, unpaid and off the books, everyone does it.\" What does the law say?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "E ok dacă ține maxim 5 zile lucrătoare",
+              "en": "It's fine if it lasts at most 5 working days"
+            },
+            "why": {
+              "ro": "Nu există niciun prag «tolerat»: contractul trebuie să existe ÎNAINTE de prima oră lucrată. Din prima zi fără acte, angajatorul riscă 40.000 de lei amendă, iar tu muncești pe încredere.",
+              "en": "There's no \"tolerated\" threshold: the contract must exist BEFORE the first hour worked. From day one without paperwork, the employer risks a 40,000-lei fine, and you're working on faith."
+            }
+          },
+          {
+            "text": {
+              "ro": "Perioada de probă e legală, dar în contract și plătită",
+              "en": "The trial period is legal, but in the contract, and paid"
+            },
+            "why": {
+              "ro": "Exact. Proba e o clauză din contract, cu salariu normal; îi dă angajatorului dreptul să încheie colaborarea mai simplu, nu dreptul să nu te plătească.",
+              "en": "Exactly. The trial is a contract clause, with normal pay; it lets the employer end the collaboration more easily, it doesn't let him not pay you."
+            }
+          },
+          {
+            "text": {
+              "ro": "Dacă accepți, măcar negociezi un salariu mai mare după",
+              "en": "If you accept, at least you can negotiate a higher salary after"
+            },
+            "why": {
+              "ro": "O promisiune fără contract n-are nicio greutate: fără acte nu poți dovedi nici măcar că ai muncit săptămâna aia, darămite «înțelegerea» pentru mai târziu.",
+              "en": "A promise without a contract carries no weight: without paperwork you can't even prove you worked that week, let alone the \"deal\" for later."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": {
+          "ro": "Vlad primește oferta verii, la o terasă: «900 de lei pe săptămână cash, fără acte. Cu contract ți-aș putea da doar vreo 750 în mână.» Vacanța are 10 săptămâni.",
+          "en": "Vlad gets the offer of the summer, at a terrace: \"900 lei a week in cash, no paperwork. With a contract I could only give you about 750 in hand.\" The holiday is 10 weeks long."
+        },
+        "question": {
+          "ro": "Tu, în locul lui?",
+          "en": "You, in his place?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Iau cash-ul, 150 în plus pe săptămână înseamnă 1.500 pe vară",
+              "en": "Take the cash, 150 extra a week means 1,500 over the summer"
+            },
+            "consequence": {
+              "ro": "Matematică pe jumătate. Dacă în august patronul «amână» plata două săptămâni și apoi uită de tot, ai pierdut 1.800, fără nicio dovadă și niciun drept. Plus zero vechime, zero asigurare. Bonusul de 1.500 vine la pachet cu riscul de a pierde tot.",
+              "en": "Half the math. If in August the boss \"postpones\" pay for two weeks and then forgets entirely, you've lost 1,800, with no proof and no rights. Plus zero seniority, zero insurance. The 1,500 bonus ships bundled with the risk of losing everything."
+            }
+          },
+          {
+            "text": {
+              "ro": "Iau contractul, mai puțin, dar garantat prin lege",
+              "en": "Take the contract, less, but guaranteed by law"
+            },
+            "consequence": {
+              "ro": "7.500 pe vară, apărați de lege: la neplată există ITM și instanța, lunile astea se adună la vechime, iar asigurarea de sănătate e activă. Diferența de 1.500 e prețul plasei de siguranță, probabil cea mai ieftină «asigurare» din viața ta.",
+              "en": "7,500 over the summer, protected by law: if pay doesn't come there's the labor inspectorate and the courts, these months count toward seniority, and your health insurance is active. The 1,500 gap is the price of the safety net, probably the cheapest \"insurance\" of your life."
+            }
+          },
+          {
+            "text": {
+              "ro": "Negociez: contract, dar cu brutul mai sus",
+              "en": "Negotiate: a contract, but with a higher gross"
+            },
+            "consequence": {
+              "ro": "Mutarea de profesionist. «Fără acte» tocmai ți-a spus că bugetul lui real e 900 pe săptămână, cere un brut care să-ți lase un net apropiat de atât. Dacă refuză orice variantă cu hârtii, refuzul ăsta e toată informația de care aveai nevoie: pleci.",
+              "en": "The pro move. \"No paperwork\" just told you his real budget is 900 a week, ask for a gross that leaves your net close to that. If he refuses any option involving paper, that refusal is all the information you needed: you walk."
+            }
+          }
+        ]
+      },
+      "interactive": {
+        "kind": "swipe",
+        "title": {
+          "ro": "Semnezi sau fugi?",
+          "en": "Sign or run?"
+        },
+        "left": {
+          "ro": "Fugi",
+          "en": "Run"
+        },
+        "right": {
+          "ro": "Semnezi",
+          "en": "Sign"
+        },
+        "cards": [
+          {
+            "text": {
+              "ro": "«Contractul se semnează înainte de prima zi, uite și exemplarul tău»",
+              "en": "\"The contract gets signed before day one, here's your copy too\""
+            },
+            "side": "right",
+            "why": {
+              "ro": "Fix așa sună legalul: acte înainte de prima oră lucrată și un exemplar care rămâne la tine.",
+              "en": "That's exactly what legal sounds like: paperwork before the first hour worked, and a copy that stays with you."
+            }
+          },
+          {
+            "text": {
+              "ro": "«Salariul: jumate pe card, jumate în plic, ca să ieși mai bine»",
+              "en": "\"Pay: half on card, half in an envelope, so you come out ahead\""
+            },
+            "side": "left",
+            "why": {
+              "ro": "Partea din plic nu există oficial: vechime și pensie calculate la jumătate, iar plicul poate dispărea oricând, fără urmă.",
+              "en": "The envelope half doesn't officially exist: seniority and pension computed on half, and the envelope can vanish anytime, without a trace."
+            }
+          },
+          {
+            "text": {
+              "ro": "«Proba de două săptămâni nu se plătește, așa e peste tot»",
+              "en": "\"The two-week trial is unpaid, that's how it is everywhere\""
+            },
+            "side": "left",
+            "why": {
+              "ro": "«Așa e peste tot» nu apare în Codul Muncii. Proba e clauză în contract și se plătește, integral.",
+              "en": "\"That's how it is everywhere\" appears nowhere in the Labor Code. The trial is a contract clause and it's paid, in full."
+            }
+          },
+          {
+            "text": {
+              "ro": "«În contract trecem salariul brut: 4.325»",
+              "en": "\"In the contract we put the gross salary: 4,325\""
+            },
+            "side": "right",
+            "why": {
+              "ro": "Normal și corect: contractele vorbesc în brut. Netul (2.699 la minim) ți-l calculezi singur, ai făcut-o deja lecția trecută.",
+              "en": "Normal and correct: contracts speak in gross. The net (2,699 at minimum) you compute yourself, you already did, last lesson."
+            }
+          },
+          {
+            "text": {
+              "ro": "«Semnăm luni, dar vino de sâmbătă să prinzi ritmul»",
+              "en": "\"We sign on Monday, but come in Saturday to get the hang of it\""
+            },
+            "side": "left",
+            "why": {
+              "ro": "Două zile «pe încredere» = muncă nedeclarată. Contractul semnat DUPĂ primele ture e fix schema pe care legea o amendează cu 40.000 de lei.",
+              "en": "Two days \"on trust\" = undeclared work. A contract signed AFTER your first shifts is exactly the scheme the law fines 40,000 lei for."
+            }
+          }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "==Contract semnat înainte de prima zi== și înregistrat în REGES, altfel nu începi",
+          "Fără acte pierzi patru lucruri: vechimea, asigurarea de sănătate, dovada venitului, apărarea la neplată",
+          "**Proba e plătită** și scrisă în contract; «te trecem în acte după» = pleci"
+        ],
+        "en": [
+          "==Contract signed before day one== and registered in REGES, otherwise you don't start",
+          "Off the books you lose four things: seniority, health insurance, proof of income, protection when pay doesn't come",
+          "**The trial is paid** and written into the contract; \"we'll put you on paper later\" = you walk"
+        ]
+      },
+      "action": {
+        "ro": "Salvează-ți azi în notițe lista celor 5 verificări: brut, program, probă, fișa postului, exemplarul tău. La primul contract adevărat o scoți și bifezi, 2 minute care te scutesc de luni de regrete.",
+        "en": "Save the 5-item checklist in your notes today: gross, schedule, trial, job description, your copy. At your first real contract you pull it out and tick, 2 minutes that spare you months of regret."
+      },
+      "teaser": {
+        "ro": "Următoarea frontieră nu cere nici contract, nici program fix: telefonul tău. Vânzări, meditații, content, bani reali, din camera ta. Doar că pe-acolo patrulează și «angajatori» care îți cer ție bani. Lecția următoare îi recunoști din prima.",
+        "en": "The next frontier needs neither a contract nor fixed hours: your phone. Sales, tutoring, content, real money, from your room. Except \"employers\" who ask YOU for money patrol there too. Next lesson you'll spot them instantly."
+      },
+      "cards": [
+        {
+          "id": "u7l3-c1",
+          "q": {
+            "ro": "Când trebuie semnat contractul de muncă?",
+            "en": "When must the employment contract be signed?"
+          },
+          "a": {
+            "ro": "Înainte de prima zi de lucru, cu înregistrare în REGES și un exemplar la tine. «Te trecem în acte după probă» e ilegal, proba e o clauză plătită DIN contract, nu o etapă înaintea lui.",
+            "en": "Before your first day of work, registered in REGES, with a copy kept by you. \"We'll put you on paper after the trial\" is illegal, the trial is a paid clause OF the contract, not a stage before it."
+          }
+        },
+        {
+          "id": "u7l3-c2",
+          "q": {
+            "ro": "Ce pierzi când muncești «la negru»?",
+            "en": "What do you lose working \"off the books\"?"
+          },
+          "a": {
+            "ro": "Vechimea la pensie, asigurarea de sănătate, dovada venitului (pentru chirie sau credit) și orice apărare la neplată, legal, munca ta nu a existat.",
+            "en": "Pension seniority, health insurance, proof of income (for rent or loans) and any protection when pay doesn't come, legally, your work never happened."
+          }
+        },
+        {
+          "id": "u7l3-c3",
+          "q": {
+            "ro": "Cât e amenda pentru muncă nedeclarată în 2026?",
+            "en": "What's the fine for undeclared work in 2026?"
+          },
+          "a": {
+            "ro": "40.000 de lei pentru fiecare persoană fără contract, dublată de la 1 ianuarie 2026, cu plafon de 1.000.000 de lei. Ăsta e riscul angajatorului; al tău e mai personal: muncă fără nicio plasă de siguranță.",
+            "en": "40,000 lei for each person without a contract, doubled from January 1, 2026, capped at 1,000,000 lei. That's the employer's risk; yours is more personal: work with no safety net at all."
+          }
+        }
+      ]
+    },
+    {
+      "id": "u7-bani-din-online",
+      "emoji": "📱",
+      "minutes": 3,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": {
+        "ro": "Bani din online",
+        "en": "Money from online"
+      },
+      "hook": {
+        "ro": "Ana a făcut 250 de lei într-un weekend vânzând hainele din care a crescut. Un coleg a «investit» 300 într-un job online care i-a cerut «taxă de activare», și s-a ales cu zero. Aceeași piață, același telefon. Le desparte un singur detaliu: direcția în care curg banii.",
+        "en": "Ana made 250 lei in one weekend selling clothes she'd outgrown. A classmate \"invested\" 300 in an online job that asked for an \"activation fee\", and ended up with zero. Same market, same phone. One detail separates them: the direction the money flows."
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "La vârsta ta, banii din online vin realist pe patru căi: **vinzi lucruri** din care ai crescut (haine, console, cărți), dai **meditații** la materia la care rupi, faci **content sau editare** pentru firme mici, ori **freelancing** mărunt, traduceri, design, montaj. Toate au aceeași structură sănătoasă: ==întâi munca sau produsul, apoi banii==.",
+            "en": "At your age, online money realistically comes four ways: **selling things** you've outgrown (clothes, consoles, books), **tutoring** in the subject you crush, doing **content or editing** for small businesses, or small-scale **freelancing**, translations, design, video editing. They all share the same healthy structure: ==first the work or the product, then the money==."
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "green",
+          "icon": "🧭",
+          "title": {
+            "ro": "Regula de aur a direcției",
+            "en": "The golden rule of direction"
+          },
+          "text": {
+            "ro": "Venitul real curge SPRE tine. Dacă un «job» îți cere ție bani, taxă de activare, «garanție», curs obligatoriu plătit, nu e un job. ==E o țeapă cu fișă de post.==",
+            "en": "Real income flows TOWARD you. If a \"job\" asks YOU for money, an activation fee, a \"deposit\", a mandatory paid course, it's not a job. ==It's a scam with a job description.=="
+          }
+        },
+        {
+          "t": "vs",
+          "left": {
+            "title": {
+              "ro": "Venit real",
+              "en": "Real income"
+            },
+            "text": {
+              "ro": "Te plătește după ce livrezi. Îți cere timp și pricepere. Plata vine pe canale normale, verificabile.",
+              "en": "Pays you after you deliver. Asks for your time and skill. Payment arrives through normal, verifiable channels."
+            }
+          },
+          "right": {
+            "title": {
+              "ro": "«Job» fake",
+              "en": "Fake \"job\""
+            },
+            "text": {
+              "ro": "Îți cere bani sau buletinul înainte să «începi». Promite sume mari pe taskuri banale. Te grăbește pe Telegram sau WhatsApp.",
+              "en": "Asks for money or your ID before you \"start\". Promises big sums for trivial tasks. Rushes you on Telegram or WhatsApp."
+            }
+          }
+        },
+        {
+          "t": "callout",
+          "tone": "amber",
+          "icon": "🛡️",
+          "title": {
+            "ro": "Scutul din Unitatea 5, iar la datorie",
+            "en": "The Unit 5 shield, back on duty"
+          },
+          "text": {
+            "ro": "Recunoști rețeta? **Promisiune mare + presiune de timp + cerere de bani sau date.** «Angajatorul» care vrea buletinul pozat pe chat nu angajează, colecționează identități. Cu ele se pot lua credite pe numele tău.",
+            "en": "Recognize the recipe? **Big promise + time pressure + a request for money or data.** The \"employer\" who wants your ID photographed over chat isn't hiring, he's collecting identities. Loans can be taken out in your name with them."
+          }
+        },
+        {
+          "t": "text",
+          "text": {
+            "ro": "O precizie fiscală, ca să dormi liniștit: lucrurile TALE, vândute ocazional, nu sunt venit impozabil, vinde-ți blugii fără grijă. Dacă însă cumperi CA SĂ revinzi sau dai meditații săptămână de săptămână, aia e deja activitate cu venit constant, iar veniturile constante **se declară**.",
+            "en": "One tax clarification, so you sleep easy: YOUR own things, sold occasionally, aren't taxable income, sell those jeans without worry. But if you buy IN ORDER to resell, or tutor week in, week out, that's already an activity with steady income, and steady income **gets declared**."
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Dacă un job îmi cere alune ca să mă lase să strâng alune, eu am plecat deja. Pădurea e plină de copaci care nu percep taxă de intrare.",
+            "en": "If a job asks me for acorns before letting me gather acorns, I'm already gone. The forest is full of trees that charge no entrance fee."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "«Câștigi 400 de lei pe zi dând like-uri. Activare: doar 150.» Care e semnalul DECISIV că e țeapă?",
+          "en": "\"Earn 400 lei a day giving likes. Activation: only 150.\" What's the DECISIVE signal it's a scam?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Suma, 400 pe zi e prea mult pentru like-uri",
+              "en": "The amount, 400 a day is too much for likes"
+            },
+            "why": {
+              "ro": "Suspect, dar nu decisiv: țepele știu să promită și sume «rezonabile» când vor să pară credibile. Există un semnal care nu dă greș niciodată, direcția banilor.",
+              "en": "Suspicious, but not decisive: scams know how to promise \"reasonable\" sums when they want to look credible. There's one signal that never fails, the direction of the money."
+            }
+          },
+          {
+            "text": {
+              "ro": "Taxa de activare, banii curg dinspre tine",
+              "en": "The activation fee, the money flows away from you"
+            },
+            "why": {
+              "ro": "Exact. Un angajator real te plătește pe tine, niciodată invers. «Taxa» e chiar produsul țepei: ea e toată afacerea lor.",
+              "en": "Exactly. A real employer pays you, never the other way around. The \"fee\" is the scam's actual product: it IS their whole business."
+            }
+          },
+          {
+            "text": {
+              "ro": "Platforma, pe rețele sociale nu există joburi reale",
+              "en": "The platform, there are no real jobs on social media"
+            },
+            "why": {
+              "ro": "Există recrutări reale pornite din social media, dar ele continuă cu firmă verificabilă, contract și zero taxe de intrare. Canalul nu decide; direcția banilor, da.",
+              "en": "Real recruiting does start on social media, but it continues with a verifiable company, a contract and zero entry fees. The channel doesn't decide; the direction of the money does."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "scenario": {
+        "setup": {
+          "ro": "Ana vrea 500 de lei până la festivalul din august. Are trei săptămâni, un telefon și un dulap plin.",
+          "en": "Ana wants 500 lei before the August festival. She has three weeks, a phone and a full closet."
+        },
+        "question": {
+          "ro": "Care e prima ei mutare?",
+          "en": "What's her first move?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Vinde hainele și adidașii nepurtați de un an",
+              "en": "Sell the clothes and sneakers untouched for a year"
+            },
+            "consequence": {
+              "ro": "Cea mai rapidă sursă legală din camera ei, iar lucrurile personale vândute ocazional nici măcar nu se impozitează. Poze bune la lumină, preț verificat pe anunțuri similare, răspunsuri rapide: câteva sute de lei în două-trei săptămâni sunt realiste.",
+              "en": "The fastest legal source in her room, and personal things sold occasionally aren't even taxed. Good photos in daylight, prices checked against similar listings, quick replies: a few hundred lei in two-three weeks is realistic."
+            }
+          },
+          {
+            "text": {
+              "ro": "Meditații la mate pentru un puști de-a șaptea",
+              "en": "Math tutoring for a seventh-grader"
+            },
+            "consequence": {
+              "ro": "Mai lent până la primul client, dar venit repetabil: 500 de lei nu dintr-o lovitură, ci din 8-10 ședințe care pot continua și la toamnă. Bonus: își setează singură prețul. Dacă devine activitate constantă, se declară, semn bun, înseamnă că a construit ceva.",
+              "en": "Slower to the first client, but repeatable income: 500 lei not in one hit, but from 8-10 sessions that can carry into autumn. Bonus: she sets her own price. If it becomes a steady activity, it gets declared, a good sign, it means she built something."
+            }
+          },
+          {
+            "text": {
+              "ro": "«Dublează banii în 7 zile», un link de pe TikTok",
+              "en": "\"Double your money in 7 days\", a link off TikTok"
+            },
+            "consequence": {
+              "ro": "Direcția banilor: dinspre ea. Dublare în 7 zile înseamnă 100% pe săptămână, când banca dă 4-7% pe AN, matematica asta ai văzut-o în Unitatea 6, iar rețeta presiunii în Unitatea 5. Cei 500 s-ar duce cu festival cu tot.",
+              "en": "Money direction: away from her. Doubling in 7 days means 100% a week, when a bank pays 4-7% a YEAR, you saw that math in Unit 6, and the pressure recipe in Unit 5. The 500 would vanish, festival and all."
+            }
+          }
+        ]
+      },
+      "interactive": {
+        "kind": "mcq",
+        "question": {
+          "ro": "Un «angajator» de pe Telegram îți cere 200 de lei «garanție pentru echipament» și buletinul pozat. Mutarea ta?",
+          "en": "An \"employer\" on Telegram asks you for a 200-lei \"equipment deposit\" and a photo of your ID. Your move?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Plătesc, zice că mi-i returnează din primul salariu",
+              "en": "Pay, he says he'll return it out of my first salary"
+            },
+            "why": {
+              "ro": "Primul salariu nu vine niciodată: garanția E salariul lor. Iar buletinul pozat poate deveni un credit luat pe numele tău, pagubă mult peste cei 200.",
+              "en": "The first salary never comes: the deposit IS their salary. And the photographed ID can become a loan taken out in your name, damage far beyond the 200."
+            }
+          },
+          {
+            "text": {
+              "ro": "Zero lei, zero poze, blochez și raportez contul",
+              "en": "Zero lei, zero photos, block and report the account"
+            }
+          },
+          {
+            "text": {
+              "ro": "Negociez garanția la 100, să limitez riscul",
+              "en": "Negotiate the deposit down to 100, to limit the risk"
+            },
+            "why": {
+              "ro": "Tocmai ai negociat prețul țepei, nu riscul. Direcția banilor rămâne greșită și la 100, și la 10, iar «negocierea» le confirmă că ești aproape convins.",
+              "en": "You just negotiated the scam's price, not the risk. The money's direction stays wrong at 100 and at 10, and \"negotiating\" tells them you're nearly convinced."
+            }
+          }
+        ],
+        "correct": 1,
+        "explain": {
+          "ro": "Regula într-o singură propoziție: jobul real te plătește pe tine, tu nu-l plătești niciodată pe el. Iar buletinul tău e cheia identității tale financiare: se arată la semnarea contractului, nu se trimite pe chat.",
+          "en": "The rule in one sentence: a real job pays you, you never pay it. And your ID is the key to your financial identity: it gets shown at contract signing, not sent over chat."
+        }
+      },
+      "recap": {
+        "ro": [
+          "Patru căi reale: vinzi ce nu mai porți, meditații, content, freelancing, ==întâi munca, apoi banii==",
+          "**Jobul real nu costă bani**: orice «taxă de activare» sau «garanție» = țeapă cu fișă de post",
+          "Lucrurile tale vândute ocazional nu se impozitează; activitatea constantă se declară"
+        ],
+        "en": [
+          "Four real paths: sell what you've outgrown, tutoring, content, freelancing, ==first the work, then the money==",
+          "**A real job costs no money**: any \"activation fee\" or \"deposit\" = a scam with a job description",
+          "Your own things sold occasionally aren't taxed; a steady activity gets declared"
+        ]
+      },
+      "action": {
+        "ro": "Deschide dulapul 2 minute și scoate 3 lucruri neatinse de un an. Nu le pui azi la vânzare, doar caută cât se cer altele la fel și notează prețurile. Tocmai ai transformat praful în inventar.",
+        "en": "Open your closet for 2 minutes and pull out 3 things untouched for a year. Don't list them today, just look up what similar ones go for and note the prices. You've just turned dust into inventory."
+      },
+      "teaser": {
+        "ro": "Oricum ar veni, salariu, meditații, vânzări, urmează ziua în care banii chiar intră. Ai zice că partea grea a trecut. De fapt, primul salariu are un talent aparte: dispare. În ultima lecție a unității îl învățăm să rămână.",
+        "en": "However it arrives, salary, tutoring, sales, next comes the day the money actually lands. You'd think the hard part is over. In fact, a first paycheck has a special talent: disappearing. In the unit's last lesson, we teach it to stay."
+      },
+      "cards": [
+        {
+          "id": "u7l4-c1",
+          "q": {
+            "ro": "Care e semnalul decisiv al unui «job online» fals?",
+            "en": "What's the decisive signal of a fake \"online job\"?"
+          },
+          "a": {
+            "ro": "Îți cere ție bani (taxă de activare, garanție, curs obligatoriu) sau buletinul pe chat, înainte să «începi». Venitul real curge întotdeauna spre tine, niciodată invers.",
+            "en": "It asks YOU for money (activation fee, deposit, mandatory course) or your ID over chat, before you \"start\". Real income always flows toward you, never the other way."
+          }
+        },
+        {
+          "id": "u7l4-c2",
+          "q": {
+            "ro": "Ce surse de bani online sunt realiste la 14-25 de ani?",
+            "en": "What online income sources are realistic at 14-25?"
+          },
+          "a": {
+            "ro": "Vânzarea lucrurilor proprii (neimpozabilă când e ocazională), meditațiile, content și editare pentru firme mici, freelancing mărunt. Toate plătesc după muncă, nu înainte.",
+            "en": "Selling your own things (untaxed when occasional), tutoring, content and editing for small businesses, small-scale freelancing. All of them pay after the work, not before."
+          }
+        },
+        {
+          "id": "u7l4-c3",
+          "q": {
+            "ro": "De ce nu trimiți buletinul pozat unui «angajator» de pe chat?",
+            "en": "Why not send a photographed ID to a chat \"employer\"?"
+          },
+          "a": {
+            "ro": "Cu datele din el se pot lua credite pe numele tău. Angajatorii reali îți văd actele la semnarea contractului, nu pe Telegram, iar de plătit, te plătesc ei pe tine.",
+            "en": "With its data, loans can be taken out in your name. Real employers see your documents at contract signing, not on Telegram, and as for paying, they pay you."
+          }
+        }
+      ]
+    },
+    {
+      "id": "u7-primul-salariu",
+      "emoji": "🎯",
+      "minutes": 3,
+      "xp": 20,
+      "difficulty": "intermediate",
+      "title": {
+        "ro": "Planul primului salariu",
+        "en": "The first-paycheck plan"
+      },
+      "hook": {
+        "ro": "Primul salariu al lui Vlad a intrat vineri la 11:02. Luni la prânz mai avea 40% din el, și nu-și amintea exact pe ce s-a dus restul. Nu l-a jefuit nimeni: a ratat doar mișcarea care se face în primele 10 minute după SMS-ul de la bancă.",
+        "en": "Vlad's first paycheck landed on Friday at 11:02. By Monday noon he had 40% of it left, and couldn't quite remember where the rest went. Nobody robbed him: he just missed the move you make in the first 10 minutes after the bank's text."
+      },
+      "guess": {
+        "question": {
+          "ro": "Regula 50/30/20 pe salariul minim net, 2.699 de lei: câți lei merg lunar la economii?",
+          "en": "The 50/30/20 rule on the net minimum wage, 2,699 lei: how many lei go to savings each month?"
+        },
+        "min": 0,
+        "max": 1000,
+        "step": 20,
+        "actual": 540,
+        "unit": "lei",
+        "reveal": {
+          "ro": "540 de lei, 20% din 2.699. Într-un an: aproape 6.500, adică un fond de urgență serios sau un laptop plătit fără rate. Partea frumoasă: procentul rămâne 20% la orice salariu, planul se scalează singur când crești.",
+          "en": "540 lei, 20% of 2,699. In a year: nearly 6,500, a serious emergency fund, or a laptop paid for without installments. The beautiful part: the percentage stays 20% at any salary, the plan scales itself as you grow."
+        }
+      },
+      "blocks": [
+        {
+          "t": "text",
+          "text": {
+            "ro": "Fenomenul are un mecanism simplu: banii vizibili în cont se cheltuie singuri. Soluția nu e voința, e **ordinea operațiilor**: cine ia primul din salariu, tu cel de azi sau tu cel de mâine? ==Plătește-te întâi pe tine==: economiile pleacă AUTOMAT în ziua salariului, nu «ce rămâne» la finalul lunii.",
+            "en": "The phenomenon has a simple mechanism: money visible in the account spends itself. The fix isn't willpower, it's the **order of operations**: who takes from the paycheck first, today's you or tomorrow's you? ==Pay yourself first==: savings leave AUTOMATICALLY on payday, not as \"whatever's left\" at month's end."
+          }
+        },
+        {
+          "t": "steps",
+          "items": [
+            {
+              "ro": "Intră netul: **2.699 de lei**, minimul din iulie 2026.",
+              "en": "The net lands: **2,699 lei**, the July 2026 minimum."
+            },
+            {
+              "ro": "**50% nevoi** ≈ 1.350: transport, mâncare, telefon, sau contribuția ta acasă.",
+              "en": "**50% needs** ≈ 1,350: transport, food, phone, or your contribution at home."
+            },
+            {
+              "ro": "**30% dorințe** ≈ 810: ieșiri, haine, jocuri, fără vinovăție, dar cu plafon.",
+              "en": "**30% wants** ≈ 810: going out, clothes, games, guilt-free, but capped."
+            },
+            {
+              "ro": "**20% viitor** ≈ 540, transferați automat în ziua salariului. Primii, nu ultimii.",
+              "en": "**20% future** ≈ 540, transferred automatically on payday. First out, not last."
+            }
+          ]
+        },
+        {
+          "t": "callout",
+          "tone": "violet",
+          "icon": "🐍",
+          "title": {
+            "ro": "Lifestyle creep, hoțul politicos",
+            "en": "Lifestyle creep, the polite thief"
+          },
+          "text": {
+            "ro": "Crește salariul cu 500? Misterios, «strictul necesar» crește tot cu 500: telefon mai bun, taxi în loc de autobuz, cafea mai scumpă. Antidotul: ==din orice mărire, jumătate pleacă la economii== înainte să apuci să te obișnuiești cu ea.",
+            "en": "Salary up by 500? Mysteriously, the \"bare necessities\" also grow by 500: a better phone, taxis instead of the bus, pricier coffee. The antidote: ==half of any raise goes to savings== before you get the chance to get used to it."
+          }
+        },
+        {
+          "t": "stat",
+          "value": 6480,
+          "suffix": " lei",
+          "label": {
+            "ro": "strânși într-un an, dacă cei 540 pleacă automat în fiecare zi de salariu",
+            "en": "gathered in a year, if the 540 leaves automatically every payday"
+          }
+        },
+        {
+          "t": "quote",
+          "text": {
+            "ro": "Eu nu «sper să-mi rămână alune pentru iarnă». Pun deoparte prima alună din fiecare zi, apoi ronțăi liniștit. Metoda are câteva milioane de ani de teste pe teren, la veverițe, zero falimente.",
+            "en": "I don't \"hope some acorns are left for winter\". I set aside the first acorn of every day, then nibble in peace. The method has a few million years of field testing, among squirrels, zero bankruptcies."
+          }
+        }
+      ],
+      "check": {
+        "question": {
+          "ro": "De ce planul «economisesc ce rămâne la finalul lunii» eșuează aproape mereu?",
+          "en": "Why does the plan \"I'll save whatever's left at month's end\" almost always fail?"
+        },
+        "options": [
+          {
+            "text": {
+              "ro": "Pentru că salariile sunt prea mici ca să rămână ceva",
+              "en": "Because salaries are too small for anything to be left"
+            },
+            "why": {
+              "ro": "Sună logic, dar și la salarii duble rămâne, misterios, tot zero. Dovada: măririle de salariu care «dispar» din prima lună. Problema nu e suma, e ordinea.",
+              "en": "Sounds logical, but at double the salary there's mysteriously still zero left. The proof: raises that \"vanish\" within the first month. The problem isn't the amount, it's the order."
+            }
+          },
+          {
+            "text": {
+              "ro": "Pentru că cheltuielile umplu exact spațiul pe care li-l lași",
+              "en": "Because spending fills exactly the space you leave it"
+            },
+            "why": {
+              "ro": "Exact. Banii liberi din cont se cheltuie singuri, de-asta ordinea se inversează: 20% pleacă primii, automat, iar restul se cheltuie fără vinovăție.",
+              "en": "Exactly. Free money in the account spends itself, which is why you flip the order: 20% leaves first, automatically, and the rest gets spent guilt-free."
+            }
+          },
+          {
+            "text": {
+              "ro": "Nu eșuează, matematic e exact același lucru",
+              "en": "It doesn't fail, mathematically it's the exact same thing"
+            },
+            "why": {
+              "ro": "Matematic, da. Psihologic, e fix invers: la finalul lunii decizia o ia oboseala, nu tu. Sistemele bat voința, de-asta câștigă transferul automat.",
+              "en": "Mathematically, yes. Psychologically, it's the exact opposite: at month's end, fatigue makes the decision, not you. Systems beat willpower, that's why the automatic transfer wins."
+            }
+          }
+        ],
+        "correct": 1
+      },
+      "example": {
+        "ro": "Ziua de salariu a Anei durează 4 minute: intră 2.699, transferul automat mută 540 în economii, plătește abonamentul și partea ei de acasă, iar restul de vreo 800 e al ei, de cheltuit fără nicio vinovăție. Duminică seara nu face socoteli amare: le-a făcut vineri, la 11:06.",
+        "en": "Ana's payday takes 4 minutes: 2,699 lands, the automatic transfer moves 540 to savings, she pays her subscription and her share at home, and the remaining ~800 is hers, to spend guilt-free. Sunday night brings no bitter accounting: she did it Friday, at 11:06."
+      },
+      "interactive": {
+        "kind": "order",
+        "title": {
+          "ro": "Ziua de salariu, în ordinea corectă",
+          "en": "Payday, in the right order"
+        },
+        "items": [
+          {
+            "text": {
+              "ro": "Verifici suma și fluturașul de salariu",
+              "en": "Check the amount and the payslip"
+            },
+            "why": {
+              "ro": "Treizeci de secunde care prind ore lipsă sau un net greșit. Fluturașul e dreptul tău, cere-l.",
+              "en": "Thirty seconds that catch missing hours or a wrong net. The payslip is your right, ask for it."
+            }
+          },
+          {
+            "text": {
+              "ro": "20% pleacă automat în economii",
+              "en": "20% leaves automatically into savings"
+            },
+            "why": {
+              "ro": "Plata către tine, prima, cât contul e încă plin. Cu transfer programat, pasul se face singur, fără să te lupți cu tine.",
+              "en": "The payment to yourself, first, while the account is still full. With a scheduled transfer, this step does itself, no inner battle needed."
+            }
+          },
+          {
+            "text": {
+              "ro": "Plătești facturile și obligațiile fixe",
+              "en": "Pay the bills and fixed obligations"
+            },
+            "why": {
+              "ro": "Abonament, transport, partea de acasă, nevoile își iau partea înaintea poftelor.",
+              "en": "Subscription, transport, your share at home, needs take their cut before cravings do."
+            }
+          },
+          {
+            "text": {
+              "ro": "Restul se cheltuie fără vinovăție",
+              "en": "The rest gets spent guilt-free"
+            },
+            "why": {
+              "ro": "Asta e recompensa sistemului: ce a rămas e cu adevărat al tău. Zero socoteli amare la finalul lunii.",
+              "en": "That's the system's reward: what's left is truly yours. Zero bitter accounting at month's end."
+            }
+          }
+        ]
+      },
+      "recap": {
+        "ro": [
+          "==Plătește-te întâi pe tine==: economiile pleacă automat în ziua salariului, nu la finalul lunii",
+          "50/30/20 pe minimul net: ~1.350 nevoi · ~810 dorințe · **540 economii** (≈6.500 pe an)",
+          "**Lifestyle creep**: din orice mărire, jumătate la economii înainte să devină «strictul necesar»"
+        ],
+        "en": [
+          "==Pay yourself first==: savings leave automatically on payday, not at month's end",
+          "50/30/20 on the net minimum: ~1,350 needs · ~810 wants · **540 savings** (≈6,500 a year)",
+          "**Lifestyle creep**: half of any raise goes to savings before it becomes a \"bare necessity\""
+        ]
+      },
+      "action": {
+        "ro": "Ai cont cu aplicație? Setează AZI un transfer automat programat a doua zi după data salariului sau a alocației, chiar și 20 de lei. N-ai încă? Scrie pe un bilet «Ziua 1: întâi eu» și pune-l în husa telefonului. Sistemul bate memoria.",
+        "en": "Got an account with an app? Set up an automatic transfer TODAY, scheduled for the day after your salary or allowance arrives, even 20 lei. Don't have one yet? Write \"Day 1: me first\" on a note and slip it in your phone case. The system beats memory."
+      },
+      "teaser": {
+        "ro": "Cum apare primul venit, lumea începe brusc să-ți ofere bani: rate «fără dobândă», «doar 99 de lei pe lună», minicredite «pe loc». Unitatea 8 · Banii împrumutați, aceeași curbă exponențială pe care o știi deja, doar că de data asta lucrează împotriva ta. Merită s-o vezi venind.",
+        "en": "The moment your first income shows up, the world suddenly starts offering you money: \"zero-interest\" installments, \"only 99 lei a month\", instant mini-loans. Unit 8 · Borrowed money, the same exponential curve you already know, except this time it works against you. Worth seeing it coming."
+      },
+      "cards": [
+        {
+          "id": "u7l5-c1",
+          "q": {
+            "ro": "Cum arată regula 50/30/20 pe salariul minim net (2.699 lei)?",
+            "en": "What does the 50/30/20 rule look like on the net minimum wage (2,699 lei)?"
+          },
+          "a": {
+            "ro": "~1.350 de lei nevoi, ~810 dorințe, ~540 economii. Procentele rămân la fel la orice venit, suma economisită crește singură odată cu salariul.",
+            "en": "~1,350 lei needs, ~810 wants, ~540 savings. The percentages stay the same at any income, the saved amount grows on its own as the salary does."
+          }
+        },
+        {
+          "id": "u7l5-c2",
+          "q": {
+            "ro": "Ce e lifestyle creep și cum îl oprești?",
+            "en": "What is lifestyle creep and how do you stop it?"
+          },
+          "a": {
+            "ro": "Creșterea «tăcută» a cheltuielilor odată cu venitul: orice mărire devine rapid «strictul necesar». Antidot: din fiecare mărire, jumătate pleacă automat la economii înainte să te obișnuiești cu ea.",
+            "en": "The \"silent\" growth of spending alongside income: any raise quickly becomes a \"bare necessity\". Antidote: half of every raise goes automatically to savings before you get used to it."
+          }
+        },
+        {
+          "id": "u7l5-c3",
+          "q": {
+            "ro": "De ce economisești în ziua salariului, nu la finalul lunii?",
+            "en": "Why save on payday instead of at month's end?"
+          },
+          "a": {
+            "ro": "Pentru că cheltuielile umplu tot spațiul lăsat liber: la finalul lunii rămâne mereu zero. Transferul automat din ziua salariului te plătește întâi pe tine, sistemul bate voința.",
+            "en": "Because spending fills all the space it's given: at month's end there's always zero left. The automatic payday transfer pays you first, the system beats willpower."
+          }
+        }
+      ]
+    }
+  ]
+}
