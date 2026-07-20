@@ -9,8 +9,9 @@ abstract final class AppConfig {
   static const String supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 
   /// Cheia API publică Supabase; string gol dacă nu e setată.
-  static const String supabaseAnonKey =
-      String.fromEnvironment('SUPABASE_ANON_KEY');
+  static const String supabaseAnonKey = String.fromEnvironment(
+    'SUPABASE_ANON_KEY',
+  );
 
   /// Adevărat doar dacă ambele valori sunt setate. Orice cod de rețea
   /// (Supabase, sync) trebuie să verifice acest flag și să degradeze la offline.

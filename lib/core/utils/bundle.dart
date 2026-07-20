@@ -11,5 +11,6 @@ import 'package:flutter/services.dart' show rootBundle;
 Future<String> loadAssetString(String key) async {
   final data = await rootBundle.load(key);
   return utf8.decode(
-      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+    data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+  );
 }

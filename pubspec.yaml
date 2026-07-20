@@ -1,5 +1,5 @@
 name: finedu_flutter
-description: "FinEdu — educație financiară gamificată pentru tineri"
+description: "FinEdu, educație financiară gamificată pentru tineri"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -17,47 +17,48 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  # UI / design system
+  # Interfață
   cupertino_icons: ^1.0.8
   flutter_inset_shadow: ^2.0.3
 
-  # State management
+  # Starea aplicației
   flutter_riverpod: ^2.6.1
   riverpod_annotation: ^2.6.1
 
-  # Routing
+  # Navigare
   go_router: ^14.8.1
 
-  # Formatting / i18n
+  # Formatare și traduceri
   intl: ^0.20.2
 
-  # Connectivity (offline-first groundwork)
+  # Verificarea conexiunii
   connectivity_plus: ^6.1.5
 
-  # Local database (offline-first source of truth).
-  # Pinned to the 2.28.0 line: drift_dev 2.28.1+ requires source_gen ^3.0.0,
-  # which conflicts with riverpod_generator 2.6.5 (source_gen ^2.0.0).
+  # Baza de date locală, sursa de adevăr a aplicației.
+  # Fixat pe 2.28.0: drift_dev 2.28.1+ cere source_gen ^3.0.0, care se bate cu
+  # riverpod_generator 2.6.5 (source_gen ^2.0.0).
   drift: 2.28.0
-  # 0.2.6+ calls a drift API (isolateDebugLog) that only exists in drift 2.29+,
-  # despite declaring drift ^2.21.0 — keep at 0.2.5 while drift is at 2.28.0.
+  # 0.2.6+ cheamă o funcție drift (isolateDebugLog) care există abia în 2.29+,
+  # deși cere doar ^2.21.0, deci rămâne 0.2.5 cât timp drift e pe 2.28.0.
   drift_flutter: 0.2.5
   path_provider: ^2.1.5
 
-  # Backend
+  # Serverul
   supabase_flutter: ^2.11.1
 
-  # IDs + models
+  # Id-uri și modele
   uuid: ^4.5.1
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
 
-  # Local notifications (F1 soft-ask reminder; Android-only for now).
-  # The single new dependency permitted by the F1-A spec.
+  # Notificări locale pentru amintirea zilnică, deocamdată doar pe Android.
   flutter_local_notifications: ^18.0.1
   timezone: ^0.10.0
 
-  # Share card 9:16 for Provocarea Zilei (F4) — the organic viral loop.
+  # Cardul de share 9:16 pentru Provocarea Zilei.
   share_plus: ^10.1.4
+  flutter_animate: ^4.5.2
+  lottie: ^3.5.1
 
 dev_dependencies:
   flutter_test:
@@ -67,30 +68,31 @@ dev_dependencies:
   # encourage good coding practices.
   flutter_lints: ^6.0.0
 
-  # Codegen + lints for Riverpod
+  # Generare de cod și verificări pentru Riverpod
   build_runner: ^2.4.15
   riverpod_generator: ^2.6.5
   custom_lint: ^0.7.5
   riverpod_lint: ^2.6.5
 
-  # Codegen: drift schema, freezed models, JSON serialization.
-  # All pinned to the source_gen ^2.0.0 line to stay compatible with
-  # riverpod_generator 2.6.5. The newer 3.x/source_gen ^3 releases of these
-  # tools require riverpod_generator 3.x, deferred until a Riverpod bump.
+  # Generare de cod: schema drift, modele freezed, serializare JSON.
+  # Toate fixate pe linia source_gen ^2.0.0, ca să meargă cu riverpod_generator
+  # 2.6.5. Versiunile 3.x cer riverpod_generator 3.x, deci așteaptă.
   drift_dev: 2.28.0
   freezed: '>=3.0.0 <3.2.0'
   json_serializable: '>=6.9.0 <6.10.0'
+  image: ^4.8.0
 
 # The following section is specific to Flutter packages.
 flutter:
   uses-material-design: true
 
-  # Enables gen-l10n output (app_localizations.dart) generated into .dart_tool.
+  # Pornește generarea traducerilor (app_localizations.dart).
   generate: true
 
   assets:
     - assets/mascot/
     - assets/icons/
+    - assets/lottie/
     - content/
     - content/lessons/
     - content/arcade/

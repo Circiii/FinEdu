@@ -1,11 +1,7 @@
-﻿import 'package:drift/drift.dart';
+import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 
 part 'app_db.g.dart';
-
-// ---------------------------------------------------------------------------
-// Tabele
-// ---------------------------------------------------------------------------
 
 /// Oglinda locală a tabelului `transactions` de pe server; sursa de adevăr
 /// offline. `id` e un uuid v4 client-generat care devine `client_id` pe
@@ -34,9 +30,8 @@ class LocalTransactions extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-/// Șablon de tranzacție recurentă. Materializer-ul emite tranzacții reale
-/// când `nextDueDate` e scadentă, avansând data; rulează client-side la
-/// pornirea aplicației (fără cron pe server încă).
+/// Șablonul unei plăți care se repetă. La fiecare pornire a aplicației,
+/// rândurile scadente devin tranzacții reale, iar data sare mai departe.
 class LocalRecurring extends Table {
   TextColumn get id => text()(); // uuid v4
   TextColumn get merchant => text()();
@@ -80,7 +75,7 @@ class NoSpendDays extends Table {
 /// de activitate din ziua respectivă, ex. `["log","lesson"]`.
 class DailyActivityRows extends Table {
   TextColumn get date => text()();
-  TextColumn get kinds => text()(); // JSON-encoded List<String>
+  TextColumn get kinds => text()(); // listă de chei, ținută ca JSON
 
   @override
   Set<Column> get primaryKey => {date};
@@ -112,7 +107,7 @@ class LocalProfiles extends Table {
   /// Una din: 14_15 | 16_17 | 18_25 (nu se stochează niciodată anul exact de naștere).
   TextColumn get ageBand => text().nullable()();
 
-  /// Track curriculum: A (14-18) | B (19+).
+  /// Traseul de învățare: A (14-18) sau B (19+).
   TextColumn get track => text().nullable()();
   RealColumn get monthlyBudget => real().nullable()();
   BoolColumn get onboarded => boolean().withDefault(const Constant(false))();
@@ -121,15 +116,14 @@ class LocalProfiles extends Table {
   TextColumn get notifChoice => text().withDefault(const Constant('unset'))();
   TextColumn get parentEmail => text().nullable()();
 
-  /// not_required | pending | confirmed.
+  /// Acordul părintelui: not_required, pending sau confirmed.
   TextColumn get parentalStatus =>
       text().withDefault(const Constant('not_required'))();
 
-  /// Balanța locală de ghinde, până apare ledger-ul pe server.
+  /// Câte ghinde are acum utilizatorul.
   IntColumn get acorns => integer().withDefault(const Constant(0))();
 
-  /// XP de învățare (300/nivel). Persistat, spre deosebire de contoarele
-  /// efemere din prototipul web.
+  /// Experiența din lecții, 300 pe nivel.
   IntColumn get xp => integer().withDefault(const Constant(0))();
 
   /// JSON cu răspunsurile la chestionarul de onboarding (seed Elo).
@@ -162,9 +156,8 @@ class StreakStates extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-/// Ledger local de ghinde: fiecare credit/debit cu un motiv (audit acum,
-/// sync cu `acorn_ledger` pe server mai târziu). Snapshot-ul de balanță
-/// stă pe LocalProfiles.acorns.
+/// Istoricul ghindelor: fiecare intrare și ieșire, cu motivul ei. Totalul
+/// nu se recalculează de aici, stă pe LocalProfiles.acorns.
 class AcornEntries extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get delta => integer()();
@@ -329,10 +322,6 @@ class LifeSimDecisions extends Table {
   DateTimeColumn get createdAt => dateTime()();
 }
 
-// ---------------------------------------------------------------------------
-// Database
-// ---------------------------------------------------------------------------
-
 @DriftDatabase(
   tables: [
     LocalTransactions,
@@ -360,60 +349,73 @@ class LifeSimDecisions extends Table {
 )
 class AppDb extends _$AppDb {
   AppDb([QueryExecutor? executor])
-      : super(executor ?? driftDatabase(name: 'finedu'));
+    : super(
+        executor ??
+            driftDatabase(
+              name: 'finedu',
+              // Pe web sqlite rulează ca WebAssembly, deci are nevoie de cele
+              // două fișiere din `web/`. Argumentul e ignorat pe Android,
+              // Windows și restul platformelor native, așa că un singur loc
+              // deschide baza peste tot.
+              web: DriftWebOptions(
+                sqlite3Wasm: Uri.parse('sqlite3.wasm'),
+                driftWorker: Uri.parse('drift_worker.js'),
+              ),
+            ),
+      );
 
   @override
   int get schemaVersion => 14;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-        onUpgrade: (m, from, to) async {
-          if (from < 2) await m.createTable(localProfiles);
-          if (from < 3) {
-            await m.createTable(streakStates);
-            await m.createTable(acornEntries);
-            await m.createTable(questClaims);
-            await m.createTable(chestStates);
-          }
-          if (from < 4) {
-            await m.createTable(localGoals);
-            await m.addColumn(localTransactions, localTransactions.goalId);
-          }
-          if (from < 5) await m.createTable(localRecurring);
-          if (from < 6) {
-            await m.addColumn(localProfiles, localProfiles.xp);
-            await m.createTable(lessonProgressRows);
-            await m.createTable(reviewCards);
-          }
-          if (from < 7) await m.createTable(arcadeRounds);
-          if (from < 8) {
-            await m.createTable(dojoStates);
-            await m.createTable(dojoItemStats);
-          }
-          if (from < 9) {
-            await m.createTable(wardrobeItems);
-            await m.addColumn(localProfiles, localProfiles.equippedBackground);
-            await m.addColumn(localProfiles, localProfiles.equippedAccessory);
-          }
-          if (from < 10) await m.createTable(insightEvents);
-          if (from < 11) await m.createTable(expeditionRows);
-          if (from < 12) {
-            await m.addColumn(insightEvents, insightEvents.arm);
-            await m.addColumn(insightEvents, insightEvents.propensity);
-            await m.addColumn(localProfiles, localProfiles.personalizationOn);
-          }
-          if (from < 13) {
-            // Coloane FSRS; rămân NULL pe cardurile existente → migrare
-            // lazy din `box` la prima notare.
-            await m.addColumn(reviewCards, reviewCards.stability);
-            await m.addColumn(reviewCards, reviewCards.difficulty);
-            await m.addColumn(reviewCards, reviewCards.lastReview);
-          }
-          if (from < 14) {
-            // Tabele noi, nimic de migrat.
-            await m.createTable(lifeSimRuns);
-            await m.createTable(lifeSimDecisions);
-          }
-        },
-      );
+    onUpgrade: (m, from, to) async {
+      if (from < 2) await m.createTable(localProfiles);
+      if (from < 3) {
+        await m.createTable(streakStates);
+        await m.createTable(acornEntries);
+        await m.createTable(questClaims);
+        await m.createTable(chestStates);
+      }
+      if (from < 4) {
+        await m.createTable(localGoals);
+        await m.addColumn(localTransactions, localTransactions.goalId);
+      }
+      if (from < 5) await m.createTable(localRecurring);
+      if (from < 6) {
+        await m.addColumn(localProfiles, localProfiles.xp);
+        await m.createTable(lessonProgressRows);
+        await m.createTable(reviewCards);
+      }
+      if (from < 7) await m.createTable(arcadeRounds);
+      if (from < 8) {
+        await m.createTable(dojoStates);
+        await m.createTable(dojoItemStats);
+      }
+      if (from < 9) {
+        await m.createTable(wardrobeItems);
+        await m.addColumn(localProfiles, localProfiles.equippedBackground);
+        await m.addColumn(localProfiles, localProfiles.equippedAccessory);
+      }
+      if (from < 10) await m.createTable(insightEvents);
+      if (from < 11) await m.createTable(expeditionRows);
+      if (from < 12) {
+        await m.addColumn(insightEvents, insightEvents.arm);
+        await m.addColumn(insightEvents, insightEvents.propensity);
+        await m.addColumn(localProfiles, localProfiles.personalizationOn);
+      }
+      if (from < 13) {
+        // Coloane FSRS; rămân NULL pe cardurile existente → migrare
+        // lazy din `box` la prima notare.
+        await m.addColumn(reviewCards, reviewCards.stability);
+        await m.addColumn(reviewCards, reviewCards.difficulty);
+        await m.addColumn(reviewCards, reviewCards.lastReview);
+      }
+      if (from < 14) {
+        // Tabele noi, nimic de migrat.
+        await m.createTable(lifeSimRuns);
+        await m.createTable(lifeSimDecisions);
+      }
+    },
+  );
 }

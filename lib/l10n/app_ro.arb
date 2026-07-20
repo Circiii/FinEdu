@@ -40,12 +40,10 @@
   "@dojoTitle": {
     "description": "Title of the Scam Dojo game"
   },
-
   "onbBack": "Înapoi",
   "@onbBack": {
     "description": "Accessible label for the onboarding back button"
   },
-
   "onbEggKicker": "UN NOU ÎNCEPUT",
   "@onbEggKicker": {
     "description": "S1 egg screen kicker above the title"
@@ -66,7 +64,6 @@
   "@onbHatchTitle": {
     "description": "Title shown right after the egg hatches"
   },
-
   "onbCeremonyKicker": "FĂ CUNOȘTINȚĂ",
   "@onbCeremonyKicker": {
     "description": "S2 ceremony kicker"
@@ -99,10 +96,11 @@
   "@onbCeremonyCta": {
     "description": "S2 ceremony CTA with the chosen name",
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
-
   "onbQuizKicker": "MINI-QUIZ",
   "@onbQuizKicker": {
     "description": "S3 quiz kicker"
@@ -115,8 +113,12 @@
   "@onbQuizProgress": {
     "description": "S3 quiz question counter",
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "onbQuizContinue": "Continuă",
@@ -139,8 +141,12 @@
   "@onbQuizDoneTitle": {
     "description": "S3 quiz result title",
     "placeholders": {
-      "correct": { "type": "int" },
-      "total": { "type": "int" }
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "onbQuizDoneBody": "Nu contează scorul, contează că ai încercat. Ghindele sunt ale tale.",
@@ -151,7 +157,6 @@
   "@onbQuizDoneCta": {
     "description": "S3 quiz result CTA"
   },
-
   "onbAgeKicker": "CÂȚI ANI AI?",
   "@onbAgeKicker": {
     "description": "S4 age kicker"
@@ -176,7 +181,6 @@
   "@onbAgeTooYoungBody": {
     "description": "Under-14 gate body copy"
   },
-
   "onbParentKicker": "UN ADULT ÎN ECHIPĂ",
   "@onbParentKicker": {
     "description": "S4b parent email kicker"
@@ -205,7 +209,6 @@
   "@onbParentCta": {
     "description": "S4b parent email CTA"
   },
-
   "onbBudgetKicker": "BANII TĂI PE LUNĂ",
   "@onbBudgetKicker": {
     "description": "S5 budget kicker"
@@ -230,7 +233,6 @@
   "@onbBudgetCta": {
     "description": "S5 budget CTA"
   },
-
   "onbExpenseKicker": "PRIMA CHELTUIALĂ",
   "@onbExpenseKicker": {
     "description": "S6 first expense kicker"
@@ -259,7 +261,9 @@
   "@onbExpenseCta": {
     "description": "S6 log expense CTA with the chosen amount",
     "placeholders": {
-      "amount": { "type": "int" }
+      "amount": {
+        "type": "int"
+      }
     }
   },
   "onbExpenseCtaDisabled": "Alege suma și categoria",
@@ -282,7 +286,6 @@
   "@onbCatOther": {
     "description": "Category: other"
   },
-
   "onbWeekKicker": "PRIMA SĂPTĂMÂNĂ",
   "@onbWeekKicker": {
     "description": "S7 first week kicker"
@@ -291,7 +294,9 @@
   "@onbWeekTitle": {
     "description": "S7 first week card title with Cashy's name",
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "onbWeekBody": "Ai și pornit! Două bife sunt deja ale tale. Mai sunt câțiva pași mici, le facem împreună.",
@@ -302,8 +307,12 @@
   "@onbWeekProgress": {
     "description": "S7 progress counter",
     "placeholders": {
-      "done": { "type": "int" },
-      "total": { "type": "int" }
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "onbWeekDoneEgg": "Ai eclozat pe Cashy",
@@ -318,14 +327,15 @@
   "@onbWeekTodo": {
     "description": "S7 remaining steps line",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "onbWeekCta": "Începem!",
   "@onbWeekCta": {
     "description": "S7 CTA"
   },
-
   "onbNotifKicker": "UN SINGUR MEMENTO",
   "@onbNotifKicker": {
     "description": "S8 notifications kicker"
@@ -350,7 +360,9 @@
   "@onbNotifReminderTitle": {
     "description": "Scheduled reminder notification title",
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "onbNotifReminderBody": "2 minute pentru banii tăi? Hai să-ți văd ziua.",

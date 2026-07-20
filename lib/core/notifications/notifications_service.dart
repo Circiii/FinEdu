@@ -1,20 +1,20 @@
-﻿import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-/// Wrapper subțire peste `flutter_local_notifications`. Android-only
-/// deocamdată: cerem POST_NOTIFICATIONS (Android 13+) și programăm UN
-/// singur memento local, a doua zi la 19:00, oră aleasă să respecte orele
-/// de liniște AADC (școală 8-15, noapte 21-8).
+/// Strat subțire peste `flutter_local_notifications`. Merge doar pe Android,
+/// unde cerem POST_NOTIFICATIONS și programăm un singur memento, a doua zi
+/// la 19:00. Ora ocolește programul de școală și orele de somn, după
+/// regulile AADC.
 final notificationsServiceProvider = Provider<NotificationsService>((ref) {
   return NotificationsService();
 });
 
 class NotificationsService {
   NotificationsService([FlutterLocalNotificationsPlugin? plugin])
-      : _plugin = plugin ?? FlutterLocalNotificationsPlugin();
+    : _plugin = plugin ?? FlutterLocalNotificationsPlugin();
 
   final FlutterLocalNotificationsPlugin _plugin;
   bool _initialized = false;
@@ -42,7 +42,8 @@ class NotificationsService {
     await _ensureInitialized();
     final android = _plugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+          AndroidFlutterLocalNotificationsPlugin
+        >();
     if (android == null) return false;
     final granted = await android.requestNotificationsPermission();
     return granted ?? false;
@@ -59,7 +60,12 @@ class NotificationsService {
       await _ensureInitialized();
       final now = tz.TZDateTime.now(tz.local);
       var scheduled = tz.TZDateTime(
-          tz.local, now.year, now.month, now.day + 1, 19);
+        tz.local,
+        now.year,
+        now.month,
+        now.day + 1,
+        19,
+      );
       // Gardă pentru DST, care ar putea împinge ora în trecut.
       if (!scheduled.isAfter(now)) {
         scheduled = now.add(const Duration(hours: 1));
@@ -96,7 +102,8 @@ class NotificationsService {
       await _ensureInitialized();
       final android = _plugin
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>();
+            AndroidFlutterLocalNotificationsPlugin
+          >();
       if (android == null) return false;
       return await android.areNotificationsEnabled() ?? false;
     } catch (e) {
@@ -109,7 +116,8 @@ class NotificationsService {
   /// D1/D3/D7 (nu cancelAll, 1001 e al onboarding-ului), apoi le repune
   /// din [slots]. Best-effort: orice eroare e înghițită.
   Future<void> rescheduleEscalation(
-      List<({int id, DateTime when, String title, String body})> slots) async {
+    List<({int id, DateTime when, String title, String body})> slots,
+  ) async {
     try {
       await _ensureInitialized();
       for (final id in _escalationIds) {
@@ -127,7 +135,13 @@ class NotificationsService {
       for (final slot in slots) {
         final w = slot.when;
         final scheduled = tz.TZDateTime(
-            tz.local, w.year, w.month, w.day, w.hour, w.minute);
+          tz.local,
+          w.year,
+          w.month,
+          w.day,
+          w.hour,
+          w.minute,
+        );
         await _plugin.zonedSchedule(
           slot.id,
           slot.title,

@@ -4,13 +4,13 @@ library;
 
 /// Intrări lowercase, fără diacritice, ca să se compare direct cu inputul foldat.
 const List<String> _denylist = <String>[
-  // --- RO ---
+  // --- RO
   // 'cur'/'bou' lipsesc intenționat: ca substring ar bloca nume nevinovate
   // ("Curcubeu"); 'curva' de mai jos acoperă cazurile reale.
   'pula', 'pizda', 'muie', 'cacat', 'fut', 'futu', 'coaie', 'sugi',
   'proasta', 'prost', 'jegos', 'curva', 'tarfa', 'pizd', 'muist',
   'labagiu', 'pisat', 'dracu', 'nesimtit', 'idiot', 'handicapat',
-  // --- EN ---
+  // --- EN
   'fuck', 'shit', 'bitch', 'cunt', 'dick', 'cock', 'pussy', 'asshole',
   'bastard', 'slut', 'whore', 'nigger', 'faggot', 'retard', 'nazi', 'rape',
   'sex', 'porn',
@@ -34,7 +34,13 @@ String _fold(String input) {
 }
 
 const Map<String, String> _diacritics = {
-  'ă': 'a', 'â': 'a', 'î': 'i', 'ș': 's', 'ş': 's', 'ț': 't', 'ţ': 't',
+  'ă': 'a',
+  'â': 'a',
+  'î': 'i',
+  'ș': 's',
+  'ş': 's',
+  'ț': 't',
+  'ţ': 't',
 };
 
 /// Dacă [name] conține un fragment din denylist (după folding). Substring

@@ -33,10 +33,10 @@ class SupabaseSyncBackend implements SyncBackend {
 
   @override
   Future<void> upsertTransaction(Map<String, dynamic> payload) async {
-    await _client.from('transactions').upsert(
-      {...payload, 'user_id': _userId},
-      onConflict: 'user_id,client_id',
-    );
+    await _client.from('transactions').upsert({
+      ...payload,
+      'user_id': _userId,
+    }, onConflict: 'user_id,client_id');
   }
 
   @override
@@ -50,17 +50,18 @@ class SupabaseSyncBackend implements SyncBackend {
 
   @override
   Future<void> markNoSpend(String date) async {
-    await _client.from('no_spend_days').upsert(
-      {'user_id': _userId, 'date': date},
-      onConflict: 'user_id,date',
-    );
+    await _client.from('no_spend_days').upsert({
+      'user_id': _userId,
+      'date': date,
+    }, onConflict: 'user_id,date');
   }
 
   @override
   Future<void> markActivity(String date, List<String> kinds) async {
-    await _client.from('daily_activity').upsert(
-      {'user_id': _userId, 'date': date, 'kinds': kinds},
-      onConflict: 'user_id,date',
-    );
+    await _client.from('daily_activity').upsert({
+      'user_id': _userId,
+      'date': date,
+      'kinds': kinds,
+    }, onConflict: 'user_id,date');
   }
 }

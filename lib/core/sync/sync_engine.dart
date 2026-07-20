@@ -25,9 +25,9 @@ class SyncEngine {
     required AppDb db,
     required bool hasBackend,
     SyncBackend? backend,
-  })  : _db = db,
-        _hasBackend = hasBackend,
-        _backend = backend;
+  }) : _db = db,
+       _hasBackend = hasBackend,
+       _backend = backend;
 
   final AppDb _db;
   final bool _hasBackend;
@@ -37,8 +37,7 @@ class SyncEngine {
   bool _running = false;
 
   /// Dacă sync-ul e posibil chiar acum.
-  bool get _canSync =>
-      _hasBackend && _backend != null && _backend.hasSession;
+  bool get _canSync => _hasBackend && _backend != null && _backend.hasSession;
 
   /// Programează un [syncNow] cu debounce; se apelează după fiecare scriere locală.
   void scheduleSync() {
@@ -62,28 +61,31 @@ class SyncEngine {
   Future<void> _drain() async {
     final backend = _backend!;
 
-    final entries = await (_db.select(_db.outboxEntries)
-          ..where((e) => e.attempts.isSmallerThanValue(kMaxSyncAttempts))
-          ..orderBy([(e) => OrderingTerm.asc(e.id)]))
-        .get();
+    final entries =
+        await (_db.select(_db.outboxEntries)
+              ..where((e) => e.attempts.isSmallerThanValue(kMaxSyncAttempts))
+              ..orderBy([(e) => OrderingTerm.asc(e.id)]))
+            .get();
 
     for (final entry in entries) {
       try {
         await _dispatch(backend, entry);
         // Succes: șterge intrarea și flag-ul pending de pe rândul afectat.
-        await (_db.delete(_db.outboxEntries)
-              ..where((e) => e.id.equals(entry.id)))
-            .go();
+        await (_db.delete(
+          _db.outboxEntries,
+        )..where((e) => e.id.equals(entry.id))).go();
         await _clearPending(entry);
       } catch (error, stackTrace) {
         // Eșec: incrementează attempts, înregistrează eroarea și oprește
         // drenarea (backoff simplu: restul așteaptă următorul trigger).
-        await (_db.update(_db.outboxEntries)
-              ..where((e) => e.id.equals(entry.id)))
-            .write(OutboxEntriesCompanion(
-          attempts: Value(entry.attempts + 1),
-          lastError: Value(error.toString()),
-        ));
+        await (_db.update(
+          _db.outboxEntries,
+        )..where((e) => e.id.equals(entry.id))).write(
+          OutboxEntriesCompanion(
+            attempts: Value(entry.attempts + 1),
+            lastError: Value(error.toString()),
+          ),
+        );
         developer.log(
           'Sync failed for outbox #${entry.id} (${entry.opType}); '
           'stopping drain.',

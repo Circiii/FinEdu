@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="FinEdu, educație financiară gamificată pentru tineri">
+  <meta name="theme-color" content="#EAF1FB">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="FinEdu">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>FinEdu</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #EAF1FB;
+      overscroll-behavior: none;
+    }
+
+    /* Ecranul de așteptare. Fără el pagina ar sta albă câteva secunde, cât se
+       încarcă motorul grafic și baza de date, ceea ce arată a aplicație
+       stricată. Dispare singur la primul cadru desenat de Flutter. */
+    #boot {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: #5B6B85;
+      transition: opacity .35s ease;
+    }
+
+    #boot.gone { opacity: 0; pointer-events: none; }
+
+    #boot img { width: 104px; height: 104px; }
+
+    #boot .bar {
+      width: 168px;
+      height: 6px;
+      border-radius: 999px;
+      background: #D6E2F4;
+      overflow: hidden;
+    }
+
+    #boot .bar i {
+      display: block;
+      width: 40%;
+      height: 100%;
+      border-radius: 999px;
+      background: #2F80FF;
+      animation: slide 1.15s ease-in-out infinite;
+    }
+
+    @keyframes slide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(320%); }
+    }
+
+    #boot p { margin: 0; font-size: 14px; letter-spacing: .2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #boot .bar i { animation: none; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="boot">
+    <img src="icons/Icon-192.png" alt="">
+    <div class="bar"><i></i></div>
+    <p>Se pregătește FinEdu...</p>
+  </div>
+
+  <script>
+    // Cerem browserului să nu șteargă baza de date când rămâne fără spațiu.
+    // Fără asta stocarea e „cât se poate” și progresul s-ar putea pierde.
+    if (navigator.storage && navigator.storage.persist) {
+      navigator.storage.persisted().then(function (already) {
+        if (!already) navigator.storage.persist();
+      });
+    }
+
+    window.addEventListener('flutter-first-frame', function () {
+      var boot = document.getElementById('boot');
+      if (!boot) return;
+      boot.classList.add('gone');
+      setTimeout(function () { boot.remove(); }, 400);
+    });
+  </script>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
