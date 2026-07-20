@@ -1,54 +1,396 @@
 ﻿{
-  "$schema_note": "Provocarea Zilei (PLAN2 §2.4, joc 2). Un puzzle/zi, ales determinist din data zilei (domain/engine/daily_challenge.dart): formatul roteste price -> myth -> dilemma, indexul avanseaza in pool. Continut nou = doar acest fisier, zero cod. Preturi reale RO (orientative 2026). Procentul comunitatii vine cu backend-ul (F6). Pana atunci reveal-ul arata explicatia/comentariul lui Cashy. Validat de CONTENT_POLICY.md (educatie, nu consultanta; nimic nu recompenseaza volumul de cheltuieli).",
+  "$schema_note": "Provocarea Zilei: un puzzle pe zi, ales din data zilei (domain/engine/daily_challenge.dart). Formatul se roteste pret -> mit -> dilema, iar indexul avanseaza in pool. Continut nou inseamna doar acest fisier, fara cod. Preturi orientative din Romania. Educatie, nu consultanta: nimic nu recompenseaza cheltuiala.",
   "price": [
     {
       "id": "p1",
-      "title": { "ro": "Coșul de zi cu zi", "en": "Everyday basket" },
+      "title": {
+        "ro": "Coșul de zi cu zi",
+        "en": "Everyday basket"
+      },
       "items": [
-        { "name": { "ro": "Un covrig simplu la chioșc", "en": "A plain pretzel at a kiosk" }, "actual": 3, "min": 1, "max": 15, "step": 1 },
-        { "name": { "ro": "Suc la doză de 330 ml, la magazin", "en": "A 330 ml soda can at the shop" }, "actual": 6, "min": 1, "max": 20, "step": 1 },
-        { "name": { "ro": "O șaorma mare", "en": "A large shawarma" }, "actual": 30, "min": 10, "max": 60, "step": 1 },
-        { "name": { "ro": "Un bilet de film la mall, la preț întreg", "en": "A full-price cinema ticket at the mall" }, "actual": 40, "min": 10, "max": 90, "step": 1 }
+        {
+          "name": {
+            "ro": "Un covrig simplu la chioșc",
+            "en": "A plain pretzel at a kiosk"
+          },
+          "actual": 3,
+          "min": 1,
+          "max": 15,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Suc la doză de 330 ml, la magazin",
+            "en": "A 330 ml soda can at the shop"
+          },
+          "actual": 6,
+          "min": 1,
+          "max": 20,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "O șaorma mare",
+            "en": "A large shawarma"
+          },
+          "actual": 30,
+          "min": 10,
+          "max": 60,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Un bilet de film la mall, la preț întreg",
+            "en": "A full-price cinema ticket at the mall"
+          },
+          "actual": 40,
+          "min": 10,
+          "max": 90,
+          "step": 1
+        }
       ]
     },
     {
       "id": "p2",
-      "title": { "ro": "Abonamentele care rulează singure", "en": "Subscriptions that run themselves" },
+      "title": {
+        "ro": "Abonamentele care rulează singure",
+        "en": "Subscriptions that run themselves"
+      },
       "items": [
-        { "name": { "ro": "Spotify Premium Individual, pe lună", "en": "Spotify Premium Individual, monthly" }, "actual": 26, "min": 5, "max": 60, "step": 1 },
-        { "name": { "ro": "Netflix Standard, pe lună", "en": "Netflix Standard, monthly" }, "actual": 40, "min": 10, "max": 100, "step": 1 },
-        { "name": { "ro": "YouTube Premium, pe lună", "en": "YouTube Premium, monthly" }, "actual": 30, "min": 5, "max": 80, "step": 1 },
-        { "name": { "ro": "Abonament la o sală de fitness din oraș, pe lună", "en": "A city gym membership, monthly" }, "actual": 150, "min": 40, "max": 400, "step": 10 }
+        {
+          "name": {
+            "ro": "Spotify Premium Individual, pe lună",
+            "en": "Spotify Premium Individual, monthly"
+          },
+          "actual": 26,
+          "min": 5,
+          "max": 60,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Netflix Standard, pe lună",
+            "en": "Netflix Standard, monthly"
+          },
+          "actual": 40,
+          "min": 10,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "YouTube Premium, pe lună",
+            "en": "YouTube Premium, monthly"
+          },
+          "actual": 30,
+          "min": 5,
+          "max": 80,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Abonament la o sală de fitness din oraș, pe lună",
+            "en": "A city gym membership, monthly"
+          },
+          "actual": 150,
+          "min": 40,
+          "max": 400,
+          "step": 10
+        }
       ]
     },
     {
       "id": "p3",
-      "title": { "ro": "O ieșire cu gașca", "en": "A night out with the crew" },
+      "title": {
+        "ro": "O ieșire cu gașca",
+        "en": "A night out with the crew"
+      },
       "items": [
-        { "name": { "ro": "Un meniu mediu la fast-food", "en": "A medium fast-food combo" }, "actual": 35, "min": 15, "max": 70, "step": 1 },
-        { "name": { "ro": "O pizza medie la restaurant", "en": "A medium pizza at a restaurant" }, "actual": 45, "min": 15, "max": 90, "step": 1 },
-        { "name": { "ro": "O oră de bowling (pista, nu de persoană)", "en": "One hour of bowling (the lane)" }, "actual": 90, "min": 20, "max": 200, "step": 5 },
-        { "name": { "ro": "Escape room, de persoană", "en": "Escape room, per person" }, "actual": 90, "min": 30, "max": 200, "step": 5 }
+        {
+          "name": {
+            "ro": "Un meniu mediu la fast-food",
+            "en": "A medium fast-food combo"
+          },
+          "actual": 35,
+          "min": 15,
+          "max": 70,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "O pizza medie la restaurant",
+            "en": "A medium pizza at a restaurant"
+          },
+          "actual": 45,
+          "min": 15,
+          "max": 90,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "O oră de bowling (pista, nu de persoană)",
+            "en": "One hour of bowling (the lane)"
+          },
+          "actual": 90,
+          "min": 20,
+          "max": 200,
+          "step": 5
+        },
+        {
+          "name": {
+            "ro": "Escape room, de persoană",
+            "en": "Escape room, per person"
+          },
+          "actual": 90,
+          "min": 30,
+          "max": 200,
+          "step": 5
+        }
       ]
     },
     {
       "id": "p4",
-      "title": { "ro": "Tech & gaming", "en": "Tech & gaming" },
+      "title": {
+        "ro": "Tech & gaming",
+        "en": "Tech & gaming"
+      },
       "items": [
-        { "name": { "ro": "Un joc AAA nou la lansare (PS5/Xbox)", "en": "A new AAA game at launch (PS5/Xbox)" }, "actual": 350, "min": 100, "max": 700, "step": 10 },
-        { "name": { "ro": "Căști de gaming decente, cu microfon", "en": "Decent gaming headphones with a mic" }, "actual": 250, "min": 50, "max": 800, "step": 10 },
-        { "name": { "ro": "Un skin popular în Fortnite (1.500 V-Bucks)", "en": "A popular Fortnite skin (1,500 V-Bucks)" }, "actual": 60, "min": 10, "max": 150, "step": 5 },
-        { "name": { "ro": "O baterie externă de 10.000 mAh, de încredere", "en": "A reliable 10,000 mAh power bank" }, "actual": 100, "min": 20, "max": 300, "step": 5 }
+        {
+          "name": {
+            "ro": "Un joc AAA nou la lansare (PS5/Xbox)",
+            "en": "A new AAA game at launch (PS5/Xbox)"
+          },
+          "actual": 350,
+          "min": 100,
+          "max": 700,
+          "step": 10
+        },
+        {
+          "name": {
+            "ro": "Căști de gaming decente, cu microfon",
+            "en": "Decent gaming headphones with a mic"
+          },
+          "actual": 250,
+          "min": 50,
+          "max": 800,
+          "step": 10
+        },
+        {
+          "name": {
+            "ro": "Un skin popular în Fortnite (1.500 V-Bucks)",
+            "en": "A popular Fortnite skin (1,500 V-Bucks)"
+          },
+          "actual": 60,
+          "min": 10,
+          "max": 150,
+          "step": 5
+        },
+        {
+          "name": {
+            "ro": "O baterie externă de 10.000 mAh, de încredere",
+            "en": "A reliable 10,000 mAh power bank"
+          },
+          "actual": 100,
+          "min": 20,
+          "max": 300,
+          "step": 5
+        }
       ]
     },
     {
       "id": "p5",
-      "title": { "ro": "Cifrele vieții mari", "en": "Big-life numbers" },
+      "title": {
+        "ro": "Cifrele vieții mari",
+        "en": "Big-life numbers"
+      },
       "items": [
-        { "name": { "ro": "Abonament general (4 zile) la Untold", "en": "A 4-day general pass at Untold" }, "actual": 1900, "min": 500, "max": 4000, "step": 50 },
-        { "name": { "ro": "Chiria unei garsoniere în Cluj, pe lună", "en": "Monthly rent for a studio in Cluj" }, "actual": 2500, "min": 800, "max": 5000, "step": 50 },
-        { "name": { "ro": "Un metru pătrat de apartament nou în București", "en": "One m² of a new flat in Bucharest" }, "actual": 11000, "min": 4000, "max": 25000, "step": 500 },
-        { "name": { "ro": "Coșul săptămânal de cumpărături al unei familii", "en": "A family's weekly grocery basket" }, "actual": 400, "min": 100, "max": 900, "step": 10 }
+        {
+          "name": {
+            "ro": "Abonament general (4 zile) la Untold",
+            "en": "A 4-day general pass at Untold"
+          },
+          "actual": 1900,
+          "min": 500,
+          "max": 4000,
+          "step": 50
+        },
+        {
+          "name": {
+            "ro": "Chiria unei garsoniere în Cluj, pe lună",
+            "en": "Monthly rent for a studio in Cluj"
+          },
+          "actual": 2500,
+          "min": 800,
+          "max": 5000,
+          "step": 50
+        },
+        {
+          "name": {
+            "ro": "Un metru pătrat de apartament nou în București",
+            "en": "One m² of a new flat in Bucharest"
+          },
+          "actual": 11000,
+          "min": 4000,
+          "max": 25000,
+          "step": 500
+        },
+        {
+          "name": {
+            "ro": "Coșul săptămânal de cumpărături al unei familii",
+            "en": "A family's weekly grocery basket"
+          },
+          "actual": 400,
+          "min": 100,
+          "max": 900,
+          "step": 10
+        }
+      ]
+    },
+    {
+      "id": "p6",
+      "title": {
+        "ro": "Pofte de după școală",
+        "en": "After-school cravings"
+      },
+      "items": [
+        {
+          "name": {
+            "ro": "Covrig cu ciocolată",
+            "en": "Chocolate-filled pretzel"
+          },
+          "actual": 7,
+          "min": 2,
+          "max": 20,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Meniu shaorma mare cu de toate",
+            "en": "Large shawarma menu with everything"
+          },
+          "actual": 38,
+          "min": 15,
+          "max": 70,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Înghețată artizanală la cornet, 2 cupe",
+            "en": "Artisan ice cream cone, 2 scoops"
+          },
+          "actual": 18,
+          "min": 5,
+          "max": 40,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Boba tea cu perle",
+            "en": "Bubble tea with pearls"
+          },
+          "actual": 22,
+          "min": 8,
+          "max": 45,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "id": "p7",
+      "title": {
+        "ro": "Viața digitală",
+        "en": "Digital life"
+      },
+      "items": [
+        {
+          "name": {
+            "ro": "Spotify Premium pe o lună, cont individual",
+            "en": "One month of Spotify Premium, individual plan"
+          },
+          "actual": 26,
+          "min": 10,
+          "max": 60,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Bilet de film 2D în mall, în weekend",
+            "en": "2D movie ticket at the mall, weekend"
+          },
+          "actual": 35,
+          "min": 12,
+          "max": 70,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Extraopțiune cu net pe mobil, pe lună",
+            "en": "Monthly mobile data add-on"
+          },
+          "actual": 25,
+          "min": 8,
+          "max": 60,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Skin popular într-un joc online",
+            "en": "A popular skin in an online game"
+          },
+          "actual": 60,
+          "min": 15,
+          "max": 150,
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "p8",
+      "title": {
+        "ro": "Prin oraș",
+        "en": "Around town"
+      },
+      "items": [
+        {
+          "name": {
+            "ro": "Suc fresh de portocale la mall",
+            "en": "Fresh orange juice at the mall"
+          },
+          "actual": 24,
+          "min": 8,
+          "max": 50,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "O oră de teren sintetic, împărțită la 10 jucători",
+            "en": "One hour on a synthetic pitch, split by 10 players"
+          },
+          "actual": 15,
+          "min": 5,
+          "max": 40,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Caiet studențesc de 96 de file",
+            "en": "A 96-page notebook"
+          },
+          "actual": 12,
+          "min": 3,
+          "max": 30,
+          "step": 1
+        },
+        {
+          "name": {
+            "ro": "Cursă scurtă cu ridesharing prin centru",
+            "en": "A short rideshare trip downtown"
+          },
+          "actual": 19,
+          "min": 8,
+          "max": 50,
+          "step": 1
+        }
       ]
     }
   ],
@@ -57,19 +399,37 @@
       "id": "m1",
       "statements": [
         {
-          "text": { "ro": "Cu cardul cheltuiești, în medie, mai mult decât cu cash.", "en": "On average, you spend more by card than by cash." },
+          "text": {
+            "ro": "Cu cardul cheltuiești, în medie, mai mult decât cu cash.",
+            "en": "On average, you spend more by card than by cash."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. „Durerea plății\" dispare când doar atingi un card. Studiile arată consum mai mare față de banii numărați fizic.", "en": "True. The \"pain of paying\" fades with a tap. Studies show higher spending than with physical cash." }
+          "explain": {
+            "ro": "Adevăr. „Durerea plății\" dispare când doar atingi un card. Studiile arată consum mai mare față de banii numărați fizic.",
+            "en": "True. The \"pain of paying\" fades with a tap. Studies show higher spending than with physical cash."
+          }
         },
         {
-          "text": { "ro": "Dacă iei un produs la reducere, ai economisit bani.", "en": "Buying something on sale means you saved money." },
+          "text": {
+            "ro": "Dacă iei un produs la reducere, ai economisit bani.",
+            "en": "Buying something on sale means you saved money."
+          },
           "truth": false,
-          "explain": { "ro": "Mit. Economisești doar dacă ORICUM îl cumpărai la preț întreg. Altfel n-ai economisit: ai cheltuit.", "en": "Myth. You only save if you were buying it anyway. Otherwise you didn't save: you spent." }
+          "explain": {
+            "ro": "Mit. Economisești doar dacă ORICUM îl cumpărai la preț întreg. Altfel n-ai economisit: ai cheltuit.",
+            "en": "Myth. You only save if you were buying it anyway. Otherwise you didn't save: you spent."
+          }
         },
         {
-          "text": { "ro": "Alocația nu e „venit adevărat\", deci nu are sens s-o planifici.", "en": "An allowance isn't \"real income\", so planning it is pointless." },
+          "text": {
+            "ro": "Alocația nu e „venit adevărat\", deci nu are sens s-o planifici.",
+            "en": "An allowance isn't \"real income\", so planning it is pointless."
+          },
           "truth": false,
-          "explain": { "ro": "Mit. Orice sumă care intră lunar e venit, iar planul funcționează la fel la 300 de lei ca la 3.000.", "en": "Myth. Anything arriving monthly is income. A plan works the same at 300 lei as at 3,000." }
+          "explain": {
+            "ro": "Mit. Orice sumă care intră lunar e venit, iar planul funcționează la fel la 300 de lei ca la 3.000.",
+            "en": "Myth. Anything arriving monthly is income. A plan works the same at 300 lei as at 3,000."
+          }
         }
       ]
     },
@@ -77,19 +437,37 @@
       "id": "m2",
       "statements": [
         {
-          "text": { "ro": "Economiile se pun deoparte din ce rămâne la finalul lunii.", "en": "Savings come from whatever is left at the end of the month." },
+          "text": {
+            "ro": "Economiile se pun deoparte din ce rămâne la finalul lunii.",
+            "en": "Savings come from whatever is left at the end of the month."
+          },
           "truth": false,
-          "explain": { "ro": "Mit. „Ce rămâne\" nu rămâne niciodată. Economiile ies primele, la începutul lunii. Restul se împarte după.", "en": "Myth. Leftovers never survive. Savings leave first, at the start of the month. The rest gets split after." }
+          "explain": {
+            "ro": "Mit. „Ce rămâne\" nu rămâne niciodată. Economiile ies primele, la începutul lunii. Restul se împarte după.",
+            "en": "Myth. Leftovers never survive. Savings leave first, at the start of the month. The rest gets split after."
+          }
         },
         {
-          "text": { "ro": "Un SMS care îți cere o „taxă\" de 2,5 lei îți poate goli cardul.", "en": "A text asking for a 2.5 lei \"fee\" can drain your card." },
+          "text": {
+            "ro": "Un SMS care îți cere o „taxă\" de 2,5 lei îți poate goli cardul.",
+            "en": "A text asking for a 2.5 lei \"fee\" can drain your card."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. Suma mică e momeala: pe pagina falsă introduci TOATE datele cardului. Smishing clasic de curierat.", "en": "True. The small fee is bait: the fake page harvests your full card details. Classic smishing." }
+          "explain": {
+            "ro": "Adevăr. Suma mică e momeala: pe pagina falsă introduci TOATE datele cardului. Smishing clasic de curierat.",
+            "en": "True. The small fee is bait: the fake page harvests your full card details. Classic smishing."
+          }
         },
         {
-          "text": { "ro": "Dobânda compusă înseamnă că primești dobândă și la dobânda deja primită.", "en": "Compound interest means you earn interest on interest already earned." },
+          "text": {
+            "ro": "Dobânda compusă înseamnă că primești dobândă și la dobânda deja primită.",
+            "en": "Compound interest means you earn interest on interest already earned."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. De-asta curba o ia în sus cu timpul: bulgărele de zăpadă crește rostogolindu-se peste ce a adunat deja.", "en": "True. That's why the curve bends upward: the snowball grows by rolling over what it already gathered." }
+          "explain": {
+            "ro": "Adevăr. De-asta curba o ia în sus cu timpul: bulgărele de zăpadă crește rostogolindu-se peste ce a adunat deja.",
+            "en": "True. That's why the curve bends upward: the snowball grows by rolling over what it already gathered."
+          }
         }
       ]
     },
@@ -97,19 +475,37 @@
       "id": "m3",
       "statements": [
         {
-          "text": { "ro": "Dacă toți prietenii tăi bagă bani în ceva, e semn că e sigur.", "en": "If all your friends put money into something, it must be safe." },
+          "text": {
+            "ro": "Dacă toți prietenii tăi bagă bani în ceva, e semn că e sigur.",
+            "en": "If all your friends put money into something, it must be safe."
+          },
           "truth": false,
-          "explain": { "ro": "Mit. Se numește FOMO, nu analiză. Caritas (1992-1994) a crescut exact pe „toată lumea e deja înăuntru\".", "en": "Myth. That's FOMO, not analysis. Romania's Caritas scheme (1992-1994) grew on exactly \"everyone's already in\"." }
+          "explain": {
+            "ro": "Mit. Se numește FOMO, nu analiză. Caritas (1992-1994) a crescut exact pe „toată lumea e deja înăuntru\".",
+            "en": "Myth. That's FOMO, not analysis. Romania's Caritas scheme (1992-1994) grew on exactly \"everyone's already in\"."
+          }
         },
         {
-          "text": { "ro": "Bugetul te ajută doar dacă ai mulți bani.", "en": "A budget only helps if you have a lot of money." },
+          "text": {
+            "ro": "Bugetul te ajută doar dacă ai mulți bani.",
+            "en": "A budget only helps if you have a lot of money."
+          },
           "truth": false,
-          "explain": { "ro": "Mit. Cu cât banii sunt mai puțini, cu atât contează mai mult unde se duce fiecare leu.", "en": "Myth. The tighter the money, the more each leu's job matters." }
+          "explain": {
+            "ro": "Mit. Cu cât banii sunt mai puțini, cu atât contează mai mult unde se duce fiecare leu.",
+            "en": "Myth. The tighter the money, the more each leu's job matters."
+          }
         },
         {
-          "text": { "ro": "Prețurile de tip „9,99\" sunt gândite ca să pară mai mici decât sunt.", "en": "\"9.99\" prices are designed to feel smaller than they are." },
+          "text": {
+            "ro": "Prețurile de tip „9,99\" sunt gândite ca să pară mai mici decât sunt.",
+            "en": "\"9.99\" prices are designed to feel smaller than they are."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. Creierul citește prima cifră („9 lei și ceva\"). Rotunjește mereu în sus când îți faci socoteala.", "en": "True. Your brain anchors on the first digit. Always round up when doing your math." }
+          "explain": {
+            "ro": "Adevăr. Creierul citește prima cifră („9 lei și ceva\"). Rotunjește mereu în sus când îți faci socoteala.",
+            "en": "True. Your brain anchors on the first digit. Always round up when doing your math."
+          }
         }
       ]
     },
@@ -117,19 +513,37 @@
       "id": "m4",
       "statements": [
         {
-          "text": { "ro": "La pariuri sportive, pe termen lung, casa câștigă mereu.", "en": "In sports betting, the house always wins long-term." },
+          "text": {
+            "ro": "La pariuri sportive, pe termen lung, casa câștigă mereu.",
+            "en": "In sports betting, the house always wins long-term."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. Cotele sunt calculate cu marjă pentru casă, matematică, nu ghinion. Pe termen lung media te bate.", "en": "True. Odds carry a built-in house margin, math, not bad luck. Long-term, the average beats you." }
+          "explain": {
+            "ro": "Adevăr. Cotele sunt calculate cu marjă pentru casă, matematică, nu ghinion. Pe termen lung media te bate.",
+            "en": "True. Odds carry a built-in house margin, math, not bad luck. Long-term, the average beats you."
+          }
         },
         {
-          "text": { "ro": "Skin-urile din jocuri sunt o formă de investiție.", "en": "In-game skins are a form of investment." },
+          "text": {
+            "ro": "Skin-urile din jocuri sunt o formă de investiție.",
+            "en": "In-game skins are a form of investment."
+          },
           "truth": false,
-          "explain": { "ro": "Mit. Chiar și skinurile care SE POT revinde (gen CS2) trăiesc în piața unei singure companii: o regulă nouă, un patch, și „valoarea\" dispare. Concentrare de risc, nu investiție.", "en": "Myth. Even resellable skins (like CS2's) live in one company's market: one new rule, one patch, and the \"value\" is gone. Risk concentration, not an investment." }
+          "explain": {
+            "ro": "Mit. Chiar și skinurile care SE POT revinde (gen CS2) trăiesc în piața unei singure companii: o regulă nouă, un patch, și „valoarea\" dispare. Concentrare de risc, nu investiție.",
+            "en": "Myth. Even resellable skins (like CS2's) live in one company's market: one new rule, one patch, and the \"value\" is gone. Risk concentration, not an investment."
+          }
         },
         {
-          "text": { "ro": "În România poți avea card bancar propriu înainte de 18 ani (cu acordul părinților).", "en": "In Romania you can have your own bank card before 18 (with parental consent)." },
+          "text": {
+            "ro": "În România poți avea card bancar propriu înainte de 18 ani (cu acordul părinților).",
+            "en": "In Romania you can have your own bank card before 18 (with parental consent)."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. Băncile au conturi de minor de la ~14 ani, cu acordul părinților. Compară comisioanele, conturile junior sunt de obicei gratuite.", "en": "True. Banks offer minor accounts from ~14 with parental consent. Compare the fees, junior accounts are usually free." }
+          "explain": {
+            "ro": "Adevăr. Băncile au conturi de minor de la ~14 ani, cu acordul părinților. Compară comisioanele, conturile junior sunt de obicei gratuite.",
+            "en": "True. Banks offer minor accounts from ~14 with parental consent. Compare the fees, junior accounts are usually free."
+          }
         }
       ]
     },
@@ -137,19 +551,37 @@
       "id": "m5",
       "statements": [
         {
-          "text": { "ro": "„Cumperi acum, plătești mai târziu\" (BNPL) e tot un fel de credit.", "en": "\"Buy now, pay later\" is still a form of credit." },
+          "text": {
+            "ro": "„Cumperi acum, plătești mai târziu\" (BNPL) e tot un fel de credit.",
+            "en": "\"Buy now, pay later\" is still a form of credit."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. E o datorie cu alt nume, banii tot pleacă, doar mai târziu, iar întârzierile costă.", "en": "True. It's debt by another name, the money still leaves, just later, and delays cost." }
+          "explain": {
+            "ro": "Adevăr. E o datorie cu alt nume, banii tot pleacă, doar mai târziu, iar întârzierile costă.",
+            "en": "True. It's debt by another name, the money still leaves, just later, and delays cost."
+          }
         },
         {
-          "text": { "ro": "Dacă îți loghezi cheltuielile, cheltuiești automat mai puțin.", "en": "If you log your spending, you automatically spend less." },
+          "text": {
+            "ro": "Dacă îți loghezi cheltuielile, cheltuiești automat mai puțin.",
+            "en": "If you log your spending, you automatically spend less."
+          },
           "truth": false,
-          "explain": { "ro": "Mit, nu „automat\". Jurnalul îți arată adevărul; deciziile rămân ale tale. El e lanterna, nu frâna.", "en": "Myth, not \"automatically\". The log shows the truth; the decisions stay yours." }
+          "explain": {
+            "ro": "Mit, nu „automat\". Jurnalul îți arată adevărul; deciziile rămân ale tale. El e lanterna, nu frâna.",
+            "en": "Myth, not \"automatically\". The log shows the truth; the decisions stay yours."
+          }
         },
         {
-          "text": { "ro": "Fondul de urgență e pentru surprize, nu pentru dorințe.", "en": "An emergency fund is for surprises, not for wants." },
+          "text": {
+            "ro": "Fondul de urgență e pentru surprize, nu pentru dorințe.",
+            "en": "An emergency fund is for surprises, not for wants."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. Telefonul spart = urgență. Skin-ul nou = dorință. Dacă îl folosești la dorințe, nu mai există când doare.", "en": "True. A broken phone is an emergency; a new skin is a want. Spend it on wants and it's gone when it hurts." }
+          "explain": {
+            "ro": "Adevăr. Telefonul spart = urgență. Skin-ul nou = dorință. Dacă îl folosești la dorințe, nu mai există când doare.",
+            "en": "True. A broken phone is an emergency; a new skin is a want. Spend it on wants and it's gone when it hurts."
+          }
         }
       ]
     },
@@ -157,19 +589,151 @@
       "id": "m6",
       "statements": [
         {
-          "text": { "ro": "Cardurile cadou și punctele de fidelitate pot expira.", "en": "Gift cards and loyalty points can expire." },
+          "text": {
+            "ro": "Cardurile cadou și punctele de fidelitate pot expira.",
+            "en": "Gift cards and loyalty points can expire."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. Multe au termen de valabilitate scris mărunt, banii „gratuiți\" neconsumați se evaporă.", "en": "True. Many carry fine-print expiry dates, unused \"free\" money evaporates." }
+          "explain": {
+            "ro": "Adevăr. Multe au termen de valabilitate scris mărunt, banii „gratuiți\" neconsumați se evaporă.",
+            "en": "True. Many carry fine-print expiry dates, unused \"free\" money evaporates."
+          }
         },
         {
-          "text": { "ro": "„Ultimele 2 bucăți în stoc\" de pe site-uri e mereu adevărat.", "en": "\"Only 2 left in stock\" on shopping sites is always true." },
+          "text": {
+            "ro": "„Ultimele 2 bucăți în stoc\" de pe site-uri e mereu adevărat.",
+            "en": "\"Only 2 left in stock\" on shopping sites is always true."
+          },
           "truth": false,
-          "explain": { "ro": "Mit. E un dark pattern clasic de urgență artificială. Graba e a lor, banii sunt ai tăi.", "en": "Myth. It's a classic urgency dark pattern. The rush is theirs; the money is yours." }
+          "explain": {
+            "ro": "Mit. E un dark pattern clasic de urgență artificială. Graba e a lor, banii sunt ai tăi.",
+            "en": "Myth. It's a classic urgency dark pattern. The rush is theirs; the money is yours."
+          }
         },
         {
-          "text": { "ro": "Mai multe abonamente mici de 20-30 de lei pot strica un buget întreg.", "en": "Several small 20-30 lei subscriptions can wreck a whole budget." },
+          "text": {
+            "ro": "Mai multe abonamente mici de 20-30 de lei pot strica un buget întreg.",
+            "en": "Several small 20-30 lei subscriptions can wreck a whole budget."
+          },
           "truth": true,
-          "explain": { "ro": "Adevăr. 4 abonamente „mici\" = ~100 de lei pe lună, în tăcere. Scurgerile mici sunt cele care nu se văd.", "en": "True. Four \"small\" subs are ~100 lei a month, silently. The small leaks are the ones you never see." }
+          "explain": {
+            "ro": "Adevăr. 4 abonamente „mici\" = ~100 de lei pe lună, în tăcere. Scurgerile mici sunt cele care nu se văd.",
+            "en": "True. Four \"small\" subs are ~100 lei a month, silently. The small leaks are the ones you never see."
+          }
+        }
+      ]
+    },
+    {
+      "id": "m7",
+      "statements": [
+        {
+          "text": {
+            "ro": "Dacă ai cardul în telefon, oricine te atinge cu un aparat îți poate goli contul.",
+            "en": "If your card is in your phone, anyone touching you with a device can drain your account."
+          },
+          "truth": false,
+          "explain": {
+            "ro": "Fals. Plățile mari cer PIN sau amprentă, sumele mici au limită, iar tranzacțiile suspecte se pot contesta la bancă. Riscul real e să-ți dai singur datele pe un link fals.",
+            "en": "False. Big payments need a PIN or fingerprint, small ones are capped, and suspicious charges can be disputed. The real risk is handing your details to a fake link yourself."
+          }
+        },
+        {
+          "text": {
+            "ro": "Banii din bancă sunt garantați de stat până la echivalentul a 100.000 de euro.",
+            "en": "Bank deposits are state-guaranteed up to the equivalent of 100,000 euros."
+          },
+          "truth": true,
+          "explain": {
+            "ro": "Adevăr. Fondul de Garantare a Depozitelor îți acoperă banii până la plafonul de 100.000 de euro per persoană, per bancă, chiar dacă banca dă faliment.",
+            "en": "True. The deposit guarantee fund covers your money up to 100,000 euros per person, per bank, even if the bank fails."
+          }
+        },
+        {
+          "text": {
+            "ro": "De Black Friday, orice produs e la cel mai mic preț din an.",
+            "en": "On Black Friday, everything hits its lowest price of the year."
+          },
+          "truth": false,
+          "explain": {
+            "ro": "Fals. Unele prețuri sunt umflate înainte, ca reducerea să pară uriașă. Compari istoricul prețului, nu procentul de pe etichetă.",
+            "en": "False. Some prices get inflated beforehand so the discount looks huge. Compare the price history, not the badge."
+          }
+        }
+      ]
+    },
+    {
+      "id": "m8",
+      "statements": [
+        {
+          "text": {
+            "ro": "Un depozit la bancă poate să-ți aducă, real, mai puțin decât inflația.",
+            "en": "A bank deposit can actually earn you less than inflation."
+          },
+          "truth": true,
+          "explain": {
+            "ro": "Adevăr. Dacă dobânda e 5% și inflația 7%, puterea de cumpărare scade cu vreo 2% pe an. Cifra din cont crește, dar cumpără mai puțin.",
+            "en": "True. If interest is 5% and inflation 7%, buying power drops by about 2% a year. The number grows, but it buys less."
+          }
+        },
+        {
+          "text": {
+            "ro": "Ratele cu dobândă 0% înseamnă că nu plătești absolut nimic în plus.",
+            "en": "0% installments mean you pay absolutely nothing extra."
+          },
+          "truth": false,
+          "explain": {
+            "ro": "Fals. Costul se poate ascunde în comisioane, asigurări atașate sau într-un preț de pornire umflat. Compari totalul de plată cu prețul cash, nu rata cu reclama.",
+            "en": "False. The cost can hide in fees, bundled insurance or an inflated sticker price. Compare the total payable with the cash price, not the ad."
+          }
+        },
+        {
+          "text": {
+            "ro": "Dacă ți se fură cardul, plătești tu tot ce s-a cheltuit, oricând ai anunța banca.",
+            "en": "If your card is stolen, you owe everything spent on it, no matter when you tell the bank."
+          },
+          "truth": false,
+          "explain": {
+            "ro": "Fals. După ce anunți banca, răspunderea trece la ea. Pentru ce s-a întâmplat înainte de anunț, legea îți limitează pierderea la o sumă mică, dacă nu ai fost grav neglijent. Regula de aur: blochezi cardul imediat.",
+            "en": "False. Once you notify the bank, liability shifts to it. For charges before that, the law caps your loss at a small amount unless you were grossly negligent. Golden rule: block the card at once."
+          }
+        }
+      ]
+    },
+    {
+      "id": "m9",
+      "statements": [
+        {
+          "text": {
+            "ro": "La economisit lunar, dobânda compusă aduce mai mult în ultimii ani decât în primii.",
+            "en": "With monthly saving, compound interest earns more in the last years than in the first."
+          },
+          "truth": true,
+          "explain": {
+            "ro": "Adevăr. Creșterea e exponențială: dobânda se calculează la un munte tot mai mare. De-asta graficul arată plictisitor la început și abrupt la final.",
+            "en": "True. Growth is exponential: interest compounds on an ever-bigger pile. That is why the chart looks boring early and steep late."
+          }
+        },
+        {
+          "text": {
+            "ro": "Un buget bun înseamnă zero bani pe distracție.",
+            "en": "A good budget means zero money for fun."
+          },
+          "truth": false,
+          "explain": {
+            "ro": "Fals. Bugetul sănătos dă un plic și distracției, altfel îl abandonezi în două săptămâni. Control înseamnă limite alese de tine, nu interdicții.",
+            "en": "False. A healthy budget gives fun its own envelope, otherwise you quit in two weeks. Control means limits you chose, not bans."
+          }
+        },
+        {
+          "text": {
+            "ro": "Prețul de 9,99 e gândit special ca să pară mai mic decât e.",
+            "en": "A 9.99 price tag is designed to feel smaller than it is."
+          },
+          "truth": true,
+          "explain": {
+            "ro": "Adevăr. Creierul se agață de prima cifră: 9,99 se citește „9 și ceva\", nu „10\". Truc de ancorare folosit peste tot, de la supermarket la jocuri.",
+            "en": "True. Your brain anchors on the first digit: 9.99 reads as \"nine-something\", not \"ten\". An anchoring trick used everywhere, from groceries to games."
+          }
         }
       ]
     }
@@ -183,16 +747,34 @@
       },
       "options": [
         {
-          "text": { "ro": "Merg, asta e o amintire, căștile mai așteaptă", "en": "Go, memories first, headphones can wait" },
-          "comment": { "ro": "Valid! Banii există și pentru asta. Doar fă mutarea conștient: obiectivul se amână cu ~3 săptămâni și decizia e a ta, nu a FOMO-ului.", "en": "Valid! Money exists for this too. Just move consciously: the goal slips ~3 weeks, and the call is yours, not FOMO's." }
+          "text": {
+            "ro": "Merg, asta e o amintire, căștile mai așteaptă",
+            "en": "Go, memories first, headphones can wait"
+          },
+          "comment": {
+            "ro": "Valid! Banii există și pentru asta. Doar fă mutarea conștient: obiectivul se amână cu ~3 săptămâni și decizia e a ta, nu a FOMO-ului.",
+            "en": "Valid! Money exists for this too. Just move consciously: the goal slips ~3 weeks, and the call is yours, not FOMO's."
+          }
         },
         {
-          "text": { "ro": "Nu merg, obiectivul e obiectiv", "en": "Skip it, a goal is a goal" },
-          "comment": { "ro": "Disciplină de fier! Ai grijă doar să nu devină regulă: propune tu ceva ieftin cu gașca weekendul ăsta, ca să nu plătești social factura.", "en": "Iron discipline! Just don't make it the rule, suggest a cheap hangout instead, so the social bill doesn't pile up." }
+          "text": {
+            "ro": "Nu merg, obiectivul e obiectiv",
+            "en": "Skip it, a goal is a goal"
+          },
+          "comment": {
+            "ro": "Disciplină de fier! Ai grijă doar să nu devină regulă: propune tu ceva ieftin cu gașca weekendul ăsta, ca să nu plătești social factura.",
+            "en": "Iron discipline! Just don't make it the rule, suggest a cheap hangout instead, so the social bill doesn't pile up."
+          }
         },
         {
-          "text": { "ro": "Merg, dar tai 150 din dorințele următoarelor 2 săptămâni", "en": "Go, but cut 150 lei from the next 2 weeks' wants" },
-          "comment": { "ro": "Mutarea de buget clasică: nimic nu dispare, totul se re-împarte. Concertul e plătit de „dorințele\" viitoare, nu de obiectiv.", "en": "The classic budget move: nothing vanishes, it's re-split. The concert is paid by future wants, not by the goal." }
+          "text": {
+            "ro": "Merg, dar tai 150 din dorințele următoarelor 2 săptămâni",
+            "en": "Go, but cut 150 lei from the next 2 weeks' wants"
+          },
+          "comment": {
+            "ro": "Mutarea de buget clasică: nimic nu dispare, totul se re-împarte. Concertul e plătit de „dorințele\" viitoare, nu de obiectiv.",
+            "en": "The classic budget move: nothing vanishes, it's re-split. The concert is paid by future wants, not by the goal."
+          }
         }
       ]
     },
@@ -204,16 +786,34 @@
       },
       "options": [
         {
-          "text": { "ro": "Repar acum, de-asta există fondul", "en": "Fix it now, that's what the fund is for" },
-          "comment": { "ro": "Exact pentru asta l-ai strâns. Un ecran care se face țăndări de tot te costă apoi dublu. Refaci fondul cu prioritate luna viitoare.", "en": "This is exactly why you built it. A screen that shatters fully costs double later. Rebuild the fund first thing next month." }
+          "text": {
+            "ro": "Repar acum, de-asta există fondul",
+            "en": "Fix it now, that's what the fund is for"
+          },
+          "comment": {
+            "ro": "Exact pentru asta l-ai strâns. Un ecran care se face țăndări de tot te costă apoi dublu. Refaci fondul cu prioritate luna viitoare.",
+            "en": "This is exactly why you built it. A screen that shatters fully costs double later. Rebuild the fund first thing next month."
+          }
         },
         {
-          "text": { "ro": "Aștept, merge și crăpat, strâng întâi la loc", "en": "Wait, it still works; I'll top the fund up first" },
-          "comment": { "ro": "Se poate, dacă e doar estetic. Riscul e că amânarea la telefoane se scumpește singură. Pune-ți un termen, nu un „cândva\".", "en": "Workable if it's cosmetic. Phone problems tend to price themselves up. Set a deadline, not a \"someday\"." }
+          "text": {
+            "ro": "Aștept, merge și crăpat, strâng întâi la loc",
+            "en": "Wait, it still works; I'll top the fund up first"
+          },
+          "comment": {
+            "ro": "Se poate, dacă e doar estetic. Riscul e că amânarea la telefoane se scumpește singură. Pune-ți un termen, nu un „cândva\".",
+            "en": "Workable if it's cosmetic. Phone problems tend to price themselves up. Set a deadline, not a \"someday\"."
+          }
         },
         {
-          "text": { "ro": "Caut o reparație mai ieftină sau un ecran aftermarket", "en": "Hunt for a cheaper or aftermarket repair" },
-          "comment": { "ro": "Mutarea de detectiv: două-trei oferte comparate pot tăia serios din preț. Atenție doar la garanție și la piese dubioase.", "en": "The detective move: comparing 2-3 quotes can seriously cut the price. Watch the warranty and shady parts." }
+          "text": {
+            "ro": "Caut o reparație mai ieftină sau un ecran aftermarket",
+            "en": "Hunt for a cheaper or aftermarket repair"
+          },
+          "comment": {
+            "ro": "Mutarea de detectiv: două-trei oferte comparate pot tăia serios din preț. Atenție doar la garanție și la piese dubioase.",
+            "en": "The detective move: comparing 2-3 quotes can seriously cut the price. Watch the warranty and shady parts."
+          }
         }
       ]
     },
@@ -225,16 +825,34 @@
       },
       "options": [
         {
-          "text": { "ro": "Îi cheltui pe ceva ce îmi doresc de mult", "en": "Spend it on something I've wanted for ages" },
-          "comment": { "ro": "Banii de cadou au voie să fie bucurie, mai ales pe ceva dorit DE MULT, nu ales în 5 minute. Testul: îl mai vrei și peste 3 zile?", "en": "Gift money is allowed to be joy, especially on a LONG-wanted thing, not a 5-minute pick. Test: do you still want it in 3 days?" }
+          "text": {
+            "ro": "Îi cheltui pe ceva ce îmi doresc de mult",
+            "en": "Spend it on something I've wanted for ages"
+          },
+          "comment": {
+            "ro": "Banii de cadou au voie să fie bucurie, mai ales pe ceva dorit DE MULT, nu ales în 5 minute. Testul: îl mai vrei și peste 3 zile?",
+            "en": "Gift money is allowed to be joy, especially on a LONG-wanted thing, not a 5-minute pick. Test: do you still want it in 3 days?"
+          }
         },
         {
-          "text": { "ro": "Jumătate distracție, jumătate deoparte", "en": "Half fun, half set aside" },
-          "comment": { "ro": "Mutarea echilibrului: sărbătorești azi și îi mulțumești și lui „tu cel din viitor\". Cea mai ușor de repetat la orice sumă primită.", "en": "The balance move: celebrate today and thank future-you too. The easiest rule to repeat for any windfall." }
+          "text": {
+            "ro": "Jumătate distracție, jumătate deoparte",
+            "en": "Half fun, half set aside"
+          },
+          "comment": {
+            "ro": "Mutarea echilibrului: sărbătorești azi și îi mulțumești și lui „tu cel din viitor\". Cea mai ușor de repetat la orice sumă primită.",
+            "en": "The balance move: celebrate today and thank future-you too. The easiest rule to repeat for any windfall."
+          }
         },
         {
-          "text": { "ro": "Totul la obiectivul de economisire", "en": "All of it into my savings goal" },
-          "comment": { "ro": "Turbo pentru obiectiv! Doar verifică: dacă economisirea nu te bucură deloc, devine pedeapsă, și pedepsele se abandonează.", "en": "Goal turbo! One check: if saving brings zero joy, it becomes punishment, and punishments get abandoned." }
+          "text": {
+            "ro": "Totul la obiectivul de economisire",
+            "en": "All of it into my savings goal"
+          },
+          "comment": {
+            "ro": "Turbo pentru obiectiv! Doar verifică: dacă economisirea nu te bucură deloc, devine pedeapsă, și pedepsele se abandonează.",
+            "en": "Goal turbo! One check: if saving brings zero joy, it becomes punishment, and punishments get abandoned."
+          }
         }
       ]
     },
@@ -246,16 +864,34 @@
       },
       "options": [
         {
-          "text": { "ro": "Muncesc toată vara, banii și experiența", "en": "Work all summer, money and experience" },
-          "comment": { "ro": "Primul job te învață lucruri pe care nicio lecție nu le poate preda, inclusiv cât de greu se câștigă 3.500 de lei. Doar nu-ți vinde toată vara: păstrează-ți serile.", "en": "A first job teaches what no lesson can, including how hard 3,500 lei is to earn. Just don't sell the whole summer: keep your evenings." }
+          "text": {
+            "ro": "Muncesc toată vara, banii și experiența",
+            "en": "Work all summer, money and experience"
+          },
+          "comment": {
+            "ro": "Primul job te învață lucruri pe care nicio lecție nu le poate preda, inclusiv cât de greu se câștigă 3.500 de lei. Doar nu-ți vinde toată vara: păstrează-ți serile.",
+            "en": "A first job teaches what no lesson can, including how hard 3,500 lei is to earn. Just don't sell the whole summer: keep your evenings."
+          }
         },
         {
-          "text": { "ro": "Jumătate-jumătate: 3 săptămâni muncă, 3 libere", "en": "Half-half: 3 weeks work, 3 free" },
-          "comment": { "ro": "Compromisul care ia din amândouă: ~1.700 de lei plus jumătate de vară. Adesea cea mai puțin regretată variantă.", "en": "The compromise that takes from both: ~1,700 lei plus half a summer. Often the least-regretted option." }
+          "text": {
+            "ro": "Jumătate-jumătate: 3 săptămâni muncă, 3 libere",
+            "en": "Half-half: 3 weeks work, 3 free"
+          },
+          "comment": {
+            "ro": "Compromisul care ia din amândouă: ~1.700 de lei plus jumătate de vară. Adesea cea mai puțin regretată variantă.",
+            "en": "The compromise that takes from both: ~1,700 lei plus half a summer. Often the least-regretted option."
+          }
         },
         {
-          "text": { "ro": "Vara liberă, nu se mai întoarce", "en": "The free summer, it never comes back" },
-          "comment": { "ro": "Și ăsta e un calcul real: timpul cu oamenii tăi e o resursă care chiar nu se reface. Doar decide-o TU, nu frica de muncă.", "en": "That's a real calculation too: time with your people genuinely doesn't refill. Just make sure it's YOUR call, not fear of work." }
+          "text": {
+            "ro": "Vara liberă, nu se mai întoarce",
+            "en": "The free summer, it never comes back"
+          },
+          "comment": {
+            "ro": "Și ăsta e un calcul real: timpul cu oamenii tăi e o resursă care chiar nu se reface. Doar decide-o TU, nu frica de muncă.",
+            "en": "That's a real calculation too: time with your people genuinely doesn't refill. Just make sure it's YOUR call, not fear of work."
+          }
         }
       ]
     },
@@ -267,16 +903,151 @@
       },
       "options": [
         {
-          "text": { "ro": "Anulez, 75 de lei pe ședință e absurd", "en": "Cancel, 75 lei a visit is absurd" },
-          "comment": { "ro": "Curajos și corect matematic. „Am plătit deja atâtea luni\" e sunk cost, banii ăia s-au dus oricum, contează doar luna următoare.", "en": "Brave and mathematically right. \"I've already paid for months\" is sunk cost, that money is gone either way." }
+          "text": {
+            "ro": "Anulez, 75 de lei pe ședință e absurd",
+            "en": "Cancel, 75 lei a visit is absurd"
+          },
+          "comment": {
+            "ro": "Curajos și corect matematic. „Am plătit deja atâtea luni\" e sunk cost, banii ăia s-au dus oricum, contează doar luna următoare.",
+            "en": "Brave and mathematically right. \"I've already paid for months\" is sunk cost, that money is gone either way."
+          }
         },
         {
-          "text": { "ro": "Mai dau o lună o șansă, dar cu plan: luni-miercuri-vineri fix", "en": "One more month, but with a fixed Mon-Wed-Fri plan" },
-          "comment": { "ro": "OK, dar scrie planul, nu-l „intenționa\". Dacă și luna viitoare ies 2 vizite, răspunsul s-a dat singur.", "en": "Fine, but write the plan, don't \"intend\" it. If next month is 2 visits again, the answer gave itself." }
+          "text": {
+            "ro": "Mai dau o lună o șansă, dar cu plan: luni-miercuri-vineri fix",
+            "en": "One more month, but with a fixed Mon-Wed-Fri plan"
+          },
+          "comment": {
+            "ro": "OK, dar scrie planul, nu-l „intenționa\". Dacă și luna viitoare ies 2 vizite, răspunsul s-a dat singur.",
+            "en": "Fine, but write the plan, don't \"intend\" it. If next month is 2 visits again, the answer gave itself."
+          }
         },
         {
-          "text": { "ro": "Trec pe ședințe plătite bucată cu bucată", "en": "Switch to pay-per-visit" },
-          "comment": { "ro": "Plătești exact ce folosești. Fă calculul tău: împarte abonamentul la prețul unei ședințe și vezi de la câte vizite se justifică. Poți reveni oricând la el.", "en": "You pay exactly what you use. Run your own math: divide the subscription by the price of one visit and see where it breaks even. You can switch back anytime." }
+          "text": {
+            "ro": "Trec pe ședințe plătite bucată cu bucată",
+            "en": "Switch to pay-per-visit"
+          },
+          "comment": {
+            "ro": "Plătești exact ce folosești. Fă calculul tău: împarte abonamentul la prețul unei ședințe și vezi de la câte vizite se justifică. Poți reveni oricând la el.",
+            "en": "You pay exactly what you use. Run your own math: divide the subscription by the price of one visit and see where it breaks even. You can switch back anytime."
+          }
+        }
+      ]
+    },
+    {
+      "id": "d6",
+      "scenario": {
+        "ro": "Telefonul tău merge, dar e lent. Modelul visat e redus azi: 1.200 în loc de 1.500 de lei. Tu ai strâns 300.",
+        "en": "Your phone works, but it is slow. The model you want is on sale today: 1,200 instead of 1,500 lei. You have saved 300."
+      },
+      "options": [
+        {
+          "text": {
+            "ro": "Îl iau acum, în rate mici",
+            "en": "Buy it now, in small installments"
+          },
+          "comment": {
+            "ro": "Reducerea poate fi reală, dar ratele transformă un moft într-o obligație lunară. Decizia corectă se ia pe totalul de plată și pe bugetul tău, nu pe bannerul „economisești 300\".",
+            "en": "The discount may be real, but installments turn a wish into a monthly obligation. Judge the total payable and your budget, not the \"you save 300\" banner."
+          }
+        },
+        {
+          "text": {
+            "ro": "Aștept și strâng în continuare",
+            "en": "Wait and keep saving"
+          },
+          "comment": {
+            "ro": "Telefonul merge, deci nu e urgență. Reducerile revin în cicluri, iar fondul tău crește între timp. Ancorarea pe prețul tăiat e exact capcana din manual.",
+            "en": "The phone still works, so there is no emergency. Sales come in cycles and your fund keeps growing meanwhile. Anchoring on the slashed price is the textbook trap."
+          }
+        },
+        {
+          "text": {
+            "ro": "Îi fac service celui vechi: curățare, baterie nouă",
+            "en": "Service the old one: cleanup, new battery"
+          },
+          "comment": {
+            "ro": "Varianta subestimată: uneori 100-150 de lei îți cumpără încă un an de telefon bun. Amâni marea cheltuială și o faci când alegi tu, nu reclama.",
+            "en": "The underrated move: sometimes 100-150 lei buys you another year of a good phone. You delay the big spend and make it when you choose, not the ad."
+          }
+        }
+      ]
+    },
+    {
+      "id": "d7",
+      "scenario": {
+        "ro": "Primești 200 de lei de ziua ta. Gașca propune să-i „arzi\" pe o ieșire de neuitat. Tu strângi pentru o chitară de 600 și ai deja 350.",
+        "en": "You get 200 lei for your birthday. Your crew says burn it on an epic night out. You are saving for a 600 lei guitar and already have 350."
+      },
+      "options": [
+        {
+          "text": {
+            "ro": "Îi cheltui pe ieșire, e ziua mea",
+            "en": "Spend it on the night out, it is my birthday"
+          },
+          "comment": {
+            "ro": "Alegere validă dacă e făcută conștient: amintirile contează. Doar recunoaște prețul real: chitara se amână cu încă vreo două luni de strâns.",
+            "en": "A valid choice if it is conscious: memories matter. Just name the real price: the guitar slips by another couple months of saving."
+          }
+        },
+        {
+          "text": {
+            "ro": "Totul la chitară, ieșim altă dată ieftin",
+            "en": "All toward the guitar, we hang out cheap another time"
+          },
+          "comment": {
+            "ro": "Cu 550 din 600, ești la un pas de obiectiv și asta se simte. Propune tu planul B ieftin pentru gașcă, așa nu plătești factura socială.",
+            "en": "At 550 of 600 you are one step from the goal, and that feels great. Pitch the cheap plan B to the crew yourself, so you do not pay the social bill."
+          }
+        },
+        {
+          "text": {
+            "ro": "Regula 50-50: jumătate distracție, jumătate chitară",
+            "en": "The 50-50 rule: half fun, half guitar"
+          },
+          "comment": {
+            "ro": "Compromisul care ține pe termen lung: sărbătorești și avansezi. 100 la obiectiv înseamnă chitara cu o lună mai aproape, iar seara tot există.",
+            "en": "The compromise that lasts: you celebrate and you advance. 100 to the goal brings the guitar a month closer, and the night still happens."
+          }
+        }
+      ]
+    },
+    {
+      "id": "d8",
+      "scenario": {
+        "ro": "Vinzi bicicleta veche cu 400 de lei pe un site de anunțuri. Un cumpărător grăbit zice că plătește „prin curier, cu verificare\" și îți trimite un link.",
+        "en": "You are selling your old bike for 400 lei online. A rushed buyer says he pays \"through the courier, with verification\" and sends you a link."
+      },
+      "options": [
+        {
+          "text": {
+            "ro": "Intru pe link și completez datele cardului ca să „primesc\" banii",
+            "en": "Open the link and fill in my card details to \"receive\" the money"
+          },
+          "comment": {
+            "ro": "Ca să PRIMEȘTI bani nu introduci niciodată datele cardului pe un link primit în chat. Exact așa se golește contul: schema „curierul cu verificare\" e clasică.",
+            "en": "To RECEIVE money you never type your card details into a link from a chat. That is exactly how accounts get drained: the \"courier verification\" scheme is a classic."
+          }
+        },
+        {
+          "text": {
+            "ro": "Doar cash sau transfer bancar la predare, față în față",
+            "en": "Cash or bank transfer at handover, face to face"
+          },
+          "comment": {
+            "ro": "Regula de aur a vânzărilor între persoane: banii și produsul se schimbă în același moment, pe un canal controlat de tine. Cine refuză asta nu voia să cumpere.",
+            "en": "The golden rule of person-to-person sales: money and item change hands at the same moment, on a channel you control. Whoever refuses was never buying."
+          }
+        },
+        {
+          "text": {
+            "ro": "Scriu curierului pe site-ul oficial și verific metoda",
+            "en": "Message the courier on its official site to verify the method"
+          },
+          "comment": {
+            "ro": "Reflex bun: verifici canalul oficial, nu linkul primit. Vei afla că firmele de curierat nu au „plată cu verificare\" prin linkuri trimise de cumpărători.",
+            "en": "Good reflex: you check the official channel, not the received link. You will find couriers have no \"verified payment\" via buyer-sent links."
+          }
         }
       ]
     }

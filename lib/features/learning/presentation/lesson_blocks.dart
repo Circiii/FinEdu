@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 
 import '../../../core/ui/clay.dart';
@@ -14,8 +14,12 @@ final _markup = RegExp(r'\*\*(.+?)\*\*|==(.+?)==');
 /// Textul de lecție cu markup-ul redat: bold-ul primește greutate și culoare
 /// plină, evidențierea primește fundal de marker galben.
 class RichLessonText extends StatelessWidget {
-  const RichLessonText(this.text,
-      {super.key, required this.style, this.textAlign});
+  const RichLessonText(
+    this.text, {
+    super.key,
+    required this.style,
+    this.textAlign,
+  });
 
   final String text;
   final TextStyle style;
@@ -30,19 +34,23 @@ class RichLessonText extends StatelessWidget {
         spans.add(TextSpan(text: text.substring(cursor, m.start)));
       }
       if (m.group(1) != null) {
-        spans.add(TextSpan(
-          text: m.group(1),
-          style: style.copyWith(fontWeight: FontWeight.w800, color: C.text),
-        ));
-      } else {
-        spans.add(TextSpan(
-          text: m.group(2),
-          style: style.copyWith(
-            fontWeight: FontWeight.w700,
-            color: C.text,
-            background: Paint()..color = C.amberSoft,
+        spans.add(
+          TextSpan(
+            text: m.group(1),
+            style: style.copyWith(fontWeight: FontWeight.w800, color: C.text),
           ),
-        ));
+        );
+      } else {
+        spans.add(
+          TextSpan(
+            text: m.group(2),
+            style: style.copyWith(
+              fontWeight: FontWeight.w700,
+              color: C.text,
+              background: Paint()..color = C.amberSoft,
+            ),
+          ),
+        );
       }
       cursor = m.end;
     }
@@ -50,20 +58,22 @@ class RichLessonText extends StatelessWidget {
     if (cursor < text.length) {
       spans.add(TextSpan(text: text.substring(cursor)));
     }
-    return Text.rich(TextSpan(style: style, children: spans),
-        textAlign: textAlign);
+    return Text.rich(
+      TextSpan(style: style, children: spans),
+      textAlign: textAlign,
+    );
   }
 }
 
 // ---- Widgeturi per tip de bloc ----
 
 ({Color soft, Color deep}) _tone(String tone) => switch (tone) {
-      'amber' => (soft: C.amberSoft, deep: C.amberDeep),
-      'green' => (soft: C.greenSoft, deep: C.greenDeep),
-      'violet' => (soft: C.violetSoft, deep: C.violetDeep),
-      'danger' => (soft: C.dangerSoft, deep: C.dangerDeep),
-      _ => (soft: C.blueSoft, deep: C.blueDeep),
-    };
+  'amber' => (soft: C.amberSoft, deep: C.amberDeep),
+  'green' => (soft: C.greenSoft, deep: C.greenDeep),
+  'violet' => (soft: C.violetSoft, deep: C.violetDeep),
+  'danger' => (soft: C.dangerSoft, deep: C.dangerDeep),
+  _ => (soft: C.blueSoft, deep: C.blueDeep),
+};
 
 class LessonBlockView extends StatelessWidget {
   const LessonBlockView(this.block, {super.key});
@@ -73,12 +83,15 @@ class LessonBlockView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (block) {
-      TextBlock(:final text) => RichLessonText(text,
-          style: T.body(
-              size: 15.5,
-              weight: FontWeight.w400,
-              color: C.text2,
-              height: 1.55)),
+      TextBlock(:final text) => RichLessonText(
+        text,
+        style: T.body(
+          size: 15.5,
+          weight: FontWeight.w400,
+          color: C.text2,
+          height: 1.55,
+        ),
+      ),
       final CalloutBlock b => _callout(b),
       final StatBlock b => _stat(b),
       final VsBlock b => _vs(b),
@@ -104,7 +117,10 @@ class LessonBlockView extends StatelessWidget {
             width: 34,
             height: 34,
             decoration: BoxDecoration(
-                color: C.surface, shape: BoxShape.circle, boxShadow: Sh.raise),
+              color: C.surface,
+              shape: BoxShape.circle,
+              boxShadow: Sh.raise,
+            ),
             alignment: Alignment.center,
             child: Text(b.icon, style: const TextStyle(fontSize: 17)),
           ),
@@ -114,20 +130,26 @@ class LessonBlockView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (b.title != null) ...[
-                  Text(b.title!.toUpperCase(),
-                      style: T.display(
-                          size: 11,
-                          weight: FontWeight.w800,
-                          color: tone.deep,
-                          letterSpacing: 11 * 0.1)),
+                  Text(
+                    b.title!.toUpperCase(),
+                    style: T.display(
+                      size: 11,
+                      weight: FontWeight.w800,
+                      color: tone.deep,
+                      letterSpacing: 11 * 0.1,
+                    ),
+                  ),
                   const SizedBox(height: 4),
                 ],
-                RichLessonText(b.text,
-                    style: T.body(
-                        size: 14,
-                        weight: FontWeight.w600,
-                        color: C.text,
-                        height: 1.45)),
+                RichLessonText(
+                  b.text,
+                  style: T.body(
+                    size: 14,
+                    weight: FontWeight.w600,
+                    color: C.text,
+                    height: 1.45,
+                  ),
+                ),
               ],
             ),
           ),
@@ -149,16 +171,22 @@ class LessonBlockView extends StatelessWidget {
               suffix: b.suffix,
               duration: Dur.emph,
               style: T.display(
-                  size: 34, weight: FontWeight.w800, color: C.blueDeep),
+                size: 34,
+                weight: FontWeight.w800,
+                color: C.blueDeep,
+              ),
             ),
             const SizedBox(height: 4),
-            RichLessonText(b.label,
-                textAlign: TextAlign.center,
-                style: T.body(
-                    size: 13,
-                    weight: FontWeight.w600,
-                    color: C.text2,
-                    height: 1.4)),
+            RichLessonText(
+              b.label,
+              textAlign: TextAlign.center,
+              style: T.body(
+                size: 13,
+                weight: FontWeight.w600,
+                color: C.text2,
+                height: 1.4,
+              ),
+            ),
           ],
         ),
       ),
@@ -178,19 +206,25 @@ class LessonBlockView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title.toUpperCase(),
-                  style: T.display(
-                      size: 11,
-                      weight: FontWeight.w800,
-                      color: deep,
-                      letterSpacing: 11 * 0.08)),
+              Text(
+                title.toUpperCase(),
+                style: T.display(
+                  size: 11,
+                  weight: FontWeight.w800,
+                  color: deep,
+                  letterSpacing: 11 * 0.08,
+                ),
+              ),
               const SizedBox(height: 5),
-              RichLessonText(text,
-                  style: T.body(
-                      size: 13,
-                      weight: FontWeight.w600,
-                      color: C.text,
-                      height: 1.4)),
+              RichLessonText(
+                text,
+                style: T.body(
+                  size: 13,
+                  weight: FontWeight.w600,
+                  color: C.text,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -224,26 +258,33 @@ class LessonBlockView extends StatelessWidget {
                   height: 26,
                   margin: const EdgeInsets.only(top: 1),
                   decoration: BoxDecoration(
-                      gradient: Grad.blue,
-                      shape: BoxShape.circle,
-                      boxShadow: Sh.blue),
+                    gradient: Grad.blue,
+                    shape: BoxShape.circle,
+                    boxShadow: Sh.blue,
+                  ),
                   alignment: Alignment.center,
-                  child: Text('${i + 1}',
-                      style: T.display(
-                          size: 13,
-                          weight: FontWeight.w800,
-                          color: Colors.white)),
+                  child: Text(
+                    '${i + 1}',
+                    style: T.display(
+                      size: 13,
+                      weight: FontWeight.w800,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 11),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 3),
-                    child: RichLessonText(items[i],
-                        style: T.body(
-                            size: 14.5,
-                            weight: FontWeight.w500,
-                            color: C.text,
-                            height: 1.4)),
+                    child: RichLessonText(
+                      items[i],
+                      style: T.body(
+                        size: 14.5,
+                        weight: FontWeight.w500,
+                        color: C.text,
+                        height: 1.4,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -273,12 +314,15 @@ class LessonBlockView extends StatelessWidget {
               border: Border.all(color: C.line, width: 1),
               boxShadow: Sh.raise,
             ),
-            child: RichLessonText(text,
-                style: T.body(
-                    size: 14,
-                    weight: FontWeight.w600,
-                    color: C.text,
-                    height: 1.45)),
+            child: RichLessonText(
+              text,
+              style: T.body(
+                size: 14,
+                weight: FontWeight.w600,
+                color: C.text,
+                height: 1.45,
+              ),
+            ),
           ),
         ),
       ],
@@ -319,8 +363,9 @@ class _LessonBlocksPageState extends State<LessonBlocksPage> {
   void initState() {
     super.initState();
     if (_allShown) {
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => widget.onAllRevealed());
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => widget.onAllRevealed(),
+      );
     }
   }
 
@@ -338,8 +383,11 @@ class _LessonBlocksPageState extends State<LessonBlocksPage> {
     // Blocul nou intră sub fold, îl aducem în ecran după ce s-a așezat.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_scroll.hasClients) return;
-      _scroll.animateTo(_scroll.position.maxScrollExtent,
-          duration: Dur.base, curve: Curves.easeOut);
+      _scroll.animateTo(
+        _scroll.position.maxScrollExtent,
+        duration: Dur.base,
+        curve: Curves.easeOut,
+      );
     });
   }
 
@@ -364,7 +412,9 @@ class _LessonBlocksPageState extends State<LessonBlocksPage> {
                   child: LessonBlockView(widget.blocks[i]),
                 ),
               ),
-            if (!_allShown) _tapHint() else if (widget.trailing != null) ...[
+            if (!_allShown)
+              _tapHint()
+            else if (widget.trailing != null) ...[
               const SizedBox(height: 4),
               StaggerIn(child: widget.trailing!),
             ],
@@ -388,13 +438,23 @@ class _LessonBlocksPageState extends State<LessonBlocksPage> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Atinge pentru mai mult',
-                  style: T.display(
-                      size: 12.5, weight: FontWeight.w700, color: C.text3)),
+              Text(
+                'Atinge pentru mai mult',
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w700,
+                  color: C.text3,
+                ),
+              ),
               const SizedBox(width: 6),
-              Text('•' * (widget.blocks.length - _shown),
-                  style: T.display(
-                      size: 12.5, weight: FontWeight.w800, color: C.blue)),
+              Text(
+                '•' * (widget.blocks.length - _shown),
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w800,
+                  color: C.blue,
+                ),
+              ),
             ],
           ),
         ),

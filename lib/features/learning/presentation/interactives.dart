@@ -1,4 +1,4 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
@@ -39,12 +39,15 @@ bool interactiveGatesAdvance(String kind) =>
 /// Tipurile pe care recap-ul le poate reîntreba după o primă încercare greșită.
 bool interactiveRetryable(String kind) => kind == 'mcq' || kind == 'cloze';
 
-Widget _label([String text = '🎮 MINI-JOC']) => Text(text,
-    style: T.display(
-        size: 12,
-        weight: FontWeight.w800,
-        color: C.violet,
-        letterSpacing: 12 * 0.12));
+Widget _label([String text = '🎮 MINI-JOC']) => Text(
+  text,
+  style: T.display(
+    size: 12,
+    weight: FontWeight.w800,
+    color: C.violet,
+    letterSpacing: 12 * 0.12,
+  ),
+);
 
 /// Rândul de feedback după răspuns (vocea lui Cashy vine din `why`/`explain`
 /// din conținut, nu din cod).
@@ -52,18 +55,23 @@ Widget feedbackRow({required bool correct, required String text}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      SvgIcon(correct ? Ic.check : Ic.alert,
-          size: 17,
-          color: correct ? C.green : C.amberDeep,
-          strokeWidth: 2.6),
+      SvgIcon(
+        correct ? Ic.check : Ic.alert,
+        size: 17,
+        color: correct ? C.green : C.amberDeep,
+        strokeWidth: 2.6,
+      ),
       const SizedBox(width: 8),
       Expanded(
-        child: RichLessonText(text,
-            style: T.body(
-                size: 13.5,
-                weight: FontWeight.w600,
-                color: C.text2,
-                height: 1.4)),
+        child: RichLessonText(
+          text,
+          style: T.body(
+            size: 13.5,
+            weight: FontWeight.w600,
+            color: C.text2,
+            height: 1.4,
+          ),
+        ),
       ),
     ],
   );
@@ -101,8 +109,8 @@ class _McqInteractiveState extends State<McqInteractive> {
     final feedback = !answered
         ? null
         : (_picked == it.correct
-            ? (it.explain ?? '')
-            : (it.options[_picked!].why ?? it.explain ?? ''));
+              ? (it.explain ?? '')
+              : (it.options[_picked!].why ?? it.explain ?? ''));
 
     final column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,12 +123,15 @@ class _McqInteractiveState extends State<McqInteractive> {
         ClayCard(
           radius: R.md,
           padding: const EdgeInsets.all(16),
-          child: Text(it.question ?? '',
-              style: T.display(
-                  size: widget.compact ? 15.5 : 17.5,
-                  weight: FontWeight.w700,
-                  color: C.text,
-                  height: 1.3)),
+          child: Text(
+            it.question ?? '',
+            style: T.display(
+              size: widget.compact ? 15.5 : 17.5,
+              weight: FontWeight.w700,
+              color: C.text,
+              height: 1.3,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         JuiceShake(
@@ -149,24 +160,28 @@ class _McqInteractiveState extends State<McqInteractive> {
                       color: answered && i == it.correct
                           ? C.greenSoft
                           : (answered && i == _picked
-                              ? C.dangerSoft
-                              : C.surface2),
+                                ? C.dangerSoft
+                                : C.surface2),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                          color: answered && i == it.correct
-                              ? C.green
-                              : (answered && i == _picked
+                        color: answered && i == it.correct
+                            ? C.green
+                            : (answered && i == _picked
                                   ? C.danger
                                   : Colors.transparent),
-                          width: 2),
+                        width: 2,
+                      ),
                       boxShadow: answered ? null : Sh.raise,
                     ),
-                    child: Text(it.options[i].text,
-                        style: T.body(
-                            size: 14.5,
-                            weight: FontWeight.w600,
-                            color: C.text,
-                            height: 1.3)),
+                    child: Text(
+                      it.options[i].text,
+                      style: T.body(
+                        size: 14.5,
+                        weight: FontWeight.w600,
+                        color: C.text,
+                        height: 1.3,
+                      ),
+                    ),
                   ),
                 ),
             ],
@@ -185,8 +200,11 @@ class _McqInteractiveState extends State<McqInteractive> {
 // ---- Checklist ----
 
 class ChecklistInteractive extends StatefulWidget {
-  const ChecklistInteractive(
-      {super.key, required this.it, required this.onDone});
+  const ChecklistInteractive({
+    super.key,
+    required this.it,
+    required this.onDone,
+  });
   final LessonInteractive it;
   final ValueChanged<bool> onDone;
 
@@ -207,17 +225,20 @@ class _ChecklistInteractiveState extends State<ChecklistInteractive> {
           const SizedBox(height: 8),
           _label(),
           const SizedBox(height: 8),
-          Text(it.title ?? '',
-              style:
-                  T.display(size: 20, weight: FontWeight.w800, color: C.text)),
+          Text(
+            it.title ?? '',
+            style: T.display(size: 20, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 14),
           for (var i = 0; i < it.items.length; i++) ...[
             GestureDetector(
               onTap: () {
                 Juice.tick();
-                setState(() => _checked.contains(i)
-                    ? _checked.remove(i)
-                    : _checked.add(i));
+                setState(
+                  () => _checked.contains(i)
+                      ? _checked.remove(i)
+                      : _checked.add(i),
+                );
               },
               child: Container(
                 width: double.infinity,
@@ -227,9 +248,9 @@ class _ChecklistInteractiveState extends State<ChecklistInteractive> {
                   color: _checked.contains(i) ? C.greenSoft : C.surface,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                      color:
-                          _checked.contains(i) ? C.green : Colors.transparent,
-                      width: 2),
+                    color: _checked.contains(i) ? C.green : Colors.transparent,
+                    width: 2,
+                  ),
                   boxShadow: Sh.raise,
                 ),
                 child: Row(
@@ -243,18 +264,25 @@ class _ChecklistInteractiveState extends State<ChecklistInteractive> {
                       ),
                       alignment: Alignment.center,
                       child: _checked.contains(i)
-                          ? const SvgIcon(Ic.check,
-                              size: 13, color: Colors.white, strokeWidth: 3)
+                          ? const SvgIcon(
+                              Ic.check,
+                              size: 13,
+                              color: Colors.white,
+                              strokeWidth: 3,
+                            )
                           : null,
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: Text(it.items[i],
-                          style: T.body(
-                              size: 14,
-                              weight: FontWeight.w600,
-                              color: C.text,
-                              height: 1.3)),
+                      child: Text(
+                        it.items[i],
+                        style: T.body(
+                          size: 14,
+                          weight: FontWeight.w600,
+                          color: C.text,
+                          height: 1.3,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -271,8 +299,12 @@ class _ChecklistInteractiveState extends State<ChecklistInteractive> {
 // finalul cozii: retry-ul E mecanica, deci swipe nu are recap re-ask.
 
 class SwipeInteractive extends StatefulWidget {
-  const SwipeInteractive(
-      {super.key, required this.it, required this.onDone, this.onResult});
+  const SwipeInteractive({
+    super.key,
+    required this.it,
+    required this.onDone,
+    this.onResult,
+  });
   final LessonInteractive it;
   final ValueChanged<bool> onDone;
   final ValueChanged<bool>? onResult;
@@ -326,15 +358,21 @@ class _SwipeInteractiveState extends State<SwipeInteractive> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _label(),
-              Text('$_done / $_total',
-                  style: T.display(
-                      size: 12.5, weight: FontWeight.w800, color: C.text3)),
+              Text(
+                '$_done / $_total',
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w800,
+                  color: C.text3,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(it.title ?? '',
-              style:
-                  T.display(size: 20, weight: FontWeight.w800, color: C.text)),
+          Text(
+            it.title ?? '',
+            style: T.display(size: 20, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 14),
           if (finished)
             ClayCard(
@@ -346,14 +384,16 @@ class _SwipeInteractiveState extends State<SwipeInteractive> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                        _missedAny
-                            ? 'Gata! Cele ratate au revenit până le-ai prins.'
-                            : 'Toate din prima. Semințele mele sunt mândre.',
-                        style: T.body(
-                            size: 14.5,
-                            weight: FontWeight.w600,
-                            color: C.text,
-                            height: 1.35)),
+                      _missedAny
+                          ? 'Gata! Cele ratate au revenit până le-ai prins.'
+                          : 'Toate din prima. Semințele mele sunt mândre.',
+                      style: T.body(
+                        size: 14.5,
+                        weight: FontWeight.w600,
+                        color: C.text,
+                        height: 1.35,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -374,8 +414,7 @@ class _SwipeInteractiveState extends State<SwipeInteractive> {
                       ),
                     ),
                   GestureDetector(
-                    onPanUpdate: (d) =>
-                        setState(() => _drag += d.delta.dx),
+                    onPanUpdate: (d) => setState(() => _drag += d.delta.dx),
                     onPanEnd: (_) {
                       if (_drag < -80) {
                         _answer(choseLeft: true);
@@ -400,17 +439,21 @@ class _SwipeInteractiveState extends State<SwipeInteractive> {
             Row(
               children: [
                 Expanded(
-                  child: _bucketButton(it.left ?? '',
-                      gradient: Grad.amber,
-                      shadow: Sh.amber,
-                      onTap: () => _answer(choseLeft: true)),
+                  child: _bucketButton(
+                    it.left ?? '',
+                    gradient: Grad.amber,
+                    shadow: Sh.amber,
+                    onTap: () => _answer(choseLeft: true),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: _bucketButton(it.right ?? '',
-                      gradient: Grad.blue,
-                      shadow: Sh.blue,
-                      onTap: () => _answer(choseLeft: false)),
+                  child: _bucketButton(
+                    it.right ?? '',
+                    gradient: Grad.blue,
+                    shadow: Sh.blue,
+                    onTap: () => _answer(choseLeft: false),
+                  ),
                 ),
               ],
             ),
@@ -432,20 +475,27 @@ class _SwipeInteractiveState extends State<SwipeInteractive> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 26),
         child: SizedBox(
           width: double.infinity,
-          child: Text(text,
-              textAlign: TextAlign.center,
-              style: T.display(
-                  size: 17, weight: FontWeight.w700, color: C.text,
-                  height: 1.25)),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: T.display(
+              size: 17,
+              weight: FontWeight.w700,
+              color: C.text,
+              height: 1.25,
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _bucketButton(String label,
-      {required LinearGradient gradient,
-      required List<BoxShadow> shadow,
-      required VoidCallback onTap}) {
+  Widget _bucketButton(
+    String label, {
+    required LinearGradient gradient,
+    required List<BoxShadow> shadow,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -456,9 +506,14 @@ class _SwipeInteractiveState extends State<SwipeInteractive> {
           boxShadow: shadow,
         ),
         alignment: Alignment.center,
-        child: Text(label,
-            style: T.display(
-                size: 14, weight: FontWeight.w800, color: Colors.white)),
+        child: Text(
+          label,
+          style: T.display(
+            size: 14,
+            weight: FontWeight.w800,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
@@ -492,10 +547,15 @@ class _PollInteractiveState extends State<PollInteractive> {
           ClayCard(
             radius: R.md,
             padding: const EdgeInsets.all(16),
-            child: Text(it.question ?? '',
-                style: T.display(
-                    size: 17, weight: FontWeight.w700, color: C.text,
-                    height: 1.3)),
+            child: Text(
+              it.question ?? '',
+              style: T.display(
+                size: 17,
+                weight: FontWeight.w700,
+                color: C.text,
+                height: 1.3,
+              ),
+            ),
           ),
           const SizedBox(height: 12),
           for (var i = 0; i < it.pollOptions.length; i++) ...[
@@ -513,18 +573,22 @@ class _PollInteractiveState extends State<PollInteractive> {
                   color: _picked == i ? C.blueSoft : C.surface2,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                      color: _picked == i ? C.blue : Colors.transparent,
-                      width: 2),
+                    color: _picked == i ? C.blue : Colors.transparent,
+                    width: 2,
+                  ),
                   boxShadow: _picked == null ? Sh.raise : null,
                 ),
                 child: Opacity(
                   opacity: _picked == null || _picked == i ? 1 : 0.5,
-                  child: Text(it.pollOptions[i].text,
-                      style: T.body(
-                          size: 14.5,
-                          weight: FontWeight.w600,
-                          color: C.text,
-                          height: 1.3)),
+                  child: Text(
+                    it.pollOptions[i].text,
+                    style: T.body(
+                      size: 14.5,
+                      weight: FontWeight.w600,
+                      color: C.text,
+                      height: 1.3,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -540,20 +604,28 @@ class _PollInteractiveState extends State<PollInteractive> {
                   Image.asset(Cashy.cashyPoint, width: 38),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: RichLessonText(it.pollOptions[_picked!].comment,
-                        style: T.body(
-                            size: 13.5,
-                            weight: FontWeight.w600,
-                            color: C.text2,
-                            height: 1.4)),
+                    child: RichLessonText(
+                      it.pollOptions[_picked!].comment,
+                      style: T.body(
+                        size: 13.5,
+                        weight: FontWeight.w600,
+                        color: C.text2,
+                        height: 1.4,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 6),
-            Text('Poți atinge și celelalte variante, fiecare are urmarea ei.',
-                style: T.body(
-                    size: 11.5, weight: FontWeight.w500, color: C.text3)),
+            Text(
+              'Poți atinge și celelalte variante, fiecare are urmarea ei.',
+              style: T.body(
+                size: 11.5,
+                weight: FontWeight.w500,
+                color: C.text3,
+              ),
+            ),
           ],
         ],
       ),
@@ -564,12 +636,13 @@ class _PollInteractiveState extends State<PollInteractive> {
 // Cloze, propoziția cheie cu un gol + chipuri; distractorii sunt neînțelegeri reale.
 
 class ClozeInteractive extends StatefulWidget {
-  const ClozeInteractive(
-      {super.key,
-      required this.it,
-      required this.onDone,
-      this.onResult,
-      this.compact = false});
+  const ClozeInteractive({
+    super.key,
+    required this.it,
+    required this.onDone,
+    this.onResult,
+    this.compact = false,
+  });
   final LessonInteractive it;
   final ValueChanged<bool> onDone;
   final ValueChanged<bool>? onResult;
@@ -620,39 +693,48 @@ class _ClozeInteractiveState extends State<ClozeInteractive> {
         JuiceShake(
           trigger: _wrongTaps.length,
           child: ClayCard(
-          radius: R.md,
-          padding: const EdgeInsets.all(16),
-          child: Text.rich(
-            TextSpan(
-              style: T.display(
-                  size: 17, weight: FontWeight.w700, color: C.text,
-                  height: 1.45),
-              children: [
-                TextSpan(text: before),
-                WidgetSpan(
-                  alignment: PlaceholderAlignment.middle,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: _solved ? C.greenSoft : C.inset,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          color: _solved ? C.green : C.line, width: 1.5),
-                    ),
-                    child: Text(
+            radius: R.md,
+            padding: const EdgeInsets.all(16),
+            child: Text.rich(
+              TextSpan(
+                style: T.display(
+                  size: 17,
+                  weight: FontWeight.w700,
+                  color: C.text,
+                  height: 1.45,
+                ),
+                children: [
+                  TextSpan(text: before),
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _solved ? C.greenSoft : C.inset,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: _solved ? C.green : C.line,
+                          width: 1.5,
+                        ),
+                      ),
+                      child: Text(
                         _solved ? it.chips[it.correct] : '···',
                         style: T.display(
-                            size: 15.5,
-                            weight: FontWeight.w800,
-                            color: _solved ? C.greenDeep : C.text3)),
+                          size: 15.5,
+                          weight: FontWeight.w800,
+                          color: _solved ? C.greenDeep : C.text3,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                TextSpan(text: after),
-              ],
+                  TextSpan(text: after),
+                ],
+              ),
             ),
           ),
-        ),
         ),
         const SizedBox(height: 14),
         Wrap(
@@ -663,35 +745,38 @@ class _ClozeInteractiveState extends State<ClozeInteractive> {
               GestureDetector(
                 onTap: _wrongTaps.contains(i) ? null : () => _tap(i),
                 child: Opacity(
-                  opacity: _wrongTaps.contains(i) ||
-                          (_solved && i != it.correct)
+                  opacity:
+                      _wrongTaps.contains(i) || (_solved && i != it.correct)
                       ? 0.4
                       : 1,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 11),
+                      horizontal: 16,
+                      vertical: 11,
+                    ),
                     decoration: BoxDecoration(
                       color: _solved && i == it.correct
                           ? C.greenSoft
-                          : (_wrongTaps.contains(i)
-                              ? C.dangerSoft
-                              : C.surface),
+                          : (_wrongTaps.contains(i) ? C.dangerSoft : C.surface),
                       borderRadius: BorderRadius.circular(R.sm),
                       border: Border.all(
-                          color: _solved && i == it.correct
-                              ? C.green
-                              : (_wrongTaps.contains(i)
-                                  ? C.danger
-                                  : C.line),
-                          width: 1.5),
-                      boxShadow:
-                          _solved || _wrongTaps.contains(i) ? null : Sh.raise,
+                        color: _solved && i == it.correct
+                            ? C.green
+                            : (_wrongTaps.contains(i) ? C.danger : C.line),
+                        width: 1.5,
+                      ),
+                      boxShadow: _solved || _wrongTaps.contains(i)
+                          ? null
+                          : Sh.raise,
                     ),
-                    child: Text(it.chips[i],
-                        style: T.display(
-                            size: 14.5,
-                            weight: FontWeight.w700,
-                            color: C.text)),
+                    child: Text(
+                      it.chips[i],
+                      style: T.display(
+                        size: 14.5,
+                        weight: FontWeight.w700,
+                        color: C.text,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -702,8 +787,9 @@ class _ClozeInteractiveState extends State<ClozeInteractive> {
           feedbackRow(correct: _wrongTaps.isEmpty, text: it.explain ?? '')
         else if (_wrongTaps.isNotEmpty)
           feedbackRow(
-              correct: false,
-              text: 'Aha, capcană clasică, fix asta cred mulți. Mai încearcă.'),
+            correct: false,
+            text: 'Aha, capcană clasică, fix asta cred mulți. Mai încearcă.',
+          ),
       ],
     );
     return widget.compact ? column : SingleChildScrollView(child: column);
@@ -732,8 +818,12 @@ bool _isSorted(List<int> idx) {
 // și rămâne pe loc (retry-ul e mecanica), succesul mută pasul sus în listă.
 
 class OrderInteractive extends StatefulWidget {
-  const OrderInteractive(
-      {super.key, required this.it, required this.onDone, this.onResult});
+  const OrderInteractive({
+    super.key,
+    required this.it,
+    required this.onDone,
+    this.onResult,
+  });
   final LessonInteractive it;
   final ValueChanged<bool> onDone;
   final ValueChanged<bool>? onResult;
@@ -775,7 +865,7 @@ class _OrderInteractiveState extends State<OrderInteractive> {
     // Sus: pașii deja plasați, în ordine; jos: restul, în ordinea amestecată.
     final pending = [
       for (final i in _display)
-        if (i >= _placed) i
+        if (i >= _placed) i,
     ];
 
     return SingleChildScrollView(
@@ -787,19 +877,26 @@ class _OrderInteractiveState extends State<OrderInteractive> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _label('🔢 PUNE ÎN ORDINE'),
-              Text('$_placed / $total',
-                  style: T.display(
-                      size: 12.5, weight: FontWeight.w800, color: C.text3)),
+              Text(
+                '$_placed / $total',
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w800,
+                  color: C.text3,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(it.title ?? '',
-              style:
-                  T.display(size: 20, weight: FontWeight.w800, color: C.text)),
+          Text(
+            it.title ?? '',
+            style: T.display(size: 20, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 4),
-          Text('Atinge pașii în ordinea corectă.',
-              style:
-                  T.body(size: 12.5, weight: FontWeight.w500, color: C.text3)),
+          Text(
+            'Atinge pașii în ordinea corectă.',
+            style: T.body(size: 12.5, weight: FontWeight.w500, color: C.text3),
+          ),
           const SizedBox(height: 14),
           for (var i = 0; i < _placed; i++)
             // Cheia ține StaggerIn stabil per pas: doar pasul proaspăt
@@ -811,17 +908,16 @@ class _OrderInteractiveState extends State<OrderInteractive> {
           if (!finished)
             JuiceShake(
               trigger: _shakes,
-              child: Column(
-                children: [for (final i in pending) _stepTile(i)],
-              ),
+              child: Column(children: [for (final i in pending) _stepTile(i)]),
             ),
           if (finished) ...[
             const SizedBox(height: 6),
             feedbackRow(
-                correct: !_missedAny,
-                text: _missedAny
-                    ? 'Ordinea contează, acum o știi pe cea corectă.'
-                    : it.options.last.why ?? 'Fix așa, pas cu pas.'),
+              correct: !_missedAny,
+              text: _missedAny
+                  ? 'Ordinea contează, acum o știi pe cea corectă.'
+                  : it.options.last.why ?? 'Fix așa, pas cu pas.',
+            ),
           ],
         ],
       ),
@@ -839,7 +935,9 @@ class _OrderInteractiveState extends State<OrderInteractive> {
           color: placed ? C.greenSoft : C.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-              color: placed ? C.green : Colors.transparent, width: 2),
+            color: placed ? C.green : Colors.transparent,
+            width: 2,
+          ),
           boxShadow: placed ? null : Sh.raise,
         ),
         child: Row(
@@ -853,22 +951,32 @@ class _OrderInteractiveState extends State<OrderInteractive> {
               ),
               alignment: Alignment.center,
               child: placed
-                  ? Text('${index + 1}',
+                  ? Text(
+                      '${index + 1}',
                       style: T.display(
-                          size: 12.5,
-                          weight: FontWeight.w800,
-                          color: Colors.white))
-                  : const SvgIcon(Ic.chevronRight,
-                      size: 13, color: C.text3, strokeWidth: 2.6),
+                        size: 12.5,
+                        weight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const SvgIcon(
+                      Ic.chevronRight,
+                      size: 13,
+                      color: C.text3,
+                      strokeWidth: 2.6,
+                    ),
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: Text(widget.it.options[index].text,
-                  style: T.body(
-                      size: 14,
-                      weight: FontWeight.w600,
-                      color: C.text,
-                      height: 1.3)),
+              child: Text(
+                widget.it.options[index].text,
+                style: T.body(
+                  size: 14,
+                  weight: FontWeight.w600,
+                  color: C.text,
+                  height: 1.3,
+                ),
+              ),
             ),
           ],
         ),
@@ -881,8 +989,12 @@ class _OrderInteractiveState extends State<OrderInteractive> {
 // perechea din dreapta; potrivirea blochează perechea în verde.
 
 class PairsInteractive extends StatefulWidget {
-  const PairsInteractive(
-      {super.key, required this.it, required this.onDone, this.onResult});
+  const PairsInteractive({
+    super.key,
+    required this.it,
+    required this.onDone,
+    this.onResult,
+  });
   final LessonInteractive it;
   final ValueChanged<bool> onDone;
   final ValueChanged<bool>? onResult;
@@ -939,19 +1051,26 @@ class _PairsInteractiveState extends State<PairsInteractive> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _label('🧲 POTRIVEȘTE'),
-              Text('${_matched.length} / ${it.pairs.length}',
-                  style: T.display(
-                      size: 12.5, weight: FontWeight.w800, color: C.text3)),
+              Text(
+                '${_matched.length} / ${it.pairs.length}',
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w800,
+                  color: C.text3,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(it.title ?? '',
-              style:
-                  T.display(size: 20, weight: FontWeight.w800, color: C.text)),
+          Text(
+            it.title ?? '',
+            style: T.display(size: 20, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 4),
-          Text('Atinge o carte din stânga, apoi perechea ei din dreapta.',
-              style:
-                  T.body(size: 12.5, weight: FontWeight.w500, color: C.text3)),
+          Text(
+            'Atinge o carte din stânga, apoi perechea ei din dreapta.',
+            style: T.body(size: 12.5, weight: FontWeight.w500, color: C.text3),
+          ),
           const SizedBox(height: 14),
           JuiceShake(
             trigger: _shakes,
@@ -962,10 +1081,12 @@ class _PairsInteractiveState extends State<PairsInteractive> {
                   child: Column(
                     children: [
                       for (var i = 0; i < it.pairs.length; i++)
-                        _pairTile(it.pairs[i].left,
-                            matched: _matched.contains(i),
-                            selected: _selectedLeft == i,
-                            onTap: () => _tapLeft(i)),
+                        _pairTile(
+                          it.pairs[i].left,
+                          matched: _matched.contains(i),
+                          selected: _selectedLeft == i,
+                          onTap: () => _tapLeft(i),
+                        ),
                     ],
                   ),
                 ),
@@ -974,10 +1095,12 @@ class _PairsInteractiveState extends State<PairsInteractive> {
                   child: Column(
                     children: [
                       for (final i in _rightOrder)
-                        _pairTile(it.pairs[i].right,
-                            matched: _matched.contains(i),
-                            selected: false,
-                            onTap: () => _tapRight(i)),
+                        _pairTile(
+                          it.pairs[i].right,
+                          matched: _matched.contains(i),
+                          selected: false,
+                          onTap: () => _tapRight(i),
+                        ),
                     ],
                   ),
                 ),
@@ -987,20 +1110,23 @@ class _PairsInteractiveState extends State<PairsInteractive> {
           if (finished) ...[
             const SizedBox(height: 6),
             feedbackRow(
-                correct: !_missedAny,
-                text: _missedAny
-                    ? 'Toate perechile stau acum la locul lor.'
-                    : 'Toate din prima, se leagă, nu-i așa?'),
+              correct: !_missedAny,
+              text: _missedAny
+                  ? 'Toate perechile stau acum la locul lor.'
+                  : 'Toate din prima, se leagă, nu-i așa?',
+            ),
           ],
         ],
       ),
     );
   }
 
-  Widget _pairTile(String text,
-      {required bool matched,
-      required bool selected,
-      required VoidCallback onTap}) {
+  Widget _pairTile(
+    String text, {
+    required bool matched,
+    required bool selected,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: matched ? null : onTap,
       child: JuiceBounce(
@@ -1013,24 +1139,26 @@ class _PairsInteractiveState extends State<PairsInteractive> {
           margin: const EdgeInsets.only(bottom: 10),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: matched
-                ? C.greenSoft
-                : (selected ? C.blueSoft : C.surface),
+            color: matched ? C.greenSoft : (selected ? C.blueSoft : C.surface),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-                color: matched
-                    ? C.green
-                    : (selected ? C.blue : Colors.transparent),
-                width: 2),
+              color: matched
+                  ? C.green
+                  : (selected ? C.blue : Colors.transparent),
+              width: 2,
+            ),
             boxShadow: matched ? null : Sh.raise,
           ),
-          child: Text(text,
-              textAlign: TextAlign.center,
-              style: T.body(
-                  size: 13.5,
-                  weight: FontWeight.w600,
-                  color: matched ? C.greenDeep : C.text,
-                  height: 1.25)),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: T.body(
+              size: 13.5,
+              weight: FontWeight.w600,
+              color: matched ? C.greenDeep : C.text,
+              height: 1.25,
+            ),
+          ),
         ),
       ),
     );
@@ -1075,19 +1203,26 @@ class _RevealInteractiveState extends State<RevealInteractive> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _label('🃏 MIT SAU REALITATE?'),
-              Text('${_flipped.length} / ${it.reveals.length}',
-                  style: T.display(
-                      size: 12.5, weight: FontWeight.w800, color: C.text3)),
+              Text(
+                '${_flipped.length} / ${it.reveals.length}',
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w800,
+                  color: C.text3,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(it.title ?? '',
-              style:
-                  T.display(size: 20, weight: FontWeight.w800, color: C.text)),
+          Text(
+            it.title ?? '',
+            style: T.display(size: 20, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 4),
-          Text('Atinge fiecare card ca să vezi adevărul din spate.',
-              style:
-                  T.body(size: 12.5, weight: FontWeight.w500, color: C.text3)),
+          Text(
+            'Atinge fiecare card ca să vezi adevărul din spate.',
+            style: T.body(size: 12.5, weight: FontWeight.w500, color: C.text3),
+          ),
           const SizedBox(height: 14),
           for (var i = 0; i < it.reveals.length; i++)
             Padding(
@@ -1101,8 +1236,9 @@ class _RevealInteractiveState extends State<RevealInteractive> {
             ),
           if (finished)
             feedbackRow(
-                correct: true,
-                text: 'Acum știi ce e mit și ce e realitate. Mai departe!'),
+              correct: true,
+              text: 'Acum știi ce e mit și ce e realitate. Mai departe!',
+            ),
         ],
       ),
     );
@@ -1167,19 +1303,25 @@ class _FlipCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(isBack ? '✅ REALITATEA' : '🤔 SE ZICE CĂ…',
-              style: T.display(
-                  size: 11,
-                  weight: FontWeight.w800,
-                  color: isBack ? C.greenDeep : C.violetDeep,
-                  letterSpacing: 11 * 0.1)),
+          Text(
+            isBack ? '✅ REALITATEA' : '🤔 SE ZICE CĂ…',
+            style: T.display(
+              size: 11,
+              weight: FontWeight.w800,
+              color: isBack ? C.greenDeep : C.violetDeep,
+              letterSpacing: 11 * 0.1,
+            ),
+          ),
           const SizedBox(height: 6),
-          RichLessonText(text,
-              style: T.body(
-                  size: 14,
-                  weight: FontWeight.w600,
-                  color: C.text,
-                  height: 1.4)),
+          RichLessonText(
+            text,
+            style: T.body(
+              size: 14,
+              weight: FontWeight.w600,
+              color: C.text,
+              height: 1.4,
+            ),
+          ),
         ],
       ),
     );

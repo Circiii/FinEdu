@@ -10,11 +10,21 @@
       "max_day": 22,
       "role_tags": [],
       "difficulty": 2,
-      "conditions": [{ "type": "statAbove", "stat": "energy", "x": 30 }],
+      "conditions": [
+        {
+          "type": "statAbove",
+          "stat": "energy",
+          "x": 30
+        }
+      ],
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "ore_suplimentare",
-      "skill_tags": ["opportunity_cost", "work_life_balance", "income"],
+      "skill_tags": [
+        "opportunity_cost",
+        "work_life_balance",
+        "income"
+      ],
       "title": {
         "ro": "Ture în plus la muncă",
         "en": "Extra shifts at work"
@@ -26,23 +36,44 @@
       "illustration": "cashy_neutral",
       "choices": [
         {
-          "label": { "ro": "Accept turele (+300 lei acum)", "en": "Take the shifts (+300 lei now)" },
+          "label": {
+            "ro": "Accept turele (+300 lei acum)",
+            "en": "Take the shifts (+300 lei now)"
+          },
           "effects": [
-            { "type": "cash", "delta": 30000 },
-            { "type": "setFlag", "flag": "ore_acceptate" },
+            {
+              "type": "cash",
+              "delta": 30000
+            },
+            {
+              "type": "setFlag",
+              "flag": "ore_acceptate"
+            },
             {
               "type": "scheduleEffect",
               "delay_days": 3,
               "effects": [
-                { "type": "stat", "stat": "energy", "delta": -14 },
-                { "type": "stat", "stat": "stress", "delta": 8 }
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -14
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 8
+                }
               ],
               "note": {
                 "ro": "Turele suplimentare te ajung din urmă: energia a scăzut și stresul a crescut.",
                 "en": "The extra shifts catch up with you: energy dropped and stress rose."
               }
             },
-            { "type": "scheduleEvent", "delay_days": 4, "event_id": "work_ore_recuperare" }
+            {
+              "type": "scheduleEvent",
+              "delay_days": 4,
+              "event_id": "work_ore_recuperare"
+            }
           ],
           "debrief": {
             "ro": "Ai câștigat 300 lei acum, dar plătești în energie și stres peste câteva zile. Banii veniți din oboseală au și ei un cost, îl vezi mai târziu.",
@@ -50,10 +81,21 @@
           }
         },
         {
-          "label": { "ro": "Refuz, îmi păstrez seara", "en": "Decline, keep my evening" },
+          "label": {
+            "ro": "Refuz, îmi păstrez seara",
+            "en": "Decline, keep my evening"
+          },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": 4 },
-            { "type": "stat", "stat": "stress", "delta": -3 }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
           ],
           "debrief": {
             "ro": "Ai renunțat la 300 lei, dar ți-ai protejat odihna și echilibrul. Uneori timpul liber e investiția care te ține în formă pentru luna întreagă.",
@@ -61,10 +103,20 @@
           }
         },
         {
-          "label": { "ro": "O singură tură (+120 lei)", "en": "Just one shift (+120 lei)" },
+          "label": {
+            "ro": "O singură tură (+120 lei)",
+            "en": "Just one shift (+120 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": 12000 },
-            { "type": "stat", "stat": "energy", "delta": -4 }
+            {
+              "type": "cash",
+              "delta": 12000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -4
+            }
           ],
           "debrief": {
             "ro": "Un compromis: ceva bani în plus, oboseală mică. Ai ales calea de mijloc între venit și odihnă, fără să înclini balanța prea tare într-o parte.",
@@ -72,7 +124,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_ore_recuperare",
@@ -86,9 +141,14 @@
       "difficulty": 1,
       "conditions": [],
       "exclusions": [],
-      "prerequisites": ["work_ore_suplimentare"],
+      "prerequisites": [
+        "work_ore_suplimentare"
+      ],
       "chain_id": "ore_suplimentare",
-      "skill_tags": ["work_life_balance", "self_care"],
+      "skill_tags": [
+        "work_life_balance",
+        "self_care"
+      ],
       "title": {
         "ro": "Corpul cere pauză",
         "en": "Your body asks for a break"
@@ -100,10 +160,21 @@
       "illustration": "cashy_warning",
       "choices": [
         {
-          "label": { "ro": "Îmi iau o zi mai lentă", "en": "Take a slower day" },
+          "label": {
+            "ro": "Îmi iau o zi mai lentă",
+            "en": "Take a slower day"
+          },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": 10 },
-            { "type": "stat", "stat": "stress", "delta": -6 }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 10
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -6
+            }
           ],
           "debrief": {
             "ro": "Ți-ai refăcut energia și ai lăsat stresul să scadă. Recuperarea nu e timp pierdut, e ce face ca efortul de dinainte să nu se transforme în epuizare.",
@@ -111,11 +182,24 @@
           }
         },
         {
-          "label": { "ro": "Împing mai departe, arăt seriozitate", "en": "Push on, show commitment" },
+          "label": {
+            "ro": "Împing mai departe, arăt seriozitate",
+            "en": "Push on, show commitment"
+          },
           "effects": [
-            { "type": "stat", "stat": "stress", "delta": 6 },
-            { "type": "jobStability", "delta": 5 },
-            { "type": "setFlag", "flag": "reputatie_buna" }
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 6
+            },
+            {
+              "type": "jobStability",
+              "delta": 5
+            },
+            {
+              "type": "setFlag",
+              "flag": "reputatie_buna"
+            }
           ],
           "debrief": {
             "ro": "Ți-ai construit reputația de om de bază, dar stresul a mai urcat. Ai schimbat o parte din confort pe încredere la locul de muncă, un troc conștient, nu o obligație.",
@@ -123,7 +207,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "career_curs_oferta",
@@ -139,7 +226,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "curs_profesional",
-      "skill_tags": ["opportunity_cost", "invest_in_yourself", "delayed_gratification"],
+      "skill_tags": [
+        "opportunity_cost",
+        "invest_in_yourself",
+        "delayed_gratification"
+      ],
       "title": {
         "ro": "Un curs care te-ar ridica",
         "en": "A course that could lift you"
@@ -151,11 +242,24 @@
       "illustration": "cashy_learning",
       "choices": [
         {
-          "label": { "ro": "Plătesc cursul (, 450 lei)", "en": "Pay for the course (, 450 lei)" },
+          "label": {
+            "ro": "Plătesc cursul (, 450 lei)",
+            "en": "Pay for the course (, 450 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -45000 },
-            { "type": "setFlag", "flag": "curs_platit" },
-            { "type": "scheduleEvent", "delay_days": 16, "event_id": "career_marire_oferta" }
+            {
+              "type": "cash",
+              "delta": -45000
+            },
+            {
+              "type": "setFlag",
+              "flag": "curs_platit"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 16,
+              "event_id": "career_marire_oferta"
+            }
           ],
           "debrief": {
             "ro": "Ai dat 450 lei pe ceva care nu aduce nimic azi. E un pariu pe tine: costul e imediat și sigur, câștigul e întârziat și posibil. Așa arată o investiție în propria pregătire.",
@@ -163,15 +267,27 @@
           }
         },
         {
-          "label": { "ro": "Nu acum, păstrez banii", "en": "Not now, keep the money" },
-          "effects": [{ "type": "stat", "stat": "stress", "delta": -2 }],
+          "label": {
+            "ro": "Nu acum, păstrez banii",
+            "en": "Not now, keep the money"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
+          ],
           "debrief": {
             "ro": "Ai păstrat 450 lei în buzunar și ai evitat un risc. Ai ales siguranța de acum în locul unei posibile creșteri de mai târziu, un schimb valabil, mai ales când tamponul e mic.",
             "en": "You kept 450 lei in your pocket and avoided a risk. You chose certainty now over a possible raise later, a valid trade, especially when your buffer is thin."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "career_marire_oferta",
@@ -183,11 +299,22 @@
       "max_day": 30,
       "role_tags": [],
       "difficulty": 1,
-      "conditions": [{ "type": "hasFlag", "flag": "curs_platit" }],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "curs_platit"
+        }
+      ],
       "exclusions": [],
-      "prerequisites": ["career_curs_oferta"],
+      "prerequisites": [
+        "career_curs_oferta"
+      ],
       "chain_id": "curs_profesional",
-      "skill_tags": ["invest_in_yourself", "delayed_gratification", "income"],
+      "skill_tags": [
+        "invest_in_yourself",
+        "delayed_gratification",
+        "income"
+      ],
       "title": {
         "ro": "Cursul a dat roade",
         "en": "The course paid off"
@@ -199,15 +326,33 @@
       "illustration": "cashy_celebration",
       "choices": [
         {
-          "label": { "ro": "Accept responsabilitatea (+500 lei)", "en": "Take the responsibility (+500 lei)" },
+          "label": {
+            "ro": "Accept responsabilitatea (+500 lei)",
+            "en": "Take the responsibility (+500 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": 50000 },
-            { "type": "jobStability", "delta": 10 },
-            { "type": "setFlag", "flag": "reputatie_buna" },
+            {
+              "type": "cash",
+              "delta": 50000
+            },
+            {
+              "type": "jobStability",
+              "delta": 10
+            },
+            {
+              "type": "setFlag",
+              "flag": "reputatie_buna"
+            },
             {
               "type": "scheduleEffect",
               "delay_days": 3,
-              "effects": [{ "type": "stat", "stat": "energy", "delta": -6 }],
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -6
+                }
+              ],
               "note": {
                 "ro": "Rolul nou cere ceva energie în plus, se simte după câteva zile.",
                 "en": "The new role asks for a little more energy, you feel it after a few days."
@@ -220,10 +365,20 @@
           }
         },
         {
-          "label": { "ro": "Mulțumesc, dar rămân pe rolul meu", "en": "Thanks, but I'll keep my role" },
+          "label": {
+            "ro": "Mulțumesc, dar rămân pe rolul meu",
+            "en": "Thanks, but I'll keep my role"
+          },
           "effects": [
-            { "type": "jobStability", "delta": 3 },
-            { "type": "stat", "stat": "stress", "delta": -3 }
+            {
+              "type": "jobStability",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
           ],
           "debrief": {
             "ro": "Ai lăsat bonusul, dar ți-ai păstrat ritmul liniștit. Ai câștigat oricum ceva: pregătirea rămâne a ta și te vede echipa altfel. Nu fiecare oportunitate se potrivește momentului tău.",
@@ -231,7 +386,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_factura_intarziata",
@@ -241,13 +399,19 @@
       "cooldown_days": 0,
       "min_day": 3,
       "max_day": 12,
-      "role_tags": ["freelancer_creativ"],
+      "role_tags": [
+        "freelancer_creativ"
+      ],
       "difficulty": 2,
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "salariu_intarziat",
-      "skill_tags": ["cash_flow", "variable_income", "emergency_fund"],
+      "skill_tags": [
+        "cash_flow",
+        "variable_income",
+        "emergency_fund"
+      ],
       "title": {
         "ro": "Clientul întârzie plata",
         "en": "The client is late paying"
@@ -259,10 +423,21 @@
       "illustration": "cashy_warning",
       "choices": [
         {
-          "label": { "ro": "Trimit o revenire politicoasă și aștept", "en": "Send a polite follow-up and wait" },
+          "label": {
+            "ro": "Trimit o revenire politicoasă și aștept",
+            "en": "Send a polite follow-up and wait"
+          },
           "effects": [
-            { "type": "stat", "stat": "stress", "delta": 4 },
-            { "type": "scheduleEvent", "delay_days": 6, "event_id": "work_factura_platita" }
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 6,
+              "event_id": "work_factura_platita"
+            }
           ],
           "debrief": {
             "ro": "Ai ținut relația curată și eviți costuri, dar duci povara câtorva zile cu tampon scăzut. La venit variabil, un fond de urgență e exact plasa care acoperă golul dintre muncă și plată.",
@@ -270,9 +445,15 @@
           }
         },
         {
-          "label": { "ro": "Iau un credit-punte (+1000 lei, datorie)", "en": "Take a bridge loan (+1000 lei, debt)" },
+          "label": {
+            "ro": "Iau un credit-punte (+1000 lei, datorie)",
+            "en": "Take a bridge loan (+1000 lei, debt)"
+          },
           "effects": [
-            { "type": "cash", "delta": 100000 },
+            {
+              "type": "cash",
+              "delta": 100000
+            },
             {
               "type": "createDebt",
               "id": "credit_punte",
@@ -280,7 +461,11 @@
               "monthly": 25000,
               "due_day": 20
             },
-            { "type": "scheduleEvent", "delay_days": 6, "event_id": "work_factura_platita" }
+            {
+              "type": "scheduleEvent",
+              "delay_days": 6,
+              "event_id": "work_factura_platita"
+            }
           ],
           "debrief": {
             "ro": "Ai rezolvat golul de azi, dar ai creat o datorie care se plătește lună de lună. Împrumutul acoperă o întârziere, însă costă, iar factura tot vine, doar că acum ai și rata pe deasupra.",
@@ -288,11 +473,26 @@
           }
         },
         {
-          "label": { "ro": "Strâng cheltuielile până vine banul", "en": "Cut spending until the money arrives" },
+          "label": {
+            "ro": "Strâng cheltuielile până vine banul",
+            "en": "Cut spending until the money arrives"
+          },
           "effects": [
-            { "type": "stat", "stat": "stress", "delta": 6 },
-            { "type": "stat", "stat": "energy", "delta": -3 },
-            { "type": "scheduleEvent", "delay_days": 6, "event_id": "work_factura_platita" }
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -3
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 6,
+              "event_id": "work_factura_platita"
+            }
           ],
           "debrief": {
             "ro": "Ai traversat golul fără datorie, dar cu ceva tensiune. Ai ales să ajustezi ce controlezi, cheltuielile, în loc să împrumuți. E disciplină, cu un preț în confort pe termen scurt.",
@@ -300,7 +500,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_factura_platita",
@@ -310,13 +513,21 @@
       "cooldown_days": 0,
       "min_day": 8,
       "max_day": 30,
-      "role_tags": ["freelancer_creativ"],
+      "role_tags": [
+        "freelancer_creativ"
+      ],
       "difficulty": 1,
       "conditions": [],
       "exclusions": [],
-      "prerequisites": ["work_factura_intarziata"],
+      "prerequisites": [
+        "work_factura_intarziata"
+      ],
       "chain_id": "salariu_intarziat",
-      "skill_tags": ["cash_flow", "variable_income", "emergency_fund"],
+      "skill_tags": [
+        "cash_flow",
+        "variable_income",
+        "emergency_fund"
+      ],
       "title": {
         "ro": "Factura a intrat în cont",
         "en": "The invoice landed in your account"
@@ -328,10 +539,19 @@
       "illustration": "cashy_celebration",
       "choices": [
         {
-          "label": { "ro": "Pun o parte în fond pentru data viitoare (+1400 lei, 600 în fond)", "en": "Set part aside for next time (+1400 lei, 600 to fund)" },
+          "label": {
+            "ro": "Pun o parte în fond pentru data viitoare (+1400 lei, 600 în fond)",
+            "en": "Set part aside for next time (+1400 lei, 600 to fund)"
+          },
           "effects": [
-            { "type": "cash", "delta": 140000 },
-            { "type": "fund", "delta": 60000 }
+            {
+              "type": "cash",
+              "delta": 140000
+            },
+            {
+              "type": "fund",
+              "delta": 60000
+            }
           ],
           "debrief": {
             "ro": "Ai transformat o întârziere neplăcută într-o lecție utilă: o parte din venit devine tampon pentru următoarea plată amânată. Așa se rupe cercul „muncesc, aștept, mă stresez”.",
@@ -339,15 +559,26 @@
           }
         },
         {
-          "label": { "ro": "Iau tot cash-ul, mi-l doream (+2000 lei)", "en": "Take it all as cash, I earned it (+2000 lei)" },
-          "effects": [{ "type": "cash", "delta": 200000 }],
+          "label": {
+            "ro": "Iau tot cash-ul, mi-l doream (+2000 lei)",
+            "en": "Take it all as cash, I earned it (+2000 lei)"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 200000
+            }
+          ],
           "debrief": {
             "ro": "Banii sunt ai tăi și i-ai muncit, nimic greșit aici. Ai ales lichiditate deplină acum; compromisul e că, la următoarea întârziere, pornești iar de la zero pe tampon.",
             "en": "The money is yours and you earned it, nothing wrong here. You chose full liquidity now; the trade-off is that at the next delay you start from zero on your buffer again."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "career_interviu_pregatire",
@@ -363,7 +594,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "interviu",
-      "skill_tags": ["career", "preparation", "opportunity_cost"],
+      "skill_tags": [
+        "career",
+        "preparation",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Ai obținut un interviu",
         "en": "You landed an interview"
@@ -375,20 +610,39 @@
       "illustration": "cashy_learning",
       "choices": [
         {
-          "label": { "ro": "Mă pregătesc serios în seara asta", "en": "Prepare seriously tonight" },
+          "label": {
+            "ro": "Mă pregătesc serios în seara asta",
+            "en": "Prepare seriously tonight"
+          },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": -8 },
-            { "type": "setFlag", "flag": "interviu_pregatit" },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -8
+            },
+            {
+              "type": "setFlag",
+              "flag": "interviu_pregatit"
+            },
             {
               "type": "scheduleEffect",
               "delay_days": 4,
-              "effects": [{ "type": "jobStability", "delta": 4 }],
+              "effects": [
+                {
+                  "type": "jobStability",
+                  "delta": 4
+                }
+              ],
               "note": {
                 "ro": "Pregătirea se simte la interviu, intri mai sigur pe tine.",
                 "en": "The prep shows at the interview, you walk in more confident."
               }
             },
-            { "type": "scheduleEvent", "delay_days": 4, "event_id": "career_interviu_oferta" }
+            {
+              "type": "scheduleEvent",
+              "delay_days": 4,
+              "event_id": "career_interviu_oferta"
+            }
           ],
           "debrief": {
             "ro": "Ai dat o seară și ceva energie ca să crești șansele. Pregătirea nu garantează nimic, dar mută probabilitatea de partea ta, un cost mic pentru o oportunitate care poate schimba luni întregi.",
@@ -396,10 +650,21 @@
           }
         },
         {
-          "label": { "ro": "Merg pe intuiție, mă odihnesc", "en": "Wing it, get some rest" },
+          "label": {
+            "ro": "Merg pe intuiție, mă odihnesc",
+            "en": "Wing it, get some rest"
+          },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": 4 },
-            { "type": "scheduleEvent", "delay_days": 4, "event_id": "career_interviu_oferta" }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 4
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 4,
+              "event_id": "career_interviu_oferta"
+            }
           ],
           "debrief": {
             "ro": "Ți-ai păstrat energia și intri relaxat. E o alegere validă, dar la interviu se vede diferența dintre cine s-a pregătit și cine se bazează doar pe moment. Ai pariat pe spontaneitate.",
@@ -407,7 +672,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "career_interviu_oferta",
@@ -421,9 +689,15 @@
       "difficulty": 1,
       "conditions": [],
       "exclusions": [],
-      "prerequisites": ["career_interviu_pregatire"],
+      "prerequisites": [
+        "career_interviu_pregatire"
+      ],
       "chain_id": "interviu",
-      "skill_tags": ["career", "trade_offs", "decision_making"],
+      "skill_tags": [
+        "career",
+        "trade_offs",
+        "decision_making"
+      ],
       "title": {
         "ro": "A venit oferta",
         "en": "The offer arrived"
@@ -435,11 +709,24 @@
       "illustration": "cashy_neutral",
       "choices": [
         {
-          "label": { "ro": "Accept oferta, schimb jobul", "en": "Accept the offer, change jobs" },
+          "label": {
+            "ro": "Accept oferta, schimb jobul",
+            "en": "Accept the offer, change jobs"
+          },
           "effects": [
-            { "type": "jobStability", "delta": 8 },
-            { "type": "stat", "stat": "stress", "delta": 5 },
-            { "type": "setFlag", "flag": "reputatie_buna" }
+            {
+              "type": "jobStability",
+              "delta": 8
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "setFlag",
+              "flag": "reputatie_buna"
+            }
           ],
           "debrief": {
             "ro": "Ai ales creșterea pe termen lung, cu prețul adaptării și al unui început incert. Un salariu mai mare contează, dar și drumul și liniștea au valoare, ai pus în balanță bani cu confort.",
@@ -447,10 +734,19 @@
           }
         },
         {
-          "label": { "ro": "Negociez și rămân cu argumente", "en": "Negotiate and stay with leverage" },
+          "label": {
+            "ro": "Negociez și rămân cu argumente",
+            "en": "Negotiate and stay with leverage"
+          },
           "effects": [
-            { "type": "cash", "delta": 20000 },
-            { "type": "jobStability", "delta": 5 }
+            {
+              "type": "cash",
+              "delta": 20000
+            },
+            {
+              "type": "jobStability",
+              "delta": 5
+            }
           ],
           "debrief": {
             "ro": "Ai folosit oferta ca pârghie și ai obținut ceva acolo unde ești deja. O oportunitate are valoare chiar și când n-o accepți, îți arată ce meriți și îți dă putere de negociere.",
@@ -458,10 +754,20 @@
           }
         },
         {
-          "label": { "ro": "Refuz, nu e momentul potrivit", "en": "Decline, not the right time" },
+          "label": {
+            "ro": "Refuz, nu e momentul potrivit",
+            "en": "Decline, not the right time"
+          },
           "effects": [
-            { "type": "jobStability", "delta": 2 },
-            { "type": "stat", "stat": "stress", "delta": -3 }
+            {
+              "type": "jobStability",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
           ],
           "debrief": {
             "ro": "Ai păstrat stabilitatea și liniștea, dar ai amânat o creștere posibilă. Nu orice ușă deschisă e ușa ta, iar a spune „nu” la momentul nepotrivit e tot o decizie matură.",
@@ -469,7 +775,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "family_nunta_invitatie",
@@ -485,7 +794,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "nunta",
-      "skill_tags": ["social_spending", "budgeting", "relationships"],
+      "skill_tags": [
+        "social_spending",
+        "budgeting",
+        "relationships"
+      ],
       "title": {
         "ro": "Invitație la nuntă",
         "en": "Wedding invitation"
@@ -497,11 +810,25 @@
       "illustration": "cashy_neutral",
       "choices": [
         {
-          "label": { "ro": "Dar generos (, 450 lei)", "en": "Generous gift (, 450 lei)" },
+          "label": {
+            "ro": "Dar generos (, 450 lei)",
+            "en": "Generous gift (, 450 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -45000 },
-            { "type": "stat", "stat": "relationships", "delta": 8 },
-            { "type": "scheduleEvent", "delay_days": 4, "event_id": "family_nunta_petrecere" }
+            {
+              "type": "cash",
+              "delta": -45000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 8
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 4,
+              "event_id": "family_nunta_petrecere"
+            }
           ],
           "debrief": {
             "ro": "Ai întărit o legătură de familie cu un dar pe măsura ocaziei. Cheltuiala e reală și taie din tampon, dar unele momente se sărbătoresc o dată, iar tu ai ales să fii prezent pe deplin.",
@@ -509,11 +836,25 @@
           }
         },
         {
-          "label": { "ro": "Dar potrivit (, 300 lei)", "en": "Modest gift (, 300 lei)" },
+          "label": {
+            "ro": "Dar potrivit (, 300 lei)",
+            "en": "Modest gift (, 300 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -30000 },
-            { "type": "stat", "stat": "relationships", "delta": 5 },
-            { "type": "scheduleEvent", "delay_days": 4, "event_id": "family_nunta_petrecere" }
+            {
+              "type": "cash",
+              "delta": -30000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 5
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 4,
+              "event_id": "family_nunta_petrecere"
+            }
           ],
           "debrief": {
             "ro": "Ai fost prezent cu un dar cuviincios și ai ținut bugetul în frâu. Generozitatea nu se măsoară doar în sumă, ai găsit echilibrul între respect pentru familie și respect pentru banii tăi.",
@@ -521,15 +862,27 @@
           }
         },
         {
-          "label": { "ro": "Nu pot ajunge, trimit urări", "en": "Can't make it, send wishes" },
-          "effects": [{ "type": "stat", "stat": "relationships", "delta": -2 }],
+          "label": {
+            "ro": "Nu pot ajunge, trimit urări",
+            "en": "Can't make it, send wishes"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -2
+            }
+          ],
           "debrief": {
             "ro": "Ai păstrat toți banii, dar ai lipsit de la un moment important pentru cineva drag. Uneori bugetul strâmt cere alegeri grele, iar a fi sincer despre limitele tale e mai demn decât a te împovăra.",
             "en": "You kept all your money, but missed an important moment for someone dear. Sometimes a tight budget forces hard choices, and being honest about your limits is more dignified than overstretching."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "family_nunta_petrecere",
@@ -543,9 +896,14 @@
       "difficulty": 1,
       "conditions": [],
       "exclusions": [],
-      "prerequisites": ["family_nunta_invitatie"],
+      "prerequisites": [
+        "family_nunta_invitatie"
+      ],
       "chain_id": "nunta",
-      "skill_tags": ["relationships", "work_life_balance"],
+      "skill_tags": [
+        "relationships",
+        "work_life_balance"
+      ],
       "title": {
         "ro": "Seara de nuntă",
         "en": "The wedding night"
@@ -557,11 +915,26 @@
       "illustration": "cashy_happy",
       "choices": [
         {
-          "label": { "ro": "Rămân până la final", "en": "Stay to the end" },
+          "label": {
+            "ro": "Rămân până la final",
+            "en": "Stay to the end"
+          },
           "effects": [
-            { "type": "stat", "stat": "relationships", "delta": 6 },
-            { "type": "stat", "stat": "energy", "delta": -8 },
-            { "type": "stat", "stat": "stress", "delta": -5 }
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -8
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
           ],
           "debrief": {
             "ro": "Ai trăit seara pe deplin: amintiri și relații mai calde, cu prețul unei dimineți grele. Bucuria împărtășită are valoare reală, doar că se plătește în energie a doua zi.",
@@ -569,10 +942,21 @@
           }
         },
         {
-          "label": { "ro": "Plec devreme, îmi păstrez ritmul", "en": "Leave early, keep my rhythm" },
+          "label": {
+            "ro": "Plec devreme, îmi păstrez ritmul",
+            "en": "Leave early, keep my rhythm"
+          },
           "effects": [
-            { "type": "stat", "stat": "relationships", "delta": 3 },
-            { "type": "stat", "stat": "energy", "delta": -2 }
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "Ai fost prezent și ți-ai protejat somnul. Nu e nevoie să alegi între distracție și echilibru de fiecare dată, uneori poți lua puțin din amândouă.",
@@ -580,7 +964,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "friends_prieten_in_pana",
@@ -596,7 +983,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "prieten_in_pana",
-      "skill_tags": ["relationships", "reciprocity", "opportunity_cost"],
+      "skill_tags": [
+        "relationships",
+        "reciprocity",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Un prieten a rămas în pană",
         "en": "A friend is stranded"
@@ -608,13 +999,34 @@
       "illustration": "cashy_neutral",
       "choices": [
         {
-          "label": { "ro": "Mă duc după el (, 40 lei benzină)", "en": "Go get them (, 40 lei fuel)" },
+          "label": {
+            "ro": "Mă duc după el (, 40 lei benzină)",
+            "en": "Go get them (, 40 lei fuel)"
+          },
           "effects": [
-            { "type": "cash", "delta": -4000 },
-            { "type": "stat", "stat": "energy", "delta": -5 },
-            { "type": "stat", "stat": "relationships", "delta": 7 },
-            { "type": "setFlag", "flag": "ajutat_prieten" },
-            { "type": "scheduleEvent", "delay_days": 12, "event_id": "friends_prieten_returneaza" }
+            {
+              "type": "cash",
+              "delta": -4000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -5
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 7
+            },
+            {
+              "type": "setFlag",
+              "flag": "ajutat_prieten"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 12,
+              "event_id": "friends_prieten_returneaza"
+            }
           ],
           "debrief": {
             "ro": "Ai dat timp, energie și 40 lei ca să fii acolo pentru cineva. Relațiile bune nu sunt gratis, dar sunt printre cele mai bune investiții, și au obiceiul de a se întoarce când te aștepți mai puțin.",
@@ -622,15 +1034,27 @@
           }
         },
         {
-          "label": { "ro": "Îl ajut să găsească altă soluție", "en": "Help them find another way" },
-          "effects": [{ "type": "stat", "stat": "relationships", "delta": 1 }],
+          "label": {
+            "ro": "Îl ajut să găsească altă soluție",
+            "en": "Help them find another way"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
+          ],
           "debrief": {
             "ro": "Ți-ai păstrat timpul și banii și ai oferit sprijin în alt fel. E o alegere legitimă, nu ești dator să rezolvi totul personal, mai ales când și tu ești pe rezervă.",
             "en": "You kept your time and money and offered support another way. A legitimate choice, you're not obliged to fix everything in person, especially when you're low too."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "friends_prieten_returneaza",
@@ -644,9 +1068,14 @@
       "difficulty": 1,
       "conditions": [],
       "exclusions": [],
-      "prerequisites": ["friends_prieten_in_pana"],
+      "prerequisites": [
+        "friends_prieten_in_pana"
+      ],
       "chain_id": "prieten_in_pana",
-      "skill_tags": ["relationships", "reciprocity"],
+      "skill_tags": [
+        "relationships",
+        "reciprocity"
+      ],
       "title": {
         "ro": "Prietenul îți întoarce fapta",
         "en": "Your friend returns the favor"
@@ -658,10 +1087,20 @@
       "illustration": "cashy_celebration",
       "choices": [
         {
-          "label": { "ro": "Accept cu recunoștință (economisești 150 lei)", "en": "Accept gratefully (save 150 lei)" },
+          "label": {
+            "ro": "Accept cu recunoștință (economisești 150 lei)",
+            "en": "Accept gratefully (save 150 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": 15000 },
-            { "type": "stat", "stat": "relationships", "delta": 4 }
+            {
+              "type": "cash",
+              "delta": 15000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 4
+            }
           ],
           "debrief": {
             "ro": "Ajutorul dat în ziua 3 s-a întors ca 150 lei economisiți și o prietenie mai solidă. Reciprocitatea nu se poate contabiliza dinainte, dar oamenii pe care îi sprijini devin o parte reală din siguranța ta.",
@@ -669,10 +1108,20 @@
           }
         },
         {
-          "label": { "ro": "Îi ofer ceva de băut ca mulțumire (, 30 lei)", "en": "Offer them a drink to thank them (, 30 lei)" },
+          "label": {
+            "ro": "Îi ofer ceva de băut ca mulțumire (, 30 lei)",
+            "en": "Offer them a drink to thank them (, 30 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -3000 },
-            { "type": "stat", "stat": "relationships", "delta": 6 }
+            {
+              "type": "cash",
+              "delta": -3000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 6
+            }
           ],
           "debrief": {
             "ro": "Ai primit ajutorul și ai ținut echilibrul relației cu un gest mic. Ai plătit 30 lei ca schimbul de favoruri să rămână cald și cu două sensuri, o cheltuială care hrănește o legătură.",
@@ -680,7 +1129,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_voluntariat",
@@ -696,7 +1148,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "voluntariat",
-      "skill_tags": ["relationships", "networking", "opportunity_cost"],
+      "skill_tags": [
+        "relationships",
+        "networking",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Voluntariat de weekend",
         "en": "Weekend volunteering"
@@ -708,12 +1164,31 @@
       "illustration": "cashy_learning",
       "choices": [
         {
-          "label": { "ro": "Merg să dau o mână de ajutor", "en": "Go lend a hand" },
+          "label": {
+            "ro": "Merg să dau o mână de ajutor",
+            "en": "Go lend a hand"
+          },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": -7 },
-            { "type": "stat", "stat": "relationships", "delta": 6 },
-            { "type": "stat", "stat": "stress", "delta": -4 },
-            { "type": "scheduleEvent", "delay_days": 7, "event_id": "career_lead_job" }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -7
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -4
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 7,
+              "event_id": "career_lead_job"
+            }
           ],
           "debrief": {
             "ro": "Ai dat o zi și energie fără plată directă. Uneori valoarea nu vine în bani, ci în oameni și oportunități, investești în rețeaua ta fără să știi dinainte ce va aduce.",
@@ -721,10 +1196,21 @@
           }
         },
         {
-          "label": { "ro": "Rămân acasă, mă odihnesc", "en": "Stay home, rest" },
+          "label": {
+            "ro": "Rămân acasă, mă odihnesc",
+            "en": "Stay home, rest"
+          },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": 6 },
-            { "type": "stat", "stat": "stress", "delta": -3 }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
           ],
           "debrief": {
             "ro": "Ți-ai refăcut energia și ai pus odihna pe primul loc. E o alegere sănătoasă, doar că ai renunțat, de data asta, la întâlniri care uneori deschid uși neașteptate.",
@@ -732,7 +1218,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "career_lead_job",
@@ -746,9 +1235,15 @@
       "difficulty": 1,
       "conditions": [],
       "exclusions": [],
-      "prerequisites": ["work_voluntariat"],
+      "prerequisites": [
+        "work_voluntariat"
+      ],
       "chain_id": "voluntariat",
-      "skill_tags": ["networking", "income", "career"],
+      "skill_tags": [
+        "networking",
+        "income",
+        "career"
+      ],
       "title": {
         "ro": "O pistă de la voluntariat",
         "en": "A lead from the volunteering"
@@ -760,11 +1255,24 @@
       "illustration": "cashy_celebration",
       "choices": [
         {
-          "label": { "ro": "Preiau proiectul (+350 lei)", "en": "Take the project (+350 lei)" },
+          "label": {
+            "ro": "Preiau proiectul (+350 lei)",
+            "en": "Take the project (+350 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": 35000 },
-            { "type": "stat", "stat": "energy", "delta": -5 },
-            { "type": "jobStability", "delta": 3 }
+            {
+              "type": "cash",
+              "delta": 35000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -5
+            },
+            {
+              "type": "jobStability",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Ziua de voluntariat s-a întors ca 350 lei și o legătură nouă. Oportunitățile bune apar rareori din senin, de obicei ies din oamenii pe lângă care ai trecut deja cu bine.",
@@ -772,15 +1280,27 @@
           }
         },
         {
-          "label": { "ro": "Mulțumesc, dar sunt prins acum", "en": "Thanks, but I'm stretched now" },
-          "effects": [{ "type": "stat", "stat": "relationships", "delta": 2 }],
+          "label": {
+            "ro": "Mulțumesc, dar sunt prins acum",
+            "en": "Thanks, but I'm stretched now"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 2
+            }
+          ],
           "debrief": {
             "ro": "Ai lăsat un venit, dar ți-ai respectat limitele de timp și energie. A ști când să spui „nu” la muncă în plus e tot o formă de gestionare a resurselor, timpul e și el o resursă.",
             "en": "You passed on income, but respected your limits of time and energy. Knowing when to say \"no\" to extra work is also resource management, time is a resource too."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_bonus_performanta",
@@ -792,10 +1312,19 @@
       "max_day": 30,
       "role_tags": [],
       "difficulty": 1,
-      "conditions": [{ "type": "hasFlag", "flag": "reputatie_buna" }],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "reputatie_buna"
+        }
+      ],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["income", "windfall_handling", "goals"],
+      "skill_tags": [
+        "income",
+        "windfall_handling",
+        "goals"
+      ],
       "title": {
         "ro": "Bonus de performanță",
         "en": "Performance bonus"
@@ -807,26 +1336,52 @@
       "illustration": "cashy_celebration",
       "choices": [
         {
-          "label": { "ro": "Îl pun în fondul de urgență (+400 lei în fond)", "en": "Put it in the emergency fund (+400 lei to fund)" },
-          "effects": [{ "type": "fund", "delta": 40000 }],
+          "label": {
+            "ro": "Îl pun în fondul de urgență (+400 lei în fond)",
+            "en": "Put it in the emergency fund (+400 lei to fund)"
+          },
+          "effects": [
+            {
+              "type": "fund",
+              "delta": 40000
+            }
+          ],
           "debrief": {
             "ro": "Ai trimis un venit neașteptat direct în tampon. Banii pe care nu-i planificai sunt cel mai ușor de economisit, nu-ți lipseau azi, așa că îți întăresc reziliența de mâine.",
             "en": "You sent an unexpected windfall straight into your buffer. Money you didn't plan for is the easiest to save, you didn't miss it today, so it strengthens tomorrow's resilience."
           }
         },
         {
-          "label": { "ro": "Îl adaug la obiectivul lunii (+400 lei la obiectiv)", "en": "Add it to the month's goal (+400 lei to goal)" },
-          "effects": [{ "type": "goal", "delta": 40000 }],
+          "label": {
+            "ro": "Îl adaug la obiectivul lunii (+400 lei la obiectiv)",
+            "en": "Add it to the month's goal (+400 lei to goal)"
+          },
+          "effects": [
+            {
+              "type": "goal",
+              "delta": 40000
+            }
+          ],
           "debrief": {
             "ro": "Ai împins obiectivul mai aproape cu un ban muncit. Alocarea unui bonus către o țintă clară e felul în care recompensele mici devin, în timp, rezultate mari.",
             "en": "You pushed your goal closer with money you earned. Directing a bonus toward a clear target is how small rewards become, over time, big results."
           }
         },
         {
-          "label": { "ro": "Mă răsfăț cu ceva ce-mi doream (, 400 lei)", "en": "Treat myself to something I wanted (, 400 lei)" },
+          "label": {
+            "ro": "Mă răsfăț cu ceva ce-mi doream (, 400 lei)",
+            "en": "Treat myself to something I wanted (, 400 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -40000 },
-            { "type": "stat", "stat": "stress", "delta": -6 }
+            {
+              "type": "cash",
+              "delta": -40000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -6
+            }
           ],
           "debrief": {
             "ro": "Ți-ai oferit o bucurie meritată și ai lăsat stresul să scadă. Un bonus poate fi și pentru trăit, nu doar pentru economisit, cheia e să fie o alegere conștientă, nu un reflex.",
@@ -834,7 +1389,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_tips_curier",
@@ -844,12 +1402,18 @@
       "cooldown_days": 0,
       "min_day": 2,
       "max_day": 28,
-      "role_tags": ["curier"],
+      "role_tags": [
+        "curier"
+      ],
       "difficulty": 1,
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["variable_income", "saving", "windfall_handling"],
+      "skill_tags": [
+        "variable_income",
+        "saving",
+        "windfall_handling"
+      ],
       "title": {
         "ro": "Zi cu bacșișuri bune",
         "en": "A good tips day"
@@ -861,19 +1425,41 @@
       "illustration": "cashy_happy",
       "choices": [
         {
-          "label": { "ro": "Pun bacșișul deoparte (+120 lei în fond)", "en": "Set the tips aside (+120 lei to fund)" },
-          "effects": [{ "type": "fund", "delta": 12000 }],
+          "label": {
+            "ro": "Pun bacșișul deoparte (+120 lei în fond)",
+            "en": "Set the tips aside (+120 lei to fund)"
+          },
+          "effects": [
+            {
+              "type": "fund",
+              "delta": 12000
+            }
+          ],
           "debrief": {
             "ro": "Ai tratat un venit variabil ca pe o ocazie de a economisi. Zilele bune nu vin garantat, a pune deoparte în vârfuri e ce te ține pe linia de plutire în zilele slabe.",
             "en": "You treated variable income as a chance to save. Good days aren't guaranteed, setting aside on the peaks is what keeps you afloat on the slow days."
           }
         },
         {
-          "label": { "ro": "Îmi iau o masă caldă (, 120 lei)", "en": "Get myself a warm meal (, 120 lei)" },
+          "label": {
+            "ro": "Îmi iau o masă caldă (, 120 lei)",
+            "en": "Get myself a warm meal (, 120 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -12000 },
-            { "type": "stat", "stat": "energy", "delta": 6 },
-            { "type": "stat", "stat": "health", "delta": 3 }
+            {
+              "type": "cash",
+              "delta": -12000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Ai transformat efortul de azi în energie și o masă bună. După o zi grea pe drum, a te hrăni bine e o cheltuială care se întoarce în putere de muncă, nu orice cheltuială e o pierdere.",
@@ -881,7 +1467,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_decont_transport",
@@ -896,7 +1485,10 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["cash_flow", "budgeting"],
+      "skill_tags": [
+        "cash_flow",
+        "budgeting"
+      ],
       "title": {
         "ro": "Decont de transport",
         "en": "Travel reimbursement"
@@ -908,23 +1500,42 @@
       "illustration": "cashy_happy",
       "choices": [
         {
-          "label": { "ro": "Îi las în cont ca tampon (+180 lei)", "en": "Leave them in the account as buffer (+180 lei)" },
-          "effects": [{ "type": "cash", "delta": 18000 }],
+          "label": {
+            "ro": "Îi las în cont ca tampon (+180 lei)",
+            "en": "Leave them in the account as buffer (+180 lei)"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 18000
+            }
+          ],
           "debrief": {
             "ro": "Ai recuperat ce ai avansat și l-ai ținut în cont. Un decont nu e un câștig nou, e revenirea unui ban pe care l-ai împrumutat firmei fără dobândă. Bine că l-ai urmărit și cerut.",
             "en": "You recovered what you fronted and kept it in your account. A reimbursement isn't new income, it's the return of money you lent the company interest-free. Good that you tracked and claimed it."
           }
         },
         {
-          "label": { "ro": "Îl mut direct în fond (+180 lei în fond)", "en": "Move it straight to the fund (+180 lei to fund)" },
-          "effects": [{ "type": "fund", "delta": 18000 }],
+          "label": {
+            "ro": "Îl mut direct în fond (+180 lei în fond)",
+            "en": "Move it straight to the fund (+180 lei to fund)"
+          },
+          "effects": [
+            {
+              "type": "fund",
+              "delta": 18000
+            }
+          ],
           "debrief": {
             "ro": "Ai folosit revenirea banului ca ocazie de a crește tamponul. Pentru că nu contai pe el în cheltuieli, e ușor de trecut în economii fără să simți lipsa.",
             "en": "You used the returned money as a chance to grow your buffer. Since you weren't counting on it for spending, it's easy to move into savings without feeling the pinch."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "social_cadou_sef",
@@ -939,7 +1550,10 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["social_spending", "boundaries"],
+      "skill_tags": [
+        "social_spending",
+        "boundaries"
+      ],
       "title": {
         "ro": "Colegii strâng de cadou",
         "en": "Colleagues chip in for a gift"
@@ -951,10 +1565,20 @@
       "illustration": "cashy_neutral",
       "choices": [
         {
-          "label": { "ro": "Contribui (, 40 lei)", "en": "Chip in (, 40 lei)" },
+          "label": {
+            "ro": "Contribui (, 40 lei)",
+            "en": "Chip in (, 40 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -4000 },
-            { "type": "stat", "stat": "relationships", "delta": 3 }
+            {
+              "type": "cash",
+              "delta": -4000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Ai pus 40 lei ca să faci parte din gest. Micile cheltuieli sociale întăresc apartenența la echipă, sunt reale în buget, dar au și un rost, dacă le alegi conștient.",
@@ -962,15 +1586,27 @@
           }
         },
         {
-          "label": { "ro": "Trec de data asta, spun frumos", "en": "Pass this time, politely" },
-          "effects": [{ "type": "stat", "stat": "stress", "delta": -1 }],
+          "label": {
+            "ro": "Trec de data asta, spun frumos",
+            "en": "Pass this time, politely"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
+          ],
           "debrief": {
             "ro": "Ai păstrat cei 40 lei și ți-ai respectat bugetul. A spune „nu” cu calm la o strângere de bani e perfect în regulă, nimeni nu-ți datorează o justificare pentru cum îți gestionezi banii.",
             "en": "You kept the 40 lei and respected your budget. Saying \"no\" calmly to a collection is perfectly fine, no one owes anyone an explanation for how they manage their money."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "career_mentor_cafea",
@@ -985,7 +1621,11 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["career", "networking", "invest_in_yourself"],
+      "skill_tags": [
+        "career",
+        "networking",
+        "invest_in_yourself"
+      ],
       "title": {
         "ro": "O cafea cu un mentor",
         "en": "Coffee with a mentor"
@@ -997,12 +1637,28 @@
       "illustration": "cashy_learning",
       "choices": [
         {
-          "label": { "ro": "Accept invitația (, 25 lei)", "en": "Accept the invitation (, 25 lei)" },
+          "label": {
+            "ro": "Accept invitația (, 25 lei)",
+            "en": "Accept the invitation (, 25 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -2500 },
-            { "type": "stat", "stat": "relationships", "delta": 4 },
-            { "type": "jobStability", "delta": 4 },
-            { "type": "setFlag", "flag": "reputatie_buna" }
+            {
+              "type": "cash",
+              "delta": -2500
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 4
+            },
+            {
+              "type": "jobStability",
+              "delta": 4
+            },
+            {
+              "type": "setFlag",
+              "flag": "reputatie_buna"
+            }
           ],
           "debrief": {
             "ro": "Ai dat o oră și 25 lei pe sfaturi și o relație care poate deschide uși. Cele mai bune investiții nu apar mereu într-un extras de cont, uneori sunt oameni care te cunosc și te recomandă.",
@@ -1010,15 +1666,27 @@
           }
         },
         {
-          "label": { "ro": "Amân, sunt ocupat acum", "en": "Postpone, I'm busy now" },
-          "effects": [{ "type": "stat", "stat": "energy", "delta": 2 }],
+          "label": {
+            "ro": "Amân, sunt ocupat acum",
+            "en": "Postpone, I'm busy now"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
+          ],
           "debrief": {
             "ro": "Ți-ai păstrat timpul și energia pentru altceva. E o alegere validă, dar întâlnirile care par „doar o cafea” sunt uneori exact ușa care contează. Poți reveni la ofertă mai târziu.",
             "en": "You kept your time and energy for something else. A valid choice, but meetings that seem like \"just a coffee\" are sometimes exactly the door that matters. You can revisit the offer later."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "family_familia_cere_bani",
@@ -1033,7 +1701,11 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["family_finance", "boundaries", "cash_flow"],
+      "skill_tags": [
+        "family_finance",
+        "boundaries",
+        "cash_flow"
+      ],
       "title": {
         "ro": "Familia cere o mână de ajutor",
         "en": "Family asks for help"
@@ -1045,10 +1717,20 @@
       "illustration": "cashy_neutral",
       "choices": [
         {
-          "label": { "ro": "Ajut cu toată suma (, 400 lei)", "en": "Help with the full amount (, 400 lei)" },
+          "label": {
+            "ro": "Ajut cu toată suma (, 400 lei)",
+            "en": "Help with the full amount (, 400 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -40000 },
-            { "type": "stat", "stat": "relationships", "delta": 6 }
+            {
+              "type": "cash",
+              "delta": -40000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 6
+            }
           ],
           "debrief": {
             "ro": "Ai fost sprijinul familiei într-un moment greu, cu prețul unui tampon mai subțire. Ajutorul dat celor apropiați are valoare reală, iar alegerea ta e demnă, indiferent cât de mic devine soldul.",
@@ -1056,10 +1738,20 @@
           }
         },
         {
-          "label": { "ro": "Ajut cu cât pot acum (, 150 lei)", "en": "Help with what I can now (, 150 lei)" },
+          "label": {
+            "ro": "Ajut cu cât pot acum (, 150 lei)",
+            "en": "Help with what I can now (, 150 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -15000 },
-            { "type": "stat", "stat": "relationships", "delta": 4 }
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 4
+            }
           ],
           "debrief": {
             "ro": "Ai oferit sprijin fără să-ți golești tamponul. A ajuta parțial și sincer e o cale echilibrată: rămâi de nădejde pentru familie și pentru tine, în același timp.",
@@ -1067,15 +1759,27 @@
           }
         },
         {
-          "label": { "ro": "Explic sincer că acum nu pot", "en": "Explain honestly that I can't now" },
-          "effects": [{ "type": "stat", "stat": "stress", "delta": 3 }],
+          "label": {
+            "ro": "Explic sincer că acum nu pot",
+            "en": "Explain honestly that I can't now"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            }
+          ],
           "debrief": {
             "ro": "Ai fost cinstit despre limitele tale de acum. A spune deschis „nu pot luna asta” e un act de respect, și pentru familie, și pentru propria stabilitate. Sinceritatea păstrează încrederea pe termen lung.",
             "en": "You were honest about your current limits. Saying openly \"I can't this month\" is an act of respect, for your family and for your own stability. Honesty keeps trust intact over the long run."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "friends_zi_nastere",
@@ -1090,7 +1794,11 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["social_spending", "relationships", "budgeting"],
+      "skill_tags": [
+        "social_spending",
+        "relationships",
+        "budgeting"
+      ],
       "title": {
         "ro": "Ziua de naștere a unui prieten",
         "en": "A friend's birthday"
@@ -1102,10 +1810,20 @@
       "illustration": "cashy_happy",
       "choices": [
         {
-          "label": { "ro": "Un cadou frumos (, 130 lei)", "en": "A nice gift (, 130 lei)" },
+          "label": {
+            "ro": "Un cadou frumos (, 130 lei)",
+            "en": "A nice gift (, 130 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -13000 },
-            { "type": "stat", "stat": "relationships", "delta": 5 }
+            {
+              "type": "cash",
+              "delta": -13000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 5
+            }
           ],
           "debrief": {
             "ro": "Ai marcat momentul cu un cadou pe măsură. Cheltuiala e reală, dar prietenia hrănită azi e o parte din rețeaua ta de sprijin de mâine, dacă intră în buget, e o cheltuială cu sens.",
@@ -1113,10 +1831,20 @@
           }
         },
         {
-          "label": { "ro": "Un gest atent și ieftin (, 40 lei)", "en": "A thoughtful, cheap gesture (, 40 lei)" },
+          "label": {
+            "ro": "Un gest atent și ieftin (, 40 lei)",
+            "en": "A thoughtful, cheap gesture (, 40 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -4000 },
-            { "type": "stat", "stat": "relationships", "delta": 4 }
+            {
+              "type": "cash",
+              "delta": -4000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 4
+            }
           ],
           "debrief": {
             "ro": "Ai arătat că-ți pasă fără să forțezi bugetul. Grija nu se măsoară în preț, un dar gândit spune uneori mai mult decât unul scump, și lasă și tamponul intact.",
@@ -1124,15 +1852,27 @@
           }
         },
         {
-          "label": { "ro": "Doar un mesaj cald", "en": "Just a warm message" },
-          "effects": [{ "type": "stat", "stat": "relationships", "delta": 1 }],
+          "label": {
+            "ro": "Doar un mesaj cald",
+            "en": "Just a warm message"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
+          ],
           "debrief": {
             "ro": "Ai păstrat banii și ai fost prezent cu vorbe. Nu orice ocazie cere o cheltuială, dar un gest, oricât de mic, contează mai mult decât tăcerea. Ai ales cumpătarea.",
             "en": "You kept your money and showed up with words. Not every occasion needs a spend, but a gesture, however small, counts more than silence. You chose thrift."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "friends_festival",
@@ -1147,7 +1887,11 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["social_spending", "opportunity_cost", "work_life_balance"],
+      "skill_tags": [
+        "social_spending",
+        "opportunity_cost",
+        "work_life_balance"
+      ],
       "title": {
         "ro": "Invitație la festival",
         "en": "Festival invitation"
@@ -1159,12 +1903,30 @@
       "illustration": "cashy_neutral",
       "choices": [
         {
-          "label": { "ro": "Merg tot weekendul (, 350 lei)", "en": "Go all weekend (, 350 lei)" },
+          "label": {
+            "ro": "Merg tot weekendul (, 350 lei)",
+            "en": "Go all weekend (, 350 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -35000 },
-            { "type": "stat", "stat": "relationships", "delta": 7 },
-            { "type": "stat", "stat": "stress", "delta": -8 },
-            { "type": "stat", "stat": "energy", "delta": -10 }
+            {
+              "type": "cash",
+              "delta": -35000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 7
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -8
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -10
+            }
           ],
           "debrief": {
             "ro": "Ai plătit 350 lei pentru trei zile de distracție și legături mai calde, cu prețul energiei și al tamponului. Experiențele contează, atâta timp cât alegi conștient cât din buget merg spre ele.",
@@ -1172,12 +1934,30 @@
           }
         },
         {
-          "label": { "ro": "Doar o zi (, 150 lei)", "en": "Just one day (, 150 lei)" },
+          "label": {
+            "ro": "Doar o zi (, 150 lei)",
+            "en": "Just one day (, 150 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -15000 },
-            { "type": "stat", "stat": "relationships", "delta": 4 },
-            { "type": "stat", "stat": "stress", "delta": -4 },
-            { "type": "stat", "stat": "energy", "delta": -4 }
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -4
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -4
+            }
           ],
           "debrief": {
             "ro": "Ai prins distracția fără să dai tot bugetul pe ea. O zi în loc de trei e compromisul care-ți lasă și amintiri, și bani, nu e nevoie de tot-sau-nimic ca să te bucuri.",
@@ -1185,10 +1965,21 @@
           }
         },
         {
-          "label": { "ro": "Rămân, îi văd altă dată", "en": "Stay home, see them another time" },
+          "label": {
+            "ro": "Rămân, îi văd altă dată",
+            "en": "Stay home, see them another time"
+          },
           "effects": [
-            { "type": "stat", "stat": "relationships", "delta": -2 },
-            { "type": "stat", "stat": "energy", "delta": 4 }
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 4
+            }
           ],
           "debrief": {
             "ro": "Ai păstrat 350 lei și energia, dar ai lipsit de la un weekend cu prietenii. Uneori ratezi ceva ca să protejezi altceva, iar dacă obiectivul lunii e aproape, poate fi exact alegerea potrivită.",
@@ -1196,7 +1987,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "friends_iesire_colegi",
@@ -1211,7 +2005,11 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["social_spending", "relationships", "budgeting"],
+      "skill_tags": [
+        "social_spending",
+        "relationships",
+        "budgeting"
+      ],
       "title": {
         "ro": "Ieșire cu colegii după muncă",
         "en": "After-work outing with colleagues"
@@ -1223,11 +2021,25 @@
       "illustration": "cashy_happy",
       "choices": [
         {
-          "label": { "ro": "Merg și mă bucur de seară (, 80 lei)", "en": "Go and enjoy the evening (, 80 lei)" },
+          "label": {
+            "ro": "Merg și mă bucur de seară (, 80 lei)",
+            "en": "Go and enjoy the evening (, 80 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -8000 },
-            { "type": "stat", "stat": "relationships", "delta": 5 },
-            { "type": "stat", "stat": "stress", "delta": -4 }
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 5
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -4
+            }
           ],
           "debrief": {
             "ro": "Ai plătit 80 lei pentru o seară care leagă echipa. Cheltuielile sociale nu sunt risipă când le alegi, relațiile de la muncă contează și pentru cum te simți acolo zi de zi.",
@@ -1235,10 +2047,20 @@
           }
         },
         {
-          "label": { "ro": "Vin doar la o limonadă (, 20 lei)", "en": "Come just for a lemonade (, 20 lei)" },
+          "label": {
+            "ro": "Vin doar la o limonadă (, 20 lei)",
+            "en": "Come just for a lemonade (, 20 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -2000 },
-            { "type": "stat", "stat": "relationships", "delta": 3 }
+            {
+              "type": "cash",
+              "delta": -2000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Ai fost prezent fără să dai mult pe seară. Nu e nevoie să consumi la fel ca toți ca să faci parte din grup, poți socializa și cu un buget mic, fără explicații.",
@@ -1246,10 +2068,21 @@
           }
         },
         {
-          "label": { "ro": "Azi trec, sunt obosit", "en": "Skip today, I'm tired" },
+          "label": {
+            "ro": "Azi trec, sunt obosit",
+            "en": "Skip today, I'm tired"
+          },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": 5 },
-            { "type": "stat", "stat": "relationships", "delta": -1 }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 5
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Ți-ai ascultat oboseala și ai păstrat banii. A rata o ieșire nu strică nimic, echilibrul înseamnă și să-ți alegi când ai energie pentru oameni și când ai nevoie de tine.",
@@ -1257,7 +2090,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "windfall_bani_neasteptati",
@@ -1272,7 +2108,11 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["windfall_handling", "saving", "goals"],
+      "skill_tags": [
+        "windfall_handling",
+        "saving",
+        "goals"
+      ],
       "title": {
         "ro": "Bani pe care nu-i așteptai",
         "en": "Money you didn't expect"
@@ -1284,19 +2124,40 @@
       "illustration": "cashy_celebration",
       "choices": [
         {
-          "label": { "ro": "În fondul de urgență (+500 lei în fond)", "en": "Into the emergency fund (+500 lei to fund)" },
-          "effects": [{ "type": "fund", "delta": 50000 }],
+          "label": {
+            "ro": "În fondul de urgență (+500 lei în fond)",
+            "en": "Into the emergency fund (+500 lei to fund)"
+          },
+          "effects": [
+            {
+              "type": "fund",
+              "delta": 50000
+            }
+          ],
           "debrief": {
             "ro": "Ai trimis un ban neplanificat direct în plasa ta de siguranță. Fiindcă nu contai pe el, nu-ți lipsește azi, dar mâine, la un șoc neașteptat, poate face toată diferența.",
             "en": "You sent unplanned money straight into your safety net. Since you weren't counting on it, you don't miss it today, but tomorrow, at an unexpected shock, it can make all the difference."
           }
         },
         {
-          "label": { "ro": "Jumătate-jumătate: fond și o bucurie", "en": "Half and half: fund and a treat" },
+          "label": {
+            "ro": "Jumătate-jumătate: fond și o bucurie",
+            "en": "Half and half: fund and a treat"
+          },
           "effects": [
-            { "type": "fund", "delta": 25000 },
-            { "type": "cash", "delta": -25000 },
-            { "type": "stat", "stat": "stress", "delta": -5 }
+            {
+              "type": "fund",
+              "delta": 25000
+            },
+            {
+              "type": "cash",
+              "delta": -25000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
           ],
           "debrief": {
             "ro": "Ai împărțit norocul între viitor și prezent. Nici totul deoparte, nici totul pe distracție, regula „jumătate economisesc, jumătate mă bucur” e un mod sănătos de a trata un venit neașteptat.",
@@ -1304,15 +2165,26 @@
           }
         },
         {
-          "label": { "ro": "Spre obiectivul lunii (+500 lei la obiectiv)", "en": "Toward the month's goal (+500 lei to goal)" },
-          "effects": [{ "type": "goal", "delta": 50000 }],
+          "label": {
+            "ro": "Spre obiectivul lunii (+500 lei la obiectiv)",
+            "en": "Toward the month's goal (+500 lei to goal)"
+          },
+          "effects": [
+            {
+              "type": "goal",
+              "delta": 50000
+            }
+          ],
           "debrief": {
             "ro": "Ai folosit norocul ca să te apropii de ținta ta. Cel mai rapid mod de a atinge un obiectiv e să direcționezi spre el banii care apar neașteptat, înainte să se piardă în cheltuieli mărunte.",
             "en": "You used the luck to get closer to your target. The fastest way to reach a goal is to direct unexpected money toward it, before it dissolves into small spending."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_proiect_nou",
@@ -1324,10 +2196,20 @@
       "max_day": 22,
       "role_tags": [],
       "difficulty": 1,
-      "conditions": [{ "type": "statAbove", "stat": "energy", "x": 40 }],
+      "conditions": [
+        {
+          "type": "statAbove",
+          "stat": "energy",
+          "x": 40
+        }
+      ],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["career", "invest_in_yourself", "opportunity_cost"],
+      "skill_tags": [
+        "career",
+        "invest_in_yourself",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Un proiect de întindere",
         "en": "A stretch project"
@@ -1339,12 +2221,29 @@
       "illustration": "cashy_learning",
       "choices": [
         {
-          "label": { "ro": "Îl preiau, vreau să cresc", "en": "Take it on, I want to grow" },
+          "label": {
+            "ro": "Îl preiau, vreau să cresc",
+            "en": "Take it on, I want to grow"
+          },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": -8 },
-            { "type": "stat", "stat": "stress", "delta": 4 },
-            { "type": "jobStability", "delta": 6 },
-            { "type": "setFlag", "flag": "reputatie_buna" }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -8
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            },
+            {
+              "type": "jobStability",
+              "delta": 6
+            },
+            {
+              "type": "setFlag",
+              "flag": "reputatie_buna"
+            }
           ],
           "debrief": {
             "ro": "Ai investit energie într-o provocare fără plată imediată. Câștigul e în reputație și pricepere, capital care nu apare azi în cont, dar deschide bonusuri și oportunități mai târziu.",
@@ -1352,15 +2251,27 @@
           }
         },
         {
-          "label": { "ro": "Rămân pe ce știu bine", "en": "Stick to what I know well" },
-          "effects": [{ "type": "stat", "stat": "stress", "delta": -3 }],
+          "label": {
+            "ro": "Rămân pe ce știu bine",
+            "en": "Stick to what I know well"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
+          ],
           "debrief": {
             "ro": "Ai ales confortul și ritmul cunoscut. E o alegere legitimă, mai ales când energia e limitată, dar creșterea vine de obicei din lucrurile care te scot puțin din zona sigură.",
             "en": "You chose comfort and a familiar rhythm. A legitimate choice, especially when energy is limited, but growth usually comes from the things that pull you a little out of the safe zone."
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "relationship_cina_pereche",
@@ -1375,7 +2286,11 @@
       "conditions": [],
       "exclusions": [],
       "prerequisites": [],
-      "skill_tags": ["relationships", "social_spending", "work_life_balance"],
+      "skill_tags": [
+        "relationships",
+        "social_spending",
+        "work_life_balance"
+      ],
       "title": {
         "ro": "O seară cu persoana dragă",
         "en": "An evening with your partner"
@@ -1387,11 +2302,25 @@
       "illustration": "cashy_happy",
       "choices": [
         {
-          "label": { "ro": "Cină în oraș (, 120 lei)", "en": "Dinner out (, 120 lei)" },
+          "label": {
+            "ro": "Cină în oraș (, 120 lei)",
+            "en": "Dinner out (, 120 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -12000 },
-            { "type": "stat", "stat": "relationships", "delta": 6 },
-            { "type": "stat", "stat": "stress", "delta": -5 }
+            {
+              "type": "cash",
+              "delta": -12000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
           ],
           "debrief": {
             "ro": "Ai investit 120 lei într-o seară care întărește o relație importantă. Timpul de calitate cu cei dragi are valoare reală, cheia e ca astfel de seri să încapă în ritmul bugetului, nu să-l spargă.",
@@ -1399,11 +2328,25 @@
           }
         },
         {
-          "label": { "ro": "Gătim acasă împreună (, 35 lei)", "en": "Cook at home together (, 35 lei)" },
+          "label": {
+            "ro": "Gătim acasă împreună (, 35 lei)",
+            "en": "Cook at home together (, 35 lei)"
+          },
           "effects": [
-            { "type": "cash", "delta": -3500 },
-            { "type": "stat", "stat": "relationships", "delta": 5 },
-            { "type": "stat", "stat": "stress", "delta": -4 }
+            {
+              "type": "cash",
+              "delta": -3500
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 5
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -4
+            }
           ],
           "debrief": {
             "ro": "Ai avut o seară caldă cu un sfert din cost. Apropierea nu cere un restaurant, o cină gătită împreună poate lega la fel de mult, lăsând banii pentru ce contează mai departe.",
@@ -1411,7 +2354,10 @@
           }
         }
       ],
-      "source": { "label": "redacție FinEdu, scenarii de viață RO 2026", "needs_expert_review": true }
+      "source": {
+        "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
     },
     {
       "id": "work_tura_weekend_ospatar",
@@ -2775,6 +3721,204 @@
       ],
       "source": {
         "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "tura_extra_sambata",
+      "category": "work",
+      "rarity": "common",
+      "weight": 5,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 26,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "work",
+        "energy_tradeoff"
+      ],
+      "title": {
+        "ro": "Tura extra de sâmbătă",
+        "en": "The extra Saturday shift"
+      },
+      "narrative": {
+        "ro": "Șeful te întreabă dacă vrei o tură în plus sâmbătă: 90 de lei în mână. Aveai de gând să dormi și să-ți vezi prietenii.",
+        "en": "Your boss asks if you want an extra Saturday shift: 90 lei cash. You had planned to sleep in and see your friends."
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Accepți toată tura",
+            "en": "Take the whole shift"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 9000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "Bani buni, dar plătiți cu moneda-timp: energie și o zi cu ai tăi. Ocazional e o mutare excelentă. Ca regulă săptămânală, devine burnout cu salariu.",
+            "en": "Good money, paid in the time currency: energy and a day with your people. As a one-off, a great move. As a weekly rule, it becomes paid burnout."
+          }
+        },
+        {
+          "label": {
+            "ro": "Negociezi jumătate de tură",
+            "en": "Negotiate half a shift"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 4500
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "Negocierea e și ea o abilitate financiară: ai luat banii ȘI o jumătate de zi liberă. Cele mai bune înțelegeri lasă ambele părți ok.",
+            "en": "Negotiating is a money skill too: you got cash AND half the day off. The best deals leave both sides fine."
+          }
+        },
+        {
+          "label": {
+            "ro": "Refuzi, weekendul e al tău",
+            "en": "Decline, the weekend is yours"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "Odihna și oamenii tăi sunt investiții, nu cheltuieli. Un refuz sănătos din când în când îți ține și energia, și motivația de luni.",
+            "en": "Rest and your people are investments, not expenses. A healthy no now and then protects both your energy and your Monday motivation."
+          }
+        }
+      ],
+      "source": {
+        "label": "echilibru munca-viata la primul job (educational)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "colecta_cadou_coleg",
+      "category": "friends",
+      "rarity": "common",
+      "weight": 5,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 27,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "friends",
+        "social_budget"
+      ],
+      "title": {
+        "ro": "Colecta pentru cadou",
+        "en": "The gift collection"
+      },
+      "narrative": {
+        "ro": "Un coleg își serbează ziua. Se strânge „câte 20 de lei de căciulă\" pentru un cadou comun. Nu e obligatoriu, dar toată lumea știe cine a dat.",
+        "en": "A colleague's birthday is coming. Everyone is chipping in \"20 lei each\" for a group gift. Optional, but everyone knows who gave."
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Dai cei 20 de lei",
+            "en": "Chip in the 20 lei"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -2000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "Cheltuială socială mică, efect mare de apartenență. Bugetul sănătos are un plic și pentru astea, ca să nu te ia prin surprindere.",
+            "en": "A small social spend with a big belonging effect. A healthy budget has an envelope for these, so they never ambush you."
+          }
+        },
+        {
+          "label": {
+            "ro": "Dai 10 și un bilet scris de mână",
+            "en": "Give 10 and a handwritten note"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -1000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "Gestul bate suma: biletul personal se ține minte mai mult decât încă 10 lei în plic. Generozitatea creativă e prietena bugetelor mici.",
+            "en": "The gesture beats the amount: a personal note is remembered longer than an extra 10 in the envelope. Creative generosity is a small budget's best friend."
+          }
+        },
+        {
+          "label": {
+            "ro": "Sari peste, nu-l cunoști aproape deloc",
+            "en": "Skip it, you barely know him"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "Legitim: nu orice colectă e obligația ta. Doar asumă-ți costul social mărunt și fii consecvent, nu dai doar când se vede.",
+            "en": "Legitimate: not every collection is your duty. Just own the small social cost and be consistent, not only giving when it shows."
+          }
+        }
+      ],
+      "source": {
+        "label": "norme sociale la locul de munca (educational)",
+        "reviewed_by": null,
         "needs_expert_review": true
       }
     }

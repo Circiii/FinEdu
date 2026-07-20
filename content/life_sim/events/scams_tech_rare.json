@@ -14,7 +14,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["scams", "phishing", "fraud_defense"],
+      "skill_tags": [
+        "scams",
+        "phishing",
+        "fraud_defense"
+      ],
       "title": {
         "ro": "SMS de la „curier”",
         "en": "SMS from the „courier”"
@@ -31,13 +35,23 @@
             "en": "Open the link and enter your card details for the „2 lei”"
           },
           "effects": [
-            { "type": "cash", "delta": -200 },
-            { "type": "stat", "stat": "stress", "delta": 2 },
+            {
+              "type": "cash",
+              "delta": -200
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
             {
               "type": "scheduleEffect",
               "delay_days": 2,
               "effects": [
-                { "type": "cash", "delta": -2500 }
+                {
+                  "type": "cash",
+                  "delta": -2500
+                }
               ],
               "note": {
                 "ro": "O plată mică neautorizată apare pe card înainte să-l blochezi; o contești și o recuperezi parțial.",
@@ -93,7 +107,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["scams", "fraud_defense", "needs_wants"],
+      "skill_tags": [
+        "scams",
+        "fraud_defense",
+        "needs_wants"
+      ],
       "title": {
         "ro": "Oferta care sună perfect",
         "en": "The deal that sounds perfect"
@@ -110,8 +128,15 @@
             "en": "Send the 300 lei deposit to reserve it"
           },
           "effects": [
-            { "type": "cash", "delta": -30000 },
-            { "type": "stat", "stat": "stress", "delta": 2 }
+            {
+              "type": "cash",
+              "delta": -30000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Vânzătorul a dispărut după transfer. Avansul cerut de la un necunoscut, fără întâlnire și fără livrare verificabilă, e semnalul clasic de țeapă. Apărarea: plata la primire sau întâlnire într-un loc public.",
@@ -161,7 +186,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["scams", "fraud_defense"],
+      "skill_tags": [
+        "scams",
+        "fraud_defense"
+      ],
       "title": {
         "ro": "Jobul care cere bani ca să te angajeze",
         "en": "The job that asks you to pay to be hired"
@@ -178,8 +206,15 @@
             "en": "Pay the 150 lei training fee"
           },
           "effects": [
-            { "type": "cash", "delta": -15000 },
-            { "type": "stat", "stat": "stress", "delta": 2 }
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Jobul nu s-a mai concretizat. Un angajator real te plătește, nu îți cere bani ca să te angajeze. Taxa în avans pentru „kit” sau „training” e semnalul de fraudă.",
@@ -229,7 +264,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["scams", "phishing", "fraud_defense"],
+      "skill_tags": [
+        "scams",
+        "phishing",
+        "fraud_defense"
+      ],
       "title": {
         "ro": "„Sunt de la bancă” la telefon",
         "en": "„I’m calling from the bank”"
@@ -246,8 +285,15 @@
             "en": "Read out the SMS code to „stop” the transaction"
           },
           "effects": [
-            { "type": "cash", "delta": -30000 },
-            { "type": "stat", "stat": "stress", "delta": 3 }
+            {
+              "type": "cash",
+              "delta": -30000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Codul nu oprea nimic, el autoriza plata lor. Banca nu îți cere niciodată codul din SMS prin telefon. Apărarea: închizi și suni singur la numărul de pe spatele cardului.",
@@ -297,7 +343,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["scams", "fraud_defense"],
+      "skill_tags": [
+        "scams",
+        "fraud_defense"
+      ],
       "title": {
         "ro": "„Ai câștigat un telefon!”",
         "en": "„You’ve won a phone!”"
@@ -314,8 +363,15 @@
             "en": "Pay the 50 lei „delivery fee”"
           },
           "effects": [
-            { "type": "cash", "delta": -5000 },
-            { "type": "stat", "stat": "stress", "delta": 1 }
+            {
+              "type": "cash",
+              "delta": -5000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Niciun premiu nu a venit. Premiile reale nu cer plată ca să le primești, iar conturile care imită branduri (fără bifă, cu URL ciudat) sunt semnalul. Un „câștig” care cere bani înainte e țeapă.",
@@ -365,7 +421,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["scams", "subscriptions", "impulse_control"],
+      "skill_tags": [
+        "scams",
+        "subscriptions",
+        "impulse_control"
+      ],
       "title": {
         "ro": "Proba „gratuită” cu abonament ascuns",
         "en": "The „free” trial with a hidden subscription"
@@ -382,7 +442,10 @@
             "en": "Sign up, but read the terms and note the cancel date"
           },
           "effects": [
-            { "type": "setFlag", "flag": "proba_notata" }
+            {
+              "type": "setFlag",
+              "flag": "proba_notata"
+            }
           ],
           "debrief": {
             "ro": "Ai folosit proba și ai anulat la timp, zero cost. O probă „gratuită” cu card cerut e ok DOAR dacă știi cine, cât și când te taxează și ai notat data anulării.",
@@ -395,12 +458,18 @@
             "en": "Sign up without reading the fine print"
           },
           "effects": [
-            { "type": "setFlag", "flag": "proba_uitata" },
+            {
+              "type": "setFlag",
+              "flag": "proba_uitata"
+            },
             {
               "type": "scheduleEffect",
               "delay_days": 4,
               "effects": [
-                { "type": "cash", "delta": -12000 }
+                {
+                  "type": "cash",
+                  "delta": -12000
+                }
               ],
               "note": {
                 "ro": "Proba „gratuită” s-a reînnoit singură: 120 lei pentru abonamentul pe care nu l-ai anulat.",
@@ -445,7 +514,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "loterie",
-      "skill_tags": ["gambling_awareness", "expected_value", "opportunity_cost"],
+      "skill_tags": [
+        "gambling_awareness",
+        "expected_value",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Biletul de loterie de la chioșc",
         "en": "The lottery ticket at the kiosk"
@@ -462,9 +535,19 @@
             "en": "Buy one 2 lei ticket"
           },
           "effects": [
-            { "type": "cash", "delta": -200 },
-            { "type": "setFlag", "flag": "bilet_cumparat" },
-            { "type": "scheduleEvent", "delay_days": 2, "event_id": "loterie_extragere" }
+            {
+              "type": "cash",
+              "delta": -200
+            },
+            {
+              "type": "setFlag",
+              "flag": "bilet_cumparat"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 2,
+              "event_id": "loterie_extragere"
+            }
           ],
           "debrief": {
             "ro": "Ai un bilet; extragerea vine peste 2 zile. Un bilet ocazional e o cheltuială mică de divertisment, atâta timp cât rămâne mică și știi că șansa marelui premiu e infimă.",
@@ -488,8 +571,14 @@
             "en": "Put the 2 lei into your emergency fund instead of a ticket"
           },
           "effects": [
-            { "type": "cash", "delta": -200 },
-            { "type": "fund", "delta": 200 }
+            {
+              "type": "cash",
+              "delta": -200
+            },
+            {
+              "type": "fund",
+              "delta": 200
+            }
           ],
           "debrief": {
             "ro": "2 lei par nimic, dar direcția lor e alegerea ta: în fond au valoare sigură, în bilet au valoare așteptată sub 2 lei. Repetat, tocmai diferența asta contează.",
@@ -514,12 +603,20 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [
-        { "type": "hasFlag", "flag": "bilet_cumparat" }
+        {
+          "type": "hasFlag",
+          "flag": "bilet_cumparat"
+        }
       ],
       "exclusions": [],
-      "prerequisites": ["loterie_bilet"],
+      "prerequisites": [
+        "loterie_bilet"
+      ],
       "chain_id": "loterie",
-      "skill_tags": ["gambling_awareness", "expected_value"],
+      "skill_tags": [
+        "gambling_awareness",
+        "expected_value"
+      ],
       "title": {
         "ro": "Ziua extragerii",
         "en": "Draw day"
@@ -536,7 +633,10 @@
             "en": "Stop here, it was 2 lei of entertainment"
           },
           "effects": [
-            { "type": "clearFlag", "flag": "bilet_cumparat" }
+            {
+              "type": "clearFlag",
+              "flag": "bilet_cumparat"
+            }
           ],
           "debrief": {
             "ro": "Bilete cumpărate: 1. Rezultat net: -2 lei. Un bilet costă 2 lei, dar valoarea așteptată a câștigului e mult sub atât, diferența e profitul loteriei. Ca divertisment ocazional e ok; ca economisire, nu merge.",
@@ -549,8 +649,14 @@
             "en": "Buy one more ticket (2 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -200 },
-            { "type": "clearFlag", "flag": "bilet_cumparat" }
+            {
+              "type": "cash",
+              "delta": -200
+            },
+            {
+              "type": "clearFlag",
+              "flag": "bilet_cumparat"
+            }
           ],
           "debrief": {
             "ro": "Al doilea bilet duce totalul la -4 lei. Șansa fiecărui bilet e independentă și rămâne minusculă, a juca deja nu crește șansa următorului. Numărul care contează e totalul cheltuit, nu extragerea următoare.",
@@ -578,7 +684,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["gambling_awareness", "expected_value", "impulse_control"],
+      "skill_tags": [
+        "gambling_awareness",
+        "expected_value",
+        "impulse_control"
+      ],
       "title": {
         "ro": "Pariul „sigur” al prietenului",
         "en": "A friend’s „sure” bet"
@@ -606,12 +716,18 @@
             "en": "Place a small stake, capped at 20 lei, just for fun"
           },
           "effects": [
-            { "type": "setFlag", "flag": "pariu_pus" },
+            {
+              "type": "setFlag",
+              "flag": "pariu_pus"
+            },
             {
               "type": "scheduleEffect",
               "delay_days": 1,
               "effects": [
-                { "type": "cash", "delta": -2000 }
+                {
+                  "type": "cash",
+                  "delta": -2000
+                }
               ],
               "note": {
                 "ro": "Meciul s-a terminat altfel decât „sigur”: miza de 20 lei s-a dus.",
@@ -630,8 +746,16 @@
             "en": "Go watch the match together, but without betting"
           },
           "effects": [
-            { "type": "stat", "stat": "relationships", "delta": 2 },
-            { "type": "stat", "stat": "stress", "delta": -1 }
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Ai păstrat relația și distracția, fără expunerea la pierdere. Socializarea nu are nevoie de miză ca să fie bună.",
@@ -656,12 +780,22 @@
       "role_tags": [],
       "difficulty": 2,
       "conditions": [
-        { "type": "roleIs", "roles": ["freelancer_creativ", "programator_junior"] }
+        {
+          "type": "roleIs",
+          "roles": [
+            "freelancer_creativ",
+            "programator_junior"
+          ]
+        }
       ],
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["opportunity_cost", "emergency_fund", "planning"],
+      "skill_tags": [
+        "opportunity_cost",
+        "emergency_fund",
+        "planning"
+      ],
       "title": {
         "ro": "Laptopul cedează înainte de deadline",
         "en": "The laptop dies before the deadline"
@@ -678,8 +812,15 @@
             "en": "Take the laptop for a quick repair (250 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -25000 },
-            { "type": "stat", "stat": "stress", "delta": 1 }
+            {
+              "type": "cash",
+              "delta": -25000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Reparația rapidă a salvat venitul din deadline. Compromisul e clar: 250 lei acum contra riscului de a pierde clientul și plata. Când unealta îți aduce banii, repararea ei e adesea investiția potrivită.",
@@ -692,8 +833,15 @@
             "en": "Buy a new laptop right now (2500 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -250000 },
-            { "type": "stat", "stat": "stress", "delta": 2 }
+            {
+              "type": "cash",
+              "delta": -250000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Un laptop nou rezolvă și viitorul, dar golește tamponul dintr-o dată. Uneori reparația punctuală acoperă nevoia imediată la un cost de zece ori mai mic, întrebarea utilă e ce problemă rezolvi acum.",
@@ -706,12 +854,20 @@
             "en": "Ask a friend to lend you their laptop for a day"
           },
           "effects": [
-            { "type": "stat", "stat": "relationships", "delta": -1 },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -1
+            },
             {
               "type": "scheduleEffect",
               "delay_days": 3,
               "effects": [
-                { "type": "stat", "stat": "stress", "delta": 1 }
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 1
+                }
               ],
               "note": {
                 "ro": "Deadline-ul e livrat, dar laptopul tău tot are nevoie de reparație.",
@@ -745,7 +901,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["needs_wants", "opportunity_cost"],
+      "skill_tags": [
+        "needs_wants",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Bateria telefonului nu mai ține",
         "en": "The phone battery won’t hold"
@@ -762,7 +921,10 @@
             "en": "Replace the battery at a repair shop (120 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -12000 }
+            {
+              "type": "cash",
+              "delta": -12000
+            }
           ],
           "debrief": {
             "ro": "Schimbarea bateriei prelungește telefonul cu bani puțini. Repararea vs. înlocuirea e compromisul clasic, când restul aparatului e bun, piesa e răspunsul ieftin.",
@@ -775,7 +937,10 @@
             "en": "Buy a new phone (1500 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -150000 }
+            {
+              "type": "cash",
+              "delta": -150000
+            }
           ],
           "debrief": {
             "ro": "Un telefon nou aduce confort, dar costă de peste zece ori cât o baterie. Când problema e o singură piesă, întrebarea utilă e ce nevoie rezolvi de fapt.",
@@ -788,8 +953,14 @@
             "en": "Get by with a cheap power bank for now (60 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -6000 },
-            { "type": "setFlag", "flag": "telefon_baterie_amanat" }
+            {
+              "type": "cash",
+              "delta": -6000
+            },
+            {
+              "type": "setFlag",
+              "flag": "telefon_baterie_amanat"
+            }
           ],
           "debrief": {
             "ro": "Soluția minimă amână decizia cu un cost mic. E ok dacă telefonul își face treaba; o ții minte pentru când chiar te încurcă.",
@@ -817,7 +988,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["needs_wants", "planning"],
+      "skill_tags": [
+        "needs_wants",
+        "planning"
+      ],
       "title": {
         "ro": "Ai depășit traficul de date",
         "en": "You’ve gone over your data"
@@ -834,7 +1008,10 @@
             "en": "Buy a data add-on (25 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -2500 }
+            {
+              "type": "cash",
+              "delta": -2500
+            }
           ],
           "debrief": {
             "ro": "Extraopțiunea oprește taxarea per-MB, de obicei mai scumpă. Merită când ai nevoie reală de date, compari costul opțiunii cu cât ai consuma la tarif liber.",
@@ -847,7 +1024,11 @@
             "en": "Turn off mobile data and use only Wi-Fi until renewal"
           },
           "effects": [
-            { "type": "stat", "stat": "stress", "delta": 1 }
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Zero cost, cu puțin disconfort. A te sprijini pe Wi-Fi când e disponibil e o economie reală și un obicei care ține factura sub control.",
@@ -864,7 +1045,10 @@
               "type": "scheduleEffect",
               "delay_days": 3,
               "effects": [
-                { "type": "cash", "delta": -4000 }
+                {
+                  "type": "cash",
+                  "delta": -4000
+                }
               ],
               "note": {
                 "ro": "Datele consumate peste plan apar pe factură, mai mult decât ar fi costat o extraopțiune.",
@@ -898,7 +1082,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["emergency_fund", "saving", "planning"],
+      "skill_tags": [
+        "emergency_fund",
+        "saving",
+        "planning"
+      ],
       "title": {
         "ro": "Restituire de la ANAF",
         "en": "A tax refund from ANAF"
@@ -915,8 +1103,14 @@
             "en": "Move the whole amount into your emergency fund"
           },
           "effects": [
-            { "type": "cash", "delta": -30000 },
-            { "type": "fund", "delta": 30000 }
+            {
+              "type": "cash",
+              "delta": -30000
+            },
+            {
+              "type": "fund",
+              "delta": 30000
+            }
           ],
           "debrief": {
             "ro": "Un venit neașteptat direcționat spre fond crește tamponul fără niciun efort de tăiere. Banii „în plus” tratați ca bază, nu ca bonus de cheltuit, sunt cel mai ușor mod de a construi rezervă.",
@@ -929,8 +1123,14 @@
             "en": "Split it: part to your goal, part for a small treat"
           },
           "effects": [
-            { "type": "cash", "delta": -20000 },
-            { "type": "goal", "delta": 20000 }
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "goal",
+              "delta": 20000
+            }
           ],
           "debrief": {
             "ro": "Ai împărțit surpriza între obiectiv și o bucurie mică. Un echilibru între disciplină și viață e mai sustenabil decât austeritatea totală, și obiectivul tot avansează.",
@@ -969,7 +1169,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "portofel",
-      "skill_tags": ["emergency_fund", "fraud_defense", "planning"],
+      "skill_tags": [
+        "emergency_fund",
+        "fraud_defense",
+        "planning"
+      ],
       "title": {
         "ro": "Portofelul dispărut în autobuz",
         "en": "The wallet gone on the bus"
@@ -986,10 +1190,24 @@
             "en": "Block the card in the app at once and note what you lost"
           },
           "effects": [
-            { "type": "cash", "delta": -8000 },
-            { "type": "stat", "stat": "stress", "delta": 2 },
-            { "type": "setFlag", "flag": "portofel_furat" },
-            { "type": "scheduleEvent", "delay_days": 2, "event_id": "rare_portofel_documente" }
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "setFlag",
+              "flag": "portofel_furat"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 2,
+              "event_id": "rare_portofel_documente"
+            }
           ],
           "debrief": {
             "ro": "Ai pierdut cash-ul din portofel, dar blocarea rapidă a cardului a oprit pierderea suplimentară. Primul pas la furt e să tai accesul, nu să cauți vinovatul, restul (actele) vine apoi, la rece.",
@@ -1002,21 +1220,38 @@
             "en": "Wait a bit in case it turns up, and block the card later"
           },
           "effects": [
-            { "type": "cash", "delta": -8000 },
-            { "type": "stat", "stat": "stress", "delta": 2 },
-            { "type": "setFlag", "flag": "portofel_furat" },
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "setFlag",
+              "flag": "portofel_furat"
+            },
             {
               "type": "scheduleEffect",
               "delay_days": 1,
               "effects": [
-                { "type": "cash", "delta": -15000 }
+                {
+                  "type": "cash",
+                  "delta": -15000
+                }
               ],
               "note": {
                 "ro": "O tranzacție neautorizată a trecut pe card înainte să-l blochezi.",
                 "en": "An unauthorized transaction went through on the card before you blocked it."
               }
             },
-            { "type": "scheduleEvent", "delay_days": 2, "event_id": "rare_portofel_documente" }
+            {
+              "type": "scheduleEvent",
+              "delay_days": 2,
+              "event_id": "rare_portofel_documente"
+            }
           ],
           "debrief": {
             "ro": "Fiecare oră fără blocare lasă cardul expus. Întârzierea a adăugat o pierdere care putea fi oprită, la furtul unui card, viteza blocării contează mai mult decât speranța de a-l recupera.",
@@ -1029,10 +1264,24 @@
             "en": "Block the card and report the ID to the police"
           },
           "effects": [
-            { "type": "cash", "delta": -8000 },
-            { "type": "stat", "stat": "stress", "delta": 1 },
-            { "type": "setFlag", "flag": "portofel_furat" },
-            { "type": "scheduleEvent", "delay_days": 2, "event_id": "rare_portofel_documente" }
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            },
+            {
+              "type": "setFlag",
+              "flag": "portofel_furat"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 2,
+              "event_id": "rare_portofel_documente"
+            }
           ],
           "debrief": {
             "ro": "Ai tăiat accesul la bani și ai documentat pierderea actului. Reclamația ajută la refacerea buletinului și te protejează dacă cineva îl folosește, pașii ordonați scad și stresul.",
@@ -1057,12 +1306,20 @@
       "role_tags": [],
       "difficulty": 2,
       "conditions": [
-        { "type": "hasFlag", "flag": "portofel_furat" }
+        {
+          "type": "hasFlag",
+          "flag": "portofel_furat"
+        }
       ],
       "exclusions": [],
-      "prerequisites": ["rare_portofel_furat"],
+      "prerequisites": [
+        "rare_portofel_furat"
+      ],
       "chain_id": "portofel",
-      "skill_tags": ["planning", "opportunity_cost"],
+      "skill_tags": [
+        "planning",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Refacerea actelor",
         "en": "Replacing the documents"
@@ -1079,9 +1336,19 @@
             "en": "Reissue your ID now (fee + time)"
           },
           "effects": [
-            { "type": "cash", "delta": -8000 },
-            { "type": "stat", "stat": "energy", "delta": -1 },
-            { "type": "clearFlag", "flag": "portofel_furat" }
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -1
+            },
+            {
+              "type": "clearFlag",
+              "flag": "portofel_furat"
+            }
           ],
           "debrief": {
             "ro": "Refacerea promptă a actului evită blocaje ulterioare, un colet, un contract sau o formalitate la bancă cer buletin valid. Un cost mic și un drum acum previn unul mai mare mai târziu.",
@@ -1098,8 +1365,15 @@
               "type": "scheduleEffect",
               "delay_days": 5,
               "effects": [
-                { "type": "stat", "stat": "stress", "delta": 2 },
-                { "type": "cash", "delta": -3000 }
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 2
+                },
+                {
+                  "type": "cash",
+                  "delta": -3000
+                }
               ],
               "note": {
                 "ro": "Fără buletin, o formalitate s-a blocat și a cerut un drum și o cheltuială în plus.",
@@ -1118,9 +1392,18 @@
             "en": "Reissue the ID and set a reminder for the rest"
           },
           "effects": [
-            { "type": "cash", "delta": -8000 },
-            { "type": "clearFlag", "flag": "portofel_furat" },
-            { "type": "setFlag", "flag": "acte_in_refacere" }
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "clearFlag",
+              "flag": "portofel_furat"
+            },
+            {
+              "type": "setFlag",
+              "flag": "acte_in_refacere"
+            }
           ],
           "debrief": {
             "ro": "Rezolvi ce e urgent acum și planifici restul în pași. Refacerea etapizată, cu un memento clar, ține și costul, și stresul sub control.",
@@ -1148,7 +1431,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["emergency_fund", "opportunity_cost"],
+      "skill_tags": [
+        "emergency_fund",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Țeava cedează sub chiuvetă",
         "en": "The pipe bursts under the sink"
@@ -1165,8 +1451,15 @@
             "en": "Call an emergency plumber (200 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -20000 },
-            { "type": "stat", "stat": "stress", "delta": 1 }
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Intervenția rapidă a limitat daunele. Compromisul e între costul urgenței și paguba care crește cu fiecare oră de apă, la o inundație, viteza chiar are preț.",
@@ -1179,8 +1472,15 @@
             "en": "Shut the water and fix it yourself with parts from the store (60 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -6000 },
-            { "type": "stat", "stat": "energy", "delta": -2 }
+            {
+              "type": "cash",
+              "delta": -6000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "Reparația proprie a ținut și a costat mult mai puțin. Funcționează când ai priceperea, timpul și scula potrivită, altfel, o reparație ratată poate costa mai mult decât instalatorul.",
@@ -1193,7 +1493,11 @@
             "en": "Shut the water and notify the owner/building admin"
           },
           "effects": [
-            { "type": "stat", "stat": "stress", "delta": 1 }
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Dacă defecțiunea ține de instalația clădirii, costul poate cădea pe proprietar sau pe administrație. Verifici cine răspunde înainte să plătești, uneori nu e cheltuiala ta.",
@@ -1221,7 +1525,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["saving", "emergency_fund", "planning"],
+      "skill_tags": [
+        "saving",
+        "emergency_fund",
+        "planning"
+      ],
       "title": {
         "ro": "O mică moștenire neașteptată",
         "en": "A small unexpected inheritance"
@@ -1238,8 +1546,14 @@
             "en": "Grow your emergency fund with the whole amount"
           },
           "effects": [
-            { "type": "cash", "delta": -80000 },
-            { "type": "fund", "delta": 80000 }
+            {
+              "type": "cash",
+              "delta": -80000
+            },
+            {
+              "type": "fund",
+              "delta": 80000
+            }
           ],
           "debrief": {
             "ro": "Un venit unic direcționat spre fond ridică rezerva dintr-o singură mișcare. Surprizele plăcute sunt cel mai ușor moment de a construi tampon, fără nicio tăiere din trai.",
@@ -1252,9 +1566,18 @@
             "en": "Split it in two: half to your goal, half to the fund"
           },
           "effects": [
-            { "type": "cash", "delta": -80000 },
-            { "type": "goal", "delta": 40000 },
-            { "type": "fund", "delta": 40000 }
+            {
+              "type": "cash",
+              "delta": -80000
+            },
+            {
+              "type": "goal",
+              "delta": 40000
+            },
+            {
+              "type": "fund",
+              "delta": 40000
+            }
           ],
           "debrief": {
             "ro": "Împărțirea între obiectiv și siguranță avansează două fronturi deodată. Un echilibru între „azi” și „mâine” e adesea mai motivant decât totul într-un singur loc.",
@@ -1267,9 +1590,19 @@
             "en": "Most to the goal and a modest treat for yourself"
           },
           "effects": [
-            { "type": "cash", "delta": -60000 },
-            { "type": "goal", "delta": 60000 },
-            { "type": "stat", "stat": "relationships", "delta": 1 }
+            {
+              "type": "cash",
+              "delta": -60000
+            },
+            {
+              "type": "goal",
+              "delta": 60000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Cea mai mare parte spre obiectiv și o parte mică pentru tine. Disciplina care lasă loc de bucurie ține pe termen lung mai bine decât renunțarea la orice plăcere.",
@@ -1297,7 +1630,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["fraud_defense", "needs_wants"],
+      "skill_tags": [
+        "fraud_defense",
+        "needs_wants"
+      ],
       "title": {
         "ro": "„Power bank-ul tău explodează”",
         "en": "„Your power bank is about to explode”"
@@ -1314,7 +1650,10 @@
             "en": "Check the claim and buy just a new charger (40 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -4000 }
+            {
+              "type": "cash",
+              "delta": -4000
+            }
           ],
           "debrief": {
             "ro": "Mitul „explodează” e mult exagerat: riscul real la acumulatorii certificați, folosiți normal, e minim. Ai plătit doar piesa stricată, nu frica, verificarea a fost economia.",
@@ -1327,7 +1666,10 @@
             "en": "Toss the power bank out of fear and buy another (150 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -15000 }
+            {
+              "type": "cash",
+              "delta": -15000
+            }
           ],
           "debrief": {
             "ro": "Decizia luată din frică a costat de câteva ori mai mult. A verifica o afirmație înainte de a acționa e o economie în sine, panica e adesea cel mai scump sfătuitor.",
@@ -1340,7 +1682,10 @@
             "en": "Look up trustworthy sources on battery safety"
           },
           "effects": [
-            { "type": "setFlag", "flag": "info_verificata" }
+            {
+              "type": "setFlag",
+              "flag": "info_verificata"
+            }
           ],
           "debrief": {
             "ro": "Informarea din surse serioase dezumflă panica. Acumulatorii certificați, încărcați cu accesorii potrivite, sunt siguri în uz normal, iar obiceiul de a verifica te ferește de cheltuieli din frică.",
@@ -1368,7 +1713,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["fraud_defense", "saving"],
+      "skill_tags": [
+        "fraud_defense",
+        "saving"
+      ],
       "title": {
         "ro": "Un cashback real, fără capcană",
         "en": "A real cashback, no catch"
@@ -1385,7 +1733,10 @@
             "en": "Confirm it’s the official program in your app and leave the money in"
           },
           "effects": [
-            { "type": "cash", "delta": 1500 }
+            {
+              "type": "cash",
+              "delta": 1500
+            }
           ],
           "debrief": {
             "ro": "Programele reale de cashback creditează singure, în aplicația oficială, fără să ceară plată sau date. Exact opusul „premiilor” care cer o „taxă de livrare”, un venit real nu-ți cere niciodată bani înapoi.",
@@ -1398,9 +1749,18 @@
             "en": "Move the cashback straight into the fund"
           },
           "effects": [
-            { "type": "cash", "delta": 1500 },
-            { "type": "cash", "delta": -1500 },
-            { "type": "fund", "delta": 1500 }
+            {
+              "type": "cash",
+              "delta": 1500
+            },
+            {
+              "type": "cash",
+              "delta": -1500
+            },
+            {
+              "type": "fund",
+              "delta": 1500
+            }
           ],
           "debrief": {
             "ro": "Chiar și sumele mici, direcționate constant spre fond, se adună în timp. Un cashback e mic, dar e bani reali, iar micile fluxuri regulate construiesc rezerva pe tăcute.",
@@ -1413,7 +1773,11 @@
             "en": "Get a coffee with the cashback, as a little reward"
           },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": 2 }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "O mică răsplată din bani reali e ok. Diferența față de o țeapă e simplă: aici nimeni nu ți-a cerut nimic ca s-o primești, banii au venit spre tine, nu de la tine.",
@@ -1441,7 +1805,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["needs_wants", "opportunity_cost"],
+      "skill_tags": [
+        "needs_wants",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "1 Iunie: festival gratuit în parc",
         "en": "June 1st: a free festival in the park"
@@ -1458,8 +1825,16 @@
             "en": "Go for the free part and bring a snack from home"
           },
           "effects": [
-            { "type": "stat", "stat": "relationships", "delta": 2 },
-            { "type": "stat", "stat": "energy", "delta": 2 }
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Distracție gratuită plus o gustare adusă de acasă = bucurie fără cost. Evenimentele publice sunt aliați ai bugetului: plătești doar extrele pe care le alegi conștient.",
@@ -1472,9 +1847,20 @@
             "en": "Go and eat at a food truck (70 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -7000 },
-            { "type": "stat", "stat": "relationships", "delta": 2 },
-            { "type": "stat", "stat": "energy", "delta": 2 }
+            {
+              "type": "cash",
+              "delta": -7000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Ai plătit pentru confortul de moment și o experiență plăcută. O cheltuială aleasă conștient, la un eveniment pe care îl savurezi, e o opțiune validă, nu o scăpare.",
@@ -1487,7 +1873,11 @@
             "en": "Stay home and keep the money for something else"
           },
           "effects": [
-            { "type": "stat", "stat": "relationships", "delta": -1 }
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Ai păstrat banii, dar și socializarea are valoare. Echilibrul nu înseamnă mereu opțiunea cea mai ieftină, uneori o ieșire gratuită merită timpul tău.",
@@ -1515,7 +1905,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["needs_wants", "opportunity_cost"],
+      "skill_tags": [
+        "needs_wants",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Caniculă de 38°C",
         "en": "A 38°C heatwave"
@@ -1532,8 +1925,15 @@
             "en": "Buy an air conditioner (1200 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -120000 },
-            { "type": "stat", "stat": "energy", "delta": 3 }
+            {
+              "type": "cash",
+              "delta": -120000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "AC-ul rezolvă confortul pe termen lung, dar e o cheltuială mare dintr-o dată. Merită dacă vara e lungă și îl folosești ani la rând, altfel, tot bugetul lunii simte lovitura.",
@@ -1546,8 +1946,15 @@
             "en": "Get a good fan (100 lei)"
           },
           "effects": [
-            { "type": "cash", "delta": -10000 },
-            { "type": "stat", "stat": "energy", "delta": 2 }
+            {
+              "type": "cash",
+              "delta": -10000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Ventilatorul acoperă nevoia imediată cu bani puțini. Soluția „suficientă acum” lasă bugetul să respire, iar diferența față de AC o poți pune deoparte pentru o decizie la rece.",
@@ -1560,7 +1967,11 @@
             "en": "Cope with drawn curtains, cold water and an adjusted schedule"
           },
           "effects": [
-            { "type": "stat", "stat": "energy", "delta": -1 }
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Zero cost, cu puțin disconfort. Trucurile gratuite contra căldurii sunt reale și ajută, dar au o limită, dacă valul de căldură ține mult, confortul devine și el o nevoie.",
@@ -1588,7 +1999,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["impulse_control", "needs_wants", "planning"],
+      "skill_tags": [
+        "impulse_control",
+        "needs_wants",
+        "planning"
+      ],
       "title": {
         "ro": "Început de lună la mall",
         "en": "Start of the month at the mall"
@@ -1605,7 +2020,10 @@
             "en": "Go with a list and buy only what you planned"
           },
           "effects": [
-            { "type": "cash", "delta": -15000 }
+            {
+              "type": "cash",
+              "delta": -15000
+            }
           ],
           "debrief": {
             "ro": "Lista transformă mall-ul din capcană în unealtă. „Doar azi” e o tehnică de grabă, iar un plan făcut dinainte o dezamorsează, cumperi ce voiai, nu ce ți s-a arătat.",
@@ -1618,8 +2036,14 @@
             "en": "Get carried by the sales and grab a few extra things"
           },
           "effects": [
-            { "type": "cash", "delta": -35000 },
-            { "type": "setFlag", "flag": "cumparaturi_impuls" }
+            {
+              "type": "cash",
+              "delta": -35000
+            },
+            {
+              "type": "setFlag",
+              "flag": "cumparaturi_impuls"
+            }
           ],
           "debrief": {
             "ro": "Reducerile economisesc doar dacă aveai nevoie oricum de acele lucruri. Presiunea de timp împinge spre cumpărături nepregătite, fără judecată, doar observă tiparul pentru data viitoare.",
@@ -1632,7 +2056,10 @@
             "en": "Put the shopping off by a day to think it over"
           },
           "effects": [
-            { "type": "setFlag", "flag": "regula_24h" }
+            {
+              "type": "setFlag",
+              "flag": "regula_24h"
+            }
           ],
           "debrief": {
             "ro": "Regula celor 24 de ore filtrează impulsul de moment. Ce mai vrei și mâine chiar contează; ce era doar entuziasm de vitrină, de obicei se stinge peste noapte.",
@@ -2430,6 +2857,184 @@
       ],
       "source": {
         "label": "redacție FinEdu, scenarii de viață RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "bifa_albastra",
+      "category": "scams",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 28,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "scams",
+        "social_media",
+        "fraud_defense"
+      ],
+      "title": {
+        "ro": "„Bifa albastră, doar azi\"",
+        "en": "\"Blue badge, today only\""
+      },
+      "narrative": {
+        "ro": "DM pe Instagram de la „Support Team\": contul tău a fost selectat pentru verificare. Plătești 30 de lei „taxa de procesare\" și primești bifa albastră.",
+        "en": "An Instagram DM from \"Support Team\": your account was selected for verification. Pay a 30 lei \"processing fee\" and get the blue badge."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Plătești, 30 de lei pentru bifă sună ok",
+            "en": "Pay, 30 lei for the badge sounds fine"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -3000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -12000
+                }
+              ],
+              "note": {
+                "ro": "Datele cardului au mai „procesat\" ceva și singure.",
+                "en": "Your card details \"processed\" something else on their own."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Platformele nu vând bife prin DM-uri. Taxa mică era doar poarta către datele cardului tău: paguba reală vine după.",
+            "en": "Platforms do not sell badges through DMs. The small fee was just the door to your card details: the real damage comes later."
+          }
+        },
+        {
+          "label": {
+            "ro": "Raportezi contul și ștergi mesajul",
+            "en": "Report the account and delete the message"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Exact așa. Verificarea reală se cere DIN aplicație, din setările contului, nu printr-un DM cu plată. Raportarea taie și accesul lor la alții.",
+            "en": "Exactly right. Real verification is requested FROM the app, in account settings, never via a paid DM. Reporting also cuts their reach to others."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îi întrebi de ce se cere plata prin DM",
+            "en": "Ask why payment is requested via DM"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "Ai mirosit țeapa, dar conversația cu escrocii e timp pierdut: scenariul lor are răspuns la orice. Blocare și raport, fără dialog.",
+            "en": "You smelled the scam, but chatting with scammers is wasted time: their script has an answer for everything. Block and report, no dialogue."
+          }
+        }
+      ],
+      "source": {
+        "label": "tipologii de fraudă pe rețele sociale RO 2026 (educational)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "telefon_second_grabit",
+      "category": "tech",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 5,
+      "max_day": 27,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "tech",
+        "scams",
+        "second_hand"
+      ],
+      "title": {
+        "ro": "Telefonul „sub preț\" al grăbitului",
+        "en": "The rushed seller's bargain phone"
+      },
+      "narrative": {
+        "ro": "Pe un grup de vânzări: telefonul pe care ți-l dorești, cu 40% sub prețul pieței. Vânzătorul e grăbit, „doar cash, azi, fără probe multe\".",
+        "en": "On a sales group: the phone you want, 40% under market price. The seller is rushed, \"cash only, today, no long testing\"."
+      },
+      "illustration": "cashy_alert",
+      "choices": [
+        {
+          "label": {
+            "ro": "Îi dai avansul cerut ca să „ți-l țină\"",
+            "en": "Pay the deposit he asks so he \"holds it\""
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
+          ],
+          "debrief": {
+            "ro": "Avansul către un necunoscut grăbit e un cadou. Prețul mult sub piață plus graba plus doar cash e trifecta clasică a țepei: contul dispare cu tot cu avans.",
+            "en": "A deposit to a rushed stranger is a gift. Way-below-market price plus urgency plus cash-only is the classic scam trifecta: the account vanishes, deposit included."
+          }
+        },
+        {
+          "label": {
+            "ro": "Accepți doar cu factură, IMEI verificat și test la întâlnire",
+            "en": "Only with receipt, IMEI check and testing at the meetup"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Condițiile tale de siguranță au topit „oferta\": vânzătorul a dispărut instant. Exact ăsta era testul. Un vânzător real n-are probleme cu verificarea.",
+            "en": "Your safety terms melted the \"deal\": the seller vanished instantly. That was the test. A genuine seller has no problem with checks."
+          }
+        },
+        {
+          "label": {
+            "ro": "Refuzi: prea frumos ca să fie adevărat",
+            "en": "Pass: too good to be true"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Regulă scurtă și bătrână: dacă pare prea frumos ca să fie adevărat, nu e adevărat. Reducerile reale n-au nevoie de panică și secretomanie.",
+            "en": "Short old rule: if it looks too good to be true, it is not true. Real discounts need no panic and no secrecy."
+          }
+        }
+      ],
+      "source": {
+        "label": "fraude la vânzări între persoane RO 2026 (educational)",
         "reviewed_by": null,
         "needs_expert_review": true
       }

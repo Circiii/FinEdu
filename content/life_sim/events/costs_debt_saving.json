@@ -14,7 +14,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["cashflow", "bills"],
+      "skill_tags": [
+        "cashflow",
+        "bills"
+      ],
       "title": {
         "ro": "A venit regularizarea la utilități",
         "en": "The utility settlement bill arrived"
@@ -31,7 +34,10 @@
             "en": "Pay the settlement now (, 240 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -24000}
+            {
+              "type": "cash",
+              "delta": -24000
+            }
           ],
           "debrief": {
             "ro": "Ai închis subiectul dintr-o mișcare. Predictibilitate maximă, dar lichiditatea de azi scade, compromisul e liniștea contra cash-ului la îndemână.",
@@ -44,8 +50,24 @@
             "en": "Ask to split it into 2 instalments"
           },
           "effects": [
-            {"type": "cash", "delta": -12000},
-            {"type": "scheduleEffect", "delay_days": 15, "effects": [{"type": "cash", "delta": -12000}], "note": {"ro": "A doua tranșă din regularizarea la utilități.", "en": "Second instalment of the utility settlement."}}
+            {
+              "type": "cash",
+              "delta": -12000
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 15,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -12000
+                }
+              ],
+              "note": {
+                "ro": "A doua tranșă din regularizarea la utilități.",
+                "en": "Second instalment of the utility settlement."
+              }
+            }
           ],
           "debrief": {
             "ro": "Ai împărțit efortul în două. Fiecare lună doare mai puțin, dar rămâne o coadă de plată, o urmărești ca să nu te surprindă.",
@@ -58,7 +80,20 @@
             "en": "Read your own meter and submit the correct index"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 7, "effects": [{"type": "cash", "delta": -19000}], "note": {"ro": "Factura corectată, mai mică, după indexul tău real.", "en": "The corrected, lower bill, based on your real index."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 7,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -19000
+                }
+              ],
+              "note": {
+                "ro": "Factura corectată, mai mică, după indexul tău real.",
+                "en": "The corrected, lower bill, based on your real index."
+              }
+            }
           ],
           "debrief": {
             "ro": "Zece minute cu lanterna la contor → factură corectată, cu 50 lei mai mică. Diligența mică se plătește: citește indexul înainte de estimare.",
@@ -66,9 +101,12 @@
           }
         }
       ],
-      "source": {"label": "practica regularizarilor de utilitati RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practica regularizarilor de utilitati RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "chirie_marita_scrisoare",
       "category": "fixed_costs",
@@ -83,7 +121,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "chirie_marita",
-      "skill_tags": ["negotiation", "housing", "fixed_costs"],
+      "skill_tags": [
+        "negotiation",
+        "housing",
+        "fixed_costs"
+      ],
       "title": {
         "ro": "Scrisoare de la proprietar: chiria crește",
         "en": "Letter from the landlord: rent is going up"
@@ -100,8 +142,15 @@
             "en": "Negotiate with the landlord"
           },
           "effects": [
-            {"type": "setFlag", "flag": "chirie_negociez"},
-            {"type": "scheduleEvent", "delay_days": 2, "event_id": "chirie_marita_negociere"}
+            {
+              "type": "setFlag",
+              "flag": "chirie_negociez"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 2,
+              "event_id": "chirie_marita_negociere"
+            }
           ],
           "debrief": {
             "ro": "Nu costă nimic să întrebi. O conversație calmă poate schimba cifra, proprietarii preferă adesea un chiriaș bun la un preț ceva mai mic decât unul nou incert.",
@@ -114,7 +163,20 @@
             "en": "Accept the increase and stay"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 5, "effects": [{"type": "cash", "delta": -15000}], "note": {"ro": "Prima chirie la noul preț, cu majorarea inclusă.", "en": "First rent at the new price, increase included."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 5,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -15000
+                }
+              ],
+              "note": {
+                "ro": "Prima chirie la noul preț, cu majorarea inclusă.",
+                "en": "First rent at the new price, increase included."
+              }
+            }
           ],
           "debrief": {
             "ro": "Ai ales stabilitatea și zero bătăi de cap acum. În schimb, costul lunar fix crește, un abonament la locul tău care va apăsa fiecare lună.",
@@ -127,8 +189,15 @@
             "en": "Look for another place"
           },
           "effects": [
-            {"type": "setFlag", "flag": "chirie_caut"},
-            {"type": "scheduleEvent", "delay_days": 4, "event_id": "chirie_marita_mutare"}
+            {
+              "type": "setFlag",
+              "flag": "chirie_caut"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 4,
+              "event_id": "chirie_marita_mutare"
+            }
           ],
           "debrief": {
             "ro": "Piața are alternative, dar mutarea are costurile ei (transport, garanție, timp). Compari costul total, nu doar chiria de pe anunț.",
@@ -136,9 +205,12 @@
           }
         }
       ],
-      "source": {"label": "practica contractelor de chirie RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practica contractelor de chirie RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "chirie_marita_negociere",
       "category": "fixed_costs",
@@ -150,10 +222,21 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [],
-      "exclusions": [{"type": "dayRange", "min": 1, "max": 30}],
-      "prerequisites": ["chirie_marita_scrisoare"],
+      "exclusions": [
+        {
+          "type": "dayRange",
+          "min": 1,
+          "max": 30
+        }
+      ],
+      "prerequisites": [
+        "chirie_marita_scrisoare"
+      ],
       "chain_id": "chirie_marita",
-      "skill_tags": ["negotiation", "housing"],
+      "skill_tags": [
+        "negotiation",
+        "housing"
+      ],
       "title": {
         "ro": "Proprietarul răspunde la negociere",
         "en": "The landlord replies to your negotiation"
@@ -170,7 +253,20 @@
             "en": "Offer half the increase + a 1-year contract"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [{"type": "cash", "delta": -7500}], "note": {"ro": "Chiria la prețul negociat: doar jumătate din majorare.", "en": "Rent at the negotiated price: only half the increase."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -7500
+                }
+              ],
+              "note": {
+                "ro": "Chiria la prețul negociat: doar jumătate din majorare.",
+                "en": "Rent at the negotiated price: only half the increase."
+              }
+            }
           ],
           "debrief": {
             "ro": "Ai împărțit diferența și i-ai oferit siguranța unui an. Negocierea a redus costul lunar la jumătate din majorarea cerută, pârghia ta a fost stabilitatea.",
@@ -183,8 +279,15 @@
             "en": "Offer 2 months' rent upfront to freeze the price"
           },
           "effects": [
-            {"type": "cash", "delta": -180000},
-            {"type": "stat", "stat": "stress", "delta": 4}
+            {
+              "type": "cash",
+              "delta": -180000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            }
           ],
           "debrief": {
             "ro": "Ai blocat prețul vechi, dar ți-ai golit lichiditatea dintr-o dată. Prețul înghețat e un câștig real; tamponul subțire de acum e riscul pe care ți l-ai asumat.",
@@ -197,7 +300,20 @@
             "en": "Accept the asked price after all"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [{"type": "cash", "delta": -15000}], "note": {"ro": "Chiria la noul preț cerut.", "en": "Rent at the full asked price."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -15000
+                }
+              ],
+              "note": {
+                "ro": "Chiria la noul preț cerut.",
+                "en": "Rent at the full asked price."
+              }
+            }
           ],
           "debrief": {
             "ro": "Uneori nu ai pârghie și proprietarul nu cedează. Ai încercat, și acum știi exact ce înseamnă piața pentru cartierul tău.",
@@ -205,9 +321,12 @@
           }
         }
       ],
-      "source": {"label": "practica negocierii chiriei RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practica negocierii chiriei RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "chirie_marita_mutare",
       "category": "fixed_costs",
@@ -219,10 +338,21 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [],
-      "exclusions": [{"type": "dayRange", "min": 1, "max": 30}],
-      "prerequisites": ["chirie_marita_scrisoare"],
+      "exclusions": [
+        {
+          "type": "dayRange",
+          "min": 1,
+          "max": 30
+        }
+      ],
+      "prerequisites": [
+        "chirie_marita_scrisoare"
+      ],
       "chain_id": "chirie_marita",
-      "skill_tags": ["housing", "opportunity_cost"],
+      "skill_tags": [
+        "housing",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Rezultatul căutării de locuință",
         "en": "The result of your apartment search"
@@ -239,8 +369,24 @@
             "en": "Move somewhere cheaper (moving, 500 lei, lower rent)"
           },
           "effects": [
-            {"type": "cash", "delta": -50000},
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [{"type": "cash", "delta": 10000}], "note": {"ro": "Prima lună la chiria mai mică: 100 lei economisiți față de vechea locuință.", "en": "First month at the lower rent: 100 lei saved versus the old place."}}
+            {
+              "type": "cash",
+              "delta": -50000
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 10000
+                }
+              ],
+              "note": {
+                "ro": "Prima lună la chiria mai mică: 100 lei economisiți față de vechea locuință.",
+                "en": "First month at the lower rent: 100 lei saved versus the old place."
+              }
+            }
           ],
           "debrief": {
             "ro": "Mutarea costă acum 500 lei, dar economisești 100 lei lunar. Calculul cheie: în câte luni se amortizează mutarea? Aici, în cinci, apoi e câștig curat.",
@@ -253,8 +399,25 @@
             "en": "Bring in a flatmate and split the rent"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [{"type": "cash", "delta": 12000}], "note": {"ro": "Chiria împărțită cu colegul de apartament.", "en": "Rent split with the flatmate."}},
-            {"type": "stat", "stat": "stress", "delta": 3}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 12000
+                }
+              ],
+              "note": {
+                "ro": "Chiria împărțită cu colegul de apartament.",
+                "en": "Rent split with the flatmate."
+              }
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Costul lunar scade simțitor. În schimb, intimitatea și liniștea scad și ele puțin, o alegere validă dacă prețul contează mai mult decât spațiul tău doar al tău.",
@@ -267,7 +430,20 @@
             "en": "Stay and accept the increase (found nothing better)"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [{"type": "cash", "delta": -15000}], "note": {"ro": "Chiria la noul preț, cu majorarea inclusă.", "en": "Rent at the new price, increase included."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -15000
+                }
+              ],
+              "note": {
+                "ro": "Chiria la noul preț, cu majorarea inclusă.",
+                "en": "Rent at the new price, increase included."
+              }
+            }
           ],
           "debrief": {
             "ro": "Căutarea n-a dat un rezultat mai bun de data asta, dar n-a fost degeaba: ai acum harta reală a prețurilor din zonă pentru data viitoare.",
@@ -275,9 +451,12 @@
           }
         }
       ],
-      "source": {"label": "estimare costuri mutare RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "estimare costuri mutare RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "schimb_furnizor_energie",
       "category": "fixed_costs",
@@ -292,7 +471,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["comparison_shopping", "fixed_costs"],
+      "skill_tags": [
+        "comparison_shopping",
+        "fixed_costs"
+      ],
       "title": {
         "ro": "Ai putea schimba furnizorul de energie",
         "en": "You could switch energy suppliers"
@@ -309,7 +491,20 @@
             "en": "Compare offers and switch supplier"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 7, "effects": [{"type": "cash", "delta": 6000}], "note": {"ro": "Prima factură de la noul furnizor: mai mică cu 60 lei.", "en": "First bill from the new supplier: 60 lei lower."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 7,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 6000
+                }
+              ],
+              "note": {
+                "ro": "Prima factură de la noul furnizor: mai mică cu 60 lei.",
+                "en": "First bill from the new supplier: 60 lei lower."
+              }
+            }
           ],
           "debrief": {
             "ro": "Douăzeci de minute de comparație → o economie care se repetă în fiecare lună. Costurile fixe sunt cele mai profitabile de optimizat, fiindcă revin mereu.",
@@ -322,7 +517,10 @@
             "en": "Stay with your current supplier (convenience)"
           },
           "effects": [
-            {"type": "setFlag", "flag": "energie_ramas_actual"}
+            {
+              "type": "setFlag",
+              "flag": "energie_ramas_actual"
+            }
           ],
           "debrief": {
             "ro": "Confortul de a nu schimba nimic are un preț tăcut care se plătește lunar. Măcar acum știi că alternativa există și cât valorează.",
@@ -335,7 +533,10 @@
             "en": "Postpone the decision for later"
           },
           "effects": [
-            {"type": "setFlag", "flag": "energie_amanat"}
+            {
+              "type": "setFlag",
+              "flag": "energie_amanat"
+            }
           ],
           "debrief": {
             "ro": "Amânarea e tot o alegere, cu un cost: oferta poate expira, iar „mai târziu\" se poate transforma în „niciodată\". Îți notezi o dată clară de revenire.",
@@ -343,9 +544,12 @@
           }
         }
       ],
-      "source": {"label": "comparator oferte furnizori energie RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "comparator oferte furnizori energie RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "rata_telefon_avans",
       "category": "debt",
@@ -357,13 +561,22 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [
-        {"type": "cashAbove", "amount": 80000},
-        {"type": "debtAbove", "amount": 0}
+        {
+          "type": "cashAbove",
+          "amount": 80000
+        },
+        {
+          "type": "debtAbove",
+          "amount": 0
+        }
       ],
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["debt_management", "opportunity_cost"],
+      "skill_tags": [
+        "debt_management",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Poți achita rata la telefon mai devreme",
         "en": "You can pay off the phone instalment early"
@@ -380,8 +593,16 @@
             "en": "Clear the whole balance now and be done"
           },
           "effects": [
-            {"type": "payDebt", "id": "rata_telefon", "full": true},
-            {"type": "stat", "stat": "stress", "delta": -5}
+            {
+              "type": "payDebt",
+              "id": "rata_telefon",
+              "full": true
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -5
+            }
           ],
           "debrief": {
             "ro": "Comisioanele viitoare dispar și o grijă lunară se stinge. Lichiditatea de azi scade, merită dacă comisioanele evitate depășesc dobânda pe care ai fi câștigat-o ținând banii.",
@@ -394,7 +615,11 @@
             "en": "Pay a partial amount (, 300 lei)"
           },
           "effects": [
-            {"type": "payDebt", "id": "rata_telefon", "amount": 30000}
+            {
+              "type": "payDebt",
+              "id": "rata_telefon",
+              "amount": 30000
+            }
           ],
           "debrief": {
             "ro": "Reduci soldul fără să te usuci de cash. Un mijloc echilibrat: scazi datoria și păstrezi un tampon pentru neprevăzut.",
@@ -407,7 +632,10 @@
             "en": "Keep your normal payment pace"
           },
           "effects": [
-            {"type": "setFlag", "flag": "rata_telefon_ritm_normal"}
+            {
+              "type": "setFlag",
+              "flag": "rata_telefon_ritm_normal"
+            }
           ],
           "debrief": {
             "ro": "Păstrezi lichiditatea maximă acum și plătești ceva mai mult în timp, prin comisioane. Ambele variante sunt valide, depinde cât prețuiești tamponul de cash.",
@@ -415,9 +643,12 @@
           }
         }
       ],
-      "source": {"label": "conditii rate telefon operatori RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "conditii rate telefon operatori RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "card_credit_oferta",
       "category": "debt",
@@ -432,7 +663,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "card_credit_teaser",
-      "skill_tags": ["credit", "interest", "debt_management"],
+      "skill_tags": [
+        "credit",
+        "interest",
+        "debt_management"
+      ],
       "title": {
         "ro": "Ofertă de card de credit „fără dobândă\"",
         "en": "A 'no-interest' credit card offer"
@@ -449,9 +684,22 @@
             "en": "Take the card and buy something on it now (, 800 lei)"
           },
           "effects": [
-            {"type": "createDebt", "id": "card_credit", "principal": 80000, "monthly": 10000, "due_day": 25},
-            {"type": "setFlag", "flag": "are_card_credit"},
-            {"type": "scheduleEvent", "delay_days": 12, "event_id": "card_credit_dobanda"}
+            {
+              "type": "createDebt",
+              "id": "card_credit",
+              "principal": 80000,
+              "monthly": 10000,
+              "due_day": 25
+            },
+            {
+              "type": "setFlag",
+              "flag": "are_card_credit"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 12,
+              "event_id": "card_credit_dobanda"
+            }
           ],
           "debrief": {
             "ro": "Banii par „gratis\" în perioada de grație, dar sunt un împrumut cu ceas. Cheia e programul: dacă achiți înainte să curgă dobânda, câștigi; dacă nu, plătești în plus.",
@@ -464,7 +712,10 @@
             "en": "Take the card but keep it only for emergencies (don't use it)"
           },
           "effects": [
-            {"type": "setFlag", "flag": "are_card_credit"}
+            {
+              "type": "setFlag",
+              "flag": "are_card_credit"
+            }
           ],
           "debrief": {
             "ro": "Cardul de credit e un instrument neutru, puterea lui, bună sau rea, stă în cum îl folosești. Ținut pentru urgențe și achitat integral, poate fi un aliat.",
@@ -477,7 +728,10 @@
             "en": "Decline the offer"
           },
           "effects": [
-            {"type": "setFlag", "flag": "a_refuzat_card_credit"}
+            {
+              "type": "setFlag",
+              "flag": "a_refuzat_card_credit"
+            }
           ],
           "debrief": {
             "ro": "Eviți tentația și orice dobândă viitoare. Unii preferă disciplina de a rămâne strict pe cash-ul propriu, o cale la fel de sănătoasă.",
@@ -485,9 +739,12 @@
           }
         }
       ],
-      "source": {"label": "conditii carduri de credit RO 2026 (DAE)", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "conditii carduri de credit RO 2026 (DAE)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "card_credit_dobanda",
       "category": "debt",
@@ -499,10 +756,22 @@
       "role_tags": [],
       "difficulty": 2,
       "conditions": [],
-      "exclusions": [{"type": "dayRange", "min": 1, "max": 30}],
-      "prerequisites": ["card_credit_oferta"],
+      "exclusions": [
+        {
+          "type": "dayRange",
+          "min": 1,
+          "max": 30
+        }
+      ],
+      "prerequisites": [
+        "card_credit_oferta"
+      ],
       "chain_id": "card_credit_teaser",
-      "skill_tags": ["credit", "interest", "debt_management"],
+      "skill_tags": [
+        "credit",
+        "interest",
+        "debt_management"
+      ],
       "title": {
         "ro": "Perioada fără dobândă la card se termină",
         "en": "The card's interest-free period is ending"
@@ -519,8 +788,16 @@
             "en": "Pay off the full balance before interest"
           },
           "effects": [
-            {"type": "payDebt", "id": "card_credit", "full": true},
-            {"type": "stat", "stat": "stress", "delta": -3}
+            {
+              "type": "payDebt",
+              "id": "card_credit",
+              "full": true
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
           ],
           "debrief": {
             "ro": "Ai folosit perioada de grație exact cum e gândită: bani „împrumutați\" gratis, returnați la timp. Asta e jocul inteligent cu creditul, zero dobândă plătită.",
@@ -533,8 +810,25 @@
             "en": "Pay only the monthly minimum (, 100 lei)"
           },
           "effects": [
-            {"type": "payDebt", "id": "card_credit", "amount": 10000},
-            {"type": "scheduleEffect", "delay_days": 10, "effects": [{"type": "cash", "delta": -3000}], "note": {"ro": "Dobânda pe soldul rămas la card.", "en": "Interest on the remaining card balance."}}
+            {
+              "type": "payDebt",
+              "id": "card_credit",
+              "amount": 10000
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 10,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -3000
+                }
+              ],
+              "note": {
+                "ro": "Dobânda pe soldul rămas la card.",
+                "en": "Interest on the remaining card balance."
+              }
+            }
           ],
           "debrief": {
             "ro": "Plata minimă ține datoria vie și dobânda mușcă din soldul rămas, 30 lei aici pot deveni mult mai mult luni la rând. Minimul e conceput să te țină dator.",
@@ -547,8 +841,25 @@
             "en": "Put it off and deal with it another time"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 10, "effects": [{"type": "cash", "delta": -5000}], "note": {"ro": "Dobândă plus comision de întârziere pe cardul de credit.", "en": "Interest plus a late fee on the credit card."}},
-            {"type": "stat", "stat": "stress", "delta": 4}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 10,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -5000
+                }
+              ],
+              "note": {
+                "ro": "Dobândă plus comision de întârziere pe cardul de credit.",
+                "en": "Interest plus a late fee on the credit card."
+              }
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            }
           ],
           "debrief": {
             "ro": "Amânarea la cardul de credit e cea mai scumpă formă de amânare: dobânda și comisionul se adună. Un memento în calendar valorează cât diferența.",
@@ -556,9 +867,12 @@
           }
         }
       ],
-      "source": {"label": "conditii carduri de credit RO 2026 (DAE)", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "conditii carduri de credit RO 2026 (DAE)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "gadget_rate_oferta",
       "category": "debt",
@@ -573,7 +887,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "gadget_rate",
-      "skill_tags": ["credit", "opportunity_cost", "needs_wants"],
+      "skill_tags": [
+        "credit",
+        "opportunity_cost",
+        "needs_wants"
+      ],
       "title": {
         "ro": "Căștile pe care le voiai, disponibile în rate",
         "en": "The headphones you wanted, in instalments"
@@ -590,7 +908,10 @@
             "en": "Buy them in cash now (, 900 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -90000}
+            {
+              "type": "cash",
+              "delta": -90000
+            }
           ],
           "debrief": {
             "ro": "Plătești tot odată: nicio datorie, niciun cost în plus. Lichiditatea scade brusc, deci ai grijă să rămâi cu tampon pentru facturile lunii.",
@@ -603,8 +924,18 @@
             "en": "Take them in 12 instalments (85 lei/month)"
           },
           "effects": [
-            {"type": "createDebt", "id": "gadget_rate", "principal": 102000, "monthly": 8500, "due_day": 15},
-            {"type": "scheduleEvent", "delay_days": 10, "event_id": "gadget_rate_scadenta"}
+            {
+              "type": "createDebt",
+              "id": "gadget_rate",
+              "principal": 102000,
+              "monthly": 8500,
+              "due_day": 15
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 10,
+              "event_id": "gadget_rate_scadenta"
+            }
           ],
           "debrief": {
             "ro": "Ratele mici par nedureroase, dar totalul e 1.020 lei, cu 120 lei peste prețul cash. Aceia 120 lei sunt costul de a le avea acum în loc de peste câteva luni.",
@@ -617,8 +948,14 @@
             "en": "Hold off and save up for them"
           },
           "effects": [
-            {"type": "goal", "delta": 10000},
-            {"type": "cash", "delta": -10000}
+            {
+              "type": "goal",
+              "delta": 10000
+            },
+            {
+              "type": "cash",
+              "delta": -10000
+            }
           ],
           "debrief": {
             "ro": "Dorința amânată nu dispare, pui deoparte prima tranșă și le vei lua fără datorie și fără suprapreț. Anticiparea e, adesea, jumătate din plăcere.",
@@ -626,9 +963,12 @@
           }
         }
       ],
-      "source": {"label": "oferte rate gadgeturi retail RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "oferte rate gadgeturi retail RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "gadget_rate_scadenta",
       "category": "debt",
@@ -640,10 +980,21 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [],
-      "exclusions": [{"type": "dayRange", "min": 1, "max": 30}],
-      "prerequisites": ["gadget_rate_oferta"],
+      "exclusions": [
+        {
+          "type": "dayRange",
+          "min": 1,
+          "max": 30
+        }
+      ],
+      "prerequisites": [
+        "gadget_rate_oferta"
+      ],
       "chain_id": "gadget_rate",
-      "skill_tags": ["debt_management", "cashflow"],
+      "skill_tags": [
+        "debt_management",
+        "cashflow"
+      ],
       "title": {
         "ro": "Prima rată la căști e scadentă",
         "en": "The first headphone instalment is due"
@@ -660,7 +1011,11 @@
             "en": "Pay the instalment on time (, 85 lei)"
           },
           "effects": [
-            {"type": "payDebt", "id": "gadget_rate", "amount": 8500}
+            {
+              "type": "payDebt",
+              "id": "gadget_rate",
+              "amount": 8500
+            }
           ],
           "debrief": {
             "ro": "La timp înseamnă fără penalizări și fără stres. Rata intră curat în bugetul lunar, exact cum ai planificat când ai semnat.",
@@ -673,7 +1028,11 @@
             "en": "Pay extra to finish faster (, 340 lei)"
           },
           "effects": [
-            {"type": "payDebt", "id": "gadget_rate", "amount": 34000}
+            {
+              "type": "payDebt",
+              "id": "gadget_rate",
+              "amount": 34000
+            }
           ],
           "debrief": {
             "ro": "Accelerezi stingerea datoriei: mai puține luni cu rata pe umeri și, la unele contracte, mai puțin cost total. Lichiditatea de azi scade în schimb.",
@@ -686,8 +1045,25 @@
             "en": "Postpone the instalment"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 7, "effects": [{"type": "cash", "delta": -4000}], "note": {"ro": "Penalizare de întârziere la rata gadgetului.", "en": "Late fee on the gadget instalment."}},
-            {"type": "stat", "stat": "stress", "delta": 3}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 7,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -4000
+                }
+              ],
+              "note": {
+                "ro": "Penalizare de întârziere la rata gadgetului.",
+                "en": "Late fee on the gadget instalment."
+              }
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Întârzierea la rate adaugă penalizări și poate atinge istoricul tău de plată. O rată amânată e rareori o rată economisită.",
@@ -695,9 +1071,12 @@
           }
         }
       ],
-      "source": {"label": "conditii contracte rate retail RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "conditii contracte rate retail RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "proba_gratuita_start",
       "category": "subscriptions",
@@ -712,7 +1091,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "proba_gratuita",
-      "skill_tags": ["subscriptions", "delayed_gratification"],
+      "skill_tags": [
+        "subscriptions",
+        "delayed_gratification"
+      ],
       "title": {
         "ro": "Probă gratuită de 7 zile la o aplicație",
         "en": "A 7-day free trial for an app"
@@ -729,8 +1111,15 @@
             "en": "Sign up for the trial (card required)"
           },
           "effects": [
-            {"type": "setFlag", "flag": "proba_activa"},
-            {"type": "scheduleEvent", "delay_days": 7, "event_id": "proba_gratuita_conversie"}
+            {
+              "type": "setFlag",
+              "flag": "proba_activa"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 7,
+              "event_id": "proba_gratuita_conversie"
+            }
           ],
           "debrief": {
             "ro": "Gratis acum, dar cardul e legat de un ceas. Modelul se bazează pe uitare, îți notezi data conversiei ca să rămâi tu la comandă, nu aplicația.",
@@ -743,9 +1132,19 @@
             "en": "Sign up and set a reminder to cancel from day one"
           },
           "effects": [
-            {"type": "setFlag", "flag": "proba_activa"},
-            {"type": "setFlag", "flag": "memento_anulare"},
-            {"type": "scheduleEvent", "delay_days": 7, "event_id": "proba_gratuita_conversie"}
+            {
+              "type": "setFlag",
+              "flag": "proba_activa"
+            },
+            {
+              "type": "setFlag",
+              "flag": "memento_anulare"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 7,
+              "event_id": "proba_gratuita_conversie"
+            }
           ],
           "debrief": {
             "ro": "Trucul corect: te bucuri de probă și controlezi conversia cu un memento. Așa transformi un model construit pe uitare într-un beneficiu real, gratuit.",
@@ -758,7 +1157,10 @@
             "en": "Skip the trial"
           },
           "effects": [
-            {"type": "setFlag", "flag": "a_refuzat_proba"}
+            {
+              "type": "setFlag",
+              "flag": "a_refuzat_proba"
+            }
           ],
           "debrief": {
             "ro": "Eviți din start riscul de a uita. Nu orice gratuitate merită un loc în capul tău, uneori cel mai ieftin lucru e să nu începi.",
@@ -766,9 +1168,12 @@
           }
         }
       ],
-      "source": {"label": "practici free-trial abonamente digitale 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practici free-trial abonamente digitale 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "proba_gratuita_conversie",
       "category": "subscriptions",
@@ -780,10 +1185,21 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [],
-      "exclusions": [{"type": "dayRange", "min": 1, "max": 30}],
-      "prerequisites": ["proba_gratuita_start"],
+      "exclusions": [
+        {
+          "type": "dayRange",
+          "min": 1,
+          "max": 30
+        }
+      ],
+      "prerequisites": [
+        "proba_gratuita_start"
+      ],
       "chain_id": "proba_gratuita",
-      "skill_tags": ["subscriptions", "cashflow"],
+      "skill_tags": [
+        "subscriptions",
+        "cashflow"
+      ],
       "title": {
         "ro": "Proba gratuită se transformă în abonament plătit",
         "en": "The free trial converts to a paid subscription"
@@ -800,8 +1216,15 @@
             "en": "Cancel in time (you had a reminder)"
           },
           "effects": [
-            {"type": "clearFlag", "flag": "proba_activa"},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "clearFlag",
+              "flag": "proba_activa"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Zero lei plătiți: ai folosit proba fără să cazi în capcană. Un memento simplu a bătut întregul model de business construit pe uitare.",
@@ -814,7 +1237,10 @@
             "en": "Cancel now, on the spot"
           },
           "effects": [
-            {"type": "clearFlag", "flag": "proba_activa"}
+            {
+              "type": "clearFlag",
+              "flag": "proba_activa"
+            }
           ],
           "debrief": {
             "ro": "Bine că ai verificat la timp. Conversiile automate se bazează exact pe momentul în care nu te uiți, tu te-ai uitat.",
@@ -827,7 +1253,10 @@
             "en": "Keep it active, you actually use it (, 35 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -3500}
+            {
+              "type": "cash",
+              "delta": -3500
+            }
           ],
           "debrief": {
             "ro": "Dacă o folosești cu adevărat, e o cheltuială conștientă, și e complet ok. Diferența față de una uitată e că tu ai ales-o, nu inerția.",
@@ -835,9 +1264,12 @@
           }
         }
       ],
-      "source": {"label": "practici free-trial abonamente digitale 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practici free-trial abonamente digitale 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "abonament_scumpit_notificare",
       "category": "subscriptions",
@@ -852,7 +1284,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "abonament_scumpit",
-      "skill_tags": ["subscriptions", "cashflow"],
+      "skill_tags": [
+        "subscriptions",
+        "cashflow"
+      ],
       "title": {
         "ro": "Un abonament îți crește prețul",
         "en": "A subscription is raising its price"
@@ -869,7 +1304,11 @@
             "en": "Accept the new price and continue"
           },
           "effects": [
-            {"type": "scheduleEvent", "delay_days": 3, "event_id": "abonament_scumpit_debit"}
+            {
+              "type": "scheduleEvent",
+              "delay_days": 3,
+              "event_id": "abonament_scumpit_debit"
+            }
           ],
           "debrief": {
             "ro": "Comoditatea de a nu face nimic e reală, dar costul recurent crește tăcut. Micile majorări trec neobservate, de aceea sunt atât de profitabile pentru firme.",
@@ -882,7 +1321,10 @@
             "en": "Switch to the annual plan, cheaper per month (, 180 lei now)"
           },
           "effects": [
-            {"type": "cash", "delta": -18000}
+            {
+              "type": "cash",
+              "delta": -18000
+            }
           ],
           "debrief": {
             "ro": "Plătești mult odată, dar prețul pe lună scade sub cel nou. Merită doar dacă chiar îl folosești tot anul, altfel plata anuală blochează bani degeaba.",
@@ -895,7 +1337,10 @@
             "en": "Cancel the subscription"
           },
           "effects": [
-            {"type": "setFlag", "flag": "abonament_streaming_anulat"}
+            {
+              "type": "setFlag",
+              "flag": "abonament_streaming_anulat"
+            }
           ],
           "debrief": {
             "ro": "Elimini un cost recurent care tocmai a crescut. Poți reveni oricând, momentul unei majorări e cel mai bun prilej să te întrebi dacă îl mai foloseai.",
@@ -903,9 +1348,12 @@
           }
         }
       ],
-      "source": {"label": "practici de pret abonamente digitale 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practici de pret abonamente digitale 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "abonament_scumpit_debit",
       "category": "subscriptions",
@@ -917,10 +1365,21 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [],
-      "exclusions": [{"type": "dayRange", "min": 1, "max": 30}],
-      "prerequisites": ["abonament_scumpit_notificare"],
+      "exclusions": [
+        {
+          "type": "dayRange",
+          "min": 1,
+          "max": 30
+        }
+      ],
+      "prerequisites": [
+        "abonament_scumpit_notificare"
+      ],
       "chain_id": "abonament_scumpit",
-      "skill_tags": ["subscriptions", "budgeting"],
+      "skill_tags": [
+        "subscriptions",
+        "budgeting"
+      ],
       "title": {
         "ro": "S-a debitat noul preț al abonamentului",
         "en": "The new subscription price was charged"
@@ -937,7 +1396,10 @@
             "en": "Confirm and continue"
           },
           "effects": [
-            {"type": "cash", "delta": -3000}
+            {
+              "type": "cash",
+              "delta": -3000
+            }
           ],
           "debrief": {
             "ro": "Costul e acum vizibil, nu ascuns în inerție. Abonamentele mici se adună, un audit lunar de 5 minute le ține sub control.",
@@ -950,8 +1412,14 @@
             "en": "Cancel now, after seeing the charge"
           },
           "effects": [
-            {"type": "cash", "delta": -3000},
-            {"type": "setFlag", "flag": "abonament_streaming_anulat"}
+            {
+              "type": "cash",
+              "delta": -3000
+            },
+            {
+              "type": "setFlag",
+              "flag": "abonament_streaming_anulat"
+            }
           ],
           "debrief": {
             "ro": "Ai plătit luna asta, dar oprești sângerarea de mâine. A vedea suma pe extras e adesea declanșatorul care lipsea.",
@@ -964,8 +1432,24 @@
             "en": "Look for an equally good free alternative"
           },
           "effects": [
-            {"type": "cash", "delta": -3000},
-            {"type": "scheduleEffect", "delay_days": 5, "effects": [{"type": "setFlag", "flag": "alternativa_gratuita_gasita"}], "note": {"ro": "Ai găsit o variantă gratuită care îți acoperă nevoia.", "en": "You found a free option that covers your need."}}
+            {
+              "type": "cash",
+              "delta": -3000
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 5,
+              "effects": [
+                {
+                  "type": "setFlag",
+                  "flag": "alternativa_gratuita_gasita"
+                }
+              ],
+              "note": {
+                "ro": "Ai găsit o variantă gratuită care îți acoperă nevoia.",
+                "en": "You found a free option that covers your need."
+              }
+            }
           ],
           "debrief": {
             "ro": "Uneori există un substitut gratuit la fel de bun, o bibliotecă, o aplicație open-source, un plan cu reclame. Merită căutat înainte de a plăti din reflex.",
@@ -973,9 +1457,12 @@
           }
         }
       ],
-      "source": {"label": "practici de pret abonamente digitale 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practici de pret abonamente digitale 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "abonament_uitat",
       "category": "subscriptions",
@@ -990,7 +1477,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["subscriptions", "budgeting"],
+      "skill_tags": [
+        "subscriptions",
+        "budgeting"
+      ],
       "title": {
         "ro": "Ai descoperit un abonament uitat pe extras",
         "en": "A forgotten subscription on your statement"
@@ -1007,7 +1497,20 @@
             "en": "Cancel it right away"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 6, "effects": [{"type": "cash", "delta": 4000}], "note": {"ro": "Banii pe care nu-i mai dai pe abonamentul uitat, rămași în cont.", "en": "The money you no longer spend on the forgotten subscription, staying in your account."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 4000
+                }
+              ],
+              "note": {
+                "ro": "Banii pe care nu-i mai dai pe abonamentul uitat, rămași în cont.",
+                "en": "The money you no longer spend on the forgotten subscription, staying in your account."
+              }
+            }
           ],
           "debrief": {
             "ro": "Auditul extrasului = bani găsiți fără efort. Un abonament uitat e o scurgere lentă; verificarea extrasului o dată pe lună o prinde devreme.",
@@ -1020,7 +1523,10 @@
             "en": "Keep it, maybe you'll use it"
           },
           "effects": [
-            {"type": "setFlag", "flag": "abonament_uitat_pastrat"}
+            {
+              "type": "setFlag",
+              "flag": "abonament_uitat_pastrat"
+            }
           ],
           "debrief": {
             "ro": "Dacă îl folosești cu adevărat, e ok. Dacă „poate\" înseamnă de fapt „nu\", e o scurgere lentă care merge mai departe, sinceritatea cu tine e cheia.",
@@ -1033,8 +1539,25 @@
             "en": "Check ALL your subscriptions now, not just this one"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [{"type": "cash", "delta": 7000}], "note": {"ro": "Ai tăiat două abonamente nefolosite după auditul complet.", "en": "You cut two unused subscriptions after the full audit."}},
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 7000
+                }
+              ],
+              "note": {
+                "ro": "Ai tăiat două abonamente nefolosite după auditul complet.",
+                "en": "You cut two unused subscriptions after the full audit."
+              }
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "Un audit complet, o dată pe an, prinde toate scurgerile deodată. E cel mai bun raport efort/economie din câte există în finanțele personale.",
@@ -1042,9 +1565,12 @@
           }
         }
       ],
-      "source": {"label": "studii abonamente nefolosite / subscription fatigue 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "studii abonamente nefolosite / subscription fatigue 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "black_friday",
       "category": "daily_living",
@@ -1059,7 +1585,11 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["needs_wants", "impulse", "opportunity_cost"],
+      "skill_tags": [
+        "needs_wants",
+        "impulse",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Black Friday: reducere la ceva ce voiai",
         "en": "Black Friday: a discount on something you wanted"
@@ -1076,8 +1606,25 @@
             "en": "Buy now at the real discount (, 450 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -45000},
-            {"type": "scheduleEffect", "delay_days": 12, "effects": [{"type": "stat", "stat": "energy", "delta": 2}], "note": {"ro": "Chiar folosești lucrul cumpărat de Black Friday, bucurie fără regret.", "en": "You actually use the Black Friday purchase, joy, no regret."}}
+            {
+              "type": "cash",
+              "delta": -45000
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 12,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": 2
+                }
+              ],
+              "note": {
+                "ro": "Chiar folosești lucrul cumpărat de Black Friday, bucurie fără regret.",
+                "en": "You actually use the Black Friday purchase, joy, no regret."
+              }
+            }
           ],
           "debrief": {
             "ro": "Reducerea a fost reală și îl foloseai oricum: e o cheltuială planificată, nu un impuls. Diferența dintre o afacere și o capcană e dacă îl voiai dinainte.",
@@ -1090,7 +1637,21 @@
             "en": "Apply the 24-hour rule, then decide"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 1, "effects": [{"type": "stat", "stat": "stress", "delta": -1}], "note": {"ro": "După o zi, entuziasmul s-a mai așezat și vezi mai limpede.", "en": "After a day, the excitement settled and you see more clearly."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 1,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": -1
+                }
+              ],
+              "note": {
+                "ro": "După o zi, entuziasmul s-a mai așezat și vezi mai limpede.",
+                "en": "After a day, the excitement settled and you see more clearly."
+              }
+            }
           ],
           "debrief": {
             "ro": "Pauza de o zi separă nevoia de impuls. Multe impulsuri de „musai acum\" trec peste noapte, cronometrul e făcut ca să nu-ți dea timpul ăsta.",
@@ -1103,7 +1664,11 @@
             "en": "Skip it, you didn't need it"
           },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "O „reducere\" la ceva de care n-ai nevoie e tot o cheltuială, nu o economie. Ai păstrat banii întregi, cea mai mare reducere e 100%.",
@@ -1111,9 +1676,12 @@
           }
         }
       ],
-      "source": {"label": "psihologia reducerilor Black Friday 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "psihologia reducerilor Black Friday 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "supermarket_marca",
       "category": "daily_living",
@@ -1128,7 +1696,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["comparison_shopping", "budgeting"],
+      "skill_tags": [
+        "comparison_shopping",
+        "budgeting"
+      ],
       "title": {
         "ro": "La raft: marcă proprie sau brand cunoscut?",
         "en": "At the shelf: store brand or name brand?"
@@ -1145,7 +1716,10 @@
             "en": "Take the store's own brand (basket, 120 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -12000}
+            {
+              "type": "cash",
+              "delta": -12000
+            }
           ],
           "debrief": {
             "ro": "La produsele de bază, marca proprie e adesea aceeași calitate cu ~30% mai ieftin, uneori din aceeași fabrică. Economia mică la coș se adună de la o săptămână la alta.",
@@ -1158,7 +1732,10 @@
             "en": "Take the name brands (basket, 155 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -15500}
+            {
+              "type": "cash",
+              "delta": -15500
+            }
           ],
           "debrief": {
             "ro": "Plătești și pentru nume, ambalaj și reclamă. Uneori diferența chiar contează (gust, ingredient), alteori doar culoarea etichetei, tu decizi unde merită.",
@@ -1171,7 +1748,10 @@
             "en": "Mix: name brand where it matters, store brand where it doesn't (, 135 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -13500}
+            {
+              "type": "cash",
+              "delta": -13500
+            }
           ],
           "debrief": {
             "ro": "Strategia echilibrată: nu economisești orbește, nici nu plătești orbește. Alegi conștient produs cu produs, cea mai matură formă de cumpărături.",
@@ -1179,9 +1759,12 @@
           }
         }
       ],
-      "source": {"label": "comparatie preturi marca proprie vs brand RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "comparatie preturi marca proprie vs brand RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "pranz_colegi",
       "category": "daily_living",
@@ -1196,7 +1779,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["needs_wants", "relationships"],
+      "skill_tags": [
+        "needs_wants",
+        "relationships"
+      ],
       "title": {
         "ro": "Colegii te cheamă la prânz în oraș",
         "en": "Colleagues invite you to lunch out"
@@ -1213,9 +1799,20 @@
             "en": "Go with them to the restaurant (, 55 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -5500},
-            {"type": "stat", "stat": "relationships", "delta": 4},
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "cash",
+              "delta": -5500
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "Relațiile la muncă și pauza de la birou au valoare reală. A fost o cheltuială socială conștientă, banii pe conexiune nu sunt bani irosiți, dacă îți permiți ritmul.",
@@ -1228,8 +1825,15 @@
             "en": "Bring food from home, but join for coffee (, 8 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -800},
-            {"type": "stat", "stat": "relationships", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -800
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Păstrezi legătura cu grupul fără costul mesei complete. Compromisul inteligent: prezent la momentul social, ușor cu portofelul.",
@@ -1242,7 +1846,11 @@
             "en": "Politely decline and save"
           },
           "effects": [
-            {"type": "stat", "stat": "relationships", "delta": -2}
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "Ai păstrat banii, și e o alegere validă. Dar dacă refuzi de fiecare dată, relațiile se pot răci încet, echilibrul, nu extrema, ține și punga și legăturile.",
@@ -1250,9 +1858,12 @@
           }
         }
       ],
-      "source": {"label": "estimare cost pranz in oras RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "estimare cost pranz in oras RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "zi_doar_cash",
       "category": "daily_living",
@@ -1267,7 +1878,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["cashflow", "emergency_fund"],
+      "skill_tags": [
+        "cashflow",
+        "emergency_fund"
+      ],
       "title": {
         "ro": "Sistemul de plăți cu cardul e picat",
         "en": "The card payment system is down"
@@ -1284,7 +1898,10 @@
             "en": "Withdraw cash from the nearest ATM (fee, 6 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": -600}
+            {
+              "type": "cash",
+              "delta": -600
+            }
           ],
           "debrief": {
             "ro": "Bancomatul altei bănci ia comision pentru fiecare retragere. Un cost mic azi, dar dacă se repetă, caută ATM-ul băncii tale sau retrage mai rar, sume mai mari.",
@@ -1297,7 +1914,11 @@
             "en": "Use only the cash you have"
           },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 2}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Te descurci cu ce ai, dar cu puțină tensiune. Un mic tampon de cash acasă sau în portofel netezește exact zilele ca asta, când tehnologia te lasă.",
@@ -1310,7 +1931,11 @@
             "en": "Postpone non-essential shopping to tomorrow"
           },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Puține lucruri chiar nu pot aștepta o zi. Ai evitat și comisionul, și graha, întrebarea „chiar am nevoie azi?\" economisește des, nu doar acum.",
@@ -1318,9 +1943,12 @@
           }
         }
       ],
-      "source": {"label": "comisioane retragere ATM interbancar RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "comisioane retragere ATM interbancar RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "fond_urgenta_seed",
       "category": "saving",
@@ -1332,13 +1960,22 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [
-        {"type": "fundBelow", "amount": 50000},
-        {"type": "cashAbove", "amount": 30000}
+        {
+          "type": "fundBelow",
+          "amount": 50000
+        },
+        {
+          "type": "cashAbove",
+          "amount": 30000
+        }
       ],
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["emergency_fund", "budgeting"],
+      "skill_tags": [
+        "emergency_fund",
+        "budgeting"
+      ],
       "title": {
         "ro": "Cashy: pornim fondul de urgență devreme?",
         "en": "Cashy: shall we seed the emergency fund early?"
@@ -1355,9 +1992,19 @@
             "en": "Move 200 lei to the emergency fund now"
           },
           "effects": [
-            {"type": "cash", "delta": -20000},
-            {"type": "fund", "delta": 20000},
-            {"type": "stat", "stat": "stress", "delta": -3}
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "fund",
+              "delta": 20000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
           ],
           "debrief": {
             "ro": "Un fond mic, pornit devreme, absoarbe primul șoc înainte să devină datorie scumpă. Te-ai plătit pe tine întâi, cel mai vechi principiu, și cel mai solid.",
@@ -1370,9 +2017,19 @@
             "en": "Put in 50 lei now, a symbolic start"
           },
           "effects": [
-            {"type": "cash", "delta": -5000},
-            {"type": "fund", "delta": 5000},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -5000
+            },
+            {
+              "type": "fund",
+              "delta": 5000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Chiar și un început mic creează obiceiul, iar obiceiul, nu suma, construiește fondul. Adaugi câte puțin când poți; contează direcția, nu viteza.",
@@ -1385,7 +2042,10 @@
             "en": "Wait until you see how the month looks"
           },
           "effects": [
-            {"type": "setFlag", "flag": "fond_seed_amanat"}
+            {
+              "type": "setFlag",
+              "flag": "fond_seed_amanat"
+            }
           ],
           "debrief": {
             "ro": "Aștepți claritate, ceea ce e rezonabil. Riscul e ca „mai târziu\" să nu vină și banii să se scurgă în mărunțișuri, chiar și un tampon minim ajută dacă apare un șoc devreme.",
@@ -1393,9 +2053,12 @@
           }
         }
       ],
-      "source": {"label": "principii fond de urgenta educatie financiara", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "principii fond de urgenta educatie financiara",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "rotunjire_economii",
       "category": "saving",
@@ -1410,7 +2073,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["saving", "automation"],
+      "skill_tags": [
+        "saving",
+        "automation"
+      ],
       "title": {
         "ro": "Descoperi trucul rotunjirii la economii",
         "en": "You discover the round-up savings trick"
@@ -1427,8 +2093,24 @@
             "en": "Turn on automatic round-ups on every payment"
           },
           "effects": [
-            {"type": "setFlag", "flag": "rotunjire_activa"},
-            {"type": "scheduleEffect", "delay_days": 10, "effects": [{"type": "fund", "delta": 4500}], "note": {"ro": "Rotunjirile de la plățile tale s-au strâns în fond.", "en": "The round-ups from your payments gathered in the fund."}}
+            {
+              "type": "setFlag",
+              "flag": "rotunjire_activa"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 10,
+              "effects": [
+                {
+                  "type": "fund",
+                  "delta": 4500
+                }
+              ],
+              "note": {
+                "ro": "Rotunjirile de la plățile tale s-au strâns în fond.",
+                "en": "The round-ups from your payments gathered in the fund."
+              }
+            }
           ],
           "debrief": {
             "ro": "Economisești din resturi, fără să simți. Automatizarea bate voința: pui deoparte înainte să apuci să cheltui, iar micile sume se adună tăcut.",
@@ -1441,8 +2123,14 @@
             "en": "Prefer to move a fixed amount manually each week"
           },
           "effects": [
-            {"type": "cash", "delta": -5000},
-            {"type": "fund", "delta": 5000}
+            {
+              "type": "cash",
+              "delta": -5000
+            },
+            {
+              "type": "fund",
+              "delta": 5000
+            }
           ],
           "debrief": {
             "ro": "La fel de valabil, dacă ești constant. Controlul manual îți dă vizibilitate, dar cere disciplină, funcționează cât timp îți amintești și chiar o faci.",
@@ -1455,7 +2143,10 @@
             "en": "Leave it for another time"
           },
           "effects": [
-            {"type": "setFlag", "flag": "rotunjire_amanat"}
+            {
+              "type": "setFlag",
+              "flag": "rotunjire_amanat"
+            }
           ],
           "debrief": {
             "ro": "Trucul rămâne disponibil oricând. Micile automatizări au efect mare în timp, tocmai fiindcă nu depind de dispoziția ta de azi, merită o revenire.",
@@ -1463,9 +2154,12 @@
           }
         }
       ],
-      "source": {"label": "functii round-up economii banking RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "functii round-up economii banking RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "tichete_masa",
       "category": "saving",
@@ -1477,12 +2171,18 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [
-        {"type": "hasFlag", "flag": "tichete_masa"}
+        {
+          "type": "hasFlag",
+          "flag": "tichete_masa"
+        }
       ],
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["budgeting", "benefits"],
+      "skill_tags": [
+        "budgeting",
+        "benefits"
+      ],
       "title": {
         "ro": "Ți-au intrat tichetele de masă",
         "en": "Your meal vouchers arrived"
@@ -1499,8 +2199,14 @@
             "en": "Buy groceries with the vouchers and move the freed cash to the fund"
           },
           "effects": [
-            {"type": "setFlag", "flag": "tichete_incasate"},
-            {"type": "fund", "delta": 15000}
+            {
+              "type": "setFlag",
+              "flag": "tichete_incasate"
+            },
+            {
+              "type": "fund",
+              "delta": 15000
+            }
           ],
           "debrief": {
             "ro": "Tichetele acoperă mâncarea, iar cash-ul pe care oricum l-ai fi dat pe alimente ajunge în fond. Bani „direcționați\" inteligent, folosești fix ce e restricționat.",
@@ -1513,8 +2219,14 @@
             "en": "Buy groceries and channel the freed cash to your goal"
           },
           "effects": [
-            {"type": "setFlag", "flag": "tichete_incasate"},
-            {"type": "goal", "delta": 15000}
+            {
+              "type": "setFlag",
+              "flag": "tichete_incasate"
+            },
+            {
+              "type": "goal",
+              "delta": 15000
+            }
           ],
           "debrief": {
             "ro": "Aceeași idee, altă destinație: tichetele pentru mâncare eliberează cash pentru obiectivul tău. Un beneficiu de la angajator, transformat în progres personal.",
@@ -1527,8 +2239,14 @@
             "en": "Use them for food and keep the rest as free cash"
           },
           "effects": [
-            {"type": "setFlag", "flag": "tichete_incasate"},
-            {"type": "cash", "delta": 8000}
+            {
+              "type": "setFlag",
+              "flag": "tichete_incasate"
+            },
+            {
+              "type": "cash",
+              "delta": 8000
+            }
           ],
           "debrief": {
             "ro": "Le folosești pe alimente și păstrezi lichiditatea, perfect valid. Un singur lucru de reținut: cash-ul liber e și cel mai ușor de cheltuit fără să observi.",
@@ -1536,9 +2254,12 @@
           }
         }
       ],
-      "source": {"label": "reguli tichete de masa RO 2026 (valoare nominala)", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "reguli tichete de masa RO 2026 (valoare nominala)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "card_fidelitate",
       "category": "saving",
@@ -1553,7 +2274,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["saving", "comparison_shopping"],
+      "skill_tags": [
+        "saving",
+        "comparison_shopping"
+      ],
       "title": {
         "ro": "Card de fidelitate la magazinul tău",
         "en": "A loyalty card at your usual shop"
@@ -1570,7 +2294,20 @@
             "en": "Get the card and collect points"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 8, "effects": [{"type": "cash", "delta": 3000}], "note": {"ro": "Puncte de fidelitate transformate în reducere la coș.", "en": "Loyalty points turned into a discount at checkout."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 8,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 3000
+                }
+              ],
+              "note": {
+                "ro": "Puncte de fidelitate transformate în reducere la coș.",
+                "en": "Loyalty points turned into a discount at checkout."
+              }
+            }
           ],
           "debrief": {
             "ro": "La cumpărăturile pe care oricum le faci, cashback-ul e bani aproape gratis. Singura atenție: să nu cumperi în plus doar ca să strângi puncte.",
@@ -1583,7 +2320,10 @@
             "en": "Decline (you don't want another card / your data)"
           },
           "effects": [
-            {"type": "setFlag", "flag": "a_refuzat_fidelitate"}
+            {
+              "type": "setFlag",
+              "flag": "a_refuzat_fidelitate"
+            }
           ],
           "debrief": {
             "ro": "O alegere validă pentru intimitate: cardurile de fidelitate îți urmăresc cumpărăturile. Cântărești confidențialitatea față de reducerea oferită, amândouă au valoare.",
@@ -1596,8 +2336,24 @@
             "en": "Get it, but promise not to buy extra for points"
           },
           "effects": [
-            {"type": "setFlag", "flag": "fidelitate_disciplinat"},
-            {"type": "scheduleEffect", "delay_days": 8, "effects": [{"type": "cash", "delta": 3000}], "note": {"ro": "Cashback din fidelitate, fără cumpărături în plus.", "en": "Loyalty cashback, with no extra purchases."}}
+            {
+              "type": "setFlag",
+              "flag": "fidelitate_disciplinat"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 8,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 3000
+                }
+              ],
+              "note": {
+                "ro": "Cashback din fidelitate, fără cumpărături în plus.",
+                "en": "Loyalty cashback, with no extra purchases."
+              }
+            }
           ],
           "debrief": {
             "ro": "Capcana fidelizării e să te facă să cheltui mai mult pentru „recompense\". Tu iei doar beneficiul și lași momeala, exact cum ar trebui folosit un astfel de card.",
@@ -1605,9 +2361,12 @@
           }
         }
       ],
-      "source": {"label": "programe de fidelitate retail RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "programe de fidelitate retail RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "vanzare_obiect_listare",
       "category": "saving",
@@ -1622,7 +2381,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": "vanzare_obiect",
-      "skill_tags": ["saving", "opportunity_cost"],
+      "skill_tags": [
+        "saving",
+        "opportunity_cost"
+      ],
       "title": {
         "ro": "Un obiect nefolosit stă degeaba în dulap",
         "en": "An unused item sits idle in the closet"
@@ -1639,8 +2401,15 @@
             "en": "Take photos and list it for sale (250 lei)"
           },
           "effects": [
-            {"type": "setFlag", "flag": "obiect_listat"},
-            {"type": "scheduleEvent", "delay_days": 3, "event_id": "vanzare_obiect_negociere"}
+            {
+              "type": "setFlag",
+              "flag": "obiect_listat"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 3,
+              "event_id": "vanzare_obiect_negociere"
+            }
           ],
           "debrief": {
             "ro": "Lucrurile nefolosite sunt cash blocat. Douăzeci de minute de poze și o descriere îl deblochează, casa devine mai goală, contul mai plin.",
@@ -1653,7 +2422,11 @@
             "en": "Donate it to someone who needs it"
           },
           "effects": [
-            {"type": "stat", "stat": "relationships", "delta": 3}
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Nu tot ce faci e despre bani. Ai câștigat spațiu și un gest bun, valoarea unui lucru poate fi și în cui îl dai, nu doar în cât iei pe el.",
@@ -1666,7 +2439,10 @@
             "en": "Keep it 'for later'"
           },
           "effects": [
-            {"type": "setFlag", "flag": "obiect_pastrat"}
+            {
+              "type": "setFlag",
+              "flag": "obiect_pastrat"
+            }
           ],
           "debrief": {
             "ro": "Pentru lucruri nefolosite de mult, „mai târziu\" vine rar. Ocupă spațiu și valoare care s-ar putea mișca, merită o întrebare sinceră: chiar îl voi folosi?",
@@ -1674,9 +2450,12 @@
           }
         }
       ],
-      "source": {"label": "piata second-hand / marketplace RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "piata second-hand / marketplace RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "vanzare_obiect_negociere",
       "category": "saving",
@@ -1688,10 +2467,21 @@
       "role_tags": [],
       "difficulty": 1,
       "conditions": [],
-      "exclusions": [{"type": "dayRange", "min": 1, "max": 30}],
-      "prerequisites": ["vanzare_obiect_listare"],
+      "exclusions": [
+        {
+          "type": "dayRange",
+          "min": 1,
+          "max": 30
+        }
+      ],
+      "prerequisites": [
+        "vanzare_obiect_listare"
+      ],
       "chain_id": "vanzare_obiect",
-      "skill_tags": ["negotiation", "saving"],
+      "skill_tags": [
+        "negotiation",
+        "saving"
+      ],
       "title": {
         "ro": "Un cumpărător negociază prețul",
         "en": "A buyer haggles over the price"
@@ -1708,8 +2498,15 @@
             "en": "Accept their offer (200 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": 20000},
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "cash",
+              "delta": 20000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "200 lei acum bat 250 „poate niciodată\". Lichiditatea rapidă și un obiect scos din casă au valoare, un cumpărător sigur azi e mai bun decât unul ideal cândva.",
@@ -1722,7 +2519,20 @@
             "en": "Hold your price (250 lei) and wait"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 4, "effects": [{"type": "cash", "delta": 25000}], "note": {"ro": "Alt cumpărător a plătit prețul întreg pe obiect.", "en": "Another buyer paid the full price for the item."}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 4,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 25000
+                }
+              ],
+              "note": {
+                "ro": "Alt cumpărător a plătit prețul întreg pe obiect.",
+                "en": "Another buyer paid the full price for the item."
+              }
+            }
           ],
           "debrief": {
             "ro": "Răbdarea a fost răsplătită de data asta. Riscul pe care ți l-ai asumat era real, însă: puteai rămâne cu obiectul nevândut și cu zero lei în plus.",
@@ -1735,7 +2545,10 @@
             "en": "Meet in the middle (225 lei)"
           },
           "effects": [
-            {"type": "cash", "delta": 22500}
+            {
+              "type": "cash",
+              "delta": 22500
+            }
           ],
           "debrief": {
             "ro": "Împărțirea diferenței închide tranzacția rapid și corect pentru amândoi. E adesea cel mai bun rezultat: fiecare cedează puțin, nimeni nu pleacă nemulțumit.",
@@ -1743,9 +2556,12 @@
           }
         }
       ],
-      "source": {"label": "practica negocierii pe marketplace RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practica negocierii pe marketplace RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "provocare_economii",
       "category": "saving",
@@ -1760,7 +2576,10 @@
       "exclusions": [],
       "prerequisites": [],
       "chain_id": null,
-      "skill_tags": ["saving", "budgeting"],
+      "skill_tags": [
+        "saving",
+        "budgeting"
+      ],
       "title": {
         "ro": "O provocare de economisire",
         "en": "A savings challenge"
@@ -1777,8 +2596,25 @@
             "en": "Accept the 'no non-essential spending weekend' challenge"
           },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [{"type": "fund", "delta": 8000}], "note": {"ro": "Banii nescoși în weekendul fără cheltuieli au intrat în fond.", "en": "The money not spent over the no-spend weekend went into the fund."}},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "fund",
+                  "delta": 8000
+                }
+              ],
+              "note": {
+                "ro": "Banii nescoși în weekendul fără cheltuieli au intrat în fond.",
+                "en": "The money not spent over the no-spend weekend went into the fund."
+              }
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "O constrângere scurtă și jucăușă → economie reală, fără privațiune pe termen lung. Provocările bat interdicțiile: e mai ușor „3 zile\" decât „niciodată\".",
@@ -1791,9 +2627,18 @@
             "en": "The 50/30/20 challenge: split your salary into categories"
           },
           "effects": [
-            {"type": "cash", "delta": -15000},
-            {"type": "goal", "delta": 10000},
-            {"type": "fund", "delta": 5000}
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "goal",
+              "delta": 10000
+            },
+            {
+              "type": "fund",
+              "delta": 5000
+            }
           ],
           "debrief": {
             "ro": "Un cadru simplu, nevoi / dorințe / economii, aduce claritate imediată. Nu e nevoie să fie perfect, doar pornit: 20% spre viitorul tău, împărțit între obiectiv și fond.",
@@ -1806,7 +2651,10 @@
             "en": "Not now, but keep the idea"
           },
           "effects": [
-            {"type": "setFlag", "flag": "provocare_amanat"}
+            {
+              "type": "setFlag",
+              "flag": "provocare_amanat"
+            }
           ],
           "debrief": {
             "ro": "Provocările sunt unelte, nu obligații. Le folosești când ți se potrivesc, a ști că există și cum funcționează e deja jumătate din drum.",
@@ -1814,9 +2662,12 @@
           }
         }
       ],
-      "source": {"label": "cadre de bugetare 50/30/20 educatie financiara", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "cadre de bugetare 50/30/20 educatie financiara",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
-
     {
       "id": "regularizare_gaze_iarna",
       "category": "fixed_costs",
@@ -1920,7 +2771,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "regularizare_gaze_recitire",
       "category": "fixed_costs",
@@ -2010,7 +2860,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "inflatie_cos_cumparaturi",
       "category": "daily_living",
@@ -2094,7 +2943,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "intretinere_bloc_majorata",
       "category": "fixed_costs",
@@ -2203,7 +3051,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "asigurare_locuinta_oferta",
       "category": "fixed_costs",
@@ -2291,7 +3138,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "scumpire_transport_abonament",
       "category": "fixed_costs",
@@ -2380,7 +3226,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "comision_cont_marit",
       "category": "fixed_costs",
@@ -2488,7 +3333,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "refinantare_oferta",
       "category": "debt",
@@ -2590,7 +3434,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "refinantare_capcana",
       "category": "debt",
@@ -2696,7 +3539,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "prieten_imprumut",
       "category": "debt",
@@ -2810,7 +3652,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "plata_anticipata_discount",
       "category": "debt",
@@ -2910,7 +3751,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "bnpl_tentatie",
       "category": "debt",
@@ -3010,7 +3850,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "imprumut_rapid_ifn",
       "category": "debt",
@@ -3136,7 +3975,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "obicei_zilnic_cost",
       "category": "saving",
@@ -3240,7 +4078,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "borcan_maruntis_start",
       "category": "saving",
@@ -3347,7 +4184,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "borcan_maruntis_numarat",
       "category": "saving",
@@ -3444,7 +4280,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "cashback_fals_real",
       "category": "saving",
@@ -3552,7 +4387,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "depozit_bancar_oferta",
       "category": "saving",
@@ -3668,7 +4502,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "economie_automata",
       "category": "saving",
@@ -3773,7 +4606,6 @@
         "needs_expert_review": true
       }
     },
-
     {
       "id": "pachet_servicii_scumpit",
       "category": "subscriptions",
@@ -3877,6 +4709,281 @@
       ],
       "source": {
         "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "abonament_fantoma",
+      "category": "subscriptions",
+      "rarity": "common",
+      "weight": 5,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 27,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "subscriptions",
+        "budgeting"
+      ],
+      "title": {
+        "ro": "Abonamentul-fantomă",
+        "en": "The ghost subscription"
+      },
+      "narrative": {
+        "ro": "Extras de cont: mâine se reînnoiește un abonament de 19 lei la o aplicație pe care n-ai mai deschis-o de o lună. Uitaseși complet de el.",
+        "en": "Bank statement: tomorrow a 19 lei subscription renews for an app you have not opened in a month. You had completely forgotten it."
+      },
+      "illustration": "cashy_thinking",
+      "choices": [
+        {
+          "label": {
+            "ro": "Îl anulezi acum, în 2 minute",
+            "en": "Cancel it now, takes 2 minutes"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "Doi lei pe zi păreau nimic, dar abonamentele uitate sunt găuri mici prin care se scurge bugetul. Un audit lunar al abonamentelor te ține la volan.",
+            "en": "Two lei a day felt like nothing, but forgotten subscriptions are tiny holes draining the budget. A monthly subscription audit keeps you in charge."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îl lași: „poate îl folosesc luna asta\"",
+            "en": "Keep it: \"maybe I will use it this month\""
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -1900
+            }
+          ],
+          "debrief": {
+            "ro": "„Poate\" e cel mai scump cuvânt din buget. Dacă nu l-ai folosit o lună, statistica spune că nu-l vei folosi nici acum. Plata s-a dus.",
+            "en": "\"Maybe\" is the most expensive word in a budget. If you skipped it for a month, odds are you will skip it again. The charge went through."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îl anulezi și cauți alternativa gratuită",
+            "en": "Cancel it and find the free alternative"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "Combinația câștigătoare: tai costul și păstrezi funcția. Pentru multe aplicații plătite există o variantă gratuită suficient de bună.",
+            "en": "The winning combo: cut the cost, keep the function. Many paid apps have a free alternative that is good enough."
+          }
+        }
+      ],
+      "source": {
+        "label": "obiceiuri de consum digital RO 2026 (educational)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "borcan_marunt",
+      "category": "saving",
+      "rarity": "common",
+      "weight": 5,
+      "cooldown_days": 0,
+      "min_day": 2,
+      "max_day": 28,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "saving",
+        "cash_management"
+      ],
+      "title": {
+        "ro": "Borcanul cu mărunțiș",
+        "en": "The coin jar"
+      },
+      "narrative": {
+        "ro": "Sub pat găsești borcanul în care ai aruncat mărunțiș un an întreg. E greu. Băncile și automatele de schimb îl transformă în bani „adevărați\".",
+        "en": "Under the bed you find the jar you have tossed coins into for a year. It is heavy. Banks and coin machines turn it into \"real\" money."
+      },
+      "illustration": "cashy_happy",
+      "choices": [
+        {
+          "label": {
+            "ro": "Îl duci la schimbat: +35 de lei",
+            "en": "Take it to be exchanged: +35 lei"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": 3500
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "Banii mărunți sunt tot bani: 35 de lei apăruți „din nimic\". Economisirea automată face exact asta, dar fără borcan și fără drum.",
+            "en": "Small money is still money: 35 lei out of \"nowhere\". Automatic saving does exactly this, minus the jar and the trip."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îl lași, nu merită drumul",
+            "en": "Leave it, not worth the trip"
+          },
+          "effects": [],
+          "debrief": {
+            "ro": "Alegere onestă, dar borcanul e o lecție: sumele mici, adunate constant, devin sume vizibile. Diferența o face sistemul, nu suma.",
+            "en": "Fair choice, but the jar is a lesson: small amounts, added consistently, become visible amounts. The system matters, not the size."
+          }
+        }
+      ],
+      "source": {
+        "label": "educatie financiara de baza (educational)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "prieten_datorie_mica",
+      "category": "debt",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 26,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "debt",
+        "relationships",
+        "boundaries"
+      ],
+      "title": {
+        "ro": "„Îmi dai 50 până vineri?\"",
+        "en": "\"Can I get 50 till Friday?\""
+      },
+      "narrative": {
+        "ro": "Un prieten bun îți cere 50 de lei până vineri. A mai împrumutat de la alții și a întârziat cu returnatul, dar ține la tine și tu la el.",
+        "en": "A good friend asks for 50 lei until Friday. He has borrowed from others and returned late before, but you two are close."
+      },
+      "illustration": "cashy_neutral",
+      "choices": [
+        {
+          "label": {
+            "ro": "Îi dai și stabiliți clar ziua returnării",
+            "en": "Lend it and set the return day clearly"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -5000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 5000
+                }
+              ],
+              "note": {
+                "ro": "Vineri a devenit miercurea următoare, dar banii s-au întors.",
+                "en": "Friday became next Wednesday, but the money came back."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Împrumuturile între prieteni funcționează doar cu termen spus cu voce tare. L-ai pus, banii s-au întors și prietenia a rămas întreagă.",
+            "en": "Loans between friends only work with a deadline said out loud. You set it, the money returned and the friendship stayed intact."
+          }
+        },
+        {
+          "label": {
+            "ro": "Refuzi politicos: „luna asta sunt strâns\"",
+            "en": "Politely decline: \"tight month for me\""
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "A refuza un împrumut nu înseamnă a refuza omul. Un „nu\" clar și calm te scutește de rolul de bancă a găștii. Puțină răceală acum, limite sănătoase pe termen lung.",
+            "en": "Refusing a loan is not refusing the person. A calm, clear \"no\" saves you from becoming the group's bank. A bit of frost now, healthy boundaries long term."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îi dai jumătate: „atât pot acum\"",
+            "en": "Give half: \"this is what I can do\""
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -2500
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": 2500
+                }
+              ],
+              "note": {
+                "ro": "Jumătatea s-a întors fără discuții.",
+                "en": "The half came back without drama."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Compromisul care protejează amândoi: îl ajuți fără să-ți dezechilibrezi săptămâna. Suma pe care o împrumuți e suma pe care îți permiți să n-o mai vezi.",
+            "en": "The compromise that protects both: you help without unbalancing your week. Only lend what you can afford never to see again."
+          }
+        }
+      ],
+      "source": {
+        "label": "dinamici sociale ale banilor la tineri (educational)",
         "reviewed_by": null,
         "needs_expert_review": true
       }

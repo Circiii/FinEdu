@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -49,8 +49,10 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
     if (known) _known++;
     if (_index + 1 >= _queue!.length) {
       await repo.finishReviewSession(_queue!.length);
-      ref.read(analyticsProvider).track(
-          AnalyticsEvents.reviewDone, {'cards': _queue!.length, 'known': _known});
+      ref.read(analyticsProvider).track(AnalyticsEvents.reviewDone, {
+        'cards': _queue!.length,
+        'known': _known,
+      });
       setState(() => _finished = true);
     } else {
       setState(() {
@@ -87,10 +89,10 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
               child: queue == null || units == null
                   ? const SizedBox()
                   : _finished
-                      ? _done()
-                      : queue.isEmpty
-                          ? _empty()
-                          : _card(units, queue),
+                  ? _done()
+                  : queue.isEmpty
+                  ? _empty()
+                  : _card(units, queue),
             ),
           ),
         ],
@@ -117,15 +119,24 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                   boxShadow: Sh.raise,
                 ),
                 alignment: Alignment.center,
-                child: const SvgIcon(Ic.x,
-                    size: 16, color: C.text2, strokeWidth: 2.4),
+                child: const SvgIcon(
+                  Ic.x,
+                  size: 16,
+                  color: C.text2,
+                  strokeWidth: 2.4,
+                ),
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: Text('Recapitulare · ${_index + 1} din ${queue.length}',
-                  style: T.display(
-                      size: 17, weight: FontWeight.w800, color: C.text)),
+              child: Text(
+                'Recapitulare · ${_index + 1} din ${queue.length}',
+                style: T.display(
+                  size: 17,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
+              ),
             ),
           ],
         ),
@@ -140,13 +151,16 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                 padding: const EdgeInsets.all(22),
                 child: Column(
                   children: [
-                    Text(content?.question ?? '',
-                        textAlign: TextAlign.center,
-                        style: T.display(
-                            size: 19,
-                            weight: FontWeight.w700,
-                            color: C.text,
-                            height: 1.3)),
+                    Text(
+                      content?.question ?? '',
+                      textAlign: TextAlign.center,
+                      style: T.display(
+                        size: 19,
+                        weight: FontWeight.w700,
+                        color: C.text,
+                        height: 1.3,
+                      ),
+                    ),
                     if (_revealed) ...[
                       const SizedBox(height: 16),
                       Container(
@@ -157,13 +171,16 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: Sh.insetSoft,
                         ),
-                        child: Text(content?.answer ?? '',
-                            textAlign: TextAlign.center,
-                            style: T.body(
-                                size: 15,
-                                weight: FontWeight.w600,
-                                color: C.text2,
-                                height: 1.45)),
+                        child: Text(
+                          content?.answer ?? '',
+                          textAlign: TextAlign.center,
+                          style: T.body(
+                            size: 15,
+                            weight: FontWeight.w600,
+                            color: C.text2,
+                            height: 1.45,
+                          ),
+                        ),
                       ),
                     ],
                   ],
@@ -175,9 +192,14 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
                   child: Text(
-                      '💾 Stabilitatea memoriei: ~${card.stability!.round()} zile',
-                      textAlign: TextAlign.center,
-                      style: T.body(size: 11, weight: FontWeight.w600, color: C.text3)),
+                    '💾 Stabilitatea memoriei: ~${card.stability!.round()} zile',
+                    textAlign: TextAlign.center,
+                    style: T.body(
+                      size: 11,
+                      weight: FontWeight.w600,
+                      color: C.text3,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -227,15 +249,21 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       children: [
         const CashySprite(asset: Cashy.cashyCelebrate, width: 190),
         const SizedBox(height: 12),
-        Text('Recapitulare gata!',
-            style: T.display(size: 28, weight: FontWeight.w800, color: C.text)),
+        Text(
+          'Recapitulare gata!',
+          style: T.display(size: 28, weight: FontWeight.w800, color: C.text),
+        ),
         const SizedBox(height: 6),
-        AcornText('$_known din ${_queue!.length} știute · +3 🌰',
-            style: T.display(size: 16, weight: FontWeight.w700, color: C.text2)),
+        AcornText(
+          '$_known din ${_queue!.length} știute · +3 🌰',
+          style: T.display(size: 16, weight: FontWeight.w700, color: C.text2),
+        ),
         const SizedBox(height: 8),
-        Text('Ce n-ai știut revine mâine. Ce ai știut, peste câteva zile.',
-            textAlign: TextAlign.center,
-            style: T.body(size: 13.5, weight: FontWeight.w500, color: C.text2)),
+        Text(
+          'Ce n-ai știut revine mâine. Ce ai știut, peste câteva zile.',
+          textAlign: TextAlign.center,
+          style: T.body(size: 13.5, weight: FontWeight.w500, color: C.text2),
+        ),
         const SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -258,8 +286,10 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       children: [
         Image.asset(Cashy.cashyDefault, width: 170),
         const SizedBox(height: 12),
-        Text('Nimic de recapitulat azi',
-            style: T.display(size: 22, weight: FontWeight.w800, color: C.text)),
+        Text(
+          'Nimic de recapitulat azi',
+          style: T.display(size: 22, weight: FontWeight.w800, color: C.text),
+        ),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),

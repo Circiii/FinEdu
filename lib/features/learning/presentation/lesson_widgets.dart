@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 
 import '../../../core/ui/clay.dart';
@@ -43,12 +43,15 @@ class _GuessSliderState extends State<GuessSlider> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('🔮 GHICEȘTE ÎNAINTE',
-            style: T.display(
-                size: 12,
-                weight: FontWeight.w800,
-                color: C.amberDeep,
-                letterSpacing: 12 * 0.12)),
+        Text(
+          '🔮 GHICEȘTE ÎNAINTE',
+          style: T.display(
+            size: 12,
+            weight: FontWeight.w800,
+            color: C.amberDeep,
+            letterSpacing: 12 * 0.12,
+          ),
+        ),
         const SizedBox(height: 10),
         ClayCard(
           radius: R.md,
@@ -56,19 +59,25 @@ class _GuessSliderState extends State<GuessSlider> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(g.question,
-                  style: T.display(
-                      size: 16.5,
-                      weight: FontWeight.w700,
-                      color: C.text,
-                      height: 1.3)),
+              Text(
+                g.question,
+                style: T.display(
+                  size: 16.5,
+                  weight: FontWeight.w700,
+                  color: C.text,
+                  height: 1.3,
+                ),
+              ),
               const SizedBox(height: 10),
               Center(
-                child: Text('${_value.round()} ${g.unit}',
-                    style: T.display(
-                        size: 30,
-                        weight: FontWeight.w800,
-                        color: _locked ? C.text3 : C.blue)),
+                child: Text(
+                  '${_value.round()} ${g.unit}',
+                  style: T.display(
+                    size: 30,
+                    weight: FontWeight.w800,
+                    color: _locked ? C.text3 : C.blue,
+                  ),
+                ),
               ),
               SliderTheme(
                 data: SliderTheme.of(context).copyWith(
@@ -83,8 +92,7 @@ class _GuessSliderState extends State<GuessSlider> {
                   min: g.min.toDouble(),
                   max: g.max.toDouble(),
                   divisions: ((g.max - g.min) / g.step).round(),
-                  onChanged:
-                      _locked ? null : (v) => setState(() => _value = v),
+                  onChanged: _locked ? null : (v) => setState(() => _value = v),
                 ),
               ),
               if (!_locked)
@@ -97,17 +105,22 @@ class _GuessSliderState extends State<GuessSlider> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 22, vertical: 11),
+                        horizontal: 22,
+                        vertical: 11,
+                      ),
                       decoration: BoxDecoration(
                         gradient: Grad.amber,
                         borderRadius: BorderRadius.circular(R.pill),
                         boxShadow: Sh.amber,
                       ),
-                      child: Text('Blochează răspunsul',
-                          style: T.display(
-                              size: 14,
-                              weight: FontWeight.w800,
-                              color: Colors.white)),
+                      child: Text(
+                        'Blochează răspunsul',
+                        style: T.display(
+                          size: 14,
+                          weight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -128,18 +141,24 @@ class _GuessSliderState extends State<GuessSlider> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Răspunsul: ${g.actual} ${g.unit}',
-                          style: T.display(
-                              size: 16,
-                              weight: FontWeight.w800,
-                              color: C.text)),
+                      Text(
+                        'Răspunsul: ${g.actual} ${g.unit}',
+                        style: T.display(
+                          size: 16,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      RichLessonText('$_closeness ${g.reveal}',
-                          style: T.body(
-                              size: 13.5,
-                              weight: FontWeight.w600,
-                              color: C.text2,
-                              height: 1.4)),
+                      RichLessonText(
+                        '$_closeness ${g.reveal}',
+                        style: T.body(
+                          size: 13.5,
+                          weight: FontWeight.w600,
+                          color: C.text2,
+                          height: 1.4,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -174,17 +193,25 @@ class _ConceptCheckState extends State<ConceptCheck> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('⚡ PE REPEDE',
-            style: T.display(
-                size: 12,
-                weight: FontWeight.w800,
-                color: C.violet,
-                letterSpacing: 12 * 0.12)),
+        Text(
+          '⚡ PE REPEDE',
+          style: T.display(
+            size: 12,
+            weight: FontWeight.w800,
+            color: C.violet,
+            letterSpacing: 12 * 0.12,
+          ),
+        ),
         const SizedBox(height: 8),
-        Text(c.question,
-            style: T.display(
-                size: 15.5, weight: FontWeight.w700, color: C.text,
-                height: 1.3)),
+        Text(
+          c.question,
+          style: T.display(
+            size: 15.5,
+            weight: FontWeight.w700,
+            color: C.text,
+            height: 1.3,
+          ),
+        ),
         const SizedBox(height: 10),
         for (var i = 0; i < c.options.length; i++)
           GestureDetector(
@@ -197,8 +224,7 @@ class _ConceptCheckState extends State<ConceptCheck> {
                   },
             child: Container(
               width: double.infinity,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               margin: const EdgeInsets.only(bottom: 8),
               decoration: BoxDecoration(
                 color: answered && i == c.correct
@@ -206,18 +232,24 @@ class _ConceptCheckState extends State<ConceptCheck> {
                     : (answered && i == _picked ? C.dangerSoft : C.surface2),
                 borderRadius: BorderRadius.circular(R.sm),
                 border: Border.all(
-                    color: answered && i == c.correct
-                        ? C.green
-                        : (answered && i == _picked
+                  color: answered && i == c.correct
+                      ? C.green
+                      : (answered && i == _picked
                             ? C.danger
                             : Colors.transparent),
-                    width: 2),
+                  width: 2,
+                ),
                 boxShadow: answered ? null : Sh.raise,
               ),
-              child: Text(c.options[i].text,
-                  style: T.body(
-                      size: 14, weight: FontWeight.w600, color: C.text,
-                      height: 1.3)),
+              child: Text(
+                c.options[i].text,
+                style: T.body(
+                  size: 14,
+                  weight: FontWeight.w600,
+                  color: C.text,
+                  height: 1.3,
+                ),
+              ),
             ),
           ),
         if (feedback != null && feedback.isNotEmpty) ...[
@@ -232,8 +264,11 @@ class _ConceptCheckState extends State<ConceptCheck> {
 // ---- Scenario, „tu ce-ai face?" cu o consecință per opțiune (fără răspuns corect) ----
 
 class ScenarioDecision extends StatefulWidget {
-  const ScenarioDecision(
-      {super.key, required this.scenario, required this.onDone});
+  const ScenarioDecision({
+    super.key,
+    required this.scenario,
+    required this.onDone,
+  });
   final LessonScenario scenario;
   final ValueChanged<bool> onDone;
 
@@ -252,27 +287,34 @@ class _ScenarioDecisionState extends State<ScenarioDecision> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          Text('🎬 TU CE-AI FACE?',
-              style: T.display(
-                  size: 12,
-                  weight: FontWeight.w800,
-                  color: C.amberDeep,
-                  letterSpacing: 12 * 0.12)),
+          Text(
+            '🎬 TU CE-AI FACE?',
+            style: T.display(
+              size: 12,
+              weight: FontWeight.w800,
+              color: C.amberDeep,
+              letterSpacing: 12 * 0.12,
+            ),
+          ),
           const SizedBox(height: 12),
           ClayCard(
             radius: 22,
             padding: const EdgeInsets.all(18),
-            child: RichLessonText(s.setup,
-                style: T.body(
-                    size: 15.5,
-                    weight: FontWeight.w500,
-                    color: C.text,
-                    height: 1.5)),
+            child: RichLessonText(
+              s.setup,
+              style: T.body(
+                size: 15.5,
+                weight: FontWeight.w500,
+                color: C.text,
+                height: 1.5,
+              ),
+            ),
           ),
           const SizedBox(height: 12),
-          Text(s.question,
-              style: T.display(
-                  size: 16, weight: FontWeight.w800, color: C.text)),
+          Text(
+            s.question,
+            style: T.display(size: 16, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 10),
           for (var i = 0; i < s.options.length; i++) ...[
             GestureDetector(
@@ -289,16 +331,22 @@ class _ScenarioDecisionState extends State<ScenarioDecision> {
                   color: _picked == i ? C.blueSoft : C.surface2,
                   borderRadius: BorderRadius.circular(R.sm),
                   border: Border.all(
-                      color: _picked == i ? C.blue : Colors.transparent,
-                      width: 2),
+                    color: _picked == i ? C.blue : Colors.transparent,
+                    width: 2,
+                  ),
                   boxShadow: _picked == null ? Sh.raise : null,
                 ),
                 child: Opacity(
                   opacity: _picked == null || _picked == i ? 1 : 0.55,
-                  child: Text(s.options[i].text,
-                      style: T.body(
-                          size: 14, weight: FontWeight.w600, color: C.text,
-                          height: 1.3)),
+                  child: Text(
+                    s.options[i].text,
+                    style: T.body(
+                      size: 14,
+                      weight: FontWeight.w600,
+                      color: C.text,
+                      height: 1.3,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -314,20 +362,28 @@ class _ScenarioDecisionState extends State<ScenarioDecision> {
                   Image.asset(Cashy.cashyPoint, width: 38),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: RichLessonText(s.options[_picked!].consequence,
-                        style: T.body(
-                            size: 13.5,
-                            weight: FontWeight.w600,
-                            color: C.text2,
-                            height: 1.4)),
+                    child: RichLessonText(
+                      s.options[_picked!].consequence,
+                      style: T.body(
+                        size: 13.5,
+                        weight: FontWeight.w600,
+                        color: C.text2,
+                        height: 1.4,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 6),
-            Text('Nu există variantă „greșită", atinge-le și pe celelalte.',
-                style: T.body(
-                    size: 11.5, weight: FontWeight.w500, color: C.text3)),
+            Text(
+              'Nu există variantă „greșită", atinge-le și pe celelalte.',
+              style: T.body(
+                size: 11.5,
+                weight: FontWeight.w500,
+                color: C.text3,
+              ),
+            ),
           ],
         ],
       ),

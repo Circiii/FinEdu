@@ -1,5 +1,5 @@
 {
-  "$schema_note": "Notificări v2 (F8-e). Ton: Cashy prietenos, ZERO vinovăție, ZERO amenințare cu pierderea (AADC): interzise «pierzi», «ai stricat», «trebuie», «ultima șansă». Mesajul promite ceva mic și concret, nu cere. Escaladare = doar schimbare de ton (D1 complice, D3 blând, D7 cald și fără presiune), nu de intensitate.",
+  "$schema_note": "Notificări v2. Ton: Cashy prietenos, ZERO vinovăție, ZERO amenințare cu pierderea (AADC): interzise «pierzi», «ai stricat», «trebuie», «ultima șansă». Mesajul promite ceva mic și concret, nu cere. Escaladare = doar schimbare de ton (D1 complice, D3 blând, D7 cald și fără presiune), nu de intensitate.",
   "d1": [
     {
       "title": { "ro": "Am găsit niște ghinde bune", "en": "Found some good acorns" },

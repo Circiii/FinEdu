@@ -1,11 +1,20 @@
 ﻿{
-  "$schema_note": "Scam Dojo message bank. 60 bilingual messages. Fields: id (d001-d060), from/channel/tag/text/explain bilingual {ro,en}, accent in {danger,amber,sky,violet,green,blue}, scam bool, difficulty 1-3 (1=obvious, 2=pattern knowledge, 3=subtle), flags = 2-4 bilingual red flags (scam) or legitimacy signals (safe). Defensive education only per CONTENT_POLICY.md.",
+  "$schema_note": "Mesajele din Scam Dojo, bilingv ro/en. Campuri: id, from/channel/tag/text/explain in {ro,en}, accent din {danger,amber,sky,violet,green,blue}, scam bool, difficulty 1-3 (1 = evident, 2 = tipar cunoscut, 3 = subtil), flags = 2-4 semne de alarma (la teapa) sau semne de legitimitate (la mesajele sigure). Doar educatie defensiva, dupa CONTENT_POLICY.md.",
   "messages": [
     {
       "id": "d001",
-      "from": { "ro": "INFO ING", "en": "INFO ING" },
-      "channel": { "ro": "SMS · acum 3 min", "en": "SMS · 3 min ago" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "INFO ING",
+        "en": "INFO ING"
+      },
+      "channel": {
+        "ro": "SMS · acum 3 min",
+        "en": "SMS · 3 min ago"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "danger",
       "scam": true,
       "difficulty": 2,
@@ -14,9 +23,18 @@
         "en": "Dear client, your account has been temporarily SUSPENDED. Reactivate immediately: ing-verificare.ro/secure"
       },
       "flags": [
-        { "ro": "Link fals: „ing-verificare.ro” nu e domeniul oficial ing.ro", "en": "Fake link: \"ing-verificare.ro\" is not the official ing.ro domain" },
-        { "ro": "Creează urgență și frică („SUSPENDAT imediat”)", "en": "Creates urgency and fear (\"SUSPENDED, immediately\")" },
-        { "ro": "Banca nu-ți cere niciodată login printr-un link din SMS", "en": "A bank never asks you to log in through an SMS link" }
+        {
+          "ro": "Link fals: „ing-verificare.ro” nu e domeniul oficial ing.ro",
+          "en": "Fake link: \"ing-verificare.ro\" is not the official ing.ro domain"
+        },
+        {
+          "ro": "Creează urgență și frică („SUSPENDAT imediat”)",
+          "en": "Creates urgency and fear (\"SUSPENDED, immediately\")"
+        },
+        {
+          "ro": "Banca nu-ți cere niciodată login printr-un link din SMS",
+          "en": "A bank never asks you to log in through an SMS link"
+        }
       ],
       "explain": {
         "ro": "Phishing bancar clasic. Banca reală nu trimite linkuri de logare prin SMS.",
@@ -25,9 +43,18 @@
     },
     {
       "id": "d002",
-      "from": { "ro": "Sameday", "en": "Sameday" },
-      "channel": { "ro": "SMS · acum 1 oră", "en": "SMS · 1 hr ago" },
-      "tag": { "ro": "Colet", "en": "Parcel" },
+      "from": {
+        "ro": "Sameday",
+        "en": "Sameday"
+      },
+      "channel": {
+        "ro": "SMS · acum 1 oră",
+        "en": "SMS · 1 hr ago"
+      },
+      "tag": {
+        "ro": "Colet",
+        "en": "Parcel"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 1,
@@ -36,9 +63,18 @@
         "en": "Your parcel could not be delivered. Pay the 2.5 lei fee here: sameday-colet.info/plata"
       },
       "flags": [
-        { "ro": "Sumă mică (2,5 lei) ca momeală, îți fură datele cardului", "en": "Tiny amount (2.5 lei) as bait, they steal your card details" },
-        { "ro": "Domeniu fals „.info”, nu site-ul oficial", "en": "Fake \".info\" domain, not the official site" },
-        { "ro": "Nu aveai niciun colet în așteptare", "en": "You weren't expecting any parcel" }
+        {
+          "ro": "Sumă mică (2,5 lei) ca momeală, îți fură datele cardului",
+          "en": "Tiny amount (2.5 lei) as bait, they steal your card details"
+        },
+        {
+          "ro": "Domeniu fals „.info”, nu site-ul oficial",
+          "en": "Fake \".info\" domain, not the official site"
+        },
+        {
+          "ro": "Nu aveai niciun colet în așteptare",
+          "en": "You weren't expecting any parcel"
+        }
       ],
       "explain": {
         "ro": "Smishing de curierat. Taxa mică e capcana ca să introduci cardul.",
@@ -47,9 +83,18 @@
     },
     {
       "id": "d003",
-      "from": { "ro": "OLX · Marius", "en": "OLX · Marius" },
-      "channel": { "ro": "Chat · acum 12 min", "en": "Chat · 12 min ago" },
-      "tag": { "ro": "OLX", "en": "OLX" },
+      "from": {
+        "ro": "OLX · Marius",
+        "en": "OLX · Marius"
+      },
+      "channel": {
+        "ro": "Chat · acum 12 min",
+        "en": "Chat · 12 min ago"
+      },
+      "tag": {
+        "ro": "OLX",
+        "en": "OLX"
+      },
       "accent": "sky",
       "scam": true,
       "difficulty": 2,
@@ -58,9 +103,18 @@
         "en": "Hi! I like your listing. I'll pay via OLX Delivery, give me your card details so you get the money faster."
       },
       "flags": [
-        { "ro": "Ca să PRIMEȘTI bani nu dai niciodată datele cardului", "en": "To RECEIVE money you never hand over your card details" },
-        { "ro": "„Link de plată” extern OLX = fraudă", "en": "A \"payment link\" outside OLX = fraud" },
-        { "ro": "Grabă artificială („mai repede”)", "en": "Artificial rush (\"faster\")" }
+        {
+          "ro": "Ca să PRIMEȘTI bani nu dai niciodată datele cardului",
+          "en": "To RECEIVE money you never hand over your card details"
+        },
+        {
+          "ro": "„Link de plată” extern OLX = fraudă",
+          "en": "A \"payment link\" outside OLX = fraud"
+        },
+        {
+          "ro": "Grabă artificială („mai repede”)",
+          "en": "Artificial rush (\"faster\")"
+        }
       ],
       "explain": {
         "ro": "Frauda „cumpărătorul grăbit”. Ca să încasezi nu ai nevoie de datele cardului tău.",
@@ -69,9 +123,18 @@
     },
     {
       "id": "d004",
-      "from": { "ro": "eMAG", "en": "eMAG" },
-      "channel": { "ro": "Email · ieri", "en": "Email · yesterday" },
-      "tag": { "ro": "Premiu", "en": "Prize" },
+      "from": {
+        "ro": "eMAG",
+        "en": "eMAG"
+      },
+      "channel": {
+        "ro": "Email · ieri",
+        "en": "Email · yesterday"
+      },
+      "tag": {
+        "ro": "Premiu",
+        "en": "Prize"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 1,
@@ -80,9 +143,18 @@
         "en": "Congratulations! You've been selected for an iPhone 15 for 1 leu. Claim within 10 min: emag-premii.com"
       },
       "flags": [
-        { "ro": "„Prea frumos ca să fie adevărat”, iPhone la 1 leu", "en": "\"Too good to be true\", an iPhone for 1 leu" },
-        { "ro": "Domeniu „emag-premii.com” ≠ emag.ro", "en": "Domain \"emag-premii.com\" ≠ emag.ro" },
-        { "ro": "Cronometru fals de 10 minute", "en": "Fake 10-minute countdown" }
+        {
+          "ro": "„Prea frumos ca să fie adevărat”, iPhone la 1 leu",
+          "en": "\"Too good to be true\", an iPhone for 1 leu"
+        },
+        {
+          "ro": "Domeniu „emag-premii.com” ≠ emag.ro",
+          "en": "Domain \"emag-premii.com\" ≠ emag.ro"
+        },
+        {
+          "ro": "Cronometru fals de 10 minute",
+          "en": "Fake 10-minute countdown"
+        }
       ],
       "explain": {
         "ro": "Momeală cu premiu. Brandul real nu dă produse scumpe la 1 leu prin linkuri.",
@@ -91,9 +163,18 @@
     },
     {
       "id": "d005",
-      "from": { "ro": "Revolut", "en": "Revolut" },
-      "channel": { "ro": "Push · acum 5 min", "en": "Push · 5 min ago" },
-      "tag": { "ro": "Notificare", "en": "Notification" },
+      "from": {
+        "ro": "Revolut",
+        "en": "Revolut"
+      },
+      "channel": {
+        "ro": "Push · acum 5 min",
+        "en": "Push · 5 min ago"
+      },
+      "tag": {
+        "ro": "Notificare",
+        "en": "Notification"
+      },
       "accent": "green",
       "scam": false,
       "difficulty": 2,
@@ -102,9 +183,18 @@
         "en": "Payment of 32 lei to Spotify confirmed. If you don't recognise it, open the Revolut app and block your card."
       },
       "flags": [
-        { "ro": "Nu cere date personale sau parole", "en": "Doesn't ask for personal data or passwords" },
-        { "ro": "Te trimite să deschizi TU aplicația, nu un link", "en": "Tells YOU to open the app yourself, not a link" },
-        { "ro": "Ton informativ, fără urgență agresivă", "en": "Informative tone, no aggressive urgency" }
+        {
+          "ro": "Nu cere date personale sau parole",
+          "en": "Doesn't ask for personal data or passwords"
+        },
+        {
+          "ro": "Te trimite să deschizi TU aplicația, nu un link",
+          "en": "Tells YOU to open the app yourself, not a link"
+        },
+        {
+          "ro": "Ton informativ, fără urgență agresivă",
+          "en": "Informative tone, no aggressive urgency"
+        }
       ],
       "explain": {
         "ro": "Notificare legitimă: te informează și te trimite în aplicația oficială, nu pe un link.",
@@ -113,9 +203,18 @@
     },
     {
       "id": "d006",
-      "from": { "ro": "Banca Transilvania", "en": "Banca Transilvania" },
-      "channel": { "ro": "SMS · acum 20 min", "en": "SMS · 20 min ago" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "Banca Transilvania",
+        "en": "Banca Transilvania"
+      },
+      "channel": {
+        "ro": "SMS · acum 20 min",
+        "en": "SMS · 20 min ago"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 1,
@@ -124,9 +223,18 @@
         "en": "WARNING! Your BT card has been blocked for security reasons. Unblock here within 24h: bt-deblocare-card.net"
       },
       "flags": [
-        { "ro": "Domeniu fals: „bt-deblocare-card.net” ≠ bancatransilvania.ro", "en": "Fake domain: \"bt-deblocare-card.net\" ≠ bancatransilvania.ro" },
-        { "ro": "Scris fără diacritice, cu MAJUSCULE de panică", "en": "No diacritics, panic CAPITALS" },
-        { "ro": "Termen-limită inventat („maxim 24h”) ca să nu ai timp să verifici", "en": "Invented deadline (\"24h max\") so you don't stop to check" }
+        {
+          "ro": "Domeniu fals: „bt-deblocare-card.net” ≠ bancatransilvania.ro",
+          "en": "Fake domain: \"bt-deblocare-card.net\" ≠ bancatransilvania.ro"
+        },
+        {
+          "ro": "Scris fără diacritice, cu MAJUSCULE de panică",
+          "en": "No diacritics, panic CAPITALS"
+        },
+        {
+          "ro": "Termen-limită inventat („maxim 24h”) ca să nu ai timp să verifici",
+          "en": "Invented deadline (\"24h max\") so you don't stop to check"
+        }
       ],
       "explain": {
         "ro": "Dacă un card e blocat cu adevărat, afli în aplicația BT sau sunând chiar tu la bancă, niciodată printr-un link din SMS.",
@@ -135,9 +243,18 @@
     },
     {
       "id": "d007",
-      "from": { "ro": "BCR Info", "en": "BCR Info" },
-      "channel": { "ro": "Email · azi, 09:14", "en": "Email · today, 09:14" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "BCR Info",
+        "en": "BCR Info"
+      },
+      "channel": {
+        "ro": "Email · azi, 09:14",
+        "en": "Email · today, 09:14"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "blue",
       "scam": true,
       "difficulty": 2,
@@ -146,9 +263,18 @@
         "en": "Dear client, under new EU regulations your George account will be limited until you update your data. Confirm your identity: bcr-secure-login.com/george"
       },
       "flags": [
-        { "ro": "„bcr-secure-login.com” nu e domeniul oficial bcr.ro", "en": "\"bcr-secure-login.com\" is not the official bcr.ro domain" },
-        { "ro": "Invocă „reglementări UE” vagi ca să pară oficial", "en": "Invokes vague \"EU regulations\" to sound official" },
-        { "ro": "Actualizarea datelor se face doar din aplicația George sau la ghișeu", "en": "Data updates happen only in the George app or at a branch" }
+        {
+          "ro": "„bcr-secure-login.com” nu e domeniul oficial bcr.ro",
+          "en": "\"bcr-secure-login.com\" is not the official bcr.ro domain"
+        },
+        {
+          "ro": "Invocă „reglementări UE” vagi ca să pară oficial",
+          "en": "Invokes vague \"EU regulations\" to sound official"
+        },
+        {
+          "ro": "Actualizarea datelor se face doar din aplicația George sau la ghișeu",
+          "en": "Data updates happen only in the George app or at a branch"
+        }
       ],
       "explain": {
         "ro": "Phishing cu ton birocratic. „Reglementări noi” + link de login = tiparul clasic de furat parole.",
@@ -157,9 +283,18 @@
     },
     {
       "id": "d008",
-      "from": { "ro": "FAN Courier", "en": "FAN Courier" },
-      "channel": { "ro": "SMS · acum 2 ore", "en": "SMS · 2 hrs ago" },
-      "tag": { "ro": "Colet", "en": "Parcel" },
+      "from": {
+        "ro": "FAN Courier",
+        "en": "FAN Courier"
+      },
+      "channel": {
+        "ro": "SMS · acum 2 ore",
+        "en": "SMS · 2 hrs ago"
+      },
+      "tag": {
+        "ro": "Colet",
+        "en": "Parcel"
+      },
       "accent": "danger",
       "scam": true,
       "difficulty": 2,
@@ -168,9 +303,18 @@
         "en": "FAN: Delivery address incomplete. Parcel returns today. Fix the address and pay redelivery (3.90 lei): fancourier-livrare.top"
       },
       "flags": [
-        { "ro": "Domeniul „.top” nu e fancourier.ro", "en": "The \".top\" domain is not fancourier.ro" },
-        { "ro": "Curierul real nu cere plăți cu cardul prin link ca să „corecteze adresa”", "en": "A real courier doesn't take card payments via link to \"fix an address\"" },
-        { "ro": "Presiune de timp: „se returnează azi”", "en": "Time pressure: \"returns today\"" }
+        {
+          "ro": "Domeniul „.top” nu e fancourier.ro",
+          "en": "The \".top\" domain is not fancourier.ro"
+        },
+        {
+          "ro": "Curierul real nu cere plăți cu cardul prin link ca să „corecteze adresa”",
+          "en": "A real courier doesn't take card payments via link to \"fix an address\""
+        },
+        {
+          "ro": "Presiune de timp: „se returnează azi”",
+          "en": "Time pressure: \"returns today\""
+        }
       ],
       "explain": {
         "ro": "Smishing de curierat: combinația adresă greșită + taxă mică + link e făcută să-ți captureze cardul.",
@@ -179,9 +323,18 @@
     },
     {
       "id": "d009",
-      "from": { "ro": "CARGUS", "en": "CARGUS" },
-      "channel": { "ro": "SMS · acum 10 min", "en": "SMS · 10 min ago" },
-      "tag": { "ro": "Colet", "en": "Parcel" },
+      "from": {
+        "ro": "CARGUS",
+        "en": "CARGUS"
+      },
+      "channel": {
+        "ro": "SMS · acum 10 min",
+        "en": "SMS · 10 min ago"
+      },
+      "tag": {
+        "ro": "Colet",
+        "en": "Parcel"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 1,
@@ -190,9 +343,18 @@
         "en": "Your CARGUS parcel is waiting in the warehouse. Schedule delivery and pay the 4.99 lei storage fee: cargus-programare.xyz"
       },
       "flags": [
-        { "ro": "„Taxă de stocare” nu există la livrări normale", "en": "\"Storage fees\" don't exist for normal deliveries" },
-        { "ro": "Domeniu „.xyz”, nu cargus.ro", "en": "\".xyz\" domain, not cargus.ro" },
-        { "ro": "Mesaj generic: niciun număr de AWB, niciun expeditor", "en": "Generic message: no tracking number, no sender" }
+        {
+          "ro": "„Taxă de stocare” nu există la livrări normale",
+          "en": "\"Storage fees\" don't exist for normal deliveries"
+        },
+        {
+          "ro": "Domeniu „.xyz”, nu cargus.ro",
+          "en": "\".xyz\" domain, not cargus.ro"
+        },
+        {
+          "ro": "Mesaj generic: niciun număr de AWB, niciun expeditor",
+          "en": "Generic message: no tracking number, no sender"
+        }
       ],
       "explain": {
         "ro": "Același tipar ca la orice smishing de colet: taxă mărunt-plauzibilă + link fals. Verifică AWB-ul doar pe site-ul oficial.",
@@ -201,9 +363,18 @@
     },
     {
       "id": "d010",
-      "from": { "ro": "Vinted · Andreea", "en": "Vinted · Andreea" },
-      "channel": { "ro": "Chat · acum 30 min", "en": "Chat · 30 min ago" },
-      "tag": { "ro": "Vinted", "en": "Vinted" },
+      "from": {
+        "ro": "Vinted · Andreea",
+        "en": "Vinted · Andreea"
+      },
+      "channel": {
+        "ro": "Chat · acum 30 min",
+        "en": "Chat · 30 min ago"
+      },
+      "tag": {
+        "ro": "Vinted",
+        "en": "Vinted"
+      },
       "accent": "sky",
       "scam": true,
       "difficulty": 2,
@@ -212,9 +383,18 @@
         "en": "Hi! I want the top but in-app payment gives me an error. I sent the transfer here, confirm your details to receive it: vinted-payout.info/confirmare"
       },
       "flags": [
-        { "ro": "Te scoate din plata oficială Vinted cu o „eroare” inventată", "en": "Pulls you out of Vinted's official payment with an invented \"error\"" },
-        { "ro": "„vinted-payout.info” nu e vinted.ro", "en": "\"vinted-payout.info\" is not vinted.ro" },
-        { "ro": "Ca vânzător nu „confirmi date” ca să primești bani", "en": "As a seller you never \"confirm details\" to receive money" }
+        {
+          "ro": "Te scoate din plata oficială Vinted cu o „eroare” inventată",
+          "en": "Pulls you out of Vinted's official payment with an invented \"error\""
+        },
+        {
+          "ro": "„vinted-payout.info” nu e vinted.ro",
+          "en": "\"vinted-payout.info\" is not vinted.ro"
+        },
+        {
+          "ro": "Ca vânzător nu „confirmi date” ca să primești bani",
+          "en": "As a seller you never \"confirm details\" to receive money"
+        }
       ],
       "explain": {
         "ro": "Orice cumpărător care mută plata în afara aplicației e semnal de fraudă. Plata reală Vinted curge singură, fără linkuri externe.",
@@ -223,9 +403,18 @@
     },
     {
       "id": "d011",
-      "from": { "ro": "Număr necunoscut", "en": "Unknown number" },
-      "channel": { "ro": "WhatsApp · acum 2 min", "en": "WhatsApp · 2 min ago" },
-      "tag": { "ro": "Premiu", "en": "Prize" },
+      "from": {
+        "ro": "Număr necunoscut",
+        "en": "Unknown number"
+      },
+      "channel": {
+        "ro": "WhatsApp · acum 2 min",
+        "en": "WhatsApp · 2 min ago"
+      },
+      "tag": {
+        "ro": "Premiu",
+        "en": "Prize"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 1,
@@ -234,9 +423,18 @@
         "en": "LIDL celebrates 30 years in Romania! Get a 500 lei voucher: fill in the survey and forward this message to 20 contacts: lidl-voucher30.net"
       },
       "flags": [
-        { "ro": "Domeniu fals: „lidl-voucher30.net” ≠ lidl.ro", "en": "Fake domain: \"lidl-voucher30.net\" ≠ lidl.ro" },
-        { "ro": "„Trimite la 20 de contacte”, brandurile reale nu cer lanțuri virale", "en": "\"Forward to 20 contacts\", real brands never demand viral chains" },
-        { "ro": "Sondajul final îți cere date personale și, adesea, cardul", "en": "The final survey asks for personal data and, often, your card" }
+        {
+          "ro": "Domeniu fals: „lidl-voucher30.net” ≠ lidl.ro",
+          "en": "Fake domain: \"lidl-voucher30.net\" ≠ lidl.ro"
+        },
+        {
+          "ro": "„Trimite la 20 de contacte”, brandurile reale nu cer lanțuri virale",
+          "en": "\"Forward to 20 contacts\", real brands never demand viral chains"
+        },
+        {
+          "ro": "Sondajul final îți cere date personale și, adesea, cardul",
+          "en": "The final survey asks for personal data and, often, your card"
+        }
       ],
       "explain": {
         "ro": "Voucher-momeală pe WhatsApp: premiul nu există, sondajul îți culege datele, iar distribuirea obligatorie răspândește țeapa.",
@@ -245,9 +443,18 @@
     },
     {
       "id": "d012",
-      "from": { "ro": "BT Pay", "en": "BT Pay" },
-      "channel": { "ro": "Push · acum 1 min", "en": "Push · 1 min ago" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "BT Pay",
+        "en": "BT Pay"
+      },
+      "channel": {
+        "ro": "Push · acum 1 min",
+        "en": "Push · 1 min ago"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "blue",
       "scam": false,
       "difficulty": 1,
@@ -256,9 +463,18 @@
         "en": "Payment made: 23.50 lei at Mega Image with card ****4821. See the transaction details in the app."
       },
       "flags": [
-        { "ro": "Te informează despre o plată pe care chiar ai făcut-o", "en": "Informs you about a payment you actually made" },
-        { "ro": "Niciun link, nicio cerere de date sau coduri", "en": "No link, no request for data or codes" },
-        { "ro": "Te trimite în aplicația pe care o deschizi TU", "en": "Points you to the app that YOU open yourself" }
+        {
+          "ro": "Te informează despre o plată pe care chiar ai făcut-o",
+          "en": "Informs you about a payment you actually made"
+        },
+        {
+          "ro": "Niciun link, nicio cerere de date sau coduri",
+          "en": "No link, no request for data or codes"
+        },
+        {
+          "ro": "Te trimite în aplicația pe care o deschizi TU",
+          "en": "Points you to the app that YOU open yourself"
+        }
       ],
       "explain": {
         "ro": "Notificare standard de tranzacție: informează și atât. Nu cere nimic de la tine.",
@@ -267,9 +483,18 @@
     },
     {
       "id": "d013",
-      "from": { "ro": "Revolut Support", "en": "Revolut Support" },
-      "channel": { "ro": "Email · acum 40 min", "en": "Email · 40 min ago" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "Revolut Support",
+        "en": "Revolut Support"
+      },
+      "channel": {
+        "ro": "Email · acum 40 min",
+        "en": "Email · 40 min ago"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "danger",
       "scam": true,
       "difficulty": 2,
@@ -278,10 +503,22 @@
         "en": "Your Revolut account has been restricted following a routine check. Confirm your identity within 48 hours to avoid permanent closure: revolut-verificare-cont.net"
       },
       "flags": [
-        { "ro": "Domeniu fals: „revolut-verificare-cont.net” ≠ revolut.com", "en": "Fake domain: \"revolut-verificare-cont.net\" ≠ revolut.com" },
-        { "ro": "Termen-limită de 48h ca să nu ai timp să verifici", "en": "48-hour deadline so you don't stop to check" },
-        { "ro": "Revolut comunică în aplicație, nu prin email cu link de „confirmare”", "en": "Revolut communicates in-app, not via emails with \"confirmation\" links" },
-        { "ro": "Mesaj generic, fără numele tău", "en": "Generic message, no name" }
+        {
+          "ro": "Domeniu fals: „revolut-verificare-cont.net” ≠ revolut.com",
+          "en": "Fake domain: \"revolut-verificare-cont.net\" ≠ revolut.com"
+        },
+        {
+          "ro": "Termen-limită de 48h ca să nu ai timp să verifici",
+          "en": "48-hour deadline so you don't stop to check"
+        },
+        {
+          "ro": "Revolut comunică în aplicație, nu prin email cu link de „confirmare”",
+          "en": "Revolut communicates in-app, not via emails with \"confirmation\" links"
+        },
+        {
+          "ro": "Mesaj generic, fără numele tău",
+          "en": "Generic message, no name"
+        }
       ],
       "explain": {
         "ro": "Phishing cu ton procedural: „verificare de rutină” + link extern = furt de parolă. Verificările reale apar în aplicație.",
@@ -290,9 +527,18 @@
     },
     {
       "id": "d014",
-      "from": { "ro": "OLX · Cristina", "en": "OLX · Cristina" },
-      "channel": { "ro": "Chat · acum 8 min", "en": "Chat · 8 min ago" },
-      "tag": { "ro": "OLX", "en": "OLX" },
+      "from": {
+        "ro": "OLX · Cristina",
+        "en": "OLX · Cristina"
+      },
+      "channel": {
+        "ro": "Chat · acum 8 min",
+        "en": "Chat · 8 min ago"
+      },
+      "tag": {
+        "ro": "OLX",
+        "en": "OLX"
+      },
       "accent": "sky",
       "scam": true,
       "difficulty": 2,
@@ -301,9 +547,18 @@
         "en": "I already paid through the new OLX Delivery system, here's the confirmation. Go here and fill in your card details so the money gets released to you: olx-livrare-plata.net"
       },
       "flags": [
-        { "ro": "Ca să PRIMEȘTI bani nu introduci datele cardului pe niciun site", "en": "To RECEIVE money you never type your card details into any site" },
-        { "ro": "Link în afara aplicației OLX, plata reală apare direct în cont", "en": "Link outside the OLX app, a real payment shows up in your account by itself" },
-        { "ro": "„Confirmarea” trimisă e o poză, nu bani în contul tău", "en": "The \"confirmation\" sent is a picture, not money in your account" }
+        {
+          "ro": "Ca să PRIMEȘTI bani nu introduci datele cardului pe niciun site",
+          "en": "To RECEIVE money you never type your card details into any site"
+        },
+        {
+          "ro": "Link în afara aplicației OLX, plata reală apare direct în cont",
+          "en": "Link outside the OLX app, a real payment shows up in your account by itself"
+        },
+        {
+          "ro": "„Confirmarea” trimisă e o poză, nu bani în contul tău",
+          "en": "The \"confirmation\" sent is a picture, not money in your account"
+        }
       ],
       "explain": {
         "ro": "Pagina falsă „de eliberare a banilor” e un formular de furt de card. OLX Livrare real nu-ți cere niciodată datele cardului ca vânzător.",
@@ -312,9 +567,18 @@
     },
     {
       "id": "d015",
-      "from": { "ro": "Sameday", "en": "Sameday" },
-      "channel": { "ro": "SMS · acum 1 oră", "en": "SMS · 1 hr ago" },
-      "tag": { "ro": "Colet", "en": "Parcel" },
+      "from": {
+        "ro": "Sameday",
+        "en": "Sameday"
+      },
+      "channel": {
+        "ro": "SMS · acum 1 oră",
+        "en": "SMS · 1 hr ago"
+      },
+      "tag": {
+        "ro": "Colet",
+        "en": "Parcel"
+      },
       "accent": "amber",
       "scam": false,
       "difficulty": 1,
@@ -323,9 +587,18 @@
         "en": "Parcel 2SM0482910 from eMAG arrives today between 12:00 and 15:00. You can track the status in the Sameday app."
       },
       "flags": [
-        { "ro": "AWB și expeditor concrete, comanda pe care chiar o aștepți", "en": "Specific tracking number and sender, the order you're actually expecting" },
-        { "ro": "Nicio taxă, niciun link de plată", "en": "No fee, no payment link" },
-        { "ro": "Urmărirea se face în aplicația oficială, deschisă de tine", "en": "Tracking happens in the official app, opened by you" }
+        {
+          "ro": "AWB și expeditor concrete, comanda pe care chiar o aștepți",
+          "en": "Specific tracking number and sender, the order you're actually expecting"
+        },
+        {
+          "ro": "Nicio taxă, niciun link de plată",
+          "en": "No fee, no payment link"
+        },
+        {
+          "ro": "Urmărirea se face în aplicația oficială, deschisă de tine",
+          "en": "Tracking happens in the official app, opened by you"
+        }
       ],
       "explain": {
         "ro": "Aviz normal de livrare: te informează și atât. Smishing-ul de colete cere mereu o „taxă mică”.",
@@ -334,9 +607,18 @@
     },
     {
       "id": "d016",
-      "from": { "ro": "Anca · Recrutări Online", "en": "Anca · Online Recruiting" },
-      "channel": { "ro": "WhatsApp · ieri", "en": "WhatsApp · yesterday" },
-      "tag": { "ro": "Job", "en": "Job" },
+      "from": {
+        "ro": "Anca · Recrutări Online",
+        "en": "Anca · Online Recruiting"
+      },
+      "channel": {
+        "ro": "WhatsApp · ieri",
+        "en": "WhatsApp · yesterday"
+      },
+      "tag": {
+        "ro": "Job",
+        "en": "Job"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 1,
@@ -345,10 +627,22 @@
         "en": "Hiring urgently! 500 lei/day working from home, phone only, no experience needed. Limited spots, reserve yours by paying the starter kit: 150 lei."
       },
       "flags": [
-        { "ro": "Un angajator real nu-ți cere BANI ca să te angajeze", "en": "A real employer never asks YOU for money to hire you" },
-        { "ro": "Câștig nerealist pentru „fără experiență”", "en": "Unrealistic pay for \"no experience\"" },
-        { "ro": "Presiune cu „locuri limitate”", "en": "Pressure via \"limited spots\"" },
-        { "ro": "Nicio firmă verificabilă, doar un număr de WhatsApp", "en": "No verifiable company, just a WhatsApp number" }
+        {
+          "ro": "Un angajator real nu-ți cere BANI ca să te angajeze",
+          "en": "A real employer never asks YOU for money to hire you"
+        },
+        {
+          "ro": "Câștig nerealist pentru „fără experiență”",
+          "en": "Unrealistic pay for \"no experience\""
+        },
+        {
+          "ro": "Presiune cu „locuri limitate”",
+          "en": "Pressure via \"limited spots\""
+        },
+        {
+          "ro": "Nicio firmă verificabilă, doar un număr de WhatsApp",
+          "en": "No verifiable company, just a WhatsApp number"
+        }
       ],
       "explain": {
         "ro": "Job fals: „kitul de start” e tot profitul schemei. După plată, angajatorul dispare.",
@@ -357,9 +651,18 @@
     },
     {
       "id": "d017",
-      "from": { "ro": "Număr necunoscut", "en": "Unknown number" },
-      "channel": { "ro": "WhatsApp · acum 15 min", "en": "WhatsApp · 15 min ago" },
-      "tag": { "ro": "Familie", "en": "Family" },
+      "from": {
+        "ro": "Număr necunoscut",
+        "en": "Unknown number"
+      },
+      "channel": {
+        "ro": "WhatsApp · acum 15 min",
+        "en": "WhatsApp · 15 min ago"
+      },
+      "tag": {
+        "ro": "Familie",
+        "en": "Family"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 2,
@@ -368,10 +671,22 @@
         "en": "Mom, my phone broke and I'm texting from this new number. I have an urgent bill to pay today and I don't have the app installed. Can you transfer me 480 lei to this account? I'll explain tonight, I can't talk now."
       },
       "flags": [
-        { "ro": "Număr nou + cerere imediată de bani = tiparul „am telefon nou”", "en": "New number + instant money request = the \"new phone\" pattern" },
-        { "ro": "„Nu pot vorbi” blochează exact verificarea care ar demonta țeapa", "en": "\"I can't talk\" blocks exactly the check that would expose the scam" },
-        { "ro": "Factura „urgentă” pune presiune de timp", "en": "The \"urgent\" bill adds time pressure" },
-        { "ro": "Un apel pe numărul vechi sau o întrebare personală lămurește tot", "en": "A call to the old number or one personal question settles everything" }
+        {
+          "ro": "Număr nou + cerere imediată de bani = tiparul „am telefon nou”",
+          "en": "New number + instant money request = the \"new phone\" pattern"
+        },
+        {
+          "ro": "„Nu pot vorbi” blochează exact verificarea care ar demonta țeapa",
+          "en": "\"I can't talk\" blocks exactly the check that would expose the scam"
+        },
+        {
+          "ro": "Factura „urgentă” pune presiune de timp",
+          "en": "The \"urgent\" bill adds time pressure"
+        },
+        {
+          "ro": "Un apel pe numărul vechi sau o întrebare personală lămurește tot",
+          "en": "A call to the old number or one personal question settles everything"
+        }
       ],
       "explain": {
         "ro": "Frauda „mama, am telefon nou” mizează pe panica de părinte, iar mesajul ăsta poate ateriza pe telefonul mamei TALE. Tu ești cel care o poate avertiza: verificarea pe canalul vechi durează 10 secunde și dărâmă schema.",
@@ -380,9 +695,18 @@
     },
     {
       "id": "d018",
-      "from": { "ro": "OLX · Vlad", "en": "OLX · Vlad" },
-      "channel": { "ro": "Chat · acum 25 min", "en": "Chat · 25 min ago" },
-      "tag": { "ro": "OLX", "en": "OLX" },
+      "from": {
+        "ro": "OLX · Vlad",
+        "en": "OLX · Vlad"
+      },
+      "channel": {
+        "ro": "Chat · acum 25 min",
+        "en": "Chat · 25 min ago"
+      },
+      "tag": {
+        "ro": "OLX",
+        "en": "OLX"
+      },
       "accent": "sky",
       "scam": false,
       "difficulty": 2,
@@ -391,9 +715,18 @@
         "en": "Hi! Is the bike still available? Are the derailleurs original or replaced? If everything's fine, I'll buy it through OLX Delivery right in the app, with check-on-delivery."
       },
       "flags": [
-        { "ro": "Întrebări concrete despre produs, ca orice cumpărător real", "en": "Specific questions about the product, like any real buyer" },
-        { "ro": "Propune plata prin sistemul oficial, DIN aplicație", "en": "Proposes paying through the official system, INSIDE the app" },
-        { "ro": "Fără linkuri, fără grabă, fără cereri de date", "en": "No links, no rush, no data requests" }
+        {
+          "ro": "Întrebări concrete despre produs, ca orice cumpărător real",
+          "en": "Specific questions about the product, like any real buyer"
+        },
+        {
+          "ro": "Propune plata prin sistemul oficial, DIN aplicație",
+          "en": "Proposes paying through the official system, INSIDE the app"
+        },
+        {
+          "ro": "Fără linkuri, fără grabă, fără cereri de date",
+          "en": "No links, no rush, no data requests"
+        }
       ],
       "explain": {
         "ro": "Cumpărător legitim: discută produsul și rămâne în fluxul oficial al platformei.",
@@ -402,9 +735,18 @@
     },
     {
       "id": "d019",
-      "from": { "ro": "DropZone Skins", "en": "DropZone Skins" },
-      "channel": { "ro": "Discord · acum 5 min", "en": "Discord · 5 min ago" },
-      "tag": { "ro": "Gaming", "en": "Gaming" },
+      "from": {
+        "ro": "DropZone Skins",
+        "en": "DropZone Skins"
+      },
+      "channel": {
+        "ro": "Discord · acum 5 min",
+        "en": "Discord · 5 min ago"
+      },
+      "tag": {
+        "ro": "Gaming",
+        "en": "Gaming"
+      },
       "accent": "green",
       "scam": true,
       "difficulty": 1,
@@ -413,9 +755,18 @@
         "en": "GG! You've been picked for a free AK-47 skin by our community. Log in with your Steam account to claim it: cs2-skin-gratis.win"
       },
       "flags": [
-        { "ro": "Pagina de „login Steam” de pe un site necunoscut îți fură parola", "en": "A \"Steam login\" page on an unknown site steals your password" },
-        { "ro": "Premiu nesolicitat de la un server pe care nu-l cunoști", "en": "Unsolicited prize from a server you don't know" },
-        { "ro": "Domeniu de unică folosință „.win”", "en": "Throwaway \".win\" domain" }
+        {
+          "ro": "Pagina de „login Steam” de pe un site necunoscut îți fură parola",
+          "en": "A \"Steam login\" page on an unknown site steals your password"
+        },
+        {
+          "ro": "Premiu nesolicitat de la un server pe care nu-l cunoști",
+          "en": "Unsolicited prize from a server you don't know"
+        },
+        {
+          "ro": "Domeniu de unică folosință „.win”",
+          "en": "Throwaway \".win\" domain"
+        }
       ],
       "explain": {
         "ro": "Momeala cu skinuri: formularul de logare e o copie, iar parola ta ajunge direct la hoțul de conturi.",
@@ -424,9 +775,18 @@
     },
     {
       "id": "d020",
-      "from": { "ro": "Radu · Oportunități", "en": "Radu · Opportunities" },
-      "channel": { "ro": "DM Instagram · azi, 17:40", "en": "Instagram DM · today, 17:40" },
-      "tag": { "ro": "Job", "en": "Job" },
+      "from": {
+        "ro": "Radu · Oportunități",
+        "en": "Radu · Opportunities"
+      },
+      "channel": {
+        "ro": "DM Instagram · azi, 17:40",
+        "en": "Instagram DM · today, 17:40"
+      },
+      "tag": {
+        "ro": "Job",
+        "en": "Job"
+      },
       "accent": "danger",
       "scam": true,
       "difficulty": 3,
@@ -435,10 +795,22 @@
         "en": "We're looking for \"payment processing agents\": you receive transfers into your personal account, forward them through another app and keep a 10% commission. Fully legal, 20 minutes a day max."
       },
       "flags": [
-        { "ro": "Bani care „doar trec” prin contul tău sunt aproape sigur furați, tu devii veriga de spălare", "en": "Money that \"just passes through\" your account is almost certainly stolen, you become the laundering link" },
-        { "ro": "O firmă reală are conturile ei, nu folosește conturile „angajaților”", "en": "A real company has its own accounts, it doesn't use its \"employees'\" accounts" },
-        { "ro": "Comision gras pentru zero muncă = momeala clasică", "en": "Fat commission for zero work = the classic bait" },
-        { "ro": "„Totul legal” spus neîntrebat e semn că nu e", "en": "\"Fully legal\" said unprompted is a sign it isn't" }
+        {
+          "ro": "Bani care „doar trec” prin contul tău sunt aproape sigur furați, tu devii veriga de spălare",
+          "en": "Money that \"just passes through\" your account is almost certainly stolen, you become the laundering link"
+        },
+        {
+          "ro": "O firmă reală are conturile ei, nu folosește conturile „angajaților”",
+          "en": "A real company has its own accounts, it doesn't use its \"employees'\" accounts"
+        },
+        {
+          "ro": "Comision gras pentru zero muncă = momeala clasică",
+          "en": "Fat commission for zero work = the classic bait"
+        },
+        {
+          "ro": "„Totul legal” spus neîntrebat e semn că nu e",
+          "en": "\"Fully legal\" said unprompted is a sign it isn't"
+        }
       ],
       "explain": {
         "ro": "Schema de money mule: complicitate la spălare de bani, faptă penală chiar dacă „doar ai dat banii mai departe”. Contul blocat și ancheta sunt ale tale.",
@@ -447,9 +819,18 @@
     },
     {
       "id": "d021",
-      "from": { "ro": "Banca Transilvania", "en": "Banca Transilvania" },
-      "channel": { "ro": "SMS · chiar acum", "en": "SMS · just now" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "Banca Transilvania",
+        "en": "Banca Transilvania"
+      },
+      "channel": {
+        "ro": "SMS · chiar acum",
+        "en": "SMS · just now"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "blue",
       "scam": false,
       "difficulty": 2,
@@ -458,9 +839,18 @@
         "en": "Your code for authorising the online payment of 89.99 lei is 481632. Do not share this code with anyone. The bank will never ask you for it."
       },
       "flags": [
-        { "ro": "A sosit exact când făceai TU o plată online", "en": "It arrived exactly when YOU were making an online payment" },
-        { "ro": "Îți spune explicit să nu-l dai nimănui", "en": "It explicitly tells you not to give it to anyone" },
-        { "ro": "Niciun link, nicio cerere de acțiune în afara plății tale", "en": "No link, no action requested beyond your own payment" }
+        {
+          "ro": "A sosit exact când făceai TU o plată online",
+          "en": "It arrived exactly when YOU were making an online payment"
+        },
+        {
+          "ro": "Îți spune explicit să nu-l dai nimănui",
+          "en": "It explicitly tells you not to give it to anyone"
+        },
+        {
+          "ro": "Niciun link, nicio cerere de acțiune în afara plății tale",
+          "en": "No link, no action requested beyond your own payment"
+        }
       ],
       "explain": {
         "ro": "Un cod 2FA care sosește când tu plătești e normal. Devine periculos doar în clipa în care cineva ți-l cere.",
@@ -469,9 +859,18 @@
     },
     {
       "id": "d022",
-      "from": { "ro": "andrei_09 (contul prietenului tău)", "en": "andrei_09 (your friend's account)" },
-      "channel": { "ro": "DM Instagram · acum 3 min", "en": "Instagram DM · 3 min ago" },
-      "tag": { "ro": "Prieteni", "en": "Friends" },
+      "from": {
+        "ro": "andrei_09 (contul prietenului tău)",
+        "en": "andrei_09 (your friend's account)"
+      },
+      "channel": {
+        "ro": "DM Instagram · acum 3 min",
+        "en": "Instagram DM · 3 min ago"
+      },
+      "tag": {
+        "ro": "Prieteni",
+        "en": "Friends"
+      },
       "accent": "sky",
       "scam": true,
       "difficulty": 2,
@@ -480,9 +879,18 @@
         "en": "Bro, urgent, my battery's almost dead and I need to pay something NOW. Can you lend me 100 lei on Revolut? I'll pay you back tomorrow at school. Can't talk, just text me."
       },
       "flags": [
-        { "ro": "Refuză apelul și vocea, clasic pentru conturi sparte sau clonate", "en": "Refuses calls and voice, classic for hacked or cloned accounts" },
-        { "ro": "Cerere de bani cu urgență, atipică pentru el", "en": "Urgent money request, out of character for him" },
-        { "ro": "Verificarea corectă: îl suni sau îi pui o întrebare pe care doar el o știe", "en": "The right check: call him or ask something only he would know" }
+        {
+          "ro": "Refuză apelul și vocea, clasic pentru conturi sparte sau clonate",
+          "en": "Refuses calls and voice, classic for hacked or cloned accounts"
+        },
+        {
+          "ro": "Cerere de bani cu urgență, atipică pentru el",
+          "en": "Urgent money request, out of character for him"
+        },
+        {
+          "ro": "Verificarea corectă: îl suni sau îi pui o întrebare pe care doar el o știe",
+          "en": "The right check: call him or ask something only he would know"
+        }
       ],
       "explain": {
         "ro": "Cont spart sau clonat. „Nu pot vorbi” e steagul roșu: un prieten real acceptă un apel de 10 secunde.",
@@ -491,9 +899,18 @@
     },
     {
       "id": "d023",
-      "from": { "ro": "ANAF Info", "en": "ANAF Info" },
-      "channel": { "ro": "Email · azi, 08:02", "en": "Email · today, 08:02" },
-      "tag": { "ro": "Taxe", "en": "Taxes" },
+      "from": {
+        "ro": "ANAF Info",
+        "en": "ANAF Info"
+      },
+      "channel": {
+        "ro": "Email · azi, 08:02",
+        "en": "Email · today, 08:02"
+      },
+      "tag": {
+        "ro": "Taxe",
+        "en": "Taxes"
+      },
       "accent": "blue",
       "scam": true,
       "difficulty": 2,
@@ -502,10 +919,22 @@
         "en": "Dear taxpayer, following a recalculation you are entitled to a refund of 254.60 lei. Fill in your card details to receive the transfer: anaf-restituiri.info"
       },
       "flags": [
-        { "ro": "ANAF nu restituie bani cerând datele cardului printr-un link", "en": "The tax office never refunds money by asking for card details via a link" },
-        { "ro": "Domeniu fals: „anaf-restituiri.info” ≠ anaf.ro", "en": "Fake domain: \"anaf-restituiri.info\" ≠ anaf.ro" },
-        { "ro": "Sumă „precisă” ca să pară calculată oficial", "en": "A \"precise\" amount to look officially calculated" },
-        { "ro": "Restituirile reale merg în contul bancar declarat, prin Spațiul Privat Virtual", "en": "Real refunds go to your declared bank account, via the official online portal" }
+        {
+          "ro": "ANAF nu restituie bani cerând datele cardului printr-un link",
+          "en": "The tax office never refunds money by asking for card details via a link"
+        },
+        {
+          "ro": "Domeniu fals: „anaf-restituiri.info” ≠ anaf.ro",
+          "en": "Fake domain: \"anaf-restituiri.info\" ≠ anaf.ro"
+        },
+        {
+          "ro": "Sumă „precisă” ca să pară calculată oficial",
+          "en": "A \"precise\" amount to look officially calculated"
+        },
+        {
+          "ro": "Restituirile reale merg în contul bancar declarat, prin Spațiul Privat Virtual",
+          "en": "Real refunds go to your declared bank account, via the official online portal"
+        }
       ],
       "explain": {
         "ro": "Phishing cu autoritate de stat: numele instituției plus o sumă credibilă. Statul nu-ți cere cardul ca să-ți DEA bani.",
@@ -514,9 +943,18 @@
     },
     {
       "id": "d024",
-      "from": { "ro": "Dna. prof. Marinescu", "en": "Ms. Marinescu (teacher)" },
-      "channel": { "ro": "Grup WhatsApp „Clasa a X-a B” · acum 1 oră", "en": "WhatsApp group \"Class 10B\" · 1 hr ago" },
-      "tag": { "ro": "Școală", "en": "School" },
+      "from": {
+        "ro": "Dna. prof. Marinescu",
+        "en": "Ms. Marinescu (teacher)"
+      },
+      "channel": {
+        "ro": "Grup WhatsApp „Clasa a X-a B” · acum 1 oră",
+        "en": "WhatsApp group \"Class 10B\" · 1 hr ago"
+      },
+      "tag": {
+        "ro": "Școală",
+        "en": "School"
+      },
       "accent": "green",
       "scam": false,
       "difficulty": 1,
@@ -525,9 +963,18 @@
         "en": "Dear students, on Monday we start at 8:00 in room 12. The Brașov trip is confirmed for May 22, consent forms will be signed at school, together with your parents. Have a nice weekend!"
       },
       "flags": [
-        { "ro": "Mesaj pe grupul cunoscut al clasei, de la o persoană pe care o știi", "en": "Message on the known class group, from a person you know" },
-        { "ro": "Nu cere bani, date sau linkuri", "en": "Asks for no money, data or links" },
-        { "ro": "Totul e verificabil față în față, la școală", "en": "Everything can be verified face to face, at school" }
+        {
+          "ro": "Mesaj pe grupul cunoscut al clasei, de la o persoană pe care o știi",
+          "en": "Message on the known class group, from a person you know"
+        },
+        {
+          "ro": "Nu cere bani, date sau linkuri",
+          "en": "Asks for no money, data or links"
+        },
+        {
+          "ro": "Totul e verificabil față în față, la școală",
+          "en": "Everything can be verified face to face, at school"
+        }
       ],
       "explain": {
         "ro": "Comunicare școlară normală: informativă, pe canalul obișnuit, verificabilă a doua zi în clasă.",
@@ -536,9 +983,18 @@
     },
     {
       "id": "d025",
-      "from": { "ro": "maria.fest", "en": "maria.fest" },
-      "channel": { "ro": "DM Instagram · acum 20 min", "en": "Instagram DM · 20 min ago" },
-      "tag": { "ro": "Bilete", "en": "Tickets" },
+      "from": {
+        "ro": "maria.fest",
+        "en": "maria.fest"
+      },
+      "channel": {
+        "ro": "DM Instagram · acum 20 min",
+        "en": "Instagram DM · 20 min ago"
+      },
+      "tag": {
+        "ro": "Bilete",
+        "en": "Tickets"
+      },
       "accent": "sky",
       "scam": true,
       "difficulty": 2,
@@ -547,9 +1003,18 @@
         "en": "Selling 2 Untold tickets, my friend bailed on me. 250 lei each, below the official price. I'll email them right after your Revolut transfer. I have other people interested, decide today."
       },
       "flags": [
-        { "ro": "Plată în avans către un necunoscut, fără nicio protecție", "en": "Advance payment to a stranger, with zero protection" },
-        { "ro": "Preț sub piață + presiune („mai mulți interesați, decide azi”)", "en": "Below-market price + pressure (\"others interested, decide today\")" },
-        { "ro": "Biletele reale se transferă prin platforma oficială de ticketing, nu pe email", "en": "Real tickets transfer through the official ticketing platform, not by email" }
+        {
+          "ro": "Plată în avans către un necunoscut, fără nicio protecție",
+          "en": "Advance payment to a stranger, with zero protection"
+        },
+        {
+          "ro": "Preț sub piață + presiune („mai mulți interesați, decide azi”)",
+          "en": "Below-market price + pressure (\"others interested, decide today\")"
+        },
+        {
+          "ro": "Biletele reale se transferă prin platforma oficială de ticketing, nu pe email",
+          "en": "Real tickets transfer through the official ticketing platform, not by email"
+        }
       ],
       "explain": {
         "ro": "Țeapa cu bilete: plătești și primești un PDF invalid sau nimic. Revânzarea sigură trece doar prin platforma oficială.",
@@ -558,9 +1023,18 @@
     },
     {
       "id": "d026",
-      "from": { "ro": "cristi.trader_official", "en": "cristi.trader_official" },
-      "channel": { "ro": "DM Instagram · ieri", "en": "Instagram DM · yesterday" },
-      "tag": { "ro": "Investiții", "en": "Investing" },
+      "from": {
+        "ro": "cristi.trader_official",
+        "en": "cristi.trader_official"
+      },
+      "channel": {
+        "ro": "DM Instagram · ieri",
+        "en": "Instagram DM · yesterday"
+      },
+      "tag": {
+        "ro": "Investiții",
+        "en": "Investing"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 2,
@@ -569,10 +1043,22 @@
         "en": "Saw your profile, you look ambitious. I made 12,000 lei this month from crypto, here's the screenshot. Join my mentoring group: guaranteed 3% profit per day, you start with just 300 lei."
       },
       "flags": [
-        { "ro": "„Profit garantat” nu există în investiții, garanția e minciuna", "en": "\"Guaranteed profit\" doesn't exist in investing, the guarantee IS the lie" },
-        { "ro": "Capturile de câștiguri se falsifică în două minute", "en": "Profit screenshots can be faked in two minutes" },
-        { "ro": "„Mentorul” te caută el pe tine, nemotivat", "en": "The \"mentor\" reaches out to YOU, unprompted" },
-        { "ro": "Presiune să depui repede o sumă „mică”", "en": "Pressure to quickly deposit a \"small\" amount" }
+        {
+          "ro": "„Profit garantat” nu există în investiții, garanția e minciuna",
+          "en": "\"Guaranteed profit\" doesn't exist in investing, the guarantee IS the lie"
+        },
+        {
+          "ro": "Capturile de câștiguri se falsifică în două minute",
+          "en": "Profit screenshots can be faked in two minutes"
+        },
+        {
+          "ro": "„Mentorul” te caută el pe tine, nemotivat",
+          "en": "The \"mentor\" reaches out to YOU, unprompted"
+        },
+        {
+          "ro": "Presiune să depui repede o sumă „mică”",
+          "en": "Pressure to quickly deposit a \"small\" amount"
+        }
       ],
       "explain": {
         "ro": "Țeapă de „investiții” pe social media: banii depuși intră direct în buzunarul „mentorului”. Randament garantat = fraudă prin definiție.",
@@ -581,9 +1067,18 @@
     },
     {
       "id": "d027",
-      "from": { "ro": "Spotify", "en": "Spotify" },
-      "channel": { "ro": "Email · azi, 06:12", "en": "Email · today, 06:12" },
-      "tag": { "ro": "Abonament", "en": "Subscription" },
+      "from": {
+        "ro": "Spotify",
+        "en": "Spotify"
+      },
+      "channel": {
+        "ro": "Email · azi, 06:12",
+        "en": "Email · today, 06:12"
+      },
+      "tag": {
+        "ro": "Abonament",
+        "en": "Subscription"
+      },
       "accent": "green",
       "scam": false,
       "difficulty": 2,
@@ -592,9 +1087,18 @@
         "en": "Your Spotify Premium Student receipt: 12.99 lei, paid on July 8. Next billing date: August 8. You can manage your subscription anytime from your account."
       },
       "flags": [
-        { "ro": "Confirmă o plată pentru un abonament pe care chiar îl ai", "en": "Confirms a payment for a subscription you actually have" },
-        { "ro": "Nu cere nicio acțiune, niciun link de „actualizare a cardului”", "en": "Requests no action, no \"update your card\" link" },
-        { "ro": "Sumă și dată corecte, la ziua obișnuită de facturare", "en": "Correct amount and date, on your usual billing day" }
+        {
+          "ro": "Confirmă o plată pentru un abonament pe care chiar îl ai",
+          "en": "Confirms a payment for a subscription you actually have"
+        },
+        {
+          "ro": "Nu cere nicio acțiune, niciun link de „actualizare a cardului”",
+          "en": "Requests no action, no \"update your card\" link"
+        },
+        {
+          "ro": "Sumă și dată corecte, la ziua obișnuită de facturare",
+          "en": "Correct amount and date, on your usual billing day"
+        }
       ],
       "explain": {
         "ro": "Chitanță reală de abonament: doar confirmă, nu cere. Fraudele cu abonamente îți cer mereu să „repari plata” printr-un link.",
@@ -603,9 +1107,18 @@
     },
     {
       "id": "d028",
-      "from": { "ro": "NitroDrop Bot", "en": "NitroDrop Bot" },
-      "channel": { "ro": "Discord · acum 2 min", "en": "Discord · 2 min ago" },
-      "tag": { "ro": "Gaming", "en": "Gaming" },
+      "from": {
+        "ro": "NitroDrop Bot",
+        "en": "NitroDrop Bot"
+      },
+      "channel": {
+        "ro": "Discord · acum 2 min",
+        "en": "Discord · 2 min ago"
+      },
+      "tag": {
+        "ro": "Gaming",
+        "en": "Gaming"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 1,
@@ -614,9 +1127,18 @@
         "en": "@everyone Gift! 3 months of free Discord Nitro for the first 100 users: discord-nitro-cadou.net. Claim fast, the offer expires in one hour!"
       },
       "flags": [
-        { "ro": "Linkul nu e discord.com, e o pagină de furat conturi", "en": "The link isn't discord.com, it's an account-stealing page" },
-        { "ro": "„Gratuit” + cronometru = combinația clasică de momeală", "en": "\"Free\" + countdown = the classic bait combo" },
-        { "ro": "Bot necunoscut care dă tag la @everyone", "en": "Unknown bot tagging @everyone" }
+        {
+          "ro": "Linkul nu e discord.com, e o pagină de furat conturi",
+          "en": "The link isn't discord.com, it's an account-stealing page"
+        },
+        {
+          "ro": "„Gratuit” + cronometru = combinația clasică de momeală",
+          "en": "\"Free\" + countdown = the classic bait combo"
+        },
+        {
+          "ro": "Bot necunoscut care dă tag la @everyone",
+          "en": "Unknown bot tagging @everyone"
+        }
       ],
       "explain": {
         "ro": "Momeala „Nitro gratis”: pagina falsă de login îți ia contul de Discord, apoi trimite aceeași țeapă prietenilor tăi.",
@@ -625,9 +1147,18 @@
     },
     {
       "id": "d029",
-      "from": { "ro": "George · BCR", "en": "George · BCR" },
-      "channel": { "ro": "Push · acum 4 min", "en": "Push · 4 min ago" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "George · BCR",
+        "en": "George · BCR"
+      },
+      "channel": {
+        "ro": "Push · acum 4 min",
+        "en": "Push · 4 min ago"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "green",
       "scam": false,
       "difficulty": 1,
@@ -636,9 +1167,18 @@
         "en": "You received 150.00 lei from Ioana P., \"for the gift\". See the transaction in George."
       },
       "flags": [
-        { "ro": "Te anunță despre bani primiți, fără să ceară nimic", "en": "Announces money received, without asking for anything" },
-        { "ro": "Fără link, detaliile sunt în aplicația pe care o deschizi tu", "en": "No link, the details are in the app you open yourself" },
-        { "ro": "Expeditor pe care îl recunoști", "en": "A sender you recognise" }
+        {
+          "ro": "Te anunță despre bani primiți, fără să ceară nimic",
+          "en": "Announces money received, without asking for anything"
+        },
+        {
+          "ro": "Fără link, detaliile sunt în aplicația pe care o deschizi tu",
+          "en": "No link, the details are in the app you open yourself"
+        },
+        {
+          "ro": "Expeditor pe care îl recunoști",
+          "en": "A sender you recognise"
+        }
       ],
       "explain": {
         "ro": "Notificare autentică de transfer primit: informație, zero cereri.",
@@ -647,9 +1187,18 @@
     },
     {
       "id": "d030",
-      "from": { "ro": "Suport Revolut", "en": "Revolut Support" },
-      "channel": { "ro": "Apel + SMS · chiar acum", "en": "Call + SMS · just now" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "Suport Revolut",
+        "en": "Revolut Support"
+      },
+      "channel": {
+        "ro": "Apel + SMS · chiar acum",
+        "en": "Call + SMS · just now"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "danger",
       "scam": true,
       "difficulty": 3,
@@ -658,10 +1207,22 @@
         "en": "This is the Revolut safety team calling. We've detected a fraudulent transaction of 1,200 lei and blocked it. To cancel the operation permanently, please read me the code from the SMS we just sent you."
       },
       "flags": [
-        { "ro": "Codul din SMS e cheia contului, cine ți-l cere ÎL FOLOSEȘTE chiar atunci", "en": "The SMS code is the key to your account, whoever asks for it is USING it right then" },
-        { "ro": "Banca nu-ți cere niciodată codul, nici măcar „ca să anuleze o fraudă”", "en": "The bank never asks for your code, not even \"to cancel a fraud\"" },
-        { "ro": "Scenariul de panică e construit ca să nu mai gândești", "en": "The panic scenario is built so you stop thinking" },
-        { "ro": "Reacția corectă: închizi și contactezi TU banca, din aplicație", "en": "The right move: hang up and contact the bank YOURSELF, from the app" }
+        {
+          "ro": "Codul din SMS e cheia contului, cine ți-l cere ÎL FOLOSEȘTE chiar atunci",
+          "en": "The SMS code is the key to your account, whoever asks for it is USING it right then"
+        },
+        {
+          "ro": "Banca nu-ți cere niciodată codul, nici măcar „ca să anuleze o fraudă”",
+          "en": "The bank never asks for your code, not even \"to cancel a fraud\""
+        },
+        {
+          "ro": "Scenariul de panică e construit ca să nu mai gândești",
+          "en": "The panic scenario is built so you stop thinking"
+        },
+        {
+          "ro": "Reacția corectă: închizi și contactezi TU banca, din aplicație",
+          "en": "The right move: hang up and contact the bank YOURSELF, from the app"
+        }
       ],
       "explain": {
         "ro": "Vishing cu inversare: „frauda” pe care o „anulează” e chiar transferul pe care îl fac ei cu codul tău. Codul 2FA nu se spune nimănui, niciodată.",
@@ -670,9 +1231,18 @@
     },
     {
       "id": "d031",
-      "from": { "ro": "Kaufland România (pagină nouă)", "en": "Kaufland Romania (new page)" },
-      "channel": { "ro": "Messenger · acum 30 min", "en": "Messenger · 30 min ago" },
-      "tag": { "ro": "Premiu", "en": "Prize" },
+      "from": {
+        "ro": "Kaufland România (pagină nouă)",
+        "en": "Kaufland Romania (new page)"
+      },
+      "channel": {
+        "ro": "Messenger · acum 30 min",
+        "en": "Messenger · 30 min ago"
+      },
+      "tag": {
+        "ro": "Premiu",
+        "en": "Prize"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 1,
@@ -681,10 +1251,22 @@
         "en": "Kaufland celebrates 20 years in Romania! Answer 3 questions and win a 400 lei gift card. Today only: kaufland-aniversare.net"
       },
       "flags": [
-        { "ro": "Pagină nouă + domeniu neoficial ≠ kaufland.ro", "en": "New page + unofficial domain ≠ kaufland.ro" },
-        { "ro": "„Valabil doar azi”, presiune de timp", "en": "\"Today only\", time pressure" },
-        { "ro": "„Sondajul” se termină cu un formular de date personale", "en": "The \"survey\" ends with a personal-data form" },
-        { "ro": "Campaniile reale apar pe canalele verificate ale brandului", "en": "Real campaigns appear on the brand's verified channels" }
+        {
+          "ro": "Pagină nouă + domeniu neoficial ≠ kaufland.ro",
+          "en": "New page + unofficial domain ≠ kaufland.ro"
+        },
+        {
+          "ro": "„Valabil doar azi”, presiune de timp",
+          "en": "\"Today only\", time pressure"
+        },
+        {
+          "ro": "„Sondajul” se termină cu un formular de date personale",
+          "en": "The \"survey\" ends with a personal-data form"
+        },
+        {
+          "ro": "Campaniile reale apar pe canalele verificate ale brandului",
+          "en": "Real campaigns appear on the brand's verified channels"
+        }
       ],
       "explain": {
         "ro": "Sondaj-momeală: premiul nu există, formularul final îți culege datele personale și, adesea, cardul.",
@@ -693,9 +1275,18 @@
     },
     {
       "id": "d032",
-      "from": { "ro": "Clinica DentaPlus", "en": "DentaPlus Clinic" },
-      "channel": { "ro": "SMS · azi, 09:00", "en": "SMS · today, 09:00" },
-      "tag": { "ro": "Programare", "en": "Appointment" },
+      "from": {
+        "ro": "Clinica DentaPlus",
+        "en": "DentaPlus Clinic"
+      },
+      "channel": {
+        "ro": "SMS · azi, 09:00",
+        "en": "SMS · today, 09:00"
+      },
+      "tag": {
+        "ro": "Programare",
+        "en": "Appointment"
+      },
       "accent": "sky",
       "scam": false,
       "difficulty": 1,
@@ -704,9 +1295,18 @@
         "en": "Reminder of your appointment with Dr. Ionescu: Tuesday, July 14, 15:30. To reschedule, call the front desk or reply CANCEL."
       },
       "flags": [
-        { "ro": "Se referă la o programare pe care chiar ai făcut-o", "en": "Refers to an appointment you actually made" },
-        { "ro": "Nu cere plăți, date personale sau click pe linkuri", "en": "Asks for no payments, personal data or link clicks" },
-        { "ro": "Anularea e simplă, fără formulare externe", "en": "Cancelling is simple, no external forms" }
+        {
+          "ro": "Se referă la o programare pe care chiar ai făcut-o",
+          "en": "Refers to an appointment you actually made"
+        },
+        {
+          "ro": "Nu cere plăți, date personale sau click pe linkuri",
+          "en": "Asks for no payments, personal data or link clicks"
+        },
+        {
+          "ro": "Anularea e simplă, fără formulare externe",
+          "en": "Cancelling is simple, no external forms"
+        }
       ],
       "explain": {
         "ro": "Confirmare de programare standard: context real, zero cereri de bani sau date.",
@@ -715,9 +1315,18 @@
     },
     {
       "id": "d033",
-      "from": { "ro": "Steam Support", "en": "Steam Support" },
-      "channel": { "ro": "Email · acum 2 ore", "en": "Email · 2 hrs ago" },
-      "tag": { "ro": "Gaming", "en": "Gaming" },
+      "from": {
+        "ro": "Steam Support",
+        "en": "Steam Support"
+      },
+      "channel": {
+        "ro": "Email · acum 2 ore",
+        "en": "Email · 2 hrs ago"
+      },
+      "tag": {
+        "ro": "Gaming",
+        "en": "Gaming"
+      },
       "accent": "blue",
       "scam": true,
       "difficulty": 2,
@@ -726,9 +1335,18 @@
         "en": "We received a report of suspicious transactions on your account. The account will be suspended in 24 hours unless you confirm you are the owner: steamcommunity-verificare.com"
       },
       "flags": [
-        { "ro": "Domeniul imită steamcommunity.com, dar nu e cel real", "en": "The domain mimics steamcommunity.com but isn't the real one" },
-        { "ro": "Amenințare cu suspendarea + termen de 24 de ore", "en": "Suspension threat + 24-hour deadline" },
-        { "ro": "Steam nu cere „confirmarea proprietarului” prin linkuri din email", "en": "Steam doesn't ask you to \"confirm ownership\" via email links" }
+        {
+          "ro": "Domeniul imită steamcommunity.com, dar nu e cel real",
+          "en": "The domain mimics steamcommunity.com but isn't the real one"
+        },
+        {
+          "ro": "Amenințare cu suspendarea + termen de 24 de ore",
+          "en": "Suspension threat + 24-hour deadline"
+        },
+        {
+          "ro": "Steam nu cere „confirmarea proprietarului” prin linkuri din email",
+          "en": "Steam doesn't ask you to \"confirm ownership\" via email links"
+        }
       ],
       "explain": {
         "ro": "Phishing de gaming: frica de a pierde contul (și skinurile) te împinge să-ți predai singur parola pe un site-copie.",
@@ -737,9 +1355,18 @@
     },
     {
       "id": "d034",
-      "from": { "ro": "Deea", "en": "Deea" },
-      "channel": { "ro": "WhatsApp · ieri", "en": "WhatsApp · yesterday" },
-      "tag": { "ro": "Comunitate", "en": "Community" },
+      "from": {
+        "ro": "Deea",
+        "en": "Deea"
+      },
+      "channel": {
+        "ro": "WhatsApp · ieri",
+        "en": "WhatsApp · yesterday"
+      },
+      "tag": {
+        "ro": "Comunitate",
+        "en": "Community"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 2,
@@ -748,10 +1375,22 @@
         "en": "You're invited to the \"Circle of Abundance\"! You gift 250 lei to the person in the centre, invite two friends, and when you reach the centre you receive 2,000 lei. It only works if the chain doesn't break, so join today!"
       },
       "flags": [
-        { "ro": "Banii vin DOAR de la cei intrați după tine, matematica piramidei", "en": "The money comes ONLY from those who join after you, pyramid math" },
-        { "ro": "„Dăruiești ca să primești” = schemă Ponzi ambalată frumos", "en": "\"Gift to receive\" = a nicely wrapped Ponzi scheme" },
-        { "ro": "Te pune pe TINE să racolezi prietene", "en": "It makes YOU recruit your friends" },
-        { "ro": "Câștig promis de 8x fără nicio activitate reală", "en": "A promised 8x gain with no real activity behind it" }
+        {
+          "ro": "Banii vin DOAR de la cei intrați după tine, matematica piramidei",
+          "en": "The money comes ONLY from those who join after you, pyramid math"
+        },
+        {
+          "ro": "„Dăruiești ca să primești” = schemă Ponzi ambalată frumos",
+          "en": "\"Gift to receive\" = a nicely wrapped Ponzi scheme"
+        },
+        {
+          "ro": "Te pune pe TINE să racolezi prietene",
+          "en": "It makes YOU recruit your friends"
+        },
+        {
+          "ro": "Câștig promis de 8x fără nicio activitate reală",
+          "en": "A promised 8x gain with no real activity behind it"
+        }
       ],
       "explain": {
         "ro": "Schemă piramidală clasică: lanțul se rupe mereu, iar ultimii intrați, adică aproape toți, pierd banii. Racolarea strică și prieteniile.",
@@ -760,9 +1399,18 @@
     },
     {
       "id": "d035",
-      "from": { "ro": "Steam", "en": "Steam" },
-      "channel": { "ro": "Email · chiar acum", "en": "Email · just now" },
-      "tag": { "ro": "Gaming", "en": "Gaming" },
+      "from": {
+        "ro": "Steam",
+        "en": "Steam"
+      },
+      "channel": {
+        "ro": "Email · chiar acum",
+        "en": "Email · just now"
+      },
+      "tag": {
+        "ro": "Gaming",
+        "en": "Gaming"
+      },
       "accent": "blue",
       "scam": false,
       "difficulty": 2,
@@ -771,9 +1419,18 @@
         "en": "Your Steam Guard code is J7WRC. Enter it in the login window. Do not share this code with anyone."
       },
       "flags": [
-        { "ro": "A sosit pentru că TU te loghezi chiar acum", "en": "It arrived because YOU are logging in right now" },
-        { "ro": "Nu conține niciun link de „verificare”", "en": "Contains no \"verification\" link" },
-        { "ro": "Îți cere explicit să NU-l dai nimănui", "en": "Explicitly tells you NOT to give it to anyone" }
+        {
+          "ro": "A sosit pentru că TU te loghezi chiar acum",
+          "en": "It arrived because YOU are logging in right now"
+        },
+        {
+          "ro": "Nu conține niciun link de „verificare”",
+          "en": "Contains no \"verification\" link"
+        },
+        {
+          "ro": "Îți cere explicit să NU-l dai nimănui",
+          "en": "Explicitly tells you NOT to give it to anyone"
+        }
       ],
       "explain": {
         "ro": "Mesaj 2FA legitim: sosește, nu cere. Alarma se aprinde doar dacă nu te logai tu sau dacă cineva îți cere codul.",
@@ -782,9 +1439,18 @@
     },
     {
       "id": "d036",
-      "from": { "ro": "Alex Tips VIP", "en": "Alex Tips VIP" },
-      "channel": { "ro": "Telegram · acum 1 oră", "en": "Telegram · 1 hr ago" },
-      "tag": { "ro": "Pariuri", "en": "Gambling" },
+      "from": {
+        "ro": "Alex Tips VIP",
+        "en": "Alex Tips VIP"
+      },
+      "channel": {
+        "ro": "Telegram · acum 1 oră",
+        "en": "Telegram · 1 hr ago"
+      },
+      "tag": {
+        "ro": "Pariuri",
+        "en": "Gambling"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 2,
@@ -793,10 +1459,22 @@
         "en": "My roulette method is mathematically safe, 9 out of 10 winning sessions, I have the screenshots to prove it. I'll set you up a free demo account, then you start with just 200 lei. Being 16 is no problem, I have a platform with no verification."
       },
       "flags": [
-        { "ro": "Nu există „metodă sigură” la jocuri de noroc, casa câștigă mereu, matematic", "en": "There is no \"safe method\" in gambling, the house always wins, mathematically" },
-        { "ro": "Contul demo e momeala: trucat să câștigi, ca să depui bani reali", "en": "The demo account is the bait: rigged so you win, so you deposit real money" },
-        { "ro": "„Platformă fără verificare” = ilegală, cu atât mai mult pentru minori", "en": "\"No verification platform\" = illegal, all the more so for minors" },
-        { "ro": "Capturile de câștiguri nu dovedesc nimic", "en": "Winning screenshots prove nothing" }
+        {
+          "ro": "Nu există „metodă sigură” la jocuri de noroc, casa câștigă mereu, matematic",
+          "en": "There is no \"safe method\" in gambling, the house always wins, mathematically"
+        },
+        {
+          "ro": "Contul demo e momeala: trucat să câștigi, ca să depui bani reali",
+          "en": "The demo account is the bait: rigged so you win, so you deposit real money"
+        },
+        {
+          "ro": "„Platformă fără verificare” = ilegală, cu atât mai mult pentru minori",
+          "en": "\"No verification platform\" = illegal, all the more so for minors"
+        },
+        {
+          "ro": "Capturile de câștiguri nu dovedesc nimic",
+          "en": "Winning screenshots prove nothing"
+        }
       ],
       "explain": {
         "ro": "Cârlig de gambling pentru minori: demo trucat + „metodă sigură” te împing spre depuneri reale pe o platformă ilegală. Pierderea e garantată prin design.",
@@ -805,9 +1483,18 @@
     },
     {
       "id": "d037",
-      "from": { "ro": "FAN Courier", "en": "FAN Courier" },
-      "channel": { "ro": "SMS · acum 3 ore", "en": "SMS · 3 hrs ago" },
-      "tag": { "ro": "Colet", "en": "Parcel" },
+      "from": {
+        "ro": "FAN Courier",
+        "en": "FAN Courier"
+      },
+      "channel": {
+        "ro": "SMS · acum 3 ore",
+        "en": "SMS · 3 hrs ago"
+      },
+      "tag": {
+        "ro": "Colet",
+        "en": "Parcel"
+      },
       "accent": "amber",
       "scam": false,
       "difficulty": 2,
@@ -816,9 +1503,18 @@
         "en": "Sender eMAG has shipped you a parcel, tracking no. 7010542291. Estimated delivery: tomorrow, between 10:00 and 14:00. The courier will call you before arriving."
       },
       "flags": [
-        { "ro": "Expeditor și AWB concrete, verificabile în contul tău eMAG", "en": "Specific sender and tracking number, verifiable in your eMAG account" },
-        { "ro": "Nicio taxă, niciun link de plată", "en": "No fee, no payment link" },
-        { "ro": "Îți spune ce urmează (apelul curierului), nu ce „trebuie să plătești”", "en": "Tells you what happens next (the courier's call), not what you \"must pay\"" }
+        {
+          "ro": "Expeditor și AWB concrete, verificabile în contul tău eMAG",
+          "en": "Specific sender and tracking number, verifiable in your eMAG account"
+        },
+        {
+          "ro": "Nicio taxă, niciun link de plată",
+          "en": "No fee, no payment link"
+        },
+        {
+          "ro": "Îți spune ce urmează (apelul curierului), nu ce „trebuie să plătești”",
+          "en": "Tells you what happens next (the courier's call), not what you \"must pay\""
+        }
       ],
       "explain": {
         "ro": "Aviz real de livrare: identifică exact comanda și nu cere nimic. Frauda de curierat cere mereu o „mică taxă” printr-un link.",
@@ -827,9 +1523,18 @@
     },
     {
       "id": "d038",
-      "from": { "ro": "TestIQ Pro", "en": "TestIQ Pro" },
-      "channel": { "ro": "Reclamă Instagram · azi", "en": "Instagram ad · today" },
-      "tag": { "ro": "Abonament", "en": "Subscription" },
+      "from": {
+        "ro": "TestIQ Pro",
+        "en": "TestIQ Pro"
+      },
+      "channel": {
+        "ro": "Reclamă Instagram · azi",
+        "en": "Instagram ad · today"
+      },
+      "tag": {
+        "ro": "Abonament",
+        "en": "Subscription"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 3,
@@ -838,10 +1543,22 @@
         "en": "Find out your IQ in 3 minutes! Certified result for just 3 lei, enter your card for the one-time processing fee. (at the bottom, in tiny print: after 48h the Premium subscription activates, 119 lei/month, auto-renewed)"
       },
       "flags": [
-        { "ro": "„Taxa simbolică” există doar ca să-ți ia datele cardului", "en": "The \"symbolic fee\" exists only to capture your card details" },
-        { "ro": "Fontul mic ascunde abonamentul recurent de 119 lei/lună", "en": "The fine print hides the recurring 119 lei/month subscription" },
-        { "ro": "„Rezultat certificat” nu există la teste de IQ online", "en": "\"Certified results\" don't exist for online IQ tests" },
-        { "ro": "Anularea e făcută intenționat greu de găsit", "en": "Cancelling is deliberately hard to find" }
+        {
+          "ro": "„Taxa simbolică” există doar ca să-ți ia datele cardului",
+          "en": "The \"symbolic fee\" exists only to capture your card details"
+        },
+        {
+          "ro": "Fontul mic ascunde abonamentul recurent de 119 lei/lună",
+          "en": "The fine print hides the recurring 119 lei/month subscription"
+        },
+        {
+          "ro": "„Rezultat certificat” nu există la teste de IQ online",
+          "en": "\"Certified results\" don't exist for online IQ tests"
+        },
+        {
+          "ro": "Anularea e făcută intenționat greu de găsit",
+          "en": "Cancelling is deliberately hard to find"
+        }
       ],
       "explain": {
         "ro": "Capcana abonamentului ascuns: plătești 3 lei, dar semnezi cu fontul mic pentru 119 lei/lună. Cititul condițiilor E apărarea.",
@@ -850,9 +1567,18 @@
     },
     {
       "id": "d039",
-      "from": { "ro": "Banca Transilvania", "en": "Banca Transilvania" },
-      "channel": { "ro": "SMS · acum 2 min", "en": "SMS · 2 min ago" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "Banca Transilvania",
+        "en": "Banca Transilvania"
+      },
+      "channel": {
+        "ro": "SMS · acum 2 min",
+        "en": "SMS · 2 min ago"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "danger",
       "scam": false,
       "difficulty": 3,
@@ -861,9 +1587,18 @@
         "en": "We declined a suspicious transaction of 899.00 lei on your card ****4821 at a foreign merchant. If it wasn't you, block the card from the BT Pay app or call the number on the back of your card."
       },
       "flags": [
-        { "ro": "Niciun link, te trimite în aplicație sau la numărul de pe cardul TĂU", "en": "No link, it points you to the app or to the number on YOUR own card" },
-        { "ro": "Nu cere coduri, parole sau date", "en": "Asks for no codes, passwords or data" },
-        { "ro": "Tranzacția a fost DEJA respinsă, nu ți se cere nimic „urgent” ca s-o oprești", "en": "The transaction was ALREADY declined, nothing \"urgent\" is demanded to stop it" }
+        {
+          "ro": "Niciun link, te trimite în aplicație sau la numărul de pe cardul TĂU",
+          "en": "No link, it points you to the app or to the number on YOUR own card"
+        },
+        {
+          "ro": "Nu cere coduri, parole sau date",
+          "en": "Asks for no codes, passwords or data"
+        },
+        {
+          "ro": "Tranzacția a fost DEJA respinsă, nu ți se cere nimic „urgent” ca s-o oprești",
+          "en": "The transaction was ALREADY declined, nothing \"urgent\" is demanded to stop it"
+        }
       ],
       "explain": {
         "ro": "Așa arată o alertă reală de fraudă: banca a acționat deja și te lasă să alegi TU canalul oficial. Fără linkuri, fără coduri cerute.",
@@ -872,9 +1607,18 @@
     },
     {
       "id": "d040",
-      "from": { "ro": "@robert.fx_lifestyle", "en": "@robert.fx_lifestyle" },
-      "channel": { "ro": "TikTok · acum 4 ore", "en": "TikTok · 4 hrs ago" },
-      "tag": { "ro": "Investiții", "en": "Investing" },
+      "from": {
+        "ro": "@robert.fx_lifestyle",
+        "en": "@robert.fx_lifestyle"
+      },
+      "channel": {
+        "ro": "TikTok · acum 4 ore",
+        "en": "TikTok · 4 hrs ago"
+      },
+      "tag": {
+        "ro": "Investiții",
+        "en": "Investing"
+      },
       "accent": "blue",
       "scam": true,
       "difficulty": 2,
@@ -883,10 +1627,22 @@
         "en": "I'm 19 and made 2,000 lei this week from forex, the screenshot is on my profile. The first 50 who follow and comment \"START\" join my signals group for free. Everyone else pays 100 lei/month."
       },
       "flags": [
-        { "ro": "Stil de viață afișat + capturi = marketingul standard al țepelor de trading", "en": "Flaunted lifestyle + screenshots = the standard marketing of trading scams" },
-        { "ro": "Dacă „semnalele” ar funcționa, nu le-ar vinde cu 100 lei/lună", "en": "If the \"signals\" worked, he wouldn't sell them for 100 lei/month" },
-        { "ro": "Presiunea „primii 50” fabrică graba", "en": "The \"first 50\" pressure manufactures urgency" },
-        { "ro": "Venitul lui real vine din abonați, nu din trading", "en": "His real income comes from subscribers, not trading" }
+        {
+          "ro": "Stil de viață afișat + capturi = marketingul standard al țepelor de trading",
+          "en": "Flaunted lifestyle + screenshots = the standard marketing of trading scams"
+        },
+        {
+          "ro": "Dacă „semnalele” ar funcționa, nu le-ar vinde cu 100 lei/lună",
+          "en": "If the \"signals\" worked, he wouldn't sell them for 100 lei/month"
+        },
+        {
+          "ro": "Presiunea „primii 50” fabrică graba",
+          "en": "The \"first 50\" pressure manufactures urgency"
+        },
+        {
+          "ro": "Venitul lui real vine din abonați, nu din trading",
+          "en": "His real income comes from subscribers, not trading"
+        }
       ],
       "explain": {
         "ro": "Vânzătorul de semnale câștigă din abonamente, nu din tranzacții. Capturile de profit sunt doar decor.",
@@ -895,9 +1651,18 @@
     },
     {
       "id": "d041",
-      "from": { "ro": "Epic Games Security", "en": "Epic Games Security" },
-      "channel": { "ro": "Email · azi, 03:47", "en": "Email · today, 03:47" },
-      "tag": { "ro": "Gaming", "en": "Gaming" },
+      "from": {
+        "ro": "Epic Games Security",
+        "en": "Epic Games Security"
+      },
+      "channel": {
+        "ro": "Email · azi, 03:47",
+        "en": "Email · today, 03:47"
+      },
+      "tag": {
+        "ro": "Gaming",
+        "en": "Gaming"
+      },
       "accent": "blue",
       "scam": true,
       "difficulty": 2,
@@ -906,9 +1671,18 @@
         "en": "We detected a login attempt from another country on your account. If it wasn't you, secure your account within 12 hours: epicgames-verificare-cont.net. Otherwise the account will be permanently locked."
       },
       "flags": [
-        { "ro": "Domeniu fals: „epicgames-verificare-cont.net” ≠ epicgames.com", "en": "Fake domain: \"epicgames-verificare-cont.net\" ≠ epicgames.com" },
-        { "ro": "Amenințare cu blocare „permanentă” + termen scurt", "en": "\"Permanent\" lock threat + short deadline" },
-        { "ro": "Verificarea reală o faci logându-te TU direct pe site-ul oficial, nu prin link", "en": "The real check is YOU logging in directly on the official site, not via the link" }
+        {
+          "ro": "Domeniu fals: „epicgames-verificare-cont.net” ≠ epicgames.com",
+          "en": "Fake domain: \"epicgames-verificare-cont.net\" ≠ epicgames.com"
+        },
+        {
+          "ro": "Amenințare cu blocare „permanentă” + termen scurt",
+          "en": "\"Permanent\" lock threat + short deadline"
+        },
+        {
+          "ro": "Verificarea reală o faci logându-te TU direct pe site-ul oficial, nu prin link",
+          "en": "The real check is YOU logging in directly on the official site, not via the link"
+        }
       ],
       "explain": {
         "ro": "Alerta falsă de securitate e phishing în oglindă: pretinde că te apără de hoți exact ca să-ți fure parola.",
@@ -917,9 +1691,18 @@
     },
     {
       "id": "d042",
-      "from": { "ro": "Vinted · Ioana", "en": "Vinted · Ioana" },
-      "channel": { "ro": "Chat · acum 10 min", "en": "Chat · 10 min ago" },
-      "tag": { "ro": "Vinted", "en": "Vinted" },
+      "from": {
+        "ro": "Vinted · Ioana",
+        "en": "Vinted · Ioana"
+      },
+      "channel": {
+        "ro": "Chat · acum 10 min",
+        "en": "Chat · 10 min ago"
+      },
+      "tag": {
+        "ro": "Vinted",
+        "en": "Vinted"
+      },
       "accent": "sky",
       "scam": false,
       "difficulty": 1,
@@ -928,9 +1711,18 @@
         "en": "Hi! How long is the dress, and do you have a photo of the size tag? If it fits me, I'll buy it today straight through the in-app button."
       },
       "flags": [
-        { "ro": "Întrebări normale despre produs", "en": "Normal questions about the item" },
-        { "ro": "Plata prin butonul oficial, în aplicație", "en": "Payment via the official button, inside the app" },
-        { "ro": "Nicio grabă, niciun link, nicio poveste complicată", "en": "No rush, no links, no convoluted story" }
+        {
+          "ro": "Întrebări normale despre produs",
+          "en": "Normal questions about the item"
+        },
+        {
+          "ro": "Plata prin butonul oficial, în aplicație",
+          "en": "Payment via the official button, inside the app"
+        },
+        {
+          "ro": "Nicio grabă, niciun link, nicio poveste complicată",
+          "en": "No rush, no links, no convoluted story"
+        }
       ],
       "explain": {
         "ro": "Cumpărător autentic: discută produsul și rămâne în fluxul de plată al platformei.",
@@ -939,9 +1731,18 @@
     },
     {
       "id": "d043",
-      "from": { "ro": "HR Global Team", "en": "HR Global Team" },
-      "channel": { "ro": "WhatsApp · acum 2 ore", "en": "WhatsApp · 2 hrs ago" },
-      "tag": { "ro": "Job", "en": "Job" },
+      "from": {
+        "ro": "HR Global Team",
+        "en": "HR Global Team"
+      },
+      "channel": {
+        "ro": "WhatsApp · acum 2 ore",
+        "en": "WhatsApp · 2 hrs ago"
+      },
+      "tag": {
+        "ro": "Job",
+        "en": "Job"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 2,
@@ -950,9 +1751,18 @@
         "en": "Congratulations, you passed pre-selection for the virtual assistant role (4,500 lei/month, remote)! To draw up your contract today, send us a photo of your ID card, both sides, and a selfie holding it."
       },
       "flags": [
-        { "ro": "N-ai aplicat la niciun job, „preselecția” e inventată", "en": "You never applied for any job, the \"pre-selection\" is invented" },
-        { "ro": "Buletin + selfie = kitul complet pentru furt de identitate", "en": "ID card + selfie = the complete identity-theft kit" },
-        { "ro": "Angajare „chiar azi”, fără interviu, pe WhatsApp, firmele reale nu fac asta", "en": "Hired \"today\", no interview, over WhatsApp, real companies don't do this" }
+        {
+          "ro": "N-ai aplicat la niciun job, „preselecția” e inventată",
+          "en": "You never applied for any job, the \"pre-selection\" is invented"
+        },
+        {
+          "ro": "Buletin + selfie = kitul complet pentru furt de identitate",
+          "en": "ID card + selfie = the complete identity-theft kit"
+        },
+        {
+          "ro": "Angajare „chiar azi”, fără interviu, pe WhatsApp, firmele reale nu fac asta",
+          "en": "Hired \"today\", no interview, over WhatsApp, real companies don't do this"
+        }
       ],
       "explain": {
         "ro": "Ținta nu e angajarea, ci identitatea ta: cu CI-ul și selfie-ul tău se deschid conturi și credite pe numele tău.",
@@ -961,9 +1771,18 @@
     },
     {
       "id": "d044",
-      "from": { "ro": "CARGUS", "en": "CARGUS" },
-      "channel": { "ro": "SMS · acum 30 min", "en": "SMS · 30 min ago" },
-      "tag": { "ro": "Colet", "en": "Parcel" },
+      "from": {
+        "ro": "CARGUS",
+        "en": "CARGUS"
+      },
+      "channel": {
+        "ro": "SMS · acum 30 min",
+        "en": "SMS · 30 min ago"
+      },
+      "tag": {
+        "ro": "Colet",
+        "en": "Parcel"
+      },
       "accent": "amber",
       "scam": false,
       "difficulty": 2,
@@ -972,9 +1791,18 @@
         "en": "Parcel 8402113355 (sender: Decathlon) has arrived at the Bucharest depot. Estimated delivery: Thursday. The full status is available in the Cargus app."
       },
       "flags": [
-        { "ro": "AWB + expeditorul de la care chiar aștepți comanda", "en": "Tracking number + the sender you're actually expecting an order from" },
-        { "ro": "Zero taxe, zero linkuri de plată", "en": "Zero fees, zero payment links" },
-        { "ro": "Verificarea statusului se face în aplicația oficială", "en": "Status checks happen in the official app" }
+        {
+          "ro": "AWB + expeditorul de la care chiar aștepți comanda",
+          "en": "Tracking number + the sender you're actually expecting an order from"
+        },
+        {
+          "ro": "Zero taxe, zero linkuri de plată",
+          "en": "Zero fees, zero payment links"
+        },
+        {
+          "ro": "Verificarea statusului se face în aplicația oficială",
+          "en": "Status checks happen in the official app"
+        }
       ],
       "explain": {
         "ro": "Update normal de tracking: te informează și te lasă să verifici singur, în aplicație.",
@@ -983,9 +1811,18 @@
     },
     {
       "id": "d045",
-      "from": { "ro": "OLX · George", "en": "OLX · George" },
-      "channel": { "ro": "Chat · acum 6 min", "en": "Chat · 6 min ago" },
-      "tag": { "ro": "OLX", "en": "OLX" },
+      "from": {
+        "ro": "OLX · George",
+        "en": "OLX · George"
+      },
+      "channel": {
+        "ro": "Chat · acum 6 min",
+        "en": "Chat · 6 min ago"
+      },
+      "tag": {
+        "ro": "OLX",
+        "en": "OLX"
+      },
       "accent": "sky",
       "scam": true,
       "difficulty": 2,
@@ -994,9 +1831,18 @@
         "en": "I want to buy the console, but I've been burned by fake sellers. I sent you a code by SMS to verify you're a real person, tell me the code and we close the deal right away."
       },
       "flags": [
-        { "ro": "„Codul de verificare” e de fapt codul de logare al contului TĂU", "en": "The \"verification code\" is actually the login code for YOUR account" },
-        { "ro": "Nicio platformă nu verifică oamenii prin coduri dictate în chat", "en": "No platform verifies people through codes read out in chat" },
-        { "ro": "Povestea cu „vânzători falși” e acolo ca să pară el precautul", "en": "The \"fake sellers\" story is there to make HIM look like the careful one" }
+        {
+          "ro": "„Codul de verificare” e de fapt codul de logare al contului TĂU",
+          "en": "The \"verification code\" is actually the login code for YOUR account"
+        },
+        {
+          "ro": "Nicio platformă nu verifică oamenii prin coduri dictate în chat",
+          "en": "No platform verifies people through codes read out in chat"
+        },
+        {
+          "ro": "Povestea cu „vânzători falși” e acolo ca să pară el precautul",
+          "en": "The \"fake sellers\" story is there to make HIM look like the careful one"
+        }
       ],
       "explain": {
         "ro": "Furt de cont prin inginerie socială: el a cerut codul pentru contul tău, iar tu i-l livrezi crezând că e o formalitate.",
@@ -1005,9 +1851,18 @@
     },
     {
       "id": "d046",
-      "from": { "ro": "ING", "en": "ING" },
-      "channel": { "ro": "Push · azi, 07:30", "en": "Push · today, 07:30" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "ING",
+        "en": "ING"
+      },
+      "channel": {
+        "ro": "Push · azi, 07:30",
+        "en": "Push · today, 07:30"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "blue",
       "scam": false,
       "difficulty": 1,
@@ -1016,9 +1871,18 @@
         "en": "Your account statement for June is available. You can find it in Home'Bank, under Documents."
       },
       "flags": [
-        { "ro": "Informare de rutină, lunară și previzibilă", "en": "Routine, monthly, predictable information" },
-        { "ro": "Fără link, documentul e în aplicația în care intri tu", "en": "No link, the document sits in the app you open yourself" },
-        { "ro": "Nu cere nicio dată și nicio plată", "en": "Asks for no data and no payment" }
+        {
+          "ro": "Informare de rutină, lunară și previzibilă",
+          "en": "Routine, monthly, predictable information"
+        },
+        {
+          "ro": "Fără link, documentul e în aplicația în care intri tu",
+          "en": "No link, the document sits in the app you open yourself"
+        },
+        {
+          "ro": "Nu cere nicio dată și nicio plată",
+          "en": "Asks for no data and no payment"
+        }
       ],
       "explain": {
         "ro": "Notificare administrativă normală: banca îți spune unde găsești documentul, nu îți cere nimic.",
@@ -1027,9 +1891,18 @@
     },
     {
       "id": "d047",
-      "from": { "ro": "Tombola Back to School", "en": "Back to School Raffle" },
-      "channel": { "ro": "SMS · acum 45 min", "en": "SMS · 45 min ago" },
-      "tag": { "ro": "Premiu", "en": "Prize" },
+      "from": {
+        "ro": "Tombola Back to School",
+        "en": "Back to School Raffle"
+      },
+      "channel": {
+        "ro": "SMS · acum 45 min",
+        "en": "SMS · 45 min ago"
+      },
+      "tag": {
+        "ro": "Premiu",
+        "en": "Prize"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 1,
@@ -1038,9 +1911,18 @@
         "en": "Congratulations! Your number was drawn in the \"Back to School\" raffle: you won AirPods Pro. Just pay the delivery (19.99 lei): premii-scolare.info"
       },
       "flags": [
-        { "ro": "N-ai participat la nicio tombolă", "en": "You never entered any raffle" },
-        { "ro": "Premiul „gratuit” care cere o plată nu e premiu", "en": "A \"free\" prize that requires a payment is no prize" },
-        { "ro": "Link de plată pe un domeniu fără nicio legătură cu vreun magazin", "en": "Payment link on a domain unrelated to any store" }
+        {
+          "ro": "N-ai participat la nicio tombolă",
+          "en": "You never entered any raffle"
+        },
+        {
+          "ro": "Premiul „gratuit” care cere o plată nu e premiu",
+          "en": "A \"free\" prize that requires a payment is no prize"
+        },
+        {
+          "ro": "Link de plată pe un domeniu fără nicio legătură cu vreun magazin",
+          "en": "Payment link on a domain unrelated to any store"
+        }
       ],
       "explain": {
         "ro": "„Plătești doar livrarea” e mecanismul: 20 de lei plus datele cardului tău, iar premiul nu există.",
@@ -1049,9 +1931,18 @@
     },
     {
       "id": "d048",
-      "from": { "ro": "Decathlon", "en": "Decathlon" },
-      "channel": { "ro": "Email · ieri", "en": "Email · yesterday" },
-      "tag": { "ro": "Ofertă", "en": "Offer" },
+      "from": {
+        "ro": "Decathlon",
+        "en": "Decathlon"
+      },
+      "channel": {
+        "ro": "Email · ieri",
+        "en": "Email · yesterday"
+      },
+      "tag": {
+        "ro": "Ofertă",
+        "en": "Offer"
+      },
       "accent": "violet",
       "scam": false,
       "difficulty": 2,
@@ -1060,9 +1951,18 @@
         "en": "Season discounts for Decathlon members: -20% on football gear, until Sunday. See the offers in the app or in store. You're receiving this email because you subscribed with your account."
       },
       "flags": [
-        { "ro": "Vine de la un magazin unde chiar ai cont și abonare la noutăți", "en": "Comes from a store where you actually have an account and a subscription" },
-        { "ro": "Reducere plauzibilă, nu „iPhone la 1 leu”", "en": "A plausible discount, not \"an iPhone for 1 leu\"" },
-        { "ro": "Nu cere date, te trimite în aplicația sau magazinul pe care le știi", "en": "Asks for no data, points you to the app or store you already know" }
+        {
+          "ro": "Vine de la un magazin unde chiar ai cont și abonare la noutăți",
+          "en": "Comes from a store where you actually have an account and a subscription"
+        },
+        {
+          "ro": "Reducere plauzibilă, nu „iPhone la 1 leu”",
+          "en": "A plausible discount, not \"an iPhone for 1 leu\""
+        },
+        {
+          "ro": "Nu cere date, te trimite în aplicația sau magazinul pe care le știi",
+          "en": "Asks for no data, points you to the app or store you already know"
+        }
       ],
       "explain": {
         "ro": "Marketing legitim: ofertă realistă, pe canalul la care te-ai abonat, fără cereri de date sau plăți direct din mesaj.",
@@ -1071,9 +1971,18 @@
     },
     {
       "id": "d049",
-      "from": { "ro": "Netflix", "en": "Netflix" },
-      "channel": { "ro": "Email · azi, 05:58", "en": "Email · today, 05:58" },
-      "tag": { "ro": "Abonament", "en": "Subscription" },
+      "from": {
+        "ro": "Netflix",
+        "en": "Netflix"
+      },
+      "channel": {
+        "ro": "Email · azi, 05:58",
+        "en": "Email · today, 05:58"
+      },
+      "tag": {
+        "ro": "Abonament",
+        "en": "Subscription"
+      },
       "accent": "danger",
       "scam": true,
       "difficulty": 3,
@@ -1082,10 +1991,22 @@
         "en": "We're sorry, your subscription payment could not be processed. To avoid service interruption, update your payment method within 24 hours: netflix-cont-plata.info/reactivare"
       },
       "flags": [
-        { "ro": "Domeniul nu e netflix.com, restul emailului e copiat perfect", "en": "The domain isn't netflix.com, the rest of the email is a perfect copy" },
-        { "ro": "„Actualizează plata” printr-un link = tiparul central al phishingului de abonamente", "en": "\"Update your payment\" via a link = the core pattern of subscription phishing" },
-        { "ro": "Verificarea corectă: deschizi TU aplicația și te uiți la starea contului", "en": "The right check: YOU open the app and look at your account status" },
-        { "ro": "Termenul de 24 de ore adaugă presiune", "en": "The 24-hour deadline adds pressure" }
+        {
+          "ro": "Domeniul nu e netflix.com, restul emailului e copiat perfect",
+          "en": "The domain isn't netflix.com, the rest of the email is a perfect copy"
+        },
+        {
+          "ro": "„Actualizează plata” printr-un link = tiparul central al phishingului de abonamente",
+          "en": "\"Update your payment\" via a link = the core pattern of subscription phishing"
+        },
+        {
+          "ro": "Verificarea corectă: deschizi TU aplicația și te uiți la starea contului",
+          "en": "The right check: YOU open the app and look at your account status"
+        },
+        {
+          "ro": "Termenul de 24 de ore adaugă presiune",
+          "en": "The 24-hour deadline adds pressure"
+        }
       ],
       "explain": {
         "ro": "Imitație aproape perfectă a emailului real. Singura apărare sigură: nu folosești linkul, intri direct în cont și verifici acolo.",
@@ -1094,9 +2015,18 @@
     },
     {
       "id": "d050",
-      "from": { "ro": "Google Classroom", "en": "Google Classroom" },
-      "channel": { "ro": "Email · acum 2 ore", "en": "Email · 2 hrs ago" },
-      "tag": { "ro": "Școală", "en": "School" },
+      "from": {
+        "ro": "Google Classroom",
+        "en": "Google Classroom"
+      },
+      "channel": {
+        "ro": "Email · acum 2 ore",
+        "en": "Email · 2 hrs ago"
+      },
+      "tag": {
+        "ro": "Școală",
+        "en": "School"
+      },
       "accent": "green",
       "scam": false,
       "difficulty": 1,
@@ -1105,9 +2035,18 @@
         "en": "Mr. Radu posted a new assignment in Mathematics: \"Quadratic equations, exercises\", due Friday. You can find it in your Classroom course."
       },
       "flags": [
-        { "ro": "Vine din platforma pe care clasa ta chiar o folosește", "en": "Comes from the platform your class actually uses" },
-        { "ro": "Verificabil imediat: colegii au primit același anunț", "en": "Instantly verifiable: your classmates got the same notice" },
-        { "ro": "Nu cere date, plăți sau logări „urgente”", "en": "Asks for no data, payments or \"urgent\" logins" }
+        {
+          "ro": "Vine din platforma pe care clasa ta chiar o folosește",
+          "en": "Comes from the platform your class actually uses"
+        },
+        {
+          "ro": "Verificabil imediat: colegii au primit același anunț",
+          "en": "Instantly verifiable: your classmates got the same notice"
+        },
+        {
+          "ro": "Nu cere date, plăți sau logări „urgente”",
+          "en": "Asks for no data, payments or \"urgent\" logins"
+        }
       ],
       "explain": {
         "ro": "Notificare școlară de rutină, dintr-o platformă în care ai deja cont și pe care o poți deschide direct.",
@@ -1116,9 +2055,18 @@
     },
     {
       "id": "d051",
-      "from": { "ro": "Banca Transilvania", "en": "Banca Transilvania" },
-      "channel": { "ro": "SMS · acum 20 min", "en": "SMS · 20 min ago" },
-      "tag": { "ro": "Bancă", "en": "Bank" },
+      "from": {
+        "ro": "Banca Transilvania",
+        "en": "Banca Transilvania"
+      },
+      "channel": {
+        "ro": "SMS · acum 20 min",
+        "en": "SMS · 20 min ago"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
       "accent": "blue",
       "scam": false,
       "difficulty": 3,
@@ -1127,9 +2075,18 @@
         "en": "Your card expires on 31.07. Your new card is waiting at any branch, bring your ID. The old one works until expiry."
       },
       "flags": [
-        { "ro": "Niciun link, nicio cerere de date sau plată", "en": "No link, no request for data or payment" },
-        { "ro": "Te trimite FIZIC la sucursală, cu buletinul, canal oficial", "en": "Sends you PHYSICALLY to a branch, with your ID, an official channel" },
-        { "ro": "Fără urgență: cardul vechi merge până la expirare", "en": "No urgency: the old card works until it expires" }
+        {
+          "ro": "Niciun link, nicio cerere de date sau plată",
+          "en": "No link, no request for data or payment"
+        },
+        {
+          "ro": "Te trimite FIZIC la sucursală, cu buletinul, canal oficial",
+          "en": "Sends you PHYSICALLY to a branch, with your ID, an official channel"
+        },
+        {
+          "ro": "Fără urgență: cardul vechi merge până la expirare",
+          "en": "No urgency: the old card works until it expires"
+        }
       ],
       "explain": {
         "ro": "Pare țeapă pentru că vorbește despre card, dar nu cere nimic tastat. Reînnoirea cardului la expirare chiar așa funcționează.",
@@ -1138,9 +2095,18 @@
     },
     {
       "id": "d052",
-      "from": { "ro": "eMAG Retur", "en": "eMAG Returns" },
-      "channel": { "ro": "Email · acum 2 ore", "en": "Email · 2 hrs ago" },
-      "tag": { "ro": "Retur", "en": "Refund" },
+      "from": {
+        "ro": "eMAG Retur",
+        "en": "eMAG Returns"
+      },
+      "channel": {
+        "ro": "Email · acum 2 ore",
+        "en": "Email · 2 hrs ago"
+      },
+      "tag": {
+        "ro": "Retur",
+        "en": "Refund"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 3,
@@ -1149,9 +2115,18 @@
         "en": "We detected a DOUBLE payment on your order #58201. The 149.99 lei can be refunded today. Request your refund: emag-retururi.net/58201"
       },
       "flags": [
-        { "ro": "Lăcomie inversată: nu-ți cere bani, „îți dă”, iar „emag-retururi.net” nu e domeniul oficial emag.ro", "en": "Reversed greed: it doesn't ask for money, it \"gives\", and \"emag-retururi.net\" is not the official emag.ro domain" },
-        { "ro": "Returul real apare în contul tău eMAG, nu pe linkuri din email", "en": "Real refunds show up in your eMAG account, not through email links" },
-        { "ro": "„Azi\", termenul scurt e semnătura clasică", "en": "\"Today\", the short deadline is the classic signature" }
+        {
+          "ro": "Lăcomie inversată: nu-ți cere bani, „îți dă”, iar „emag-retururi.net” nu e domeniul oficial emag.ro",
+          "en": "Reversed greed: it doesn't ask for money, it \"gives\", and \"emag-retururi.net\" is not the official emag.ro domain"
+        },
+        {
+          "ro": "Returul real apare în contul tău eMAG, nu pe linkuri din email",
+          "en": "Real refunds show up in your eMAG account, not through email links"
+        },
+        {
+          "ro": "„Azi\", termenul scurt e semnătura clasică",
+          "en": "\"Today\", the short deadline is the classic signature"
+        }
       ],
       "explain": {
         "ro": "Phishing de retur: pagina falsă îți cere cardul ca să „primești\" banii, și îl golește. Returul real nu-ți cere niciodată datele cardului.",
@@ -1160,9 +2135,18 @@
     },
     {
       "id": "d053",
-      "from": { "ro": "Instagram Support", "en": "Instagram Support" },
-      "channel": { "ro": "DM · acum 5 min", "en": "DM · 5 min ago" },
-      "tag": { "ro": "Social", "en": "Social" },
+      "from": {
+        "ro": "Instagram Support",
+        "en": "Instagram Support"
+      },
+      "channel": {
+        "ro": "DM · acum 5 min",
+        "en": "DM · 5 min ago"
+      },
+      "tag": {
+        "ro": "Social",
+        "en": "Social"
+      },
       "accent": "danger",
       "scam": true,
       "difficulty": 3,
@@ -1171,9 +2155,18 @@
         "en": "Your account was reported for copyright infringement. Appeal within 24h or the account is permanently deleted: instagram-appeal-center.com"
       },
       "flags": [
-        { "ro": "Instagram nu trimite avertismente prin DM, doar în aplicație, la notificări", "en": "Instagram doesn't send warnings by DM, only in-app, under notifications" },
-        { "ro": "Frică („se șterge definitiv\") + termen de ore", "en": "Fear (\"permanently deleted\") + an hours-long deadline" },
-        { "ro": "Domeniul nu e instagram.com, „appeal-center\" e capcana de login", "en": "The domain isn't instagram.com, \"appeal-center\" is a login trap" }
+        {
+          "ro": "Instagram nu trimite avertismente prin DM, doar în aplicație, la notificări",
+          "en": "Instagram doesn't send warnings by DM, only in-app, under notifications"
+        },
+        {
+          "ro": "Frică („se șterge definitiv\") + termen de ore",
+          "en": "Fear (\"permanently deleted\") + an hours-long deadline"
+        },
+        {
+          "ro": "Domeniul nu e instagram.com, „appeal-center\" e capcana de login",
+          "en": "The domain isn't instagram.com, \"appeal-center\" is a login trap"
+        }
       ],
       "explain": {
         "ro": "Țintește parola contului tău. Cu ea, țeparul dă țepe mai departe prietenilor tăi, de pe numele tău.",
@@ -1182,9 +2175,18 @@
     },
     {
       "id": "d054",
-      "from": { "ro": "Andrei · OLX", "en": "Andrei · OLX" },
-      "channel": { "ro": "Chat OLX · acum 8 min", "en": "OLX chat · 8 min ago" },
-      "tag": { "ro": "OLX", "en": "OLX" },
+      "from": {
+        "ro": "Andrei · OLX",
+        "en": "Andrei · OLX"
+      },
+      "channel": {
+        "ro": "Chat OLX · acum 8 min",
+        "en": "OLX chat · 8 min ago"
+      },
+      "tag": {
+        "ro": "OLX",
+        "en": "OLX"
+      },
       "accent": "sky",
       "scam": false,
       "difficulty": 3,
@@ -1193,9 +2195,18 @@
         "en": "Hi! I placed the order through the \"Buy with delivery\" button in your listing. The app says you get the money once I confirm the parcel. All good?"
       },
       "flags": [
-        { "ro": "Folosește butonul DIN aplicație, nu un link extern", "en": "Uses the button INSIDE the app, not an external link" },
-        { "ro": "Nu-ți cere date de card, coduri sau grabă", "en": "Asks for no card details, codes or urgency" },
-        { "ro": "Descrie corect fluxul real OLX: banii vin după confirmarea livrării", "en": "Describes the real OLX flow correctly: money arrives after delivery confirmation" }
+        {
+          "ro": "Folosește butonul DIN aplicație, nu un link extern",
+          "en": "Uses the button INSIDE the app, not an external link"
+        },
+        {
+          "ro": "Nu-ți cere date de card, coduri sau grabă",
+          "en": "Asks for no card details, codes or urgency"
+        },
+        {
+          "ro": "Descrie corect fluxul real OLX: banii vin după confirmarea livrării",
+          "en": "Describes the real OLX flow correctly: money arrives after delivery confirmation"
+        }
       ],
       "explain": {
         "ro": "Fix așa arată tranzacția legitimă, totul se întâmplă ÎN aplicație. Țeapa e geamăna ei de pe linkuri externe.",
@@ -1204,9 +2215,18 @@
     },
     {
       "id": "d055",
-      "from": { "ro": "Digi România", "en": "Digi Romania" },
-      "channel": { "ro": "SMS · acum 1 oră", "en": "SMS · 1 hr ago" },
-      "tag": { "ro": "Factură", "en": "Bill" },
+      "from": {
+        "ro": "Digi România",
+        "en": "Digi Romania"
+      },
+      "channel": {
+        "ro": "SMS · acum 1 oră",
+        "en": "SMS · 1 hr ago"
+      },
+      "tag": {
+        "ro": "Factură",
+        "en": "Bill"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 3,
@@ -1215,9 +2235,18 @@
         "en": "Your Digi bill is unpaid. Services will be suspended TODAY at 6 PM. Pay 37.45 lei now: digi-plati-online.net"
       },
       "flags": [
-        { "ro": "Suma pare reală, dar domeniul „.net\" nu e digiromania.ro", "en": "The amount looks real, but \"digi-plati-online.net\" isn't the official digiromania.ro" },
-        { "ro": "Termen de ore + suspendare = frică fabricată", "en": "An hours-long deadline + suspension = manufactured fear" },
-        { "ro": "Factura reală se vede în aplicația Digi sau în contul tău online", "en": "The real bill lives in the Digi app or your online account" }
+        {
+          "ro": "Suma pare reală, dar domeniul „.net\" nu e digiromania.ro",
+          "en": "The amount looks real, but \"digi-plati-online.net\" isn't the official digiromania.ro"
+        },
+        {
+          "ro": "Termen de ore + suspendare = frică fabricată",
+          "en": "An hours-long deadline + suspension = manufactured fear"
+        },
+        {
+          "ro": "Factura reală se vede în aplicația Digi sau în contul tău online",
+          "en": "The real bill lives in the Digi app or your online account"
+        }
       ],
       "explain": {
         "ro": "Phishing de facturi: sume mici, plauzibile, ca să nu verifici. Deschide TU aplicația operatorului, factura reală e acolo sau nu există.",
@@ -1226,9 +2255,18 @@
     },
     {
       "id": "d056",
-      "from": { "ro": "Revolut", "en": "Revolut" },
-      "channel": { "ro": "Notificare push · acum", "en": "Push notification · now" },
-      "tag": { "ro": "Securitate", "en": "Security" },
+      "from": {
+        "ro": "Revolut",
+        "en": "Revolut"
+      },
+      "channel": {
+        "ro": "Notificare push · acum",
+        "en": "Push notification · now"
+      },
+      "tag": {
+        "ro": "Securitate",
+        "en": "Security"
+      },
       "accent": "green",
       "scam": false,
       "difficulty": 2,
@@ -1237,9 +2275,18 @@
         "en": "A new device (Samsung A54) signed in to your account. If it wasn't you, open the app → Settings → Security and sign it out."
       },
       "flags": [
-        { "ro": "Te trimite să deschizi TU aplicația, nu un link", "en": "Sends you to open the app YOURSELF, not a link" },
-        { "ro": "Nu cere date, coduri sau plăți", "en": "Asks for no data, codes or payments" },
-        { "ro": "Notificare push din aplicația instalată, nu SMS de la număr necunoscut", "en": "A push notification from the installed app, not a text from an unknown number" }
+        {
+          "ro": "Te trimite să deschizi TU aplicația, nu un link",
+          "en": "Sends you to open the app YOURSELF, not a link"
+        },
+        {
+          "ro": "Nu cere date, coduri sau plăți",
+          "en": "Asks for no data, codes or payments"
+        },
+        {
+          "ro": "Notificare push din aplicația instalată, nu SMS de la număr necunoscut",
+          "en": "A push notification from the installed app, not a text from an unknown number"
+        }
       ],
       "explain": {
         "ro": "Alertă de securitate legitimă: te informează și îți dă pașii DIN aplicație. Varianta-țeapă ți-ar fi dat un link și un termen.",
@@ -1248,9 +2295,18 @@
     },
     {
       "id": "d057",
-      "from": { "ro": "crypto.alex_oficial", "en": "crypto.alex_official" },
-      "channel": { "ro": "Story Instagram · acum 30 min", "en": "Instagram story · 30 min ago" },
-      "tag": { "ro": "Crypto", "en": "Crypto" },
+      "from": {
+        "ro": "crypto.alex_oficial",
+        "en": "crypto.alex_official"
+      },
+      "channel": {
+        "ro": "Story Instagram · acum 30 min",
+        "en": "Instagram story · 30 min ago"
+      },
+      "tag": {
+        "ro": "Crypto",
+        "en": "Crypto"
+      },
       "accent": "violet",
       "scam": true,
       "difficulty": 2,
@@ -1259,9 +2315,18 @@
         "en": "Community GIVEAWAY! Send 100 USDT to the address in my bio and get 200 back in 10 minutes. Today only, first 50. Proof in the previous story!"
       },
       "flags": [
-        { "ro": "„Trimite ca să primești\", nicio entitate reală nu dublează bani", "en": "\"Send to receive\", no real entity doubles money" },
-        { "ro": "Crypto trimis = dispărut: nu există retur sau reclamație", "en": "Crypto sent = gone: there is no refund or dispute" },
-        { "ro": "„Dovezile\" sunt capturi făcute chiar de el", "en": "The \"proof\" is screenshots he made himself" }
+        {
+          "ro": "„Trimite ca să primești\", nicio entitate reală nu dublează bani",
+          "en": "\"Send to receive\", no real entity doubles money"
+        },
+        {
+          "ro": "Crypto trimis = dispărut: nu există retur sau reclamație",
+          "en": "Crypto sent = gone: there is no refund or dispute"
+        },
+        {
+          "ro": "„Dovezile\" sunt capturi făcute chiar de el",
+          "en": "The \"proof\" is screenshots he made himself"
+        }
       ],
       "explain": {
         "ro": "Giveaway-ul care cere întâi banii TĂI e cea mai veche schemă din crypto. Dublarea promisă nu vine niciodată.",
@@ -1270,9 +2335,18 @@
     },
     {
       "id": "d058",
-      "from": { "ro": "Oferte eMAG", "en": "eMAG Deals" },
-      "channel": { "ro": "WhatsApp · acum 15 min", "en": "WhatsApp · 15 min ago" },
-      "tag": { "ro": "Premiu", "en": "Prize" },
+      "from": {
+        "ro": "Oferte eMAG",
+        "en": "eMAG Deals"
+      },
+      "channel": {
+        "ro": "WhatsApp · acum 15 min",
+        "en": "WhatsApp · 15 min ago"
+      },
+      "tag": {
+        "ro": "Premiu",
+        "en": "Prize"
+      },
       "accent": "amber",
       "scam": true,
       "difficulty": 1,
@@ -1281,9 +2355,18 @@
         "en": "🎁 eMAG is giving away 500 gift cards worth 500 lei! Only 37 left. Fill in the survey and claim yours: emag-cadouri.club"
       },
       "flags": [
-        { "ro": "Domeniul „.club\" nu e emag.ro", "en": "The \"emag-cadouri.club\" domain isn't the official emag.ro" },
-        { "ro": "Numărătoare falsă („au mai rămas 37\") = urgență fabricată", "en": "A fake counter (\"only 37 left\") = manufactured urgency" },
-        { "ro": "Campaniile reale sunt pe site-ul și aplicația oficială, nu pe WhatsApp", "en": "Real campaigns live on the official site and app, not WhatsApp" }
+        {
+          "ro": "Domeniul „.club\" nu e emag.ro",
+          "en": "The \"emag-cadouri.club\" domain isn't the official emag.ro"
+        },
+        {
+          "ro": "Numărătoare falsă („au mai rămas 37\") = urgență fabricată",
+          "en": "A fake counter (\"only 37 left\") = manufactured urgency"
+        },
+        {
+          "ro": "Campaniile reale sunt pe site-ul și aplicația oficială, nu pe WhatsApp",
+          "en": "Real campaigns live on the official site and app, not WhatsApp"
+        }
       ],
       "explain": {
         "ro": "Sondajul fals se termină mereu la fel: „plătește o taxă mică\" sau „confirmă cardul\". Cadoul nu există.",
@@ -1292,9 +2375,18 @@
     },
     {
       "id": "d059",
-      "from": { "ro": "Bunica", "en": "Grandma" },
-      "channel": { "ro": "WhatsApp · acum 5 min", "en": "WhatsApp · 5 min ago" },
-      "tag": { "ro": "Familie", "en": "Family" },
+      "from": {
+        "ro": "Bunica",
+        "en": "Grandma"
+      },
+      "channel": {
+        "ro": "WhatsApp · acum 5 min",
+        "en": "WhatsApp · 5 min ago"
+      },
+      "tag": {
+        "ro": "Familie",
+        "en": "Family"
+      },
       "accent": "green",
       "scam": false,
       "difficulty": 1,
@@ -1303,9 +2395,18 @@
         "en": "Happy birthday, sweetheart! I put 100 lei on your card for your birthday. Buy yourself something nice. Kisses!"
       },
       "flags": [
-        { "ro": "De pe numărul ei ȘTIUT, salvat în agendă", "en": "From her KNOWN number, saved in your contacts" },
-        { "ro": "Îți DĂ bani, nu cere nimic: nici date, nici coduri, nici grabă", "en": "It GIVES you money, asks for nothing: no data, codes or urgency" },
-        { "ro": "Poți verifica soldul direct în aplicația ta", "en": "You can check the balance directly in your own app" }
+        {
+          "ro": "De pe numărul ei ȘTIUT, salvat în agendă",
+          "en": "From her KNOWN number, saved in your contacts"
+        },
+        {
+          "ro": "Îți DĂ bani, nu cere nimic: nici date, nici coduri, nici grabă",
+          "en": "It GIVES you money, asks for nothing: no data, codes or urgency"
+        },
+        {
+          "ro": "Poți verifica soldul direct în aplicația ta",
+          "en": "You can check the balance directly in your own app"
+        }
       ],
       "explain": {
         "ro": "Mesaj normal de familie. Ar deveni suspect doar de pe un număr NOU care apoi cere ceva, ai văzut deja tiparul ăla.",
@@ -1314,9 +2415,18 @@
     },
     {
       "id": "d060",
-      "from": { "ro": "LuckySpin Casino", "en": "LuckySpin Casino" },
-      "channel": { "ro": "Reclamă Instagram · acum", "en": "Instagram ad · now" },
-      "tag": { "ro": "Pariuri", "en": "Gambling" },
+      "from": {
+        "ro": "LuckySpin Casino",
+        "en": "LuckySpin Casino"
+      },
+      "channel": {
+        "ro": "Reclamă Instagram · acum",
+        "en": "Instagram ad · now"
+      },
+      "tag": {
+        "ro": "Pariuri",
+        "en": "Gambling"
+      },
       "accent": "danger",
       "scam": true,
       "difficulty": 2,
@@ -1325,13 +2435,422 @@
         "en": "50 FREE spins, no deposit! Demo account with guaranteed winnings. Age check takes 10 seconds, just confirm your card (0 lei)."
       },
       "flags": [
-        { "ro": "„Confirmă cardul (0 lei)\" = îți ia datele cardului azi, banii mâine", "en": "\"Confirm your card (0 lei)\" = it takes your card details today, your money tomorrow" },
-        { "ro": "„Câștig garantat\" nu există în jocuri de noroc, matematic imposibil", "en": "\"Guaranteed winnings\" don't exist in gambling, mathematically impossible" },
-        { "ro": "Sub 18 ani, orice cazinou care „te lasă\" e ilegal, și fix asta caută", "en": "Under 18, any casino that \"lets you in\" is illegal, and that's exactly who it hunts" }
+        {
+          "ro": "„Confirmă cardul (0 lei)\" = îți ia datele cardului azi, banii mâine",
+          "en": "\"Confirm your card (0 lei)\" = it takes your card details today, your money tomorrow"
+        },
+        {
+          "ro": "„Câștig garantat\" nu există în jocuri de noroc, matematic imposibil",
+          "en": "\"Guaranteed winnings\" don't exist in gambling, mathematically impossible"
+        },
+        {
+          "ro": "Sub 18 ani, orice cazinou care „te lasă\" e ilegal, și fix asta caută",
+          "en": "Under 18, any casino that \"lets you in\" is illegal, and that's exactly who it hunts"
+        }
       ],
       "explain": {
         "ro": "Cârlig dublu: datele cardului prin „verificare\" + obișnuința rotirilor. Gratuit e doar primul pas spre depuneri reale.",
         "en": "A double hook: card details through \"verification\" + the spinning habit. Free is only the first step toward real deposits."
+      }
+    },
+    {
+      "id": "d061",
+      "from": {
+        "ro": "ANAF Restituiri",
+        "en": "Tax Refunds"
+      },
+      "channel": {
+        "ro": "SMS · acum 5 min",
+        "en": "SMS · 5 min ago"
+      },
+      "tag": {
+        "ro": "Stat",
+        "en": "Government"
+      },
+      "accent": "danger",
+      "scam": true,
+      "difficulty": 1,
+      "text": {
+        "ro": "Aveți o rambursare de 254,60 lei. Confirmați datele cardului pentru transfer: anaf-restituiri.com",
+        "en": "You have a refund of 254.60 lei. Confirm your card details for the transfer: tax-refunds-ro.com"
+      },
+      "flags": [
+        {
+          "ro": "Statul nu îți cere datele CARDULUI ca să-ți dea bani",
+          "en": "The state never asks for CARD details to send you money"
+        },
+        {
+          "ro": "Domeniu fals: site-ul oficial e anaf.ro",
+          "en": "Fake domain: the official site is anaf.ro"
+        },
+        {
+          "ro": "Suma „exactă\" e momeala care imită un document real",
+          "en": "The oddly \"precise\" amount is bait meant to look official"
+        }
+      ],
+      "explain": {
+        "ro": "Rambursările reale ajung în cont fără să introduci cardul pe vreun link. Orice „restituire\" care cere date de card e phishing.",
+        "en": "Real refunds arrive without you typing card details into any link. Any \"refund\" asking for card data is phishing."
+      }
+    },
+    {
+      "id": "d062",
+      "from": {
+        "ro": "ING",
+        "en": "ING"
+      },
+      "channel": {
+        "ro": "SMS · acum 1 oră",
+        "en": "SMS · 1 hour ago"
+      },
+      "tag": {
+        "ro": "Bancă",
+        "en": "Bank"
+      },
+      "accent": "blue",
+      "scam": false,
+      "difficulty": 2,
+      "text": {
+        "ro": "Cardul tău expiră luna aceasta. Noul card sosește prin curier în 5 zile lucrătoare. Nu trebuie să faci nimic.",
+        "en": "Your card expires this month. The new one arrives by courier within 5 business days. No action needed."
+      },
+      "flags": [
+        {
+          "ro": "Nu cere niciun click și nicio dată personală",
+          "en": "Asks for no click and no personal data"
+        },
+        {
+          "ro": "Doar informează, fără urgență și fără amenințări",
+          "en": "Purely informative, no urgency, no threats"
+        },
+        {
+          "ro": "Se poate verifica oricând în aplicația băncii",
+          "en": "You can verify any time in the bank's app"
+        }
+      ],
+      "explain": {
+        "ro": "Mesaj informativ normal: fără link de logare, fără date cerute, fără presiune. Ăsta e tonul comunicării reale.",
+        "en": "A normal service message: no login link, no data requested, no pressure. That is how real communication sounds."
+      }
+    },
+    {
+      "id": "d063",
+      "from": {
+        "ro": "Număr necunoscut",
+        "en": "Unknown number"
+      },
+      "channel": {
+        "ro": "WhatsApp · acum 2 min",
+        "en": "WhatsApp · 2 min ago"
+      },
+      "tag": {
+        "ro": "Familie",
+        "en": "Family"
+      },
+      "accent": "green",
+      "scam": true,
+      "difficulty": 1,
+      "text": {
+        "ro": "Mama: mi s-a stricat telefonul, ăsta e numărul meu nou. Îmi trimiți urgent 300 de lei? Îți explic diseară.",
+        "en": "Mom: my phone broke, this is my new number. Can you urgently send 300 lei? I will explain tonight."
+      },
+      "flags": [
+        {
+          "ro": "Număr nou + urgență + bani = tiparul clasic de impostor",
+          "en": "New number + urgency + money = the classic impostor pattern"
+        },
+        {
+          "ro": "Totul rămâne pe text, nicio voce de verificat",
+          "en": "No voice check, everything stays in text"
+        },
+        {
+          "ro": "Un apel pe numărul VECHI lămurește totul în 10 secunde",
+          "en": "Calling the OLD number clears it up in 10 seconds"
+        }
+      ],
+      "explain": {
+        "ro": "Escrocheria „părintele de pe alt număr\". Suni pe numărul vechi sau ceri un mesaj vocal înainte să trimiți orice ban.",
+        "en": "The \"parent on a new number\" scam. Call the old number or ask for a voice note before sending anything."
+      }
+    },
+    {
+      "id": "d064",
+      "from": {
+        "ro": "Glovo",
+        "en": "Glovo"
+      },
+      "channel": {
+        "ro": "Notificare · acum 1 min",
+        "en": "Notification · 1 min ago"
+      },
+      "tag": {
+        "ro": "Livrare",
+        "en": "Delivery"
+      },
+      "accent": "amber",
+      "scam": false,
+      "difficulty": 1,
+      "text": {
+        "ro": "Comanda ta a fost livrată. Poftă bună! Evaluează livrarea în aplicație.",
+        "en": "Your order was delivered. Enjoy! Rate the delivery in the app."
+      },
+      "flags": [
+        {
+          "ro": "Nu cere bani, coduri sau date",
+          "en": "Asks for no money, codes or data"
+        },
+        {
+          "ro": "Te trimite în aplicația deja instalată",
+          "en": "Points you to the app you already have"
+        },
+        {
+          "ro": "Corespunde unei comenzi chiar făcute de tine",
+          "en": "Matches an order you actually placed"
+        }
+      ],
+      "explain": {
+        "ro": "Notificare normală de serviciu, legată de o acțiune făcută de tine. Nimic de plătit, nimic de „confirmat\".",
+        "en": "A normal service notification tied to something you did. Nothing to pay, nothing to \"confirm\"."
+      }
+    },
+    {
+      "id": "d065",
+      "from": {
+        "ro": "giveaway.oficial_ro",
+        "en": "giveaway.official_ro"
+      },
+      "channel": {
+        "ro": "Instagram DM · acum 8 min",
+        "en": "Instagram DM · 8 min ago"
+      },
+      "tag": {
+        "ro": "Social",
+        "en": "Social"
+      },
+      "accent": "violet",
+      "scam": true,
+      "difficulty": 1,
+      "text": {
+        "ro": "FELICITĂRI! Ai fost ales pentru un iPhone 16! Mai avem 3 bucăți. Plătește doar transportul de 17 lei. Link în bio!",
+        "en": "CONGRATS! You were chosen for an iPhone 16! Only 3 left. Just pay the 17 lei shipping. Link in bio!"
+      },
+      "flags": [
+        {
+          "ro": "Premiul „gratuit\" care cere o plată = colectare de card",
+          "en": "A \"free\" prize that requires payment = card harvesting"
+        },
+        {
+          "ro": "Stoc limitat fals, ca să te grăbești",
+          "en": "Fake limited stock to rush you"
+        },
+        {
+          "ro": "Cont fără istoric real, doar postări de concurs",
+          "en": "An account with no real history, only giveaway posts"
+        }
+      ],
+      "explain": {
+        "ro": "Nimeni nu dă telefoane de mii de lei contra 17 lei „transport\". Taxa mică există doar ca să-ți ia datele cardului.",
+        "en": "Nobody gives away phones worth thousands for a 17 lei \"shipping fee\". The tiny fee exists only to grab your card data."
+      }
+    },
+    {
+      "id": "d066",
+      "from": {
+        "ro": "Netflix Billing",
+        "en": "Netflix Billing"
+      },
+      "channel": {
+        "ro": "Email · azi 09:12",
+        "en": "Email · today 09:12"
+      },
+      "tag": {
+        "ro": "Abonament",
+        "en": "Subscription"
+      },
+      "accent": "danger",
+      "scam": true,
+      "difficulty": 3,
+      "text": {
+        "ro": "Contul tău va fi suspendat în 24h: plata a fost refuzată. Actualizează metoda de plată: netfIix-billing.net",
+        "en": "Your account will be suspended in 24h: payment declined. Update your payment method: netfIix-billing.net"
+      },
+      "flags": [
+        {
+          "ro": "Litera I mare în loc de l în „netfIix\": domeniu falsificat",
+          "en": "Capital I instead of l in \"netfIix\": a spoofed domain"
+        },
+        {
+          "ro": "Termen de 24h ca să nu te uiți atent",
+          "en": "A 24h deadline so you do not look closely"
+        },
+        {
+          "ro": "Plățile se verifică DIN aplicație sau de pe site-ul tastat de tine",
+          "en": "Payments are checked IN the app or on a site you typed yourself"
+        }
+      ],
+      "explain": {
+        "ro": "Falsificare de domeniu aproape perfectă. Regula care te salvează mereu: nu repari „plăți\" din linkuri primite, ci din aplicația oficială.",
+        "en": "A near-perfect domain spoof. The rule that always saves you: fix \"payments\" from the official app, never from received links."
+      }
+    },
+    {
+      "id": "d067",
+      "from": {
+        "ro": "Orange",
+        "en": "Orange"
+      },
+      "channel": {
+        "ro": "SMS · acum 3 ore",
+        "en": "SMS · 3 hours ago"
+      },
+      "tag": {
+        "ro": "Telecom",
+        "en": "Telecom"
+      },
+      "accent": "amber",
+      "scam": false,
+      "difficulty": 2,
+      "text": {
+        "ro": "Factura ta de 37,45 lei a fost emisă. O poți plăti din aplicația Orange sau la orice punct de plată partener.",
+        "en": "Your bill of 37.45 lei has been issued. Pay it in the Orange app or at any partner pay point."
+      },
+      "flags": [
+        {
+          "ro": "Sumă plauzibilă, fără presiune de timp",
+          "en": "A plausible amount, no time pressure"
+        },
+        {
+          "ro": "Fără link de plată, te trimite la aplicația oficială",
+          "en": "No payment link, it points to the official app"
+        },
+        {
+          "ro": "Factura se poate confirma direct în contul tău",
+          "en": "You can confirm the bill right in your account"
+        }
+      ],
+      "explain": {
+        "ro": "Așa arată o notificare reală de factură: informație plus canal oficial, fără link „plătește acum\" și fără amenințări.",
+        "en": "This is what a real bill notice looks like: information plus the official channel, no \"pay now\" link, no threats."
+      }
+    },
+    {
+      "id": "d068",
+      "from": {
+        "ro": "Joburi Rapide RO",
+        "en": "Fast Jobs RO"
+      },
+      "channel": {
+        "ro": "Telegram · acum 20 min",
+        "en": "Telegram · 20 min ago"
+      },
+      "tag": {
+        "ro": "Job",
+        "en": "Job"
+      },
+      "accent": "sky",
+      "scam": true,
+      "difficulty": 1,
+      "text": {
+        "ro": "Angajăm urgent! Câștigi 500 lei pe zi din telefon: dai like-uri la videoclipuri. Taxă de activare cont: 100 lei.",
+        "en": "Urgent hiring! Earn 500 lei a day from your phone liking videos. Account activation fee: 100 lei."
+      },
+      "flags": [
+        {
+          "ro": "Plătești TU ca să „muncești\": mereu țeapă",
+          "en": "YOU pay to \"work\": always a scam"
+        },
+        {
+          "ro": "Câștig nerealist pentru zero efort",
+          "en": "Unreal pay for zero effort"
+        },
+        {
+          "ro": "Angajatorii reali nu recrutează cu taxe pe Telegram",
+          "en": "Real employers do not recruit with fees on Telegram"
+        }
+      ],
+      "explain": {
+        "ro": "Niciun angajator real nu îți cere bani ca să te angajeze. „Taxa de activare\" e chiar produsul escrocheriei.",
+        "en": "No real employer charges you to hire you. The \"activation fee\" is the entire scam."
+      }
+    },
+    {
+      "id": "d069",
+      "from": {
+        "ro": "Kaufland Card",
+        "en": "Kaufland Card"
+      },
+      "channel": {
+        "ro": "Notificare · ieri 18:40",
+        "en": "Notification · yesterday 18:40"
+      },
+      "tag": {
+        "ro": "Magazin",
+        "en": "Store"
+      },
+      "accent": "green",
+      "scam": false,
+      "difficulty": 2,
+      "text": {
+        "ro": "Ai 250 de puncte care expiră pe 31 iulie. Le găsești în aplicație, în secțiunea Cupoane.",
+        "en": "You have 250 points expiring on July 31. Find them in the app, under Coupons."
+      },
+      "flags": [
+        {
+          "ro": "Nu cere nicio plată și nicio dată",
+          "en": "Requests no payment and no data"
+        },
+        {
+          "ro": "Verificabil în aplicația pe care o ai deja",
+          "en": "Verifiable in the app you already have"
+        },
+        {
+          "ro": "Termenul e informativ, nu amenințător",
+          "en": "The deadline is informative, not threatening"
+        }
+      ],
+      "explain": {
+        "ro": "Program de fidelitate normal: te informează despre punctele TALE și te trimite în aplicația oficială. Zero presiune, zero cereri.",
+        "en": "A normal loyalty program: it informs you about YOUR points and points to the official app. Zero pressure, zero asks."
+      }
+    },
+    {
+      "id": "d070",
+      "from": {
+        "ro": "Alex, coleg de clasă",
+        "en": "Alex, classmate"
+      },
+      "channel": {
+        "ro": "WhatsApp · acum 30 min",
+        "en": "WhatsApp · 30 min ago"
+      },
+      "tag": {
+        "ro": "Investiții",
+        "en": "Investing"
+      },
+      "accent": "violet",
+      "scam": true,
+      "difficulty": 2,
+      "text": {
+        "ro": "Frate, am băgat 200 pe platforma asta și am scos 2.400 într-o săptămână. Intră cu codul meu, câștig garantat!",
+        "en": "Bro, I put in 200 and pulled out 2,400 in a week on this platform. Join with my code, guaranteed win!"
+      },
+      "flags": [
+        {
+          "ro": "„Garantat\" plus de 12 ori banii într-o săptămână nu există",
+          "en": "\"Guaranteed\" plus 12x your money in a week does not exist"
+        },
+        {
+          "ro": "Codul de invitație = schemă piramidală: el câștigă din intrarea ta",
+          "en": "The referral code = a pyramid: he earns from your buy-in"
+        },
+        {
+          "ro": "Presiunea prin cunoscuți e metoda, nu garanția",
+          "en": "Pressure through friends is the method, not a guarantee"
+        }
+      ],
+      "explain": {
+        "ro": "Schemele de tip Ponzi îi plătesc pe primii intrați din banii următorilor, apoi dispar cu tot. Dacă randamentul sună imposibil, e imposibil.",
+        "en": "Ponzi-style schemes pay early joiners with newcomers' money, then vanish with everything. If the return sounds impossible, it is."
       }
     }
   ]

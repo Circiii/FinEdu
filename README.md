@@ -94,7 +94,9 @@ Pentru explicația detaliată a fiecărui folder, vezi
 
 **Documentația tehnică completă a proiectului** (instalare, utilizare,
 arhitectură, fiecare componentă, testare, limitări) este în
-[DOCUMENTATIE_COMPLETA.md](DOCUMENTATIE_COMPLETA.md).
+[DOCUMENTATIE_COMPLETA.md](DOCUMENTATIE_COMPLETA.md). Componentele care nu au
+fost realizate de autor sunt declarate în
+[COMPONENTE_EXTERNE.md](COMPONENTE_EXTERNE.md).
 
 ---
 

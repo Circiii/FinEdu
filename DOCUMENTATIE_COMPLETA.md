@@ -720,8 +720,8 @@ const maxIntervalDays = 180;
 
 Distincția, spusă exact: algoritmul FSRS-6 și cei 21 de parametri impliciți
 sunt publici (parametrii sunt copiați identic din proiectul open-source
-py-fsrs, licență MIT, lucru declarat în comentariile din cod).
-Implementarea în Dart, simplificarea interfeței la
+py-fsrs, licență MIT, lucru declarat în comentariile din cod și în
+`COMPONENTE_EXTERNE.md`). Implementarea în Dart, simplificarea interfeței la
 două butoane și integrarea cu restul aplicației aparțin proiectului.
 Migrarea de la sistemul anterior (cutii Leitner) păstrează progresul:
 fiecare cutie veche primește o stabilitate echivalentă prin
@@ -1190,7 +1190,7 @@ Aplicația este construită pentru minori, deci pragul este ridicat deliberat:
   motivarea scrisă în schema bazei de date.
 - **Validare de intrare**: sumele sunt verificate și în UI, și în baza de
   date; textele au limite de lungime.
-- **Fără judecăți.** Politica de conținut e documentată separat în
+- **Fără judecăți.** Politica de conținut stă într-un document separat în
   repository (`CONTENT_POLICY.md`), iar regulile de ton sunt impuse prin
   teste.
 
@@ -1366,7 +1366,8 @@ Nu promisiuni, ci puncte de extensie care există deja în cod:
 
 ## 28. Componente externe și contribuția autorului
 
-Componentele care nu au fost realizate în proiect, pe scurt:
+Detaliile complete, cerute de regulament, sunt în fișierul dedicat
+[`COMPONENTE_EXTERNE.md`](COMPONENTE_EXTERNE.md). Pe scurt:
 
 - **Biblioteci**: pachetele pub.dev listate în capitolul 4 (framework,
   bază de date, navigare, stare).

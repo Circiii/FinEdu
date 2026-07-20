@@ -1,71 +1,777 @@
 ﻿{
-  "$schema_note": "Turbo Buget (PLAN2 §2.4, joc 3): pool de iteme pentru sortarea nevoie/dorinta/economie. bucket: need|want|save. Itemele cu 'note' sunt deliberat discutabile, nota apare pe ecranul de final la greseli (nu exista raspuns prost, exista reflex + nuanta). Continut nou = doar acest fisier. Preturi orientative RO in lei.",
+  "$schema_note": "Turbo Buget: pool de iteme pentru sortarea nevoie/dorinta/economie. bucket: need|want|save. Itemele cu 'note' sunt deliberat discutabile, iar nota apare pe ecranul de final la greseli (nu exista raspuns prost, exista reflex si nuanta). Continut nou inseamna doar acest fisier. Preturi orientative in lei.",
   "items": [
-    { "id": "t01", "label": { "ro": "Bilet de autobuz când ești în alt oraș", "en": "Bus ticket while visiting another city" }, "price": 3, "bucket": "need" },
-    { "id": "t02", "label": { "ro": "Pastă de dinți", "en": "Toothpaste" }, "price": 12, "bucket": "need" },
-    { "id": "t03", "label": { "ro": "Caiete pentru școală", "en": "School notebooks" }, "price": 25, "bucket": "need" },
-    { "id": "t04", "label": { "ro": "Prânzul la școală", "en": "School lunch" }, "price": 15, "bucket": "need" },
-    { "id": "t05", "label": { "ro": "Reîncărcare cartelă telefon", "en": "Phone top-up" }, "price": 30, "bucket": "need" },
-    { "id": "t06", "label": { "ro": "Șampon", "en": "Shampoo" }, "price": 18, "bucket": "need" },
-    { "id": "t07", "label": { "ro": "Medicamente de răceală", "en": "Cold medicine" }, "price": 35, "bucket": "need" },
-    { "id": "t08", "label": { "ro": "Abonament lunar de transport", "en": "Monthly transport pass" }, "price": 80, "bucket": "need", "note": { "ro": "În multe orașe elevii circulă gratuit, dacă al tău NU decontează, abonamentul e nevoie pură.", "en": "In many cities students ride free, if yours doesn't cover it, the pass is a pure need." } },
-    { "id": "t09", "label": { "ro": "Adidași noi, ai crescut din ai tăi", "en": "New sneakers, you outgrew yours" }, "price": 200, "bucket": "need", "note": { "ro": "Adidașii de MĂRIME nouă sunt nevoie. Al treilea model „de culoare\" e dorință.", "en": "New-size sneakers are a need. A third colorway is a want." } },
-    { "id": "t10", "label": { "ro": "Deodorant", "en": "Deodorant" }, "price": 15, "bucket": "need" },
-    { "id": "t11", "label": { "ro": "Pix și creioane pentru teze", "en": "Pens and pencils for exams" }, "price": 10, "bucket": "need" },
-    { "id": "t12", "label": { "ro": "Ochelari noi, ți s-a schimbat dioptria", "en": "New glasses, your prescription changed" }, "price": 350, "bucket": "need" },
-    { "id": "t13", "label": { "ro": "Umbrelă, plouă o săptămână întreagă", "en": "Umbrella, a full week of rain" }, "price": 30, "bucket": "need" },
-    { "id": "t14", "label": { "ro": "Tuns", "en": "A haircut" }, "price": 40, "bucket": "need" },
-    { "id": "t15", "label": { "ro": "Încărcător nou, al tău s-a rupt de tot", "en": "New charger, yours died completely" }, "price": 40, "bucket": "need" },
-    { "id": "t16", "label": { "ro": "Consult la o clinică privată, nu mai putea aștepta", "en": "A private clinic visit, it couldn't wait" }, "price": 150, "bucket": "need" },
-    { "id": "t17", "label": { "ro": "Culegere de mate pentru BAC", "en": "Math workbook for the BAC exam" }, "price": 45, "bucket": "need" },
-    { "id": "t18", "label": { "ro": "Baterii pentru ceasul deșteptător", "en": "Batteries for your alarm clock" }, "price": 10, "bucket": "need" },
-    { "id": "t19", "label": { "ro": "Apă la sticlă în drumeție", "en": "Bottled water on a hike" }, "price": 5, "bucket": "need" },
-    { "id": "t20", "label": { "ro": "Geacă de iarnă, a ta nu te mai încape", "en": "Winter jacket, yours no longer fits" }, "price": 300, "bucket": "need" },
-    { "id": "t21", "label": { "ro": "Skin nou în Fortnite", "en": "A new Fortnite skin" }, "price": 40, "bucket": "want" },
-    { "id": "t22", "label": { "ro": "Boba tea după ore", "en": "Boba tea after school" }, "price": 22, "bucket": "want" },
-    { "id": "t23", "label": { "ro": "Al treilea tricou negru, identic", "en": "A third identical black tee" }, "price": 60, "bucket": "want" },
-    { "id": "t24", "label": { "ro": "Joc nou pe Steam la lansare", "en": "A new Steam game at launch" }, "price": 250, "bucket": "want" },
-    { "id": "t25", "label": { "ro": "Căști noi, ale tale merg perfect", "en": "New headphones, yours work fine" }, "price": 250, "bucket": "want" },
-    { "id": "t26", "label": { "ro": "Băutură izotonică înainte de meci", "en": "An isotonic drink before the match" }, "price": 10, "bucket": "want" },
-    { "id": "t27", "label": { "ro": "Bilet la film cu gașca", "en": "Cinema ticket with the crew" }, "price": 40, "bucket": "want", "note": { "ro": "Ieșirile cu prietenii sunt dorințe SĂNĂTOASE, le planifici, nu le elimini.", "en": "Hangouts are HEALTHY wants, you plan them, you don't cut them." } },
-    { "id": "t28", "label": { "ro": "Pizza comandată vineri seara", "en": "Friday-night pizza delivery" }, "price": 55, "bucket": "want" },
-    { "id": "t29", "label": { "ro": "LED-uri pentru cameră", "en": "LED strips for your room" }, "price": 60, "bucket": "want" },
-    { "id": "t30", "label": { "ro": "Machiaj nou văzut pe TikTok", "en": "New makeup you saw on TikTok" }, "price": 80, "bucket": "want" },
-    { "id": "t31", "label": { "ro": "Covrig cu ciocolată după școală", "en": "Chocolate pretzel after school" }, "price": 8, "bucket": "want" },
-    { "id": "t32", "label": { "ro": "Abonament Netflix doar al tău", "en": "Your own Netflix subscription" }, "price": 50, "bucket": "want", "note": { "ro": "Streamingul e dorință, iar contul familiei costă 0 lei în plus.", "en": "Streaming is a want, and the family account costs 0 extra." } },
-    { "id": "t33", "label": { "ro": "Husă nouă de telefon, a cincea", "en": "A fifth new phone case" }, "price": 35, "bucket": "want" },
-    { "id": "t34", "label": { "ro": "Gustare de la automat, deși ai pachet", "en": "Vending-machine snack (you brought lunch)" }, "price": 12, "bucket": "want" },
-    { "id": "t35", "label": { "ro": "Breloc cu personajul preferat", "en": "Keychain of your favorite character" }, "price": 25, "bucket": "want" },
-    { "id": "t36", "label": { "ro": "Boost/battle pass pe sezonul nou", "en": "Season battle pass boost" }, "price": 50, "bucket": "want" },
-    { "id": "t37", "label": { "ro": "Înghețată în parc", "en": "Ice cream in the park" }, "price": 15, "bucket": "want" },
-    { "id": "t38", "label": { "ro": "Poster pentru perete", "en": "A wall poster" }, "price": 30, "bucket": "want" },
-    { "id": "t39", "label": { "ro": "Comandă de mâncare, deși frigiderul e plin", "en": "Food delivery with a full fridge" }, "price": 45, "bucket": "want" },
-    { "id": "t40", "label": { "ro": "Stickere pentru laptop", "en": "Laptop stickers" }, "price": 20, "bucket": "want" },
-    { "id": "t41", "label": { "ro": "Pui 50 de lei pentru telefonul nou", "en": "Put 50 lei toward the new phone" }, "price": 50, "bucket": "save" },
-    { "id": "t42", "label": { "ro": "Rotunjești și pui restul deoparte", "en": "Round up and stash the change" }, "price": 7, "bucket": "save" },
-    { "id": "t43", "label": { "ro": "+20 de lei la fondul de urgență", "en": "+20 lei to the emergency fund" }, "price": 20, "bucket": "save" },
-    { "id": "t44", "label": { "ro": "Jumătate din banii de la bunici, deoparte", "en": "Half the money from your grandparents, set aside" }, "price": 50, "bucket": "save" },
-    { "id": "t45", "label": { "ro": "+100 de lei la obiectivul „laptop\"", "en": "+100 lei toward the laptop goal" }, "price": 100, "bucket": "save" },
-    { "id": "t46", "label": { "ro": "Primii bani puși pentru tabăra de vară", "en": "First money put away for summer camp" }, "price": 75, "bucket": "save" },
-    { "id": "t47", "label": { "ro": "Banii de covrig, azi rămân în pușculiță", "en": "Today's pretzel money stays in the piggy bank" }, "price": 5, "bucket": "save" },
-    { "id": "t48", "label": { "ro": "10% din alocație, direct deoparte", "en": "10% of your allowance, straight aside" }, "price": 30, "bucket": "save" },
-    { "id": "t49", "label": { "ro": "Ce a rămas din banii de ziua ta, la economii", "en": "Birthday money leftovers, into savings" }, "price": 120, "bucket": "save" },
-    { "id": "t50", "label": { "ro": "Pui deoparte pentru cadoul mamei", "en": "Setting aside for mom's gift" }, "price": 40, "bucket": "save", "note": { "ro": "Cadourile planificate din timp sunt economisire cu scop, opusul cumpărăturii în panică din ajun.", "en": "Planned gifts are purposeful saving, the opposite of last-minute panic buying." } },
-    { "id": "t51", "label": { "ro": "Banii de la colindat, direct la obiectiv", "en": "Caroling money, straight to the goal" }, "price": 90, "bucket": "save" },
-    { "id": "t52", "label": { "ro": "+60 de lei pentru biletul de festival de la vară", "en": "+60 lei for next summer's festival ticket" }, "price": 60, "bucket": "save", "note": { "ro": "Festivalul e o dorință, dar banii puși DIN TIMP pentru el sunt economisire cu scop. Dorința e cheltuiala, nu planul.", "en": "The festival is a want, but money set aside IN ADVANCE for it is goal saving. The spend is the want, not the plan." } },
-    { "id": "t53", "label": { "ro": "Schimbi mărunțișul în bancnote și îl pui bine", "en": "Swap coins for bills and stash them" }, "price": 35, "bucket": "save" },
-    { "id": "t54", "label": { "ro": "Banii economisiți sărind peste suc azi", "en": "Money saved by skipping the soda today" }, "price": 8, "bucket": "save" },
-    { "id": "t55", "label": { "ro": "Abonament la sală, mergi de 3 ori pe săptămână", "en": "Gym membership, you go 3× a week" }, "price": 150, "bucket": "need", "note": { "ro": "La 3 vizite pe săptămână, sala e investiție în sănătate, nevoie. La 2 vizite pe lună, e dorință scumpă.", "en": "At 3 visits a week it's health, a need. At 2 visits a month it's an expensive want." } },
-    { "id": "t56", "label": { "ro": "Cafea de la automat, a doua azi", "en": "Vending coffee, second one today" }, "price": 7, "bucket": "want" },
-    { "id": "t57", "label": { "ro": "Meditație la mate înainte de teză", "en": "Math tutoring before the big test" }, "price": 100, "bucket": "need", "note": { "ro": "Depinde: sub linia de trecere sau înainte de BAC, e investiție, nevoie. Dacă stai pe 9, e confort scump.", "en": "It depends: below the passing line or before the BAC it's an investment, a need. Sitting on a 9, it's pricey comfort." } },
-    { "id": "t58", "label": { "ro": "Parfum de firmă văzut la mall", "en": "Designer perfume from the mall" }, "price": 300, "bucket": "want" },
-    { "id": "t59", "label": { "ro": "Lacăt nou pentru vestiar", "en": "New lock for your locker" }, "price": 25, "bucket": "need" },
-    { "id": "t60", "label": { "ro": "Pachet de gumă la casă", "en": "Gum at the checkout" }, "price": 5, "bucket": "want", "note": { "ro": "Produsele de la casa de marcat sunt așezate FIX pentru impulsul de 5 lei. Clasicul „mărunțiș\" care se adună.", "en": "Checkout items are placed exactly for the 5-lei impulse. The classic small leak." } },
-    { "id": "t61", "label": { "ro": "Cartelă de călătorii pentru drumul la jobul de vară", "en": "A transit card for your summer-job commute" }, "price": 30, "bucket": "need" },
-    { "id": "t62", "label": { "ro": "Cadou de Secret Santa la clasă", "en": "Class Secret Santa gift" }, "price": 50, "bucket": "want", "note": { "ro": "Cadourile sociale sunt dorințe cu valoare reală de prietenie, intră la dorințe, dar se PLANIFICĂ.", "en": "Social gifts are wants with real friendship value, still wants, but planned ones." } },
-    { "id": "t63", "label": { "ro": "Pui deoparte banii pentru permisul auto", "en": "Saving up for your driver's license" }, "price": 200, "bucket": "save" },
-    { "id": "t64", "label": { "ro": "Mouse nou de gaming, al tău dă rateuri la click", "en": "New gaming mouse, yours misclicks" }, "price": 150, "bucket": "want", "note": { "ro": "Discutabil: dacă e unealta ta de zi cu zi și chiar e stricat, urcă spre nevoie. Dacă „dă rateuri\" doar în ranked… e dorință.", "en": "Debatable: if it's your daily tool and truly broken, it leans need. If it only \"misclicks\" in ranked… want." } },
-    { "id": "t65", "label": { "ro": "Taxa pentru excursia cu clasa", "en": "The class-trip fee" }, "price": 250, "bucket": "need", "note": { "ro": "Ține de context: dacă toată clasa merge și e parte din școală, e nevoie socială reală. Extravaganțele din excursie, alea-s dorințe.", "en": "Context matters: if the whole class goes, it's a real social need. The extras on the trip are the wants." } },
-    { "id": "t66", "label": { "ro": "Donezi la un caz real verificat", "en": "Donating to a verified real cause" }, "price": 20, "bucket": "want", "note": { "ro": "Generozitatea nu e „nevoie\" de-a ta, dar e una dintre cele mai bune dorințe posibile. Contează să fie cazuri verificate.", "en": "Generosity isn't your own \"need\", but it's one of the best possible wants. Verified causes only." } }
+    {
+      "id": "t01",
+      "label": {
+        "ro": "Bilet de autobuz când ești în alt oraș",
+        "en": "Bus ticket while visiting another city"
+      },
+      "price": 3,
+      "bucket": "need"
+    },
+    {
+      "id": "t02",
+      "label": {
+        "ro": "Pastă de dinți",
+        "en": "Toothpaste"
+      },
+      "price": 12,
+      "bucket": "need"
+    },
+    {
+      "id": "t03",
+      "label": {
+        "ro": "Caiete pentru școală",
+        "en": "School notebooks"
+      },
+      "price": 25,
+      "bucket": "need"
+    },
+    {
+      "id": "t04",
+      "label": {
+        "ro": "Prânzul la școală",
+        "en": "School lunch"
+      },
+      "price": 15,
+      "bucket": "need"
+    },
+    {
+      "id": "t05",
+      "label": {
+        "ro": "Reîncărcare cartelă telefon",
+        "en": "Phone top-up"
+      },
+      "price": 30,
+      "bucket": "need"
+    },
+    {
+      "id": "t06",
+      "label": {
+        "ro": "Șampon",
+        "en": "Shampoo"
+      },
+      "price": 18,
+      "bucket": "need"
+    },
+    {
+      "id": "t07",
+      "label": {
+        "ro": "Medicamente de răceală",
+        "en": "Cold medicine"
+      },
+      "price": 35,
+      "bucket": "need"
+    },
+    {
+      "id": "t08",
+      "label": {
+        "ro": "Abonament lunar de transport",
+        "en": "Monthly transport pass"
+      },
+      "price": 80,
+      "bucket": "need",
+      "note": {
+        "ro": "În multe orașe elevii circulă gratuit, dacă al tău NU decontează, abonamentul e nevoie pură.",
+        "en": "In many cities students ride free, if yours doesn't cover it, the pass is a pure need."
+      }
+    },
+    {
+      "id": "t09",
+      "label": {
+        "ro": "Adidași noi, ai crescut din ai tăi",
+        "en": "New sneakers, you outgrew yours"
+      },
+      "price": 200,
+      "bucket": "need",
+      "note": {
+        "ro": "Adidașii de MĂRIME nouă sunt nevoie. Al treilea model „de culoare\" e dorință.",
+        "en": "New-size sneakers are a need. A third colorway is a want."
+      }
+    },
+    {
+      "id": "t10",
+      "label": {
+        "ro": "Deodorant",
+        "en": "Deodorant"
+      },
+      "price": 15,
+      "bucket": "need"
+    },
+    {
+      "id": "t11",
+      "label": {
+        "ro": "Pix și creioane pentru teze",
+        "en": "Pens and pencils for exams"
+      },
+      "price": 10,
+      "bucket": "need"
+    },
+    {
+      "id": "t12",
+      "label": {
+        "ro": "Ochelari noi, ți s-a schimbat dioptria",
+        "en": "New glasses, your prescription changed"
+      },
+      "price": 350,
+      "bucket": "need"
+    },
+    {
+      "id": "t13",
+      "label": {
+        "ro": "Umbrelă, plouă o săptămână întreagă",
+        "en": "Umbrella, a full week of rain"
+      },
+      "price": 30,
+      "bucket": "need"
+    },
+    {
+      "id": "t14",
+      "label": {
+        "ro": "Tuns",
+        "en": "A haircut"
+      },
+      "price": 40,
+      "bucket": "need"
+    },
+    {
+      "id": "t15",
+      "label": {
+        "ro": "Încărcător nou, al tău s-a rupt de tot",
+        "en": "New charger, yours died completely"
+      },
+      "price": 40,
+      "bucket": "need"
+    },
+    {
+      "id": "t16",
+      "label": {
+        "ro": "Consult la o clinică privată, nu mai putea aștepta",
+        "en": "A private clinic visit, it couldn't wait"
+      },
+      "price": 150,
+      "bucket": "need"
+    },
+    {
+      "id": "t17",
+      "label": {
+        "ro": "Culegere de mate pentru BAC",
+        "en": "Math workbook for the BAC exam"
+      },
+      "price": 45,
+      "bucket": "need"
+    },
+    {
+      "id": "t18",
+      "label": {
+        "ro": "Baterii pentru ceasul deșteptător",
+        "en": "Batteries for your alarm clock"
+      },
+      "price": 10,
+      "bucket": "need"
+    },
+    {
+      "id": "t19",
+      "label": {
+        "ro": "Apă la sticlă în drumeție",
+        "en": "Bottled water on a hike"
+      },
+      "price": 5,
+      "bucket": "need"
+    },
+    {
+      "id": "t20",
+      "label": {
+        "ro": "Geacă de iarnă, a ta nu te mai încape",
+        "en": "Winter jacket, yours no longer fits"
+      },
+      "price": 300,
+      "bucket": "need"
+    },
+    {
+      "id": "t21",
+      "label": {
+        "ro": "Skin nou în Fortnite",
+        "en": "A new Fortnite skin"
+      },
+      "price": 40,
+      "bucket": "want"
+    },
+    {
+      "id": "t22",
+      "label": {
+        "ro": "Boba tea după ore",
+        "en": "Boba tea after school"
+      },
+      "price": 22,
+      "bucket": "want"
+    },
+    {
+      "id": "t23",
+      "label": {
+        "ro": "Al treilea tricou negru, identic",
+        "en": "A third identical black tee"
+      },
+      "price": 60,
+      "bucket": "want"
+    },
+    {
+      "id": "t24",
+      "label": {
+        "ro": "Joc nou pe Steam la lansare",
+        "en": "A new Steam game at launch"
+      },
+      "price": 250,
+      "bucket": "want"
+    },
+    {
+      "id": "t25",
+      "label": {
+        "ro": "Căști noi, ale tale merg perfect",
+        "en": "New headphones, yours work fine"
+      },
+      "price": 250,
+      "bucket": "want"
+    },
+    {
+      "id": "t26",
+      "label": {
+        "ro": "Băutură izotonică înainte de meci",
+        "en": "An isotonic drink before the match"
+      },
+      "price": 10,
+      "bucket": "want"
+    },
+    {
+      "id": "t27",
+      "label": {
+        "ro": "Bilet la film cu gașca",
+        "en": "Cinema ticket with the crew"
+      },
+      "price": 40,
+      "bucket": "want",
+      "note": {
+        "ro": "Ieșirile cu prietenii sunt dorințe SĂNĂTOASE, le planifici, nu le elimini.",
+        "en": "Hangouts are HEALTHY wants, you plan them, you don't cut them."
+      }
+    },
+    {
+      "id": "t28",
+      "label": {
+        "ro": "Pizza comandată vineri seara",
+        "en": "Friday-night pizza delivery"
+      },
+      "price": 55,
+      "bucket": "want"
+    },
+    {
+      "id": "t29",
+      "label": {
+        "ro": "LED-uri pentru cameră",
+        "en": "LED strips for your room"
+      },
+      "price": 60,
+      "bucket": "want"
+    },
+    {
+      "id": "t30",
+      "label": {
+        "ro": "Machiaj nou văzut pe TikTok",
+        "en": "New makeup you saw on TikTok"
+      },
+      "price": 80,
+      "bucket": "want"
+    },
+    {
+      "id": "t31",
+      "label": {
+        "ro": "Covrig cu ciocolată după școală",
+        "en": "Chocolate pretzel after school"
+      },
+      "price": 8,
+      "bucket": "want"
+    },
+    {
+      "id": "t32",
+      "label": {
+        "ro": "Abonament Netflix doar al tău",
+        "en": "Your own Netflix subscription"
+      },
+      "price": 50,
+      "bucket": "want",
+      "note": {
+        "ro": "Streamingul e dorință, iar contul familiei costă 0 lei în plus.",
+        "en": "Streaming is a want, and the family account costs 0 extra."
+      }
+    },
+    {
+      "id": "t33",
+      "label": {
+        "ro": "Husă nouă de telefon, a cincea",
+        "en": "A fifth new phone case"
+      },
+      "price": 35,
+      "bucket": "want"
+    },
+    {
+      "id": "t34",
+      "label": {
+        "ro": "Gustare de la automat, deși ai pachet",
+        "en": "Vending-machine snack (you brought lunch)"
+      },
+      "price": 12,
+      "bucket": "want"
+    },
+    {
+      "id": "t35",
+      "label": {
+        "ro": "Breloc cu personajul preferat",
+        "en": "Keychain of your favorite character"
+      },
+      "price": 25,
+      "bucket": "want"
+    },
+    {
+      "id": "t36",
+      "label": {
+        "ro": "Boost/battle pass pe sezonul nou",
+        "en": "Season battle pass boost"
+      },
+      "price": 50,
+      "bucket": "want"
+    },
+    {
+      "id": "t37",
+      "label": {
+        "ro": "Înghețată în parc",
+        "en": "Ice cream in the park"
+      },
+      "price": 15,
+      "bucket": "want"
+    },
+    {
+      "id": "t38",
+      "label": {
+        "ro": "Poster pentru perete",
+        "en": "A wall poster"
+      },
+      "price": 30,
+      "bucket": "want"
+    },
+    {
+      "id": "t39",
+      "label": {
+        "ro": "Comandă de mâncare, deși frigiderul e plin",
+        "en": "Food delivery with a full fridge"
+      },
+      "price": 45,
+      "bucket": "want"
+    },
+    {
+      "id": "t40",
+      "label": {
+        "ro": "Stickere pentru laptop",
+        "en": "Laptop stickers"
+      },
+      "price": 20,
+      "bucket": "want"
+    },
+    {
+      "id": "t41",
+      "label": {
+        "ro": "Pui 50 de lei pentru telefonul nou",
+        "en": "Put 50 lei toward the new phone"
+      },
+      "price": 50,
+      "bucket": "save"
+    },
+    {
+      "id": "t42",
+      "label": {
+        "ro": "Rotunjești și pui restul deoparte",
+        "en": "Round up and stash the change"
+      },
+      "price": 7,
+      "bucket": "save"
+    },
+    {
+      "id": "t43",
+      "label": {
+        "ro": "+20 de lei la fondul de urgență",
+        "en": "+20 lei to the emergency fund"
+      },
+      "price": 20,
+      "bucket": "save"
+    },
+    {
+      "id": "t44",
+      "label": {
+        "ro": "Jumătate din banii de la bunici, deoparte",
+        "en": "Half the money from your grandparents, set aside"
+      },
+      "price": 50,
+      "bucket": "save"
+    },
+    {
+      "id": "t45",
+      "label": {
+        "ro": "+100 de lei la obiectivul „laptop\"",
+        "en": "+100 lei toward the laptop goal"
+      },
+      "price": 100,
+      "bucket": "save"
+    },
+    {
+      "id": "t46",
+      "label": {
+        "ro": "Primii bani puși pentru tabăra de vară",
+        "en": "First money put away for summer camp"
+      },
+      "price": 75,
+      "bucket": "save"
+    },
+    {
+      "id": "t47",
+      "label": {
+        "ro": "Banii de covrig, azi rămân în pușculiță",
+        "en": "Today's pretzel money stays in the piggy bank"
+      },
+      "price": 5,
+      "bucket": "save"
+    },
+    {
+      "id": "t48",
+      "label": {
+        "ro": "10% din alocație, direct deoparte",
+        "en": "10% of your allowance, straight aside"
+      },
+      "price": 30,
+      "bucket": "save"
+    },
+    {
+      "id": "t49",
+      "label": {
+        "ro": "Ce a rămas din banii de ziua ta, la economii",
+        "en": "Birthday money leftovers, into savings"
+      },
+      "price": 120,
+      "bucket": "save"
+    },
+    {
+      "id": "t50",
+      "label": {
+        "ro": "Pui deoparte pentru cadoul mamei",
+        "en": "Setting aside for mom's gift"
+      },
+      "price": 40,
+      "bucket": "save",
+      "note": {
+        "ro": "Cadourile planificate din timp sunt economisire cu scop, opusul cumpărăturii în panică din ajun.",
+        "en": "Planned gifts are purposeful saving, the opposite of last-minute panic buying."
+      }
+    },
+    {
+      "id": "t51",
+      "label": {
+        "ro": "Banii de la colindat, direct la obiectiv",
+        "en": "Caroling money, straight to the goal"
+      },
+      "price": 90,
+      "bucket": "save"
+    },
+    {
+      "id": "t52",
+      "label": {
+        "ro": "+60 de lei pentru biletul de festival de la vară",
+        "en": "+60 lei for next summer's festival ticket"
+      },
+      "price": 60,
+      "bucket": "save",
+      "note": {
+        "ro": "Festivalul e o dorință, dar banii puși DIN TIMP pentru el sunt economisire cu scop. Dorința e cheltuiala, nu planul.",
+        "en": "The festival is a want, but money set aside IN ADVANCE for it is goal saving. The spend is the want, not the plan."
+      }
+    },
+    {
+      "id": "t53",
+      "label": {
+        "ro": "Schimbi mărunțișul în bancnote și îl pui bine",
+        "en": "Swap coins for bills and stash them"
+      },
+      "price": 35,
+      "bucket": "save"
+    },
+    {
+      "id": "t54",
+      "label": {
+        "ro": "Banii economisiți sărind peste suc azi",
+        "en": "Money saved by skipping the soda today"
+      },
+      "price": 8,
+      "bucket": "save"
+    },
+    {
+      "id": "t55",
+      "label": {
+        "ro": "Abonament la sală, mergi de 3 ori pe săptămână",
+        "en": "Gym membership, you go 3× a week"
+      },
+      "price": 150,
+      "bucket": "need",
+      "note": {
+        "ro": "La 3 vizite pe săptămână, sala e investiție în sănătate, nevoie. La 2 vizite pe lună, e dorință scumpă.",
+        "en": "At 3 visits a week it's health, a need. At 2 visits a month it's an expensive want."
+      }
+    },
+    {
+      "id": "t56",
+      "label": {
+        "ro": "Cafea de la automat, a doua azi",
+        "en": "Vending coffee, second one today"
+      },
+      "price": 7,
+      "bucket": "want"
+    },
+    {
+      "id": "t57",
+      "label": {
+        "ro": "Meditație la mate înainte de teză",
+        "en": "Math tutoring before the big test"
+      },
+      "price": 100,
+      "bucket": "need",
+      "note": {
+        "ro": "Depinde: sub linia de trecere sau înainte de BAC, e investiție, nevoie. Dacă stai pe 9, e confort scump.",
+        "en": "It depends: below the passing line or before the BAC it's an investment, a need. Sitting on a 9, it's pricey comfort."
+      }
+    },
+    {
+      "id": "t58",
+      "label": {
+        "ro": "Parfum de firmă văzut la mall",
+        "en": "Designer perfume from the mall"
+      },
+      "price": 300,
+      "bucket": "want"
+    },
+    {
+      "id": "t59",
+      "label": {
+        "ro": "Lacăt nou pentru vestiar",
+        "en": "New lock for your locker"
+      },
+      "price": 25,
+      "bucket": "need"
+    },
+    {
+      "id": "t60",
+      "label": {
+        "ro": "Pachet de gumă la casă",
+        "en": "Gum at the checkout"
+      },
+      "price": 5,
+      "bucket": "want",
+      "note": {
+        "ro": "Produsele de la casa de marcat sunt așezate FIX pentru impulsul de 5 lei. Clasicul „mărunțiș\" care se adună.",
+        "en": "Checkout items are placed exactly for the 5-lei impulse. The classic small leak."
+      }
+    },
+    {
+      "id": "t61",
+      "label": {
+        "ro": "Cartelă de călătorii pentru drumul la jobul de vară",
+        "en": "A transit card for your summer-job commute"
+      },
+      "price": 30,
+      "bucket": "need"
+    },
+    {
+      "id": "t62",
+      "label": {
+        "ro": "Cadou de Secret Santa la clasă",
+        "en": "Class Secret Santa gift"
+      },
+      "price": 50,
+      "bucket": "want",
+      "note": {
+        "ro": "Cadourile sociale sunt dorințe cu valoare reală de prietenie, intră la dorințe, dar se PLANIFICĂ.",
+        "en": "Social gifts are wants with real friendship value, still wants, but planned ones."
+      }
+    },
+    {
+      "id": "t63",
+      "label": {
+        "ro": "Pui deoparte banii pentru permisul auto",
+        "en": "Saving up for your driver's license"
+      },
+      "price": 200,
+      "bucket": "save"
+    },
+    {
+      "id": "t64",
+      "label": {
+        "ro": "Mouse nou de gaming, al tău dă rateuri la click",
+        "en": "New gaming mouse, yours misclicks"
+      },
+      "price": 150,
+      "bucket": "want",
+      "note": {
+        "ro": "Discutabil: dacă e unealta ta de zi cu zi și chiar e stricat, urcă spre nevoie. Dacă „dă rateuri\" doar în ranked… e dorință.",
+        "en": "Debatable: if it's your daily tool and truly broken, it leans need. If it only \"misclicks\" in ranked… want."
+      }
+    },
+    {
+      "id": "t65",
+      "label": {
+        "ro": "Taxa pentru excursia cu clasa",
+        "en": "The class-trip fee"
+      },
+      "price": 250,
+      "bucket": "need",
+      "note": {
+        "ro": "Ține de context: dacă toată clasa merge și e parte din școală, e nevoie socială reală. Extravaganțele din excursie, alea-s dorințe.",
+        "en": "Context matters: if the whole class goes, it's a real social need. The extras on the trip are the wants."
+      }
+    },
+    {
+      "id": "t66",
+      "label": {
+        "ro": "Donezi la un caz real verificat",
+        "en": "Donating to a verified real cause"
+      },
+      "price": 20,
+      "bucket": "want",
+      "note": {
+        "ro": "Generozitatea nu e „nevoie\" de-a ta, dar e una dintre cele mai bune dorințe posibile. Contează să fie cazuri verificate.",
+        "en": "Generosity isn't your own \"need\", but it's one of the best possible wants. Verified causes only."
+      }
+    },
+    {
+      "id": "t67",
+      "label": {
+        "ro": "Pastă de dinți, s-a terminat",
+        "en": "Toothpaste, you ran out"
+      },
+      "price": 12,
+      "bucket": "need"
+    },
+    {
+      "id": "t68",
+      "label": {
+        "ro": "Bilet de tren spre casă de sărbători",
+        "en": "Train ticket home for the holidays"
+      },
+      "price": 60,
+      "bucket": "need"
+    },
+    {
+      "id": "t69",
+      "label": {
+        "ro": "Husă cu sclipici pentru telefon",
+        "en": "Glittery phone case"
+      },
+      "price": 35,
+      "bucket": "want"
+    },
+    {
+      "id": "t70",
+      "label": {
+        "ro": "Boba tea cu perle, a doua pe ziua de azi",
+        "en": "Bubble tea with pearls, second one today"
+      },
+      "price": 22,
+      "bucket": "want"
+    },
+    {
+      "id": "t71",
+      "label": {
+        "ro": "50 de lei în fondul pentru laptop",
+        "en": "50 lei into the laptop fund"
+      },
+      "price": 50,
+      "bucket": "save"
+    },
+    {
+      "id": "t72",
+      "label": {
+        "ro": "Șosete noi, ultimele s-au rupt",
+        "en": "New socks, your last pair tore"
+      },
+      "price": 15,
+      "bucket": "need"
+    },
+    {
+      "id": "t73",
+      "label": {
+        "ro": "Skin nou în jocul preferat",
+        "en": "New skin in your favorite game"
+      },
+      "price": 25,
+      "bucket": "want"
+    },
+    {
+      "id": "t74",
+      "label": {
+        "ro": "Reîncărcare cartelă, rămâi fără net",
+        "en": "Top-up card, you are out of data"
+      },
+      "price": 30,
+      "bucket": "need"
+    },
+    {
+      "id": "t75",
+      "label": {
+        "ro": "Rotunjirea de la plată, direct în pușculiță",
+        "en": "Round-up from a payment, straight to the piggy bank"
+      },
+      "price": 5,
+      "bucket": "save"
+    },
+    {
+      "id": "t76",
+      "label": {
+        "ro": "Al treilea energizant pe ziua de azi",
+        "en": "Third energy drink today"
+      },
+      "price": 10,
+      "bucket": "want"
+    },
+    {
+      "id": "t77",
+      "label": {
+        "ro": "Sirop de tuse din farmacie",
+        "en": "Cough syrup from the pharmacy"
+      },
+      "price": 25,
+      "bucket": "need"
+    },
+    {
+      "id": "t78",
+      "label": {
+        "ro": "Al patrulea abonament de streaming",
+        "en": "A fourth streaming subscription"
+      },
+      "price": 27,
+      "bucket": "want"
+    },
+    {
+      "id": "t79",
+      "label": {
+        "ro": "100 de lei în fondul de urgență",
+        "en": "100 lei into the emergency fund"
+      },
+      "price": 100,
+      "bucket": "save"
+    },
+    {
+      "id": "t80",
+      "label": {
+        "ro": "Set de stickere pentru laptop",
+        "en": "Sticker pack for your laptop"
+      },
+      "price": 18,
+      "bucket": "want"
+    }
   ]
 }

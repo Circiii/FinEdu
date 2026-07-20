@@ -1,4 +1,4 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
@@ -36,8 +36,9 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
 
   // Pulsul markerului de crossover.
   late final AnimationController _pulse = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 900))
-    ..repeat(reverse: true);
+    vsync: this,
+    duration: const Duration(milliseconds: 900),
+  )..repeat(reverse: true);
 
   @override
   void dispose() {
@@ -67,7 +68,10 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
   @override
   Widget build(BuildContext context) {
     final compound = compoundSeries(
-        monthly: _monthly.toDouble(), annualRate: _rateFrac, years: _years);
+      monthly: _monthly.toDouble(),
+      annualRate: _rateFrac,
+      years: _years,
+    );
     final flat = flatSeries(monthly: _monthly.toDouble(), years: _years);
     final real = _showReal
         ? [
@@ -82,16 +86,25 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
     List<double>? vlad;
     if (_raceOn) {
       ana = compoundSeries(
-          monthly: _monthly.toDouble(), annualRate: _rateFrac, years: 20);
+        monthly: _monthly.toDouble(),
+        annualRate: _rateFrac,
+        years: 20,
+      );
       final vladTail = compoundSeries(
-          monthly: _monthly * 2.0, annualRate: _rateFrac, years: 10);
+        monthly: _monthly * 2.0,
+        annualRate: _rateFrac,
+        years: 10,
+      );
       vlad = [...List.filled(10, 0.0), ...vladTail];
     }
 
     final crossover = _raceOn ? -1 : _crossoverYear(compound);
     _maybeCelebrateCrossover(crossover);
-    final interest =
-        interestEarned(monthly: _monthly.toDouble(), annualRate: _rateFrac, years: _years);
+    final interest = interestEarned(
+      monthly: _monthly.toDouble(),
+      annualRate: _rateFrac,
+      years: _years,
+    );
     final doubling = doublingYears(_rateFrac);
 
     return SingleChildScrollView(
@@ -99,16 +112,20 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          Text('🧮 SIMULATOR',
-              style: T.display(
-                  size: 12,
-                  weight: FontWeight.w700,
-                  color: C.text3,
-                  letterSpacing: 12 * 0.12)),
+          Text(
+            '🧮 SIMULATOR',
+            style: T.display(
+              size: 12,
+              weight: FontWeight.w700,
+              color: C.text3,
+              letterSpacing: 12 * 0.12,
+            ),
+          ),
           const SizedBox(height: 8),
-          Text(widget.it.title ?? '',
-              style:
-                  T.display(size: 20, weight: FontWeight.w800, color: C.text)),
+          Text(
+            widget.it.title ?? '',
+            style: T.display(size: 20, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 12),
 
           // Rezultatul cu numărătoare vie, cifra care face sliderele să merite mișcate.
@@ -249,29 +266,37 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
                 suffix: ' lei',
                 duration: Dur.emph,
                 style: T.display(
-                    size: 26, weight: FontWeight.w800, color: Colors.white),
+                  size: 26,
+                  weight: FontWeight.w800,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(width: 8),
               Padding(
                 padding: const EdgeInsets.only(bottom: 3),
-                child: Text('în $_years ${_years == 1 ? "an" : "ani"}',
-                    style: T.body(
-                        size: 13,
-                        weight: FontWeight.w600,
-                        color: Colors.white.withValues(alpha: 0.9))),
+                child: Text(
+                  'în $_years ${_years == 1 ? "an" : "ani"}',
+                  style: T.body(
+                    size: 13,
+                    weight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.9),
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 2),
           Text(
-              interest > 0.5
-                  ? 'din care ${compactLei(interest)} lei sunt dobândă, bani '
+            interest > 0.5
+                ? 'din care ${compactLei(interest)} lei sunt dobândă, bani '
                       'făcuți de bani, nu de tine'
-                  : 'deocamdată doar depunerile tale, mișcă anii!',
-              style: T.body(
-                  size: 12.5,
-                  weight: FontWeight.w600,
-                  color: Colors.white.withValues(alpha: 0.92))),
+                : 'deocamdată doar depunerile tale, mișcă anii!',
+            style: T.body(
+              size: 12.5,
+              weight: FontWeight.w600,
+              color: Colors.white.withValues(alpha: 0.92),
+            ),
+          ),
         ],
       ),
     );
@@ -287,15 +312,30 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Ana · de la 16 ani',
-                    style: T.body(
-                        size: 12, weight: FontWeight.w700, color: C.greenDeep)),
-                Text('${compactLei(anaTotal)} lei',
-                    style: T.display(
-                        size: 20, weight: FontWeight.w800, color: C.text)),
-                Text('$_monthly lei/lună · 20 de ani',
-                    style: T.body(
-                        size: 11, weight: FontWeight.w500, color: C.text3)),
+                Text(
+                  'Ana · de la 16 ani',
+                  style: T.body(
+                    size: 12,
+                    weight: FontWeight.w700,
+                    color: C.greenDeep,
+                  ),
+                ),
+                Text(
+                  '${compactLei(anaTotal)} lei',
+                  style: T.display(
+                    size: 20,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
+                Text(
+                  '$_monthly lei/lună · 20 de ani',
+                  style: T.body(
+                    size: 11,
+                    weight: FontWeight.w500,
+                    color: C.text3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -305,15 +345,30 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Vlad · de la 26 de ani',
-                    style: T.body(
-                        size: 12, weight: FontWeight.w700, color: C.blueDeep)),
-                Text('${compactLei(vladTotal)} lei',
-                    style: T.display(
-                        size: 20, weight: FontWeight.w800, color: C.text)),
-                Text('${_monthly * 2} lei/lună · 10 ani',
-                    style: T.body(
-                        size: 11, weight: FontWeight.w500, color: C.text3)),
+                Text(
+                  'Vlad · de la 26 de ani',
+                  style: T.body(
+                    size: 12,
+                    weight: FontWeight.w700,
+                    color: C.blueDeep,
+                  ),
+                ),
+                Text(
+                  '${compactLei(vladTotal)} lei',
+                  style: T.display(
+                    size: 20,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
+                Text(
+                  '${_monthly * 2} lei/lună · 10 ani',
+                  style: T.body(
+                    size: 11,
+                    weight: FontWeight.w500,
+                    color: C.text3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -325,24 +380,27 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
   Widget _raceComment(double anaTotal, double vladTotal) {
     final diff = (anaTotal - vladTotal).abs();
     return _banner(
-        '⏱️',
-        'Au depus AMÂNDOI aceiași bani. Diferența de ${compactLei(diff)} lei '
-            'n-a făcut-o suma, a făcut-o timpul. Vlad nu e pierzător; doar '
-            'urcă un deal mai abrupt.');
+      '⏱️',
+      'Au depus AMÂNDOI aceiași bani. Diferența de ${compactLei(diff)} lei '
+          'n-a făcut-o suma, a făcut-o timpul. Vlad nu e pierzător; doar '
+          'urcă un deal mai abrupt.',
+    );
   }
 
   Widget _crossoverBanner(int year) {
     return _banner(
-        '🎉',
-        'În anul $year, dobânda ta a depășit tot ce ai depus. De aici, banii '
-            'tăi muncesc mai tare decât tine.');
+      '🎉',
+      'În anul $year, dobânda ta a depășit tot ce ai depus. De aici, banii '
+          'tăi muncesc mai tare decât tine.',
+    );
   }
 
   Widget _doublingBadge(double years) {
     return _banner(
-        '💡',
-        'Regula lui 72: la ${_rate.toStringAsFixed(1)}% pe an, banii se '
-            'dublează în ~${years.isFinite ? years.toStringAsFixed(0) : "∞"} ani.');
+      '💡',
+      'Regula lui 72: la ${_rate.toStringAsFixed(1)}% pe an, banii se '
+          'dublează în ~${years.isFinite ? years.toStringAsFixed(0) : "∞"} ani.',
+    );
   }
 
   Widget _banner(String emoji, String text) {
@@ -360,12 +418,15 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
           Text(emoji, style: const TextStyle(fontSize: 16)),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text,
-                style: T.body(
-                    size: 12.5,
-                    weight: FontWeight.w600,
-                    color: C.text,
-                    height: 1.35)),
+            child: Text(
+              text,
+              style: T.body(
+                size: 12.5,
+                weight: FontWeight.w600,
+                color: C.text,
+                height: 1.35,
+              ),
+            ),
           ),
         ],
       ),
@@ -385,19 +446,26 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
       children: [
         Row(
           children: [
-            Text(label,
-                style: T.body(
-                    size: 13, weight: FontWeight.w700, color: C.text2)),
+            Text(
+              label,
+              style: T.body(size: 13, weight: FontWeight.w700, color: C.text2),
+            ),
             const Spacer(),
-            Text(value,
-                style: T.display(
-                    size: 14, weight: FontWeight.w800, color: C.blueDeep)),
+            Text(
+              value,
+              style: T.display(
+                size: 14,
+                weight: FontWeight.w800,
+                color: C.blueDeep,
+              ),
+            ),
           ],
         ),
         if (hint != null)
-          Text(hint,
-              style:
-                  T.body(size: 11, weight: FontWeight.w500, color: C.text3)),
+          Text(
+            hint,
+            style: T.body(size: 11, weight: FontWeight.w500, color: C.text3),
+          ),
         SliderTheme(
           data: SliderThemeData(
             activeTrackColor: C.blue,
@@ -413,8 +481,11 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
     );
   }
 
-  Widget _toggleChip(
-      {required bool on, required String label, required VoidCallback onTap}) {
+  Widget _toggleChip({
+    required bool on,
+    required String label,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: () {
         Juice.tick();
@@ -428,34 +499,38 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
           border: Border.all(color: on ? C.blue : C.line, width: 1.5),
           boxShadow: on ? null : Sh.raise,
         ),
-        child: Text(label,
-            style: T.display(
-                size: 12.5,
-                weight: FontWeight.w800,
-                color: on ? C.blueDeep : C.text2)),
+        child: Text(
+          label,
+          style: T.display(
+            size: 12.5,
+            weight: FontWeight.w800,
+            color: on ? C.blueDeep : C.text2,
+          ),
+        ),
       ),
     );
   }
 
   Widget _legend() {
     Widget dot(Color color, String label, {bool dashed = false}) => Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 14,
-              height: 4,
-              decoration: BoxDecoration(
-                color: dashed ? Colors.transparent : color,
-                border: dashed ? Border.all(color: color, width: 1.2) : null,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(width: 5),
-            Text(label,
-                style:
-                    T.body(size: 11, weight: FontWeight.w600, color: C.text3)),
-          ],
-        );
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 14,
+          height: 4,
+          decoration: BoxDecoration(
+            color: dashed ? Colors.transparent : color,
+            border: dashed ? Border.all(color: color, width: 1.2) : null,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 5),
+        Text(
+          label,
+          style: T.body(size: 11, weight: FontWeight.w600, color: C.text3),
+        ),
+      ],
+    );
     return Wrap(
       spacing: 14,
       runSpacing: 4,
@@ -483,30 +558,39 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
           children: [
             Row(
               children: [
-                Text('Cum calculăm?',
-                    style: T.display(
-                        size: 13.5, weight: FontWeight.w800, color: C.text2)),
+                Text(
+                  'Cum calculăm?',
+                  style: T.display(
+                    size: 13.5,
+                    weight: FontWeight.w800,
+                    color: C.text2,
+                  ),
+                ),
                 const Spacer(),
-                Text(_how ? '▴' : '▾',
-                    style: const TextStyle(fontSize: 14, color: C.text3)),
+                Text(
+                  _how ? '▴' : '▾',
+                  style: const TextStyle(fontSize: 14, color: C.text3),
+                ),
               ],
             ),
             if (_how) ...[
               const SizedBox(height: 8),
               Text(
-                  'În fiecare lună, soldul crește cu dobânda lunii '
-                  '(dobânda anuală împărțită la 12) și primește depunerea ta:\n'
-                  'sold nou = sold × (1 + rată/12) + depunere\n\n'
-                  'Curba „reală" împarte soldul la inflația acumulată (~4%/an) '
-                  ', cât ai putea CUMPĂRA cu banii, nu câți lei sunt.\n\n'
-                  'Model educativ, nu o promisiune: ratele reale variază, iar '
-                  'produsele au comisioane și impozite. Lecția e FORMA curbei, '
-                  'nu cifra exactă.',
-                  style: T.body(
-                      size: 12.5,
-                      weight: FontWeight.w500,
-                      color: C.text2,
-                      height: 1.45)),
+                'În fiecare lună, soldul crește cu dobânda lunii '
+                '(dobânda anuală împărțită la 12) și primește depunerea ta:\n'
+                'sold nou = sold × (1 + rată/12) + depunere\n\n'
+                'Curba „reală" împarte soldul la inflația acumulată (~4%/an) '
+                ', cât ai putea CUMPĂRA cu banii, nu câți lei sunt.\n\n'
+                'Model educativ, nu o promisiune: ratele reale variază, iar '
+                'produsele au comisioane și impozite. Lecția e FORMA curbei, '
+                'nu cifra exactă.',
+                style: T.body(
+                  size: 12.5,
+                  weight: FontWeight.w500,
+                  color: C.text2,
+                  height: 1.45,
+                ),
+              ),
             ],
           ],
         ),
@@ -566,17 +650,23 @@ class _CurvesPainter extends CustomPainter {
       final y = plotH - plotH * frac;
       canvas.drawLine(Offset(leftPad, y), Offset(size.width, y), grid);
       tp.text = TextSpan(
-          text: compactLei(ceiling * frac),
-          style: const TextStyle(
-              fontSize: 9.5,
-              color: Color(0xFF8FA3BF),
-              fontWeight: FontWeight.w600));
+        text: compactLei(ceiling * frac),
+        style: const TextStyle(
+          fontSize: 9.5,
+          color: Color(0xFF8FA3BF),
+          fontWeight: FontWeight.w600,
+        ),
+      );
       tp.layout();
       tp.paint(canvas, Offset(leftPad - tp.width - 5, y - tp.height / 2));
     }
 
-    void curve(List<double> s, Color color,
-        {bool dashed = false, bool fill = false}) {
+    void curve(
+      List<double> s,
+      Color color, {
+      bool dashed = false,
+      bool fill = false,
+    }) {
       final path = Path()..moveTo(pt(0, s[0]).dx, pt(0, s[0]).dy);
       for (var i = 1; i < s.length; i++) {
         path.lineTo(pt(i, s[i]).dx, pt(i, s[i]).dy);
@@ -586,8 +676,7 @@ class _CurvesPainter extends CustomPainter {
           ..lineTo(pt(s.length - 1, 0).dx, plotH)
           ..lineTo(leftPad, plotH)
           ..close();
-        canvas.drawPath(
-            f, Paint()..color = color.withValues(alpha: 0.10));
+        canvas.drawPath(f, Paint()..color = color.withValues(alpha: 0.10));
       }
       final paint = Paint()
         ..color = color
@@ -618,17 +707,19 @@ class _CurvesPainter extends CustomPainter {
     if (crossoverYear > 0 && compound != null) {
       final p = pt(crossoverYear, compound![crossoverYear]);
       canvas.drawCircle(
-          p,
-          7 + 3 * pulse,
-          Paint()..color = C.amber.withValues(alpha: 0.35 - 0.2 * pulse));
+        p,
+        7 + 3 * pulse,
+        Paint()..color = C.amber.withValues(alpha: 0.35 - 0.2 * pulse),
+      );
       canvas.drawCircle(p, 5, Paint()..color = C.amber);
       canvas.drawCircle(
-          p,
-          5,
-          Paint()
-            ..color = Colors.white
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2);
+        p,
+        5,
+        Paint()
+          ..color = Colors.white
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
     }
   }
 

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -25,8 +25,7 @@ class LessonPlayerScreen extends ConsumerStatefulWidget {
   final String lessonId;
 
   @override
-  ConsumerState<LessonPlayerScreen> createState() =>
-      _LessonPlayerScreenState();
+  ConsumerState<LessonPlayerScreen> createState() => _LessonPlayerScreenState();
 }
 
 class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
@@ -87,17 +86,22 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     if (_page < _pageCount(lesson) - 1) {
       Juice.tick();
       setState(() => _page++);
-      _pages.animateToPage(_page,
-          duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+      _pages.animateToPage(
+        _page,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
       return;
     }
     // Final: completează + sărbătorește.
-    final earned =
-        await ref.read(learnRepositoryProvider).completeLesson(lesson);
+    final earned = await ref
+        .read(learnRepositoryProvider)
+        .completeLesson(lesson);
     // Utilizatorul poate închide player-ul cât timp scrierea e în zbor.
     if (!mounted) return;
-    ref.read(analyticsProvider).track(
-        AnalyticsEvents.lessonComplete, {'lesson': lesson.id});
+    ref.read(analyticsProvider).track(AnalyticsEvents.lessonComplete, {
+      'lesson': lesson.id,
+    });
     ref.invalidate(questsViewProvider);
     setState(() {
       _earnedXp = earned ?? 0;
@@ -115,8 +119,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
 
   Future<bool> _unitJustCompleted(Lesson lesson) async {
     final units = ref.read(unitsProvider(_locale)).valueOrNull ?? const [];
-    final done =
-        await ref.read(learnRepositoryProvider).watchCompleted().first;
+    final done = await ref.read(learnRepositoryProvider).watchCompleted().first;
     for (final u in units) {
       if (u.lessons.any((l) => l.id == lesson.id)) {
         return u.lessons.every((l) => done.contains(l.id));
@@ -207,8 +210,12 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               boxShadow: Sh.raise,
             ),
             alignment: Alignment.center,
-            child: const SvgIcon(Ic.x,
-                size: 16, color: C.text2, strokeWidth: 2.4),
+            child: const SvgIcon(
+              Ic.x,
+              size: 16,
+              color: C.text2,
+              strokeWidth: 2.4,
+            ),
           ),
         ),
         const SizedBox(width: 12),
@@ -220,7 +227,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   child: Container(
                     height: 8,
                     margin: EdgeInsets.only(
-                        right: i < _pageCount(lesson) - 1 ? 6 : 0),
+                      right: i < _pageCount(lesson) - 1 ? 6 : 0,
+                    ),
                     decoration: BoxDecoration(
                       color: i <= _page ? C.blue : C.line2,
                       borderRadius: BorderRadius.circular(R.pill),
@@ -247,40 +255,48 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           StaggerIn(
             index: 0,
             child: Center(
-                child:
-                    Text(lesson.emoji, style: const TextStyle(fontSize: 46))),
+              child: Text(lesson.emoji, style: const TextStyle(fontSize: 46)),
+            ),
           ),
           const SizedBox(height: 10),
           StaggerIn(
             index: 1,
             child: Center(
-              child: Text(lesson.title,
-                  textAlign: TextAlign.center,
-                  style: T.display(
-                      size: 26,
-                      weight: FontWeight.w800,
-                      color: C.text,
-                      height: 1.1)),
+              child: Text(
+                lesson.title,
+                textAlign: TextAlign.center,
+                style: T.display(
+                  size: 26,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                  height: 1.1,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 8),
           StaggerIn(
             index: 2,
             child: Center(
-              child: Text(lesson.hook,
-                  textAlign: TextAlign.center,
-                  style: T.body(
-                      size: 15,
-                      weight: FontWeight.w600,
-                      color: C.blue,
-                      height: 1.4)),
+              child: Text(
+                lesson.hook,
+                textAlign: TextAlign.center,
+                style: T.body(
+                  size: 15,
+                  weight: FontWeight.w600,
+                  color: C.blue,
+                  height: 1.4,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 18),
           StaggerIn(
             index: 3,
-            child:
-                GuessSlider(guess: lesson.guess!, onDone: (_) => _openGate(0)),
+            child: GuessSlider(
+              guess: lesson.guess!,
+              onDone: (_) => _openGate(0),
+            ),
           ),
         ],
       ),
@@ -292,38 +308,46 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       // Hook-ul și-a avut deja pagina; conceptul se deschide cu eticheta lui.
       return Padding(
         padding: const EdgeInsets.only(top: 8, bottom: 12),
-        child: Text('💡 IDEEA',
-            style: T.display(
-                size: 12,
-                weight: FontWeight.w800,
-                color: C.blue,
-                letterSpacing: 12 * 0.12)),
+        child: Text(
+          '💡 IDEEA',
+          style: T.display(
+            size: 12,
+            weight: FontWeight.w800,
+            color: C.blue,
+            letterSpacing: 12 * 0.12,
+          ),
+        ),
       );
     }
     return Column(
       children: [
         const SizedBox(height: 8),
-        Center(
-            child: Text(lesson.emoji, style: const TextStyle(fontSize: 46))),
+        Center(child: Text(lesson.emoji, style: const TextStyle(fontSize: 46))),
         const SizedBox(height: 10),
         Center(
-          child: Text(lesson.title,
-              textAlign: TextAlign.center,
-              style: T.display(
-                  size: 26,
-                  weight: FontWeight.w800,
-                  color: C.text,
-                  height: 1.1)),
+          child: Text(
+            lesson.title,
+            textAlign: TextAlign.center,
+            style: T.display(
+              size: 26,
+              weight: FontWeight.w800,
+              color: C.text,
+              height: 1.1,
+            ),
+          ),
         ),
         const SizedBox(height: 8),
         Center(
-          child: Text(lesson.hook,
-              textAlign: TextAlign.center,
-              style: T.body(
-                  size: 15,
-                  weight: FontWeight.w600,
-                  color: C.blue,
-                  height: 1.4)),
+          child: Text(
+            lesson.hook,
+            textAlign: TextAlign.center,
+            style: T.body(
+              size: 15,
+              weight: FontWeight.w600,
+              color: C.blue,
+              height: 1.4,
+            ),
+          ),
         ),
         const SizedBox(height: 18),
       ],
@@ -335,7 +359,9 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     final check = lesson.check == null
         ? null
         : ConceptCheck(
-            check: lesson.check!, onDone: (_) => _openGate(pageIndex));
+            check: lesson.check!,
+            onDone: (_) => _openGate(pageIndex),
+          );
 
     // Format 3: blocuri dezvăluite prin tap (segmenting), fără check,
     // gate-ul se deschide când ultimul bloc e vizibil.
@@ -356,18 +382,18 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
         children: [
           _conceptHeader(lesson),
           for (final paragraph in lesson.concept) ...[
-            RichLessonText(paragraph,
-                style: T.body(
-                    size: 15.5,
-                    weight: FontWeight.w400,
-                    color: C.text2,
-                    height: 1.55)),
+            RichLessonText(
+              paragraph,
+              style: T.body(
+                size: 15.5,
+                weight: FontWeight.w400,
+                color: C.text2,
+                height: 1.55,
+              ),
+            ),
             const SizedBox(height: 12),
           ],
-          if (check != null) ...[
-            const SizedBox(height: 6),
-            check,
-          ],
+          if (check != null) ...[const SizedBox(height: 6), check],
         ],
       ),
     );
@@ -376,7 +402,9 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   Widget _scenarioPage(Lesson lesson) {
     final pageIndex = lesson.guess != null ? 2 : 1;
     return ScenarioDecision(
-        scenario: lesson.scenario!, onDone: (_) => _openGate(pageIndex));
+      scenario: lesson.scenario!,
+      onDone: (_) => _openGate(pageIndex),
+    );
   }
 
   Widget _examplePage(Lesson lesson) {
@@ -384,23 +412,29 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('📌 EXEMPLU REAL',
-            style: T.display(
-                size: 12,
-                weight: FontWeight.w800,
-                color: C.amberDeep,
-                letterSpacing: 12 * 0.12)),
+        Text(
+          '📌 EXEMPLU REAL',
+          style: T.display(
+            size: 12,
+            weight: FontWeight.w800,
+            color: C.amberDeep,
+            letterSpacing: 12 * 0.12,
+          ),
+        ),
         const SizedBox(height: 12),
         StaggerIn(
           child: ClayCard(
             radius: 22,
             padding: const EdgeInsets.all(20),
-            child: RichLessonText(lesson.example,
-                style: T.body(
-                    size: 16,
-                    weight: FontWeight.w500,
-                    color: C.text,
-                    height: 1.55)),
+            child: RichLessonText(
+              lesson.example,
+              style: T.body(
+                size: 16,
+                weight: FontWeight.w500,
+                color: C.text,
+                height: 1.55,
+              ),
+            ),
           ),
         ),
       ],
@@ -426,12 +460,15 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          Text('RECAPITULARE',
-              style: T.display(
-                  size: 12,
-                  weight: FontWeight.w800,
-                  color: C.green,
-                  letterSpacing: 12 * 0.12)),
+          Text(
+            'RECAPITULARE',
+            style: T.display(
+              size: 12,
+              weight: FontWeight.w800,
+              color: C.green,
+              letterSpacing: 12 * 0.12,
+            ),
+          ),
           const SizedBox(height: 12),
           for (var i = 0; i < lesson.recap.length; i++) ...[
             StaggerIn(
@@ -444,19 +481,28 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                     height: 20,
                     margin: const EdgeInsets.only(top: 1),
                     decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: C.green),
+                      shape: BoxShape.circle,
+                      color: C.green,
+                    ),
                     alignment: Alignment.center,
-                    child: const SvgIcon(Ic.check,
-                        size: 12, color: Colors.white, strokeWidth: 3),
+                    child: const SvgIcon(
+                      Ic.check,
+                      size: 12,
+                      color: Colors.white,
+                      strokeWidth: 3,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: RichLessonText(lesson.recap[i],
-                        style: T.body(
-                            size: 15,
-                            weight: FontWeight.w600,
-                            color: C.text,
-                            height: 1.4)),
+                    child: RichLessonText(
+                      lesson.recap[i],
+                      style: T.body(
+                        size: 15,
+                        weight: FontWeight.w600,
+                        color: C.text,
+                        height: 1.4,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -476,19 +522,25 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('PASUL DE AZI',
-                          style: T.display(
-                              size: 11,
-                              weight: FontWeight.w800,
-                              color: C.blue,
-                              letterSpacing: 11 * 0.12)),
+                      Text(
+                        'PASUL DE AZI',
+                        style: T.display(
+                          size: 11,
+                          weight: FontWeight.w800,
+                          color: C.blue,
+                          letterSpacing: 11 * 0.12,
+                        ),
+                      ),
                       const SizedBox(height: 5),
-                      Text(lesson.action,
-                          style: T.body(
-                              size: 14,
-                              weight: FontWeight.w600,
-                              color: C.text,
-                              height: 1.4)),
+                      Text(
+                        lesson.action,
+                        style: T.body(
+                          size: 14,
+                          weight: FontWeight.w600,
+                          color: C.text,
+                          height: 1.4,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -499,19 +551,28 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           if (_firstTryWrong &&
               interactiveRetryable(lesson.interactive.kind)) ...[
             const SizedBox(height: 16),
-            Text('🔁 PRINDE-O DE DATA ASTA',
-                style: T.display(
-                    size: 12,
-                    weight: FontWeight.w800,
-                    color: C.amberDeep,
-                    letterSpacing: 12 * 0.12)),
+            Text(
+              '🔁 PRINDE-O DE DATA ASTA',
+              style: T.display(
+                size: 12,
+                weight: FontWeight.w800,
+                color: C.amberDeep,
+                letterSpacing: 12 * 0.12,
+              ),
+            ),
             const SizedBox(height: 10),
             if (lesson.interactive.kind == 'cloze')
               ClozeInteractive(
-                  it: lesson.interactive, compact: true, onDone: (_) {})
+                it: lesson.interactive,
+                compact: true,
+                onDone: (_) {},
+              )
             else
               McqInteractive(
-                  it: lesson.interactive, compact: true, onDone: (_) {}),
+                it: lesson.interactive,
+                compact: true,
+                onDone: (_) {},
+              ),
           ],
           if (lesson.teaser != null) ...[
             const SizedBox(height: 16),
@@ -526,19 +587,25 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('✨ URMEAZĂ',
-                      style: T.display(
-                          size: 11,
-                          weight: FontWeight.w800,
-                          color: C.violetDeep,
-                          letterSpacing: 11 * 0.12)),
+                  Text(
+                    '✨ URMEAZĂ',
+                    style: T.display(
+                      size: 11,
+                      weight: FontWeight.w800,
+                      color: C.violetDeep,
+                      letterSpacing: 11 * 0.12,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(lesson.teaser!,
-                      style: T.body(
-                          size: 13.5,
-                          weight: FontWeight.w600,
-                          color: C.text2,
-                          height: 1.4)),
+                  Text(
+                    lesson.teaser!,
+                    style: T.body(
+                      size: 13.5,
+                      weight: FontWeight.w600,
+                      color: C.text2,
+                      height: 1.4,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -557,14 +624,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
         children: [
           const CashySprite(asset: Cashy.cashyCelebrate, width: 200),
           const SizedBox(height: 12),
-          Text(_earnedXp > 0 ? 'Lecție terminată!' : 'Deja o știai!',
-              style:
-                  T.display(size: 30, weight: FontWeight.w800, color: C.text)),
+          Text(
+            _earnedXp > 0 ? 'Lecție terminată!' : 'Deja o știai!',
+            style: T.display(size: 30, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 8),
           if (_earnedXp > 0)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
               decoration: BoxDecoration(
                 color: C.amberSoft,
                 borderRadius: BorderRadius.circular(R.pill),
@@ -574,20 +641,25 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AnimatedCount(
-                      value: _earnedXp,
-                      prefix: '+',
-                      suffix: ' XP  ·  +5 ',
-                      style: T.display(
-                          size: 16, weight: FontWeight.w800, color: C.text)),
+                    value: _earnedXp,
+                    prefix: '+',
+                    suffix: ' XP  ·  +5 ',
+                    style: T.display(
+                      size: 16,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
                   const AcornIcon(size: 18),
                 ],
               ),
             ),
           const SizedBox(height: 6),
-          Text('Cardurile lecției intră mâine în Recapitularea lui Cashy.',
-              textAlign: TextAlign.center,
-              style:
-                  T.body(size: 13.5, weight: FontWeight.w500, color: C.text2)),
+          Text(
+            'Cardurile lecției intră mâine în Recapitularea lui Cashy.',
+            textAlign: TextAlign.center,
+            style: T.body(size: 13.5, weight: FontWeight.w500, color: C.text2),
+          ),
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),

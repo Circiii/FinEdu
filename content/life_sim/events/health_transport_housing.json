@@ -1,4 +1,4 @@
-{
+﻿{
   "events": [
     {
       "id": "raceala",
@@ -10,9 +10,15 @@
       "max_day": 27,
       "difficulty": 2,
       "chain_id": "raceala",
-      "skill_tags": ["opportunity_cost", "emergency_fund"],
+      "skill_tags": [
+        "opportunity_cost",
+        "emergency_fund"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Te-ai trezit răcit", "en": "You woke up with a cold"},
+      "title": {
+        "ro": "Te-ai trezit răcit",
+        "en": "You woke up with a cold"
+      },
       "narrative": {
         "ro": "Nas înfundat, gât iritat, energia la pământ. Ai o zi plină la muncă, dar corpul cere altceva.",
         "en": "Stuffy nose, sore throat, energy on the floor. You have a full day at work, but your body is asking for something else."
@@ -20,12 +26,30 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Stai acasă și te tratezi (medicamente ~60 lei)", "en": "Stay home and treat it (meds ~60 lei)"},
+          "label": {
+            "ro": "Stai acasă și te tratezi (medicamente ~60 lei)",
+            "en": "Stay home and treat it (meds ~60 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -6000},
-            {"type": "stat", "stat": "energy", "delta": 6},
-            {"type": "stat", "stat": "health", "delta": 4},
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "cash",
+              "delta": -6000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "60 de lei și o zi de odihnă au oprit răceala la timp. Uneori cea mai ieftină reparație e somnul.",
@@ -33,12 +57,30 @@
           }
         },
         {
-          "label": {"ro": "Mergi la muncă bolnav", "en": "Go to work sick"},
+          "label": {
+            "ro": "Mergi la muncă bolnav",
+            "en": "Go to work sick"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 6},
-            {"type": "stat", "stat": "energy", "delta": -6},
-            {"type": "setFlag", "flag": "raceala_impinsa"},
-            {"type": "scheduleEvent", "delay_days": 3, "event_id": "raceala_complicatii"}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -6
+            },
+            {
+              "type": "setFlag",
+              "flag": "raceala_impinsa"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 3,
+              "event_id": "raceala_complicatii"
+            }
           ],
           "debrief": {
             "ro": "Ai salvat o zi liberă acum. Corpul poate cere factura mai târziu, iar ea vine de obicei mai scumpă.",
@@ -46,7 +88,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri OTC farmacii RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri OTC farmacii RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "raceala_complicatii",
@@ -57,11 +103,26 @@
       "max_day": 30,
       "difficulty": 3,
       "chain_id": "raceala",
-      "skill_tags": ["opportunity_cost"],
-      "conditions": [{"type": "hasFlag", "flag": "raceala_impinsa"}],
-      "exclusions": [{"type": "completedEvent", "id": "raceala"}],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "raceala_impinsa"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "raceala"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Răceala s-a agravat", "en": "The cold got worse"},
+      "title": {
+        "ro": "Răceala s-a agravat",
+        "en": "The cold got worse"
+      },
       "narrative": {
         "ro": "Febră și tuse care nu trece. Ziua împinsă la muncă s-a transformat în ceva care cere consult.",
         "en": "Fever and a cough that won't quit. The day you pushed through has turned into something that needs a doctor."
@@ -69,12 +130,29 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Iei liber și mergi la medic (consult + antibiotice ~150 lei)", "en": "Take time off and see a doctor (visit + antibiotics ~150 lei)"},
+          "label": {
+            "ro": "Iei liber și mergi la medic (consult + antibiotice ~150 lei)",
+            "en": "Take time off and see a doctor (visit + antibiotics ~150 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -15000},
-            {"type": "stat", "stat": "health", "delta": 6},
-            {"type": "stat", "stat": "energy", "delta": 4},
-            {"type": "clearFlag", "flag": "raceala_impinsa"}
+            {
+              "type": "cash",
+              "delta": -15000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 6
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 4
+            },
+            {
+              "type": "clearFlag",
+              "flag": "raceala_impinsa"
+            }
           ],
           "debrief": {
             "ro": "150 de lei și o zi liberă au închis problema. Împreună cu ziua de la început, boala te-a costat mai mult decât o oprire din timp.",
@@ -82,14 +160,40 @@
           }
         },
         {
-          "label": {"ro": "Te chinui mai departe", "en": "Keep pushing through"},
+          "label": {
+            "ro": "Te chinui mai departe",
+            "en": "Keep pushing through"
+          },
           "effects": [
-            {"type": "stat", "stat": "health", "delta": -6},
-            {"type": "stat", "stat": "stress", "delta": 6},
-            {"type": "scheduleEffect", "delay_days": 2, "effects": [
-              {"type": "cash", "delta": -22000},
-              {"type": "stat", "stat": "health", "delta": -6}
-            ], "note": {"ro": "Boala te-a doborât: o zi lipsă de la muncă + medicamente de urgență", "en": "The illness knocked you down: a missed workday + emergency meds"}}
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -6
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 6
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -22000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -6
+                }
+              ],
+              "note": {
+                "ro": "Boala te-a doborât: o zi lipsă de la muncă + medicamente de urgență",
+                "en": "The illness knocked you down: a missed workday + emergency meds"
+              }
+            }
           ],
           "debrief": {
             "ro": "Rezistența a împins costul și mai departe. O boală ignorată tinde să adune zile pierdute și cheltuieli, nu să dispară.",
@@ -97,7 +201,11 @@
           }
         }
       ],
-      "source": {"label": "tarife consult privat + antibiotice RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "tarife consult privat + antibiotice RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "dinte_durere",
@@ -109,9 +217,15 @@
       "max_day": 24,
       "difficulty": 2,
       "chain_id": "dinte",
-      "skill_tags": ["opportunity_cost", "emergency_fund"],
+      "skill_tags": [
+        "opportunity_cost",
+        "emergency_fund"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Te doare o măsea", "en": "A tooth is aching"},
+      "title": {
+        "ro": "Te doare o măsea",
+        "en": "A tooth is aching"
+      },
       "narrative": {
         "ro": "O durere surdă care pulsează când mănânci. Poate fi o carie mică, sau începutul a ceva mai serios.",
         "en": "A dull throb that spikes when you eat. It could be a small cavity, or the start of something bigger."
@@ -119,11 +233,25 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Programare la stomatolog (consult + plombă ~250 lei)", "en": "Book the dentist (visit + filling ~250 lei)"},
+          "label": {
+            "ro": "Programare la stomatolog (consult + plombă ~250 lei)",
+            "en": "Book the dentist (visit + filling ~250 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -25000},
-            {"type": "stat", "stat": "health", "delta": 3},
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "cash",
+              "delta": -25000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "250 de lei rezolvă o carie mică. Costul e clar acum și se oprește aici.",
@@ -131,12 +259,29 @@
           }
         },
         {
-          "label": {"ro": "Antinevralgice și amâni (~15 lei)", "en": "Painkillers and postpone (~15 lei)"},
+          "label": {
+            "ro": "Antinevralgice și amâni (~15 lei)",
+            "en": "Painkillers and postpone (~15 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -1500},
-            {"type": "stat", "stat": "stress", "delta": 2},
-            {"type": "setFlag", "flag": "dinte_amanat"},
-            {"type": "scheduleEvent", "delay_days": 6, "event_id": "dinte_urgenta"}
+            {
+              "type": "cash",
+              "delta": -1500
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "setFlag",
+              "flag": "dinte_amanat"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 6,
+              "event_id": "dinte_urgenta"
+            }
           ],
           "debrief": {
             "ro": "15 lei liniștesc durerea, nu cauza. O carie amânată nu așteaptă cuminte: de obicei crește.",
@@ -144,7 +289,11 @@
           }
         }
       ],
-      "source": {"label": "tarife stomatologie RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "tarife stomatologie RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "dinte_urgenta",
@@ -155,11 +304,26 @@
       "max_day": 30,
       "difficulty": 3,
       "chain_id": "dinte",
-      "skill_tags": ["opportunity_cost"],
-      "conditions": [{"type": "hasFlag", "flag": "dinte_amanat"}],
-      "exclusions": [{"type": "completedEvent", "id": "dinte_durere"}],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "dinte_amanat"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "dinte_durere"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Măseaua a cedat", "en": "The tooth gave out"},
+      "title": {
+        "ro": "Măseaua a cedat",
+        "en": "The tooth gave out"
+      },
       "narrative": {
         "ro": "Durerea a devenit insuportabilă și obrazul e umflat. Cabinetul spune că e nevoie de o intervenție de urgență.",
         "en": "The pain turned unbearable and your cheek is swollen. The clinic says an emergency procedure is needed."
@@ -167,12 +331,29 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Extracție de urgență + tratament (~600 lei)", "en": "Emergency extraction + treatment (~600 lei)"},
+          "label": {
+            "ro": "Extracție de urgență + tratament (~600 lei)",
+            "en": "Emergency extraction + treatment (~600 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -60000},
-            {"type": "stat", "stat": "health", "delta": -3},
-            {"type": "stat", "stat": "stress", "delta": 3},
-            {"type": "clearFlag", "flag": "dinte_amanat"}
+            {
+              "type": "cash",
+              "delta": -60000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -3
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            },
+            {
+              "type": "clearFlag",
+              "flag": "dinte_amanat"
+            }
           ],
           "debrief": {
             "ro": "Amânarea a transformat o plombă de 250 lei într-o urgență de 600. Nu orice amânare e economie.",
@@ -180,15 +361,44 @@
           }
         },
         {
-          "label": {"ro": "Mai reziști cu calmante (~40 lei)", "en": "Hold out longer on painkillers (~40 lei)"},
+          "label": {
+            "ro": "Mai reziști cu calmante (~40 lei)",
+            "en": "Hold out longer on painkillers (~40 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -4000},
-            {"type": "stat", "stat": "health", "delta": -6},
-            {"type": "stat", "stat": "stress", "delta": 8},
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [
-              {"type": "cash", "delta": -70000},
-              {"type": "stat", "stat": "health", "delta": -8}
-            ], "note": {"ro": "Infecția s-a extins: intervenție de urgență + antibiotice", "en": "The infection spread: emergency procedure + antibiotics"}}
+            {
+              "type": "cash",
+              "delta": -4000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -6
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 8
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -70000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -8
+                }
+              ],
+              "note": {
+                "ro": "Infecția s-a extins: intervenție de urgență + antibiotice",
+                "en": "The infection spread: emergency procedure + antibiotics"
+              }
+            }
           ],
           "debrief": {
             "ro": "Calmantele au amânat cu câteva zile, dar infecția a urcat miza la 700 lei. Durerea dentară ignorată rar se oprește singură.",
@@ -196,7 +406,11 @@
           }
         }
       ],
-      "source": {"label": "tarife urgențe stomatologice RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "tarife urgențe stomatologice RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "gripa_sezon",
@@ -207,9 +421,14 @@
       "min_day": 20,
       "max_day": 30,
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost"],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Sezonul de gripă a lovit", "en": "Flu season has hit"},
+      "title": {
+        "ro": "Sezonul de gripă a lovit",
+        "en": "Flu season has hit"
+      },
       "narrative": {
         "ro": "Jumătate din colegi tușesc, în transportul public toată lumea strănută. Valul de gripă e în toi.",
         "en": "Half your colleagues are coughing, everyone on the bus is sneezing. The flu wave is in full swing."
@@ -217,11 +436,25 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Te protejezi: vitamine, odihnă, mască (~50 lei)", "en": "Protect yourself: vitamins, rest, a mask (~50 lei)"},
+          "label": {
+            "ro": "Te protejezi: vitamine, odihnă, mască (~50 lei)",
+            "en": "Protect yourself: vitamins, rest, a mask (~50 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -5000},
-            {"type": "stat", "stat": "health", "delta": 3},
-            {"type": "stat", "stat": "energy", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -5000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "50 de lei de prevenție cântăresc puțin față de o săptămână de gripă. Micile scuturi sunt cele mai ieftine.",
@@ -229,13 +462,35 @@
           }
         },
         {
-          "label": {"ro": "Mergi peste tot ca de obicei", "en": "Carry on everywhere as usual"},
+          "label": {
+            "ro": "Mergi peste tot ca de obicei",
+            "en": "Carry on everywhere as usual"
+          },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [
-              {"type": "cash", "delta": -12000},
-              {"type": "stat", "stat": "health", "delta": -8},
-              {"type": "stat", "stat": "energy", "delta": -6}
-            ], "note": {"ro": "Ai prins gripa: medicamente + zile la pat", "en": "You caught the flu: meds + days in bed"}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -12000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -8
+                },
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -6
+                }
+              ],
+              "note": {
+                "ro": "Ai prins gripa: medicamente + zile la pat",
+                "en": "You caught the flu: meds + days in bed"
+              }
+            }
           ],
           "debrief": {
             "ro": "În plin val, expunerea fără nicio măsură a dus la gripă și câteva zile pierdute. Alegerea a fost un pariu pe noroc.",
@@ -243,7 +498,11 @@
           }
         }
       ],
-      "source": {"label": "recomandări sezon gripal + prețuri OTC RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "recomandări sezon gripal + prețuri OTC RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "accidentare_sala",
@@ -254,10 +513,20 @@
       "min_day": 5,
       "max_day": 30,
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost"],
-      "conditions": [{"type": "hasFlag", "flag": "abonament_sala"}],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "abonament_sala"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Te-ai accidentat la sală", "en": "You got injured at the gym"},
+      "title": {
+        "ro": "Te-ai accidentat la sală",
+        "en": "You got injured at the gym"
+      },
       "narrative": {
         "ro": "Ai forțat o ridicare și simți o întindere ascuțită în umăr. Antrenamentul de azi s-a încheiat brusc.",
         "en": "You forced a lift and feel a sharp strain in your shoulder. Today's workout ended abruptly."
@@ -265,11 +534,25 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Pauză + câteva ședințe de kinetoterapie (~200 lei)", "en": "Rest + a few physio sessions (~200 lei)"},
+          "label": {
+            "ro": "Pauză + câteva ședințe de kinetoterapie (~200 lei)",
+            "en": "Rest + a few physio sessions (~200 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -20000},
-            {"type": "stat", "stat": "health", "delta": 4},
-            {"type": "stat", "stat": "energy", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "200 de lei și o pauză scurtă lasă accidentarea să se vindece. Recuperarea la timp e mai ieftină decât una amânată.",
@@ -277,14 +560,40 @@
           }
         },
         {
-          "label": {"ro": "Continui antrenamentele pe durere", "en": "Keep training through the pain"},
+          "label": {
+            "ro": "Continui antrenamentele pe durere",
+            "en": "Keep training through the pain"
+          },
           "effects": [
-            {"type": "stat", "stat": "health", "delta": -6},
-            {"type": "stat", "stat": "stress", "delta": 4},
-            {"type": "scheduleEffect", "delay_days": 4, "effects": [
-              {"type": "cash", "delta": -25000},
-              {"type": "stat", "stat": "health", "delta": -8}
-            ], "note": {"ro": "Accidentarea s-a agravat: consult ortoped + repaus", "en": "The injury worsened: orthopedist visit + forced rest"}}
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -6
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 4,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -25000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -8
+                }
+              ],
+              "note": {
+                "ro": "Accidentarea s-a agravat: consult ortoped + repaus",
+                "en": "The injury worsened: orthopedist visit + forced rest"
+              }
+            }
           ],
           "debrief": {
             "ro": "Antrenamentul pe durere a adâncit accidentarea. Un umăr forțat cere de obicei mai mult timp și mai mulți bani ca să revină.",
@@ -292,7 +601,11 @@
           }
         }
       ],
-      "source": {"label": "tarife kinetoterapie + ortopedie RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "tarife kinetoterapie + ortopedie RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "card_farmacie",
@@ -303,9 +616,14 @@
       "min_day": 2,
       "max_day": 28,
       "difficulty": 1,
-      "skill_tags": ["budgeting"],
+      "skill_tags": [
+        "budgeting"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Card de fidelitate la farmacie", "en": "Pharmacy loyalty card"},
+      "title": {
+        "ro": "Card de fidelitate la farmacie",
+        "en": "Pharmacy loyalty card"
+      },
       "narrative": {
         "ro": "La casă ți se oferă un card gratuit de fidelitate: puncte și reduceri la medicamentele pe care le cumperi oricum.",
         "en": "At the counter you're offered a free loyalty card: points and discounts on the meds you buy anyway."
@@ -313,10 +631,20 @@
       "illustration": "cashy_happy",
       "choices": [
         {
-          "label": {"ro": "Îți faci cardul (gratuit)", "en": "Get the card (free)"},
+          "label": {
+            "ro": "Îți faci cardul (gratuit)",
+            "en": "Get the card (free)"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "card_farmacie"},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "setFlag",
+              "flag": "card_farmacie"
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Un obicei mic, gratuit, care taie din costul viitor la medicamente. Reducerile aplicate la ceva ce cumperi oricum sunt bani reali economisiți.",
@@ -324,7 +652,10 @@
           }
         },
         {
-          "label": {"ro": "Nu acum", "en": "Not now"},
+          "label": {
+            "ro": "Nu acum",
+            "en": "Not now"
+          },
           "effects": [],
           "debrief": {
             "ro": "Ai lăsat oferta să treacă. Poți reveni oricând. Nu ai pierdut nimic, doar o reducere viitoare posibilă.",
@@ -332,7 +663,11 @@
           }
         }
       ],
-      "source": {"label": "programe de fidelitate farmacii RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "programe de fidelitate farmacii RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "control_dentar_gratuit",
@@ -343,9 +678,14 @@
       "min_day": 3,
       "max_day": 27,
       "difficulty": 1,
-      "skill_tags": ["opportunity_cost"],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Campanie de control dentar gratuit", "en": "Free dental check-up campaign"},
+      "title": {
+        "ro": "Campanie de control dentar gratuit",
+        "en": "Free dental check-up campaign"
+      },
       "narrative": {
         "ro": "O clinică din zonă oferă o săptămână de controale dentare gratuite. Durează 20 de minute și nu costă nimic.",
         "en": "A local clinic is running a week of free dental check-ups. It takes 20 minutes and costs nothing."
@@ -353,11 +693,25 @@
       "illustration": "cashy_happy",
       "choices": [
         {
-          "label": {"ro": "Mergi la control", "en": "Go for the check-up"},
+          "label": {
+            "ro": "Mergi la control",
+            "en": "Go for the check-up"
+          },
           "effects": [
-            {"type": "stat", "stat": "health", "delta": 3},
-            {"type": "stat", "stat": "stress", "delta": -2},
-            {"type": "setFlag", "flag": "control_dentar"}
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            },
+            {
+              "type": "setFlag",
+              "flag": "control_dentar"
+            }
           ],
           "debrief": {
             "ro": "Prevenția gratuită prinde problemele mici înainte să devină scumpe. Un control acum poate evita o urgență de sute de lei mai târziu.",
@@ -365,7 +719,10 @@
           }
         },
         {
-          "label": {"ro": "Sari peste, n-ai timp acum", "en": "Skip it, no time now"},
+          "label": {
+            "ro": "Sari peste, n-ai timp acum",
+            "en": "Skip it, no time now"
+          },
           "effects": [],
           "debrief": {
             "ro": "Ai câștigat 20 de minute azi. O ocazie gratuită de prevenție a trecut. Poate reapărea, poate nu.",
@@ -373,7 +730,11 @@
           }
         }
       ],
-      "source": {"label": "campanii prevenție dentară RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "campanii prevenție dentară RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "spate_scaun",
@@ -384,9 +745,14 @@
       "min_day": 6,
       "max_day": 30,
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost"],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Te doare spatele de la scaun", "en": "Your back hurts from your chair"},
+      "title": {
+        "ro": "Te doare spatele de la scaun",
+        "en": "Your back hurts from your chair"
+      },
       "narrative": {
         "ro": "Orele lungi pe un scaun prost ți-au blocat spatele. Dimineața te ridici greu și durerea nu prea cedează.",
         "en": "Long hours on a bad chair have locked up your back. You get up stiff in the morning and the pain barely lets go."
@@ -394,11 +760,25 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Pernă lombară + pauze regulate (~120 lei)", "en": "Lumbar cushion + regular breaks (~120 lei)"},
+          "label": {
+            "ro": "Pernă lombară + pauze regulate (~120 lei)",
+            "en": "Lumbar cushion + regular breaks (~120 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -12000},
-            {"type": "stat", "stat": "health", "delta": 4},
-            {"type": "stat", "stat": "energy", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -12000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "120 de lei și câteva pauze pe zi atacă cauza, nu simptomul. Ergonomia ieftină previne facturi mari la fizioterapie.",
@@ -406,15 +786,44 @@
           }
         },
         {
-          "label": {"ro": "Ignori, treci cu analgezice (~20 lei)", "en": "Ignore it, get by on painkillers (~20 lei)"},
+          "label": {
+            "ro": "Ignori, treci cu analgezice (~20 lei)",
+            "en": "Ignore it, get by on painkillers (~20 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -2000},
-            {"type": "stat", "stat": "health", "delta": -4},
-            {"type": "scheduleEffect", "delay_days": 5, "effects": [
-              {"type": "cash", "delta": -15000},
-              {"type": "stat", "stat": "health", "delta": -6},
-              {"type": "stat", "stat": "energy", "delta": -4}
-            ], "note": {"ro": "Durerea de spate te-a trimis la fizioterapie", "en": "The back pain sent you to physiotherapy"}}
+            {
+              "type": "cash",
+              "delta": -2000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -4
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 5,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -15000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -6
+                },
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -4
+                }
+              ],
+              "note": {
+                "ro": "Durerea de spate te-a trimis la fizioterapie",
+                "en": "The back pain sent you to physiotherapy"
+              }
+            }
           ],
           "debrief": {
             "ro": "Analgezicele au ascuns durerea, nu au reparat postura. Problema amânată a ajuns la fizioterapie de 150 lei.",
@@ -422,7 +831,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri ergonomie + kinetoterapie RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri ergonomie + kinetoterapie RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "parbriz_crapat",
@@ -432,13 +845,26 @@
       "cooldown_days": 30,
       "min_day": 3,
       "max_day": 22,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 2,
       "chain_id": "parbriz",
-      "skill_tags": ["emergency_fund", "opportunity_cost"],
-      "conditions": [{"type": "hasFlag", "flag": "are_masina"}],
+      "skill_tags": [
+        "emergency_fund",
+        "opportunity_cost"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "are_masina"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Parbrizul a pocnit", "en": "The windscreen cracked"},
+      "title": {
+        "ro": "Parbrizul a pocnit",
+        "en": "The windscreen cracked"
+      },
       "narrative": {
         "ro": "O pietricică de pe centură a lăsat o fisură cât un deget pe parbriz. Deocamdată e mică, dar e chiar în câmpul vizual.",
         "en": "A pebble off the ring road left a finger-long crack on the windscreen. It's small for now, but right in your line of sight."
@@ -446,9 +872,15 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Repari acum (~850 lei)", "en": "Fix it now (~850 lei)"},
+          "label": {
+            "ro": "Repari acum (~850 lei)",
+            "en": "Fix it now (~850 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -85000}
+            {
+              "type": "cash",
+              "delta": -85000
+            }
           ],
           "debrief": {
             "ro": "850 de lei acum, dintr-o dată. Costul e clar și se oprește aici. Fisura nu mai are timp să crească.",
@@ -456,10 +888,20 @@
           }
         },
         {
-          "label": {"ro": "Amâni, deocamdată merge așa", "en": "Postpone it, it's fine for now"},
+          "label": {
+            "ro": "Amâni, deocamdată merge așa",
+            "en": "Postpone it, it's fine for now"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "parbriz_amanat"},
-            {"type": "scheduleEvent", "delay_days": 7, "event_id": "parbriz_extins"}
+            {
+              "type": "setFlag",
+              "flag": "parbriz_amanat"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 7,
+              "event_id": "parbriz_extins"
+            }
           ],
           "debrief": {
             "ro": "Ai păstrat 850 de lei în buzunar azi. O fisură lăsată în frig și pe gropi însă tinde să se extindă.",
@@ -467,7 +909,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri parbrize + montaj RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri parbrize + montaj RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "parbriz_extins",
@@ -476,14 +922,31 @@
       "weight": 4,
       "min_day": 1,
       "max_day": 30,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 3,
       "chain_id": "parbriz",
-      "skill_tags": ["opportunity_cost"],
-      "conditions": [{"type": "hasFlag", "flag": "parbriz_amanat"}],
-      "exclusions": [{"type": "completedEvent", "id": "parbriz_crapat"}],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "parbriz_amanat"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "parbriz_crapat"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Fisura s-a extins", "en": "The crack spread"},
+      "title": {
+        "ro": "Fisura s-a extins",
+        "en": "The crack spread"
+      },
       "narrative": {
         "ro": "Peste noapte, frigul a împins fisura pe tot parbrizul. Acum nu mai e o reparație. E o înlocuire completă.",
         "en": "Overnight, the cold pushed the crack across the whole windscreen. Now it's no longer a repair. It's a full replacement."
@@ -491,10 +954,19 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Înlocuiești parbrizul întreg (~1.100 lei)", "en": "Replace the whole windscreen (~1,100 lei)"},
+          "label": {
+            "ro": "Înlocuiești parbrizul întreg (~1.100 lei)",
+            "en": "Replace the whole windscreen (~1,100 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -110000},
-            {"type": "clearFlag", "flag": "parbriz_amanat"}
+            {
+              "type": "cash",
+              "delta": -110000
+            },
+            {
+              "type": "clearFlag",
+              "flag": "parbriz_amanat"
+            }
           ],
           "debrief": {
             "ro": "Fisura de 850 de lei a devenit un parbriz de 1.100. Ai economisit 850 în ziua amânării și ai plătit 1.100 acum: nu orice amânare e economie.",
@@ -502,13 +974,35 @@
           }
         },
         {
-          "label": {"ro": "Mai conduci așa o vreme", "en": "Keep driving like this a while longer"},
+          "label": {
+            "ro": "Mai conduci așa o vreme",
+            "en": "Keep driving like this a while longer"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 4},
-            {"type": "scheduleEffect", "delay_days": 4, "effects": [
-              {"type": "cash", "delta": -40000},
-              {"type": "stat", "stat": "stress", "delta": 8}
-            ], "note": {"ro": "Amendă pentru parbriz spart + respins la verificarea tehnică", "en": "Fine for a broken windscreen + failed technical inspection"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 4,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -40000
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 8
+                }
+              ],
+              "note": {
+                "ro": "Amendă pentru parbriz spart + respins la verificarea tehnică",
+                "en": "Fine for a broken windscreen + failed technical inspection"
+              }
+            }
           ],
           "debrief": {
             "ro": "Un parbriz complet fisurat înseamnă vizibilitate slabă și amendă la control. Apărarea aici e simplă: repari înainte să te oprească cineva.",
@@ -516,7 +1010,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri parbrize + amenzi RCA/ITP RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri parbrize + amenzi RCA/ITP RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "masina_zgomot",
@@ -526,13 +1024,26 @@
       "cooldown_days": 30,
       "min_day": 4,
       "max_day": 26,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 2,
       "chain_id": "masina",
-      "skill_tags": ["opportunity_cost", "budgeting"],
-      "conditions": [{"type": "hasFlag", "flag": "are_masina"}],
+      "skill_tags": [
+        "opportunity_cost",
+        "budgeting"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "are_masina"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Mașina scoate un zgomot ciudat", "en": "The car is making a strange noise"},
+      "title": {
+        "ro": "Mașina scoate un zgomot ciudat",
+        "en": "The car is making a strange noise"
+      },
       "narrative": {
         "ro": "Un huruit metalic din față când frânezi. Nu pare grav, dar nici nu vrei să afli pe drum că era.",
         "en": "A metallic grinding from the front when you brake. It doesn't seem serious, but you'd rather not find out on the road that it was."
@@ -540,9 +1051,15 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Mergi la primul service și accepți devizul (~900 lei)", "en": "Go to the first shop and accept the quote (~900 lei)"},
+          "label": {
+            "ro": "Mergi la primul service și accepți devizul (~900 lei)",
+            "en": "Go to the first shop and accept the quote (~900 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -90000}
+            {
+              "type": "cash",
+              "delta": -90000
+            }
           ],
           "debrief": {
             "ro": "Rezolvat rapid, cu 900 de lei. Comoditatea are un preț: n-ai știut dacă alt service cerea mai puțin.",
@@ -550,10 +1067,20 @@
           }
         },
         {
-          "label": {"ro": "Ceri mai multe oferte întâi", "en": "Get a few quotes first"},
+          "label": {
+            "ro": "Ceri mai multe oferte întâi",
+            "en": "Get a few quotes first"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "masina_oferte"},
-            {"type": "scheduleEvent", "delay_days": 2, "event_id": "masina_service_oferte"}
+            {
+              "type": "setFlag",
+              "flag": "masina_oferte"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 2,
+              "event_id": "masina_service_oferte"
+            }
           ],
           "debrief": {
             "ro": "Puțină răbdare înainte de plată poate schimba mult prețul. Pentru aceeași reparație, devizele variază des cu sute de lei.",
@@ -561,7 +1088,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri service auto RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri service auto RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "masina_service_oferte",
@@ -570,14 +1101,32 @@
       "weight": 4,
       "min_day": 1,
       "max_day": 30,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 2,
       "chain_id": "masina",
-      "skill_tags": ["opportunity_cost", "budgeting"],
-      "conditions": [{"type": "hasFlag", "flag": "masina_oferte"}],
-      "exclusions": [{"type": "completedEvent", "id": "masina_zgomot"}],
+      "skill_tags": [
+        "opportunity_cost",
+        "budgeting"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "masina_oferte"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "masina_zgomot"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Ai trei devize pe masă", "en": "You have three quotes on the table"},
+      "title": {
+        "ro": "Ai trei devize pe masă",
+        "en": "You have three quotes on the table"
+      },
       "narrative": {
         "ro": "Ai sunat la trei ateliere pentru aceeași reparație de frâne. Prețurile sunt surprinzător de diferite. Acum alegi.",
         "en": "You called three shops for the same brake job. The prices are surprisingly different. Now you choose."
@@ -585,11 +1134,24 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Service autorizat, cu garanție (~950 lei)", "en": "Authorized shop, with warranty (~950 lei)"},
+          "label": {
+            "ro": "Service autorizat, cu garanție (~950 lei)",
+            "en": "Authorized shop, with warranty (~950 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -95000},
-            {"type": "stat", "stat": "stress", "delta": -2},
-            {"type": "clearFlag", "flag": "masina_oferte"}
+            {
+              "type": "cash",
+              "delta": -95000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            },
+            {
+              "type": "clearFlag",
+              "flag": "masina_oferte"
+            }
           ],
           "debrief": {
             "ro": "Cel mai scump, dar cu garanție scrisă. Plătești liniștea că, dacă cedează, revii fără costuri.",
@@ -597,10 +1159,19 @@
           }
         },
         {
-          "label": {"ro": "Service de cartier de încredere (~650 lei)", "en": "Trusted neighborhood shop (~650 lei)"},
+          "label": {
+            "ro": "Service de cartier de încredere (~650 lei)",
+            "en": "Trusted neighborhood shop (~650 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -65000},
-            {"type": "clearFlag", "flag": "masina_oferte"}
+            {
+              "type": "cash",
+              "delta": -65000
+            },
+            {
+              "type": "clearFlag",
+              "flag": "masina_oferte"
+            }
           ],
           "debrief": {
             "ro": "Comparația a tăiat ~300 de lei față de primul deviz. Ai ales echilibrul dintre preț și încredere, deseori punctul dulce.",
@@ -608,14 +1179,38 @@
           }
         },
         {
-          "label": {"ro": "Cel mai ieftin anunț online (~400 lei)", "en": "The cheapest online listing (~400 lei)"},
+          "label": {
+            "ro": "Cel mai ieftin anunț online (~400 lei)",
+            "en": "The cheapest online listing (~400 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -40000},
-            {"type": "clearFlag", "flag": "masina_oferte"},
-            {"type": "scheduleEffect", "delay_days": 8, "effects": [
-              {"type": "cash", "delta": -50000},
-              {"type": "stat", "stat": "stress", "delta": 6}
-            ], "note": {"ro": "Reparația ieftină a cedat: refăcută în altă parte", "en": "The cheap repair failed: redone elsewhere"}}
+            {
+              "type": "cash",
+              "delta": -40000
+            },
+            {
+              "type": "clearFlag",
+              "flag": "masina_oferte"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 8,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -50000
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 6
+                }
+              ],
+              "note": {
+                "ro": "Reparația ieftină a cedat: refăcută în altă parte",
+                "en": "The cheap repair failed: redone elsewhere"
+              }
+            }
           ],
           "debrief": {
             "ro": "400 de lei păreau cea mai bună afacere, dar reparația a cedat și ai plătit încă o dată. Cel mai ieftin poate costa de două ori.",
@@ -623,7 +1218,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri service auto (comparativ) RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri service auto (comparativ) RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "transport_abonament",
@@ -634,9 +1233,15 @@
       "min_day": 2,
       "max_day": 15,
       "difficulty": 1,
-      "skill_tags": ["budgeting", "opportunity_cost"],
+      "skill_tags": [
+        "budgeting",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Abonament de transport sau bilete?", "en": "Transport pass or single tickets?"},
+      "title": {
+        "ro": "Abonament de transport sau bilete?",
+        "en": "Transport pass or single tickets?"
+      },
       "narrative": {
         "ro": "Începi luna și te întrebi cum plătești transportul. Abonament lunar, bilete la fiecare drum, sau un mix cu mersul pe jos?",
         "en": "You're starting the month and wondering how to pay for transport. Monthly pass, single tickets each ride, or a mix with walking?"
@@ -644,11 +1249,24 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Abonament lunar (~80 lei)", "en": "Monthly pass (~80 lei)"},
+          "label": {
+            "ro": "Abonament lunar (~80 lei)",
+            "en": "Monthly pass (~80 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -8000},
-            {"type": "stat", "stat": "stress", "delta": -2},
-            {"type": "setFlag", "flag": "abonament_transport"}
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            },
+            {
+              "type": "setFlag",
+              "flag": "abonament_transport"
+            }
           ],
           "debrief": {
             "ro": "80 de lei acoperă toată luna. Dacă circuli zilnic, e sub costul biletelor separate și mult sub benzina plus parcarea pentru aceleași drumuri.",
@@ -656,7 +1274,10 @@
           }
         },
         {
-          "label": {"ro": "Bilete la fiecare drum", "en": "Single tickets each ride"},
+          "label": {
+            "ro": "Bilete la fiecare drum",
+            "en": "Single tickets each ride"
+          },
           "effects": [],
           "debrief": {
             "ro": "Flexibil dacă circuli rar. Dar la ~3 lei × 2 drumuri × 30 de zile ajungi pe la 180 lei. Compară cu abonamentul înainte să decizi.",
@@ -664,11 +1285,25 @@
           }
         },
         {
-          "label": {"ro": "Mix: mers pe jos / bicicletă pentru drumurile scurte", "en": "Mix: walk / bike for short trips"},
+          "label": {
+            "ro": "Mix: mers pe jos / bicicletă pentru drumurile scurte",
+            "en": "Mix: walk / bike for short trips"
+          },
           "effects": [
-            {"type": "cash", "delta": -4000},
-            {"type": "stat", "stat": "health", "delta": 3},
-            {"type": "stat", "stat": "energy", "delta": 1}
+            {
+              "type": "cash",
+              "delta": -4000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Cel mai ieftin și mai sănătos pentru drumurile scurte, cu câteva bilete pentru rest. Costă timp și efort, un compromis conștient.",
@@ -676,7 +1311,11 @@
           }
         }
       ],
-      "source": {"label": "tarife transport public RO 2026 (STB/RATB local)", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "tarife transport public RO 2026 (STB/RATB local)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "anvelope_iarna",
@@ -686,12 +1325,25 @@
       "cooldown_days": 30,
       "min_day": 3,
       "max_day": 25,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost", "emergency_fund"],
-      "conditions": [{"type": "hasFlag", "flag": "are_masina"}],
+      "skill_tags": [
+        "opportunity_cost",
+        "emergency_fund"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "are_masina"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Vine iarna, ești pe anvelope de vară", "en": "Winter's coming, you're on summer tires"},
+      "title": {
+        "ro": "Vine iarna, ești pe anvelope de vară",
+        "en": "Winter's coming, you're on summer tires"
+      },
       "narrative": {
         "ro": "Prognoza anunță prima ninsoare. Ai încă anvelopele de vară, iar pe drum udat și înghețat ele nu mai țin.",
         "en": "The forecast calls for the first snow. You're still on summer tires, and on wet, icy roads they lose their grip."
@@ -699,10 +1351,20 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Set nou de iarnă, montat (~1.100 lei)", "en": "New winter set, fitted (~1,100 lei)"},
+          "label": {
+            "ro": "Set nou de iarnă, montat (~1.100 lei)",
+            "en": "New winter set, fitted (~1,100 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -110000},
-            {"type": "stat", "stat": "stress", "delta": -3}
+            {
+              "type": "cash",
+              "delta": -110000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
           ],
           "debrief": {
             "ro": "Cost mare acum, dintr-o dată, dar siguranță și legalitate toată iarna. Anvelopele bune sunt și frâna care contează pe gheață.",
@@ -710,9 +1372,15 @@
           }
         },
         {
-          "label": {"ro": "Anvelope second-hand decente (~450 lei)", "en": "Decent second-hand tires (~450 lei)"},
+          "label": {
+            "ro": "Anvelope second-hand decente (~450 lei)",
+            "en": "Decent second-hand tires (~450 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -45000}
+            {
+              "type": "cash",
+              "delta": -45000
+            }
           ],
           "debrief": {
             "ro": "Ai redus costul la jumătate cu anvelope la mâna a doua. Verifică profilul și uzura. Siguranța rămâne criteriul, nu doar prețul.",
@@ -720,13 +1388,34 @@
           }
         },
         {
-          "label": {"ro": "Amâni, mai mergi pe cele de vară", "en": "Postpone, keep the summer tires a while"},
+          "label": {
+            "ro": "Amâni, mai mergi pe cele de vară",
+            "en": "Postpone, keep the summer tires a while"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "anvelope_amanate"},
-            {"type": "scheduleEffect", "delay_days": 6, "effects": [
-              {"type": "cash", "delta": -20000},
-              {"type": "stat", "stat": "stress", "delta": 8}
-            ], "note": {"ro": "Amendă pentru lipsa anvelopelor de iarnă + o alunecare ușoară pe zăpadă", "en": "Fine for missing winter tires + a minor slide on snow"}}
+            {
+              "type": "setFlag",
+              "flag": "anvelope_amanate"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -20000
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 8
+                }
+              ],
+              "note": {
+                "ro": "Amendă pentru lipsa anvelopelor de iarnă + o alunecare ușoară pe zăpadă",
+                "en": "Fine for missing winter tires + a minor slide on snow"
+              }
+            }
           ],
           "debrief": {
             "ro": "Anvelopele de iarnă sunt obligatorii pe drum cu zăpadă, iar pe gheață cele de vară alunecă. Apărarea e să le montezi înainte de prima ninsoare.",
@@ -734,7 +1423,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri anvelope iarnă + reglementări RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri anvelope iarnă + reglementări RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "rca_expirat",
@@ -744,12 +1437,25 @@
       "cooldown_days": 30,
       "min_day": 5,
       "max_day": 26,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost", "emergency_fund"],
-      "conditions": [{"type": "hasFlag", "flag": "are_masina"}],
+      "skill_tags": [
+        "opportunity_cost",
+        "emergency_fund"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "are_masina"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "RCA-ul expiră mâine", "en": "Your car insurance expires tomorrow"},
+      "title": {
+        "ro": "RCA-ul expiră mâine",
+        "en": "Your car insurance expires tomorrow"
+      },
       "narrative": {
         "ro": "O notificare îți amintește: asigurarea obligatorie RCA se termină mâine. Fără ea, mașina nu are voie pe drum.",
         "en": "A reminder pops up: your mandatory car insurance ends tomorrow. Without it, the car isn't allowed on the road."
@@ -757,10 +1463,20 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Reînnoiești acum (~600 lei / 6 luni)", "en": "Renew now (~600 lei / 6 months)"},
+          "label": {
+            "ro": "Reînnoiești acum (~600 lei / 6 luni)",
+            "en": "Renew now (~600 lei / 6 months)"
+          },
           "effects": [
-            {"type": "cash", "delta": -60000},
-            {"type": "stat", "stat": "stress", "delta": -3}
+            {
+              "type": "cash",
+              "delta": -60000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -3
+            }
           ],
           "debrief": {
             "ro": "600 de lei acoperă șase luni și e obligatoriu legal. Dincolo de amendă, RCA-ul te apără dacă produci o daună altcuiva.",
@@ -768,13 +1484,34 @@
           }
         },
         {
-          "label": {"ro": "Amâni câteva zile", "en": "Postpone a few days"},
+          "label": {
+            "ro": "Amâni câteva zile",
+            "en": "Postpone a few days"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "rca_expirat_flag"},
-            {"type": "scheduleEffect", "delay_days": 4, "effects": [
-              {"type": "cash", "delta": -100000},
-              {"type": "stat", "stat": "stress", "delta": 10}
-            ], "note": {"ro": "Oprit în trafic fără RCA: amendă mare + risc de suspendare", "en": "Stopped in traffic without insurance: big fine + suspension risk"}}
+            {
+              "type": "setFlag",
+              "flag": "rca_expirat_flag"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 4,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -100000
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 10
+                }
+              ],
+              "note": {
+                "ro": "Oprit în trafic fără RCA: amendă mare + risc de suspendare",
+                "en": "Stopped in traffic without insurance: big fine + suspension risk"
+              }
+            }
           ],
           "debrief": {
             "ro": "Câteva zile „economisite\" au devenit o amendă mult peste prețul poliței, plus riscul pe drum. Apărarea: reînnoiește din timp, nu în ultima zi.",
@@ -782,7 +1519,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri RCA + amenzi RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri RCA + amenzi RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "centrala_stricata",
@@ -794,9 +1535,15 @@
       "max_day": 27,
       "difficulty": 2,
       "chain_id": "centrala",
-      "skill_tags": ["budgeting", "opportunity_cost"],
+      "skill_tags": [
+        "budgeting",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "S-a stricat centrala", "en": "The boiler broke down"},
+      "title": {
+        "ro": "S-a stricat centrala",
+        "en": "The boiler broke down"
+      },
       "narrative": {
         "ro": "Apă rece la robinet și caloriferele reci. Centrala din garsoniera închiriată s-a oprit, iar afară e frig.",
         "en": "Cold water at the tap and cold radiators. The boiler in your rented studio has stopped, and it's freezing outside."
@@ -804,13 +1551,35 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Anunți proprietarul: reparația e a lui", "en": "Notify the landlord: the repair is theirs"},
+          "label": {
+            "ro": "Anunți proprietarul: reparația e a lui",
+            "en": "Notify the landlord: the repair is theirs"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 3},
-            {"type": "setFlag", "flag": "centrala_anuntata"},
-            {"type": "scheduleEffect", "delay_days": 2, "effects": [
-              {"type": "stat", "stat": "stress", "delta": -3}
-            ], "note": {"ro": "Proprietarul a trimis instalatorul, centrala merge din nou", "en": "The landlord sent a plumber, the boiler works again"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            },
+            {
+              "type": "setFlag",
+              "flag": "centrala_anuntata"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": -3
+                }
+              ],
+              "note": {
+                "ro": "Proprietarul a trimis instalatorul, centrala merge din nou",
+                "en": "The landlord sent a plumber, the boiler works again"
+              }
+            }
           ],
           "debrief": {
             "ro": "Reparația unei centrale defecte revine de regulă proprietarului. Corect să i-o ceri. Ai pierdut confort două zile, nu bani.",
@@ -818,10 +1587,19 @@
           }
         },
         {
-          "label": {"ro": "Plătești tu reparația azi (~400 lei), negociezi apoi cu proprietarul", "en": "Pay for the repair yourself today (~400 lei), settle with the landlord after"},
+          "label": {
+            "ro": "Plătești tu reparația azi (~400 lei), negociezi apoi cu proprietarul",
+            "en": "Pay for the repair yourself today (~400 lei), settle with the landlord after"
+          },
           "effects": [
-            {"type": "cash", "delta": -40000},
-            {"type": "setFlag", "flag": "centrala_platita"}
+            {
+              "type": "cash",
+              "delta": -40000
+            },
+            {
+              "type": "setFlag",
+              "flag": "centrala_platita"
+            }
           ],
           "debrief": {
             "ro": "Ai rezolvat rapid, dar ai avansat un cost care era al proprietarului. Păstrează chitanța: cu ea poți scădea suma din chirie.",
@@ -829,10 +1607,20 @@
           }
         },
         {
-          "label": {"ro": "Ignori, te descurci cu un calorifer electric", "en": "Ignore it, get by with an electric heater"},
+          "label": {
+            "ro": "Ignori, te descurci cu un calorifer electric",
+            "en": "Ignore it, get by with an electric heater"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "centrala_ignorata"},
-            {"type": "scheduleEvent", "delay_days": 3, "event_id": "centrala_frig"}
+            {
+              "type": "setFlag",
+              "flag": "centrala_ignorata"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 3,
+              "event_id": "centrala_frig"
+            }
           ],
           "debrief": {
             "ro": "Improvizezi pe moment fără nicio cheltuială. Dar frigul și factura la curent tind să crească dacă centrala rămâne oprită.",
@@ -840,7 +1628,11 @@
           }
         }
       ],
-      "source": {"label": "tarife reparații centrale + drepturi chiriaș RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "tarife reparații centrale + drepturi chiriaș RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "centrala_frig",
@@ -851,11 +1643,26 @@
       "max_day": 30,
       "difficulty": 2,
       "chain_id": "centrala",
-      "skill_tags": ["opportunity_cost"],
-      "conditions": [{"type": "hasFlag", "flag": "centrala_ignorata"}],
-      "exclusions": [{"type": "completedEvent", "id": "centrala_stricata"}],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "centrala_ignorata"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "centrala_stricata"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "A treia zi fără căldură", "en": "Third day without heat"},
+      "title": {
+        "ro": "A treia zi fără căldură",
+        "en": "Third day without heat"
+      },
       "narrative": {
         "ro": "Caloriferul electric abia încălzește o cameră și factura la curent urcă. Frigul din casă începe să se simtă în gât.",
         "en": "The electric heater barely warms one room and the power bill is climbing. The cold indoors is starting to reach your throat."
@@ -863,13 +1670,35 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Ceri ferm proprietarului reparația (dreptul din contract)", "en": "Firmly ask the landlord to repair it (your right in the contract)"},
+          "label": {
+            "ro": "Ceri ferm proprietarului reparația (dreptul din contract)",
+            "en": "Firmly ask the landlord to repair it (your right in the contract)"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 2},
-            {"type": "clearFlag", "flag": "centrala_ignorata"},
-            {"type": "scheduleEffect", "delay_days": 2, "effects": [
-              {"type": "stat", "stat": "stress", "delta": -3}
-            ], "note": {"ro": "Centrala a fost reparată de proprietar", "en": "The boiler was repaired by the landlord"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "clearFlag",
+              "flag": "centrala_ignorata"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": -3
+                }
+              ],
+              "note": {
+                "ro": "Centrala a fost reparată de proprietar",
+                "en": "The boiler was repaired by the landlord"
+              }
+            }
           ],
           "debrief": {
             "ro": "Contractul de închiriere îți dă dreptul la o locuință funcțională. Folosește-l fără ezitare. O cerere clară a rezolvat ce improvizația nu putea.",
@@ -877,12 +1706,30 @@
           }
         },
         {
-          "label": {"ro": "Continui cu caloriferul electric", "en": "Keep going with the electric heater"},
+          "label": {
+            "ro": "Continui cu caloriferul electric",
+            "en": "Keep going with the electric heater"
+          },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [
-              {"type": "cash", "delta": -18000},
-              {"type": "stat", "stat": "health", "delta": -4}
-            ], "note": {"ro": "Factura la curent a sărit + ai răcit în frig", "en": "The power bill jumped + you caught a cold in the chill"}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -18000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -4
+                }
+              ],
+              "note": {
+                "ro": "Factura la curent a sărit + ai răcit în frig",
+                "en": "The power bill jumped + you caught a cold in the chill"
+              }
+            }
           ],
           "debrief": {
             "ro": "Improvizația a mutat costul pe factura la curent și pe sănătate. Un drept nefolosit a devenit o cheltuială evitabilă.",
@@ -890,7 +1737,11 @@
           }
         }
       ],
-      "source": {"label": "costuri încălzire electrică + drepturi chiriaș RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "costuri încălzire electrică + drepturi chiriaș RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "colocatar_intarzie",
@@ -902,10 +1753,21 @@
       "max_day": 26,
       "difficulty": 2,
       "chain_id": "colocatar",
-      "skill_tags": ["budgeting", "relationships"],
-      "conditions": [{"type": "hasRecurring", "id": "utilitati_cota"}],
+      "skill_tags": [
+        "budgeting",
+        "relationships"
+      ],
+      "conditions": [
+        {
+          "type": "hasRecurring",
+          "id": "utilitati_cota"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Colegul de apartament întârzie cu partea lui", "en": "Your roommate is late with their share"},
+      "title": {
+        "ro": "Colegul de apartament întârzie cu partea lui",
+        "en": "Your roommate is late with their share"
+      },
       "narrative": {
         "ro": "Factura la utilități e scadentă, dar colegul de apartament nu ți-a dat încă partea lui. Zice că „mai are câteva zile\".",
         "en": "The utility bill is due, but your roommate hasn't given you their share yet. They say they \"need a few more days\"."
@@ -913,11 +1775,24 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Acoperi tu toată factura acum, discutați calm după (~120 lei)", "en": "Cover the whole bill now, talk calmly after (~120 lei)"},
+          "label": {
+            "ro": "Acoperi tu toată factura acum, discutați calm după (~120 lei)",
+            "en": "Cover the whole bill now, talk calmly after (~120 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -12000},
-            {"type": "stat", "stat": "relationships", "delta": 2},
-            {"type": "setFlag", "flag": "colocatar_acoperit"}
+            {
+              "type": "cash",
+              "delta": -12000
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 2
+            },
+            {
+              "type": "setFlag",
+              "flag": "colocatar_acoperit"
+            }
           ],
           "debrief": {
             "ro": "Ai protejat și relația, și factura la timp. Ține evidența sumei ca să-ți recuperezi partea. Bunăvoința e bună, uitarea nu.",
@@ -925,14 +1800,40 @@
           }
         },
         {
-          "label": {"ro": "Îi ceri direct să plătească înainte de scadență", "en": "Ask them directly to pay before the due date"},
+          "label": {
+            "ro": "Îi ceri direct să plătească înainte de scadență",
+            "en": "Ask them directly to pay before the due date"
+          },
           "effects": [
-            {"type": "stat", "stat": "relationships", "delta": -2},
-            {"type": "stat", "stat": "stress", "delta": 2},
-            {"type": "setFlag", "flag": "colocatar_confruntat"},
-            {"type": "scheduleEffect", "delay_days": 2, "effects": [
-              {"type": "stat", "stat": "relationships", "delta": 3}
-            ], "note": {"ro": "Colegul a plătit partea lui, tensiunea a trecut", "en": "Your roommate paid their share, the tension passed"}}
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "setFlag",
+              "flag": "colocatar_confruntat"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "relationships",
+                  "delta": 3
+                }
+              ],
+              "note": {
+                "ro": "Colegul a plătit partea lui, tensiunea a trecut",
+                "en": "Your roommate paid their share, the tension passed"
+              }
+            }
           ],
           "debrief": {
             "ro": "O conversație incomodă acum a evitat resentimente mai târziu. Claritatea pe bani, spusă cu respect, întărește relația pe termen lung.",
@@ -940,10 +1841,20 @@
           }
         },
         {
-          "label": {"ro": "Lași să curgă, poate plătește el", "en": "Let it slide, maybe they'll pay"},
+          "label": {
+            "ro": "Lași să curgă, poate plătește el",
+            "en": "Let it slide, maybe they'll pay"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "colocatar_evitat"},
-            {"type": "scheduleEvent", "delay_days": 4, "event_id": "colocatar_recidiva"}
+            {
+              "type": "setFlag",
+              "flag": "colocatar_evitat"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 4,
+              "event_id": "colocatar_recidiva"
+            }
           ],
           "debrief": {
             "ro": "Eviți conflictul azi, ceea ce e confortabil. Dar un tipar nespus tinde să se repete, și să adune frustrare în tăcere.",
@@ -951,7 +1862,11 @@
           }
         }
       ],
-      "source": {"label": "practici împărțire utilități chirie RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practici împărțire utilități chirie RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "colocatar_recidiva",
@@ -962,11 +1877,27 @@
       "max_day": 30,
       "difficulty": 2,
       "chain_id": "colocatar",
-      "skill_tags": ["relationships", "budgeting"],
-      "conditions": [{"type": "hasFlag", "flag": "colocatar_evitat"}],
-      "exclusions": [{"type": "completedEvent", "id": "colocatar_intarzie"}],
+      "skill_tags": [
+        "relationships",
+        "budgeting"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "colocatar_evitat"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "colocatar_intarzie"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Din nou întârzie cu banii", "en": "Late with the money again"},
+      "title": {
+        "ro": "Din nou întârzie cu banii",
+        "en": "Late with the money again"
+      },
       "narrative": {
         "ro": "A doua factură, aceeași poveste: colegul întârzie iar cu partea lui. Ce ai lăsat să treacă o dată se repetă.",
         "en": "Second bill, same story: your roommate is late with their share again. What you let slide once is repeating."
@@ -974,11 +1905,25 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Stabiliți reguli clare: dată fixă + aplicație de împărțire", "en": "Set clear rules: fixed date + a bill-split app"},
+          "label": {
+            "ro": "Stabiliți reguli clare: dată fixă + aplicație de împărțire",
+            "en": "Set clear rules: fixed date + a bill-split app"
+          },
           "effects": [
-            {"type": "stat", "stat": "relationships", "delta": 3},
-            {"type": "stat", "stat": "stress", "delta": -2},
-            {"type": "clearFlag", "flag": "colocatar_evitat"}
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            },
+            {
+              "type": "clearFlag",
+              "flag": "colocatar_evitat"
+            }
           ],
           "debrief": {
             "ro": "O regulă clară, agreată de amândoi, protejează și banii, și relația. Un sistem simplu scoate emoția din discuția lunară.",
@@ -986,11 +1931,25 @@
           }
         },
         {
-          "label": {"ro": "Acoperi iar tu, în tăcere (~120 lei)", "en": "Cover it again yourself, in silence (~120 lei)"},
+          "label": {
+            "ro": "Acoperi iar tu, în tăcere (~120 lei)",
+            "en": "Cover it again yourself, in silence (~120 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -12000},
-            {"type": "stat", "stat": "stress", "delta": 5},
-            {"type": "stat", "stat": "relationships", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -12000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Pacea de moment costă iar bani și adună frustrare. Fără un sistem, aceeași discuție se întoarce luna viitoare.",
@@ -998,7 +1957,11 @@
           }
         }
       ],
-      "source": {"label": "practici împărțire utilități chirie RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "practici împărțire utilități chirie RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "inundatie_vecin",
@@ -1009,9 +1972,15 @@
       "min_day": 8,
       "max_day": 30,
       "difficulty": 3,
-      "skill_tags": ["emergency_fund", "opportunity_cost"],
+      "skill_tags": [
+        "emergency_fund",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Vecinul de sus te-a inundat", "en": "The upstairs neighbor flooded you"},
+      "title": {
+        "ro": "Vecinul de sus te-a inundat",
+        "en": "The upstairs neighbor flooded you"
+      },
       "narrative": {
         "ro": "O țeavă spartă la etajul de sus a lăsat pete pe tavan și a udat o parte din lucruri. Vecinul își cere scuze, dar paguba e făcută.",
         "en": "A burst pipe upstairs left stains on your ceiling and soaked some of your things. The neighbor apologizes, but the damage is done."
@@ -1019,13 +1988,35 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Anunți proprietarul și asociația, documentezi cu poze", "en": "Notify the landlord and the association, document with photos"},
+          "label": {
+            "ro": "Anunți proprietarul și asociația, documentezi cu poze",
+            "en": "Notify the landlord and the association, document with photos"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 4},
-            {"type": "setFlag", "flag": "inundatie_documentata"},
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [
-              {"type": "stat", "stat": "stress", "delta": -2}
-            ], "note": {"ro": "Dauna se acoperă prin asigurarea vecinului / a blocului", "en": "The damage is covered through the neighbor's / building's insurance"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            },
+            {
+              "type": "setFlag",
+              "flag": "inundatie_documentata"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": -2
+                }
+              ],
+              "note": {
+                "ro": "Dauna se acoperă prin asigurarea vecinului / a blocului",
+                "en": "The damage is covered through the neighbor's / building's insurance"
+              }
+            }
           ],
           "debrief": {
             "ro": "Pozele și anunțul corect mută costul spre cine e responsabil, nu spre tine. Documentarea la timp e cea mai ieftină formă de asigurare.",
@@ -1033,10 +2024,20 @@
           }
         },
         {
-          "label": {"ro": "Cumperi tu ce s-a stricat, ca să termini repede (~300 lei)", "en": "Just replace the ruined items yourself to be done (~300 lei)"},
+          "label": {
+            "ro": "Cumperi tu ce s-a stricat, ca să termini repede (~300 lei)",
+            "en": "Just replace the ruined items yourself to be done (~300 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -30000},
-            {"type": "stat", "stat": "stress", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -30000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Rapid și fără bătăi de cap, dar ai plătit o daună care putea fi acoperită de vecin sau de asigurare. Comoditatea a costat 300 de lei.",
@@ -1044,7 +2045,11 @@
           }
         }
       ],
-      "source": {"label": "proceduri daune inundații locative RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "proceduri daune inundații locative RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "chei_pierdute",
@@ -1055,9 +2060,15 @@
       "min_day": 3,
       "max_day": 30,
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost", "budgeting"],
+      "skill_tags": [
+        "opportunity_cost",
+        "budgeting"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Ai rămas pe dinafară", "en": "You're locked out"},
+      "title": {
+        "ro": "Ai rămas pe dinafară",
+        "en": "You're locked out"
+      },
       "narrative": {
         "ro": "Cauți cheile prin toate buzunarele. Nicăieri. E seară, ușa e încuiată, iar tu ești pe hol.",
         "en": "You dig through every pocket. Nothing. It's evening, the door is locked, and you're out in the hallway."
@@ -1065,10 +2076,20 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Chemi un lăcătuș de urgență acum (~200 lei, tarif de seară)", "en": "Call an emergency locksmith now (~200 lei, evening rate)"},
+          "label": {
+            "ro": "Chemi un lăcătuș de urgență acum (~200 lei, tarif de seară)",
+            "en": "Call an emergency locksmith now (~200 lei, evening rate)"
+          },
           "effects": [
-            {"type": "cash", "delta": -20000},
-            {"type": "stat", "stat": "stress", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Rezolvat în 30 de minute, dar tariful de urgență de seară e cel mai scump. Comoditatea imediată are un preț vizibil.",
@@ -1076,11 +2097,25 @@
           }
         },
         {
-          "label": {"ro": "Dormi la un prieten, lăcătuș mâine la tarif normal (~120 lei)", "en": "Sleep at a friend's, locksmith tomorrow at normal rate (~120 lei)"},
+          "label": {
+            "ro": "Dormi la un prieten, lăcătuș mâine la tarif normal (~120 lei)",
+            "en": "Sleep at a friend's, locksmith tomorrow at normal rate (~120 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -12000},
-            {"type": "stat", "stat": "energy", "delta": -4},
-            {"type": "stat", "stat": "relationships", "delta": 1}
+            {
+              "type": "cash",
+              "delta": -12000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -4
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Ai economisit ~80 de lei cu puțină răbdare și un prieten. Ai plătit cu o noapte incomodă, un schimb pe care doar tu îl poți cântări.",
@@ -1088,10 +2123,21 @@
           }
         },
         {
-          "label": {"ro": "Suni proprietarul pentru cheia de rezervă", "en": "Call the landlord for the spare key"},
+          "label": {
+            "ro": "Suni proprietarul pentru cheia de rezervă",
+            "en": "Call the landlord for the spare key"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 1},
-            {"type": "stat", "stat": "relationships", "delta": 1}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            },
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Cel mai ieftin, dacă proprietarul are cheie de rezervă și e disponibil. Depinde de altcineva, de aceea o cheie de rezervă la un apropiat ajută mereu.",
@@ -1099,7 +2145,11 @@
           }
         }
       ],
-      "source": {"label": "tarife lăcătuși urgență RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "tarife lăcătuși urgență RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "mucegai_baie",
@@ -1110,9 +2160,14 @@
       "min_day": 6,
       "max_day": 30,
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost"],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "A apărut mucegai în baie", "en": "Mold has appeared in the bathroom"},
+      "title": {
+        "ro": "A apărut mucegai în baie",
+        "en": "Mold has appeared in the bathroom"
+      },
       "narrative": {
         "ro": "Pete negre în colțul de lângă duș, tot mai mari de la o zi la alta. Baia fără geam ține umezeala în pereți.",
         "en": "Black patches in the corner by the shower, growing bigger by the day. A windowless bathroom keeps the damp in the walls."
@@ -1120,11 +2175,24 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Cureți cu soluție antimucegai + anunți în scris proprietarul de umezeală (~60 lei)", "en": "Clean with anti-mold solution + notify the landlord in writing about the damp (~60 lei)"},
+          "label": {
+            "ro": "Cureți cu soluție antimucegai + anunți în scris proprietarul de umezeală (~60 lei)",
+            "en": "Clean with anti-mold solution + notify the landlord in writing about the damp (~60 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -6000},
-            {"type": "stat", "stat": "health", "delta": 1},
-            {"type": "setFlag", "flag": "mucegai_tratat"}
+            {
+              "type": "cash",
+              "delta": -6000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 1
+            },
+            {
+              "type": "setFlag",
+              "flag": "mucegai_tratat"
+            }
           ],
           "debrief": {
             "ro": "Tratezi cauza ieftin acum, iar anunțul scris pune problema structurală (ventilația) în seama proprietarului. Prevenția costă zeci, nu sute de lei.",
@@ -1132,12 +2200,30 @@
           }
         },
         {
-          "label": {"ro": "Ignori, e doar estetic", "en": "Ignore it, it's just cosmetic"},
+          "label": {
+            "ro": "Ignori, e doar estetic",
+            "en": "Ignore it, it's just cosmetic"
+          },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 6, "effects": [
-              {"type": "cash", "delta": -10000},
-              {"type": "stat", "stat": "health", "delta": -6}
-            ], "note": {"ro": "Mucegaiul s-a extins: iritații respiratorii + curățenie mai scumpă", "en": "The mold spread: respiratory irritation + a pricier clean-up"}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -10000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -6
+                }
+              ],
+              "note": {
+                "ro": "Mucegaiul s-a extins: iritații respiratorii + curățenie mai scumpă",
+                "en": "The mold spread: respiratory irritation + a pricier clean-up"
+              }
+            }
           ],
           "debrief": {
             "ro": "Mucegaiul ignorat nu e doar estetic. Afectează respirația și se extinde pe perete. Ce se rezolva cu 60 de lei a cerut mai mult, în bani și sănătate.",
@@ -1145,7 +2231,11 @@
           }
         }
       ],
-      "source": {"label": "prevenție mucegai locuințe + drepturi chiriaș RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prevenție mucegai locuințe + drepturi chiriaș RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "vecin_zgomot",
@@ -1156,9 +2246,14 @@
       "min_day": 4,
       "max_day": 30,
       "difficulty": 1,
-      "skill_tags": ["relationships"],
+      "skill_tags": [
+        "relationships"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Vecinul face gălăgie noaptea", "en": "The neighbor is noisy at night"},
+      "title": {
+        "ro": "Vecinul face gălăgie noaptea",
+        "en": "The neighbor is noisy at night"
+      },
       "narrative": {
         "ro": "A treia noapte cu muzică tare după miezul nopții. Dormi prost și te trezești obosit înainte de o zi de muncă.",
         "en": "Third night of loud music after midnight. You sleep badly and wake up tired before a workday."
@@ -1166,10 +2261,21 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Discuți politicos și propui un orar liniștit", "en": "Talk politely and suggest quiet hours"},
+          "label": {
+            "ro": "Discuți politicos și propui un orar liniștit",
+            "en": "Talk politely and suggest quiet hours"
+          },
           "effects": [
-            {"type": "stat", "stat": "relationships", "delta": 2},
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "O conversație calmă rezolvă cele mai multe conflicte de bloc, gratuit. Oamenii răspund mai bine la o rugăminte decât la o plângere.",
@@ -1177,14 +2283,41 @@
           }
         },
         {
-          "label": {"ro": "Suporți în tăcere", "en": "Put up with it in silence"},
+          "label": {
+            "ro": "Suporți în tăcere",
+            "en": "Put up with it in silence"
+          },
           "effects": [
-            {"type": "stat", "stat": "energy", "delta": -3},
-            {"type": "stat", "stat": "stress", "delta": 4},
-            {"type": "scheduleEffect", "delay_days": 4, "effects": [
-              {"type": "stat", "stat": "energy", "delta": -4},
-              {"type": "stat", "stat": "stress", "delta": 3}
-            ], "note": {"ro": "Nopțile pierdute ți-au scăzut energia la muncă", "en": "The lost nights drained your energy at work"}}
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -3
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 4,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -4
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 3
+                }
+              ],
+              "note": {
+                "ro": "Nopțile pierdute ți-au scăzut energia la muncă",
+                "en": "The lost nights drained your energy at work"
+              }
+            }
           ],
           "debrief": {
             "ro": "Evitarea conversației pare gratis, dar somnul pierdut are un cost în energie și randament. Uneori un cuvânt spus la timp e cea mai ieftină soluție.",
@@ -1192,10 +2325,21 @@
           }
         },
         {
-          "label": {"ro": "Escaladezi direct la asociație / poliția locală", "en": "Escalate straight to the association / local police"},
+          "label": {
+            "ro": "Escaladezi direct la asociație / poliția locală",
+            "en": "Escalate straight to the association / local police"
+          },
           "effects": [
-            {"type": "stat", "stat": "relationships", "delta": -3},
-            {"type": "stat", "stat": "stress", "delta": 1}
+            {
+              "type": "stat",
+              "stat": "relationships",
+              "delta": -3
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Uneori necesar când dialogul nu merge, dar sărirea peste discuție poate tensiona vecinătatea pe termen lung. E un instrument, nu primul pas.",
@@ -1203,7 +2347,11 @@
           }
         }
       ],
-      "source": {"label": "reglementări liniște publică RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "reglementări liniște publică RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "telefon_spart",
@@ -1215,9 +2363,16 @@
       "max_day": 25,
       "difficulty": 2,
       "chain_id": "telefon",
-      "skill_tags": ["opportunity_cost", "credit", "needs_wants"],
+      "skill_tags": [
+        "opportunity_cost",
+        "credit",
+        "needs_wants"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Ți-a crăpat ecranul telefonului", "en": "Your phone screen cracked"},
+      "title": {
+        "ro": "Ți-a crăpat ecranul telefonului",
+        "en": "Your phone screen cracked"
+      },
       "narrative": {
         "ro": "Ți-a alunecat telefonul din mână pe asfalt. Ecranul e plin de fisuri, dar încă răspunde la atingere.",
         "en": "Your phone slipped from your hand onto the pavement. The screen is a web of cracks, but it still responds to touch."
@@ -1225,9 +2380,15 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Repari ecranul (~350 lei)", "en": "Repair the screen (~350 lei)"},
+          "label": {
+            "ro": "Repari ecranul (~350 lei)",
+            "en": "Repair the screen (~350 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -35000}
+            {
+              "type": "cash",
+              "delta": -35000
+            }
           ],
           "debrief": {
             "ro": "350 de lei și telefonul redevine ca nou. Cost mediu, clar, fără urmări: repari exact ce s-a stricat.",
@@ -1235,10 +2396,20 @@
           }
         },
         {
-          "label": {"ro": "Trăiești așa, cu ecranul crăpat", "en": "Live with it, cracked screen and all"},
+          "label": {
+            "ro": "Trăiești așa, cu ecranul crăpat",
+            "en": "Live with it, cracked screen and all"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "telefon_crapat"},
-            {"type": "scheduleEvent", "delay_days": 5, "event_id": "telefon_mort"}
+            {
+              "type": "setFlag",
+              "flag": "telefon_crapat"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 5,
+              "event_id": "telefon_mort"
+            }
           ],
           "debrief": {
             "ro": "0 lei acum și telefonul merge. Dar cioburile și umezeala se strecoară sub sticlă. Ecranele crăpate rar rămân stabile.",
@@ -1246,9 +2417,18 @@
           }
         },
         {
-          "label": {"ro": "Telefon nou în rate (12 × ~120 lei)", "en": "New phone on installments (12 × ~120 lei)"},
+          "label": {
+            "ro": "Telefon nou în rate (12 × ~120 lei)",
+            "en": "New phone on installments (12 × ~120 lei)"
+          },
           "effects": [
-            {"type": "createDebt", "id": "telefon_nou", "principal": 144000, "monthly": 12000, "due_day": 20}
+            {
+              "type": "createDebt",
+              "id": "telefon_nou",
+              "principal": 144000,
+              "monthly": 12000,
+              "due_day": 20
+            }
           ],
           "debrief": {
             "ro": "Telefon nou fără efort azi, dar o rată de 120 lei îți intră în buget lună de lună, un an întreg. Ratele mici, adunate, sunt tot o datorie.",
@@ -1256,7 +2436,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri reparații ecran + telefoane în rate RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri reparații ecran + telefoane în rate RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "telefon_mort",
@@ -1267,11 +2451,27 @@
       "max_day": 30,
       "difficulty": 3,
       "chain_id": "telefon",
-      "skill_tags": ["opportunity_cost", "credit"],
-      "conditions": [{"type": "hasFlag", "flag": "telefon_crapat"}],
-      "exclusions": [{"type": "completedEvent", "id": "telefon_spart"}],
+      "skill_tags": [
+        "opportunity_cost",
+        "credit"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "telefon_crapat"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "telefon_spart"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Ecranul a murit de tot", "en": "The screen died completely"},
+      "title": {
+        "ro": "Ecranul a murit de tot",
+        "en": "The screen died completely"
+      },
       "narrative": {
         "ro": "Dimineață, ecranul e negru și nu mai răspunde la atingere. Din fisuri s-a ajuns la un telefon inutilizabil.",
         "en": "This morning the screen is black and no longer responds to touch. From cracks you've reached an unusable phone."
@@ -1279,10 +2479,19 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Reparație majoră: ecran + touch (~550 lei)", "en": "Major repair: screen + touch (~550 lei)"},
+          "label": {
+            "ro": "Reparație majoră: ecran + touch (~550 lei)",
+            "en": "Major repair: screen + touch (~550 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -55000},
-            {"type": "clearFlag", "flag": "telefon_crapat"}
+            {
+              "type": "cash",
+              "delta": -55000
+            },
+            {
+              "type": "clearFlag",
+              "flag": "telefon_crapat"
+            }
           ],
           "debrief": {
             "ro": "Amânarea a dublat costul reparației: de la o fisură de 350 de lei la un ecran mort de 550. O reparație mică făcută la timp e de obicei cea mai ieftină.",
@@ -1290,10 +2499,22 @@
           }
         },
         {
-          "label": {"ro": "Telefon nou în rate acum (12 × ~120 lei)", "en": "New phone on installments now (12 × ~120 lei)"},
+          "label": {
+            "ro": "Telefon nou în rate acum (12 × ~120 lei)",
+            "en": "New phone on installments now (12 × ~120 lei)"
+          },
           "effects": [
-            {"type": "createDebt", "id": "telefon_nou", "principal": 144000, "monthly": 12000, "due_day": 20},
-            {"type": "clearFlag", "flag": "telefon_crapat"}
+            {
+              "type": "createDebt",
+              "id": "telefon_nou",
+              "principal": 144000,
+              "monthly": 12000,
+              "due_day": 20
+            },
+            {
+              "type": "clearFlag",
+              "flag": "telefon_crapat"
+            }
           ],
           "debrief": {
             "ro": "Ai ajuns tot la un telefon nou pe rate, dar după câteva zile fără un telefon funcțional. Aceeași datorie, cu un disconfort în plus pe drum.",
@@ -1301,7 +2522,11 @@
           }
         }
       ],
-      "source": {"label": "prețuri reparații majore + telefoane în rate RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "prețuri reparații majore + telefoane în rate RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "ospatar_spate",
@@ -1311,11 +2536,18 @@
       "cooldown_days": 30,
       "min_day": 5,
       "max_day": 30,
-      "role_tags": ["ospatar"],
+      "role_tags": [
+        "ospatar"
+      ],
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost"],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Te dor picioarele și spatele", "en": "Your legs and back ache"},
+      "title": {
+        "ro": "Te dor picioarele și spatele",
+        "en": "Your legs and back ache"
+      },
       "narrative": {
         "ro": "După ture lungi în picioare, spatele și gleznele îți cer atenție. Durerea se adună de la o seară la alta.",
         "en": "After long shifts on your feet, your back and ankles demand attention. The ache builds from one evening to the next."
@@ -1323,11 +2555,25 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Încălțăminte bună + recuperare (~250 lei)", "en": "Proper footwear + recovery (~250 lei)"},
+          "label": {
+            "ro": "Încălțăminte bună + recuperare (~250 lei)",
+            "en": "Proper footwear + recovery (~250 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -25000},
-            {"type": "stat", "stat": "health", "delta": 4},
-            {"type": "stat", "stat": "energy", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -25000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "250 de lei în încălțăminte și câteva ședințe atacă cauza. La un job pe picioare, corpul e unealta ta, iar întreținerea lui e o investiție.",
@@ -1335,15 +2581,44 @@
           }
         },
         {
-          "label": {"ro": "Analgezice și treci peste (~20 lei)", "en": "Painkillers and push on (~20 lei)"},
+          "label": {
+            "ro": "Analgezice și treci peste (~20 lei)",
+            "en": "Painkillers and push on (~20 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -2000},
-            {"type": "stat", "stat": "health", "delta": -3},
-            {"type": "scheduleEffect", "delay_days": 5, "effects": [
-              {"type": "cash", "delta": -18000},
-              {"type": "stat", "stat": "health", "delta": -5},
-              {"type": "stat", "stat": "energy", "delta": -4}
-            ], "note": {"ro": "Spatele a cedat: câteva ședințe de recuperare + o tură ratată", "en": "Your back gave out: several recovery sessions + a missed shift"}}
+            {
+              "type": "cash",
+              "delta": -2000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -3
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 5,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -18000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -5
+                },
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -4
+                }
+              ],
+              "note": {
+                "ro": "Spatele a cedat: câteva ședințe de recuperare + o tură ratată",
+                "en": "Your back gave out: several recovery sessions + a missed shift"
+              }
+            }
           ],
           "debrief": {
             "ro": "Analgezicele ascund semnalul, nu repară postura. Ignorat, spatele adună zile ratate și o factură la recuperare peste costul unei încălțăminte bune.",
@@ -1351,7 +2626,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "farmacie_generic",
@@ -1362,9 +2641,14 @@
       "min_day": 2,
       "max_day": 28,
       "difficulty": 1,
-      "skill_tags": ["budgeting"],
+      "skill_tags": [
+        "budgeting"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Generic sau de marcă la farmacie?", "en": "Generic or brand at the pharmacy?"},
+      "title": {
+        "ro": "Generic sau de marcă la farmacie?",
+        "en": "Generic or brand at the pharmacy?"
+      },
       "narrative": {
         "ro": "Farmacistul îți spune că există un generic cu aceeași substanță, la jumătate de preț față de cutia de marcă.",
         "en": "The pharmacist tells you there is a generic with the same substance, at half the price of the brand box."
@@ -1372,10 +2656,20 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Iei genericul (~30 lei)", "en": "Take the generic (~30 lei)"},
+          "label": {
+            "ro": "Iei genericul (~30 lei)",
+            "en": "Take the generic (~30 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -3000},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -3000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Aceeași substanță activă, jumătate de preț. La medicamentele uzuale, genericul verificat face aceeași treabă cu mai puțini bani.",
@@ -1383,9 +2677,15 @@
           }
         },
         {
-          "label": {"ro": "Rămâi la marca știută (~55 lei)", "en": "Stick with the known brand (~55 lei)"},
+          "label": {
+            "ro": "Rămâi la marca știută (~55 lei)",
+            "en": "Stick with the known brand (~55 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -5500}
+            {
+              "type": "cash",
+              "delta": -5500
+            }
           ],
           "debrief": {
             "ro": "Ai plătit în plus pentru ambalajul familiar. Uneori marca aduce încredere, dar pe substanțe identice diferența e doar preț.",
@@ -1393,7 +2693,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "vaccin_gripal",
@@ -1404,9 +2708,14 @@
       "min_day": 2,
       "max_day": 20,
       "difficulty": 1,
-      "skill_tags": ["opportunity_cost"],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Sezonul de vaccin antigripal", "en": "Flu shot season"},
+      "title": {
+        "ro": "Sezonul de vaccin antigripal",
+        "en": "Flu shot season"
+      },
       "narrative": {
         "ro": "Farmacia din colț face vaccinul antigripal pe loc, ~90 lei. Sezonul rece bate la ușă și colegii încep să tușească.",
         "en": "The corner pharmacy does the flu shot on the spot, ~90 lei. The cold season is near and colleagues start to cough."
@@ -1414,10 +2723,20 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Îți faci vaccinul (~90 lei)", "en": "Get the shot (~90 lei)"},
+          "label": {
+            "ro": "Îți faci vaccinul (~90 lei)",
+            "en": "Get the shot (~90 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -9000},
-            {"type": "stat", "stat": "health", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -9000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "90 de lei acum pot cântări mai puțin decât o săptămână de gripă cu zile ratate. Prevenția plătită din timp e des cea mai ieftină.",
@@ -1425,13 +2744,35 @@
           }
         },
         {
-          "label": {"ro": "Sari peste, ai imunitate bună", "en": "Skip it, your immunity is good"},
+          "label": {
+            "ro": "Sari peste, ai imunitate bună",
+            "en": "Skip it, your immunity is good"
+          },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 6, "effects": [
-              {"type": "cash", "delta": -8000},
-              {"type": "stat", "stat": "health", "delta": -6},
-              {"type": "stat", "stat": "energy", "delta": -5}
-            ], "note": {"ro": "Ai prins un virus de sezon: medicamente + zile la pat", "en": "You caught a seasonal bug: meds + days in bed"}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -8000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -6
+                },
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -5
+                }
+              ],
+              "note": {
+                "ro": "Ai prins un virus de sezon: medicamente + zile la pat",
+                "en": "You caught a seasonal bug: meds + days in bed"
+              }
+            }
           ],
           "debrief": {
             "ro": "Poate scapi neatins, poate nu. Fără vaccin, un virus de sezon a adus medicamente și câteva zile pierdute, peste costul unei doze.",
@@ -1439,7 +2780,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "ochelari_vedere",
@@ -1450,9 +2795,15 @@
       "min_day": 4,
       "max_day": 30,
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost", "budgeting"],
+      "skill_tags": [
+        "opportunity_cost",
+        "budgeting"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Vezi tot mai încețoșat", "en": "Your sight is getting blurry"},
+      "title": {
+        "ro": "Vezi tot mai încețoșat",
+        "en": "Your sight is getting blurry"
+      },
       "narrative": {
         "ro": "Literele de pe ecran și de pe stradă se încețoșează. Ochii obosesc repede și te doare capul spre seară.",
         "en": "Letters on the screen and on the street go blurry. Your eyes tire fast and your head aches by evening."
@@ -1460,11 +2811,25 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Consult oftalmologic + ochelari (~500 lei)", "en": "Eye exam + glasses (~500 lei)"},
+          "label": {
+            "ro": "Consult oftalmologic + ochelari (~500 lei)",
+            "en": "Eye exam + glasses (~500 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -50000},
-            {"type": "stat", "stat": "health", "delta": 3},
-            {"type": "stat", "stat": "energy", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -50000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "500 de lei rezolvă cauza durerilor de cap și a oboselii. O dioptrie corectată la timp îți protejează ochii și randamentul zilnic.",
@@ -1472,15 +2837,45 @@
           }
         },
         {
-          "label": {"ro": "Amâni, te descurci așa (~15 lei)", "en": "Postpone, you will manage (~15 lei)"},
+          "label": {
+            "ro": "Amâni, te descurci așa (~15 lei)",
+            "en": "Postpone, you will manage (~15 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -1500},
-            {"type": "stat", "stat": "energy", "delta": -3},
-            {"type": "scheduleEffect", "delay_days": 6, "effects": [
-              {"type": "stat", "stat": "health", "delta": -4},
-              {"type": "stat", "stat": "energy", "delta": -4},
-              {"type": "stat", "stat": "stress", "delta": 3}
-            ], "note": {"ro": "Oboseala ochilor s-a adunat: dureri de cap dese și somn prost", "en": "Eye strain piled up: frequent headaches and poor sleep"}}
+            {
+              "type": "cash",
+              "delta": -1500
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -3
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -4
+                },
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -4
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 3
+                }
+              ],
+              "note": {
+                "ro": "Oboseala ochilor s-a adunat: dureri de cap dese și somn prost",
+                "en": "Eye strain piled up: frequent headaches and poor sleep"
+              }
+            }
           ],
           "debrief": {
             "ro": "Antinevralgicele calmează simptomul, nu dioptria. Amânată, oboseala ochilor se transformă în dureri de cap dese și nopți proaste.",
@@ -1488,7 +2883,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "saltea_somn",
@@ -1499,9 +2898,14 @@
       "min_day": 6,
       "max_day": 30,
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost"],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Salteaua veche îți strică somnul", "en": "The old mattress ruins your sleep"},
+      "title": {
+        "ro": "Salteaua veche îți strică somnul",
+        "en": "The old mattress ruins your sleep"
+      },
       "narrative": {
         "ro": "Te trezești cu spatele înțepenit și nedormit. Salteaua lăsată la mijloc nu mai ține, iar nopțile proaste se adună.",
         "en": "You wake up stiff and unrested. The sagging mattress gives no support, and the bad nights add up."
@@ -1509,12 +2913,30 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Saltea nouă, decentă (~700 lei)", "en": "A decent new mattress (~700 lei)"},
+          "label": {
+            "ro": "Saltea nouă, decentă (~700 lei)",
+            "en": "A decent new mattress (~700 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -70000},
-            {"type": "stat", "stat": "health", "delta": 4},
-            {"type": "stat", "stat": "energy", "delta": 4},
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "cash",
+              "delta": -70000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": 4
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "700 de lei, dar o treime din viață o petreci dormind. Un somn bun se vede a doua zi în energie, dispoziție și sănătate.",
@@ -1522,13 +2944,36 @@
           }
         },
         {
-          "label": {"ro": "Mai reziști, pui o pătură dedesubt", "en": "Hold on, add a blanket underneath"},
+          "label": {
+            "ro": "Mai reziști, pui o pătură dedesubt",
+            "en": "Hold on, add a blanket underneath"
+          },
           "effects": [
-            {"type": "stat", "stat": "energy", "delta": -3},
-            {"type": "scheduleEffect", "delay_days": 7, "effects": [
-              {"type": "stat", "stat": "health", "delta": -4},
-              {"type": "stat", "stat": "energy", "delta": -4}
-            ], "note": {"ro": "Nopțile proaste s-au adunat: spate blocat și energie scăzută", "en": "Bad nights piled up: locked back and low energy"}}
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -3
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 7,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -4
+                },
+                {
+                  "type": "stat",
+                  "stat": "energy",
+                  "delta": -4
+                }
+              ],
+              "note": {
+                "ro": "Nopțile proaste s-au adunat: spate blocat și energie scăzută",
+                "en": "Bad nights piled up: locked back and low energy"
+              }
+            }
           ],
           "debrief": {
             "ro": "Improvizația amână cheltuiala, dar nu și oboseala. Un somn prost, noapte după noapte, are un cost tăcut în sănătate și energie.",
@@ -1536,7 +2981,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "intoxicatie_alimentara",
@@ -1547,9 +2996,15 @@
       "min_day": 5,
       "max_day": 30,
       "difficulty": 3,
-      "skill_tags": ["emergency_fund", "opportunity_cost"],
+      "skill_tags": [
+        "emergency_fund",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Te-a răpus o mâncare stricată", "en": "Bad food knocked you out"},
+      "title": {
+        "ro": "Te-a răpus o mâncare stricată",
+        "en": "Bad food knocked you out"
+      },
       "narrative": {
         "ro": "O masă comandată în grabă îți dă peste cap stomacul toată noaptea. Dimineața ești slăbit și deshidratat.",
         "en": "A meal ordered in a rush upsets your stomach all night. By morning you are weak and dehydrated."
@@ -1557,12 +3012,30 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Stai acasă, te rehidratezi (~40 lei)", "en": "Stay home, rehydrate (~40 lei)"},
+          "label": {
+            "ro": "Stai acasă, te rehidratezi (~40 lei)",
+            "en": "Stay home, rehydrate (~40 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -4000},
-            {"type": "stat", "stat": "health", "delta": 3},
-            {"type": "stat", "stat": "energy", "delta": -2},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -4000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 3
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "40 de lei pe săruri și o zi de repaus opresc lucrurile la timp. Într-o intoxicație, odihna și hidratarea fac cât un tratament scump.",
@@ -1570,15 +3043,45 @@
           }
         },
         {
-          "label": {"ro": "Te forțezi să mergi la muncă", "en": "Force yourself to go to work"},
+          "label": {
+            "ro": "Te forțezi să mergi la muncă",
+            "en": "Force yourself to go to work"
+          },
           "effects": [
-            {"type": "stat", "stat": "health", "delta": -6},
-            {"type": "stat", "stat": "energy", "delta": -6},
-            {"type": "stat", "stat": "stress", "delta": 5},
-            {"type": "scheduleEffect", "delay_days": 2, "effects": [
-              {"type": "cash", "delta": -15000},
-              {"type": "stat", "stat": "health", "delta": -5}
-            ], "note": {"ro": "Deshidratarea s-a agravat: o vizită la urgențe + perfuzie", "en": "The dehydration worsened: an ER visit + a drip"}}
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -6
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -6
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -15000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -5
+                }
+              ],
+              "note": {
+                "ro": "Deshidratarea s-a agravat: o vizită la urgențe + perfuzie",
+                "en": "The dehydration worsened: an ER visit + a drip"
+              }
+            }
           ],
           "debrief": {
             "ro": "Efortul pe un corp slăbit a împins deshidratarea spre urgențe. Uneori cea mai scumpă alegere e să ignori un semnal clar al corpului.",
@@ -1586,7 +3089,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "sofer_masina_service",
@@ -1596,12 +3103,20 @@
       "cooldown_days": 30,
       "min_day": 4,
       "max_day": 26,
-      "role_tags": ["sofer_ridesharing"],
+      "role_tags": [
+        "sofer_ridesharing"
+      ],
       "difficulty": 2,
       "chain_id": "sofer_masina",
-      "skill_tags": ["emergency_fund", "opportunity_cost"],
+      "skill_tags": [
+        "emergency_fund",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Mașina de lucru intră în service", "en": "Your work car goes to the shop"},
+      "title": {
+        "ro": "Mașina de lucru intră în service",
+        "en": "Your work car goes to the shop"
+      },
       "narrative": {
         "ro": "Mașina cu care faci curse are o problemă la ambreiaj. Cât stă în service, venitul tău din aplicație se oprește.",
         "en": "The car you drive for rides has a clutch problem. While it sits in the shop, your app income stops."
@@ -1609,10 +3124,20 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Service rapid, gata mâine (~1.200 lei)", "en": "Fast shop, ready tomorrow (~1,200 lei)"},
+          "label": {
+            "ro": "Service rapid, gata mâine (~1.200 lei)",
+            "en": "Fast shop, ready tomorrow (~1,200 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -120000},
-            {"type": "stat", "stat": "stress", "delta": -2}
+            {
+              "type": "cash",
+              "delta": -120000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            }
           ],
           "debrief": {
             "ro": "1.200 de lei, dar mașina lucrează din nou mâine. La un venit care depinde de ea, o zi oprită poate costa mai mult decât graba plătită.",
@@ -1620,11 +3145,24 @@
           }
         },
         {
-          "label": {"ro": "Service ieftin, dar durează câteva zile (~700 lei)", "en": "Cheap shop, but it takes a few days (~700 lei)"},
+          "label": {
+            "ro": "Service ieftin, dar durează câteva zile (~700 lei)",
+            "en": "Cheap shop, but it takes a few days (~700 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -70000},
-            {"type": "setFlag", "flag": "sofer_masina_oprita"},
-            {"type": "scheduleEvent", "delay_days": 3, "event_id": "sofer_venit_pierdut"}
+            {
+              "type": "cash",
+              "delta": -70000
+            },
+            {
+              "type": "setFlag",
+              "flag": "sofer_masina_oprita"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 3,
+              "event_id": "sofer_venit_pierdut"
+            }
           ],
           "debrief": {
             "ro": "Ai tăiat 500 de lei la reparație. Dar fiecare zi fără mașină înseamnă curse nefăcute: economia la deviz se poate întoarce ca venit pierdut.",
@@ -1632,7 +3170,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "sofer_venit_pierdut",
@@ -1641,14 +3183,31 @@
       "weight": 3,
       "min_day": 1,
       "max_day": 30,
-      "role_tags": ["sofer_ridesharing"],
+      "role_tags": [
+        "sofer_ridesharing"
+      ],
       "difficulty": 3,
       "chain_id": "sofer_masina",
-      "skill_tags": ["emergency_fund"],
-      "conditions": [{"type": "hasFlag", "flag": "sofer_masina_oprita"}],
-      "exclusions": [{"type": "completedEvent", "id": "sofer_masina_service"}],
+      "skill_tags": [
+        "emergency_fund"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "sofer_masina_oprita"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "sofer_masina_service"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "A treia zi fără mașină", "en": "Third day without the car"},
+      "title": {
+        "ro": "A treia zi fără mașină",
+        "en": "Third day without the car"
+      },
       "narrative": {
         "ro": "Reparația ieftină a tras de timp și mașina încă e în service. Trei zile fără curse ți-au subțiat serios veniturile săptămânii.",
         "en": "The cheap repair dragged on and the car is still in the shop. Three days without rides thinned your week's income badly."
@@ -1656,11 +3215,24 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Închiriezi o mașină ca să lucrezi (~350 lei)", "en": "Rent a car so you can work (~350 lei)"},
+          "label": {
+            "ro": "Închiriezi o mașină ca să lucrezi (~350 lei)",
+            "en": "Rent a car so you can work (~350 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -35000},
-            {"type": "stat", "stat": "energy", "delta": -3},
-            {"type": "clearFlag", "flag": "sofer_masina_oprita"}
+            {
+              "type": "cash",
+              "delta": -35000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -3
+            },
+            {
+              "type": "clearFlag",
+              "flag": "sofer_masina_oprita"
+            }
           ],
           "debrief": {
             "ro": "350 de lei ca să nu stai pe loc. La un venit variabil, un fond de urgență ar fi acoperit exact acest gol fără o cheltuială în plus.",
@@ -1668,13 +3240,35 @@
           }
         },
         {
-          "label": {"ro": "Aștepți mașina, fără venit până atunci", "en": "Wait for the car, no income until then"},
+          "label": {
+            "ro": "Aștepți mașina, fără venit până atunci",
+            "en": "Wait for the car, no income until then"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 8},
-            {"type": "scheduleEffect", "delay_days": 2, "effects": [
-              {"type": "cash", "delta": -20000},
-              {"type": "stat", "stat": "stress", "delta": 4}
-            ], "note": {"ro": "Zilele fără curse ți-au lăsat o gaură în buget la final de lună", "en": "The days without rides left a hole in your end-of-month budget"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 8
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -20000
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 4
+                }
+              ],
+              "note": {
+                "ro": "Zilele fără curse ți-au lăsat o gaură în buget la final de lună",
+                "en": "The days without rides left a hole in your end-of-month budget"
+              }
+            }
           ],
           "debrief": {
             "ro": "Fără venit câteva zile, bugetul lunii a rămas descoperit. Un venit variabil cere o rezervă tocmai pentru astfel de pauze neplanificate.",
@@ -1682,7 +3276,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "pana_cauciuc",
@@ -1692,12 +3290,25 @@
       "cooldown_days": 30,
       "min_day": 3,
       "max_day": 28,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 2,
-      "skill_tags": ["emergency_fund", "opportunity_cost"],
-      "conditions": [{"type": "hasFlag", "flag": "are_masina"}],
+      "skill_tags": [
+        "emergency_fund",
+        "opportunity_cost"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "are_masina"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Pană de cauciuc pe drum", "en": "A flat tire on the road"},
+      "title": {
+        "ro": "Pană de cauciuc pe drum",
+        "en": "A flat tire on the road"
+      },
       "narrative": {
         "ro": "Un bordur luat greșit și cauciucul din față e dezumflat. Ești pe marginea drumului, cu roata de rezervă în portbagaj.",
         "en": "A curb taken wrong and the front tire is flat. You are on the roadside, with the spare in the trunk."
@@ -1705,10 +3316,21 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Montezi roata de rezervă singur", "en": "Fit the spare yourself"},
+          "label": {
+            "ro": "Montezi roata de rezervă singur",
+            "en": "Fit the spare yourself"
+          },
           "effects": [
-            {"type": "stat", "stat": "energy", "delta": -2},
-            {"type": "stat", "stat": "stress", "delta": 1}
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "Zero lei și 20 de minute, dacă știi să schimbi o roată. O abilitate simplă te scoate din multe situații fără să plătești tractare.",
@@ -1716,10 +3338,20 @@
           }
         },
         {
-          "label": {"ro": "Chemi tractare + vulcanizare (~250 lei)", "en": "Call a tow + tire shop (~250 lei)"},
+          "label": {
+            "ro": "Chemi tractare + vulcanizare (~250 lei)",
+            "en": "Call a tow + tire shop (~250 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -25000},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -25000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "250 de lei pentru comoditate și siguranță, mai ales pe vreme rea. Merită dacă nu ai unealta sau experiența, dar e evitabil cu puțină practică.",
@@ -1727,7 +3359,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "amenda_parcare",
@@ -1738,9 +3374,15 @@
       "min_day": 3,
       "max_day": 28,
       "difficulty": 2,
-      "skill_tags": ["budgeting", "opportunity_cost"],
+      "skill_tags": [
+        "budgeting",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Ai luat o amendă de parcare", "en": "You got a parking fine"},
+      "title": {
+        "ro": "Ai luat o amendă de parcare",
+        "en": "You got a parking fine"
+      },
       "narrative": {
         "ro": "Ai lăsat mașina 10 minute într-o zonă cu plată și te-a prins. Amenda e 200 lei, redusă la jumătate dacă plătești în 15 zile.",
         "en": "You left the car 10 minutes in a paid zone and got caught. The fine is 200 lei, halved if you pay within 15 days."
@@ -1748,10 +3390,20 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Plătești acum, la jumătate (~100 lei)", "en": "Pay now, at half (~100 lei)"},
+          "label": {
+            "ro": "Plătești acum, la jumătate (~100 lei)",
+            "en": "Pay now, at half (~100 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -10000},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -10000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "100 de lei acum închid subiectul. Termenul redus e o reducere reală: aceeași greșeală costă dublu dacă lași plata să treacă de 15 zile.",
@@ -1759,13 +3411,34 @@
           }
         },
         {
-          "label": {"ro": "Amâni, poate uiți de ea", "en": "Postpone, maybe you forget it"},
+          "label": {
+            "ro": "Amâni, poate uiți de ea",
+            "en": "Postpone, maybe you forget it"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "amenda_amanata"},
-            {"type": "scheduleEffect", "delay_days": 16, "effects": [
-              {"type": "cash", "delta": -20000},
-              {"type": "stat", "stat": "stress", "delta": 4}
-            ], "note": {"ro": "Termenul redus a expirat: amenda s-a dublat la 200 lei", "en": "The reduced term expired: the fine doubled to 200 lei"}}
+            {
+              "type": "setFlag",
+              "flag": "amenda_amanata"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 16,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -20000
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 4
+                }
+              ],
+              "note": {
+                "ro": "Termenul redus a expirat: amenda s-a dublat la 200 lei",
+                "en": "The reduced term expired: the fine doubled to 200 lei"
+              }
+            }
           ],
           "debrief": {
             "ro": "Uitarea nu anulează amenda, doar îi ridică prețul. Plata la termenul redus e cea mai ieftină cale printr-o greșeală deja făcută.",
@@ -1773,7 +3446,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "combustibil_statie",
@@ -1783,12 +3460,24 @@
       "cooldown_days": 30,
       "min_day": 2,
       "max_day": 28,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 1,
-      "skill_tags": ["budgeting"],
-      "conditions": [{"type": "hasFlag", "flag": "are_masina"}],
+      "skill_tags": [
+        "budgeting"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "are_masina"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Benzina s-a scumpit iar", "en": "Fuel got pricier again"},
+      "title": {
+        "ro": "Benzina s-a scumpit iar",
+        "en": "Fuel got pricier again"
+      },
       "narrative": {
         "ro": "Prețul la pompă a mai urcat. La plinul săptămânal, diferența dintre stații ajunge la câțiva zeci de lei pe lună.",
         "en": "The price at the pump went up again. On a weekly fill, the gap between stations adds up to a few tens of lei a month."
@@ -1796,10 +3485,20 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Alimentezi la stația mai ieftină din drum", "en": "Fuel at the cheaper station on your route"},
+          "label": {
+            "ro": "Alimentezi la stația mai ieftină din drum",
+            "en": "Fuel at the cheaper station on your route"
+          },
           "effects": [
-            {"type": "cash", "delta": -25000},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -25000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Aceeași benzină, câțiva bani mai puțin pe litru. Pe un plin săptămânal, obiceiul de a compara stațiile strânge o sumă reală în timp.",
@@ -1807,9 +3506,15 @@
           }
         },
         {
-          "label": {"ro": "Alimentezi la prima stație, e mai comod", "en": "Fuel at the first station, it is easier"},
+          "label": {
+            "ro": "Alimentezi la prima stație, e mai comod",
+            "en": "Fuel at the first station, it is easier"
+          },
           "effects": [
-            {"type": "cash", "delta": -28000}
+            {
+              "type": "cash",
+              "delta": -28000
+            }
           ],
           "debrief": {
             "ro": "Comoditatea costă câțiva lei în plus de fiecare dată. Puțin acum, dar obiceiul repetat săptămânal se adună la final de an.",
@@ -1817,7 +3522,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "masina_pana_drum",
@@ -1827,12 +3536,25 @@
       "cooldown_days": 30,
       "min_day": 8,
       "max_day": 30,
-      "role_tags": ["are_masina"],
+      "role_tags": [
+        "are_masina"
+      ],
       "difficulty": 3,
-      "skill_tags": ["emergency_fund", "credit"],
-      "conditions": [{"type": "hasFlag", "flag": "are_masina"}],
+      "skill_tags": [
+        "emergency_fund",
+        "credit"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "are_masina"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "Mașina s-a oprit pe șosea", "en": "The car died on the road"},
+      "title": {
+        "ro": "Mașina s-a oprit pe șosea",
+        "en": "The car died on the road"
+      },
       "narrative": {
         "ro": "Un fum din capotă și motorul se oprește pe banda de urgență. Nu mai pornește, iar în jur nu se vede niciun service.",
         "en": "Smoke from the hood and the engine cuts out on the emergency lane. It will not restart, and no shop is in sight."
@@ -1840,10 +3562,20 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Tractare + reparație la service (~1.500 lei)", "en": "Tow + repair at the shop (~1,500 lei)"},
+          "label": {
+            "ro": "Tractare + reparație la service (~1.500 lei)",
+            "en": "Tow + repair at the shop (~1,500 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -150000},
-            {"type": "stat", "stat": "stress", "delta": 4}
+            {
+              "type": "cash",
+              "delta": -150000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 4
+            }
           ],
           "debrief": {
             "ro": "1.500 de lei dintr-o dată, neplanificat. Exact genul de lovitură pentru care există un fond de urgență: îl atingi acum, nu te împrumuți.",
@@ -1851,10 +3583,23 @@
           }
         },
         {
-          "label": {"ro": "Împrumuți de la un prieten pentru reparație", "en": "Borrow from a friend for the repair"},
+          "label": {
+            "ro": "Împrumuți de la un prieten pentru reparație",
+            "en": "Borrow from a friend for the repair"
+          },
           "effects": [
-            {"type": "createDebt", "id": "imprumut_masina", "principal": 150000, "monthly": 30000, "due_day": 15},
-            {"type": "stat", "stat": "stress", "delta": 6}
+            {
+              "type": "createDebt",
+              "id": "imprumut_masina",
+              "principal": 150000,
+              "monthly": 30000,
+              "due_day": 15
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 6
+            }
           ],
           "debrief": {
             "ro": "Mașina merge din nou, dar acum ai o datorie de rambursat lună de lună. Fără rezervă, o defecțiune se transformă direct în datorie.",
@@ -1862,7 +3607,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "student_camin_apa",
@@ -1872,12 +3621,20 @@
       "cooldown_days": 30,
       "min_day": 4,
       "max_day": 26,
-      "role_tags": ["student_partime"],
+      "role_tags": [
+        "student_partime"
+      ],
       "difficulty": 2,
       "chain_id": "camin_apa",
-      "skill_tags": ["budgeting", "opportunity_cost"],
+      "skill_tags": [
+        "budgeting",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Căminul e fără apă caldă", "en": "The dorm has no hot water"},
+      "title": {
+        "ro": "Căminul e fără apă caldă",
+        "en": "The dorm has no hot water"
+      },
       "narrative": {
         "ro": "A treia zi fără apă caldă în cămin. Administrația promite o rezolvare, dar dușul rece dimineața devine greu de suportat.",
         "en": "Third day without hot water in the dorm. Admin promises a fix, but the cold morning shower is getting hard to take."
@@ -1885,13 +3642,35 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Depui o cerere scrisă la administrație", "en": "File a written request with admin"},
+          "label": {
+            "ro": "Depui o cerere scrisă la administrație",
+            "en": "File a written request with admin"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 2},
-            {"type": "setFlag", "flag": "camin_apa_reclamata"},
-            {"type": "scheduleEffect", "delay_days": 3, "effects": [
-              {"type": "stat", "stat": "stress", "delta": -3}
-            ], "note": {"ro": "Cererea scrisă a mișcat lucrurile: apa caldă a revenit", "en": "The written request moved things: hot water is back"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "setFlag",
+              "flag": "camin_apa_reclamata"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 3,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": -3
+                }
+              ],
+              "note": {
+                "ro": "Cererea scrisă a mișcat lucrurile: apa caldă a revenit",
+                "en": "The written request moved things: hot water is back"
+              }
+            }
           ],
           "debrief": {
             "ro": "O cerere scrisă lasă urmă și obligă o instituție să răspundă. Gratis și mai eficientă decât zeci de reclamații spuse pe hol.",
@@ -1899,10 +3678,20 @@
           }
         },
         {
-          "label": {"ro": "Te speli la sala de sport a facultății (~50 lei)", "en": "Shower at the campus gym (~50 lei)"},
+          "label": {
+            "ro": "Te speli la sala de sport a facultății (~50 lei)",
+            "en": "Shower at the campus gym (~50 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -5000},
-            {"type": "stat", "stat": "health", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -5000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "50 de lei rezolvă disconfortul pe moment, dar plătești pentru ceva ce ți se cuvine deja. Bun doar dacă ceri în paralel reparația.",
@@ -1910,10 +3699,20 @@
           }
         },
         {
-          "label": {"ro": "Rabzi, poate se rezolvă singur", "en": "Put up with it, maybe it fixes itself"},
+          "label": {
+            "ro": "Rabzi, poate se rezolvă singur",
+            "en": "Put up with it, maybe it fixes itself"
+          },
           "effects": [
-            {"type": "setFlag", "flag": "camin_apa_ignorata"},
-            {"type": "scheduleEvent", "delay_days": 4, "event_id": "student_camin_persista"}
+            {
+              "type": "setFlag",
+              "flag": "camin_apa_ignorata"
+            },
+            {
+              "type": "scheduleEvent",
+              "delay_days": 4,
+              "event_id": "student_camin_persista"
+            }
           ],
           "debrief": {
             "ro": "Răbdarea e gratis, dar fără o cerere fermă instituția nu se grăbește. Un drept nefolosit rămâne des doar pe hârtie.",
@@ -1921,7 +3720,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "student_camin_persista",
@@ -1930,14 +3733,31 @@
       "weight": 3,
       "min_day": 1,
       "max_day": 30,
-      "role_tags": ["student_partime"],
+      "role_tags": [
+        "student_partime"
+      ],
       "difficulty": 2,
       "chain_id": "camin_apa",
-      "skill_tags": ["opportunity_cost"],
-      "conditions": [{"type": "hasFlag", "flag": "camin_apa_ignorata"}],
-      "exclusions": [{"type": "completedEvent", "id": "student_camin_apa"}],
+      "skill_tags": [
+        "opportunity_cost"
+      ],
+      "conditions": [
+        {
+          "type": "hasFlag",
+          "flag": "camin_apa_ignorata"
+        }
+      ],
+      "exclusions": [
+        {
+          "type": "completedEvent",
+          "id": "student_camin_apa"
+        }
+      ],
       "prerequisites": [],
-      "title": {"ro": "A șaptea zi cu duș rece", "en": "Seventh day of cold showers"},
+      "title": {
+        "ro": "A șaptea zi cu duș rece",
+        "en": "Seventh day of cold showers"
+      },
       "narrative": {
         "ro": "O săptămână întreagă fără apă caldă și nimic nu s-a mișcat. Ai început să răcești, iar răbdarea tăcută nu a schimbat nimic.",
         "en": "A whole week with no hot water and nothing has moved. You start catching colds, and silent patience changed nothing."
@@ -1945,13 +3765,35 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Cerere scrisă + semnături de la colegi", "en": "Written request + signatures from peers"},
+          "label": {
+            "ro": "Cerere scrisă + semnături de la colegi",
+            "en": "Written request + signatures from peers"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 1},
-            {"type": "clearFlag", "flag": "camin_apa_ignorata"},
-            {"type": "scheduleEffect", "delay_days": 2, "effects": [
-              {"type": "stat", "stat": "stress", "delta": -3}
-            ], "note": {"ro": "Presiunea colectivă a funcționat: apa caldă a revenit", "en": "Collective pressure worked: hot water is back"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 1
+            },
+            {
+              "type": "clearFlag",
+              "flag": "camin_apa_ignorata"
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": -3
+                }
+              ],
+              "note": {
+                "ro": "Presiunea colectivă a funcționat: apa caldă a revenit",
+                "en": "Collective pressure worked: hot water is back"
+              }
+            }
           ],
           "debrief": {
             "ro": "O cerere semnată de mai mulți cântărește mai greu decât o nemulțumire singură. Împreună, chiriașii și studenții negociază mai bine.",
@@ -1959,10 +3801,20 @@
           }
         },
         {
-          "label": {"ro": "Cumperi un boiler electric mic (~200 lei)", "en": "Buy a small electric water heater (~200 lei)"},
+          "label": {
+            "ro": "Cumperi un boiler electric mic (~200 lei)",
+            "en": "Buy a small electric water heater (~200 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -20000},
-            {"type": "stat", "stat": "health", "delta": 1}
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 1
+            }
           ],
           "debrief": {
             "ro": "200 de lei îți dau apă caldă acum, dar rezolvi din buzunar o problemă a căminului. Păstrează dovada reclamației, poate ceri decontarea.",
@@ -1970,7 +3822,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "bec_ars",
@@ -1981,9 +3837,14 @@
       "min_day": 2,
       "max_day": 30,
       "difficulty": 1,
-      "skill_tags": ["budgeting"],
+      "skill_tags": [
+        "budgeting"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Un bec ars și un raft desprins", "en": "A dead bulb and a loose shelf"},
+      "title": {
+        "ro": "Un bec ars și un raft desprins",
+        "en": "A dead bulb and a loose shelf"
+      },
       "narrative": {
         "ro": "S-a ars un bec pe hol și un raft din bucătărie s-a desprins. Mici lucruri, dar zilnice, care cer o mână de om.",
         "en": "A hallway bulb burned out and a kitchen shelf came loose. Small things, but daily ones, that need a hand."
@@ -1991,10 +3852,20 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Le repari singur (~40 lei materiale)", "en": "Fix them yourself (~40 lei materials)"},
+          "label": {
+            "ro": "Le repari singur (~40 lei materiale)",
+            "en": "Fix them yourself (~40 lei materials)"
+          },
           "effects": [
-            {"type": "cash", "delta": -4000},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -4000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "40 de lei pe bec și dibluri, plus 15 minute. Micile reparații casnice sunt des mai ieftine făcute singur decât chemând pe cineva.",
@@ -2002,9 +3873,15 @@
           }
         },
         {
-          "label": {"ro": "Chemi un meșter pentru tot (~150 lei)", "en": "Call a handyman for it all (~150 lei)"},
+          "label": {
+            "ro": "Chemi un meșter pentru tot (~150 lei)",
+            "en": "Call a handyman for it all (~150 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -15000}
+            {
+              "type": "cash",
+              "delta": -15000
+            }
           ],
           "debrief": {
             "ro": "150 de lei pentru 15 minute de muncă simplă. Merită dacă nu ai timp sau unelte, dar pentru lucruri mărunte diferența e mare.",
@@ -2012,7 +3889,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "robinet_picura",
@@ -2023,9 +3904,15 @@
       "min_day": 3,
       "max_day": 30,
       "difficulty": 1,
-      "skill_tags": ["budgeting", "opportunity_cost"],
+      "skill_tags": [
+        "budgeting",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Un robinet care picură întruna", "en": "A tap that keeps dripping"},
+      "title": {
+        "ro": "Un robinet care picură întruna",
+        "en": "A tap that keeps dripping"
+      },
       "narrative": {
         "ro": "Robinetul de la baie picură zi și noapte. Pare mărunt, dar apa care se scurge apare pe factură la final de lună.",
         "en": "The bathroom tap drips day and night. It seems minor, but the water running away shows up on the month's bill."
@@ -2033,10 +3920,20 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Schimbi garnitura singur (~25 lei)", "en": "Replace the washer yourself (~25 lei)"},
+          "label": {
+            "ro": "Schimbi garnitura singur (~25 lei)",
+            "en": "Replace the washer yourself (~25 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -2500},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -2500
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "25 de lei pe o garnitură opresc scurgerea și taie din factura la apă. O reparație măruntă la timp se plătește singură în câteva luni.",
@@ -2044,11 +3941,25 @@
           }
         },
         {
-          "label": {"ro": "Lași așa, picură doar puțin", "en": "Leave it, it only drips a little"},
+          "label": {
+            "ro": "Lași așa, picură doar puțin",
+            "en": "Leave it, it only drips a little"
+          },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 8, "effects": [
-              {"type": "cash", "delta": -6000}
-            ], "note": {"ro": "Picurul continuu a umflat factura la apă", "en": "The constant drip inflated the water bill"}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 8,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -6000
+                }
+              ],
+              "note": {
+                "ro": "Picurul continuu a umflat factura la apă",
+                "en": "The constant drip inflated the water bill"
+              }
+            }
           ],
           "debrief": {
             "ro": "Un picur pare nimic, dar curge non-stop. Lăsată, scurgerea a adăugat la factura la apă mai mult decât costa garnitura.",
@@ -2056,7 +3967,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "frigider_stricat",
@@ -2067,9 +3982,15 @@
       "min_day": 6,
       "max_day": 30,
       "difficulty": 3,
-      "skill_tags": ["emergency_fund", "opportunity_cost"],
+      "skill_tags": [
+        "emergency_fund",
+        "opportunity_cost"
+      ],
       "prerequisites": [],
-      "title": {"ro": "S-a stricat frigiderul", "en": "The fridge broke down"},
+      "title": {
+        "ro": "S-a stricat frigiderul",
+        "en": "The fridge broke down"
+      },
       "narrative": {
         "ro": "Frigiderul nu mai răcește și mâncarea din el începe să se strice. Afară nu e vreme de ținut nimic la geam.",
         "en": "The fridge stopped cooling and the food inside starts to spoil. It is not cold enough outside to keep anything either."
@@ -2077,10 +3998,20 @@
       "illustration": "cashy_worried",
       "choices": [
         {
-          "label": {"ro": "Reparație la un frigider care merită (~400 lei)", "en": "Repair a fridge worth keeping (~400 lei)"},
+          "label": {
+            "ro": "Reparație la un frigider care merită (~400 lei)",
+            "en": "Repair a fridge worth keeping (~400 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -40000},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "cash",
+              "delta": -40000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "400 de lei dacă frigiderul e relativ nou. Repararea unui aparat bun e des mai ieftină decât unul nou, dar depinde de vârsta lui.",
@@ -2088,10 +4019,20 @@
           }
         },
         {
-          "label": {"ro": "Frigider nou, model de bază (~1.400 lei)", "en": "New fridge, basic model (~1,400 lei)"},
+          "label": {
+            "ro": "Frigider nou, model de bază (~1.400 lei)",
+            "en": "New fridge, basic model (~1,400 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -140000},
-            {"type": "stat", "stat": "stress", "delta": 2}
+            {
+              "type": "cash",
+              "delta": -140000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "1.400 de lei dintr-o dată. Justificat dacă cel vechi era la capăt, altfel o reparație ținea încă un an. Un fond ar fi amortizat lovitura.",
@@ -2099,13 +4040,35 @@
           }
         },
         {
-          "label": {"ro": "Amâni, ții strictul necesar în ladă cu gheață", "en": "Postpone, keep essentials in a cooler"},
+          "label": {
+            "ro": "Amâni, ții strictul necesar în ladă cu gheață",
+            "en": "Postpone, keep essentials in a cooler"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 3},
-            {"type": "scheduleEffect", "delay_days": 5, "effects": [
-              {"type": "cash", "delta": -18000},
-              {"type": "stat", "stat": "health", "delta": -3}
-            ], "note": {"ro": "Mâncarea stricată și mesele luate în oraș au costat în plus", "en": "Spoiled food and eating out cost extra"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 5,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -18000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -3
+                }
+              ],
+              "note": {
+                "ro": "Mâncarea stricată și mesele luate în oraș au costat în plus",
+                "en": "Spoiled food and eating out cost extra"
+              }
+            }
           ],
           "debrief": {
             "ro": "Improvizația amână cheltuiala mare, dar mâncarea stricată și mesele în oraș se adună. Uneori amânarea mută costul, nu îl șterge.",
@@ -2113,7 +4076,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "chirie_marire",
@@ -2124,9 +4091,15 @@
       "min_day": 8,
       "max_day": 28,
       "difficulty": 3,
-      "skill_tags": ["budgeting", "relationships"],
+      "skill_tags": [
+        "budgeting",
+        "relationships"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Proprietarul mărește chiria", "en": "The landlord raises the rent"},
+      "title": {
+        "ro": "Proprietarul mărește chiria",
+        "en": "The landlord raises the rent"
+      },
       "narrative": {
         "ro": "Proprietarul anunță că din luna viitoare chiria crește cu 200 lei. Zice că sunt prețurile pieței, dar bugetul tău nu s-a mărit.",
         "en": "The landlord says the rent goes up by 200 lei next month. They call it market prices, but your budget has not grown."
@@ -2134,12 +4107,31 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Negociezi calm, ca un chiriaș de încredere", "en": "Negotiate calmly, as a reliable tenant"},
+          "label": {
+            "ro": "Negociezi calm, ca un chiriaș de încredere",
+            "en": "Negotiate calmly, as a reliable tenant"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 2},
-            {"type": "scheduleEffect", "delay_days": 2, "effects": [
-              {"type": "stat", "stat": "stress", "delta": -2}
-            ], "note": {"ro": "Proprietarul a acceptat o mărire mai mică, de 80 lei", "en": "The landlord accepted a smaller rise, 80 lei"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 2,
+              "effects": [
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": -2
+                }
+              ],
+              "note": {
+                "ro": "Proprietarul a acceptat o mărire mai mică, de 80 lei",
+                "en": "The landlord accepted a smaller rise, 80 lei"
+              }
+            }
           ],
           "debrief": {
             "ro": "Un chiriaș punctual are putere de negociere: e mai ieftin să te păstreze decât să caute altul. Argumentele calme scad des mărirea.",
@@ -2147,10 +4139,20 @@
           }
         },
         {
-          "label": {"ro": "Accepți mărirea fără discuție (+200 lei/lună)", "en": "Accept the rise without a word (+200 lei/month)"},
+          "label": {
+            "ro": "Accepți mărirea fără discuție (+200 lei/lună)",
+            "en": "Accept the rise without a word (+200 lei/month)"
+          },
           "effects": [
-            {"type": "cash", "delta": -20000},
-            {"type": "stat", "stat": "stress", "delta": 3}
+            {
+              "type": "cash",
+              "delta": -20000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 3
+            }
           ],
           "debrief": {
             "ro": "Plătești 200 lei în plus lună de lună, fără să fi încercat. Uneori mărirea e reală, dar o întrebare politicoasă rar strică și des ajută.",
@@ -2158,13 +4160,35 @@
           }
         },
         {
-          "label": {"ro": "Cauți altă chirie, mai potrivită bugetului", "en": "Look for another place that fits your budget"},
+          "label": {
+            "ro": "Cauți altă chirie, mai potrivită bugetului",
+            "en": "Look for another place that fits your budget"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 5},
-            {"type": "scheduleEffect", "delay_days": 6, "effects": [
-              {"type": "cash", "delta": -80000},
-              {"type": "stat", "stat": "stress", "delta": -2}
-            ], "note": {"ro": "Mutarea a cerut transport și o garanție nouă, dar chiria e mai mică", "en": "Moving needed transport and a new deposit, but the rent is lower"}}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 5
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -80000
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": -2
+                }
+              ],
+              "note": {
+                "ro": "Mutarea a cerut transport și o garanție nouă, dar chiria e mai mică",
+                "en": "Moving needed transport and a new deposit, but the rent is lower"
+              }
+            }
           ],
           "debrief": {
             "ro": "Mutarea are un cost real acum: garanție, transport, timp. Merită doar dacă economia lunară acoperă efortul într-un termen rezonabil.",
@@ -2172,7 +4196,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "internet_instabil",
@@ -2183,9 +4211,14 @@
       "min_day": 3,
       "max_day": 30,
       "difficulty": 1,
-      "skill_tags": ["budgeting"],
+      "skill_tags": [
+        "budgeting"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Internetul pică des", "en": "The internet keeps dropping"},
+      "title": {
+        "ro": "Internetul pică des",
+        "en": "The internet keeps dropping"
+      },
       "narrative": {
         "ro": "De o săptămână netul pică de câteva ori pe zi, exact când ai nevoie de el. Plătești abonament întreg pentru un serviciu pe jumătate.",
         "en": "For a week the net has dropped several times a day, right when you need it. You pay a full plan for half a service."
@@ -2193,10 +4226,20 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Suni furnizorul și ceri remediere sau reducere", "en": "Call the provider, ask for a fix or a discount"},
+          "label": {
+            "ro": "Suni furnizorul și ceri remediere sau reducere",
+            "en": "Call the provider, ask for a fix or a discount"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": -1},
-            {"type": "setFlag", "flag": "internet_reclamat"}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            },
+            {
+              "type": "setFlag",
+              "flag": "internet_reclamat"
+            }
           ],
           "debrief": {
             "ro": "Un apel documentat obligă furnizorul să repare sau să scadă factura pentru zilele pierdute. Serviciul plătit și neprimit se poate recupera.",
@@ -2204,9 +4247,16 @@
           }
         },
         {
-          "label": {"ro": "Rabzi, poate se repară de la sine", "en": "Put up with it, maybe it self-repairs"},
+          "label": {
+            "ro": "Rabzi, poate se repară de la sine",
+            "en": "Put up with it, maybe it self-repairs"
+          },
           "effects": [
-            {"type": "stat", "stat": "stress", "delta": 2}
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            }
           ],
           "debrief": {
             "ro": "Aștepți fără să reclami, iar furnizorul nu are motiv să se grăbească. Plătești întreg pentru un serviciu incomplet, fără să ceri ce ți se cuvine.",
@@ -2214,7 +4264,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "abonament_sala_neuzat",
@@ -2225,9 +4279,15 @@
       "min_day": 3,
       "max_day": 30,
       "difficulty": 1,
-      "skill_tags": ["needs_wants", "budgeting"],
+      "skill_tags": [
+        "needs_wants",
+        "budgeting"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Abonamentul la sală, neatins", "en": "The gym membership, untouched"},
+      "title": {
+        "ro": "Abonamentul la sală, neatins",
+        "en": "The gym membership, untouched"
+      },
       "narrative": {
         "ro": "Plătești lunar o sală în care n-ai mai intrat de trei săptămâni. Cardul stă în portofel, iar taxa pleacă oricum.",
         "en": "You pay monthly for a gym you have not entered in three weeks. The card sits in your wallet, the fee leaves anyway."
@@ -2235,10 +4295,21 @@
       "illustration": "cashy_thinking",
       "choices": [
         {
-          "label": {"ro": "Renunți acum, alergi în parc", "en": "Cancel now, run in the park"},
+          "label": {
+            "ro": "Renunți acum, alergi în parc",
+            "en": "Cancel now, run in the park"
+          },
           "effects": [
-            {"type": "stat", "stat": "health", "delta": 2},
-            {"type": "stat", "stat": "stress", "delta": -1}
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 2
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
           ],
           "debrief": {
             "ro": "Un cost lunar pentru ceva neutilizat e o dorință, nu o nevoie. Renunțarea oprește scurgerea, iar parcul acoperă gratis aceeași mișcare.",
@@ -2246,9 +4317,15 @@
           }
         },
         {
-          "label": {"ro": "Mai dai o lună, plătești taxa (~150 lei)", "en": "Give it another month, pay the fee (~150 lei)"},
+          "label": {
+            "ro": "Mai dai o lună, plătești taxa (~150 lei)",
+            "en": "Give it another month, pay the fee (~150 lei)"
+          },
           "effects": [
-            {"type": "cash", "delta": -15000}
+            {
+              "type": "cash",
+              "delta": -15000
+            }
           ],
           "debrief": {
             "ro": "150 de lei pe o intenție bună, nu pe o mișcare făcută. Un abonament folosit rar merită revizuit: plătești pentru acces, nu pentru rezultat.",
@@ -2256,7 +4333,11 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     },
     {
       "id": "backup_poze",
@@ -2267,9 +4348,15 @@
       "min_day": 4,
       "max_day": 30,
       "difficulty": 2,
-      "skill_tags": ["opportunity_cost", "emergency_fund"],
+      "skill_tags": [
+        "opportunity_cost",
+        "emergency_fund"
+      ],
       "prerequisites": [],
-      "title": {"ro": "Telefonul dă semne de cedare", "en": "Your phone shows signs of failing"},
+      "title": {
+        "ro": "Telefonul dă semne de cedare",
+        "en": "Your phone shows signs of failing"
+      },
       "narrative": {
         "ro": "Telefonul se blochează des și se repornește singur. Toate pozele și actele din ultimii ani sunt doar acolo, fără nicio copie.",
         "en": "The phone freezes often and restarts by itself. All your photos and documents from recent years live only there, with no copy."
@@ -2277,11 +4364,24 @@
       "illustration": "cashy_alert",
       "choices": [
         {
-          "label": {"ro": "Faci backup în cloud acum (~10 lei/lună)", "en": "Back up to the cloud now (~10 lei/month)"},
+          "label": {
+            "ro": "Faci backup în cloud acum (~10 lei/lună)",
+            "en": "Back up to the cloud now (~10 lei/month)"
+          },
           "effects": [
-            {"type": "cash", "delta": -1000},
-            {"type": "stat", "stat": "stress", "delta": -2},
-            {"type": "setFlag", "flag": "backup_facut"}
+            {
+              "type": "cash",
+              "delta": -1000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -2
+            },
+            {
+              "type": "setFlag",
+              "flag": "backup_facut"
+            }
           ],
           "debrief": {
             "ro": "10 lei pe lună pun la adăpost ani de amintiri și acte. Un backup e ieftin azi și neprețuit în ziua în care telefonul chiar cedează.",
@@ -2289,12 +4389,30 @@
           }
         },
         {
-          "label": {"ro": "Lași pe altă dată, merge încă", "en": "Leave it for later, it still works"},
+          "label": {
+            "ro": "Lași pe altă dată, merge încă",
+            "en": "Leave it for later, it still works"
+          },
           "effects": [
-            {"type": "scheduleEffect", "delay_days": 5, "effects": [
-              {"type": "cash", "delta": -25000},
-              {"type": "stat", "stat": "stress", "delta": 6}
-            ], "note": {"ro": "Telefonul a murit cu tot cu poze: recuperare de date scumpă, unele pierdute", "en": "The phone died with all the photos: costly data recovery, some lost"}}
+            {
+              "type": "scheduleEffect",
+              "delay_days": 5,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -25000
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 6
+                }
+              ],
+              "note": {
+                "ro": "Telefonul a murit cu tot cu poze: recuperare de date scumpă, unele pierdute",
+                "en": "The phone died with all the photos: costly data recovery, some lost"
+              }
+            }
           ],
           "debrief": {
             "ro": "Merge azi, dar atât nu e un plan. Când telefonul a cedat, recuperarea datelor a fost scumpă și nesigură, iar unele amintiri s-au pierdut.",
@@ -2302,7 +4420,368 @@
           }
         }
       ],
-      "source": {"label": "redactie FinEdu, scenarii de viata RO 2026", "reviewed_by": null, "needs_expert_review": true}
+      "source": {
+        "label": "redactie FinEdu, scenarii de viata RO 2026",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "abonament_vs_bilete",
+      "category": "transport",
+      "rarity": "common",
+      "weight": 5,
+      "cooldown_days": 0,
+      "min_day": 2,
+      "max_day": 20,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "transport",
+        "unit_economics"
+      ],
+      "title": {
+        "ro": "Abonament sau bilete?",
+        "en": "Pass or single tickets?"
+      },
+      "narrative": {
+        "ro": "Abonamentul de transport a expirat. Poți lua unul nou pe lună cu 80 de lei sau să mergi pe bilete de 3 lei bucata. Faci cam 2 drumuri pe zi.",
+        "en": "Your transit pass expired. A new monthly one is 80 lei, single tickets are 3 lei each. You ride about twice a day."
+      },
+      "illustration": "cashy_thinking",
+      "choices": [
+        {
+          "label": {
+            "ro": "Iei abonamentul lunar",
+            "en": "Buy the monthly pass"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -8000
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "2 drumuri pe zi înseamnă ~180 de lei pe bilete. Abonamentul de 80 e mai puțin de jumătate: calculul pe lună bate impresia de „80 dintr-o dată\".",
+            "en": "Two rides a day means ~180 lei in tickets. The 80 lei pass is less than half: the monthly math beats the \"80 all at once\" feeling."
+          }
+        },
+        {
+          "label": {
+            "ro": "Mergi pe bilete, „nu circul chiar zilnic\"",
+            "en": "Go with tickets, \"I do not ride daily anyway\""
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -1200
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 9,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -6000
+                }
+              ],
+              "note": {
+                "ro": "Biletele s-au adunat mai repede decât credeai.",
+                "en": "The tickets added up faster than you thought."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Plata mărunțită pare mai mică pentru că nu o vezi adunată. La final de lună, biletele „rare\" au costat aproape cât abonamentul, fără confortul lui.",
+            "en": "Sliced payments feel smaller because you never see the total. By month's end the \"rare\" tickets cost nearly as much as the pass, minus the comfort."
+          }
+        },
+        {
+          "label": {
+            "ro": "Săptămâna asta mergi pe jos",
+            "en": "Walk everywhere this week"
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -2
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": 1
+            }
+          ],
+          "debrief": {
+            "ro": "Gratuit și sănătos, dar obositor pe termen lung. Merge ca soluție de avarie, nu ca plan de transport pentru o lună întreagă.",
+            "en": "Free and healthy, but tiring over time. Works as a stopgap, not as a month-long transit plan."
+          }
+        }
+      ],
+      "source": {
+        "label": "tarife de transport urban RO 2026 (orientative, educational)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "prelungitor_scantei",
+      "category": "housing",
+      "rarity": "common",
+      "weight": 5,
+      "cooldown_days": 0,
+      "min_day": 3,
+      "max_day": 27,
+      "role_tags": [],
+      "difficulty": 1,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "housing",
+        "prevention"
+      ],
+      "title": {
+        "ro": "Prelungitorul care scoate scântei",
+        "en": "The sparking power strip"
+      },
+      "narrative": {
+        "ro": "Prelungitorul din cameră, plin de prize la maxim, a scos o scânteie aseară. Merge în continuare, dar mirosul de plastic încins spune altceva.",
+        "en": "The overloaded power strip in your room sparked last night. It still works, but the hot plastic smell says otherwise."
+      },
+      "illustration": "cashy_warning",
+      "choices": [
+        {
+          "label": {
+            "ro": "Cumperi unul nou, cu protecție: 45 de lei",
+            "en": "Buy a new one with surge protection: 45 lei"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -4500
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "Prevenția e cea mai ieftină asigurare: 45 de lei acum contra unui incendiu sau a electronicelor prăjite. Cheltuială mică, risc mare evitat.",
+            "en": "Prevention is the cheapest insurance: 45 lei now versus a fire or fried electronics. Small spend, big risk avoided."
+          }
+        },
+        {
+          "label": {
+            "ro": "Iei cel mai ieftin de la colț: 15 lei",
+            "en": "Grab the cheapest one nearby: 15 lei"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -1500
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 8,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -4000
+                }
+              ],
+              "note": {
+                "ro": "S-a topit mufa și a luat și încărcătorul cu el.",
+                "en": "The socket melted and took your charger with it."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Ieftinul de proastă calitate se plătește de două ori: o dată la cumpărare, o dată la înlocuit plus pagube. La siguranță nu se optimizează prețul.",
+            "en": "Cheap and flimsy gets paid twice: once at purchase, once at replacement plus damage. Safety is not where you optimize price."
+          }
+        },
+        {
+          "label": {
+            "ro": "Îl mai ții: „a scos o scânteie, nu un foc\"",
+            "en": "Keep it: \"one spark is not a fire\""
+          },
+          "effects": [
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": 2
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 6,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -9000
+                }
+              ],
+              "note": {
+                "ro": "A cedat de tot și a ars și priza din perete.",
+                "en": "It gave out completely and scorched the wall socket too."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Semnalele de avarie ignorate escaladează: din scânteie, pagubă. Costul reparat mereu mai mare decât costul prevenit.",
+            "en": "Ignored warning signs escalate: from spark to damage. Repair always costs more than prevention."
+          }
+        }
+      ],
+      "source": {
+        "label": "siguranta locuintei (educational)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
+    },
+    {
+      "id": "durere_masea",
+      "category": "health",
+      "rarity": "uncommon",
+      "weight": 4,
+      "cooldown_days": 0,
+      "min_day": 4,
+      "max_day": 24,
+      "role_tags": [],
+      "difficulty": 2,
+      "conditions": [],
+      "exclusions": [],
+      "prerequisites": [],
+      "chain_id": null,
+      "skill_tags": [
+        "health",
+        "prevention"
+      ],
+      "title": {
+        "ro": "Măseaua care pulsează",
+        "en": "The throbbing tooth"
+      },
+      "narrative": {
+        "ro": "De două zile o măsea te înțeapă la rece și la dulce. Un control de urgență la o clinică din cartier e cam 120 de lei.",
+        "en": "For two days a tooth has been stinging at cold and sweets. An urgent checkup at a nearby clinic is about 120 lei."
+      },
+      "illustration": "cashy_worried",
+      "choices": [
+        {
+          "label": {
+            "ro": "Mergi acum la control",
+            "en": "Go for the checkup now"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -12000
+            },
+            {
+              "type": "stat",
+              "stat": "energy",
+              "delta": -1
+            },
+            {
+              "type": "stat",
+              "stat": "stress",
+              "delta": -1
+            }
+          ],
+          "debrief": {
+            "ro": "O carie mică prinsă azi e o plombă. Aceeași carie peste o lună poate fi un canal de trei ori mai scump. La sănătate, devreme = ieftin.",
+            "en": "A small cavity caught today is a filling. The same cavity a month later can be a root canal three times the price. In health, early = cheap."
+          }
+        },
+        {
+          "label": {
+            "ro": "Aștepți să treacă de la sine",
+            "en": "Wait for it to pass on its own"
+          },
+          "effects": [
+            {
+              "type": "scheduleEffect",
+              "delay_days": 5,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -38000
+                },
+                {
+                  "type": "stat",
+                  "stat": "health",
+                  "delta": -2
+                },
+                {
+                  "type": "stat",
+                  "stat": "stress",
+                  "delta": 2
+                }
+              ],
+              "note": {
+                "ro": "Durerea a explodat noaptea: tratament de urgență, mult mai scump.",
+                "en": "The pain exploded at night: emergency treatment, far pricier."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Dinții nu se repară singuri, doar tac o vreme. Amânarea a transformat o plombă într-o urgență cu factură triplă și o noapte nedormită.",
+            "en": "Teeth do not heal themselves, they just go quiet for a while. Delay turned a filling into an emergency with a triple bill and a sleepless night."
+          }
+        },
+        {
+          "label": {
+            "ro": "Ceai de mușețel și pastile de durere",
+            "en": "Chamomile tea and painkillers"
+          },
+          "effects": [
+            {
+              "type": "cash",
+              "delta": -1500
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "delta": -1
+            },
+            {
+              "type": "scheduleEffect",
+              "delay_days": 7,
+              "effects": [
+                {
+                  "type": "cash",
+                  "delta": -25000
+                }
+              ],
+              "note": {
+                "ro": "Tot la stomatolog ai ajuns, cu problema crescută.",
+                "en": "You ended up at the dentist anyway, with the problem grown."
+              }
+            }
+          ],
+          "debrief": {
+            "ro": "Calmantul tratează simptomul, nu cauza. Uneori e ok o zi-două, dar planul rămâne același: cabinetul. Cu cât mai târziu, cu atât mai scump.",
+            "en": "Painkillers treat the symptom, not the cause. Fine for a day or two, but the plan stays the same: the dentist. The later, the pricier."
+          }
+        }
+      ],
+      "source": {
+        "label": "costuri stomatologice orientative RO 2026 (educational)",
+        "reviewed_by": null,
+        "needs_expert_review": true
+      }
     }
   ]
 }
