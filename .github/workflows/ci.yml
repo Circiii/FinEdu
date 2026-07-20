@@ -1,13 +1,11 @@
-# CI FinEdu — analyze + test + build APK debug.
-# Rulează pe push și pull_request către branch-urile v2 și main.
-# Nu pot rula acest workflow local — arhitectul verifică sintaxa YAML la primul push.
+# Verificarea automată la fiecare împingere: analiză, teste, build de probă.
 name: CI
 
 on:
   push:
-    branches: [v2, main]
+    branches: [main]
   pull_request:
-    branches: [v2, main]
+    branches: [main]
 
 jobs:
   build:

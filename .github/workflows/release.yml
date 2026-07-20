@@ -1,0 +1,123 @@
+# Construiește aplicația pentru Android și Windows și o atașează la un Release.
+#
+# Pornește când se împinge un tag de forma v1.0.0. Build-ul de Windows are
+# nevoie de Visual Studio, care există deja pe runnerele Windows ale GitHub,
+# deci nu trebuie instalat nimic local.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  # Se poate porni si manual, din tabul Actions.
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: '3.44.4'
+
+jobs:
+  android:
+    name: Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Dependențe
+        run: flutter pub get
+
+      - name: Traduceri
+        run: flutter gen-l10n
+
+      # Câte un fișier per arhitectură, mult mai mic decât unul universal.
+      - name: Build APK pe arhitecturi
+        run: flutter build apk --release --split-per-abi
+
+      # Plus unul care merge pe orice telefon, pentru cine nu știe ce are.
+      - name: Build APK universal
+        run: flutter build apk --release
+
+      # Numele generate de Flutter nu spun nimic cuiva care descarcă.
+      - name: Redenumește pentru descărcare
+        run: |
+          cd build/app/outputs/flutter-apk
+          v=$(grep '^version:' $GITHUB_WORKSPACE/pubspec.yaml | sed 's/version: //' | cut -d+ -f1)
+          mv app-arm64-v8a-release.apk   FinEdu-$v-android-arm64.apk
+          mv app-armeabi-v7a-release.apk FinEdu-$v-android-arm32.apk
+          mv app-release.apk             FinEdu-$v-android-universal.apk
+          ls -la FinEdu-*.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: build/app/outputs/flutter-apk/FinEdu-*.apk
+          if-no-files-found: error
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Dependențe
+        run: flutter pub get
+
+      - name: Traduceri
+        run: flutter gen-l10n
+
+      - name: Build Windows
+        run: flutter build windows --release
+
+      # Arhivăm tot folderul: executabilul singur nu pornește fără DLL-urile
+      # și fișierele de lângă el.
+      - name: Împachetează
+        shell: pwsh
+        run: |
+          $v = (Select-String '^version:' pubspec.yaml).Line -replace 'version: ','' -split '\+' | Select-Object -First 1
+          $src = "build\windows\x64\runner\Release"
+          Compress-Archive -Path "$src\*" -DestinationPath "FinEdu-$v-windows.zip"
+          Get-ChildItem FinEdu-*.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: FinEdu-*.zip
+          if-no-files-found: error
+
+  release:
+    name: Publică Release
+    needs: [android, windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: fisiere
+
+      - name: Atașează la Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          find fisiere -type f | sort
+
+          # Un tag nu creează singur un Release, deci îl facem dacă lipsește.
+          if ! gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
+            gh release create "$TAG" --repo "$REPO" \
+              --title "FinEdu $TAG" --generate-notes
+          fi
+
+          gh release upload "$TAG" $(find fisiere -type f) \
+            --repo "$REPO" --clobber

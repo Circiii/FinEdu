@@ -12,6 +12,35 @@ tău, nu pleacă nicăieri.
 
 ---
 
+## Descarcă
+
+Nu trebuie să construiești nimic. Ia fișierul potrivit și gata.
+
+| Ai... | Descarcă | Mărime |
+|---|---|---|
+| **Telefon Android** (din 2016 încoace) | [FinEdu-android-arm64.apk](../../releases/latest) | 25 MB |
+| **Telefon Android mai vechi** | [FinEdu-android-arm32.apk](../../releases/latest) | 23 MB |
+| **Nu știi ce Android ai** | [FinEdu-android-universal.apk](../../releases/latest) | 68 MB |
+| **Windows 10 sau 11** | [FinEdu-windows.zip](../../releases/latest) | ~25 MB |
+| **iPhone, iPad, Mac, Linux** | [Deschide în browser](https://circiii.github.io/FinEdu/) | fără instalare |
+
+Toate fișierele sunt în **[Releases](../../releases/latest)**.
+
+**Pe Android**, telefonul o să te întrebe dacă permiți instalarea din afara
+magazinului. E normal pentru orice aplicație care nu vine din Play Store.
+
+**Pe Windows**, dezarhivezi folderul și pornești `finedu_flutter.exe` din el.
+Executabilul nu merge scos singur din folder, are nevoie de fișierele de lângă
+el. Windows poate afișa un avertisment SmartScreen, fiindcă aplicația nu e
+semnată digital: apeși „Informații suplimentare", apoi „Executați oricum".
+
+**Pe iPhone nu există fișier de descărcat.** Apple cere ca orice aplicație să
+fie semnată cu un cont de dezvoltator plătit ca să se poată instala, așa că
+versiunea de browser e calea. Se deschide în Safari, arată la fel, iar progresul
+rămâne salvat pe telefon.
+
+---
+
 ## Ce conține
 
 - **Bugetare reală**, adaugi cheltuieli și economii, îți setezi un buget lunar,

@@ -1,0 +1,67 @@
+# Publică versiunea de browser pe GitHub Pages, la fiecare împingere pe main.
+#
+# Adresa rezultată e https://<utilizator>.github.io/<repo>/, deci build-ul are
+# nevoie de --base-href cu numele repo-ului, altfel nu-și găsește fișierele.
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# O singură publicare odată; dacă vin două, o așteptăm pe prima.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          channel: stable
+          cache: true
+
+      - name: Dependențe
+        run: flutter pub get
+
+      - name: Traduceri
+        run: flutter gen-l10n
+
+      # Worker-ul bazei de date nu e ținut în repo, e cod generat.
+      - name: Compilează worker-ul de bază de date
+        run: |
+          dart compile js -O4 web/drift_worker.dart -o web/drift_worker.js
+          rm -f web/drift_worker.js.deps web/drift_worker.js.map
+
+      # --no-web-resources-cdn ține motorul grafic în propriul folder, deci
+      # pagina nu depinde de un server extern.
+      - name: Build web
+        run: |
+          flutter build web --release --no-web-resources-cdn \
+            --base-href "/${GITHUB_REPOSITORY#*/}/"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
