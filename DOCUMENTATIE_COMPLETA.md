@@ -1260,8 +1260,8 @@ continuă pe GitHub Actions.
 
 ## 24. Instalare, rulare, build
 
-Cerințe: Flutter SDK stabil (Dart `^3.12.2`) și un dispozitiv sau emulator
-Android.
+Cerințe: Flutter SDK stabil (Dart `^3.12.2`). Aplicația rulează din același cod
+pe Android, pe Windows și în browser.
 
 ```bash
 # dependentele
@@ -1273,18 +1273,49 @@ flutter devices
 # rulare (alege automat dispozitivul sau specifica-l cu -d)
 flutter run
 
-# testele (331)
+# testele (351)
 flutter test
 
 # analiza statica
 flutter analyze
 
-# build de instalare
+# build de instalare pe Android
 flutter build apk --release
 # rezultatul: build/app/outputs/flutter-apk/app-release.apk
 ```
 
 Nu este nevoie de nicio configurare: aplicația pornește direct, offline.
+
+### Versiunea de browser
+
+```bash
+flutter build web --release --no-web-resources-cdn
+dart run tool/serve_web.dart      # http://localhost:8080
+```
+
+`--no-web-resources-cdn` face ca motorul grafic să fie servit din folderul
+aplicației, nu de pe un CDN, deci build-ul merge și fără internet.
+
+Serverul din `tool/serve_web.dart` trimite antetele
+`Cross-Origin-Opener-Policy` și `Cross-Origin-Embedder-Policy`. Fără ele
+browserul nu acordă bazei de date acces la OPFS, stocarea persistentă, iar
+progresul s-ar pierde la reîncărcarea paginii. Orice găzduire folosită în
+producție trebuie să trimită aceleași două antete.
+
+Pe web, SQLite rulează ca WebAssembly: fișierele `web/sqlite3.wasm` și
+`web/drift_worker.js` sunt livrate în repo fiindcă `flutter pub get` nu le aduce.
+
+### Versiunea de Windows
+
+Necesită, o singură dată: Visual Studio 2022 cu pachetul „Desktop development
+with C++" și modul dezvoltator din Windows pornit (`ms-settings:developers`).
+
+```bash
+flutter run -d windows
+flutter build windows --release
+```
+
+Prima compilare descarcă și compilează SQLite, deci cere internet o dată.
 
 Regenerarea codului generat (doar dacă modifici sursele respective):
 
@@ -1381,8 +1412,8 @@ Detaliile complete, cerute de regulament, sunt în fișierul dedicat
   descrierilor autorului.
 - **Cifre din surse publice**: datele financiare românești din conținut,
   cu sursele notate în `docs/research/`.
-- **Unelte de asistență la scriere**: la implementare au fost folosite
-  unelte bazate pe modele de limbaj, pe baza specificațiilor autorului.
+- **Unelte de asistență la scriere**: la implementare au fost folosite unelte
+  bazate pe modele de limbaj, pe baza specificațiilor autorului.
 
 Contribuția autorului, formulată exact: autorul a definit produsul,
 arhitectura, regulile de business și cele pedagogice, experiența

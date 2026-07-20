@@ -1,25 +1,24 @@
 -- =============================================================================
--- 04 · VIEWS (analytics groundwork)
--- Read models over daily_activity for retention metrics. No RLS on views —
--- they are queried by dashboards / service role, not by the app client.
--- (If they are ever exposed to clients, wrap them in SECURITY INVOKER views
--- over RLS-protected tables — the default in Postgres 15+ — or move them
--- behind an edge function.)
+-- 04 · VEDERI (baza pentru statistici)
+-- Vederi de citire peste daily_activity, pentru retenție. Nu au RLS: le
+-- interoghează serverul, nu aplicația.
+-- (Dacă ajung vreodată la clienți, se împachetează în vederi SECURITY INVOKER
+-- peste tabele cu RLS, sau se mută în spatele unei funcții edge.)
 -- =============================================================================
 
--- v_daily_cohorts: one row per (user, day) with everything needed to compute
--- CURR / D1 / D7 / D30 downstream:
+-- v_daily_cohorts: un rând per (utilizator, zi), cu tot ce trebuie ca să
+-- calculezi retenția:
 --
---   * signup_date    — the user's cohort (from auth.users.created_at)
---   * activity_date  — a day the user was active (any kind)
---   * day_n          — days since signup (0 = signup day)
---   * was_active_yesterday / was_active_7d — inputs for CURR-style
---     "given recent activity, did they return today?" queries.
+--   * signup_date    ziua înscrierii (din auth.users.created_at)
+--   * activity_date  o zi în care utilizatorul a fost activ
+--   * day_n          câte zile au trecut de la înscriere (0 = ziua înscrierii)
+--   * was_active_yesterday și was_active_7d răspund la întrebarea „a revenit
+--     azi cineva care a fost activ recent?"
 --
--- Examples (run downstream, e.g. in a dashboard):
---   D1  retention of a cohort: share of users with a row at day_n = 1.
---   D7  retention: share with a row at day_n = 7.
---   CURR(day): among users with was_active_yesterday, share active that day.
+-- Exemple de folosire:
+--   retenție D1: câți utilizatori au un rând la day_n = 1
+--   retenție D7: câți au un rând la day_n = 7
+--   revenire zilnică: dintre cei activi ieri, câți au fost activi și azi
 create view public.v_daily_cohorts as
 select
   da.user_id,
@@ -44,14 +43,14 @@ from public.daily_activity da
 join auth.users u on u.id = da.user_id;
 
 comment on view public.v_daily_cohorts is
-  'Per-(user, day) activity joined to signup cohort. Base for CURR/D1/D7/D30.';
+  'Activitatea pe zi, legată de ziua înscrierii. Baza pentru retenție.';
 
 -- ---------------------------------------------------------------------------
--- TODO (F5 — churn & risk):
---   * v_user_risk — RFM-style view (recency: days since last activity;
---     frequency: active days in last 14/30; monetary→"engagement depth":
---     distinct kinds per active day). Buckets feed the notification
---     escalation rules (1/3/7/21 days inactive) from PLAN2 §2.2.
---   * Consider materializing v_daily_cohorts (pg_cron refresh) once
---     daily_activity grows past ~1M rows.
+-- De adăugat mai târziu:
+--   * v_user_risk: cât de aproape e cineva de abandon (de câte zile n-a mai
+--     intrat, câte zile active a avut în ultimele 14 sau 30, câte feluri de
+--     activitate face într-o zi). Rezultatul hrănește escaladarea
+--     notificărilor la 1, 3, 7 și 21 de zile de absență.
+--   * v_daily_cohorts se poate materializa, cu refresh din cron, dacă
+--     daily_activity trece de vreun milion de rânduri.
 -- ---------------------------------------------------------------------------

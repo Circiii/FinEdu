@@ -1,12 +1,12 @@
 -- =============================================================================
--- 02 · MONEY (the v1 core)
--- Transactions, no-spend days, goals, wishlist. CHECK constraints from day one
--- (the lesson of the old schema). RLS: own-row everywhere.
+-- 02 · BANII (nucleul aplicației)
+-- Tranzacții, zile fără cheltuieli, obiective, wishlist. Constrângeri CHECK din
+-- prima zi. RLS: fiecare vede doar rândurile lui.
 --
--- Sync contract with the Flutter client (drift outbox):
---   * The client generates a uuid v4 per transaction and sends it as client_id.
---   * UNIQUE(user_id, client_id) makes the outbox upsert idempotent — replaying
---     the same op after a network failure can never duplicate a transaction.
+-- Înțelegerea de sincronizare cu aplicația (outbox-ul din drift):
+--   * aplicația generează un uuid per tranzacție și îl trimite ca client_id
+--   * UNIQUE(user_id, client_id) face trimiterea idempotentă: dacă se reia
+--     aceeași operație după o pică de rețea, tranzacția nu se dublează
 -- =============================================================================
 
 -- --- transactions ------------------------------------------------------------
@@ -15,16 +15,16 @@ create table public.transactions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null
     references auth.users (id) on delete cascade,
-  -- Client-generated uuid; THE idempotency key for offline sync.
+  -- uuid generat de aplicație, cheia care împiedică dublarea la sincronizare
   client_id text not null,
   amount numeric not null check (amount > 0),
-  -- The 14 canonical category keys (see lib/domain/models/categories.dart —
-  -- keep both lists in lockstep).
+  -- Cele 14 chei de categorie (vezi lib/domain/models/categories.dart, cele
+  -- două liste trebuie ținute la fel).
   category text not null check (category in (
-    -- expense
+    -- cheltuieli
     'mancare', 'transport', 'distractie', 'educatie',
     'haine', 'sanatate', 'chirie', 'altele',
-    -- saving
+    -- economii
     'fond_urgenta', 'obiectiv', 'investitii', 'pensie',
     'depozit', 'altele_economii'
   )),
@@ -41,8 +41,8 @@ create table public.transactions (
   unique (user_id, client_id)
 );
 
--- The two agreed indexes — and ONLY these two (no duplicates; the unique
--- constraint above already indexes (user_id, client_id)).
+-- Doar cele două indexuri de care e nevoie. Constrângerea unique de mai sus
+-- indexează deja (user_id, client_id).
 create index transactions_user_date_idx
   on public.transactions (user_id, transaction_date desc);
 create index transactions_user_category_idx
@@ -54,7 +54,7 @@ create trigger trg_transactions_updated_at
 
 -- --- no_spend_days -----------------------------------------------------------
 
--- "Azi n-am cheltuit nimic" is information, not an absence of data.
+-- „Azi n-am cheltuit nimic" e informație, nu lipsă de date.
 create table public.no_spend_days (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null
@@ -67,8 +67,8 @@ create table public.no_spend_days (
 
 -- --- transaction_items -------------------------------------------------------
 
--- Line items extracted from receipts (OCR); refined async after the optimistic
--- total+merchant insert.
+-- Produsele citite de pe bon. Se completează după ce s-au salvat deja totalul
+-- și comerciantul.
 create table public.transaction_items (
   id uuid primary key default gen_random_uuid(),
   transaction_id uuid not null
@@ -87,9 +87,8 @@ create index transaction_items_transaction_idx
 
 -- --- recurring_transactions --------------------------------------------------
 
--- Templates for recurring expenses (subscriptions, rent). Materialization into
--- `transactions` happens SERVER-SIDE via pg_cron in a later phase — never on
--- the client.
+-- Șabloane pentru plățile care se repetă (abonamente, chirie). Transformarea
+-- lor în tranzacții se face pe server, cu pg_cron, niciodată în aplicație.
 create table public.recurring_transactions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null
@@ -135,8 +134,8 @@ create trigger trg_financial_goals_updated_at
   before update on public.financial_goals
   for each row execute function public.set_updated_at();
 
--- Contributions are a ledger (append-only from the app's perspective); the
--- goal's saved total = sum(amount) — computed, never stored twice.
+-- Contribuțiile sunt un registru la care doar se adaugă. Cât s-a strâns la un
+-- obiectiv se calculează din sumă, nu se ține a doua oară.
 create table public.goal_contributions (
   id uuid primary key default gen_random_uuid(),
   goal_id uuid not null
@@ -144,7 +143,7 @@ create table public.goal_contributions (
   user_id uuid not null
     references auth.users (id) on delete cascade,
   amount numeric not null check (amount > 0),
-  -- Optional link back to the saving transaction that funded it.
+  -- Legătura opțională spre tranzacția de economie care a alimentat-o.
   transaction_id uuid references public.transactions (id) on delete set null,
   created_at timestamptz not null default now()
 );
@@ -154,8 +153,8 @@ create index goal_contributions_goal_idx
 
 -- --- wishlist_items ----------------------------------------------------------
 
--- The anti-impulse list: park it, apply the 24h rule, buy it consciously later
--- (or discover you no longer want it).
+-- Lista anti-impuls: pui dorința deoparte, aplici regula de 24 de ore și o
+-- cumperi conștient mai târziu, sau descoperi că nu o mai vrei.
 create table public.wishlist_items (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null
@@ -176,7 +175,7 @@ create trigger trg_wishlist_items_updated_at
   before update on public.wishlist_items
   for each row execute function public.set_updated_at();
 
--- --- RLS: own-row template on everything --------------------------------------
+-- --- RLS: fiecare vede doar rândurile lui -------------------------------------
 
 alter table public.transactions           enable row level security;
 alter table public.no_spend_days          enable row level security;

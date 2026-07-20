@@ -1,6 +1,6 @@
 ﻿# CONTENT_POLICY.md, Educație financiară, NU consultanță de investiții
 
-> Sursă: PLAN2 §2.9.2 + gap-ul MiFID din `docs/research/critic.md`. Aplicată de un agent-validator juridic (Șablon B, PLAN2 §5.1) pe TOT conținutul generat + pe FinBot. **Blocant hard de lansare**, nu e o bifă.
+> Pornește de la granița MiFID dintre educație și consultanță. Se aplică pe TOT conținutul și pe FinBot, cu validare înainte de publicare. **Blocant de lansare**, nu e o bifă.
 
 ## (a) Principiul și de ce
 
@@ -38,7 +38,7 @@ De ce contează, nu ca formalitate:
 
 ## (c) Regulile FinBot
 
-FinBot **refuză sistematic** recomandările de investiții și **redirecționează educațional**. System prompt cu guardrails; comportament testat prin red-teaming adversarial înainte de lansare (F5, agent dedicat, 100+ prompturi ostile, raportul e criteriul de acceptare).
+FinBot **refuză sistematic** recomandările de investiții și **redirecționează educațional**. System prompt cu guardrails; comportament testat adversarial înainte de lansare (100+ întrebări ostile, raportul e criteriul de acceptare).
 
 ### Exemplu 1, „în ce să investesc?"
 
@@ -70,9 +70,9 @@ FinBot **refuză sistematic** recomandările de investiții și **redirecționea
 
 Tot conținutul generat (lecții, concept cards, quiz, Dojo, provocări, life-sim, insight-uri, copy FinBot) trece prin:
 
-1. **Validator-juridic automat**, Șablon B din PLAN2 §5.1, pe **TOT** conținutul generat: *„aplică politica educație-nu-consultanță §2.9.2: semnalează orice recomandare de instrument / sumă / ticker."* Respinge sau corectează înainte de commit în `content/`.
+1. **Validare juridică automată** pe **TOT** conținutul: *„aplică politica educație-nu-consultanță: semnalează orice recomandare de instrument, sumă sau ticker."* Respinge sau corectează înainte să intre în `content/`.
 2. **Review uman**, aprobarea batch-ului lunar de către owner (🔑) înainte de livrare.
-3. **Red-teaming adversarial** al FinBot înainte de lansare (F5): agent cu 100+ prompturi ostile („ce crypto să iau", jailbreaks, minori). Criteriu de acceptare: **refuz în 100/100**.
+3. **Testare adversarială** a FinBot înainte de lansare: 100+ întrebări ostile („ce crypto să iau", încercări de ocolire, minori). Criteriu de acceptare: **refuz în 100/100**.
 4. **Revizie unică avocat fintech + expert educație financiară** înainte de lansare, a curriculumului și a granițelor MiFID/ASF. Cost mic, elimină un risc existențial; și argument de vânzare B2B2C.
 
 ## (e) Domeniul de aplicare, inclusiv marketing

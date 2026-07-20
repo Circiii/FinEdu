@@ -1,17 +1,17 @@
 -- =============================================================================
--- 03 · ENGAGEMENT
--- Daily activity, streaks, acorn economy, quests.
+-- 03 · ACTIVITATE
+-- Activitatea zilnică, streak-uri, economia de ghinde, misiuni.
 --
--- Design rule (§3.2 PLAN2): the SERVER is the authority on the economy — the
--- client proposes, an RPC validates. In F0 we only lay the tables; the RPCs
--- (claim_quest, claim_chest, ...) come with their features in later phases.
+-- Regula de bază: SERVERUL decide economia. Aplicația propune, o funcție de pe
+-- server validează. Aici sunt doar tabelele; funcțiile (claim_quest,
+-- claim_chest) vin odată cu ecranele lor.
 -- =============================================================================
 
 -- --- daily_activity ------------------------------------------------------------
 
--- One row per user per day; `kinds` lists what was done that day
--- (log | lesson | game | quest | review). Feeds the streak engine and the
--- CURR/D1/D7/D30 cohort views (migration 04).
+-- Un rând per utilizator pe zi. `kinds` spune ce s-a făcut în ziua aceea
+-- (log, lesson, game, quest, review). De aici mănâncă motorul de streak și
+-- vederile de retenție din migrația 04.
 create table public.daily_activity (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null
@@ -30,15 +30,15 @@ create trigger trg_daily_activity_updated_at
 
 -- --- streaks -------------------------------------------------------------------
 
--- Snapshot of the user's streak state; maintained by the daily rollover cron
--- (later phase) and reconciled with the client's local mirror.
+-- Starea streak-ului. O ține la zi cron-ul care trece ziua și se împacă cu
+-- oglinda locală din aplicație.
 create table public.streaks (
   user_id uuid primary key
     references auth.users (id) on delete cascade,
   current integer not null default 0,
   longest integer not null default 0,
   freezes_available integer not null default 2, -- "Ghinde de Gheață"
-  earnback_until date,                          -- 48h earn-back window end
+  earnback_until date,                          -- finalul ferestrei de recuperare de 48h
   last_activity_date date,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -50,24 +50,23 @@ create trigger trg_streaks_updated_at
 
 -- --- acorn_ledger ----------------------------------------------------------------
 
--- Append-only ledger of acorn (ghinde) movements. Balance = sum(delta);
--- profiles.acorns is only a cached snapshot kept in sync by the trigger below.
+-- Registru de mișcări de ghinde, la care doar se adaugă. Soldul e suma
+-- deltelor, iar profiles.acorns e doar o copie ținută la zi de trigger-ul de jos.
 create table public.acorn_ledger (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null
     references auth.users (id) on delete cascade,
-  delta integer not null,          -- positive = earned, negative = spent
-  reason text not null,            -- e.g. 'quest_claim', 'chest', 'purchase_item'
-  ref uuid,                        -- optional reference (quest id, item id, ...)
+  delta integer not null,          -- plus = câștigate, minus = cheltuite
+  reason text not null,            -- ex. 'quest_claim', 'chest', 'purchase_item'
+  ref uuid,                        -- referință opțională (id de misiune, de obiect)
   created_at timestamptz not null default now()
 );
 
 create index acorn_ledger_user_idx
   on public.acorn_ledger (user_id, created_at desc);
 
--- Keep profiles.acorns in sync as a snapshot of the ledger sum.
--- SECURITY DEFINER because clients have no UPDATE right on other users' rows
--- and, more importantly, no write access to the ledger at all (see RLS below).
+-- Ține profiles.acorns la zi cu suma din registru. SECURITY DEFINER pentru că
+-- aplicația n-are deloc drept de scriere în registru (vezi RLS mai jos).
 create or replace function public.apply_acorn_delta()
 returns trigger
 language plpgsql
@@ -88,9 +87,9 @@ create trigger trg_acorn_ledger_snapshot
 
 -- --- quest_templates -------------------------------------------------------------
 
--- Definitions of daily quests (3/day assigned by cron in a later phase).
--- Content-like data: readable by every authenticated user, writable only by
--- service role / migrations — hence NO user RLS policies beyond SELECT.
+-- Definițiile misiunilor zilnice, 3 pe zi, împărțite de cron. Sunt date de
+-- conținut: oricine autentificat le citește, dar scrie doar serverul, deci nu
+-- există reguli RLS de scriere.
 create table public.quest_templates (
   id uuid primary key default gen_random_uuid(),
   slot integer not null check (slot between 1 and 3),
@@ -105,8 +104,8 @@ create table public.quest_templates (
 
 -- --- user_quests -----------------------------------------------------------------
 
--- The 3 quests assigned to a user for a given day + progress. Progress is
--- validated server-side at claim time (anti-cheat), not trusted from the client.
+-- Cele 3 misiuni ale unei zile și progresul lor. Progresul e verificat pe
+-- server la revendicare, nu se ia pe încredere de la aplicație.
 create table public.user_quests (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null
@@ -138,7 +137,7 @@ alter table public.acorn_ledger    enable row level security;
 alter table public.quest_templates enable row level security;
 alter table public.user_quests     enable row level security;
 
--- daily_activity: own-row (client writes its day rows; server aggregates)
+-- daily_activity: fiecare își scrie zilele lui, serverul le adună
 create policy "daily_activity_select_own" on public.daily_activity
   for select to authenticated using (user_id = auth.uid());
 create policy "daily_activity_insert_own" on public.daily_activity
@@ -149,8 +148,8 @@ create policy "daily_activity_update_own" on public.daily_activity
 create policy "daily_activity_delete_own" on public.daily_activity
   for delete to authenticated using (user_id = auth.uid());
 
--- streaks: own-row read; writes come from the rollover cron (service role) and
--- own-row for the client's local reconciliation in early phases.
+-- streaks: citire pe rândul propriu. Scrierile vin de la cron, plus de la
+-- aplicație cât timp își împacă starea locală.
 create policy "streaks_select_own" on public.streaks
   for select to authenticated using (user_id = auth.uid());
 create policy "streaks_insert_own" on public.streaks
@@ -161,21 +160,20 @@ create policy "streaks_update_own" on public.streaks
 create policy "streaks_delete_own" on public.streaks
   for delete to authenticated using (user_id = auth.uid());
 
--- acorn_ledger: SELECT own-row ONLY. Deliberately NO insert/update/delete
--- policies for any client role: with RLS enabled and no policy, those writes
--- are denied — the ledger can only be written by SECURITY DEFINER functions /
--- service role (claim_quest, purchase_item, ... in later phases).
--- Anti-cheat by design: acorns cannot be minted from the app.
+-- acorn_ledger: DOAR citire pe rândul propriu. Nu există intenționat reguli de
+-- scriere: cu RLS pornit și fără nicio regulă, scrierile sunt refuzate. În
+-- registru scriu numai funcțiile SECURITY DEFINER de pe server.
+-- Așa nu se pot fabrica ghinde din aplicație.
 create policy "acorn_ledger_select_own" on public.acorn_ledger
   for select to authenticated using (user_id = auth.uid());
 
--- quest_templates: read-all for authenticated (content, not user data);
--- no write policies — writes via migrations/service role only.
+-- quest_templates: le citește oricine autentificat, sunt conținut, nu date
+-- personale. Scrie doar serverul.
 create policy "quest_templates_select_all" on public.quest_templates
   for select to authenticated using (true);
 
--- user_quests: own-row; the claim flow will move to an RPC with server-side
--- validation (claim_quest) — direct updates remain possible for progress only.
+-- user_quests: rândul propriu. Revendicarea trece printr-o funcție validată pe
+-- server, actualizarea directă rămâne doar pentru progres.
 create policy "user_quests_select_own" on public.user_quests
   for select to authenticated using (user_id = auth.uid());
 create policy "user_quests_insert_own" on public.user_quests

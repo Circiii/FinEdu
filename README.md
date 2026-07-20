@@ -1,11 +1,14 @@
 ﻿# FinEdu
 
-Aplicație mobilă de **educație financiară pentru adolescenți** (14-25 de ani),
+Aplicație de **educație financiară pentru adolescenți** (14-25 de ani),
 construită în Flutter. Îi învață pe tineri să-și gestioneze banii prin lecții
 interactive, jocuri și o simulare a vieții pe cont propriu, totul într-un
 univers vizual propriu, cu mascota Cashy.
 
-Aplicația funcționează **complet offline**: toate datele stau local, pe telefon.
+Rulează pe **Android, Windows și în browser**, din același cod.
+
+Aplicația funcționează **complet offline**: toate datele rămân pe dispozitivul
+tău, nu pleacă nicăieri.
 
 ---
 
@@ -28,29 +31,90 @@ Aplicația funcționează **complet offline**: toate datele stau local, pe telef
 
 ---
 
-## Cum rulezi proiectul
+## Cum rulezi aplicația
 
-**Ai nevoie de:** [Flutter SDK](https://docs.flutter.dev/get-started/install)
-(versiune stabilă recentă) și un emulator Android sau un telefon conectat.
+Aplicația nu cere niciun cont, nicio cheie și nicio conexiune la internet. Alege
+varianta care ți se potrivește.
+
+| Vrei să... | Mergi la |
+|---|---|
+| o deschizi cel mai repede, în browser | [Varianta 1](#varianta-1-în-browser-recomandat) |
+| o instalezi pe un telefon Android | [Varianta 2](#varianta-2-pe-android) |
+| o rulezi ca program pe Windows | [Varianta 3](#varianta-3-pe-windows) |
+
+Pentru toate îți trebuie
+[Flutter SDK](https://docs.flutter.dev/get-started/install), versiune stabilă
+recentă. Verifici că e gata cu `flutter doctor`.
+
+### Varianta 1: în browser (recomandat)
+
+Cea mai simplă. Merge pe Windows, macOS și Linux, fără emulator și fără telefon.
 
 ```bash
-# 1. Instalezi dependențele
 flutter pub get
 
-# 2. Rulezi aplicația
+# Baza de date rulează într-un fir separat al browserului. Worker-ul se
+# compilează o singură dată, nu e ținut în repo fiindcă e cod generat.
+dart compile js -O4 web/drift_worker.dart -o web/drift_worker.js
+
+flutter build web --release --no-web-resources-cdn
+dart run tool/serve_web.dart
+```
+
+Apoi deschizi **http://localhost:8080**. Prima pornire durează câteva secunde,
+cât se încarcă motorul grafic; vezi un ecran de așteptare până atunci.
+
+Trei lămuriri, ca să nu pară ciudat:
+
+- **De ce nu deschizi direct fișierul din `build/web`.** Browserele blochează
+  cererile pornite dintr-o pagină `file://`, iar aplicația trebuie să încarce
+  fonturi și baza de date. De aceea e nevoie de serverul de mai sus.
+- **De ce `--no-web-resources-cdn`.** Fără el, motorul grafic e cerut de pe un
+  server Google. Cu el, totul e servit din propriul folder, deci aplicația merge
+  și fără internet.
+- **De ce se compilează worker-ul separat.** E JavaScript generat din sursa pe
+  care o livrează pachetul drift. Fișierul rezultat are peste 13.000 de linii,
+  deci stă mai bine construit la nevoie decât ținut în istoric.
+
+Progresul se salvează în browser (în stocarea privată a paginii) și rezistă la
+reîncărcare. Ca să pornești de la zero, deschizi fereastra în mod incognito.
+
+### Varianta 2: pe Android
+
+Cu un emulator pornit sau un telefon conectat prin USB:
+
+```bash
+flutter pub get
 flutter run
 ```
 
-Aplicația pornește direct, fără configurare suplimentară, nu are nevoie de chei
-sau de conexiune la internet.
-
-### Build pentru instalare
+Pentru un fișier de instalare de sine stătător:
 
 ```bash
 flutter build apk --release
 ```
 
 APK-ul rezultat se află în `build/app/outputs/flutter-apk/`.
+
+### Varianta 3: pe Windows
+
+Aici mai e nevoie de două lucruri instalate o singură dată, înainte:
+
+1. **Visual Studio 2022** cu pachetul „Desktop development with C++". Fără el
+   nu există compilator de C++ și build-ul nici nu pornește.
+2. **Modul dezvoltator** din Windows, pornit din `ms-settings:developers`.
+   Flutter are nevoie de el ca să creeze legăturile simbolice pentru
+   componentele native.
+
+Apoi:
+
+```bash
+flutter pub get
+flutter run -d windows
+```
+
+Prima compilare durează mai mult: descarcă și compilează SQLite, deci are nevoie
+de internet o singură dată.
 
 ### Rularea testelor
 

@@ -5,9 +5,9 @@ real nu există încă**, aplicația rulează 100% offline până atunci (vezi
 `lib/core/config/app_config.dart`). Acest ghid e checklist-ul de aplicare
 pentru momentul în care proiectul e creat.
 
-> **F10-f (AI cloud)**: `functions/finbot` (chat Cashy cu guardrails pe 4
+> **Funcțiile AI**: `functions/finbot` (chat Cashy cu guardrails pe 4
 > straturi) și `functions/insight-report` (raportul săptămânal narativ) sunt
-> scrise și gata de deploy, vezi §4. Cheia Gemini stă DOAR în secretele
+> scrise și gata de deploy, vezi secțiunea 4. Cheia Gemini stă DOAR în secretele
 > Supabase; niciodată în client. Contractul de siguranță: clientul urcă doar
 > agregate derivate, iar output-ul se randează doar dacă `advice_flag=false`.
 
@@ -50,14 +50,14 @@ Nu se activează acum, se activează prin migrațiile fazelor care le folosesc:
 
 | Extensie   | Faza / folosință                                   |
 |------------|----------------------------------------------------|
-| `pgvector` | RAG pe lecții, category embeddings (F4+)           |
-| `pg_cron`  | rollover zilnic, reset ligi, sezon nou (F3+)       |
+| `pgvector` | RAG pe lecții și embeddings de categorii           |
+| `pg_cron`  | rollover zilnic, reset ligi, sezon nou            |
 | `pgmq`     | cozi server-side (notificări batch)                |
 | `pg_net`   | apeluri HTTP din Postgres (FCM, edge triggers)     |
 
 ## 4. Secrete (Dashboard → Edge Functions → Secrets)
 
-- `GEMINI_API_KEY`, chat/categorize/insights/receipt/voice (F4+).
+- `GEMINI_API_KEY`, chat, categorisire, insights, bonuri, voce.
 - Opțional: cheia unui al doilea furnizor de model, pentru FinBot premium.
 - NU pune service key-ul în aplicație sau în repo. Anon key-ul e singura cheie
   care ajunge în client.
@@ -82,7 +82,7 @@ email):
       `transactions` cu `client_id`-ul generat de client; repetarea sync-ului
       NU duplică rândul (grație `UNIQUE(user_id, client_id)`).
 
-## 4bis. Funcțiile AI (F10-f), deploy în 5 minute
+## 4bis. Funcțiile AI, deploy în 5 minute
 
 Precondiție: CLI-ul Supabase (`npm i -g supabase`) + `supabase login` +
 `supabase link --project-ref <ref>` (o singură dată).
@@ -120,6 +120,6 @@ săptămânal ≈ 0,001 $/utilizator/săptămână. La scara beta: neglijabil.
 - RPC-uri economice `SECURITY DEFINER` cu validare: `claim_quest`,
   `claim_chest`, `open_expedition`, `purchase_item`; `reset_my_account_data`.
 - `daily_activity` va primi un RPC de merge pe `kinds` (acum sync-ul face
-  upsert direct pe tabel, suficient pentru F0/F1).
+  upsert direct pe tabel, suficient deocamdată).
 - Cron-uri pg_cron (rollover 00:05 Europe/Bucharest, ligi, sezoane).
 - `v_user_risk` + restul viewurilor de analytics.

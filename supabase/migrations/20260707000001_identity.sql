@@ -1,18 +1,18 @@
 -- =============================================================================
--- 01 · IDENTITY & COMPLIANCE
--- Profiles, settings and parental consent. RLS: own-row on everything.
+-- 01 · IDENTITATE
+-- Profiluri, setări și acordul părintelui. RLS: fiecare vede doar rândul lui.
 --
--- Lessons from the old schema baked in here:
---   * ONE shared set_updated_at() (the old schema had two identical copies).
---   * handle_new_user() is SECURITY DEFINER + ON CONFLICT DO NOTHING (idempotent
---     against the trigger firing twice / a race with the client upserting).
---   * CHECK constraints from the start, not bolted on later.
+-- Reguli ținute de la început:
+--   * o singură funcție set_updated_at(), refolosită de toate tabelele
+--   * handle_new_user() e SECURITY DEFINER cu ON CONFLICT DO NOTHING, deci
+--     poate rula de două ori fără să strice nimic
+--   * constrângerile CHECK sunt puse din prima, nu adăugate mai târziu
 -- =============================================================================
 
--- --- Shared helpers ----------------------------------------------------------
+-- --- Funcții comune ----------------------------------------------------------
 
--- Single canonical updated_at trigger function, reused by every table below and
--- in later migrations. Do NOT redefine this elsewhere.
+-- Singura funcție care ține updated_at la zi, folosită de toate tabelele de mai
+-- jos și de migrațiile următoare. Nu o redefini în altă parte.
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
@@ -37,9 +37,9 @@ create table public.profiles (
   monthly_budget numeric not null default 1500,
   timezone text not null default 'Europe/Bucharest',
   locale text not null default 'ro',
-  acorns integer not null default 0,          -- snapshot cache of acorn_ledger sum
+  acorns integer not null default 0,          -- copie a sumei din acorn_ledger
   xp integer not null default 0,
-  consents jsonb not null default '{}'::jsonb, -- analytics / personalization / notif
+  consents jsonb not null default '{}'::jsonb, -- analytics, personalizare, notificări
   parental_consent_status text not null default 'not_required'
     check (parental_consent_status in ('not_required', 'pending', 'confirmed')),
   created_at timestamptz not null default now(),
@@ -57,7 +57,7 @@ create table public.user_settings (
     references auth.users (id) on delete cascade,
   quiet_hours jsonb not null default '{}'::jsonb, -- {"school":[8,15],"night":[21,8]}
   league_visible boolean not null default true,
-  roast_mode boolean not null default false,      -- FinBot roast/hype, opt-in 16+
+  roast_mode boolean not null default false,      -- ton jucăuș în FinBot, pornit manual, 16+
   reduced_motion boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -89,11 +89,11 @@ create trigger trg_parental_consents_updated_at
   before update on public.parental_consents
   for each row execute function public.set_updated_at();
 
--- --- New-user bootstrap ------------------------------------------------------
+-- --- Pornirea unui cont nou --------------------------------------------------
 
--- Seeds a profile + settings row when a new auth user appears (incl. anonymous
--- sign-in). SECURITY DEFINER so it runs regardless of the caller's RLS; the
--- ON CONFLICT clauses make it safe to re-run.
+-- Creează profilul și setările când apare un cont nou, inclusiv la intrarea
+-- anonimă. SECURITY DEFINER ca să ruleze indiferent de RLS-ul apelantului, iar
+-- ON CONFLICT o face sigură dacă se repetă.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -117,7 +117,7 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
--- --- RLS: own-row template (4 policies per table, role authenticated) --------
+-- --- RLS: fiecare vede doar rândul lui (4 reguli per tabel) ------------------
 
 alter table public.profiles           enable row level security;
 alter table public.user_settings      enable row level security;

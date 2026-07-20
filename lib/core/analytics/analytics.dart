@@ -29,7 +29,7 @@ class NoopAnalytics implements Analytics {
 }
 
 /// Debug în debug, Noop în release.
-/// TODO: înlocuiește cu implementarea PostHog când există contul EU.
+/// Se schimbă cu trimiterea reală când există contul de analytics.
 final analyticsProvider = Provider<Analytics>((ref) {
   return kDebugMode ? const DebugAnalytics() : const NoopAnalytics();
 });

@@ -27,12 +27,23 @@ autor:
 | intl | formatare de numere și date |
 | uuid | identificatori unici pentru tranzacții |
 | flutter_inset_shadow | umbre interioare pentru stilul claymorphism |
+| flutter_animate | efecte de animație înlănțuite (sclipirea butoanelor) |
 | freezed_annotation, json_annotation | modele imutabile și serializare |
 | cupertino_icons | set de iconițe standard |
 | build_runner, freezed, json_serializable, riverpod_generator, drift_dev | generare de cod la dezvoltare |
 | flutter_test, flutter_lints, custom_lint, riverpod_lint | teste și lint |
 
-## 2. Fonturi
+## 2. Fișiere binare pentru versiunea de browser
+
+Aflate în `web/`, necesare fiindcă pe web SQLite nu poate rula ca bibliotecă
+nativă. Nu sunt scrise de autor:
+
+| Fișier | Provenență |
+|--------|-----------|
+| `web/sqlite3.wasm` | SQLite compilat în WebAssembly, din proiectul `sqlite3.dart` (simolus3), versiunea 2.9.4. SQLite este în domeniul public. |
+| `web/drift_worker.js` | Compilat de autor cu `dart compile js` din sursa `web/drift_worker.dart` livrată de pachetul drift (MIT). Sursa e păstrată alături, ca să se vadă din ce a rezultat. |
+
+## 3. Fonturi
 
 Incluse local în `assets/fonts/`, create de terți, sub licența SIL Open Font
 License:
@@ -40,7 +51,7 @@ License:
 - Baloo 2 (titluri)
 - Plus Jakarta Sans (text curent)
 
-## 3. Algoritmi publici
+## 4. Algoritmi publici
 
 Implementările din proiect sunt scrise de autor în Dart, dar algoritmii și,
 unde e cazul, parametrii provin din surse publice:
@@ -59,7 +70,7 @@ unde e cazul, parametrii provin din surse publice:
 - Regula 50/30/20 și formula dobânzii compuse: cunoștințe financiare
   publice, implementate de autor.
 
-## 4. Imagini
+## 5. Imagini
 
 - Imaginile mascotei Cashy (`assets/mascot/`), imaginea ghindei
   (`assets/icons/acorn.png`) și iconițele desenate ale categoriilor de
@@ -70,14 +81,14 @@ unde e cazul, parametrii provin din surse publice:
 - Iconițele de interfață sunt desenate de autor ca path-uri SVG în
   `lib/core/ui/svg_icon.dart`.
 
-## 5. Unelte de asistență la scriere
+## 6. Unelte de asistență la scriere
 
 La scrierea codului și a conținutului au fost folosite unelte de asistență
 bazate pe modele de limbaj, pe baza specificațiilor autorului. Arhitectura,
 deciziile de produs, regulile pedagogice, validarea pe emulator și verificarea
-finală a fiecărei etape aparțin autorului.
+fiecărei etape aparțin autorului.
 
-## 6. Date și cifre din conținut
+## 7. Date și cifre din conținut
 
 Cifrele financiare românești din lecții și din simulare (salariul minim,
 contribuții, prețuri) sunt preluate din surse publice, notate în

@@ -47,10 +47,13 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Platforme neincluse (doar Android; regenerabile cu flutter create)
+# Platforme neincluse (regenerabile cu flutter create)
 /ios/
 /macos/
 /linux/
-/windows/
-/web/
 
+# Worker-ul de baza de date pentru web, compilat din drift cu dart compile js
+/web/drift_worker.js
+
+# Originalele imaginilor, puse deoparte de tool/optimize_icons.dart
+/assets_src/

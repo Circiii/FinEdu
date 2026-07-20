@@ -1,9 +1,9 @@
-// Raportul săptămânal al lui Cashy (F10-f) — narativul personalizat.
+// Raportul săptămânal al lui Cashy: narativul personalizat.
 //
-// „Cea mai bună metodă" pentru insight-uri profesioniste (spec F10-ai.md):
+// Metoda pentru insight-uri care sună profesionist:
 // FAPTELE se calculează local, determinist (motorul de insights + money intel
-// de pe telefon — auditabile, exacte). Aici urcă DOAR agregate derivate,
-// niciodată tranzacții brute (GDPR/AADC: minimizare la sursă) — iar Gemini
+// de pe telefon, auditabile și exacte). Aici urcă DOAR agregate derivate,
+// niciodată tranzacții brute (GDPR/AADC: minimizare la sursă), iar modelul
 // transformă faptele într-un narativ cald, personalizat, în vocea lui Cashy.
 // Modelul NU calculează nimic: primește cifrele gata făcute și are voie doar
 // să le POVESTEASCĂ. Orice cifră din output care nu există în input = defect.
