@@ -11,10 +11,10 @@ enum TransactionType {
   String get key => name; // 'expense' | 'saving'
 
   static TransactionType fromKey(String key) => switch (key) {
-        'expense' => TransactionType.expense,
-        'saving' => TransactionType.saving,
-        _ => throw ArgumentError('Unknown transaction type: $key'),
-      };
+    'expense' => TransactionType.expense,
+    'saving' => TransactionType.saving,
+    _ => throw ArgumentError('Unknown transaction type: $key'),
+  };
 }
 
 /// Cum a fost înregistrată tranzacția. Oglindește CHECK-ul `source` de pe server.
@@ -27,12 +27,12 @@ enum TransactionSource {
   String get key => name;
 
   static TransactionSource fromKey(String key) => switch (key) {
-        'manual' => TransactionSource.manual,
-        'receipt' => TransactionSource.receipt,
-        'voice' => TransactionSource.voice,
-        'recurring' => TransactionSource.recurring,
-        _ => throw ArgumentError('Unknown transaction source: $key'),
-      };
+    'manual' => TransactionSource.manual,
+    'receipt' => TransactionSource.receipt,
+    'voice' => TransactionSource.voice,
+    'recurring' => TransactionSource.recurring,
+    _ => throw ArgumentError('Unknown transaction source: $key'),
+  };
 }
 
 /// Model de domeniu pur-Dart pentru o tranzacție. Agnostic de framework/

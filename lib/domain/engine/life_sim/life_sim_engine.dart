@@ -1,4 +1,4 @@
-﻿/// Motorul de avans pentru „30 de Zile". [createRun] pornește luna din rol,
+/// Motorul de avans pentru „30 de Zile". [createRun] pornește luna din rol,
 /// [advanceDay] procesează o zi în ordine fixă (salariu → recurente →
 /// datorii → efecte programate → drift de stat → director), [applyChoice]
 /// aplică decizia jucătorului, [allocateSalary] mută bani pe plicuri.
@@ -171,8 +171,9 @@ DayResult advanceDay(LifeSimState s, LifeSimContent c) {
           debt = debt.copyWith(principal: debt.principal + interest);
         }
       }
-      final pay =
-          debt.monthly <= debt.principal ? debt.monthly : debt.principal;
+      final pay = debt.monthly <= debt.principal
+          ? debt.monthly
+          : debt.principal;
       if (cash >= pay) {
         cash = cash - pay;
         paidOnTime++;
@@ -228,10 +229,12 @@ DayResult advanceDay(LifeSimState s, LifeSimContent c) {
   final effectsFired = <(String, String)>[];
   {
     final toFire = [
-      for (final se in st.scheduledEffects) if (se.fireOnDay <= newDay) se,
+      for (final se in st.scheduledEffects)
+        if (se.fireOnDay <= newDay) se,
     ];
     final remaining = [
-      for (final se in st.scheduledEffects) if (se.fireOnDay > newDay) se,
+      for (final se in st.scheduledEffects)
+        if (se.fireOnDay > newDay) se,
     ];
     st = st.copyWith(scheduledEffects: remaining);
     final firedRecords = [...st.firedEffects];
@@ -243,14 +246,16 @@ DayResult advanceDay(LifeSimState s, LifeSimContent c) {
       final cashD = st.cash - before.cash;
       final fundD = st.emergencyFund - before.emergencyFund;
       final goalD = st.goalSavings - before.goalSavings;
-      firedRecords.add(FiredEffect(
-        day: newDay,
-        note: se.note,
-        cashDelta: cashD,
-        fundDelta: fundD,
-        goalDelta: goalD,
-        sourceEventId: se.sourceEventId,
-      ));
+      firedRecords.add(
+        FiredEffect(
+          day: newDay,
+          note: se.note,
+          cashDelta: cashD,
+          fundDelta: fundD,
+          goalDelta: goalD,
+          sourceEventId: se.sourceEventId,
+        ),
+      );
       effectsFired.add((se.note, _deltaSummary(cashD, fundD, goalD)));
     }
     st = st.copyWith(firedEffects: firedRecords);
@@ -327,14 +332,16 @@ LifeSimState settleRemainingEffects(LifeSimState s) {
     final cashD = st.cash - before.cash;
     final fundD = st.emergencyFund - before.emergencyFund;
     final goalD = st.goalSavings - before.goalSavings;
-    firedRecords.add(FiredEffect(
-      day: st.day,
-      note: se.note,
-      cashDelta: cashD,
-      fundDelta: fundD,
-      goalDelta: goalD,
-      sourceEventId: se.sourceEventId,
-    ));
+    firedRecords.add(
+      FiredEffect(
+        day: st.day,
+        note: se.note,
+        cashDelta: cashD,
+        fundDelta: fundD,
+        goalDelta: goalD,
+        sourceEventId: se.sourceEventId,
+      ),
+    );
   }
   return st.copyWith(firedEffects: firedRecords);
 }
@@ -373,8 +380,10 @@ LifeSimState allocateSalary(
   }
   final total = toFund + toGoal;
   if (total > s.cash) {
-    throw ArgumentError('alocare (${total.lei}) peste cash-ul disponibil '
-        '(${s.cash.lei})');
+    throw ArgumentError(
+      'alocare (${total.lei}) peste cash-ul disponibil '
+      '(${s.cash.lei})',
+    );
   }
   return s.copyWith(
     cash: s.cash - total,

@@ -1,4 +1,4 @@
-﻿/// Provocarea Zilei, pure rules, mecanica stil Wordle: UN puzzle pe zi,
+/// Provocarea Zilei, pure rules, mecanica stil Wordle: UN puzzle pe zi,
 /// la fel pentru toți, determinist din dată.
 ///
 /// Statisticile comunității („X% au răspuns ca tine") vin cu backend-ul;
@@ -36,11 +36,11 @@ int pricePoints({required int guess, required int actual}) {
 
 /// Tile de share fără spoiler pentru o ghicire (ideea grilei Wordle).
 String priceEmoji(int points) => switch (points) {
-      25 => '🎯',
-      20 => '🟩',
-      12 || 5 => '🟨',
-      _ => '⬜',
-    };
+  25 => '🎯',
+  20 => '🟩',
+  12 || 5 => '🟨',
+  _ => '⬜',
+};
 
 /// Runda myth: 3 afirmații; all-correct rotunjește la 100.
 int mythScore(int correct) => correct >= 3 ? 100 : correct * 33;

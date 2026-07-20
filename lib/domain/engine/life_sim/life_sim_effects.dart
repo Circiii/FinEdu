@@ -1,4 +1,4 @@
-﻿/// Efecte tipizate pentru „30 de Zile", fiecare efect mută starea ([apply])
+/// Efecte tipizate pentru „30 de Zile", fiecare efect mută starea ([apply])
 /// și se (de)serializează.
 ///
 /// Reguli: cash-ul poate coborî sub zero (descoperitul e urmărit în scor);
@@ -15,9 +15,8 @@ Money _min(Money a, Money b) => a <= b ? a : b;
 
 /// Rezolvă un text care poate fi deja String (round-trip din stare) sau un
 /// nod bilingv {ro,en} (parsare din conținut).
-String _resolveText(dynamic node, String locale) => node is String
-    ? node
-    : ((node as Map)[locale] ?? node['ro']) as String;
+String _resolveText(dynamic node, String locale) =>
+    node is String ? node : ((node as Map)[locale] ?? node['ro']) as String;
 
 sealed class LifeEffect {
   const LifeEffect();
@@ -25,7 +24,11 @@ sealed class LifeEffect {
   /// Aplică efectul, întorcând o stare nouă. [today] e ziua curentă (pentru
   /// programări); [sourceEventId] e decizia-sursă, propagată la efectele
   /// programate.
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId});
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  });
 
   Map<String, dynamic> toJson();
 
@@ -90,8 +93,11 @@ class CashDelta extends LifeEffect {
   const CashDelta(this.delta);
   final Money delta;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.copyWith(cash: s.cash + delta);
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.copyWith(cash: s.cash + delta);
   @override
   Map<String, dynamic> toJson() => {'type': 'cash', 'delta': delta.toJson()};
 }
@@ -100,7 +106,11 @@ class FundDelta extends LifeEffect {
   const FundDelta(this.delta);
   final Money delta;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) {
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) {
     final newFund = (s.emergencyFund + delta).clampAtZero();
     // Cât s-a retras efectiv, ținând cont de tăierea la 0.
     final used = s.emergencyFund - newFund;
@@ -118,8 +128,11 @@ class GoalDelta extends LifeEffect {
   const GoalDelta(this.delta);
   final Money delta;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.copyWith(goalSavings: (s.goalSavings + delta).clampAtZero());
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.copyWith(goalSavings: (s.goalSavings + delta).clampAtZero());
   @override
   Map<String, dynamic> toJson() => {'type': 'goal', 'delta': delta.toJson()};
 }
@@ -129,22 +142,30 @@ class StatDelta extends LifeEffect {
   final String stat;
   final int delta;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.copyWith(stats: s.stats.withDelta(stat, delta));
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.copyWith(stats: s.stats.withDelta(stat, delta));
   @override
-  Map<String, dynamic> toJson() =>
-      {'type': 'stat', 'stat': stat, 'delta': delta};
+  Map<String, dynamic> toJson() => {
+    'type': 'stat',
+    'stat': stat,
+    'delta': delta,
+  };
 }
 
 class JobStabilityDelta extends LifeEffect {
   const JobStabilityDelta(this.delta);
   final int delta;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.copyWith(jobStability: (s.jobStability + delta).clamp(0, 100));
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.copyWith(jobStability: (s.jobStability + delta).clamp(0, 100));
   @override
-  Map<String, dynamic> toJson() =>
-      {'type': 'jobStability', 'delta': delta};
+  Map<String, dynamic> toJson() => {'type': 'jobStability', 'delta': delta};
 }
 
 class CreateDebt extends LifeEffect {
@@ -162,30 +183,36 @@ class CreateDebt extends LifeEffect {
   final int? interestFreeUntil;
 
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) {
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) {
     // Id deja existent → nu dublăm datoria (idempotent la re-aplicare).
     if (s.debts.any((d) => d.id == id)) return s;
-    return s.copyWith(debts: [
-      ...s.debts,
-      DebtState(
-        id: id,
-        principal: principal,
-        monthly: monthly,
-        dueDay: dueDay,
-        interestFreeUntil: interestFreeUntil,
-      ),
-    ]);
+    return s.copyWith(
+      debts: [
+        ...s.debts,
+        DebtState(
+          id: id,
+          principal: principal,
+          monthly: monthly,
+          dueDay: dueDay,
+          interestFreeUntil: interestFreeUntil,
+        ),
+      ],
+    );
   }
 
   @override
   Map<String, dynamic> toJson() => {
-        'type': 'createDebt',
-        'id': id,
-        'principal': principal.toJson(),
-        'monthly': monthly.toJson(),
-        'due_day': dueDay,
-        if (interestFreeUntil != null) 'interest_free_until': interestFreeUntil,
-      };
+    'type': 'createDebt',
+    'id': id,
+    'principal': principal.toJson(),
+    'monthly': monthly.toJson(),
+    'due_day': dueDay,
+    if (interestFreeUntil != null) 'interest_free_until': interestFreeUntil,
+  };
 }
 
 /// Plată extra pe o datorie (din cash). Cu [full] stinge tot principalul;
@@ -197,7 +224,11 @@ class PayDebt extends LifeEffect {
   final bool full;
 
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) {
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) {
     final idx = s.debts.indexWhere((d) => d.id == id);
     if (idx < 0) return s; // datorie inexistentă → no-op
     final debt = s.debts[idx];
@@ -216,19 +247,22 @@ class PayDebt extends LifeEffect {
 
   @override
   Map<String, dynamic> toJson() => {
-        'type': 'payDebt',
-        'id': id,
-        if (amount != null) 'amount': amount!.toJson(),
-        if (full) 'full': true,
-      };
+    'type': 'payDebt',
+    'id': id,
+    if (amount != null) 'amount': amount!.toJson(),
+    if (full) 'full': true,
+  };
 }
 
 class AddRecurring extends LifeEffect {
   const AddRecurring(this.id);
   final String id;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.bills.contains(id) ? s : s.copyWith(bills: [...s.bills, id]);
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.bills.contains(id) ? s : s.copyWith(bills: [...s.bills, id]);
   @override
   Map<String, dynamic> toJson() => {'type': 'addRecurring', 'id': id};
 }
@@ -237,8 +271,11 @@ class RemoveRecurring extends LifeEffect {
   const RemoveRecurring(this.id);
   final String id;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.copyWith(bills: s.bills.where((b) => b != id).toList());
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.copyWith(bills: s.bills.where((b) => b != id).toList());
   @override
   Map<String, dynamic> toJson() => {'type': 'removeRecurring', 'id': id};
 }
@@ -247,8 +284,11 @@ class SetFlag extends LifeEffect {
   const SetFlag(this.flag);
   final String flag;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.flags.contains(flag) ? s : s.copyWith(flags: {...s.flags, flag});
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.flags.contains(flag) ? s : s.copyWith(flags: {...s.flags, flag});
   @override
   Map<String, dynamic> toJson() => {'type': 'setFlag', 'flag': flag};
 }
@@ -257,8 +297,11 @@ class ClearFlag extends LifeEffect {
   const ClearFlag(this.flag);
   final String flag;
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.copyWith(flags: {...s.flags}..remove(flag));
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.copyWith(flags: {...s.flags}..remove(flag));
   @override
   Map<String, dynamic> toJson() => {'type': 'clearFlag', 'flag': flag};
 }
@@ -277,24 +320,29 @@ class ScheduleEffect extends LifeEffect {
   final String note;
 
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.copyWith(scheduledEffects: [
-        ...s.scheduledEffects,
-        ScheduledEffect(
-          fireOnDay: today + delayDays,
-          effects: effects,
-          note: note,
-          sourceEventId: sourceEventId,
-        ),
-      ]);
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.copyWith(
+    scheduledEffects: [
+      ...s.scheduledEffects,
+      ScheduledEffect(
+        fireOnDay: today + delayDays,
+        effects: effects,
+        note: note,
+        sourceEventId: sourceEventId,
+      ),
+    ],
+  );
 
   @override
   Map<String, dynamic> toJson() => {
-        'type': 'scheduleEffect',
-        'delay_days': delayDays,
-        'effects': [for (final e in effects) e.toJson()],
-        'note': note,
-      };
+    'type': 'scheduleEffect',
+    'delay_days': delayDays,
+    'effects': [for (final e in effects) e.toJson()],
+    'note': note,
+  };
 }
 
 /// Programează un eveniment-consecință peste [delayDays] zile, va fi ridicat
@@ -305,13 +353,18 @@ class ScheduleEvent extends LifeEffect {
   final String eventId;
 
   @override
-  LifeSimState apply(LifeSimState s, {required int today, String? sourceEventId}) =>
-      s.copyWith(scheduledEvents: [
-        ...s.scheduledEvents,
-        (today + delayDays, eventId),
-      ]);
+  LifeSimState apply(
+    LifeSimState s, {
+    required int today,
+    String? sourceEventId,
+  }) => s.copyWith(
+    scheduledEvents: [...s.scheduledEvents, (today + delayDays, eventId)],
+  );
 
   @override
-  Map<String, dynamic> toJson() =>
-      {'type': 'scheduleEvent', 'delay_days': delayDays, 'event_id': eventId};
+  Map<String, dynamic> toJson() => {
+    'type': 'scheduleEvent',
+    'delay_days': delayDays,
+    'event_id': eventId,
+  };
 }

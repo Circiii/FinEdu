@@ -1,4 +1,4 @@
-﻿/// Comentariile lui Cashy pentru „30 de Zile".
+/// Comentariile lui Cashy pentru „30 de Zile".
 ///
 /// Determinist: `LifeSimRng(seed).fork(zi)` alege varianta din pool, apoi
 /// interpolează doar valori deja existente în stare/debrief, nicio cifră nouă.
@@ -32,7 +32,11 @@ enum CashyMoodGame { happy, worried, thinking, celebrate }
 /// Un comentariu al lui Cashy: linia principală + până la 2 replici extra
 /// dezvăluite la tap, în ordine.
 class CashyComment {
-  const CashyComment({required this.line, required this.more, required this.mood});
+  const CashyComment({
+    required this.line,
+    required this.more,
+    required this.mood,
+  });
 
   final String line;
   final List<String> more;
@@ -196,14 +200,18 @@ CashyComment commentOnChoice({
     scheduled: scheduled,
   );
 
-  final situation =
-      _situationFor(cashDelta: cashDelta, bigSpend: bigSpend, scheduled: scheduled);
+  final situation = _situationFor(
+    cashDelta: cashDelta,
+    bigSpend: bigSpend,
+    scheduled: scheduled,
+  );
   final rng = LifeSimRng(seed).fork(after.day);
   final line = _pick(_situationPools[situation]!, rng);
 
   final choice = event.choices[choiceIdx];
-  final tradeOff =
-      choice.debrief.isNotEmpty ? choice.debrief : _pick(_fallbackTradeoffLines, rng);
+  final tradeOff = choice.debrief.isNotEmpty
+      ? choice.debrief
+      : _pick(_fallbackTradeoffLines, rng);
 
   final String secondMore;
   if (scheduled) {
@@ -277,24 +285,24 @@ const _conclusionLines = [
 /// Toate template-urile, folosite de testul de lint care verifică fiecare
 /// variantă posibilă. Funcție simplă, fișierul e Dart pur, fără Flutter.
 List<String> allCommentaryTemplates() => [
-      ..._bigSpendLines,
-      ..._smallSpendLines,
-      ..._gainLines,
-      ..._freeChoiceLines,
-      ..._scheduledLines,
-      ..._fallbackTradeoffLines,
-      ..._calendarQuipLines,
-      ..._fillerQuipLines,
-      ..._opportunityTemplates,
-      ..._quietDayLines,
-      ..._openerTemplates,
-      ..._efficientTemplates,
-      ..._riskyTemplates,
-      ..._steadyTemplates,
-      ..._lessonTemplates,
-      ..._balanceTemplates,
-      ..._conclusionLines,
-    ];
+  ..._bigSpendLines,
+  ..._smallSpendLines,
+  ..._gainLines,
+  ..._freeChoiceLines,
+  ..._scheduledLines,
+  ..._fallbackTradeoffLines,
+  ..._calendarQuipLines,
+  ..._fillerQuipLines,
+  ..._opportunityTemplates,
+  ..._quietDayLines,
+  ..._openerTemplates,
+  ..._efficientTemplates,
+  ..._riskyTemplates,
+  ..._steadyTemplates,
+  ..._lessonTemplates,
+  ..._balanceTemplates,
+  ..._conclusionLines,
+];
 
 /// Segmente în ordine: opener, decizii eficiente (max 2), riscante (max 1,
 /// sau „constant" dacă niciuna), lecția din contrafactual, bilanț, concluzie.
@@ -324,12 +332,15 @@ List<CashyComment> narrateReport({
 
 CashyComment _openerSegment(DebriefModel d, LifeSimState s, LifeSimRng rng) {
   final template = _pick(_openerTemplates, rng);
-  final line = _fill(template, {'day': '${s.day}', 'n': '${d.timeline.length}'});
+  final line = _fill(template, {
+    'day': '${s.day}',
+    'n': '${d.timeline.length}',
+  });
   final mood = d.efficient.length > d.risky.length
       ? CashyMoodGame.celebrate
       : (d.risky.length > d.efficient.length
-          ? CashyMoodGame.worried
-          : CashyMoodGame.thinking);
+            ? CashyMoodGame.worried
+            : CashyMoodGame.thinking);
   return CashyComment(line: line, more: const [], mood: mood);
 }
 
@@ -340,7 +351,11 @@ CashyComment _efficientSegment(DebriefDecision o, LifeSimRng rng) {
     'day': '${o.day}',
     'net': o.net.lei,
   });
-  return CashyComment(line: line, more: const [], mood: CashyMoodGame.celebrate);
+  return CashyComment(
+    line: line,
+    more: const [],
+    mood: CashyMoodGame.celebrate,
+  );
 }
 
 CashyComment _riskySegment(DebriefDecision o, LifeSimRng rng) {
@@ -379,5 +394,8 @@ CashyComment _balanceSegment(LifeSimState s, LifeSimRng rng) {
   return CashyComment(line: line, more: const [], mood: mood);
 }
 
-CashyComment _conclusionSegment(LifeSimRng rng) =>
-    CashyComment(line: _pick(_conclusionLines, rng), more: const [], mood: CashyMoodGame.celebrate);
+CashyComment _conclusionSegment(LifeSimRng rng) => CashyComment(
+  line: _pick(_conclusionLines, rng),
+  more: const [],
+  mood: CashyMoodGame.celebrate,
+);

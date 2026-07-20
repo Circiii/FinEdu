@@ -1,4 +1,4 @@
-﻿/// Parsere de conținut pentru „30 de Zile", traduc JSON-ul bilingv în modele
+/// Parsere de conținut pentru „30 de Zile", traduc JSON-ul bilingv în modele
 /// tipizate. Textele se rezolvă o dată la un locale; după parsare motorul
 /// lucrează doar cu String și `Money`, niciodată cu hărți bilingve. Motorul
 /// nu atinge `rootBundle`, rămâne Dart pur, testabil offline.
@@ -81,8 +81,7 @@ class LifeSimRole {
       salaryMin: Money.fromLei((salary['net_min'] as int?) ?? 0),
       salaryMax: Money.fromLei((salary['net_max'] as int?) ?? 0),
       payDay: (j['pay_day'] as int?) ?? 1,
-      salaryVariability:
-          ((j['salary_variability'] as num?) ?? 0).toDouble(),
+      salaryVariability: ((j['salary_variability'] as num?) ?? 0).toDouble(),
       cityProfile: (j['city_profile'] as String?) ?? 'oras_mare',
       housing: (j['housing'] as String?) ?? '',
       transport: (j['transport'] as String?) ?? '',
@@ -101,8 +100,9 @@ class LifeSimRole {
       ],
       bills: ((j['bills'] as List?) ?? const []).cast<String>(),
       benefitFlags: {
-        for (final b in ((j['benefits'] as List?) ?? const [])
-            .cast<Map<String, dynamic>>())
+        for (final b
+            in ((j['benefits'] as List?) ?? const [])
+                .cast<Map<String, dynamic>>())
           if (b['kind'] == 'flag') b['id'] as String,
       },
       risks: j['risks'] == null ? '' : _t(j['risks'], locale),
@@ -190,8 +190,9 @@ class RecurringDef {
         flexible: (j['flexible'] as bool?) ?? false,
         category: (j['category'] as String?) ?? 'other',
         missEffects: [
-          for (final e in ((j['miss_effects'] as List?) ?? const [])
-              .cast<Map<String, dynamic>>())
+          for (final e
+              in ((j['miss_effects'] as List?) ?? const [])
+                  .cast<Map<String, dynamic>>())
             LifeEffect.fromJson(e, locale: locale),
         ],
       );
@@ -217,8 +218,9 @@ class LifeChoice {
       LifeChoice(
         label: _t(j['label'], locale),
         effects: [
-          for (final e in ((j['effects'] as List?) ?? const [])
-              .cast<Map<String, dynamic>>())
+          for (final e
+              in ((j['effects'] as List?) ?? const [])
+                  .cast<Map<String, dynamic>>())
             LifeEffect.fromJson(e, locale: locale),
         ],
         debrief: j['debrief'] == null ? '' : _t(j['debrief'], locale),
@@ -252,41 +254,44 @@ class LifeSimEvent {
     required this.source,
   });
 
-  factory LifeSimEvent.fromJson(Map<String, dynamic> j, String locale) =>
-      LifeSimEvent(
-        id: j['id'] as String,
-        category: j['category'] as String,
-        rarity: (j['rarity'] as String?) ?? 'common',
-        weight: (j['weight'] as int?) ?? 1,
-        cooldownDays: (j['cooldown_days'] as int?) ?? 0,
-        minDay: (j['min_day'] as int?) ?? 1,
-        maxDay: (j['max_day'] as int?) ?? 30,
-        roleTags: ((j['role_tags'] as List?) ?? const []).cast<String>(),
-        difficulty: (j['difficulty'] as int?) ?? 1,
-        conditions: [
-          for (final c in ((j['conditions'] as List?) ?? const [])
+  factory LifeSimEvent.fromJson(
+    Map<String, dynamic> j,
+    String locale,
+  ) => LifeSimEvent(
+    id: j['id'] as String,
+    category: j['category'] as String,
+    rarity: (j['rarity'] as String?) ?? 'common',
+    weight: (j['weight'] as int?) ?? 1,
+    cooldownDays: (j['cooldown_days'] as int?) ?? 0,
+    minDay: (j['min_day'] as int?) ?? 1,
+    maxDay: (j['max_day'] as int?) ?? 30,
+    roleTags: ((j['role_tags'] as List?) ?? const []).cast<String>(),
+    difficulty: (j['difficulty'] as int?) ?? 1,
+    conditions: [
+      for (final c
+          in ((j['conditions'] as List?) ?? const [])
               .cast<Map<String, dynamic>>())
-            LifeCondition.fromJson(c),
-        ],
-        exclusions: [
-          for (final c in ((j['exclusions'] as List?) ?? const [])
+        LifeCondition.fromJson(c),
+    ],
+    exclusions: [
+      for (final c
+          in ((j['exclusions'] as List?) ?? const [])
               .cast<Map<String, dynamic>>())
-            LifeCondition.fromJson(c),
-        ],
-        prerequisites:
-            ((j['prerequisites'] as List?) ?? const []).cast<String>(),
-        chainId: j['chain_id'] as String?,
-        skillTags: ((j['skill_tags'] as List?) ?? const []).cast<String>(),
-        title: _t(j['title'], locale),
-        narrative: j['narrative'] == null ? '' : _t(j['narrative'], locale),
-        illustration: (j['illustration'] as String?) ?? '',
-        choices: [
-          for (final c in ((j['choices'] as List?) ?? const [])
-              .cast<Map<String, dynamic>>())
-            LifeChoice.fromJson(c, locale),
-        ],
-        source: SourceMeta.fromJson(j['source'] as Map<String, dynamic>?),
-      );
+        LifeCondition.fromJson(c),
+    ],
+    prerequisites: ((j['prerequisites'] as List?) ?? const []).cast<String>(),
+    chainId: j['chain_id'] as String?,
+    skillTags: ((j['skill_tags'] as List?) ?? const []).cast<String>(),
+    title: _t(j['title'], locale),
+    narrative: j['narrative'] == null ? '' : _t(j['narrative'], locale),
+    illustration: (j['illustration'] as String?) ?? '',
+    choices: [
+      for (final c
+          in ((j['choices'] as List?) ?? const []).cast<Map<String, dynamic>>())
+        LifeChoice.fromJson(c, locale),
+    ],
+    source: SourceMeta.fromJson(j['source'] as Map<String, dynamic>?),
+  );
 
   final String id;
   final String category;
@@ -389,11 +394,11 @@ class LifeSimContent {
     required this.events,
     required this.goals,
     required this.endings,
-  })  : _rolesById = {for (final r in roles) r.id: r},
-        _recurringById = {for (final r in recurring) r.id: r},
-        _eventsById = {for (final e in events) e.id: e},
-        _goalsById = {for (final g in goals) g.id: g},
-        _citiesById = {for (final c in cities) c.id: c};
+  }) : _rolesById = {for (final r in roles) r.id: r},
+       _recurringById = {for (final r in recurring) r.id: r},
+       _eventsById = {for (final e in events) e.id: e},
+       _goalsById = {for (final g in goals) g.id: g},
+       _citiesById = {for (final c in cities) c.id: c};
 
   final String version;
   final List<LifeSimRole> roles;
@@ -434,16 +439,15 @@ class LifeSimContent {
       final json = jsonDecode(raw) as Map<String, dynamic>;
       final p = path.replaceAll('\\', '/');
       if (p.contains('manifest')) {
-        version = (json['contentVersion'] ?? json['version'] ?? version)
-            as String;
+        version =
+            (json['contentVersion'] ?? json['version'] ?? version) as String;
       } else if (p.contains('roles')) {
         version = (json['version'] as String?) ?? version;
         for (final r in (json['roles'] as List).cast<Map<String, dynamic>>()) {
           roles.add(LifeSimRole.fromJson(r, locale));
         }
       } else if (p.contains('cities')) {
-        for (final c
-            in (json['cities'] as List).cast<Map<String, dynamic>>()) {
+        for (final c in (json['cities'] as List).cast<Map<String, dynamic>>()) {
           cities.add(LifeSimCity.fromJson(c, locale));
         }
       } else if (p.contains('recurring')) {
@@ -461,8 +465,7 @@ class LifeSimContent {
           endings.add(LifeSimEnding.fromJson(e, locale));
         }
       } else if (p.contains('events')) {
-        for (final e
-            in (json['events'] as List).cast<Map<String, dynamic>>()) {
+        for (final e in (json['events'] as List).cast<Map<String, dynamic>>()) {
           events.add(LifeSimEvent.fromJson(e, locale));
         }
       }

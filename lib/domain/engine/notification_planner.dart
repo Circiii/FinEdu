@@ -1,4 +1,4 @@
-﻿// Planificatorul de notificări „de absență", Dart pur, zero Flutter.
+// Planificatorul de notificări „de absență", Dart pur, zero Flutter.
 //
 // Motor mic și determinist: din tiparul real de folosire scoate ora sigură și
 // cele trei momente de escaladare (D1/D3/D7). Nu atinge pluginul și nu știe de
@@ -6,8 +6,11 @@
 
 /// Un slot planificat: id stabil de notificare + momentul + felul mesajului.
 class PlannedNotification {
-  const PlannedNotification(
-      {required this.id, required this.when, required this.kind});
+  const PlannedNotification({
+    required this.id,
+    required this.when,
+    required this.kind,
+  });
   final int id; // 2001 (d1) / 2003 (d3) / 2007 (d7)
   final DateTime when;
   final String kind; // 'd1' | 'd3' | 'd7'
@@ -18,7 +21,7 @@ class PlannedNotification {
 const int _safeHourMin = 16;
 const int _safeHourMax = 20;
 
-/// Ora implicită din F1, folosită când n-avem încă destule date reale.
+/// Ora implicită, folosită când n-avem încă destule date reale.
 const int _defaultHour = 19;
 
 int _clampToSafeWindow(int hour) => hour < _safeHourMin
@@ -29,7 +32,7 @@ int _clampToSafeWindow(int hour) => hour < _safeHourMin
 /// sigură AADC (16-20; școala 8-15 și noaptea 21-8 sunt interzise).
 ///
 /// Ia mediana orei din marcajele de activitate. Sub 5 mostre nu avem un semnal
-/// de încredere, deci cădem pe ora implicită 19 (default-ul din F1).
+/// de încredere, deci cădem pe ora implicită de 19.
 int preferredHour(Iterable<DateTime> activity) {
   final hours = activity.map((d) => d.hour).toList();
   if (hours.length < 5) return _defaultHour;
@@ -47,8 +50,10 @@ int preferredHour(Iterable<DateTime> activity) {
 ///
 /// `hour` e adus defensiv în fereastra sigură [16, 20]. Dacă un slot calculat
 /// nu iese după `now` (o margine de DST), îl împingem încă o zi.
-List<PlannedNotification> planEscalation(
-    {required DateTime now, required int hour}) {
+List<PlannedNotification> planEscalation({
+  required DateTime now,
+  required int hour,
+}) {
   final h = _clampToSafeWindow(hour);
   const spec = [
     (offset: 1, id: 2001, kind: 'd1'),
@@ -56,16 +61,18 @@ List<PlannedNotification> planEscalation(
     (offset: 7, id: 2007, kind: 'd7'),
   ];
   return [
-    for (final s in spec) _slotFor(now: now, offsetDays: s.offset, hour: h, id: s.id, kind: s.kind),
+    for (final s in spec)
+      _slotFor(now: now, offsetDays: s.offset, hour: h, id: s.id, kind: s.kind),
   ];
 }
 
-PlannedNotification _slotFor(
-    {required DateTime now,
-    required int offsetDays,
-    required int hour,
-    required int id,
-    required String kind}) {
+PlannedNotification _slotFor({
+  required DateTime now,
+  required int offsetDays,
+  required int hour,
+  required int id,
+  required String kind,
+}) {
   // Construim data deplasată prin constructorul DateTime (rezolvă singur
   // depășirea de lună) și abia apoi fixăm ora.
   final shifted = DateTime(now.year, now.month, now.day + offsetDays);

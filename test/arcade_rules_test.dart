@@ -5,16 +5,15 @@ import 'package:finedu_flutter/domain/engine/turbo_rules.dart';
 
 void main() {
   group('daily challenge selection', () {
-    test('format rotates price -> myth -> dilemma, deterministic per date',
-        () {
+    test('format rotates price -> myth -> dilemma, deterministic per date', () {
       expect(formatFor('2026-07-06'), formatFor('2026-07-06'));
       final f0 = formatFor('2026-07-06');
       final f1 = formatFor('2026-07-07');
       final f2 = formatFor('2026-07-08');
       expect({f0, f1, f2}, DailyFormat.values.toSet());
-      // Full cycle: 3 days later the same format returns...
+      // Ciclu complet: peste 3 zile revine același format...
       expect(formatFor('2026-07-09'), f0);
-      // ...but the pool index has advanced by one (and wraps).
+      // ...dar indexul din pool a avansat cu unu și se închide în cerc.
       final i0 = puzzleIndexFor('2026-07-06', 5);
       expect(puzzleIndexFor('2026-07-09', 5), (i0 + 1) % 5);
     });
@@ -26,7 +25,7 @@ void main() {
       expect(pricePoints(guess: 130, actual: 100), 12); // <=30%
       expect(pricePoints(guess: 150, actual: 100), 5); // <=50%
       expect(pricePoints(guess: 250, actual: 100), 0);
-      // Symmetric: undershooting scores the same as overshooting.
+      // Simetric: sub preț se punctează la fel ca peste preț.
       expect(pricePoints(guess: 86, actual: 100), 20);
     });
 
@@ -38,20 +37,16 @@ void main() {
     });
 
     test('daily bonus game rotates through all games', () {
-      expect(
-        {
-          dailyBonusGame('2026-07-06'),
-          dailyBonusGame('2026-07-07'),
-          dailyBonusGame('2026-07-08'),
-        },
-        arcadeGames.toSet(),
-      );
+      expect({
+        dailyBonusGame('2026-07-06'),
+        dailyBonusGame('2026-07-07'),
+        dailyBonusGame('2026-07-08'),
+      }, arcadeGames.toSet());
     });
   });
 
   group('turbo rules', () {
-    test('combo grows points, capped; wrong answer costs a life and combo',
-        () {
+    test('combo grows points, capped; wrong answer costs a life and combo', () {
       var s = const TurboState();
       expect(s.nextPoints, 10);
       s = applyAnswer(s, isCorrect: true); // +10
@@ -60,7 +55,7 @@ void main() {
       s = applyAnswer(s, isCorrect: true); // +12
       expect(s.score, 22);
 
-      // Cap: from combo 5 onward every correct is worth 20.
+      // Plafon: de la combo 5 în sus, fiecare răspuns bun face 20.
       for (var i = 0; i < 10; i++) {
         s = applyAnswer(s, isCorrect: true);
       }
@@ -72,7 +67,7 @@ void main() {
       s = applyAnswer(s, isCorrect: false);
       expect(s.lives, lives - 1);
       expect(s.combo, 0);
-      expect(s.score, greaterThan(0)); // score never drops
+      expect(s.score, greaterThan(0)); // scorul nu scade niciodată
     });
 
     test('three mistakes end the run', () {

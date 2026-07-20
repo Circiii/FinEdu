@@ -1,4 +1,4 @@
-﻿/// Condiții tipizate de eligibilitate pentru evenimentele din „30 de Zile".
+/// Condiții tipizate de eligibilitate pentru evenimentele din „30 de Zile".
 ///
 /// Ierarhie sealed: fiecare condiție se evaluează pe o stare ([eval]) și se
 /// parsează din JSON ([LifeCondition.fromJson]). Un tip necunoscut aruncă
@@ -143,8 +143,8 @@ class MadeChoice extends LifeCondition {
   final String eventId;
   final int choiceIdx;
   @override
-  bool eval(LifeSimState s) => s.decisions
-      .any((d) => d.eventId == eventId && d.choiceIdx == choiceIdx);
+  bool eval(LifeSimState s) =>
+      s.decisions.any((d) => d.eventId == eventId && d.choiceIdx == choiceIdx);
 }
 
 class HasRecurring extends LifeCondition {

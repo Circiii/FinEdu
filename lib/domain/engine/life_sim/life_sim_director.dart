@@ -1,4 +1,4 @@
-﻿/// Directorul de evenimente din „30 de Zile", determinist dat (stare,
+/// Directorul de evenimente din „30 de Zile", determinist dat (stare,
 /// conținut, rng, mod), alege cel mult un eveniment pe zi.
 ///
 /// Evenimentele-consecință programate ([LifeSimState.scheduledEvents]) au
@@ -89,7 +89,10 @@ LifeSimEvent? pickEvent({
   if (rng.nextDouble() < pQuiet) return null;
 
   // 3. Pool-ul eligibil (ordine de conținut = deterministă).
-  final eligible = [for (final e in c.events) if (eventEligible(e, s)) e];
+  final eligible = [
+    for (final e in c.events)
+      if (eventEligible(e, s)) e,
+  ];
   if (eligible.isEmpty) return null;
 
   // 4. Greutăți ajustate.

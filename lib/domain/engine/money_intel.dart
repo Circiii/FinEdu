@@ -1,4 +1,4 @@
-﻿/// Money intelligence, banii înțeleși 100% local, zero AI mare. Matematică
+/// Money intelligence, banii înțeleși 100% local, zero AI mare. Matematică
 /// deterministă, praguri conservatoare; sub incertitudine, motorul SE ABȚINE.
 library;
 
@@ -53,8 +53,10 @@ bool isAnomaly({
   required double goalContributions,
   required int daysLeft,
 }) {
-  final safe = (budget - spentSoFar - recurringDue - goalContributions)
-      .clamp(0.0, double.infinity);
+  final safe = (budget - spentSoFar - recurringDue - goalContributions).clamp(
+    0.0,
+    double.infinity,
+  );
   return (safe: safe, perDay: safe / max(daysLeft, 1));
 }
 
@@ -84,7 +86,8 @@ class RecurringGuess {
 /// mersul la cinema) costă mai multă încredere decât câștigă un adevărat
 /// pozitiv. Abținerea e o decizie.
 List<RecurringGuess> detectRecurring(
-    List<({String category, double amount, DateTime date})> tx) {
+  List<({String category, double amount, DateTime date})> tx,
+) {
   final byCategory = <String, List<({double amount, DateTime date})>>{};
   for (final t in tx) {
     (byCategory[t.category] ??= []).add((amount: t.amount, date: t.date));
@@ -111,21 +114,23 @@ List<RecurringGuess> detectRecurring(
     // alunecă puțin, weekendurile mută debitări).
     if (gaps.any((g) => (g - medianGap).abs() > 3)) return;
 
-    final medianAmount =
-        robustCenter([for (final e in entries) e.amount]);
+    final medianAmount = robustCenter([for (final e in entries) e.amount]);
     if (medianAmount <= 0) return;
     // Sumă stabilă: ±10% din mediană pentru FIECARE apariție.
     if (entries.any(
-        (e) => (e.amount - medianAmount).abs() > medianAmount * 0.10)) {
+      (e) => (e.amount - medianAmount).abs() > medianAmount * 0.10,
+    )) {
       return;
     }
 
-    out.add(RecurringGuess(
-      category: category,
-      medianAmount: medianAmount,
-      periodDays: medianGap.round(),
-      confidence: entries.length,
-    ));
+    out.add(
+      RecurringGuess(
+        category: category,
+        medianAmount: medianAmount,
+        periodDays: medianGap.round(),
+        confidence: entries.length,
+      ),
+    );
   });
 
   // Cele mai multe apariții primele (cea mai sigură ghicire); egalitate →
@@ -165,9 +170,8 @@ int categorySuggestion({
   if (categories.isEmpty) return -1;
   // Doar observațiile din categoriile propuse contează (restul nu pot fi
   // nici sugerate, nici comparate cinstit).
-  final usable =
-      history.where((h) => categories.contains(h.category)).toList();
-  if (usable.length < 15) return -1; // cold start: tăcere, nu ghicit
+  final usable = history.where((h) => categories.contains(h.category)).toList();
+  if (usable.length < 15) return -1; // prea puțin istoric ca să merite o părere
 
   final bucket = _amountBucket(amount);
   final countByCat = <String, int>{};

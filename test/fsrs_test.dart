@@ -1,4 +1,4 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,34 +18,38 @@ final double _factor = math.pow(0.9, 1 / _decay) - 1; // ≈ 0.980438
 int _expectedInterval(double s, double r) {
   final raw = (s / _factor) * (math.pow(r, 1 / _decay) - 1);
   final rounded = raw.round();
-  return rounded < 1 ? 1 : (rounded > maxIntervalDays ? maxIntervalDays : rounded);
+  return rounded < 1
+      ? 1
+      : (rounded > maxIntervalDays ? maxIntervalDays : rounded);
 }
 
 Lesson _lesson(String id) => Lesson(
-      id: id,
-      emoji: '📖',
-      minutes: 3,
-      xp: 15,
-      difficulty: 'beginner',
-      title: 'T',
-      hook: 'H',
-      concept: const ['C'],
-      example: 'E',
-      interactive: const LessonInteractive(kind: 'mcq'),
-      recap: const ['R'],
-      action: 'A',
-      cards: const [ConceptCard('c1', 'Q1', 'A1')],
-    );
+  id: id,
+  emoji: '📖',
+  minutes: 3,
+  xp: 15,
+  difficulty: 'beginner',
+  title: 'T',
+  hook: 'H',
+  concept: const ['C'],
+  example: 'E',
+  interactive: const LessonInteractive(kind: 'mcq'),
+  recap: const ['R'],
+  action: 'A',
+  cards: const [ConceptCard('c1', 'Q1', 'A1')],
+);
 
 void main() {
   group('fsrs golden (aritmetică independentă)', () {
-    test('prima recenzie Good → S == w[2], interval = cel calculat la R=0.83',
-        () {
-      final r = fsrsGrade(known: true, elapsedDays: 1);
-      expect(r.memory.stability, _w[2]); // 2.3065
-      expect(r.intervalDays, _expectedInterval(_w[2], desiredRetention));
-      expect(r.intervalDays, 6); // sanity: valoare concretă
-    });
+    test(
+      'prima recenzie Good → S == w[2], interval = cel calculat la R=0.83',
+      () {
+        final r = fsrsGrade(known: true, elapsedDays: 1);
+        expect(r.memory.stability, _w[2]); // 2.3065
+        expect(r.intervalDays, _expectedInterval(_w[2], desiredRetention));
+        expect(r.intervalDays, 6); // sanity: valoare concretă
+      },
+    );
 
     test('prima recenzie Again → S == w[0]', () {
       final r = fsrsGrade(known: false, elapsedDays: 1);
@@ -80,11 +84,18 @@ void main() {
           elapsedDays: prevI.toDouble(), // recenzie „la timp"
         );
         // Stabilitatea crește NELIMITAT la fiecare Good.
-        expect(m.memory.stability, greaterThan(prevS),
-            reason: 'pasul $i stabilitate');
+        expect(
+          m.memory.stability,
+          greaterThan(prevS),
+          reason: 'pasul $i stabilitate',
+        );
         // Intervalul crește strict cât timp e sub plafon; apoi saturează la 180.
         if (prevI < maxIntervalDays) {
-          expect(m.intervalDays, greaterThan(prevI), reason: 'pasul $i interval');
+          expect(
+            m.intervalDays,
+            greaterThan(prevI),
+            reason: 'pasul $i interval',
+          );
           sawGrowth = true;
         }
         prevS = m.memory.stability;
@@ -97,8 +108,11 @@ void main() {
       const high = FsrsMemory(stability: 50, difficulty: 5);
       final r = fsrsGrade(memory: high, known: false, elapsedDays: 50);
       expect(r.memory.stability, lessThan(50)); // a scăzut
-      expect(r.memory.stability, greaterThan(_w[0]),
-          reason: 'post-lapse păstrează o fracțiune, nu resetează la S0');
+      expect(
+        r.memory.stability,
+        greaterThan(_w[0]),
+        reason: 'post-lapse păstrează o fracțiune, nu resetează la S0',
+      );
       expect(r.memory.stability, greaterThan(1)); // net peste inițial
     });
 
@@ -126,18 +140,24 @@ void main() {
       expect(r5, lessThan(1.0));
       expect(r20, greaterThan(0.0));
       // La elapsed == S, retenția e ~0.90 (definiția stabilității).
-      expect(retrievability(stability: 10, elapsedDays: 10), closeTo(0.90, 1e-6));
+      expect(
+        retrievability(stability: 10, elapsedDays: 10),
+        closeTo(0.90, 1e-6),
+      );
     });
   });
 
   group('fsrs mapare 2 butoane', () {
-    test('known=true → cale Good (S urcă), known=false → Again (S coboară)', () {
-      const m = FsrsMemory(stability: 10, difficulty: 5);
-      final good = fsrsGrade(memory: m, known: true, elapsedDays: 10);
-      final again = fsrsGrade(memory: m, known: false, elapsedDays: 10);
-      expect(good.memory.stability, greaterThan(10));
-      expect(again.memory.stability, lessThan(10));
-    });
+    test(
+      'known=true → cale Good (S urcă), known=false → Again (S coboară)',
+      () {
+        const m = FsrsMemory(stability: 10, difficulty: 5);
+        final good = fsrsGrade(memory: m, known: true, elapsedDays: 10);
+        final again = fsrsGrade(memory: m, known: false, elapsedDays: 10);
+        expect(good.memory.stability, greaterThan(10));
+        expect(again.memory.stability, lessThan(10));
+      },
+    );
   });
 
   group('fsrs migrare din cutie', () {
@@ -147,8 +167,10 @@ void main() {
       expect(fsrsSeedFromBox(3).stability, 7.0);
       expect(fsrsSeedFromBox(4).stability, 21.0);
       // dificultatea scade cu cutia (sus = mai ușor pentru user)
-      expect(fsrsSeedFromBox(1).difficulty,
-          greaterThan(fsrsSeedFromBox(4).difficulty));
+      expect(
+        fsrsSeedFromBox(1).difficulty,
+        greaterThan(fsrsSeedFromBox(4).difficulty),
+      );
     });
 
     test('grade pe card seedat din box3 → S crește, interval sănătos', () {
@@ -181,34 +203,38 @@ void main() {
     });
     tearDown(() => db.close());
 
-    test('card moștenit (stability NULL) se migrează din box la prima notare',
-        () async {
-      await repo.completeLesson(_lesson('l1'));
-      final legacy = (await db.select(db.reviewCards).get()).first;
-      expect(legacy.stability, isNull); // creat pre-FSRS
-      expect(legacy.box, 1);
+    test(
+      'card moștenit (stability NULL) se migrează din box la prima notare',
+      () async {
+        await repo.completeLesson(_lesson('l1'));
+        final legacy = (await db.select(db.reviewCards).get()).first;
+        expect(legacy.stability, isNull); // creat pre-FSRS
+        expect(legacy.box, 1);
 
-      await repo.grade(legacy, known: true);
+        await repo.grade(legacy, known: true);
 
-      final updated = await (db.select(db.reviewCards)
-            ..where((c) => c.cardId.equals(legacy.cardId)))
-          .getSingle();
-      expect(updated.stability, isNotNull); // FSRS a preluat cardul
-      expect(updated.difficulty, isNotNull);
-      expect(updated.lastReview, dayKey(DateTime.now()));
-      expect(updated.box, fsrsBoxBucket(updated.stability!));
-      // Programat în viitor (nu azi).
-      expect(updated.nextDue.compareTo(dayKey(DateTime.now())),
-          greaterThan(0));
-    });
+        final updated = await (db.select(
+          db.reviewCards,
+        )..where((c) => c.cardId.equals(legacy.cardId))).getSingle();
+        expect(updated.stability, isNotNull); // FSRS a preluat cardul
+        expect(updated.difficulty, isNotNull);
+        expect(updated.lastReview, dayKey(DateTime.now()));
+        expect(updated.box, fsrsBoxBucket(updated.stability!));
+        // Programat în viitor (nu azi).
+        expect(
+          updated.nextDue.compareTo(dayKey(DateTime.now())),
+          greaterThan(0),
+        );
+      },
+    );
 
     test('„Nu știu" numără lapse-ul, ca la Leitner', () async {
       await repo.completeLesson(_lesson('l2'));
       final card = (await db.select(db.reviewCards).get()).first;
       await repo.grade(card, known: false);
-      final updated = await (db.select(db.reviewCards)
-            ..where((c) => c.cardId.equals(card.cardId)))
-          .getSingle();
+      final updated = await (db.select(
+        db.reviewCards,
+      )..where((c) => c.cardId.equals(card.cardId))).getSingle();
       expect(updated.lapses, card.lapses + 1);
     });
   });

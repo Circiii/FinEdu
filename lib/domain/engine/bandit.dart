@@ -53,7 +53,7 @@ double sampleBeta(double alpha, double beta, Random rng) {
 /// respingeri costisitoare, cu boost standard pentru shape<1.
 double _sampleGamma(double shape, Random rng) {
   if (shape < 1) {
-    // Boost: Gamma(shape) = Gamma(shape+1) * U^(1/shape).
+    // Truc de calcul: Gamma(shape) = Gamma(shape+1) * U^(1/shape).
     return _sampleGamma(shape + 1, rng) * pow(rng.nextDouble(), 1 / shape);
   }
   final d = shape - 1.0 / 3.0;

@@ -1,4 +1,4 @@
-﻿/// Turbo Buget, mașină de scor pură pentru jocul de sortare need/want/save
+/// Turbo Buget, mașină de scor pură pentru jocul de sortare need/want/save
 /// de 45s: combo recompensează șiruri de răspunsuri corecte, 3 vieți termină
 /// runda devreme, timer-ul o termină altfel (gestionat de UI).
 library;
@@ -27,7 +27,8 @@ class TurboState {
   bool get over => lives <= 0;
 
   /// Punctele pe care le-ar câștiga URMĂTORUL răspuns corect (pastila de combo).
-  int get nextPoints => 10 + 2 * (combo < _maxComboBonus ? combo : _maxComboBonus);
+  int get nextPoints =>
+      10 + 2 * (combo < _maxComboBonus ? combo : _maxComboBonus);
 }
 
 /// Aplică un card sortat. Corect: score += 10 + bonus de combo; greșit:

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:drift/drift.dart' show Value;
@@ -84,51 +84,58 @@ void main() {
   // --- pickArm ---------------------------------------------------------------
 
   group('pickArm', () {
-    test('converges to the better arm; epsilon floor keeps the worse alive',
-        () {
-      final counters = {
-        0: (alpha: 5.0, beta: 20.0), // medie ≈ 0.2
-        1: (alpha: 20.0, beta: 5.0), // medie ≈ 0.8
-      };
-      var arm1 = 0;
-      var arm0 = 0;
-      for (var i = 0; i < 200; i++) {
-        final p = pickArm(counters: counters, armCount: 2, rng: Random(i));
-        if (p.arm == 1) {
-          arm1++;
-        } else {
-          arm0++;
+    test(
+      'converges to the better arm; epsilon floor keeps the worse alive',
+      () {
+        final counters = {
+          0: (alpha: 5.0, beta: 20.0), // medie ≈ 0.2
+          1: (alpha: 20.0, beta: 5.0), // medie ≈ 0.8
+        };
+        var arm1 = 0;
+        var arm0 = 0;
+        for (var i = 0; i < 200; i++) {
+          final p = pickArm(counters: counters, armCount: 2, rng: Random(i));
+          if (p.arm == 1) {
+            arm1++;
+          } else {
+            arm0++;
+          }
         }
-      }
-      expect(arm1, greaterThan(140)); // > 70% din 200
-      expect(arm0, greaterThanOrEqualTo(1)); // podeaua de explorare funcționează
-    });
+        expect(arm1, greaterThan(140)); // > 70% din 200
+        expect(
+          arm0,
+          greaterThanOrEqualTo(1),
+        ); // podeaua de explorare funcționează
+      },
+    );
 
-    test('returned propensity stays in [epsilon/K, 1] and favors the winner',
-        () {
-      final counters = {
-        0: (alpha: 20.0, beta: 5.0), // brațul tare
-        1: (alpha: 5.0, beta: 20.0),
-      };
-      const floor = 0.10 / 2;
-      var sum0 = 0.0;
-      var sum1 = 0.0;
-      var n0 = 0;
-      var n1 = 0;
-      for (var i = 0; i < 500; i++) {
-        final p = pickArm(counters: counters, armCount: 2, rng: Random(i));
-        expect(p.propensity, inInclusiveRange(floor - 1e-9, 1.0 + 1e-9));
-        if (p.arm == 0) {
-          sum0 += p.propensity;
-          n0++;
-        } else {
-          sum1 += p.propensity;
-          n1++;
+    test(
+      'returned propensity stays in [epsilon/K, 1] and favors the winner',
+      () {
+        final counters = {
+          0: (alpha: 20.0, beta: 5.0), // brațul tare
+          1: (alpha: 5.0, beta: 20.0),
+        };
+        const floor = 0.10 / 2;
+        var sum0 = 0.0;
+        var sum1 = 0.0;
+        var n0 = 0;
+        var n1 = 0;
+        for (var i = 0; i < 500; i++) {
+          final p = pickArm(counters: counters, armCount: 2, rng: Random(i));
+          expect(p.propensity, inInclusiveRange(floor - 1e-9, 1.0 + 1e-9));
+          if (p.arm == 0) {
+            sum0 += p.propensity;
+            n0++;
+          } else {
+            sum1 += p.propensity;
+            n1++;
+          }
         }
-      }
-      expect(n0, greaterThan(n1)); // brațul tare e ales mult mai des
-      expect(sum0 / n0, greaterThan(sum1 / max(1, n1)));
-    });
+        expect(n0, greaterThan(n1)); // brațul tare e ales mult mai des
+        expect(sum0 / n0, greaterThan(sum1 / max(1, n1)));
+      },
+    );
 
     test('per-arm propensities sum to ~1 (epsilon/K + (1-eps)·pWin)', () {
       // Verificăm identitatea direct: o singură rulare MC consistentă dă o
@@ -172,7 +179,7 @@ void main() {
     });
   });
 
-  // --- provider wiring (in-memory db) ---------------------------------------
+  // --- legarea providerilor (bază în memorie) -------------------------------
 
   group('personalization wiring', () {
     Future<List<InsightCard>> run(ProviderContainer container) {
@@ -195,7 +202,9 @@ void main() {
     Future<void> seedPaceUnder(AppDb db) async {
       final now = DateTime.now();
       for (var i = 0; i < 6; i++) {
-        await db.into(db.localTransactions).insert(
+        await db
+            .into(db.localTransactions)
+            .insert(
               LocalTransactionsCompanion.insert(
                 id: 'tx$i',
                 amount: 10.0 + i,
@@ -212,15 +221,20 @@ void main() {
       final db = AppDb(NativeDatabase.memory());
       addTearDown(db.close);
       final container = ProviderContainer(
-          overrides: [appDbProvider.overrideWithValue(db)]);
+        overrides: [appDbProvider.overrideWithValue(db)],
+      );
       addTearDown(container.dispose);
 
       // id=0 explicit: coloana e alias de rowid în SQLite, altfel primește 1 și
       // stream-ul profilului (care veghează id=0) nu-l vede niciodată.
-      await db.into(db.localProfiles).insert(LocalProfilesCompanion.insert(
-            id: const Value(0),
-            monthlyBudget: const Value(800),
-          ));
+      await db
+          .into(db.localProfiles)
+          .insert(
+            LocalProfilesCompanion.insert(
+              id: const Value(0),
+              monthlyBudget: const Value(800),
+            ),
+          );
       await seedPaceUnder(db);
       // Încălzim stream-ul profilului: prima construcție a insights trebuie să
       // vadă bugetul (altfel budget=0 → cade pe cardul educațional).
@@ -229,99 +243,126 @@ void main() {
       final cards = await run(container);
       expect(cards, isNotEmpty);
 
-      final shown = await (db.select(db.insightEvents)
-            ..where((e) => e.event.equals('shown')))
-          .get();
+      final shown = await (db.select(
+        db.insightEvents,
+      )..where((e) => e.event.equals('shown'))).get();
       expect(shown, isNotEmpty);
-      expect(shown.every((e) => e.arm == null && e.propensity == null), isTrue,
-          reason: 'personalizare oprită → nimic logat, byte-identic cu F8-a');
-    });
-
-    test('ON: bandit logs arm+propensity and favors the tapped variant',
-        () async {
-      final db = AppDb(NativeDatabase.memory());
-      addTearDown(db.close);
-      final container = ProviderContainer(
-          overrides: [appDbProvider.overrideWithValue(db)]);
-      addTearDown(container.dispose);
-
-      // id=0 explicit (vezi nota din testul OFF: coloana e alias de rowid).
-      await db.into(db.localProfiles).insert(LocalProfilesCompanion.insert(
-            id: const Value(0),
-            monthlyBudget: const Value(800),
-            personalizationOn: const Value(true),
-          ));
-      await seedPaceUnder(db);
-      // Încălzim stream-ul profilului (buget + flag personalizare) înainte de
-      // prima construcție a insights.
-      await container.read(localProfileStreamProvider.future);
-
-      // Istoric: varianta 1 (arm=1) mereu apăsată (succes); varianta 0 mereu
-      // ignorată (eșec). Banditul ar trebui să învețe să prefere brațul 1.
-      final now = DateTime.now();
-      for (var i = 0; i < 8; i++) {
-        final shownAt = now.subtract(Duration(days: 3, hours: i));
-        await db.into(db.insightEvents).insert(InsightEventsCompanion.insert(
-              insightId: 'pu_s$i',
-              ruleKey: 'pace_under',
-              kind: 'positive',
-              event: 'shown',
-              createdAt: shownAt,
-              arm: const Value(1),
-              propensity: const Value(0.5),
-            ));
-        await db.into(db.insightEvents).insert(InsightEventsCompanion.insert(
-              insightId: 'pu_s$i',
-              ruleKey: 'pace_under',
-              kind: 'positive',
-              event: 'tapped',
-              createdAt: shownAt.add(const Duration(hours: 1)),
-            ));
-        await db.into(db.insightEvents).insert(InsightEventsCompanion.insert(
-              insightId: 'pu_f$i',
-              ruleKey: 'pace_under',
-              kind: 'positive',
-              event: 'shown',
-              createdAt: shownAt,
-              arm: const Value(0),
-            ));
-      }
-
-      // Evidența din DB favorizează puternic brațul 1 (varianta apăsată),
-      // demonstrat determinist peste 100 de seed-uri distincte.
-      final repo = container.read(insightsRepositoryProvider);
-      final obs = await repo.banditObservations();
-      final counters = deriveCounters(obs['pace_under']!);
-      var arm1 = 0;
-      for (var i = 0; i < 100; i++) {
-        if (pickArm(counters: counters, armCount: 2, rng: Random(i)).arm == 1) {
-          arm1++;
-        }
-      }
-      expect(arm1, greaterThan(85));
-
-      // Alegerea deterministă pentru seed-ul zilei, oglindește exact wiring-ul
-      // provider-ului (Random pe (zi|regulă)), deci fără flake pe calendar.
-      final expected = pickArm(
-        counters: counters,
-        armCount: 2,
-        rng: Random(('${dayKey(now)}|pace_under').hashCode),
+      expect(
+        shown.every((e) => e.arm == null && e.propensity == null),
+        isTrue,
+        reason: 'personalizare oprită → nimic logat',
       );
-
-      final cards = await run(container);
-      expect(cards.any((c) => c.ruleKey == 'pace_under'), isTrue);
-
-      final shown = await (db.select(db.insightEvents)
-            ..where((e) => e.insightId.equals('pace_under'))
-            ..where((e) => e.event.equals('shown')))
-          .get();
-      expect(shown, hasLength(1));
-      final row = shown.single;
-      expect(row.arm, isNotNull, reason: 'brațul ales e persistat pe shown');
-      expect(row.propensity, isNotNull, reason: 'propensity-ul e logat');
-      expect(row.propensity, inInclusiveRange(0.0, 1.0));
-      expect(row.arm, expected.arm,
-          reason: 'brațul persistat = decizia deterministă a banditului');
     });
+
+    test(
+      'ON: bandit logs arm+propensity and favors the tapped variant',
+      () async {
+        final db = AppDb(NativeDatabase.memory());
+        addTearDown(db.close);
+        final container = ProviderContainer(
+          overrides: [appDbProvider.overrideWithValue(db)],
+        );
+        addTearDown(container.dispose);
+
+        // id=0 explicit (vezi nota din testul OFF: coloana e alias de rowid).
+        await db
+            .into(db.localProfiles)
+            .insert(
+              LocalProfilesCompanion.insert(
+                id: const Value(0),
+                monthlyBudget: const Value(800),
+                personalizationOn: const Value(true),
+              ),
+            );
+        await seedPaceUnder(db);
+        // Încălzim stream-ul profilului (buget + flag personalizare) înainte de
+        // prima construcție a insights.
+        await container.read(localProfileStreamProvider.future);
+
+        // Istoric: varianta 1 (arm=1) mereu apăsată (succes); varianta 0 mereu
+        // ignorată (eșec). Banditul ar trebui să învețe să prefere brațul 1.
+        final now = DateTime.now();
+        for (var i = 0; i < 8; i++) {
+          final shownAt = now.subtract(Duration(days: 3, hours: i));
+          await db
+              .into(db.insightEvents)
+              .insert(
+                InsightEventsCompanion.insert(
+                  insightId: 'pu_s$i',
+                  ruleKey: 'pace_under',
+                  kind: 'positive',
+                  event: 'shown',
+                  createdAt: shownAt,
+                  arm: const Value(1),
+                  propensity: const Value(0.5),
+                ),
+              );
+          await db
+              .into(db.insightEvents)
+              .insert(
+                InsightEventsCompanion.insert(
+                  insightId: 'pu_s$i',
+                  ruleKey: 'pace_under',
+                  kind: 'positive',
+                  event: 'tapped',
+                  createdAt: shownAt.add(const Duration(hours: 1)),
+                ),
+              );
+          await db
+              .into(db.insightEvents)
+              .insert(
+                InsightEventsCompanion.insert(
+                  insightId: 'pu_f$i',
+                  ruleKey: 'pace_under',
+                  kind: 'positive',
+                  event: 'shown',
+                  createdAt: shownAt,
+                  arm: const Value(0),
+                ),
+              );
+        }
+
+        // Evidența din DB favorizează puternic brațul 1 (varianta apăsată),
+        // demonstrat determinist peste 100 de seed-uri distincte.
+        final repo = container.read(insightsRepositoryProvider);
+        final obs = await repo.banditObservations();
+        final counters = deriveCounters(obs['pace_under']!);
+        var arm1 = 0;
+        for (var i = 0; i < 100; i++) {
+          if (pickArm(counters: counters, armCount: 2, rng: Random(i)).arm ==
+              1) {
+            arm1++;
+          }
+        }
+        expect(arm1, greaterThan(85));
+
+        // Alegerea deterministă pentru seed-ul zilei, oglindește exact wiring-ul
+        // provider-ului (Random pe (zi|regulă)), deci fără flake pe calendar.
+        final expected = pickArm(
+          counters: counters,
+          armCount: 2,
+          rng: Random(('${dayKey(now)}|pace_under').hashCode),
+        );
+
+        final cards = await run(container);
+        expect(cards.any((c) => c.ruleKey == 'pace_under'), isTrue);
+
+        final shown =
+            await (db.select(db.insightEvents)
+                  ..where((e) => e.insightId.equals('pace_under'))
+                  ..where((e) => e.event.equals('shown')))
+                .get();
+        expect(shown, hasLength(1));
+        final row = shown.single;
+        expect(row.arm, isNotNull, reason: 'brațul ales e persistat pe shown');
+        expect(row.propensity, isNotNull, reason: 'propensity-ul e logat');
+        expect(row.propensity, inInclusiveRange(0.0, 1.0));
+        expect(
+          row.arm,
+          expected.arm,
+          reason: 'brațul persistat = decizia deterministă a banditului',
+        );
+      },
+    );
   });
 }

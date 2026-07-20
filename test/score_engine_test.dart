@@ -11,17 +11,16 @@ ScoreInputs _inputs({
   int categories = 0,
   int lessonsDone = 0,
   int lessonsTotal = 25,
-}) =>
-    ScoreInputs(
-      budget: budget,
-      spentThisMonth: spent,
-      savedThisMonth: saved,
-      streak: streak,
-      txThisMonth: tx,
-      categoriesThisMonth: categories,
-      lessonsDone: lessonsDone,
-      lessonsTotal: lessonsTotal,
-    );
+}) => ScoreInputs(
+  budget: budget,
+  spentThisMonth: spent,
+  savedThisMonth: saved,
+  streak: streak,
+  txThisMonth: tx,
+  categoriesThisMonth: categories,
+  lessonsDone: lessonsDone,
+  lessonsTotal: lessonsTotal,
+);
 
 void main() {
   group('score engine (specificația executabilă a webului)', () {
@@ -51,27 +50,32 @@ void main() {
 
     test('learning + diversity: proportional, capped at 6 categories', () {
       expect(
-          computeScore(_inputs(lessonsDone: 25, lessonsTotal: 25)).learning,
-          10);
+        computeScore(_inputs(lessonsDone: 25, lessonsTotal: 25)).learning,
+        10,
+      );
       expect(
-          computeScore(_inputs(lessonsDone: 13, lessonsTotal: 25)).learning,
-          5);
+        computeScore(_inputs(lessonsDone: 13, lessonsTotal: 25)).learning,
+        5,
+      );
       expect(computeScore(_inputs(categories: 6)).diversity, 10);
       expect(computeScore(_inputs(categories: 9)).diversity, 10);
       expect(computeScore(_inputs(categories: 3)).diversity, 5);
     });
 
     test('total clamps to 1..100 and levels match the web thresholds', () {
-      // Nothing at all still shows 1, never 0 (web clamp).
+      // Fără nicio dată tot arată 1, niciodată 0.
       expect(computeScore(_inputs(spent: 5000)).total, greaterThanOrEqualTo(1));
 
-      final perfect = computeScore(_inputs(
+      final perfect = computeScore(
+        _inputs(
           spent: 700,
           saved: 200,
           streak: 30,
           tx: 12,
           categories: 6,
-          lessonsDone: 25));
+          lessonsDone: 25,
+        ),
+      );
       expect(perfect.total, 100);
 
       expect(scoreLevelLabel(10), 'Începător');
@@ -81,9 +85,16 @@ void main() {
     });
 
     test('profile factors are percentages of their own maximum', () {
-      final b = computeScore(_inputs(
-          spent: 400, saved: 160, streak: 21, tx: 10, categories: 6,
-          lessonsDone: 25));
+      final b = computeScore(
+        _inputs(
+          spent: 400,
+          saved: 160,
+          streak: 21,
+          tx: 10,
+          categories: 6,
+          lessonsDone: 25,
+        ),
+      );
       expect(b.budgetFactor, 100);
       expect(b.savingsFactor, 100);
       expect(b.steadinessFactor, 100);

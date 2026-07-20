@@ -1,4 +1,4 @@
-﻿/// Scor transparent pentru „30 de Zile", 4 dimensiuni, ponderi 30/30/20/20.
+/// Scor transparent pentru „30 de Zile", 4 dimensiuni, ponderi 30/30/20/20.
 /// Niciodată clasament pe cash-ul final: fiecare factor de cash e plafonat,
 /// ca un run care doar tezaurizează bani să nu învingă unul echilibrat.
 library;
@@ -32,13 +32,13 @@ class LifeSimScore {
   final String endingId;
 
   Map<String, dynamic> toJson() => {
-        'control': control,
-        'rezilienta': rezilienta,
-        'obiective': obiective,
-        'echilibru': echilibru,
-        'total': total,
-        'endingId': endingId,
-      };
+    'control': control,
+    'rezilienta': rezilienta,
+    'obiective': obiective,
+    'echilibru': echilibru,
+    'total': total,
+    'endingId': endingId,
+  };
 }
 
 double _ratio(num part, num whole) => whole <= 0 ? 1.0 : part / whole;
@@ -82,13 +82,14 @@ LifeSimScore score(LifeSimState s, LifeSimContent c) {
 
   // --- Echilibru de viață: media celor 4 stat-uri (stresul inversat, un stres
   //     mic e bun). Zero cash aici: banii nu cumpără echilibru.
-  final echilibru = ((s.stats.health +
-              s.stats.energy +
-              s.stats.relationships +
-              (100 - s.stats.stress)) /
-          4)
-      .round()
-      .clamp(0, 100);
+  final echilibru =
+      ((s.stats.health +
+                  s.stats.energy +
+                  s.stats.relationships +
+                  (100 - s.stats.stress)) /
+              4)
+          .round()
+          .clamp(0, 100);
 
   final total =
       (0.30 * control + 0.30 * rezilienta + 0.20 * obiective + 0.20 * echilibru)

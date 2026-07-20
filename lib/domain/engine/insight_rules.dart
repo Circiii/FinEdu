@@ -1,5 +1,5 @@
-﻿/// Motorul „Pentru tine", insight-uri deterministe din datele locale, zero
-/// AI. Motorul e pur, cine îl cheamă aduce agregatele și aplică istoricul (cooldown, 2:1).
+/// Motorul „Pentru tine": carduri calculate din datele de pe telefon, cu reguli
+/// fixe. Motorul e pur, cine îl cheamă aduce agregatele și ține istoricul.
 library;
 
 import 'money_intel.dart';
@@ -32,12 +32,13 @@ class InsightCandidate {
 }
 
 class GoalLite {
-  const GoalLite(
-      {required this.id,
-      required this.name,
-      required this.emoji,
-      required this.target,
-      required this.saved});
+  const GoalLite({
+    required this.id,
+    required this.name,
+    required this.emoji,
+    required this.target,
+    required this.saved,
+  });
   final String id;
   final String name;
   final String emoji;
@@ -46,8 +47,11 @@ class GoalLite {
 }
 
 class RecurringLite {
-  const RecurringLite(
-      {required this.merchant, required this.amount, required this.dueInDays});
+  const RecurringLite({
+    required this.merchant,
+    required this.amount,
+    required this.dueInDays,
+  });
   final String merchant;
   final double amount;
   final int dueInDays;
@@ -141,64 +145,69 @@ List<InsightCandidate> evaluateInsights(InsightInputs i) {
   final dayOfMonth = i.now.day;
   final daysLeft = daysIn - dayOfMonth + 1;
 
-  // --- Ritmul lunii (pacing), regula cu cea mai mare valoare zilnică -------
+  // --- Ritmul lunii (pacing), regula cu cea mai mare valoare zilnică
   // Poartă: buget setat, ≥5 tranzacții, măcar ziua 5 (altfel zgomot).
   if (i.budget > 0 && i.txCountThisMonth >= 5 && dayOfMonth >= 5) {
     final expected = i.budget * dayOfMonth / daysIn;
     final ratio = expected <= 0 ? 1.0 : i.spentThisMonth / expected;
     final perDay = ((i.budget - i.spentThisMonth) / daysLeft).clamp(0, 99999);
     if (ratio <= 0.9) {
-      out.add(InsightCandidate(
-        id: 'pace_under',
-        ruleKey: 'pace_under',
-        kind: InsightKind.positive,
-        score: 70,
-        values: {
-          'delta': _lei(expected - i.spentThisMonth),
-          'perDay': _lei(perDay.toDouble()),
-          'spent': _lei(i.spentThisMonth),
-          'expected': _lei(expected),
-        },
-      ));
+      out.add(
+        InsightCandidate(
+          id: 'pace_under',
+          ruleKey: 'pace_under',
+          kind: InsightKind.positive,
+          score: 70,
+          values: {
+            'delta': _lei(expected - i.spentThisMonth),
+            'perDay': _lei(perDay.toDouble()),
+            'spent': _lei(i.spentThisMonth),
+            'expected': _lei(expected),
+          },
+        ),
+      );
     } else if (ratio >= 1.1) {
-      out.add(InsightCandidate(
-        id: 'pace_over',
-        ruleKey: 'pace_over',
-        kind: InsightKind.corrective,
-        score: 65,
-        values: {
-          'perDay': _lei(perDay.toDouble()),
-          'daysLeft': '$daysLeft',
-          'spent': _lei(i.spentThisMonth),
-          'expected': _lei(expected),
-        },
-      ));
+      out.add(
+        InsightCandidate(
+          id: 'pace_over',
+          ruleKey: 'pace_over',
+          kind: InsightKind.corrective,
+          score: 65,
+          values: {
+            'perDay': _lei(perDay.toDouble()),
+            'daysLeft': '$daysLeft',
+            'spent': _lei(i.spentThisMonth),
+            'expected': _lei(expected),
+          },
+        ),
+      );
     }
   }
 
-  // --- Recap săptămânal (lunea; „mini-Wrapped" predictibil) -----------------
+  // --- Recap săptămânal (lunea; „mini-Wrapped" predictibil)
   if (i.now.weekday == DateTime.monday &&
       i.prevWeekTxCount + i.thisWeekTxCount >= 3 &&
       i.prevWeekSpent > 0) {
     final delta = i.prevWeekSpent == 0
         ? 0
-        : ((i.thisWeekSpent - i.prevWeekSpent) / i.prevWeekSpent * 100)
-            .round();
-    out.add(InsightCandidate(
-      id: 'weekly_recap',
-      ruleKey: 'weekly_recap',
-      kind: delta <= 0 ? InsightKind.positive : InsightKind.utility,
-      score: 75,
-      values: {
-        'total': _lei(i.thisWeekSpent),
-        'top': i.thisWeekTopCategory ?? ', ',
-        'deltaPct': '${delta.abs()}',
-        'direction': delta <= 0 ? 'less' : 'more',
-      },
-    ));
+        : ((i.thisWeekSpent - i.prevWeekSpent) / i.prevWeekSpent * 100).round();
+    out.add(
+      InsightCandidate(
+        id: 'weekly_recap',
+        ruleKey: 'weekly_recap',
+        kind: delta <= 0 ? InsightKind.positive : InsightKind.utility,
+        score: 75,
+        values: {
+          'total': _lei(i.thisWeekSpent),
+          'top': i.thisWeekTopCategory ?? ', ',
+          'deltaPct': '${delta.abs()}',
+          'direction': delta <= 0 ? 'less' : 'more',
+        },
+      ),
+    );
   }
 
-  // --- Anomalie pe categorie vs. PROPRIA medie (nu praguri absolute) --------
+  // --- Anomalie pe categorie vs. PROPRIA medie (nu praguri absolute)
   if (i.fullMonthsOfHistory >= 2) {
     String? worstCat;
     double worstExcess = 0;
@@ -213,17 +222,19 @@ List<InsightCandidate> evaluateInsights(InsightInputs i) {
       }
     });
     if (worstCat != null) {
-      out.add(InsightCandidate(
-        id: 'anomaly_$worstCat',
-        ruleKey: 'category_anomaly',
-        kind: InsightKind.corrective,
-        score: 60,
-        values: {
-          'category': worstCat!,
-          'now': _lei(i.categorySpendThisMonth[worstCat]!),
-          'avg': _lei(i.category3mMonthlyAvg[worstCat]!),
-        },
-      ));
+      out.add(
+        InsightCandidate(
+          id: 'anomaly_$worstCat',
+          ruleKey: 'category_anomaly',
+          kind: InsightKind.corrective,
+          score: 60,
+          values: {
+            'category': worstCat!,
+            'now': _lei(i.categorySpendThisMonth[worstCat]!),
+            'avg': _lei(i.category3mMonthlyAvg[worstCat]!),
+          },
+        ),
+      );
     }
 
     // Simetric pozitiv: categorie mult sub media ei (după ziua 10).
@@ -241,105 +252,111 @@ List<InsightCandidate> evaluateInsights(InsightInputs i) {
         }
       });
       if (bestCat != null) {
-        out.add(InsightCandidate(
-          id: 'category_win_$bestCat',
-          ruleKey: 'category_win',
-          kind: InsightKind.positive,
-          score: 62,
-          values: {
-            'category': bestCat!,
-            'saved': _lei(bestSaving),
-          },
-        ));
+        out.add(
+          InsightCandidate(
+            id: 'category_win_$bestCat',
+            ruleKey: 'category_win',
+            kind: InsightKind.positive,
+            score: 62,
+            values: {'category': bestCat!, 'saved': _lei(bestSaving)},
+          ),
+        );
       }
     }
   }
 
-  // --- Praguri de obiectiv (25/50/75/100%) -----------------------------------
+  // --- Praguri de obiectiv (25/50/75/100%)
   for (final g in i.goals) {
     if (g.target <= 0) continue;
     final pct = (g.saved / g.target * 100).floor();
     for (final threshold in const [100, 75, 50, 25]) {
       if (pct >= threshold) {
-        out.add(InsightCandidate(
-          id: 'goal_${g.id}_$threshold',
-          ruleKey: threshold == 100 ? 'goal_done' : 'goal_milestone',
-          kind: InsightKind.positive,
-          score: threshold == 100 ? 90 : 78,
-          values: {
-            'goal': g.name,
-            'emoji': g.emoji,
-            'pct': '$threshold',
-            'saved': _lei(g.saved),
-            'target': _lei(g.target),
-          },
-        ));
+        out.add(
+          InsightCandidate(
+            id: 'goal_${g.id}_$threshold',
+            ruleKey: threshold == 100 ? 'goal_done' : 'goal_milestone',
+            kind: InsightKind.positive,
+            score: threshold == 100 ? 90 : 78,
+            values: {
+              'goal': g.name,
+              'emoji': g.emoji,
+              'pct': '$threshold',
+              'saved': _lei(g.saved),
+              'target': _lei(g.target),
+            },
+          ),
+        );
         break; // doar cel mai înalt prag atins; istoricul dedup-uie restul
       }
     }
   }
 
-  // --- Recurente: „vine plata" + ponderea lunară -----------------------------
+  // --- Recurente: „vine plata" + ponderea lunară
   for (final r in i.upcomingRecurring) {
     if (r.dueInDays >= 1 && r.dueInDays <= 3) {
       final remaining = i.budget - i.spentThisMonth - r.amount;
-      out.add(InsightCandidate(
-        id: 'recurring_due_${r.merchant}',
-        ruleKey: 'recurring_due',
-        kind: InsightKind.utility,
-        score: 68,
-        values: {
-          'merchant': r.merchant,
-          'amount': _lei(r.amount),
-          'inDays': '${r.dueInDays}',
-          'remaining': _lei(remaining.clamp(0, 999999)),
-        },
-      ));
+      out.add(
+        InsightCandidate(
+          id: 'recurring_due_${r.merchant}',
+          ruleKey: 'recurring_due',
+          kind: InsightKind.utility,
+          score: 68,
+          values: {
+            'merchant': r.merchant,
+            'amount': _lei(r.amount),
+            'inDays': '${r.dueInDays}',
+            'remaining': _lei(remaining.clamp(0, 999999)),
+          },
+        ),
+      );
     }
   }
   if (i.monthlyRecurringTotal > 0 && i.budget > 0 && dayOfMonth >= 2) {
     final pct = (i.monthlyRecurringTotal / i.budget * 100).round();
-    out.add(InsightCandidate(
-      id: 'recurring_share_${i.now.year}_${i.now.month}',
-      ruleKey: 'recurring_share',
-      kind: InsightKind.utility,
-      score: pct >= 25 ? 58 : 45,
-      values: {
-        'total': _lei(i.monthlyRecurringTotal),
-        'pct': '$pct',
-      },
-    ));
+    out.add(
+      InsightCandidate(
+        id: 'recurring_share_${i.now.year}_${i.now.month}',
+        ruleKey: 'recurring_share',
+        kind: InsightKind.utility,
+        score: pct >= 25 ? 58 : 45,
+        values: {'total': _lei(i.monthlyRecurringTotal), 'pct': '$pct'},
+      ),
+    );
   }
 
-  // --- Fresh start (1 ale lunii): foaie curată, nu judecată retroactivă -----
+  // --- Fresh start (1 ale lunii): foaie curată, nu judecată retroactivă
   if (dayOfMonth <= 2 && i.lastMonthSpent > 0) {
-    out.add(InsightCandidate(
-      id: 'fresh_start_${i.now.year}_${i.now.month}',
-      ruleKey: 'fresh_start',
-      kind: InsightKind.utility,
-      score: 80,
-      values: {
-        'spent': _lei(i.lastMonthSpent),
-        'saved': _lei(i.lastMonthSaved),
-      },
-    ));
+    out.add(
+      InsightCandidate(
+        id: 'fresh_start_${i.now.year}_${i.now.month}',
+        ruleKey: 'fresh_start',
+        kind: InsightKind.utility,
+        score: 80,
+        values: {
+          'spent': _lei(i.lastMonthSpent),
+          'saved': _lei(i.lastMonthSaved),
+        },
+      ),
+    );
   }
 
-  // --- Milestone-uri absolute de economisire --------------------------------
+  // --- Milestone-uri absolute de economisire
   for (final threshold in const [1000, 500, 100]) {
     if (i.savedAllTime >= threshold) {
-      out.add(InsightCandidate(
-        id: 'saving_total_$threshold',
-        ruleKey: 'saving_total',
-        kind: InsightKind.positive,
-        score: 72,
-        values: {'threshold': '$threshold'},
-      ));
+      out.add(
+        InsightCandidate(
+          id: 'saving_total_$threshold',
+          ruleKey: 'saving_total',
+          kind: InsightKind.positive,
+          score: 72,
+          values: {'threshold': '$threshold'},
+        ),
+      );
       break;
     }
   }
 
-  // --- Safe-to-spend: aritmetică la vedere, nu AI ----------------------------
+  // --- Cât mai poți cheltui: aritmetică la vedere
   // Poartă: buget setat, ≥5 tranzacții, minim 3 zile rămase (pacing-ul spune
   // deja tot pe final de lună). Ambient, scor modest, nu concurează evenimentele.
   if (i.budget > 0 && i.txCountThisMonth >= 5 && daysLeft >= 3) {
@@ -350,25 +367,27 @@ List<InsightCandidate> evaluateInsights(InsightInputs i) {
       goalContributions: i.goalContributionsThisMonth,
       daysLeft: daysLeft,
     );
-    out.add(InsightCandidate(
-      id: 'safe_to_spend',
-      ruleKey: 'safe_to_spend',
-      kind: InsightKind.utility,
-      score: 50,
-      values: {
-        'safe': _lei(s.safe),
-        'perDay': _lei(s.perDay),
-        'daysLeft': '$daysLeft',
-        // Pentru „cum am calculat": scăderea, termen cu termen.
-        'budget': _lei(i.budget),
-        'spent': _lei(i.spentThisMonth),
-        'recurring': _lei(i.recurringDueSoon),
-        'goals': _lei(i.goalContributionsThisMonth),
-      },
-    ));
+    out.add(
+      InsightCandidate(
+        id: 'safe_to_spend',
+        ruleKey: 'safe_to_spend',
+        kind: InsightKind.utility,
+        score: 50,
+        values: {
+          'safe': _lei(s.safe),
+          'perDay': _lei(s.perDay),
+          'daysLeft': '$daysLeft',
+          // Pentru „cum am calculat": scăderea, termen cu termen.
+          'budget': _lei(i.budget),
+          'spent': _lei(i.spentThisMonth),
+          'recurring': _lei(i.recurringDueSoon),
+          'goals': _lei(i.goalContributionsThisMonth),
+        },
+      ),
+    );
   }
 
-  // --- Întrebarea de anomalie: mediană+MAD, formulare de ÎNTREBARE -----------
+  // --- Întrebarea de anomalie: mediană+MAD, formulare de ÎNTREBARE
   // Coexistă cu `category_anomaly` (aia compară totaluri lunare, asta o
   // singură cheltuială vs. istoric). Porți: cheltuială recentă (≤48h) și
   // ≥6 observații în istoric (garantat în isAnomaly).
@@ -376,36 +395,40 @@ List<InsightCandidate> evaluateInsights(InsightInputs i) {
   if (last != null && i.now.difference(last.date).inHours <= 48) {
     final hist = i.categoryAmounts90d[last.category] ?? const <double>[];
     if (isAnomaly(amount: last.amount, history: hist)) {
-      out.add(InsightCandidate(
-        id: 'anomaly_q_${last.category}',
-        ruleKey: 'category_anomaly_question',
-        kind: InsightKind.corrective,
-        score: 64,
-        values: {
-          'category': last.category,
-          'amount': _lei(last.amount),
-          'median': _lei(robustCenter(hist)),
-        },
-      ));
+      out.add(
+        InsightCandidate(
+          id: 'anomaly_q_${last.category}',
+          ruleKey: 'category_anomaly_question',
+          kind: InsightKind.corrective,
+          score: 64,
+          values: {
+            'category': last.category,
+            'amount': _lei(last.amount),
+            'median': _lei(robustCenter(hist)),
+          },
+        ),
+      );
     }
   }
 
-  // --- Radarul de recurente: „posibil abonament", nu verdict -----------------
+  // --- Radarul de recurente: „posibil abonament", nu verdict
   // Doar tiparele care NU sunt deja declarate de utilizator; una singură pe
   // afișare (cea mai sigură, ghicirile sunt sortate după apariții).
   for (final g in i.recurringGuesses) {
     if (i.declaredRecurringCategories.contains(g.category)) continue;
-    out.add(InsightCandidate(
-      id: 'recurring_radar_${g.category}',
-      ruleKey: 'recurring_radar',
-      kind: InsightKind.utility,
-      score: 56,
-      values: {
-        'category': g.category,
-        'amount': _lei(g.medianAmount),
-        'period': '${g.periodDays}',
-      },
-    ));
+    out.add(
+      InsightCandidate(
+        id: 'recurring_radar_${g.category}',
+        ruleKey: 'recurring_radar',
+        kind: InsightKind.utility,
+        score: 56,
+        values: {
+          'category': g.category,
+          'amount': _lei(g.medianAmount),
+          'period': '${g.periodDays}',
+        },
+      ),
+    );
     break;
   }
 
@@ -429,8 +452,7 @@ List<InsightCandidate> selectInsights(
   for (final c in candidates) {
     if (picked.length >= limit) break;
     if (recentlyShown.contains(c.id)) continue;
-    if (suppressedRules.contains(c.ruleKey) &&
-        c.kind != InsightKind.positive) {
+    if (suppressedRules.contains(c.ruleKey) && c.kind != InsightKind.positive) {
       continue;
     }
     if (c.kind == InsightKind.corrective && correctiveStreak >= 2) continue;
@@ -440,8 +462,9 @@ List<InsightCandidate> selectInsights(
       continue;
     }
     picked.add(c);
-    correctiveStreak =
-        c.kind == InsightKind.corrective ? correctiveStreak + 1 : 0;
+    correctiveStreak = c.kind == InsightKind.corrective
+        ? correctiveStreak + 1
+        : 0;
   }
   return picked;
 }

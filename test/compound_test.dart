@@ -11,12 +11,12 @@ void main() {
       expect(f.length, 11);
       expect(c.first, 0);
       expect(f[1], 1200);
-      // Year 1 with 6%/yr monthly compounding: ~1233 lei for 1200 deposited.
+      // Primul an cu 6% pe an, capitalizat lunar: ~1233 lei la 1200 depuși.
       expect(c[1], closeTo(1233.6, 1));
       for (var y = 1; y <= 10; y++) {
         expect(c[y], greaterThan(f[y]), reason: 'year $y');
       }
-      // 10 years of 100 lei/month at 6%: ~16.4k vs 12k flat.
+      // 10 ani cu 100 lei pe lună la 6%: ~16,4k față de 12k ținuți la saltea.
       expect(c.last, closeTo(16388, 20));
     });
 
@@ -33,8 +33,7 @@ void main() {
       expect(doublingYears(0.08), closeTo(9, 0.01));
       expect(doublingYears(0), double.infinity);
 
-      final earned =
-          interestEarned(monthly: 100, annualRate: 0.06, years: 10);
+      final earned = interestEarned(monthly: 100, annualRate: 0.06, years: 10);
       expect(earned, closeTo(16388 - 12000, 20));
     });
 

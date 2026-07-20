@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -18,7 +18,7 @@ void main() {
       expect(preferredHour(atHours([17, 17, 18, 19, 20, 20, 22])), 19);
     });
 
-    test('sub 5 mostre → ora implicită F1 (19)', () {
+    test('sub 5 mostre → ora implicită (19)', () {
       expect(preferredHour(atHours([17, 18])), 19);
       expect(preferredHour(const <DateTime>[]), 19);
     });
@@ -100,15 +100,21 @@ void main() {
       minVariants.forEach((kind, min) {
         final list = json[kind];
         expect(list, isA<List>(), reason: 'lipsește felul $kind');
-        expect((list as List).length, greaterThanOrEqualTo(min),
-            reason: '$kind are prea puține variante');
+        expect(
+          (list as List).length,
+          greaterThanOrEqualTo(min),
+          reason: '$kind are prea puține variante',
+        );
         for (final v in list.cast<Map<String, dynamic>>()) {
           for (final field in ['title', 'body']) {
             final node = v[field] as Map<String, dynamic>;
             for (final loc in ['ro', 'en']) {
               expect(node[loc], isA<String>());
-              expect((node[loc] as String).trim(), isNotEmpty,
-                  reason: '$kind.$field.$loc e gol');
+              expect(
+                (node[loc] as String).trim(),
+                isNotEmpty,
+                reason: '$kind.$field.$loc e gol',
+              );
             }
           }
         }
@@ -142,8 +148,11 @@ void main() {
       }
       final text = haystack.toString();
       for (final needle in forbidden) {
-        expect(text.contains(needle.toLowerCase()), isFalse,
-            reason: 'text interzis: „$needle"');
+        expect(
+          text.contains(needle.toLowerCase()),
+          isFalse,
+          reason: 'text interzis: „$needle"',
+        );
       }
     });
 

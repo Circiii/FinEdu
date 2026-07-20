@@ -1,4 +1,4 @@
-﻿/// Mașina de stări completă a streak-ului: freezes silențioase, earn-back
+/// Mașina de stări completă a streak-ului: freezes silențioase, earn-back
 /// de 48h și milestone-uri, peste numărătoarea simplă din `streak_engine.dart`.
 ///
 /// Freezes și earn-back nu modifică NICIODATĂ istoricul de activitate, zilele
@@ -57,12 +57,11 @@ class StreakSnapshot {
     return StreakSnapshot(
       freezes: freezes ?? this.freezes,
       frozenDays: frozenDays ?? this.frozenDays,
-      earnbackValue:
-          clearEarnback ? 0 : (earnbackValue ?? this.earnbackValue),
-      earnbackUntil:
-          clearEarnback ? null : (earnbackUntil ?? this.earnbackUntil),
-      earnbackGap:
-          clearEarnback ? const {} : (earnbackGap ?? this.earnbackGap),
+      earnbackValue: clearEarnback ? 0 : (earnbackValue ?? this.earnbackValue),
+      earnbackUntil: clearEarnback
+          ? null
+          : (earnbackUntil ?? this.earnbackUntil),
+      earnbackGap: clearEarnback ? const {} : (earnbackGap ?? this.earnbackGap),
       claimedMilestones: claimedMilestones ?? this.claimedMilestones,
       lastEvaluated: lastEvaluated ?? this.lastEvaluated,
     );
@@ -134,10 +133,10 @@ StreakResult evaluateStreak({
         final bridged = {...s.frozenDays, ...s.earnbackGap};
         s = s.copyWith(frozenDays: bridged, clearEarnback: true);
         effective.addAll(s.frozenDays);
-        final restored = computeStreak(
-          {...activityDays, ...s.frozenDays},
-          today,
-        ).current;
+        final restored = computeStreak({
+          ...activityDays,
+          ...s.frozenDays,
+        }, today).current;
         events.add(EarnbackSucceeded(restored));
       }
     } else {
@@ -150,20 +149,21 @@ StreakResult evaluateStreak({
   if (s.lastEvaluated != today) {
     final lastActive = _lastEffectiveDayBefore(effective, today);
     if (lastActive != null) {
-      final gap = dayKeysBetween(lastActive, today); // exclusiv la ambele capete
+      final gap = dayKeysBetween(
+        lastActive,
+        today,
+      ); // exclusiv la ambele capete
       if (gap.isNotEmpty && s.earnbackUntil == null) {
         if (gap.length <= s.freezes) {
           final frozen = {...s.frozenDays, ...gap};
-          s = s.copyWith(
-              freezes: s.freezes - gap.length, frozenDays: frozen);
+          s = s.copyWith(freezes: s.freezes - gap.length, frozenDays: frozen);
           effective.addAll(gap);
           for (final d in gap) {
             events.add(FreezeUsed(d));
           }
         } else {
           // Rupere: armăm earn-back pentru azi + mâine (fereastră de 48h).
-          final previous =
-              computeStreak(effective, lastActive).current;
+          final previous = computeStreak(effective, lastActive).current;
           if (previous > 0) {
             final until = addDaysToKey(today, 1);
             s = s.copyWith(
@@ -184,8 +184,7 @@ StreakResult evaluateStreak({
   for (final entry in streakMilestones.entries) {
     if (counted.current >= entry.key &&
         !s.claimedMilestones.contains(entry.key)) {
-      s = s.copyWith(
-          claimedMilestones: {...s.claimedMilestones, entry.key});
+      s = s.copyWith(claimedMilestones: {...s.claimedMilestones, entry.key});
       events.add(MilestoneReached(entry.key, entry.value));
     }
   }

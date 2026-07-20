@@ -1,4 +1,4 @@
-﻿/// Debrief-ul lunii din „30 de Zile": reconstituie luna DIN STARE, determinist
+/// Debrief-ul lunii din „30 de Zile": reconstituie luna DIN STARE, determinist
 ///, cronologia deciziilor, cele mai eficiente/riscante alegeri, un
 /// contrafactual rule-based și un concept de învățat. Zero AI, zero shaming.
 library;
@@ -98,16 +98,20 @@ DebriefModel buildDebrief(LifeSimState s, LifeSimContent c) {
         : Money.zero;
     final delayed = s.firedEffects
         .where((f) => f.sourceEventId == d.eventId)
-        .fold<Money>(Money.zero,
-            (sum, f) => sum + f.cashDelta + f.fundDelta + f.goalDelta);
-    outcomes.add(DebriefDecision(
-      day: d.day,
-      eventId: d.eventId,
-      title: title,
-      choiceIdx: d.choiceIdx,
-      immediate: immediate,
-      delayed: delayed,
-    ));
+        .fold<Money>(
+          Money.zero,
+          (sum, f) => sum + f.cashDelta + f.fundDelta + f.goalDelta,
+        );
+    outcomes.add(
+      DebriefDecision(
+        day: d.day,
+        eventId: d.eventId,
+        title: title,
+        choiceIdx: d.choiceIdx,
+        immediate: immediate,
+        delayed: delayed,
+      ),
+    );
   }
 
   final timeline = [
@@ -176,7 +180,10 @@ Money _penaltyOf(RecurringDef def) {
 /// Contrafactualul: cea mai mare penalizare evitabilă. Întâi facturile ratate
 /// (plăteai X → evitai Y); altfel cea mai costisitoare consecință întârziată.
 String _counterfactual(
-    LifeSimState s, LifeSimContent c, List<DebriefDecision> outcomes) {
+  LifeSimState s,
+  LifeSimContent c,
+  List<DebriefDecision> outcomes,
+) {
   (String id, int day, Money x, Money y)? best;
   for (final m in s.missedBills) {
     // Datoriile ratate ajung și ele în missedBills dar n-au definiție în
@@ -194,8 +201,7 @@ String _counterfactual(
 
   DebriefDecision? worst;
   for (final o in outcomes) {
-    if (o.delayed.isNegative &&
-        (worst == null || o.delayed < worst.delayed)) {
+    if (o.delayed.isNegative && (worst == null || o.delayed < worst.delayed)) {
       worst = o;
     }
   }
@@ -210,7 +216,10 @@ String _counterfactual(
 /// Conceptul de învățat: skill-tag-ul cel mai frecvent în deciziile riscante
 /// (fallback pe toate deciziile), mapat la o lecție. Egalități → alfabetic.
 DebriefConcept _concept(
-    LifeSimState s, LifeSimContent c, List<DebriefDecision> risky) {
+  LifeSimState s,
+  LifeSimContent c,
+  List<DebriefDecision> risky,
+) {
   final tally = <String, int>{};
   void count(String eventId) {
     final e = c.eventById(eventId);
@@ -228,16 +237,19 @@ DebriefConcept _concept(
     }
   }
   if (tally.isEmpty) {
-    return const DebriefConcept(skillTag: 'budgeting', lessonId: _defaultLesson);
+    return const DebriefConcept(
+      skillTag: 'budgeting',
+      lessonId: _defaultLesson,
+    );
   }
 
-  final top = (tally.entries.toList()
-        ..sort((a, b) {
-          final byCount = b.value.compareTo(a.value);
-          return byCount != 0 ? byCount : a.key.compareTo(b.key);
-        }))
-      .first
-      .key;
+  final top =
+      (tally.entries.toList()..sort((a, b) {
+            final byCount = b.value.compareTo(a.value);
+            return byCount != 0 ? byCount : a.key.compareTo(b.key);
+          }))
+          .first
+          .key;
   return DebriefConcept(
     skillTag: top,
     lessonId: _skillToLesson[top] ?? _defaultLesson,

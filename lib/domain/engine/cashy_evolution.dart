@@ -1,4 +1,4 @@
-﻿/// Evoluția lui Cashy, Cashy crește prin stadii, de la Ou la Înțeleptul
+/// Evoluția lui Cashy, Cashy crește prin stadii, de la Ou la Înțeleptul
 /// Pădurii, din „puncte de grijă" derivate DOAR din datele locale existente.
 /// Guvernanță: evoluția reflectă grija și consecvența, nu se poate cumpăra
 /// (niciun cost de ghinde, niciun tabel nou, niciun grind).
@@ -8,11 +8,12 @@ import 'dart:math' show min;
 
 /// Un stadiu al evoluției: prag de puncte de grijă + identitate.
 class CashyStage {
-  const CashyStage(
-      {required this.threshold,
-      required this.emoji,
-      required this.title,
-      required this.titleEn});
+  const CashyStage({
+    required this.threshold,
+    required this.emoji,
+    required this.title,
+    required this.titleEn,
+  });
   final int threshold;
   final String emoji;
   final String title;
@@ -20,12 +21,42 @@ class CashyStage {
 }
 
 const cashyStages = [
-  CashyStage(threshold: 0, emoji: '🥚', title: 'Oul norocos', titleEn: 'The lucky egg'),
-  CashyStage(threshold: 25, emoji: '🐿️', title: 'Puiul curios', titleEn: 'The curious pup'),
-  CashyStage(threshold: 70, emoji: '🌰', title: 'Strângătorul isteț', titleEn: 'The clever gatherer'),
-  CashyStage(threshold: 150, emoji: '🧭', title: 'Exploratorul pădurii', titleEn: 'The forest explorer'),
-  CashyStage(threshold: 300, emoji: '🛡️', title: 'Păzitorul ghindelor', titleEn: 'The acorn guardian'),
-  CashyStage(threshold: 550, emoji: '🌳', title: 'Înțeleptul Pădurii', titleEn: 'The Forest Sage'),
+  CashyStage(
+    threshold: 0,
+    emoji: '🥚',
+    title: 'Oul norocos',
+    titleEn: 'The lucky egg',
+  ),
+  CashyStage(
+    threshold: 25,
+    emoji: '🐿️',
+    title: 'Puiul curios',
+    titleEn: 'The curious pup',
+  ),
+  CashyStage(
+    threshold: 70,
+    emoji: '🌰',
+    title: 'Strângătorul isteț',
+    titleEn: 'The clever gatherer',
+  ),
+  CashyStage(
+    threshold: 150,
+    emoji: '🧭',
+    title: 'Exploratorul pădurii',
+    titleEn: 'The forest explorer',
+  ),
+  CashyStage(
+    threshold: 300,
+    emoji: '🛡️',
+    title: 'Păzitorul ghindelor',
+    titleEn: 'The acorn guardian',
+  ),
+  CashyStage(
+    threshold: 550,
+    emoji: '🌳',
+    title: 'Înțeleptul Pădurii',
+    titleEn: 'The Forest Sage',
+  ),
 ];
 
 /// Punctele de grijă: cât de bine ai avut grijă de Cashy, din date deja

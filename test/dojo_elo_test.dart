@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,21 +30,29 @@ void main() {
     });
 
     test('update moves both ratings in opposite directions', () {
-      final win =
-          dojoUpdate(userRating: 1000, itemRating: 1000, correct: true);
+      final win = dojoUpdate(userRating: 1000, itemRating: 1000, correct: true);
       expect(win.user, greaterThan(1000));
       expect(win.item, lessThan(1000));
 
-      final loss =
-          dojoUpdate(userRating: 1000, itemRating: 1000, correct: false);
+      final loss = dojoUpdate(
+        userRating: 1000,
+        itemRating: 1000,
+        correct: false,
+      );
       expect(loss.user, lessThan(1000));
       expect(loss.item, greaterThan(1000));
 
-      // Beating an easy item barely moves you; losing to it costs a lot.
-      final easyWin =
-          dojoUpdate(userRating: 1200, itemRating: 800, correct: true);
-      final easyLoss =
-          dojoUpdate(userRating: 1200, itemRating: 800, correct: false);
+      // Un mesaj ușor prins mișcă puțin, unul ratat costă mult.
+      final easyWin = dojoUpdate(
+        userRating: 1200,
+        itemRating: 800,
+        correct: true,
+      );
+      final easyLoss = dojoUpdate(
+        userRating: 1200,
+        itemRating: 800,
+        correct: false,
+      );
       expect(easyWin.user - 1200, lessThan(5));
       expect(1200 - easyLoss.user, greaterThan(25));
     });
@@ -61,7 +69,7 @@ void main() {
     });
 
     test('pickRound prefers the challenge zone and skips recent items', () {
-      // User at 1000: items rated ~810 sit at p≈0.75; 1600 is hopeless.
+      // La rating 1000: mesajele de ~810 stau la p≈0,75, 1600 e fără șanse.
       final near = [for (var i = 0; i < 6; i++) _msg('near$i')];
       final far = [for (var i = 0; i < 6; i++) _msg('far$i')];
       final ratings = {
@@ -76,11 +84,13 @@ void main() {
         rng: Random(42),
       );
       expect(picked, hasLength(5));
-      expect(picked.where((m) => m.id.startsWith('near')).length,
-          greaterThanOrEqualTo(4),
-          reason: 'the challenge zone should dominate the round');
+      expect(
+        picked.where((m) => m.id.startsWith('near')).length,
+        greaterThanOrEqualTo(4),
+        reason: 'the challenge zone should dominate the round',
+      );
 
-      // Recency: excluded ids never appear while the pool suffices.
+      // Prospețime: id-urile excluse nu apar cât timp ajunge pool-ul.
       final recentPick = dojoPickRound(
         [...near, ...far],
         ratingOf: (m) => ratings[m.id]!,
@@ -91,7 +101,7 @@ void main() {
       );
       expect(recentPick.every((m) => m.id.startsWith('far')), isTrue);
 
-      // Fallback: when the pool is too small, recent items return.
+      // Rezervă: când pool-ul e prea mic, revin și mesajele recente.
       final fallback = dojoPickRound(
         near,
         ratingOf: (m) => ratings[m.id]!,
@@ -115,7 +125,7 @@ void main() {
     tearDown(() => db.close());
 
     test('applyAnswer persists both ratings and detects belt-up', () async {
-      final msg = _msg('m1', difficulty: 3); // prior 1200, a big win
+      final msg = _msg('m1', difficulty: 3); // pleacă de la 1200, câștig mare
       var result = await repo.applyAnswer(msg, correct: true);
       expect(result.rating, greaterThan(dojoStartRating));
 
@@ -124,11 +134,13 @@ void main() {
       expect(stat.single.correct, 1);
       expect(stat.single.rating, lessThan(1200));
 
-      // Grind wins until the first belt (1050), beltUp must fire once.
+      // Câștiguri până la prima centură (1050): beltUp se aprinde o dată.
       var beltUps = 0;
       for (var i = 0; i < 10; i++) {
-        result = await repo.applyAnswer(_msg('m$i', difficulty: 3),
-            correct: true);
+        result = await repo.applyAnswer(
+          _msg('m$i', difficulty: 3),
+          correct: true,
+        );
         if (result.beltUp) beltUps++;
         if (result.rating >= 1100) break;
       }
@@ -146,8 +158,11 @@ void main() {
 
       final round2 = await repo.pickRound(all);
       final ids1 = round1.map((m) => m.id).toSet();
-      expect(round2.where((m) => ids1.contains(m.id)), isEmpty,
-          reason: 'round 2 must not repeat round 1');
+      expect(
+        round2.where((m) => ids1.contains(m.id)),
+        isEmpty,
+        reason: 'round 2 must not repeat round 1',
+      );
     });
   });
 }

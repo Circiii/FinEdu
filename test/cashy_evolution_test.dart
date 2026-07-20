@@ -21,13 +21,13 @@ void main() {
 
     test('rundele de dojo se plafonează la 50 (fără farmat din spam)', () {
       int withRounds(int rounds) => carePoints(
-            activeDays: 4,
-            lessonsDone: 2,
-            longestStreak: 3,
-            dojoRounds: rounds,
-            dailySolved: 1,
-            wardrobeOwned: 0,
-          );
+        activeDays: 4,
+        lessonsDone: 2,
+        longestStreak: 3,
+        dojoRounds: rounds,
+        dailySolved: 1,
+        wardrobeOwned: 0,
+      );
       expect(withRounds(200), withRounds(50));
       expect(withRounds(50), greaterThan(withRounds(10)));
     });
@@ -88,8 +88,10 @@ void main() {
     test('praguri strict crescătoare, începând de la 0', () {
       expect(cashyStages.first.threshold, 0);
       for (var i = 1; i < cashyStages.length; i++) {
-        expect(cashyStages[i].threshold,
-            greaterThan(cashyStages[i - 1].threshold));
+        expect(
+          cashyStages[i].threshold,
+          greaterThan(cashyStages[i - 1].threshold),
+        );
       }
     });
 

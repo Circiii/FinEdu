@@ -15,10 +15,11 @@ double dojoExpected(int userRating, int itemRating) =>
 
 /// Mișcarea de rating pentru un răspuns: jucătorul și itemul trag în direcții
 /// opuse (un răspuns corect scade ratingul itemului: s-a dovedit mai ușor).
-({int user, int item}) dojoUpdate(
-    {required int userRating,
-    required int itemRating,
-    required bool correct}) {
+({int user, int item}) dojoUpdate({
+  required int userRating,
+  required int itemRating,
+  required bool correct,
+}) {
   final e = dojoExpected(userRating, itemRating);
   final s = correct ? 1.0 : 0.0;
   return (
@@ -30,12 +31,12 @@ double dojoExpected(int userRating, int itemRating) =>
 /// Prior de dificultate a conținutului (1..3) → ratingul inițial al itemului.
 /// Se auto-calibrează din joc după aceea.
 int dojoPriorRating(int difficulty) => switch (difficulty) {
-      1 => 800,
-      2 => 1000,
-      _ => 1200,
-    };
+  1 => 800,
+  2 => 1000,
+  _ => 1200,
+};
 
-// --- Belts (centurile de dojo) ---------------------------------------------
+// --- Belts (centurile de dojo)
 
 const dojoBelts = [
   ('🤍', 'albă'),
@@ -71,7 +72,7 @@ double dojoBeltProgress(int rating) {
   return ((rating - floor) / (ceil - floor)).clamp(0.0, 1.0);
 }
 
-// --- Round selection ---------------------------------------------------------
+// --- Alegerea mesajelor din rundă
 
 /// Alege [count] iteme pentru o rundă: preferă itemele cu succes așteptat
 /// cel mai aproape de [dojoTargetSuccess], sare peste cele recente (cade pe
@@ -93,7 +94,8 @@ List<T> dojoPickRound<T>(
     for (final item in pool)
       (
         item: item,
-        score: (dojoExpected(userRating, ratingOf(item)) - dojoTargetSuccess)
+        score:
+            (dojoExpected(userRating, ratingOf(item)) - dojoTargetSuccess)
                 .abs() +
             random.nextDouble() * 0.15,
       ),

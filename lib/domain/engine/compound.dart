@@ -1,4 +1,4 @@
-﻿/// Dobânda compusă, matematica din spatele simulatorului `param_sim`
+/// Dobânda compusă, matematica din spatele simulatorului `param_sim`
 /// (Unitatea 6). Model generic al unui obicei de economisire, nu al unui
 /// produs anume (educație, nu consultanță).
 library;
@@ -41,9 +41,11 @@ double interestEarned({
   required double annualRate,
   required int years,
 }) {
-  final total =
-      compoundSeries(monthly: monthly, annualRate: annualRate, years: years)
-          .last;
+  final total = compoundSeries(
+    monthly: monthly,
+    annualRate: annualRate,
+    years: years,
+  ).last;
   return total - monthly * 12 * years;
 }
 

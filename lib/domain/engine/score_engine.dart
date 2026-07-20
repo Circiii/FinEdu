@@ -1,4 +1,4 @@
-﻿/// Scorul FinEdu (0-100), sănătatea financiară din comportament, portat
+/// Scorul FinEdu (0-100), sănătatea financiară din comportament, portat
 /// 1:1 din formula web: buget 25p, economisire 25p (țintă 20% din buget),
 /// streak 15p (max 21 zile), consistență 15p (max 10 tranzacții/lună),
 /// învățare 10p, diversitate 10p (max 6 categorii). Total clamp 1..100.
@@ -46,13 +46,11 @@ class ScoreBreakdown {
   final int learning;
   final int diversity;
 
-  int get total => (budget +
-          savings +
-          streak +
-          consistency +
-          learning +
-          diversity)
-      .clamp(1, 100);
+  int get total =>
+      (budget + savings + streak + consistency + learning + diversity).clamp(
+        1,
+        100,
+      );
 
   /// Cei 4 factori din Profil, ca procent 0..100 din maximul propriu
   /// (Constanță = streak+consistență, Cunoștințe = învățare+diversitate).
@@ -91,8 +89,7 @@ ScoreBreakdown computeScore(ScoreInputs i) {
       : (10 * (i.lessonsDone / i.lessonsTotal).clamp(0.0, 1.0)).round();
 
   // Diversitate (10p): max la 6 categorii distincte de cheltuieli pe lună.
-  final diversityPts =
-      (10 * (i.categoriesThisMonth.clamp(0, 6) / 6)).round();
+  final diversityPts = (10 * (i.categoriesThisMonth.clamp(0, 6) / 6)).round();
 
   return ScoreBreakdown(
     budget: budgetPts,
@@ -104,7 +101,7 @@ ScoreBreakdown computeScore(ScoreInputs i) {
   );
 }
 
-/// Pragurile de nivel din web: <30 / 30-59 / 60-79 / ≥80.
+/// Cele patru trepte de scor: sub 30, 30-59, 60-79 și de la 80 în sus.
 String scoreLevelLabel(int score) {
   if (score < 30) return 'Începător';
   if (score < 60) return 'Econom';

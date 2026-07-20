@@ -1,6 +1,5 @@
-﻿/// Categoriile canonice de tranzacție, sursă unică de adevăr pentru drift
-/// local și (eventual) CHECK-urile de pe server. Cheile sunt locale-
-/// independente, stocate ca atare; etichetele se rezolvă separat în UI.
+/// Cheile canonice de categorie, așa cum ajung în baza de date. Nu depind de
+/// limbă: eticheta afișată se alege separat, în interfață.
 abstract final class Categories {
   const Categories._();
 
@@ -31,8 +30,8 @@ abstract final class Categories {
 
   /// Dacă [category] e o cheie validă pentru [type]-ul dat.
   static bool isValidFor(String type, String category) => switch (type) {
-        'expense' => expense.contains(category),
-        'saving' => saving.contains(category),
-        _ => false,
-      };
+    'expense' => expense.contains(category),
+    'saving' => saving.contains(category),
+    _ => false,
+  };
 }

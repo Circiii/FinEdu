@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 
@@ -48,7 +48,12 @@ Map<String, String> _fixture() {
         'initial_cash': 100000, // bani = 1000 lei
         'initial_fund': 50000, // 500 lei
         'debts': [
-          {'id': 'rata_telefon', 'principal': 60000, 'monthly': 15000, 'due_day': 20},
+          {
+            'id': 'rata_telefon',
+            'principal': 60000,
+            'monthly': 15000,
+            'due_day': 20,
+          },
         ],
         'bills': ['chirie', 'utilitati', 'abonament'],
         'benefits': [
@@ -105,7 +110,12 @@ Map<String, String> _fixture() {
 
   final goals = {
     'goals': [
-      {'id': 'goal_studio', 'name': _bi('Garsonieră'), 'target_bani': 200000, 'why': _bi('...')},
+      {
+        'id': 'goal_studio',
+        'name': _bi('Garsonieră'),
+        'target_bani': 200000,
+        'why': _bi('...'),
+      },
     ],
   };
 
@@ -138,7 +148,13 @@ Map<String, String> _fixture() {
         'skill_tags': ['budgeting'],
         'title': _bi('Cafeaua de dimineață'),
         'choices': [
-          {'label': _bi('Cumperi (-15 lei)'), 'effects': [{'type': 'cash', 'delta': -1500}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Cumperi (-15 lei)'),
+            'effects': [
+              {'type': 'cash', 'delta': -1500},
+            ],
+            'debrief': _bi('...'),
+          },
           {'label': _bi('Faci acasă'), 'effects': [], 'debrief': _bi('...')},
         ],
       },
@@ -158,12 +174,22 @@ Map<String, String> _fixture() {
         ],
         'title': _bi('Parbrizul a pocnit'),
         'choices': [
-          {'label': _bi('Repari acum (-850 lei)'), 'effects': [{'type': 'cash', 'delta': -85000}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Repari acum (-850 lei)'),
+            'effects': [
+              {'type': 'cash', 'delta': -85000},
+            ],
+            'debrief': _bi('...'),
+          },
           {
             'label': _bi('Amâni reparația'),
             'effects': [
               {'type': 'setFlag', 'flag': 'parbriz_amanat'},
-              {'type': 'scheduleEvent', 'delay_days': 5, 'event_id': 'parbriz_extins'},
+              {
+                'type': 'scheduleEvent',
+                'delay_days': 5,
+                'event_id': 'parbriz_extins',
+              },
             ],
             'debrief': _bi('...'),
           },
@@ -180,7 +206,13 @@ Map<String, String> _fixture() {
         'skill_tags': ['opportunity_cost'],
         'title': _bi('Fisura s-a extins'),
         'choices': [
-          {'label': _bi('Repari complet (-1.100 lei)'), 'effects': [{'type': 'cash', 'delta': -110000}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Repari complet (-1.100 lei)'),
+            'effects': [
+              {'type': 'cash', 'delta': -110000},
+            ],
+            'debrief': _bi('...'),
+          },
           {
             'label': _bi('Mergi la risc'),
             'effects': [
@@ -208,7 +240,14 @@ Map<String, String> _fixture() {
         'skill_tags': ['saving'],
         'title': _bi('Bonus surpriză'),
         'choices': [
-          {'label': _bi('Accepți (+500 lei)'), 'effects': [{'type': 'cash', 'delta': 50000}, {'type': 'jobStability', 'delta': 5}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Accepți (+500 lei)'),
+            'effects': [
+              {'type': 'cash', 'delta': 50000},
+              {'type': 'jobStability', 'delta': 5},
+            ],
+            'debrief': _bi('...'),
+          },
         ],
       },
       {
@@ -221,7 +260,14 @@ Map<String, String> _fixture() {
         'skill_tags': ['emergency_fund'],
         'title': _bi('Ai răcit'),
         'choices': [
-          {'label': _bi('Te odihnești'), 'effects': [{'type': 'stat', 'stat': 'energy', 'delta': 10}, {'type': 'stat', 'stat': 'health', 'delta': 5}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Te odihnești'),
+            'effects': [
+              {'type': 'stat', 'stat': 'energy', 'delta': 10},
+              {'type': 'stat', 'stat': 'health', 'delta': 5},
+            ],
+            'debrief': _bi('...'),
+          },
           {
             'label': _bi('Împingi înainte'),
             'effects': [
@@ -250,8 +296,22 @@ Map<String, String> _fixture() {
         'skill_tags': ['needs_wants'],
         'title': _bi('Ieșire cu prietenii'),
         'choices': [
-          {'label': _bi('Ieși (-80 lei)'), 'effects': [{'type': 'cash', 'delta': -8000}, {'type': 'setFlag', 'flag': 'social'}, {'type': 'stat', 'stat': 'relationships', 'delta': 5}], 'debrief': _bi('...')},
-          {'label': _bi('Rămâi acasă'), 'effects': [{'type': 'stat', 'stat': 'relationships', 'delta': -2}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Ieși (-80 lei)'),
+            'effects': [
+              {'type': 'cash', 'delta': -8000},
+              {'type': 'setFlag', 'flag': 'social'},
+              {'type': 'stat', 'stat': 'relationships', 'delta': 5},
+            ],
+            'debrief': _bi('...'),
+          },
+          {
+            'label': _bi('Rămâi acasă'),
+            'effects': [
+              {'type': 'stat', 'stat': 'relationships', 'delta': -2},
+            ],
+            'debrief': _bi('...'),
+          },
         ],
       },
       {
@@ -264,8 +324,21 @@ Map<String, String> _fixture() {
         'skill_tags': ['budgeting'],
         'title': _bi('Familia cere ajutor'),
         'choices': [
-          {'label': _bi('Ajuți (-300 lei)'), 'effects': [{'type': 'cash', 'delta': -30000}, {'type': 'stat', 'stat': 'relationships', 'delta': 8}], 'debrief': _bi('...')},
-          {'label': _bi('Refuzi'), 'effects': [{'type': 'stat', 'stat': 'relationships', 'delta': -5}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Ajuți (-300 lei)'),
+            'effects': [
+              {'type': 'cash', 'delta': -30000},
+              {'type': 'stat', 'stat': 'relationships', 'delta': 8},
+            ],
+            'debrief': _bi('...'),
+          },
+          {
+            'label': _bi('Refuzi'),
+            'effects': [
+              {'type': 'stat', 'stat': 'relationships', 'delta': -5},
+            ],
+            'debrief': _bi('...'),
+          },
         ],
       },
       {
@@ -278,7 +351,13 @@ Map<String, String> _fixture() {
         'skill_tags': ['saving'],
         'title': _bi('Oferta de economisire'),
         'choices': [
-          {'label': _bi('Pui deoparte (+300 lei)'), 'effects': [{'type': 'goal', 'delta': 30000}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Pui deoparte (+300 lei)'),
+            'effects': [
+              {'type': 'goal', 'delta': 30000},
+            ],
+            'debrief': _bi('...'),
+          },
         ],
       },
       {
@@ -291,8 +370,21 @@ Map<String, String> _fixture() {
         'skill_tags': ['scams'],
         'title': _bi('Mesaj suspect'),
         'choices': [
-          {'label': _bi('Ignori și raportezi'), 'effects': [{'type': 'jobStability', 'delta': 0}], 'debrief': _bi('...')},
-          {'label': _bi('Dai datele'), 'effects': [{'type': 'cash', 'delta': -50000}, {'type': 'stat', 'stat': 'stress', 'delta': 10}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Ignori și raportezi'),
+            'effects': [
+              {'type': 'jobStability', 'delta': 0},
+            ],
+            'debrief': _bi('...'),
+          },
+          {
+            'label': _bi('Dai datele'),
+            'effects': [
+              {'type': 'cash', 'delta': -50000},
+              {'type': 'stat', 'stat': 'stress', 'delta': 10},
+            ],
+            'debrief': _bi('...'),
+          },
         ],
       },
       {
@@ -306,7 +398,13 @@ Map<String, String> _fixture() {
         'skill_tags': ['saving'],
         'title': _bi('Bani neașteptați'),
         'choices': [
-          {'label': _bi('Primești (+400 lei)'), 'effects': [{'type': 'cash', 'delta': 40000}], 'debrief': _bi('...')},
+          {
+            'label': _bi('Primești (+400 lei)'),
+            'effects': [
+              {'type': 'cash', 'delta': 40000},
+            ],
+            'debrief': _bi('...'),
+          },
         ],
       },
     ],
@@ -333,7 +431,13 @@ LifeSimContent _content() => LifeSimContent.fromJsonBundle(_fixture());
   required int Function(LifeSimEvent) policy,
   int days = 30,
 }) {
-  var st = createRun(c: c, roleId: 'test_rol', goalId: 'goal_studio', mode: mode, seed: seed);
+  var st = createRun(
+    c: c,
+    roleId: 'test_rol',
+    goalId: 'goal_studio',
+    mode: mode,
+    seed: seed,
+  );
   final seq = <String?>[];
   for (var i = 0; i < days; i++) {
     final r = advanceDay(st, c);
@@ -349,8 +453,13 @@ void main() {
   final content = _content();
 
   // Stare de bază pentru testele de condiții/efecte (ziua 1, valorile rolului).
-  LifeSimState base() =>
-      createRun(c: content, roleId: 'test_rol', goalId: 'goal_studio', mode: 'realist', seed: 1);
+  LifeSimState base() => createRun(
+    c: content,
+    roleId: 'test_rol',
+    goalId: 'goal_studio',
+    mode: 'realist',
+    seed: 1,
+  );
 
   group('Content parsing', () {
     test('pachetul parsează; lookup-urile funcționează', () {
@@ -374,16 +483,20 @@ void main() {
     });
 
     test('tip necunoscut de condiție/efect → FormatException', () {
-      expect(() => LifeCondition.fromJson({'type': 'inexistent'}),
-          throwsA(isA<FormatException>()));
-      expect(() => LifeEffect.fromJson({'type': 'inexistent'}),
-          throwsA(isA<FormatException>()));
+      expect(
+        () => LifeCondition.fromJson({'type': 'inexistent'}),
+        throwsA(isA<FormatException>()),
+      );
+      expect(
+        () => LifeEffect.fromJson({'type': 'inexistent'}),
+        throwsA(isA<FormatException>()),
+      );
     });
   });
 
   group('Condiții, adevărat/fals la margini', () {
     test('StatAbove/StatBelow sunt stricte', () {
-      final s = base(); // stress 25, energy 75
+      final s = base(); // pornim cu stres 25 și energie 75
       expect(const StatAbove('stress', 25).eval(s), isFalse);
       expect(const StatAbove('stress', 24).eval(s), isTrue);
       expect(const StatBelow('stress', 25).eval(s), isFalse);
@@ -452,8 +565,14 @@ void main() {
 
     test('stat clamp 0-100; jobStability clamp', () {
       final s = base();
-      expect(const StatDelta('stress', 200).apply(s, today: 1).stats.stress, 100);
-      expect(const StatDelta('energy', -200).apply(s, today: 1).stats.energy, 0);
+      expect(
+        const StatDelta('stress', 200).apply(s, today: 1).stats.stress,
+        100,
+      );
+      expect(
+        const StatDelta('energy', -200).apply(s, today: 1).stats.energy,
+        0,
+      );
       expect(const JobStabilityDelta(200).apply(s, today: 1).jobStability, 100);
     });
 
@@ -467,22 +586,36 @@ void main() {
       ).apply(s, today: 1);
       expect(withDebt.debts.any((d) => d.id == 'card'), isTrue);
       // Plată parțială a datoriei inițiale (600 lei), din cash.
-      final paid = const PayDebt(id: 'rata_telefon', amount: Money(20000))
-          .apply(s, today: 1);
+      final paid = const PayDebt(
+        id: 'rata_telefon',
+        amount: Money(20000),
+      ).apply(s, today: 1);
       expect(paid.debts.single.principal, const Money(40000));
       expect(paid.cash, const Money(80000)); // 1000 - 200 lei
       // Plată integrală → datoria dispare.
-      final full = const PayDebt(id: 'rata_telefon', full: true).apply(s, today: 1);
+      final full = const PayDebt(
+        id: 'rata_telefon',
+        full: true,
+      ).apply(s, today: 1);
       expect(full.debts, isEmpty);
       expect(full.cash, const Money(40000)); // 1000 - 600 lei
     });
 
     test('addRecurring / removeRecurring / setFlag / clearFlag', () {
       final s = base();
-      expect(const AddRecurring('netflix').apply(s, today: 1).bills, contains('netflix'));
-      expect(const RemoveRecurring('chirie').apply(s, today: 1).bills, isNot(contains('chirie')));
+      expect(
+        const AddRecurring('netflix').apply(s, today: 1).bills,
+        contains('netflix'),
+      );
+      expect(
+        const RemoveRecurring('chirie').apply(s, today: 1).bills,
+        isNot(contains('chirie')),
+      );
       expect(const SetFlag('x').apply(s, today: 1).flags, contains('x'));
-      expect(const ClearFlag('are_masina').apply(s, today: 1).flags, isNot(contains('are_masina')));
+      expect(
+        const ClearFlag('are_masina').apply(s, today: 1).flags,
+        isNot(contains('are_masina')),
+      );
     });
 
     test('scheduleEffect / scheduleEvent programează pentru viitor', () {
@@ -495,8 +628,10 @@ void main() {
       expect(sched.scheduledEffects.single.fireOnDay, 8);
       expect(sched.scheduledEffects.single.sourceEventId, 'ev');
 
-      final ev = const ScheduleEvent(delayDays: 7, eventId: 'parbriz_extins')
-          .apply(s, today: 5);
+      final ev = const ScheduleEvent(
+        delayDays: 7,
+        eventId: 'parbriz_extins',
+      ).apply(s, today: 5);
       expect(ev.scheduledEvents.single, (12, 'parbriz_extins'));
     });
   });
@@ -516,7 +651,11 @@ void main() {
     test('alocarea pe plicuri conservă suma totală', () {
       final s = base();
       final total = s.cash + s.emergencyFund + s.goalSavings;
-      final a = allocateSalary(s, toFund: const Money(30000), toGoal: const Money(20000));
+      final a = allocateSalary(
+        s,
+        toFund: const Money(30000),
+        toGoal: const Money(20000),
+      );
       expect(a.cash, const Money(50000));
       expect(a.emergencyFund, const Money(80000));
       expect(a.goalSavings, const Money(20000));
@@ -525,63 +664,102 @@ void main() {
 
     test('alocarea invalidă e respinsă', () {
       final s = base();
-      expect(() => allocateSalary(s, toFund: const Money(-1), toGoal: Money.zero),
-          throwsArgumentError);
-      expect(() => allocateSalary(s, toFund: const Money(999999), toGoal: Money.zero),
-          throwsArgumentError);
+      expect(
+        () => allocateSalary(s, toFund: const Money(-1), toGoal: Money.zero),
+        throwsArgumentError,
+      );
+      expect(
+        () =>
+            allocateSalary(s, toFund: const Money(999999), toGoal: Money.zero),
+        throwsArgumentError,
+      );
     });
   });
 
   group('advanceDay, salariu, facturi, efecte programate', () {
     test('salariul intră în ziua de plată (ghidat = fără variabilitate)', () {
-      final s = createRun(c: content, roleId: 'test_rol', goalId: 'goal_studio', mode: 'ghidat', seed: 1);
+      final s = createRun(
+        c: content,
+        roleId: 'test_rol',
+        goalId: 'goal_studio',
+        mode: 'ghidat',
+        seed: 1,
+      );
       final r = advanceDay(s, content);
       expect(r.state.day, 1);
-      expect(r.salaryReceived, Money.fromLei(3000)); // exact, fără variabilitate
+      expect(
+        r.salaryReceived,
+        Money.fromLei(3000),
+      ); // exact, fără variabilitate
       expect(r.state.cash, const Money(100000) + Money.fromLei(3000));
     });
 
     test('factura se plătește la scadență când cash-ul acoperă', () {
       // Avansăm până în ziua 5 (chirie) cu salariu în ziua 1.
-      var s = createRun(c: content, roleId: 'test_rol', goalId: 'goal_studio', mode: 'ghidat', seed: 1);
+      var s = createRun(
+        c: content,
+        roleId: 'test_rol',
+        goalId: 'goal_studio',
+        mode: 'ghidat',
+        seed: 1,
+      );
       DayResult r;
       for (var d = 0; d < 5; d++) {
         r = advanceDay(s, content);
         s = r.state;
-        if (r.event != null) s = applyChoice(s, r.event!, 1, content); // alegeri ieftine
+        if (r.event != null) {
+          s = applyChoice(s, r.event!, 1, content); // alegeri ieftine
+        }
       }
       expect(s.paidBillsOnTime, greaterThanOrEqualTo(1));
       expect(s.missedBills.where((m) => m.$1 == 'chirie'), isEmpty);
     });
 
-    test('factura ratată → missedBills + miss_effects + penalitate contorizată', () {
-      // Rol fără cash: golim cash-ul înainte de scadență.
-      var s = createRun(c: content, roleId: 'test_rol', goalId: 'goal_studio', mode: 'ghidat', seed: 1);
-      // Ziua 1: salariu, apoi golim cash cu un efect uriaș pentru a rata chiria.
-      var r = advanceDay(s, content); // ziua 1
-      s = r.state;
-      if (r.event != null) s = applyChoice(s, r.event!, 1, content);
-      s = const CashDelta(Money(-10000000)).apply(s, today: s.day); // cash mult negativ
-      for (var d = s.day; d < 5; d++) {
-        r = advanceDay(s, content);
+    test(
+      'factura ratată → missedBills + miss_effects + penalitate contorizată',
+      () {
+        // Rol fără cash: golim cash-ul înainte de scadență.
+        var s = createRun(
+          c: content,
+          roleId: 'test_rol',
+          goalId: 'goal_studio',
+          mode: 'ghidat',
+          seed: 1,
+        );
+        // Ziua 1: salariu, apoi golim cash cu un efect uriaș pentru a rata chiria.
+        var r = advanceDay(s, content); // ziua 1
         s = r.state;
         if (r.event != null) s = applyChoice(s, r.event!, 1, content);
-      }
-      expect(s.missedBills.any((m) => m.$1 == 'chirie'), isTrue);
-      expect(s.penaltiesPaid.bani, greaterThan(0)); // -100 lei din miss_effects
-      expect(s.stats.stress, greaterThan(25)); // stresul a urcat
-    });
+        s = const CashDelta(
+          Money(-10000000),
+        ).apply(s, today: s.day); // cash mult negativ
+        for (var d = s.day; d < 5; d++) {
+          r = advanceDay(s, content);
+          s = r.state;
+          if (r.event != null) s = applyChoice(s, r.event!, 1, content);
+        }
+        expect(s.missedBills.any((m) => m.$1 == 'chirie'), isTrue);
+        expect(
+          s.penaltiesPaid.bani,
+          greaterThan(0),
+        ); // -100 lei din miss_effects
+        expect(s.stats.stress, greaterThan(25)); // stresul a urcat
+      },
+    );
 
     test('efect programat se declanșează exact în ziua sa, o singură dată', () {
       var s = base();
-      s = s.copyWith(day: 4, scheduledEffects: [
-        const ScheduledEffect(
-          fireOnDay: 6,
-          effects: [CashDelta(Money(-40000))],
-          note: 'amenda',
-          sourceEventId: 'parbriz_extins',
-        ),
-      ]);
+      s = s.copyWith(
+        day: 4,
+        scheduledEffects: [
+          const ScheduledEffect(
+            fireOnDay: 6,
+            effects: [CashDelta(Money(-40000))],
+            note: 'amenda',
+            sourceEventId: 'parbriz_extins',
+          ),
+        ],
+      );
       // Ziua 5: nu se declanșează încă.
       var r = advanceDay(s, content);
       s = r.state;
@@ -601,22 +779,24 @@ void main() {
       expect(r.effectsFired, isEmpty);
     });
 
-    test(
-        'settleRemainingEffects aplică tot ce a rămas programat, o singură '
+    test('settleRemainingEffects aplică tot ce a rămas programat, o singură '
         'dată, indiferent de fireOnDay, și golește scheduledEffects', () {
-      var s = base().copyWith(day: 30, scheduledEffects: [
-        const ScheduledEffect(
-          fireOnDay: 33, // dincolo de finalul lunii, n-ar mai apuca niciodată
-          effects: [CashDelta(Money(-70000)), StatDelta('health', -8)],
-          note: 'infecția s-a extins',
-          sourceEventId: 'dinte_urgenta',
-        ),
-        const ScheduledEffect(
-          fireOnDay: 31,
-          effects: [FundDelta(Money(-5000))],
-          note: 'altă consecință amânată',
-        ),
-      ]);
+      var s = base().copyWith(
+        day: 30,
+        scheduledEffects: [
+          const ScheduledEffect(
+            fireOnDay: 33, // dincolo de finalul lunii, n-ar mai apuca niciodată
+            effects: [CashDelta(Money(-70000)), StatDelta('health', -8)],
+            note: 'infecția s-a extins',
+            sourceEventId: 'dinte_urgenta',
+          ),
+          const ScheduledEffect(
+            fireOnDay: 31,
+            effects: [FundDelta(Money(-5000))],
+            note: 'altă consecință amânată',
+          ),
+        ],
+      );
       final cashBefore = s.cash;
       final fundBefore = s.emergencyFund;
       final healthBefore = s.stats.health;
@@ -629,8 +809,10 @@ void main() {
       expect(settled.stats.health, healthBefore - 8);
       // Ambele consecințe s-au înregistrat în firedEffects (lineage debrief).
       expect(settled.firedEffects, hasLength(2));
-      expect(settled.firedEffects.map((f) => f.sourceEventId),
-          contains('dinte_urgenta'));
+      expect(
+        settled.firedEffects.map((f) => f.sourceEventId),
+        contains('dinte_urgenta'),
+      );
 
       // Idempotent la re-aplicare: nimic rămas de decontat a doua oară.
       final settledAgain = settleRemainingEffects(settled);
@@ -675,7 +857,11 @@ void main() {
         cash: Money.fromLei(50),
         debts: const [],
         stats: const LifeStats(
-            health: 75, energy: 75, stress: 40, relationships: 70),
+          health: 75,
+          energy: 75,
+          stress: 40,
+          relationships: 70,
+        ),
       );
       final r = advanceDay(s, content);
       expect(r.arrearsPaid, isEmpty);
@@ -715,8 +901,11 @@ void main() {
     test('taxa minimă de 20 lei se aplică la rate mici', () {
       // Rată 300 lei: 2% = 6 lei sub 20 lei => taxă = 20 lei (plafon minim).
       const debt = DebtState(
-          id: 'card', principal: Money(50000), monthly: Money(30000),
-          dueDay: 20);
+        id: 'card',
+        principal: Money(50000),
+        monthly: Money(30000),
+        dueDay: 20,
+      );
       final s = base().copyWith(day: 19, cash: Money.zero, debts: [debt]);
       final r = advanceDay(s, content);
       expect(r.state.debts.single.principal, Money.fromLei(520)); // 500 + 20
@@ -726,8 +915,11 @@ void main() {
     test('taxa proporțională (2%) când depășește minimul', () {
       // Rată 2000 lei: 2% = 40 lei peste 20 lei => taxă = 40 lei.
       const debt = DebtState(
-          id: 'card', principal: Money(500000), monthly: Money(200000),
-          dueDay: 20);
+        id: 'card',
+        principal: Money(500000),
+        monthly: Money(200000),
+        dueDay: 20,
+      );
       final s = base().copyWith(day: 19, cash: Money.zero, debts: [debt]);
       final r = advanceDay(s, content);
       expect(r.state.debts.single.principal, Money.fromLei(5040)); // 5000 + 40
@@ -737,10 +929,17 @@ void main() {
     test('dobânda după grație: principalul crește 1,5% înainte de plată', () {
       // Grație până în ziua 10, scadență ziua 20 (20 peste 10) => dobândă.
       const debt = DebtState(
-          id: 'card', principal: Money(100000), monthly: Money(20000),
-          dueDay: 20, interestFreeUntil: 10);
-      final s =
-          base().copyWith(day: 19, debts: [debt], cash: Money.fromLei(500));
+        id: 'card',
+        principal: Money(100000),
+        monthly: Money(20000),
+        dueDay: 20,
+        interestFreeUntil: 10,
+      );
+      final s = base().copyWith(
+        day: 19,
+        debts: [debt],
+        cash: Money.fromLei(500),
+      );
       final r = advanceDay(s, content);
       // 1,5% din 1000 lei = 15 lei; principal 1000 -> 1015; plată 200 -> 815.
       expect(r.state.debts.single.principal, Money.fromLei(815));
@@ -751,10 +950,17 @@ void main() {
     test('fără dobândă în grație (ziua scadenței sub interestFreeUntil)', () {
       // Scadență ziua 20, grație până în ziua 25: 20 nu depășește 25.
       const debt = DebtState(
-          id: 'card', principal: Money(100000), monthly: Money(20000),
-          dueDay: 20, interestFreeUntil: 25);
-      final s =
-          base().copyWith(day: 19, debts: [debt], cash: Money.fromLei(500));
+        id: 'card',
+        principal: Money(100000),
+        monthly: Money(20000),
+        dueDay: 20,
+        interestFreeUntil: 25,
+      );
+      final s = base().copyWith(
+        day: 19,
+        debts: [debt],
+        cash: Money.fromLei(500),
+      );
       final r = advanceDay(s, content);
       // Fără dobândă: principal 1000 -> plată 200 -> 800.
       expect(r.state.debts.single.principal, Money.fromLei(800));
@@ -778,19 +984,31 @@ void main() {
       expect(a.debts.single.principal, Money.fromLei(480)); // 600 - 120
     });
 
-    test('payDebtEarly: sumă invalidă sau datorie inexistentă => neschimbat', () {
-      final s = base();
-      expect(identical(payDebtEarly(s, 'rata_telefon', Money.zero), s), isTrue);
-      expect(identical(payDebtEarly(s, 'rata_telefon', Money.fromLei(-10)), s),
-          isTrue);
-      expect(identical(payDebtEarly(s, 'inexistent', Money.fromLei(100)), s),
-          isTrue);
-    });
+    test(
+      'payDebtEarly: sumă invalidă sau datorie inexistentă => neschimbat',
+      () {
+        final s = base();
+        expect(
+          identical(payDebtEarly(s, 'rata_telefon', Money.zero), s),
+          isTrue,
+        );
+        expect(
+          identical(payDebtEarly(s, 'rata_telefon', Money.fromLei(-10)), s),
+          isTrue,
+        );
+        expect(
+          identical(payDebtEarly(s, 'inexistent', Money.fromLei(100)), s),
+          isTrue,
+        );
+      },
+    );
 
     test('payDebtEarly: cash sub 50 lei => nu plătește nimic', () {
       final s = base().copyWith(cash: Money.fromLei(49));
-      expect(identical(payDebtEarly(s, 'rata_telefon', Money.fromLei(10)), s),
-          isTrue);
+      expect(
+        identical(payDebtEarly(s, 'rata_telefon', Money.fromLei(10)), s),
+        isTrue,
+      );
     });
   });
 
@@ -802,53 +1020,85 @@ void main() {
 
     test('stres > 70 => energie -2 în plus, peste driftul de bază', () {
       final r = advanceDay(
-          at8(
-              stats: const LifeStats(
-                  health: 75, energy: 50, stress: 75, relationships: 70)),
-          content);
+        at8(
+          stats: const LifeStats(
+            health: 75,
+            energy: 50,
+            stress: 75,
+            relationships: 70,
+          ),
+        ),
+        content,
+      );
       expect(r.state.stats.energy, 46); // 50 - 2 (bază) - 2 (cuplaj)
       expect(r.state.stats.stress, 75);
     });
 
     test('energie < 25 => sănătate -1', () {
       final r = advanceDay(
-          at8(
-              stats: const LifeStats(
-                  health: 50, energy: 26, stress: 30, relationships: 70)),
-          content);
+        at8(
+          stats: const LifeStats(
+            health: 50,
+            energy: 26,
+            stress: 30,
+            relationships: 70,
+          ),
+        ),
+        content,
+      );
       expect(r.state.stats.energy, 24); // 26 - 2 (bază)
       expect(r.state.stats.health, 49); // 50 - 1 (energie sub 25)
     });
 
     test('sănătate < 35 => stres +2', () {
       final r = advanceDay(
-          at8(
-              stats: const LifeStats(
-                  health: 30, energy: 60, stress: 40, relationships: 70)),
-          content);
+        at8(
+          stats: const LifeStats(
+            health: 30,
+            energy: 60,
+            stress: 40,
+            relationships: 70,
+          ),
+        ),
+        content,
+      );
       expect(r.state.stats.stress, 42); // 40 + 2 (sănătate sub 35)
       expect(r.state.stats.health, 30);
     });
 
-    test('cascadă secvențială: stres>70 împinge energia sub 25, apoi sănătate -1',
-        () {
-      final r = advanceDay(
+    test(
+      'cascadă secvențială: stres>70 împinge energia sub 25, apoi sănătate -1',
+      () {
+        final r = advanceDay(
           at8(
-              stats: const LifeStats(
-                  health: 50, energy: 27, stress: 75, relationships: 70)),
-          content);
-      // bază: energie 27->25; cuplaj: stres>70 => energie 25->23; energie<25 =>
-      // sănătate 50->49. Dovada evaluării secvențiale (nu pe un instantaneu).
-      expect(r.state.stats.energy, 23);
-      expect(r.state.stats.health, 49);
-    });
+            stats: const LifeStats(
+              health: 50,
+              energy: 27,
+              stress: 75,
+              relationships: 70,
+            ),
+          ),
+          content,
+        );
+        // bază: energie 27->25; cuplaj: stres>70 => energie 25->23; energie<25 =>
+        // sănătate 50->49. Dovada evaluării secvențiale (nu pe un instantaneu).
+        expect(r.state.stats.energy, 23);
+        expect(r.state.stats.health, 49);
+      },
+    );
 
     test('fără presiune când stat-urile sunt sănătoase', () {
       final r = advanceDay(
-          at8(
-              stats: const LifeStats(
-                  health: 75, energy: 75, stress: 25, relationships: 70)),
-          content);
+        at8(
+          stats: const LifeStats(
+            health: 75,
+            energy: 75,
+            stress: 25,
+            relationships: 70,
+          ),
+        ),
+        content,
+      );
       expect(r.state.stats.energy, 73); // doar driftul de bază
       expect(r.state.stats.health, 75);
       expect(r.state.stats.stress, 25);
@@ -864,12 +1114,12 @@ void main() {
       var quietGhid = 0;
       for (var seed = 0; seed < n; seed++) {
         final s = createRun(
-                c: content,
-                roleId: 'test_rol',
-                goalId: 'goal_studio',
-                mode: 'realist',
-                seed: seed)
-            .copyWith(day: 1);
+          c: content,
+          roleId: 'test_rol',
+          goalId: 'goal_studio',
+          mode: 'realist',
+          seed: seed,
+        ).copyWith(day: 1);
         if (pickEvent(s: s, c: content, rng: _rngFor(s, 1), mode: 'realist') ==
             null) {
           quietReal++;
@@ -879,8 +1129,16 @@ void main() {
           quietGhid++;
         }
       }
-      expect(quietReal / n, closeTo(0.15, 0.06), reason: 'realist $quietReal/$n');
-      expect(quietGhid / n, closeTo(0.32, 0.07), reason: 'ghidat $quietGhid/$n');
+      expect(
+        quietReal / n,
+        closeTo(0.15, 0.06),
+        reason: 'realist $quietReal/$n',
+      );
+      expect(
+        quietGhid / n,
+        closeTo(0.32, 0.07),
+        reason: 'ghidat $quietGhid/$n',
+      );
       // Realistul e vizibil mai greu: mai puține zile liniștite decât ghidatul.
       expect(quietReal, lessThan(quietGhid));
     });
@@ -915,49 +1173,95 @@ void main() {
       final cafea = content.eventById('cafea')!;
       final s = base().copyWith(day: 5, completedEvents: {'parbriz', 'cafea'});
       expect(eventEligible(parbriz, s), isFalse); // one-shot consumat
-      expect(eventEligible(cafea, s), isTrue); // repetabil (doar cooldown gateează)
+      expect(
+        eventEligible(cafea, s),
+        isTrue,
+      ); // repetabil (doar cooldown gateează)
     });
 
-    test('prerequisite/exclusion: parbriz_extins fără condiții e mereu eligibil', () {
-      final ext = content.eventById('parbriz_extins')!;
-      expect(eventEligible(ext, base().copyWith(day: 10)), isTrue);
-    });
+    test(
+      'prerequisite/exclusion: parbriz_extins fără condiții e mereu eligibil',
+      () {
+        final ext = content.eventById('parbriz_extins')!;
+        expect(eventEligible(ext, base().copyWith(day: 10)), isTrue);
+      },
+    );
 
-    test('eveniment programat are PRIORITATE (sare peste ruleta liniștită)', () {
-      // Programăm parbriz_extins scadent azi; pickEvent trebuie să-l aleagă.
-      var s = base().copyWith(day: 8, scheduledEvents: [(8, 'parbriz_extins')]);
-      final picked = pickEvent(s: s, c: content, rng: _rngFor(s, 8), mode: 'realist');
-      expect(picked?.id, 'parbriz_extins');
-      expect(dueScheduledEntry(s, content), (8, 'parbriz_extins'));
-    });
+    test(
+      'eveniment programat are PRIORITATE (sare peste ruleta liniștită)',
+      () {
+        // Programăm parbriz_extins scadent azi; pickEvent trebuie să-l aleagă.
+        var s = base().copyWith(
+          day: 8,
+          scheduledEvents: [(8, 'parbriz_extins')],
+        );
+        final picked = pickEvent(
+          s: s,
+          c: content,
+          rng: _rngFor(s, 8),
+          mode: 'realist',
+        );
+        expect(picked?.id, 'parbriz_extins');
+        expect(dueScheduledEntry(s, content), (8, 'parbriz_extins'));
+      },
+    );
   });
 
   group('Determinism, testul de aur', () {
     int firstChoice(LifeSimEvent e) => 0;
 
-    test('același seed + aceleași decizii → run IDENTIC, eveniment cu eveniment', () {
-      final a = _runMonth(content, seed: 12345, mode: 'realist', policy: firstChoice);
-      final b = _runMonth(content, seed: 12345, mode: 'realist', policy: firstChoice);
-      expect(a.seq, b.seq);
-      // Starea finală serializată e identică bit-cu-bit.
-      expect(jsonEncode(a.state.toJson()), jsonEncode(b.state.toJson()));
-    });
+    test(
+      'același seed + aceleași decizii → run IDENTIC, eveniment cu eveniment',
+      () {
+        final a = _runMonth(
+          content,
+          seed: 12345,
+          mode: 'realist',
+          policy: firstChoice,
+        );
+        final b = _runMonth(
+          content,
+          seed: 12345,
+          mode: 'realist',
+          policy: firstChoice,
+        );
+        expect(a.seq, b.seq);
+        // Starea finală serializată e identică bit-cu-bit.
+        expect(jsonEncode(a.state.toJson()), jsonEncode(b.state.toJson()));
+      },
+    );
 
     test('seed diferit → run diferit', () {
-      final a = _runMonth(content, seed: 1, mode: 'realist', policy: firstChoice);
-      final b = _runMonth(content, seed: 2, mode: 'realist', policy: firstChoice);
+      final a = _runMonth(
+        content,
+        seed: 1,
+        mode: 'realist',
+        policy: firstChoice,
+      );
+      final b = _runMonth(
+        content,
+        seed: 2,
+        mode: 'realist',
+        policy: firstChoice,
+      );
       expect(a.seq, isNot(equals(b.seq)));
     });
 
     test('lanțul parbriz: amânarea programează parbriz_extins mai târziu', () {
       // Politică: la parbriz alege „Amâni" (idx 1), restul idx 0.
       int policy(LifeSimEvent e) => e.id == 'parbriz' ? 1 : 0;
-      final run = _runMonth(content, seed: 777, mode: 'realist', policy: policy);
+      final run = _runMonth(
+        content,
+        seed: 777,
+        mode: 'realist',
+        policy: policy,
+      );
       final sawParbriz = run.seq.contains('parbriz');
       if (sawParbriz) {
         // Dacă a apărut parbriz și a fost amânat, parbriz_extins trebuie să fie
         // fie declanșat, fie încă programat.
-        final firedOrScheduled = run.seq.contains('parbriz_extins') ||
+        final firedOrScheduled =
+            run.seq.contains('parbriz_extins') ||
             run.state.scheduledEvents.any((e) => e.$2 == 'parbriz_extins') ||
             run.state.completedEvents.contains('parbriz_extins');
         expect(firedOrScheduled, isTrue);
@@ -966,70 +1270,104 @@ void main() {
   });
 
   group('Director, echilibrul de categorii (mecanism exact)', () {
-    test('eventWeight aplică penalizările exact ca în spec', () {
-      final raceala = content.eventById('raceala')!; // dif. 2, weight 7, health
+    test('eventWeight aplică penalizările pe dificultate', () {
+      final raceala = content.eventById(
+        'raceala',
+      )!; // dificultate 2, pondere 7, sănătate
       final s0 = base().copyWith(day: 5);
-      expect(eventWeight(raceala, s0, 'realist'), 7.0, reason: 'fără penalizări');
+      expect(
+        eventWeight(raceala, s0, 'realist'),
+        7.0,
+        reason: 'fără penalizări',
+      );
 
       // Categoria de ieri → ×0,4.
       expect(
-        eventWeight(raceala, s0.copyWith(lastEventCategory: 'health'), 'realist'),
+        eventWeight(
+          raceala,
+          s0.copyWith(lastEventCategory: 'health'),
+          'realist',
+        ),
         closeTo(7 * 0.4, 1e-9),
       );
       // Categorie deja „grea" (count ≥3) → ×0,5.
       expect(
-        eventWeight(raceala, s0.copyWith(categoryCounts: {'health': 3}), 'realist'),
+        eventWeight(
+          raceala,
+          s0.copyWith(categoryCounts: {'health': 3}),
+          'realist',
+        ),
         closeTo(7 * 0.5, 1e-9),
       );
       // Cumulate.
       expect(
         eventWeight(
-            raceala,
-            s0.copyWith(lastEventCategory: 'health', categoryCounts: {'health': 3}),
-            'realist'),
+          raceala,
+          s0.copyWith(
+            lastEventCategory: 'health',
+            categoryCounts: {'health': 3},
+          ),
+          'realist',
+        ),
         closeTo(7 * 0.4 * 0.5, 1e-9),
       );
       // Anti-hammer: un negativ (dif. ≥2) IERI înmoaie negativele azi ×0,3.
       expect(
         eventWeight(
-            raceala, s0.copyWith(lastEventDay: 4, lastEventDifficulty: 2), 'realist'),
+          raceala,
+          s0.copyWith(lastEventDay: 4, lastEventDifficulty: 2),
+          'realist',
+        ),
         closeTo(7 * 0.3, 1e-9),
       );
       // Ghidat: șocurile intense (dif. ≥3) ×0,4; realist le lasă întregi.
-      final ext = content.eventById('parbriz_extins')!; // dif. 3, weight 5
+      final ext = content.eventById(
+        'parbriz_extins',
+      )!; // dificultate 3, pondere 5
       expect(eventWeight(ext, s0, 'ghidat'), closeTo(5 * 0.4, 1e-9));
       expect(eventWeight(ext, s0, 'realist'), 5.0);
     });
   });
 
   group('Director, zile liniștite + spread pe un run de 30 zile', () {
-    final run = _runMonth(content, seed: 2026, mode: 'realist', policy: (_) => 0);
+    final run = _runMonth(
+      content,
+      seed: 2026,
+      mode: 'realist',
+      policy: (_) => 0,
+    );
 
     test('≥6 zile liniștite în modul realist', () {
       final quiet = run.seq.where((id) => id == null).length;
       expect(quiet, greaterThanOrEqualTo(6), reason: 'zile liniștite: $quiet');
     });
 
-    test('directorul spread-uie pe multe categorii; niciun one-shot nu domină',
-        () {
-      final events = run.seq.whereType<String>().toList();
-      final counts = <String, int>{};
-      for (final id in events) {
-        counts[content.eventById(id)!.category] =
-            (counts[content.eventById(id)!.category] ?? 0) + 1;
-      }
-      // Varietate reală: directorul atinge multe categorii, nu una singură.
-      expect(counts.keys.length, greaterThanOrEqualTo(6), reason: '$counts');
-      // În fixture-ul minimal, „daily_living" (SINGURUL repetabil) umple coada
-      // lunii după ce one-shot-urile se consumă, cap-ul global de 40% e o
-      // proprietate de SCALĂ DE CONȚINUT (80-120 evenimente), validată de
-      // Monte-Carlo. Aici verificăm că nicio categorie ONE-SHOT nu
-      // domină și că mecanismul de echilibru (testat exact mai sus) e activ.
-      counts.remove('daily_living');
-      final maxOneShot =
-          counts.values.fold(0, (a, b) => a > b ? a : b) / events.length;
-      expect(maxOneShot, lessThanOrEqualTo(0.40), reason: 'one-shot: $counts');
-    });
+    test(
+      'directorul spread-uie pe multe categorii; niciun one-shot nu domină',
+      () {
+        final events = run.seq.whereType<String>().toList();
+        final counts = <String, int>{};
+        for (final id in events) {
+          counts[content.eventById(id)!.category] =
+              (counts[content.eventById(id)!.category] ?? 0) + 1;
+        }
+        // Varietate reală: directorul atinge multe categorii, nu una singură.
+        expect(counts.keys.length, greaterThanOrEqualTo(6), reason: '$counts');
+        // În fixture-ul minimal, „daily_living" (SINGURUL repetabil) umple coada
+        // lunii după ce one-shot-urile se consumă, cap-ul global de 40% e o
+        // proprietate de SCALĂ DE CONȚINUT (80-120 evenimente), validată de
+        // Monte-Carlo. Aici verificăm că nicio categorie ONE-SHOT nu
+        // domină și că mecanismul de echilibru (testat exact mai sus) e activ.
+        counts.remove('daily_living');
+        final maxOneShot =
+            counts.values.fold(0, (a, b) => a > b ? a : b) / events.length;
+        expect(
+          maxOneShot,
+          lessThanOrEqualTo(0.40),
+          reason: 'one-shot: $counts',
+        );
+      },
+    );
   });
 
   group('Scor, 4 dimensiuni + anti-monoton pe cash', () {
@@ -1048,7 +1386,12 @@ void main() {
         emergencyFund: Money.zero,
         goalSavings: Money.zero,
         debts: const [],
-        stats: const LifeStats(health: 40, energy: 40, stress: 90, relationships: 5),
+        stats: const LifeStats(
+          health: 40,
+          energy: 40,
+          stress: 90,
+          relationships: 5,
+        ),
         paidBillsOnTime: 0,
         missedBills: [('chirie', 5), ('utilitati', 10)],
         daysCashNegative: 0,
@@ -1059,13 +1402,20 @@ void main() {
         emergencyFund: const Money(200000),
         goalSavings: const Money(200000),
         debts: const [],
-        stats: const LifeStats(health: 85, energy: 80, stress: 20, relationships: 85),
+        stats: const LifeStats(
+          health: 85,
+          energy: 80,
+          stress: 20,
+          relationships: 85,
+        ),
         paidBillsOnTime: 6,
         missedBills: const [],
         daysCashNegative: 0,
       );
-      expect(score(balanced, content).total,
-          greaterThan(score(hoarder, content).total));
+      expect(
+        score(balanced, content).total,
+        greaterThan(score(hoarder, content).total),
+      );
     });
 
     test('finalul se selectează la praguri (strategul vs navigatorul)', () {
@@ -1075,17 +1425,30 @@ void main() {
         emergencyFund: const Money(200000),
         goalSavings: const Money(200000),
         debts: const [],
-        stats: const LifeStats(health: 90, energy: 85, stress: 15, relationships: 90),
+        stats: const LifeStats(
+          health: 90,
+          energy: 85,
+          stress: 15,
+          relationships: 90,
+        ),
         paidBillsOnTime: 8,
       );
       expect(score(strong, content).endingId, 'strategul');
       final weak = s.copyWith(
-        stats: const LifeStats(health: 30, energy: 30, stress: 95, relationships: 10),
+        stats: const LifeStats(
+          health: 30,
+          energy: 30,
+          stress: 95,
+          relationships: 10,
+        ),
         paidBillsOnTime: 0,
         missedBills: [('chirie', 5)],
         emergencyFund: Money.zero,
       );
-      expect(score(weak, content).endingId, 'navigatorul'); // catch-all
+      expect(
+        score(weak, content).endingId,
+        'navigatorul',
+      ); // varianta care prinde tot ce nu s-a potrivit
     });
   });
 
@@ -1101,25 +1464,36 @@ void main() {
       expect(d.counterfactual, contains('900 lei')); // suma chiriei
     });
 
-    test('deciziile eficiente/riscante ies din lineage-ul decizie→consecință', () {
-      // Simulăm o lună în care „raceala" e împinsă (consecință întârziată -200 lei).
-      int policy(LifeSimEvent e) {
-        if (e.id == 'raceala') return 1; // împinge → programează cost
-        if (e.id == 'bonus' || e.id == 'oferta' || e.id == 'windfall') return 0; // pozitive
-        return 0;
-      }
-      final run = _runMonth(content, seed: 55, mode: 'realist', policy: policy);
-      final d = buildDebrief(run.state, content);
-      // Toate cifrele din debrief provin din stare.
-      expect(d.paidBillsOnTime, run.state.paidBillsOnTime);
-      expect(d.fundUsed, run.state.fundUsed);
-      expect(d.goalSaved, run.state.goalSavings);
-      // Eficiente au net ≥ 0, riscante net < 0 (dacă există).
-      expect(d.efficient.every((o) => !o.net.isNegative), isTrue);
-      expect(d.risky.every((o) => o.net.isNegative), isTrue);
-      expect(d.efficient.length, lessThanOrEqualTo(3));
-      expect(d.risky.length, lessThanOrEqualTo(2));
-    });
+    test(
+      'deciziile eficiente/riscante ies din lineage-ul decizie→consecință',
+      () {
+        // Simulăm o lună în care „raceala" e împinsă (consecință întârziată -200 lei).
+        int policy(LifeSimEvent e) {
+          if (e.id == 'raceala') return 1; // împinge → programează cost
+          if (e.id == 'bonus' || e.id == 'oferta' || e.id == 'windfall') {
+            return 0; // pozitive
+          }
+          return 0;
+        }
+
+        final run = _runMonth(
+          content,
+          seed: 55,
+          mode: 'realist',
+          policy: policy,
+        );
+        final d = buildDebrief(run.state, content);
+        // Toate cifrele din debrief provin din stare.
+        expect(d.paidBillsOnTime, run.state.paidBillsOnTime);
+        expect(d.fundUsed, run.state.fundUsed);
+        expect(d.goalSaved, run.state.goalSavings);
+        // Eficiente au net ≥ 0, riscante net < 0 (dacă există).
+        expect(d.efficient.every((o) => !o.net.isNegative), isTrue);
+        expect(d.risky.every((o) => o.net.isNegative), isTrue);
+        expect(d.efficient.length, lessThanOrEqualTo(3));
+        expect(d.risky.length, lessThanOrEqualTo(2));
+      },
+    );
 
     test('conceptul mapează un skill-tag la o lecție determinist', () {
       final s = base().copyWith(
@@ -1144,7 +1518,13 @@ void main() {
     });
 
     test('o stare de mijloc bogată round-trip', () {
-      final run = _runMonth(content, seed: 999, mode: 'realist', policy: (_) => 0, days: 18);
+      final run = _runMonth(
+        content,
+        seed: 999,
+        mode: 'realist',
+        policy: (_) => 0,
+        days: 18,
+      );
       final s = run.state;
       final back = LifeSimState.fromJson(s.toJson());
       expect(jsonEncode(back.toJson()), jsonEncode(s.toJson()));
@@ -1155,26 +1535,44 @@ void main() {
       expect(back.flags, s.flags);
     });
 
-    test('resume din snapshot continuă identic (seed + decizii → același rezultat)', () {
-      int policy(LifeSimEvent e) => 0;
-      // Rulăm 15 zile, serializăm, re-hidratăm, continuăm 15, comparăm cu un
-      // run neîntrerupt.
-      final full = _runMonth(content, seed: 314, mode: 'realist', policy: policy);
+    test(
+      'resume din snapshot continuă identic (seed + decizii → același rezultat)',
+      () {
+        int policy(LifeSimEvent e) => 0;
+        // Rulăm 15 zile, serializăm, re-hidratăm, continuăm 15, comparăm cu un
+        // run neîntrerupt.
+        final full = _runMonth(
+          content,
+          seed: 314,
+          mode: 'realist',
+          policy: policy,
+        );
 
-      var s = createRun(c: content, roleId: 'test_rol', goalId: 'goal_studio', mode: 'realist', seed: 314);
-      for (var i = 0; i < 15; i++) {
-        final r = advanceDay(s, content);
-        s = r.state;
-        if (r.event != null) s = applyChoice(s, r.event!, policy(r.event!), content);
-      }
-      s = LifeSimState.fromJson(s.toJson()); // snapshot → resume
-      for (var i = 0; i < 15; i++) {
-        final r = advanceDay(s, content);
-        s = r.state;
-        if (r.event != null) s = applyChoice(s, r.event!, policy(r.event!), content);
-      }
-      expect(jsonEncode(s.toJson()), jsonEncode(full.state.toJson()));
-    });
+        var s = createRun(
+          c: content,
+          roleId: 'test_rol',
+          goalId: 'goal_studio',
+          mode: 'realist',
+          seed: 314,
+        );
+        for (var i = 0; i < 15; i++) {
+          final r = advanceDay(s, content);
+          s = r.state;
+          if (r.event != null) {
+            s = applyChoice(s, r.event!, policy(r.event!), content);
+          }
+        }
+        s = LifeSimState.fromJson(s.toJson()); // snapshot → resume
+        for (var i = 0; i < 15; i++) {
+          final r = advanceDay(s, content);
+          s = r.state;
+          if (r.event != null) {
+            s = applyChoice(s, r.event!, policy(r.event!), content);
+          }
+        }
+        expect(jsonEncode(s.toJson()), jsonEncode(full.state.toJson()));
+      },
+    );
   });
 }
 

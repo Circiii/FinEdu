@@ -13,7 +13,7 @@ class QuestDef {
   const QuestDef(this.id, this.slot, this.reward);
   final QuestId id;
   final int slot; // 1..3
-  final int reward; // acorns on claim
+  final int reward; // ghindele primite la ridicare
 }
 
 /// Cele 3 quest-uri pentru [today] (`yyyy-MM-dd`). Slot 3 alternează după paritatea datei.
