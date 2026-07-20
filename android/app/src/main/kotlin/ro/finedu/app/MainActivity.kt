@@ -1,4 +1,4 @@
-package com.example.finedu_flutter
+package ro.finedu.app
 
 import io.flutter.embedding.android.FlutterActivity
 

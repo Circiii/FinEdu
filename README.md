@@ -16,12 +16,14 @@ tău, nu pleacă nicăieri.
 
 Nu trebuie să construiești nimic. Ia fișierul potrivit și gata.
 
+Numele fișierelor conțin și versiunea, de exemplu `FinEdu-1.0.0-android-arm64.apk`.
+
 | Ai... | Descarcă | Mărime |
 |---|---|---|
-| **Telefon Android** (din 2016 încoace) | [FinEdu-android-arm64.apk](../../releases/latest) | 25 MB |
-| **Telefon Android mai vechi** | [FinEdu-android-arm32.apk](../../releases/latest) | 23 MB |
-| **Nu știi ce Android ai** | [FinEdu-android-universal.apk](../../releases/latest) | 68 MB |
-| **Windows 10 sau 11** | [FinEdu-windows.zip](../../releases/latest) | ~25 MB |
+| **Telefon Android** (din 2016 încoace) | [...android-arm64.apk](../../releases/latest) | 25 MB |
+| **Telefon Android mai vechi** | [...android-arm32.apk](../../releases/latest) | 23 MB |
+| **Nu știi ce Android ai** | [...android-universal.apk](../../releases/latest) | 68 MB |
+| **Windows 10 sau 11** | [...windows.zip](../../releases/latest) | 17 MB |
 | **iPhone, iPad, Mac, Linux** | [Deschide în browser](https://circiii.github.io/FinEdu/) | fără instalare |
 
 Toate fișierele sunt în **[Releases](../../releases/latest)**.
@@ -31,8 +33,10 @@ magazinului. E normal pentru orice aplicație care nu vine din Play Store.
 
 **Pe Windows**, dezarhivezi folderul și pornești `finedu_flutter.exe` din el.
 Executabilul nu merge scos singur din folder, are nevoie de fișierele de lângă
-el. Windows poate afișa un avertisment SmartScreen, fiindcă aplicația nu e
-semnată digital: apeși „Informații suplimentare", apoi „Executați oricum".
+el, inclusiv bibliotecile C++ pe care le livrăm în arhivă, ca să nu fie nevoie
+de nicio instalare. Windows poate afișa un avertisment SmartScreen, fiindcă
+aplicația nu e semnată digital: apeși „Informații suplimentare", apoi
+„Executați oricum".
 
 **Pe iPhone nu există fișier de descărcat.** Apple cere ca orice aplicație să
 fie semnată cu un cont de dezvoltator plătit ca să se poată instala, așa că

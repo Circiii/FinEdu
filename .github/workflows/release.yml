@@ -78,13 +78,33 @@ jobs:
       - name: Build Windows
         run: flutter build windows --release
 
-      # Arhivăm tot folderul: executabilul singur nu pornește fără DLL-urile
-      # și fișierele de lângă el.
+      # Aplicația are nevoie de bibliotecile C++ de la Microsoft. Pe un Windows
+      # proaspăt ele lipsesc, iar executabilul nu pornește, cu o eroare despre
+      # VCRUNTIME140_1.dll. Le punem lângă el, ca să nu ceară nicio instalare.
+      - name: Adaugă bibliotecile C++
+        shell: pwsh
+        run: |
+          $dest = "build\windows\x64\runner\Release"
+          $nume = @('msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')
+          $radacina = 'C:\Program Files\Microsoft Visual Studio'
+
+          foreach ($n in $nume) {
+            $gasit = Get-ChildItem -Path $radacina -Filter $n -Recurse -ErrorAction SilentlyContinue |
+                     Where-Object { $_.FullName -match '\\x64\\Microsoft\.VC\d+\.CRT\\' } |
+                     Select-Object -First 1
+            if (-not $gasit) { throw "Nu am gasit $n" }
+            Copy-Item $gasit.FullName -Destination $dest -Force
+            Write-Host "$n <- $($gasit.FullName)"
+          }
+
+      # Arhivăm tot folderul: executabilul singur nu pornește fără fișierele
+      # de lângă el.
       - name: Împachetează
         shell: pwsh
         run: |
           $v = (Select-String '^version:' pubspec.yaml).Line -replace 'version: ','' -split '\+' | Select-Object -First 1
           $src = "build\windows\x64\runner\Release"
+          Get-ChildItem $src | Select-Object Name, Length
           Compress-Archive -Path "$src\*" -DestinationPath "FinEdu-$v-windows.zip"
           Get-ChildItem FinEdu-*.zip
 
@@ -97,6 +117,9 @@ jobs:
   release:
     name: Publică Release
     needs: [android, windows]
+    # Doar la tag. Pornit manual de pe un branch, `github.ref_name` ar fi numele
+    # branch-ului, iar pasul de mai jos ar publica un release fals, „FinEdu main".
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     permissions:
       contents: write
