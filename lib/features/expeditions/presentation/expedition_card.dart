@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/db/app_db.dart';
@@ -41,7 +41,7 @@ class ExpeditionCard extends ConsumerWidget {
     };
   }
 
-  // ---- locked -------------------------------------------------------------
+  // ---- blocat
 
   Widget _locked() {
     return ClayCard(
@@ -57,13 +57,23 @@ class ExpeditionCard extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Expediția lui Cashy',
-                    style: T.display(
-                        size: 15.5, weight: FontWeight.w800, color: C.text2)),
+                Text(
+                  'Expediția lui Cashy',
+                  style: T.display(
+                    size: 15.5,
+                    weight: FontWeight.w800,
+                    color: C.text2,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text('Termină cele 3 misiuni și Cashy pleacă după ghinde.',
-                    style: T.body(
-                        size: 13, weight: FontWeight.w600, color: C.text3)),
+                Text(
+                  'Termină cele 3 misiuni și Cashy pleacă după ghinde.',
+                  style: T.body(
+                    size: 13,
+                    weight: FontWeight.w600,
+                    color: C.text3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -72,7 +82,7 @@ class ExpeditionCard extends ConsumerWidget {
     );
   }
 
-  // ---- ready --------------------------------------------------------------
+  // ---- gata de plecare
 
   Widget _ready(BuildContext context, WidgetRef ref) {
     return ClayCard(
@@ -90,13 +100,23 @@ class ExpeditionCard extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Cashy e gata de drum',
-                        style: T.display(
-                            size: 16, weight: FontWeight.w800, color: C.text)),
+                    Text(
+                      'Cashy e gata de drum',
+                      style: T.display(
+                        size: 16,
+                        weight: FontWeight.w800,
+                        color: C.text,
+                      ),
+                    ),
                     const SizedBox(height: 3),
-                    Text('Se întoarce în ~6 ore cu ce găsește.',
-                        style: T.body(
-                            size: 13, weight: FontWeight.w600, color: C.text2)),
+                    Text(
+                      'Se întoarce în ~6 ore cu ce găsește.',
+                      style: T.body(
+                        size: 13,
+                        weight: FontWeight.w600,
+                        color: C.text2,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -123,7 +143,7 @@ class ExpeditionCard extends ConsumerWidget {
     );
   }
 
-  // ---- away ---------------------------------------------------------------
+  // ---- plecat
 
   Widget _away(DateTime departedAt) {
     final back = departedAt.add(const Duration(hours: expeditionHours));
@@ -141,17 +161,32 @@ class ExpeditionCard extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Cashy e în expediție',
-                    style: T.display(
-                        size: 16, weight: FontWeight.w800, color: C.text)),
+                Text(
+                  'Cashy e în expediție',
+                  style: T.display(
+                    size: 16,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
                 const SizedBox(height: 3),
-                Text('Se întoarce pe la $hh:$mm',
-                    style: T.body(
-                        size: 13.5, weight: FontWeight.w700, color: C.text2)),
+                Text(
+                  'Se întoarce pe la $hh:$mm',
+                  style: T.body(
+                    size: 13.5,
+                    weight: FontWeight.w700,
+                    color: C.text2,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text('Vezi-ți de zi, se descurcă.',
-                    style: T.body(
-                        size: 12.5, weight: FontWeight.w600, color: C.text3)),
+                Text(
+                  'Vezi-ți de zi, se descurcă.',
+                  style: T.body(
+                    size: 12.5,
+                    weight: FontWeight.w600,
+                    color: C.text3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -160,10 +195,11 @@ class ExpeditionCard extends ConsumerWidget {
     );
   }
 
-  // ---- returned -----------------------------------------------------------
+  // ---- întors
 
   Widget _returned(BuildContext context, WidgetRef ref, ExpeditionRow row) {
-    final postcards = ref.watch(postcardsProvider('ro')).valueOrNull ?? const [];
+    final postcards =
+        ref.watch(postcardsProvider('ro')).valueOrNull ?? const [];
     final postcard = postcards.isEmpty
         ? ''
         : postcards[postcardIndex(dayKey: row.day, count: postcards.length)];
@@ -184,19 +220,25 @@ class ExpeditionCard extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('S-a întors!',
-                        style: T.display(
-                            size: 16,
-                            weight: FontWeight.w800,
-                            color: C.amberInk)),
+                    Text(
+                      'S-a întors!',
+                      style: T.display(
+                        size: 16,
+                        weight: FontWeight.w800,
+                        color: C.amberInk,
+                      ),
+                    ),
                     if (postcard.isNotEmpty) ...[
                       const SizedBox(height: 3),
-                      Text(postcard,
-                          style: T.body(
-                              size: 13.5,
-                              weight: FontWeight.w600,
-                              color: C.text,
-                              height: 1.35)),
+                      Text(
+                        postcard,
+                        style: T.body(
+                          size: 13.5,
+                          weight: FontWeight.w600,
+                          color: C.text,
+                          height: 1.35,
+                        ),
+                      ),
                     ],
                   ],
                 ),
@@ -221,10 +263,11 @@ class ExpeditionCard extends ConsumerWidget {
     );
   }
 
-  // ---- collected ----------------------------------------------------------
+  // ---- ridicat
 
   Widget _collected(WidgetRef ref, ExpeditionRow row) {
-    final postcards = ref.watch(postcardsProvider('ro')).valueOrNull ?? const [];
+    final postcards =
+        ref.watch(postcardsProvider('ro')).valueOrNull ?? const [];
     final postcard = postcards.isEmpty
         ? ''
         : postcards[postcardIndex(dayKey: row.day, count: postcards.length)];
@@ -237,11 +280,15 @@ class ExpeditionCard extends ConsumerWidget {
           const SizedBox(width: 10),
           Expanded(
             child: AcornText(
-                postcard.isEmpty
-                    ? 'Expediția de azi: +${row.reward} 🌰'
-                    : 'Expediția de azi: +${row.reward} 🌰 · $postcard',
-                style:
-                    T.body(size: 12.5, weight: FontWeight.w600, color: C.text2)),
+              postcard.isEmpty
+                  ? 'Expediția de azi: +${row.reward} 🌰'
+                  : 'Expediția de azi: +${row.reward} 🌰 · $postcard',
+              style: T.body(
+                size: 12.5,
+                weight: FontWeight.w600,
+                color: C.text2,
+              ),
+            ),
           ),
         ],
       ),

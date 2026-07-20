@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,28 +65,28 @@ class LifeMonthRun {
   final LifeSimScore? score;
 
   factory LifeMonthRun.fromRow(LifeSimRun row) => LifeMonthRun(
-        id: row.id,
-        state: LifeSimState.fromJson(
-            jsonDecode(row.stateJson) as Map<String, dynamic>),
-        startedAt: row.startedAt,
-        completedAt: row.completedAt,
-        score: row.resultJson == null
-            ? null
-            : scoreFromJson(
-                jsonDecode(row.resultJson!) as Map<String, dynamic>),
-      );
+    id: row.id,
+    state: LifeSimState.fromJson(
+      jsonDecode(row.stateJson) as Map<String, dynamic>,
+    ),
+    startedAt: row.startedAt,
+    completedAt: row.completedAt,
+    score: row.resultJson == null
+        ? null
+        : scoreFromJson(jsonDecode(row.resultJson!) as Map<String, dynamic>),
+  );
 }
 
 /// [LifeSimScore] nu are `fromJson` în motor (înghețat), îl reconstruim aici
 /// din agregatul persistat. Constructorul e public, deci nu atingem motorul.
 LifeSimScore scoreFromJson(Map<String, dynamic> j) => LifeSimScore(
-      control: (j['control'] as num).toInt(),
-      rezilienta: (j['rezilienta'] as num).toInt(),
-      obiective: (j['obiective'] as num).toInt(),
-      echilibru: (j['echilibru'] as num).toInt(),
-      total: (j['total'] as num).toInt(),
-      endingId: j['endingId'] as String,
-    );
+  control: (j['control'] as num).toInt(),
+  rezilienta: (j['rezilienta'] as num).toInt(),
+  obiective: (j['obiective'] as num).toInt(),
+  echilibru: (j['echilibru'] as num).toInt(),
+  total: (j['total'] as num).toInt(),
+  endingId: j['endingId'] as String,
+);
 
 /// Rezultatul recompensării unei terminări (pentru afișaj în raport).
 class LifeMonthCompletion {
@@ -137,7 +137,7 @@ class LifeMonthRepository {
   final AppDb _db;
   final LocalProfileRepository _profiles;
 
-  // --- Ciclu de viață al unui run -----------------------------------------
+  // --- Ciclu de viață al unui run
 
   /// Creează un run nou. Seed-ul e derivat din ceas XOR un hash al alegerilor,
   /// ca două combinații pornite în aceeași milisecundă să difere. Pentru „Reia
@@ -149,7 +149,8 @@ class LifeMonthRepository {
     required String mode,
     int? seed,
   }) async {
-    final actualSeed = seed ??
+    final actualSeed =
+        seed ??
         (DateTime.now().millisecondsSinceEpoch ^
             Object.hash(roleId, goalId, mode));
     final state = engine.createRun(
@@ -160,17 +161,21 @@ class LifeMonthRepository {
       seed: actualSeed,
     );
     final id = _uuid.v4();
-    await _db.into(_db.lifeSimRuns).insert(LifeSimRunsCompanion.insert(
-          id: id,
-          seed: actualSeed,
-          roleId: roleId,
-          goalId: goalId,
-          mode: mode,
-          contentVersion: content.version,
-          day: Value(state.day),
-          stateJson: jsonEncode(state.toJson()),
-          startedAt: DateTime.now(),
-        ));
+    await _db
+        .into(_db.lifeSimRuns)
+        .insert(
+          LifeSimRunsCompanion.insert(
+            id: id,
+            seed: actualSeed,
+            roleId: roleId,
+            goalId: goalId,
+            mode: mode,
+            contentVersion: content.version,
+            day: Value(state.day),
+            stateJson: jsonEncode(state.toJson()),
+            startedAt: DateTime.now(),
+          ),
+        );
     return LifeMonthRun(id: id, state: state, startedAt: DateTime.now());
   }
 
@@ -187,8 +192,9 @@ class LifeMonthRepository {
 
   /// O rundă după id (pentru ecranele care primesc id-ul prin rută).
   Future<LifeMonthRun?> getRun(String id) async {
-    final row = await (_db.select(_db.lifeSimRuns)..where((r) => r.id.equals(id)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.lifeSimRuns,
+    )..where((r) => r.id.equals(id))).getSingleOrNull();
     return row == null ? null : LifeMonthRun.fromRow(row);
   }
 
@@ -198,10 +204,11 @@ class LifeMonthRepository {
   /// schimbat ar rupe determinismul same-seed. Parametru opțional ca metoda să
   /// rămână testabilă fără conținut încărcat.
   Future<LifeMonthRun?> activeRun({String? currentVersion}) async {
-    final rows = await (_db.select(_db.lifeSimRuns)
-          ..where((r) => r.completedAt.isNull())
-          ..orderBy([(r) => OrderingTerm.desc(r.startedAt)]))
-        .get();
+    final rows =
+        await (_db.select(_db.lifeSimRuns)
+              ..where((r) => r.completedAt.isNull())
+              ..orderBy([(r) => OrderingTerm.desc(r.startedAt)]))
+            .get();
     for (final row in rows) {
       final run = LifeMonthRun.fromRow(row);
       if (currentVersion != null &&
@@ -218,11 +225,14 @@ class LifeMonthRepository {
   /// Cea mai recentă rundă terminată. Rundele abandonate (fără resultJson) sunt
   /// excluse: nu au scor, nu contează ca „ultima lună jucată".
   Future<LifeMonthRun?> lastCompletedRun() async {
-    final row = await (_db.select(_db.lifeSimRuns)
-          ..where((r) => r.completedAt.isNotNull() & r.resultJson.isNotNull())
-          ..orderBy([(r) => OrderingTerm.desc(r.completedAt)])
-          ..limit(1))
-        .getSingleOrNull();
+    final row =
+        await (_db.select(_db.lifeSimRuns)
+              ..where(
+                (r) => r.completedAt.isNotNull() & r.resultJson.isNotNull(),
+              )
+              ..orderBy([(r) => OrderingTerm.desc(r.completedAt)])
+              ..limit(1))
+            .getSingleOrNull();
     return row == null ? null : LifeMonthRun.fromRow(row);
   }
 
@@ -233,7 +243,9 @@ class LifeMonthRepository {
     required String eventId,
     required int choiceIdx,
   }) async {
-    await _db.into(_db.lifeSimDecisions).insert(
+    await _db
+        .into(_db.lifeSimDecisions)
+        .insert(
           LifeSimDecisionsCompanion.insert(
             runId: runId,
             day: day,
@@ -244,7 +256,7 @@ class LifeMonthRepository {
         );
   }
 
-  // --- Terminare + recompense ---------------------------------------------
+  // --- Terminare + recompense
 
   /// Marchează runda terminată și creditează recompensele, plafonate la o
   /// terminare pe zi: prima +15🌰 'life_sim_complete' + 30 XP; dacă bate scorul
@@ -258,9 +270,9 @@ class LifeMonthRepository {
     // Toată secvența citire→verificare→scriere e o tranzacție, altfel două
     // apeluri concurente (dublu-tap) ar putea citi amândouă „nerecompensat".
     return _db.transaction(() async {
-      final row = await (_db.select(_db.lifeSimRuns)
-            ..where((r) => r.id.equals(runId)))
-          .getSingleOrNull();
+      final row = await (_db.select(
+        _db.lifeSimRuns,
+      )..where((r) => r.id.equals(runId))).getSingleOrNull();
 
       // O rundă se recompensează o singură dată în viața ei, nu pe zi
       // calendaristică, dacă a fost deja terminată, nu mai atingem nimic.
@@ -276,12 +288,14 @@ class LifeMonthRepository {
       // Cel mai bun total anterior pe același seed (rundele terminate, alt id).
       int? previousBest;
       if (row != null) {
-        final priors = await (_db.select(_db.lifeSimRuns)
-              ..where((r) =>
-                  r.seed.equals(row.seed) &
-                  r.completedAt.isNotNull() &
-                  r.id.equals(runId).not()))
-            .get();
+        final priors =
+            await (_db.select(_db.lifeSimRuns)..where(
+                  (r) =>
+                      r.seed.equals(row.seed) &
+                      r.completedAt.isNotNull() &
+                      r.id.equals(runId).not(),
+                ))
+                .get();
         for (final p in priors) {
           if (p.resultJson == null) continue;
           final total =
@@ -289,15 +303,14 @@ class LifeMonthRepository {
           if (total is num) {
             previousBest = previousBest == null
                 ? total.toInt()
-                : (total.toInt() > previousBest
-                    ? total.toInt()
-                    : previousBest);
+                : (total.toInt() > previousBest ? total.toInt() : previousBest);
           }
         }
       }
 
-      await (_db.update(_db.lifeSimRuns)..where((r) => r.id.equals(runId)))
-          .write(
+      await (_db.update(
+        _db.lifeSimRuns,
+      )..where((r) => r.id.equals(runId))).write(
         LifeSimRunsCompanion(
           day: Value(state.day),
           stateJson: Value(jsonEncode(state.toJson())),
@@ -307,8 +320,10 @@ class LifeMonthRepository {
       );
 
       final today = dayKey(DateTime.now());
-      final alreadyRewardedToday =
-          await _hasLedgerToday('life_sim_complete', today);
+      final alreadyRewardedToday = await _hasLedgerToday(
+        'life_sim_complete',
+        today,
+      );
 
       var acorns = 0;
       var xp = 0;
@@ -322,8 +337,9 @@ class LifeMonthRepository {
           acorns += 10;
         }
         final profile = await _profiles.get();
-        await _profiles
-            .update(LocalProfilesCompanion(xp: Value(profile.xp + 30)));
+        await _profiles.update(
+          LocalProfilesCompanion(xp: Value(profile.xp + 30)),
+        );
         xp = 30;
         await _markGameActivity(today);
       }
@@ -348,38 +364,45 @@ class LifeMonthRepository {
 
   /// Cea mai recentă rundă terminată cu un anumit seed, alta decât [exceptId]
   /// (pentru comparația side-by-side same-seed din raport).
-  Future<LifeMonthRun?> previousCompletedForSeed(int seed,
-      {required String exceptId}) async {
-    final row = await (_db.select(_db.lifeSimRuns)
-          ..where((r) =>
-              r.seed.equals(seed) &
-              r.completedAt.isNotNull() &
-              r.resultJson.isNotNull() &
-              r.id.equals(exceptId).not())
-          ..orderBy([(r) => OrderingTerm.desc(r.completedAt)])
-          ..limit(1))
-        .getSingleOrNull();
+  Future<LifeMonthRun?> previousCompletedForSeed(
+    int seed, {
+    required String exceptId,
+  }) async {
+    final row =
+        await (_db.select(_db.lifeSimRuns)
+              ..where(
+                (r) =>
+                    r.seed.equals(seed) &
+                    r.completedAt.isNotNull() &
+                    r.resultJson.isNotNull() &
+                    r.id.equals(exceptId).not(),
+              )
+              ..orderBy([(r) => OrderingTerm.desc(r.completedAt)])
+              ..limit(1))
+            .getSingleOrNull();
     return row == null ? null : LifeMonthRun.fromRow(row);
   }
 
-  // --- Helpers -------------------------------------------------------------
+  // --- Ajutoare
 
   Future<bool> _hasLedgerToday(String reason, String today) async {
-    final rows = await (_db.select(_db.acornEntries)
-          ..where((e) => e.reason.equals(reason)))
-        .get();
+    final rows = await (_db.select(
+      _db.acornEntries,
+    )..where((e) => e.reason.equals(reason))).get();
     return rows.any((r) => dayKey(r.createdAt) == today);
   }
 
   Future<void> _markGameActivity(String date) async {
-    final row = await (_db.select(_db.dailyActivityRows)
-          ..where((r) => r.date.equals(date)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.dailyActivityRows,
+    )..where((r) => r.date.equals(date))).getSingleOrNull();
     final kinds = <String>{
       if (row != null) ...(jsonDecode(row.kinds) as List).cast<String>(),
       'game',
     }.toList();
-    await _db.into(_db.dailyActivityRows).insertOnConflictUpdate(
+    await _db
+        .into(_db.dailyActivityRows)
+        .insertOnConflictUpdate(
           DailyActivityRowsCompanion.insert(
             date: date,
             kinds: jsonEncode(kinds),

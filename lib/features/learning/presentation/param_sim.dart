@@ -247,7 +247,7 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
     );
   }
 
-  // ---- headline-uri ---------------------------------------------------------
+  // ---- headline-uri
 
   Widget _headline(double total, double interest) {
     return ClayCard(
@@ -433,7 +433,7 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
     );
   }
 
-  // ---- controale -------------------------------------------------------------
+  // ---- controale
 
   Widget _slider({
     required String label,
@@ -599,7 +599,7 @@ class _ParamSimInteractiveState extends State<ParamSimInteractive>
   }
 }
 
-// ---- Painterul curbelor ----
+// ---- Painterul curbelor
 
 class _CurvesPainter extends CustomPainter {
   _CurvesPainter({

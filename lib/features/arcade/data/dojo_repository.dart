@@ -41,8 +41,10 @@ class DojoMessage {
 String _t(Map<String, dynamic> node, String locale) =>
     (node[locale] ?? node['ro']) as String;
 
-final dojoMessagesProvider =
-    FutureProvider.family<List<DojoMessage>, String>((ref, locale) async {
+final dojoMessagesProvider = FutureProvider.family<List<DojoMessage>, String>((
+  ref,
+  locale,
+) async {
   final json =
       jsonDecode(await loadAssetString('content/arcade/dojo_messages.json'))
           as Map<String, dynamic>;
@@ -94,18 +96,20 @@ class DojoRepository {
   final AppDb _db;
 
   Stream<DojoState> watchState() {
-    return (_db.select(_db.dojoStates)..where((s) => s.id.equals(0)))
-        .watchSingleOrNull()
-        .map((row) => DojoState(
-              rating: row?.rating ?? dojoStartRating,
-              rounds: row?.rounds ?? 0,
-            ));
+    return (_db.select(
+      _db.dojoStates,
+    )..where((s) => s.id.equals(0))).watchSingleOrNull().map(
+      (row) => DojoState(
+        rating: row?.rating ?? dojoStartRating,
+        rounds: row?.rounds ?? 0,
+      ),
+    );
   }
 
   Future<DojoState> state() async {
-    final row = await (_db.select(_db.dojoStates)
-          ..where((s) => s.id.equals(0)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.dojoStates,
+    )..where((s) => s.id.equals(0))).getSingleOrNull();
     return DojoState(
       rating: row?.rating ?? dojoStartRating,
       rounds: row?.rounds ?? 0,
@@ -125,8 +129,10 @@ class DojoRepository {
 
   /// Alege runda următoare aproape de p(succes) ≈ 0.75, sărind mesajele
   /// văzute în ultimele două runde.
-  Future<List<DojoMessage>> pickRound(List<DojoMessage> all,
-      {int count = 5}) async {
+  Future<List<DojoMessage>> pickRound(
+    List<DojoMessage> all, {
+    int count = 5,
+  }) async {
     final s = await state();
     final ratings = await _itemRatings(all);
     final stats = await _db.select(_db.dojoItemStats).get();
@@ -145,23 +151,34 @@ class DojoRepository {
   }
 
   /// Aplică un răspuns: mută ambele rating-uri și recența itemului.
-  Future<({int rating, bool beltUp})> applyAnswer(DojoMessage msg,
-      {required bool correct}) async {
+  Future<({int rating, bool beltUp})> applyAnswer(
+    DojoMessage msg, {
+    required bool correct,
+  }) async {
     final s = await state();
-    final stat = await (_db.select(_db.dojoItemStats)
-          ..where((r) => r.itemId.equals(msg.id)))
-        .getSingleOrNull();
+    final stat = await (_db.select(
+      _db.dojoItemStats,
+    )..where((r) => r.itemId.equals(msg.id))).getSingleOrNull();
     final itemRating = stat?.rating ?? dojoPriorRating(msg.difficulty);
 
     final updated = dojoUpdate(
-        userRating: s.rating, itemRating: itemRating, correct: correct);
+      userRating: s.rating,
+      itemRating: itemRating,
+      correct: correct,
+    );
 
-    await _db.into(_db.dojoStates).insertOnConflictUpdate(DojoStatesCompanion(
-          id: const Value(0),
-          rating: Value(updated.user),
-          rounds: Value(s.rounds),
-        ));
-    await _db.into(_db.dojoItemStats).insertOnConflictUpdate(
+    await _db
+        .into(_db.dojoStates)
+        .insertOnConflictUpdate(
+          DojoStatesCompanion(
+            id: const Value(0),
+            rating: Value(updated.user),
+            rounds: Value(s.rounds),
+          ),
+        );
+    await _db
+        .into(_db.dojoItemStats)
+        .insertOnConflictUpdate(
           DojoItemStatsCompanion(
             itemId: Value(msg.id),
             rating: Value(updated.item),
@@ -180,10 +197,14 @@ class DojoRepository {
   /// Închide o rundă (avansează fereastra de recență).
   Future<void> finishRound() async {
     final s = await state();
-    await _db.into(_db.dojoStates).insertOnConflictUpdate(DojoStatesCompanion(
-          id: const Value(0),
-          rating: Value(s.rating),
-          rounds: Value(s.rounds + 1),
-        ));
+    await _db
+        .into(_db.dojoStates)
+        .insertOnConflictUpdate(
+          DojoStatesCompanion(
+            id: const Value(0),
+            rating: Value(s.rating),
+            rounds: Value(s.rounds + 1),
+          ),
+        );
   }
 }

@@ -1,8 +1,9 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import '../../../core/analytics/analytics.dart';
 import '../../../core/analytics/events.dart';
 import '../../../core/db/local_profile_repository.dart';
@@ -11,6 +12,7 @@ import '../../../core/ui/acorn.dart';
 import '../../../core/ui/category_icon.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../domain/engine/money_intel.dart';
 import '../../../domain/models/categories.dart';
@@ -58,10 +60,17 @@ const _savCats = <_Cat>[
   _Cat('investitii', 'Investiții', Ic.trending, C.violet, Color(0x268B7BFF)),
   _Cat('pensie', 'Pe termen lung', Ic.clock, C.sky, Color(0x2633B6E6)),
   _Cat('depozit', 'Depozit', Ic.wallet, C.amber, Color(0x29FFB020)),
-  _Cat('altele_economii', 'Altele', Ic.coins, Color(0xFF8AA0BF), Color(0x298AA0BF)),
+  _Cat(
+    'altele_economii',
+    'Altele',
+    Ic.coins,
+    Color(0xFF8AA0BF),
+    Color(0x298AA0BF),
+  ),
 ];
 
-const _backspace = 'M20 6H10l-6 6 6 6h10a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 20 6ZM17 9.5l-5 5M12 9.5l5 5';
+const _backspace =
+    'M20 6H10l-6 6 6 6h10a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 20 6ZM17 9.5l-5 5M12 9.5l5 5';
 
 class AddExpenseScreen extends ConsumerStatefulWidget {
   const AddExpenseScreen({super.key, this.initialType, this.initialGoalId});
@@ -76,8 +85,7 @@ class AddExpenseScreen extends ConsumerStatefulWidget {
 
 class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   String mode = 'manual';
-  late String entryType =
-      widget.initialType == 'saving' ? 'saving' : 'expense';
+  late String entryType = widget.initialType == 'saving' ? 'saving' : 'expense';
   late String catId = entryType == 'saving'
       ? (widget.initialGoalId != null ? 'obiectiv' : 'fond_urgenta')
       : 'mancare';
@@ -112,7 +120,9 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             .read(transactionsRepositoryProvider)
             .recentExpenseFeatures();
         if (mounted) setState(() => _features = f);
-      } catch (_) {/* fără chip */}
+      } catch (_) {
+        /* fără chip */
+      }
     });
   }
 
@@ -161,8 +171,7 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
     // starea de dinainte de scriere, ca să sară o singură dată.
     GoalProgress? goalBefore;
     if (isSavingEntry && goalId != null) {
-      final goals =
-          ref.read(goalsWithProgressProvider).valueOrNull ?? const [];
+      final goals = ref.read(goalsWithProgressProvider).valueOrNull ?? const [];
       for (final g in goals) {
         if (g.goal.id == goalId) {
           goalBefore = g;
@@ -180,9 +189,13 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
     await ref
         .read(localProfileRepositoryProvider)
         .addAcorns(2, reason: 'log_$entryType');
-    ref.read(analyticsProvider).track(AnalyticsEvents.expenseLogged,
-        {'source': 'manual', 'category': category, 'type': entryType});
-    final goalReachedNow = goalBefore != null &&
+    ref.read(analyticsProvider).track(AnalyticsEvents.expenseLogged, {
+      'source': 'manual',
+      'category': category,
+      'type': entryType,
+    });
+    final goalReachedNow =
+        goalBefore != null &&
         !goalBefore.reached &&
         goalBefore.saved + value >= goalBefore.goal.targetAmount;
     // Un moment = un nivel: obiectivul atins (major) absoarbe log-ul (minor).
@@ -240,8 +253,10 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topCenter, end: Alignment.bottomCenter,
-                colors: [Color(0x00EAF1FB), C.bg], stops: [0.0, 0.42],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0x00EAF1FB), C.bg],
+                stops: [0.0, 0.42],
               ),
             ),
             child: BottomNav(
@@ -265,12 +280,16 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(isSavingEntry ? 'Pune deoparte' : 'Adaugă cheltuială',
-              style: T.display(size: 24, weight: FontWeight.w800, color: C.text)),
-          GestureDetector(
+          Text(
+            isSavingEntry ? 'Pune deoparte' : 'Adaugă cheltuială',
+            style: T.display(size: 24, weight: FontWeight.w800, color: C.text),
+          ),
+          Pressable(
             onTap: () => context.pop(),
+            scale: 0.9,
             child: Container(
-              width: 38, height: 38,
+              width: 38,
+              height: 38,
               decoration: BoxDecoration(
                 color: C.surface,
                 borderRadius: BorderRadius.circular(12),
@@ -278,7 +297,12 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                 boxShadow: Sh.raise,
               ),
               alignment: Alignment.center,
-              child: const SvgIcon(Ic.x, size: 18, color: C.text2, strokeWidth: 2.4),
+              child: const SvgIcon(
+                Ic.x,
+                size: 18,
+                color: C.text2,
+                strokeWidth: 2.4,
+              ),
             ),
           ),
         ],
@@ -292,7 +316,8 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
     Widget segment(String type, String label, String icon) {
       final sel = entryType == type;
       return Expanded(
-        child: GestureDetector(
+        child: Pressable(
+          haptic: false,
           onTap: () {
             if (entryType == type) return;
             Juice.tick();
@@ -318,17 +343,26 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                 icon == Ic.acorn
                     ? Opacity(
                         opacity: sel ? 1 : 0.7,
-                        child: const AcornIcon(size: 16))
-                    : SvgIcon(icon,
-                        size: 16,
-                        color: sel ? Colors.white : C.text2,
-                        strokeWidth: 2.2),
+                        child: const AcornIcon(size: 16),
+                      )
+                    // Portofelul scoate bani cât timp e ales; altfel stă pe
+                    // primul cadru, ca să nu se agite două animații odată.
+                    : Lottie.asset(
+                        'assets/lottie/wallet_money.json',
+                        width: 26,
+                        height: 26,
+                        animate: sel,
+                        repeat: true,
+                      ),
                 const SizedBox(width: 7),
-                Text(label,
-                    style: T.display(
-                        size: 13.5,
-                        weight: FontWeight.w800,
-                        color: sel ? Colors.white : C.text2)),
+                Text(
+                  label,
+                  style: T.display(
+                    size: 13.5,
+                    weight: FontWeight.w800,
+                    color: sel ? Colors.white : C.text2,
+                  ),
+                ),
               ],
             ),
           ),
@@ -344,11 +378,13 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
         borderRadius: BorderRadius.circular(17),
         boxShadow: Sh.insetSoft,
       ),
-      child: Row(children: [
-        segment('expense', 'Cheltuială', Ic.wallet),
-        const SizedBox(width: 5),
-        segment('saving', 'Economie', Ic.acorn),
-      ]),
+      child: Row(
+        children: [
+          segment('expense', 'Cheltuială', Ic.wallet),
+          const SizedBox(width: 5),
+          segment('saving', 'Economie', Ic.acorn),
+        ],
+      ),
     );
   }
 
@@ -361,19 +397,23 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('CĂTRE OBIECTIVUL',
-              style: T.display(
-                  size: 11,
-                  weight: FontWeight.w700,
-                  color: C.text3,
-                  letterSpacing: 11 * 0.12)),
+          Text(
+            'CĂTRE OBIECTIVUL',
+            style: T.display(
+              size: 11,
+              weight: FontWeight.w700,
+              color: C.text3,
+              letterSpacing: 11 * 0.12,
+            ),
+          ),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
               for (final g in goals)
-                GestureDetector(
+                Pressable(
+                  haptic: false,
                   onTap: () {
                     Juice.tick();
                     setState(() {
@@ -383,23 +423,26 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: goalId == g.goal.id ? C.blueSoft : C.surface,
                       borderRadius: BorderRadius.circular(R.pill),
                       border: Border.all(
-                          color:
-                              goalId == g.goal.id ? C.blue : C.line,
-                          width: 1.5),
+                        color: goalId == g.goal.id ? C.blue : C.line,
+                        width: 1.5,
+                      ),
                       boxShadow: Sh.raise,
                     ),
-                    child: Text('${g.goal.emoji} ${g.goal.name}',
-                        style: T.display(
-                            size: 13,
-                            weight: FontWeight.w700,
-                            color: goalId == g.goal.id
-                                ? C.blueInk
-                                : C.text)),
+                    child: Text(
+                      '${g.goal.emoji} ${g.goal.name}',
+                      style: T.display(
+                        size: 13,
+                        weight: FontWeight.w700,
+                        color: goalId == g.goal.id ? C.blueInk : C.text,
+                      ),
+                    ),
                   ),
                 ),
             ],
@@ -440,7 +483,8 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
       children: [
         for (final a in amounts) ...[
           Expanded(
-            child: GestureDetector(
+            child: Pressable(
+              haptic: false,
               onTap: () {
                 Juice.tick();
                 setState(() => amount = '$a');
@@ -455,9 +499,14 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                   boxShadow: Sh.raise,
                 ),
                 alignment: Alignment.center,
-                child: Text('$a',
-                    style: T.display(
-                        size: 15, weight: FontWeight.w800, color: C.text2)),
+                child: Text(
+                  '$a',
+                  style: T.display(
+                    size: 15,
+                    weight: FontWeight.w800,
+                    color: C.text2,
+                  ),
+                ),
               ),
             ),
           ),
@@ -468,7 +517,8 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
 
   Widget _modeTab(_Mode m) {
     final sel = m.id == mode;
-    return GestureDetector(
+    return Pressable(
+      haptic: false,
       onTap: () {
         if (mode == m.id) return;
         Juice.tick();
@@ -483,17 +533,28 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
         ),
         child: Column(
           children: [
-            SvgIcon(m.path, size: 20, color: sel ? C.blueInk : C.text2, strokeWidth: 2),
+            SvgIcon(
+              m.path,
+              size: 20,
+              color: sel ? C.blueInk : C.text2,
+              strokeWidth: 2,
+            ),
             const SizedBox(height: 6),
-            Text(m.label,
-                style: T.display(size: 12.5, weight: sel ? FontWeight.w800 : FontWeight.w700, color: sel ? C.blueInk : C.text2)),
+            Text(
+              m.label,
+              style: T.display(
+                size: 12.5,
+                weight: sel ? FontWeight.w800 : FontWeight.w700,
+                color: sel ? C.blueInk : C.text2,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  // ---- MANUAL ----
+  // ---- MANUAL
   Widget _manual() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -501,30 +562,66 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
         Center(
           child: Column(
             children: [
-              RichText(
-                text: TextSpan(
-                  style: T.display(size: 54, weight: FontWeight.w800, color: C.text, height: 1.0),
-                  children: [
-                    TextSpan(text: amountDisplay),
-                    TextSpan(text: ' lei', style: T.display(size: 22, weight: FontWeight.w800, color: C.text3)),
-                  ],
+              // Suma săltă puțin la fiecare tastă, ca un contor viu.
+              JuiceBounce(
+                trigger: amount.isEmpty ? null : amount,
+                child: RichText(
+                  text: TextSpan(
+                    style: T.display(
+                      size: 54,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                      height: 1.0,
+                    ),
+                    children: [
+                      TextSpan(text: amountDisplay),
+                      TextSpan(
+                        text: ' lei',
+                        style: T.display(
+                          size: 22,
+                          weight: FontWeight.w800,
+                          color: C.text3,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 7),
-                decoration: BoxDecoration(color: selCat.tint, borderRadius: BorderRadius.circular(R.pill)),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 13,
+                  vertical: 7,
+                ),
+                decoration: BoxDecoration(
+                  color: selCat.tint,
+                  borderRadius: BorderRadius.circular(R.pill),
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     categoryIconAsset(selCat.id) == null
-                        ? SvgIcon(selCat.path,
-                            size: 16, color: selCat.color, strokeWidth: 2)
-                        : Image.asset(categoryIconAsset(selCat.id)!,
-                            width: 17, height: 17,
-                            filterQuality: FilterQuality.medium),
+                        ? SvgIcon(
+                            selCat.path,
+                            size: 16,
+                            color: selCat.color,
+                            strokeWidth: 2,
+                          )
+                        : Image.asset(
+                            categoryIconAsset(selCat.id)!,
+                            width: 17,
+                            height: 17,
+                            filterQuality: FilterQuality.medium,
+                          ),
                     const SizedBox(width: 6),
-                    Text(selCat.label, style: T.display(size: 13.5, weight: FontWeight.w700, color: selCat.color)),
+                    Text(
+                      selCat.label,
+                      style: T.display(
+                        size: 13.5,
+                        weight: FontWeight.w700,
+                        color: selCat.color,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -553,7 +650,21 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
           physics: const NeverScrollableScrollPhysics(),
           childAspectRatio: 108 / 52,
           children: [
-            for (final k in ['1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '0', 'back']) _key(k),
+            for (final k in [
+              '1',
+              '2',
+              '3',
+              '4',
+              '5',
+              '6',
+              '7',
+              '8',
+              '9',
+              ',',
+              '0',
+              'back',
+            ])
+              _key(k),
           ],
         ),
         const SizedBox(height: 16),
@@ -565,8 +676,12 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
           fontSize: 17,
           leading: isSavingEntry
               ? const AcornIcon(size: 20)
-              : const SvgIcon(Ic.plus,
-                  size: 20, color: Colors.white, strokeWidth: 2.6),
+              : const SvgIcon(
+                  Ic.plus,
+                  size: 20,
+                  color: Colors.white,
+                  strokeWidth: 2.6,
+                ),
           onTap: amount.isEmpty ? null : _save,
         ),
       ],
@@ -599,7 +714,10 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                 child: Text(
                   '🧠 Pare a fi ${target.label}, atinge ca să alegi',
                   style: T.body(
-                      size: 13, weight: FontWeight.w700, color: C.violet),
+                    size: 13,
+                    weight: FontWeight.w700,
+                    color: C.violet,
+                  ),
                 ),
               ),
             ),
@@ -608,7 +726,12 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
               onTap: () => setState(() => _suggestionDismissed = true),
               child: const Padding(
                 padding: EdgeInsets.only(left: 10),
-                child: SvgIcon(Ic.x, size: 14, color: C.violet, strokeWidth: 2.4),
+                child: SvgIcon(
+                  Ic.x,
+                  size: 14,
+                  color: C.violet,
+                  strokeWidth: 2.4,
+                ),
               ),
             ),
           ],
@@ -619,7 +742,9 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
 
   Widget _catTile(_Cat c) {
     final sel = c.id == catId;
-    return GestureDetector(
+    return Pressable(
+      haptic: false,
+      scale: 0.93,
       onTap: () {
         if (catId != c.id) Juice.tick();
         setState(() {
@@ -632,11 +757,24 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
         decoration: BoxDecoration(
           color: sel ? C.surface : C.surface2,
           borderRadius: BorderRadius.circular(R.md),
-          border: Border.all(color: sel ? c.color : Colors.transparent, width: 2),
+          border: Border.all(
+            color: sel ? c.color : Colors.transparent,
+            width: 2,
+          ),
           boxShadow: sel
               ? [
-                  BoxShadow(color: c.color.withValues(alpha: 0.33), offset: const Offset(0, 12), blurRadius: 20, spreadRadius: -8),
-                  const BoxShadow(color: Color.fromRGBO(255, 255, 255, 0.55), offset: Offset(0, 2), blurRadius: 2, inset: true),
+                  BoxShadow(
+                    color: c.color.withValues(alpha: 0.33),
+                    offset: const Offset(0, 12),
+                    blurRadius: 20,
+                    spreadRadius: -8,
+                  ),
+                  const BoxShadow(
+                    color: Color.fromRGBO(255, 255, 255, 0.55),
+                    offset: Offset(0, 2),
+                    blurRadius: 2,
+                    inset: true,
+                  ),
                 ]
               : Sh.raise,
         ),
@@ -655,7 +793,15 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             const SizedBox(height: 8),
             FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text(c.label, maxLines: 1, style: T.body(size: 11, weight: FontWeight.w700, color: C.text2)),
+              child: Text(
+                c.label,
+                maxLines: 1,
+                style: T.body(
+                  size: 11,
+                  weight: FontWeight.w700,
+                  color: C.text2,
+                ),
+              ),
             ),
           ],
         ),
@@ -664,7 +810,9 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   }
 
   Widget _key(String k) {
-    return GestureDetector(
+    return Pressable(
+      haptic: false,
+      scale: 0.9,
       onTap: () {
         Juice.tick();
         _press(k);
@@ -678,20 +826,36 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
         ),
         alignment: Alignment.center,
         child: k == 'back'
-            ? const SvgIcon(_backspace, size: 24, color: C.text2, strokeWidth: 2.1)
-            : Text(k, style: T.display(size: 24, weight: FontWeight.w800, color: C.text)),
+            ? const SvgIcon(
+                _backspace,
+                size: 24,
+                color: C.text2,
+                strokeWidth: 2.1,
+              )
+            : Text(
+                k,
+                style: T.display(
+                  size: 24,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
+              ),
       ),
     );
   }
 
-  // ---- FOTO ----
+  // ---- FOTO
   Widget _foto() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
           height: 230,
-          decoration: BoxDecoration(color: C.inset, borderRadius: BorderRadius.circular(24), boxShadow: Sh.insetSoft),
+          decoration: BoxDecoration(
+            color: C.inset,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: Sh.insetSoft,
+          ),
           clipBehavior: Clip.hardEdge,
           child: Stack(
             children: [
@@ -704,13 +868,30 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 72, height: 72,
-                      decoration: BoxDecoration(gradient: Grad.navFab, borderRadius: BorderRadius.circular(22), boxShadow: Sh.blue),
+                      width: 72,
+                      height: 72,
+                      decoration: BoxDecoration(
+                        gradient: Grad.navFab,
+                        borderRadius: BorderRadius.circular(22),
+                        boxShadow: Sh.blue,
+                      ),
                       alignment: Alignment.center,
-                      child: const SvgIcon(Ic.camera, size: 34, color: Colors.white, strokeWidth: 2),
+                      child: const SvgIcon(
+                        Ic.camera,
+                        size: 34,
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
                     ),
                     const SizedBox(height: 12),
-                    Text('Îndreaptă camera spre bon', style: T.display(size: 15, weight: FontWeight.w700, color: C.text)),
+                    Text(
+                      'Îndreaptă camera spre bon',
+                      style: T.display(
+                        size: 15,
+                        weight: FontWeight.w700,
+                        color: C.text,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -726,9 +907,22 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             children: [
               Row(
                 children: [
-                  const SvgIcon(Ic.check, size: 17, color: C.green, strokeWidth: 2.4),
+                  const SvgIcon(
+                    Ic.check,
+                    size: 17,
+                    color: C.green,
+                    strokeWidth: 2.4,
+                  ),
                   const SizedBox(width: 7),
-                  Text('Detectat automat', style: T.display(size: 13, weight: FontWeight.w800, color: C.greenDeep, letterSpacing: 13 * 0.02)),
+                  Text(
+                    'Detectat automat',
+                    style: T.display(
+                      size: 13,
+                      weight: FontWeight.w800,
+                      color: C.greenDeep,
+                      letterSpacing: 13 * 0.02,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -742,23 +936,50 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
         ),
         const SizedBox(height: 16),
         // Mock până vine OCR-ul de bonuri, dezactivat, nu scrie date false.
-        ClayButton(label: 'În curând, scanare bon (F5)', gradient: Grad.blue, shadow: Sh.blue, height: 58, fontSize: 17,
-            onTap: null),
+        ClayButton(
+          label: 'În curând, scanare bon',
+          gradient: Grad.blue,
+          shadow: Sh.blue,
+          height: 58,
+          fontSize: 17,
+          onTap: null,
+        ),
       ],
     );
   }
 
-  Widget _corner({double? top, double? bottom, double? left, double? right, bool tl = false, bool tr = false, bool bl = false, bool br = false}) {
+  Widget _corner({
+    double? top,
+    double? bottom,
+    double? left,
+    double? right,
+    bool tl = false,
+    bool tr = false,
+    bool bl = false,
+    bool br = false,
+  }) {
     return Positioned(
-      top: top, bottom: bottom, left: left, right: right,
+      top: top,
+      bottom: bottom,
+      left: left,
+      right: right,
       child: Container(
-        width: 28, height: 28,
+        width: 28,
+        height: 28,
         decoration: BoxDecoration(
           border: Border(
-            top: (tl || tr) ? const BorderSide(color: C.blue, width: 3) : BorderSide.none,
-            bottom: (bl || br) ? const BorderSide(color: C.blue, width: 3) : BorderSide.none,
-            left: (tl || bl) ? const BorderSide(color: C.blue, width: 3) : BorderSide.none,
-            right: (tr || br) ? const BorderSide(color: C.blue, width: 3) : BorderSide.none,
+            top: (tl || tr)
+                ? const BorderSide(color: C.blue, width: 3)
+                : BorderSide.none,
+            bottom: (bl || br)
+                ? const BorderSide(color: C.blue, width: 3)
+                : BorderSide.none,
+            left: (tl || bl)
+                ? const BorderSide(color: C.blue, width: 3)
+                : BorderSide.none,
+            right: (tr || br)
+                ? const BorderSide(color: C.blue, width: 3)
+                : BorderSide.none,
           ),
           borderRadius: BorderRadius.only(
             topLeft: tl ? const Radius.circular(8) : Radius.zero,
@@ -775,9 +996,20 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: T.body(size: 13.5, weight: FontWeight.w600, color: C.text2)),
-        if (valueBig != null) Text(valueBig, style: T.display(size: 18, weight: FontWeight.w800, color: C.text)),
-        if (valueMed != null) Text(valueMed, style: T.body(size: 14, weight: FontWeight.w700, color: C.text)),
+        Text(
+          label,
+          style: T.body(size: 13.5, weight: FontWeight.w600, color: C.text2),
+        ),
+        if (valueBig != null)
+          Text(
+            valueBig,
+            style: T.display(size: 18, weight: FontWeight.w800, color: C.text),
+          ),
+        if (valueMed != null)
+          Text(
+            valueMed,
+            style: T.body(size: 14, weight: FontWeight.w700, color: C.text),
+          ),
       ],
     );
   }
@@ -786,16 +1018,34 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: T.body(size: 13.5, weight: FontWeight.w600, color: C.text2)),
+        Text(
+          label,
+          style: T.body(size: 13.5, weight: FontWeight.w600, color: C.text2),
+        ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          decoration: BoxDecoration(color: const Color(0x26FF7A59), borderRadius: BorderRadius.circular(R.pill)),
+          decoration: BoxDecoration(
+            color: const Color(0x26FF7A59),
+            borderRadius: BorderRadius.circular(R.pill),
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SvgIcon(Ic.heart, size: 13, color: Color(0xFFFF7A59), strokeWidth: 2),
+              const SvgIcon(
+                Ic.heart,
+                size: 13,
+                color: Color(0xFFFF7A59),
+                strokeWidth: 2,
+              ),
               const SizedBox(width: 5),
-              Text('Mâncare', style: T.display(size: 12, weight: FontWeight.w700, color: const Color(0xFFFF7A59))),
+              Text(
+                'Mâncare',
+                style: T.display(
+                  size: 12,
+                  weight: FontWeight.w700,
+                  color: const Color(0xFFFF7A59),
+                ),
+              ),
             ],
           ),
         ),
@@ -803,24 +1053,46 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
     );
   }
 
-  // ---- VOCE ----
+  // ---- VOCE
   Widget _voce() {
     return Padding(
       padding: const EdgeInsets.only(top: 30),
       child: Column(
         children: [
           SizedBox(
-            width: 120, height: 120,
+            width: 120,
+            height: 120,
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Container(decoration: const BoxDecoration(shape: BoxShape.circle, color: C.blueSoft)),
-                Container(margin: const EdgeInsets.all(14), decoration: const BoxDecoration(shape: BoxShape.circle, color: C.blueSoft)),
                 Container(
-                  width: 82, height: 82,
-                  decoration: BoxDecoration(shape: BoxShape.circle, gradient: Grad.navFab, boxShadow: Sh.blue),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: C.blueSoft,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(14),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: C.blueSoft,
+                  ),
+                ),
+                Container(
+                  width: 82,
+                  height: 82,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: Grad.navFab,
+                    boxShadow: Sh.blue,
+                  ),
                   alignment: Alignment.center,
-                  child: const SvgIcon(Ic.mic, size: 36, color: Colors.white, strokeWidth: 2),
+                  child: const SvgIcon(
+                    Ic.mic,
+                    size: 36,
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
                 ),
               ],
             ),
@@ -837,15 +1109,25 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                   Container(
                     width: 4,
                     height: 8 + 34 * (0.5 + 0.5 * math.sin(i * 0.9)).abs(),
-                    decoration: BoxDecoration(color: C.blue.withValues(alpha: 0.55), borderRadius: BorderRadius.circular(R.pill)),
+                    decoration: BoxDecoration(
+                      color: C.blue.withValues(alpha: 0.55),
+                      borderRadius: BorderRadius.circular(R.pill),
+                    ),
                   ),
                 ],
               ],
             ),
           ),
           const SizedBox(height: 22),
-          Text('TE ASCULT…',
-              style: T.display(size: 12, weight: FontWeight.w700, color: C.blue, letterSpacing: 12 * 0.14)),
+          Text(
+            'TE ASCULT…',
+            style: T.display(
+              size: 12,
+              weight: FontWeight.w700,
+              color: C.blue,
+              letterSpacing: 12 * 0.14,
+            ),
+          ),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
@@ -860,7 +1142,14 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                 style: T.body(size: 17, weight: FontWeight.w600, color: C.text),
                 children: [
                   const TextSpan(text: '„Am dat '),
-                  TextSpan(text: '25 lei', style: T.body(size: 17, weight: FontWeight.w700, color: C.text)),
+                  TextSpan(
+                    text: '25 lei',
+                    style: T.body(
+                      size: 17,
+                      weight: FontWeight.w700,
+                      color: C.text,
+                    ),
+                  ),
                   const TextSpan(text: ' pe cafea"'),
                 ],
               ),
@@ -871,28 +1160,60 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(color: C.blueSoft, borderRadius: BorderRadius.circular(R.pill)),
-                child: Text('25 lei', style: T.display(size: 13, weight: FontWeight.w800, color: C.blue)),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: C.blueSoft,
+                  borderRadius: BorderRadius.circular(R.pill),
+                ),
+                child: Text(
+                  '25 lei',
+                  style: T.display(
+                    size: 13,
+                    weight: FontWeight.w800,
+                    color: C.blue,
+                  ),
+                ),
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(color: const Color(0x26FF7A59), borderRadius: BorderRadius.circular(R.pill)),
-                child: Text('Mâncare', style: T.display(size: 13, weight: FontWeight.w700, color: const Color(0xFFFF7A59))),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0x26FF7A59),
+                  borderRadius: BorderRadius.circular(R.pill),
+                ),
+                child: Text(
+                  'Mâncare',
+                  style: T.display(
+                    size: 13,
+                    weight: FontWeight.w700,
+                    color: const Color(0xFFFF7A59),
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 24),
           // Mock până vine dictarea vocală, dezactivat, nu scrie date false.
-          ClayButton(label: 'În curând, dictare vocală (F5)', gradient: Grad.blue, shadow: Sh.blue, height: 58, fontSize: 17,
-              onTap: null),
+          ClayButton(
+            label: 'În curând, dictare vocală',
+            gradient: Grad.blue,
+            shadow: Sh.blue,
+            height: 58,
+            fontSize: 17,
+            onTap: null,
+          ),
         ],
       ),
     );
   }
 
-  // ---- SUCCESS ----
+  // ---- SUCCESS
   Widget _success() {
     return Container(
       color: C.bg,
@@ -903,15 +1224,27 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
           const CashySprite(asset: Cashy.cashyCelebrate, width: 210),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(isSavingEntry ? 'Pusă deoparte!' : 'Adăugat!',
-                style: T.display(size: 34, weight: FontWeight.w800, color: C.text)),
+            child: Text(
+              isSavingEntry ? 'Pusă deoparte!' : 'Adăugat!',
+              style: T.display(
+                size: 34,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
           ),
           Text(
-              isSavingEntry
-                  ? 'Ghinda e în scorbură. Viitorul tău îți mulțumește deja.'
-                  : 'Cheltuiala e notată. Constanța ta crește, asta contează cel mai mult.',
-              textAlign: TextAlign.center,
-              style: T.body(size: 16, weight: FontWeight.w400, color: C.text2, height: 1.5)),
+            isSavingEntry
+                ? 'Ghinda e în scorbură. Viitorul tău îți mulțumește deja.'
+                : 'Cheltuiala e notată. Constanța ta crește, asta contează cel mai mult.',
+            textAlign: TextAlign.center,
+            style: T.body(
+              size: 16,
+              weight: FontWeight.w400,
+              color: C.text2,
+              height: 1.5,
+            ),
+          ),
           Container(
             margin: const EdgeInsets.fromLTRB(0, 18, 0, 22),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
@@ -925,14 +1258,27 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
               children: [
                 const AcornIcon(size: 22),
                 const SizedBox(width: 8),
-                Text('+2 ghinde', style: T.display(size: 18, weight: FontWeight.w800, color: C.text)),
+                Text(
+                  '+2 ghinde',
+                  style: T.display(
+                    size: 18,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
               ],
             ),
           ),
           SizedBox(
             width: double.infinity,
-            child: ClayButton(label: 'Gata', gradient: Grad.blue, shadow: Sh.blue, height: 56, fontSize: 17,
-                onTap: () => context.pop()),
+            child: ClayButton(
+              label: 'Gata',
+              gradient: Grad.blue,
+              shadow: Sh.blue,
+              height: 56,
+              fontSize: 17,
+              onTap: () => context.pop(),
+            ),
           ),
         ],
       ),

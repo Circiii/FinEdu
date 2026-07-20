@@ -1,4 +1,4 @@
-﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Poarta (opțională) spre un LLM care ar putea „lustrui" linia lui Cashy.
 /// Determinist și offline by design: [polish] întoarce null și UI-ul rămâne
@@ -15,11 +15,13 @@ class OfflineNarrator implements CashyNarrator {
 
   @override
   Future<String?> polish(
-          String composedLine, Map<String, dynamic> aggregates) async =>
-      null;
+    String composedLine,
+    Map<String, dynamic> aggregates,
+  ) async => null;
 }
 
 /// Aici ar intra un edge function remote, dacă apare vreodată un backend;
 /// primește doar agregate derivate, nu calculează nimic.
-final cashyNarratorProvider =
-    Provider<CashyNarrator>((ref) => const OfflineNarrator());
+final cashyNarratorProvider = Provider<CashyNarrator>(
+  (ref) => const OfflineNarrator(),
+);

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +7,7 @@ import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/flame.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../../domain/engine/streak_rules.dart';
@@ -40,17 +41,26 @@ class StreakScreen extends ConsumerWidget {
                 children: [
                   _header(context),
                   const SizedBox(height: 14),
-                  _hero(current, longest),
+                  StaggerIn(index: 0, child: _hero(current, longest)),
                   if (snapshot.earnbackUntil != null) ...[
                     const SizedBox(height: 12),
-                    _earnbackBanner(snapshot),
+                    StaggerIn(index: 1, child: _earnbackBanner(snapshot)),
                   ],
                   const SizedBox(height: 12),
-                  _freezesCard(context, ref, snapshot),
+                  StaggerIn(
+                    index: 1,
+                    child: _freezesCard(context, ref, snapshot),
+                  ),
                   const SizedBox(height: 12),
-                  _calendarCard(days, snapshot.frozenDays),
+                  StaggerIn(
+                    index: 2,
+                    child: _calendarCard(days, snapshot.frozenDays),
+                  ),
                   const SizedBox(height: 12),
-                  _milestonesCard(current, snapshot.claimedMilestones),
+                  StaggerIn(
+                    index: 3,
+                    child: _milestonesCard(current, snapshot.claimedMilestones),
+                  ),
                 ],
               ),
             ),
@@ -63,8 +73,9 @@ class StreakScreen extends ConsumerWidget {
   Widget _header(BuildContext context) {
     return Row(
       children: [
-        GestureDetector(
+        Pressable(
           onTap: () => context.pop(),
+          scale: 0.9,
           child: Container(
             width: 38,
             height: 38,
@@ -75,13 +86,19 @@ class StreakScreen extends ConsumerWidget {
               boxShadow: Sh.raise,
             ),
             alignment: Alignment.center,
-            child: const SvgIcon(Ic.chevronLeft,
-                size: 18, color: C.text2, strokeWidth: 2.4),
+            child: const SvgIcon(
+              Ic.chevronLeft,
+              size: 18,
+              color: C.text2,
+              strokeWidth: 2.4,
+            ),
           ),
         ),
         const SizedBox(width: 12),
-        Text('Focul lui Cashy',
-            style: T.display(size: 24, weight: FontWeight.w800, color: C.text)),
+        Text(
+          'Focul lui Cashy',
+          style: T.display(size: 24, weight: FontWeight.w800, color: C.text),
+        ),
       ],
     );
   }
@@ -110,13 +127,20 @@ class StreakScreen extends ConsumerWidget {
             center: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const FlameIcon(size: 24),
-                Text('$current',
-                    style: T.display(
-                        size: 30,
-                        weight: FontWeight.w800,
-                        color: Colors.white,
-                        height: 1.0)),
+                Pulse(
+                  scale: current > 0 ? 1.12 : 1.0,
+                  child: const FlameIcon(size: 24),
+                ),
+                AnimatedCount(
+                  value: current,
+                  duration: const Duration(milliseconds: 900),
+                  style: T.display(
+                    size: 30,
+                    weight: FontWeight.w800,
+                    color: Colors.white,
+                    height: 1.0,
+                  ),
+                ),
               ],
             ),
           ),
@@ -125,22 +149,33 @@ class StreakScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(current == 1 ? 'zi la rând' : 'zile la rând',
-                    style: T.display(
-                        size: 16, weight: FontWeight.w800, color: Colors.white)),
+                Text(
+                  current == 1 ? 'zi la rând' : 'zile la rând',
+                  style: T.display(
+                    size: 16,
+                    weight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text('Cel mai lung: $longest',
-                    style: T.body(
-                        size: 13,
-                        weight: FontWeight.w600,
-                        color: Colors.white70)),
+                Text(
+                  'Cel mai lung: $longest',
+                  style: T.body(
+                    size: 13,
+                    weight: FontWeight.w600,
+                    color: Colors.white70,
+                  ),
+                ),
                 if (next != null) ...[
                   const SizedBox(height: 8),
-                  Text('Încă ${next - current} zile până la cufărul de $next',
-                      style: T.body(
-                          size: 12.5,
-                          weight: FontWeight.w700,
-                          color: Colors.white)),
+                  Text(
+                    'Încă ${next - current} zile până la cufărul de $next',
+                    style: T.body(
+                      size: 12.5,
+                      weight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ],
             ),
@@ -156,25 +191,26 @@ class StreakScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(14),
       child: Row(
         children: [
-          Image.asset(Cashy.cashyWorried, width: 44),
+          Floaty(child: Image.asset(Cashy.cashyWorried, width: 44)),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-                'Streak-ul de ${s.earnbackValue} zile s-a rupt, dar îl poți '
-                'recupera: fă 2 acțiuni azi (loghează + o rundă de Dojo).',
-                style: T.body(
-                    size: 13,
-                    weight: FontWeight.w600,
-                    color: C.text,
-                    height: 1.35)),
+              'Streak-ul de ${s.earnbackValue} zile s-a rupt, dar îl poți '
+              'recupera: fă 2 acțiuni azi (loghează + o rundă de Dojo).',
+              style: T.body(
+                size: 13,
+                weight: FontWeight.w600,
+                color: C.text,
+                height: 1.35,
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _freezesCard(
-      BuildContext context, WidgetRef ref, StreakSnapshot s) {
+  Widget _freezesCard(BuildContext context, WidgetRef ref, StreakSnapshot s) {
     return ClayCard(
       radius: R.md,
       padding: const EdgeInsets.all(16),
@@ -189,12 +225,15 @@ class StreakScreen extends ConsumerWidget {
                 color: i < s.freezes ? C.skySoft : C.inset,
                 borderRadius: BorderRadius.circular(13),
                 border: Border.all(
-                    color: i < s.freezes ? C.sky : Colors.transparent,
-                    width: 1.5),
+                  color: i < s.freezes ? C.sky : Colors.transparent,
+                  width: 1.5,
+                ),
               ),
               alignment: Alignment.center,
-              child: Text(i < s.freezes ? '❄️' : '·',
-                  style: const TextStyle(fontSize: 16)),
+              child: Text(
+                i < s.freezes ? '❄️' : '·',
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
           ],
           const SizedBox(width: 6),
@@ -202,17 +241,28 @@ class StreakScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Ghinde de Gheață',
-                    style: T.display(
-                        size: 14.5, weight: FontWeight.w800, color: C.text)),
-                Text('Îți păzesc streak-ul când lipsești o zi. Se aplică singure.',
-                    style: T.body(
-                        size: 11.5, weight: FontWeight.w600, color: C.text2)),
+                Text(
+                  'Ghinde de Gheață',
+                  style: T.display(
+                    size: 14.5,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
+                Text(
+                  'Îți păzesc streak-ul când lipsești o zi. Se aplică singure.',
+                  style: T.body(
+                    size: 11.5,
+                    weight: FontWeight.w600,
+                    color: C.text2,
+                  ),
+                ),
               ],
             ),
           ),
           if (s.freezes < StreakSnapshot.maxFreezes)
-            GestureDetector(
+            Pressable(
+              haptic: false,
               onTap: () async {
                 final ok = await ref
                     .read(gamificationServiceProvider)
@@ -220,34 +270,43 @@ class StreakScreen extends ConsumerWidget {
                 ref.invalidate(streakViewProvider);
                 if (ok) Juice.correct();
                 if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: AcornText(
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: AcornText(
                         ok
                             ? '❄️ Ghindă de Gheață cumpărată!'
                             : 'Nu ai destule ghinde (200 🌰)',
                         style: T.display(
-                            size: 14,
-                            weight: FontWeight.w700,
-                            color: Colors.white)),
-                    duration: const Duration(seconds: 2),
-                    backgroundColor: C.text,
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                          size: 14,
+                          weight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                      duration: const Duration(seconds: 2),
+                      backgroundColor: C.text,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
                 }
               },
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   gradient: Grad.blue,
                   borderRadius: BorderRadius.circular(R.pill),
                   boxShadow: Sh.blue,
                 ),
-                child: AcornText('200 🌰',
-                    style: T.display(
-                        size: 12.5,
-                        weight: FontWeight.w800,
-                        color: Colors.white)),
+                child: AcornText(
+                  '200 🌰',
+                  style: T.display(
+                    size: 12.5,
+                    weight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
         ],
@@ -262,8 +321,18 @@ class StreakScreen extends ConsumerWidget {
     // Offset cu luni prima zi (weekday: Lun=1..Dum=7).
     final leading = first.weekday - 1;
     const monthsRo = [
-      'Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie',
-      'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie',
+      'Ianuarie',
+      'Februarie',
+      'Martie',
+      'Aprilie',
+      'Mai',
+      'Iunie',
+      'Iulie',
+      'August',
+      'Septembrie',
+      'Octombrie',
+      'Noiembrie',
+      'Decembrie',
     ];
 
     return ClayCard(
@@ -272,23 +341,29 @@ class StreakScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(monthsRo[now.month - 1].toUpperCase(),
-              style: T.display(
-                  size: 12,
-                  weight: FontWeight.w700,
-                  color: C.text3,
-                  letterSpacing: 12 * 0.12)),
+          Text(
+            monthsRo[now.month - 1].toUpperCase(),
+            style: T.display(
+              size: 12,
+              weight: FontWeight.w700,
+              color: C.text3,
+              letterSpacing: 12 * 0.12,
+            ),
+          ),
           const SizedBox(height: 10),
           Row(
             children: [
               for (final d in const ['L', 'M', 'M', 'J', 'V', 'S', 'D'])
                 Expanded(
                   child: Center(
-                    child: Text(d,
-                        style: T.body(
-                            size: 11,
-                            weight: FontWeight.w700,
-                            color: C.text3)),
+                    child: Text(
+                      d,
+                      style: T.body(
+                        size: 11,
+                        weight: FontWeight.w700,
+                        color: C.text3,
+                      ),
+                    ),
                   ),
                 ),
             ],
@@ -354,8 +429,10 @@ class StreakScreen extends ConsumerWidget {
         border: today ? Border.all(color: C.text, width: 1.5) : null,
       ),
       alignment: Alignment.center,
-      child: Text('$day',
-          style: T.display(size: 12, weight: FontWeight.w700, color: fg)),
+      child: Text(
+        '$day',
+        style: T.display(size: 12, weight: FontWeight.w700, color: fg),
+      ),
     );
   }
 
@@ -364,13 +441,18 @@ class StreakScreen extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-                color: color, borderRadius: BorderRadius.circular(3))),
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(3),
+          ),
+        ),
         const SizedBox(width: 5),
-        Text(label,
-            style: T.body(size: 11.5, weight: FontWeight.w600, color: C.text2)),
+        Text(
+          label,
+          style: T.body(size: 11.5, weight: FontWeight.w600, color: C.text2),
+        ),
       ],
     );
   }
@@ -382,12 +464,15 @@ class StreakScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('BORNE',
-              style: T.display(
-                  size: 12,
-                  weight: FontWeight.w700,
-                  color: C.text3,
-                  letterSpacing: 12 * 0.12)),
+          Text(
+            'BORNE',
+            style: T.display(
+              size: 12,
+              weight: FontWeight.w700,
+              color: C.text3,
+              letterSpacing: 12 * 0.12,
+            ),
+          ),
           const SizedBox(height: 12),
           for (final e in streakMilestones.entries) ...[
             Row(
@@ -400,27 +485,33 @@ class StreakScreen extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   alignment: Alignment.center,
-                  child: Text(claimed.contains(e.key) ? '🏆' : '🔒',
-                      style: const TextStyle(fontSize: 15)),
+                  child: Text(
+                    claimed.contains(e.key) ? '🏆' : '🔒',
+                    style: const TextStyle(fontSize: 15),
+                  ),
                 ),
                 const SizedBox(width: 11),
                 Expanded(
-                  child: Text('${e.key} zile la rând',
-                      style: T.display(
-                          size: 14.5,
-                          weight: FontWeight.w700,
-                          color:
-                              claimed.contains(e.key) ? C.text : C.text2)),
-                ),
-                AcornText('+${e.value} 🌰',
+                  child: Text(
+                    '${e.key} zile la rând',
                     style: T.display(
-                        size: 13,
-                        weight: FontWeight.w800,
-                        color: claimed.contains(e.key) ? C.amberInk : C.text3)),
+                      size: 14.5,
+                      weight: FontWeight.w700,
+                      color: claimed.contains(e.key) ? C.text : C.text2,
+                    ),
+                  ),
+                ),
+                AcornText(
+                  '+${e.value} 🌰',
+                  style: T.display(
+                    size: 13,
+                    weight: FontWeight.w800,
+                    color: claimed.contains(e.key) ? C.amberInk : C.text3,
+                  ),
+                ),
               ],
             ),
-            if (e.key != streakMilestones.keys.last)
-              const SizedBox(height: 10),
+            if (e.key != streakMilestones.keys.last) const SizedBox(height: 10),
           ],
         ],
       ),

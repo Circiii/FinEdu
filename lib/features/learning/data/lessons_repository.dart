@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,11 +11,18 @@ import '../../../domain/engine/fsrs.dart';
 import '../../../domain/engine/leitner.dart';
 import '../../../domain/util/day_key.dart';
 
-// ---- Modele de conținut (parsate din content/lessons/*.json) ----
+// ---- Modele de conținut (parsate din content/lessons/*.json)
 
 class LearnUnit {
-  const LearnUnit(this.id, this.ord, this.format, this.title, this.emoji,
-      this.color, this.lessons);
+  const LearnUnit(
+    this.id,
+    this.ord,
+    this.format,
+    this.title,
+    this.emoji,
+    this.color,
+    this.lessons,
+  );
   final String id;
   final int ord;
 
@@ -71,7 +78,7 @@ class Lesson {
   final String action;
   final List<ConceptCard> cards;
 
-  // --- Lecții 2.1 (opționale, lecțiile format 1 rulează neschimbate) ---
+  // --- Lecții 2.1 (opționale, lecțiile format 1 rulează neschimbate)
   /// Slider de estimare înainte de concept (efect de pretesting).
   final LessonGuess? guess;
 
@@ -113,8 +120,11 @@ class LessonGuess {
 }
 
 class LessonCheck {
-  const LessonCheck(
-      {required this.question, required this.options, required this.correct});
+  const LessonCheck({
+    required this.question,
+    required this.options,
+    required this.correct,
+  });
   final String question;
   final List<LessonOption> options;
   final int correct;
@@ -127,8 +137,11 @@ class ScenarioOption {
 }
 
 class LessonScenario {
-  const LessonScenario(
-      {required this.setup, required this.question, required this.options});
+  const LessonScenario({
+    required this.setup,
+    required this.question,
+    required this.options,
+  });
   final String setup;
   final String question;
   final List<ScenarioOption> options;
@@ -187,11 +200,11 @@ class LessonInteractive {
   final String? explain; // mcq + cloze
   final String? title; // checklist + swipe + param_sim + order/pairs/reveal
   final List<String> items; // checklist
-  final String? left; // swipe bucket labels
+  final String? left; // numele celor două coșuri
   final String? right;
   final List<SwipeCard> cards; // swipe
   final List<PollOption> pollOptions; // poll
-  final List<String> chips; // cloze (question contains '___')
+  final List<String> chips; // cloze, unde întrebarea are ___ în loc de răspuns
   final List<MatchPair> pairs; // pairs
   final List<RevealCard> reveals; // reveal (mit → realitate)
   final SimConfig? sim; // param_sim
@@ -226,7 +239,7 @@ class ConceptCard {
   final String answer;
 }
 
-// ---- Blocuri vizuale de concept (format 3) ----
+// ---- Blocuri vizuale de concept (format 3)
 // Textele acceptă markup inline: **îngroșat** și ==evidențiat==.
 
 sealed class LessonBlock {
@@ -241,8 +254,12 @@ class TextBlock extends LessonBlock {
 
 /// Card colorat cu o idee de reținut. [tone] ∈ blue/amber/green/violet/danger.
 class CalloutBlock extends LessonBlock {
-  const CalloutBlock(
-      {required this.icon, this.title, required this.text, required this.tone});
+  const CalloutBlock({
+    required this.icon,
+    this.title,
+    required this.text,
+    required this.tone,
+  });
   final String icon;
   final String? title;
   final String text;
@@ -251,8 +268,11 @@ class CalloutBlock extends LessonBlock {
 
 /// Cifra-vedetă a lecției, cu numărătoare animată la apariție.
 class StatBlock extends LessonBlock {
-  const StatBlock(
-      {required this.value, required this.suffix, required this.label});
+  const StatBlock({
+    required this.value,
+    required this.suffix,
+    required this.label,
+  });
   final int value;
   final String suffix;
   final String label;
@@ -293,8 +313,10 @@ List<String> _tl(Map<String, dynamic> node, String locale) =>
 
 /// Încarcă toate unitățile pentru [locale]. Bazat pe assets, unități noi
 /// vin ca și conținut, nu cod.
-final unitsProvider =
-    FutureProvider.family<List<LearnUnit>, String>((ref, locale) async {
+final unitsProvider = FutureProvider.family<List<LearnUnit>, String>((
+  ref,
+  locale,
+) async {
   const unitAssets = [
     'content/lessons/unit1.json',
     'content/lessons/unit2.json',
@@ -309,55 +331,62 @@ final unitsProvider =
     final json =
         jsonDecode(await loadAssetString(asset)) as Map<String, dynamic>;
     final unit = json['unit'] as Map<String, dynamic>;
-    units.add(LearnUnit(
-      unit['id'] as String,
-      unit['ord'] as int,
-      (unit['format'] as int?) ?? 1,
-      _t(unit['title'] as Map<String, dynamic>, locale),
-      unit['emoji'] as String,
-      (unit['color'] as String?) ?? 'blue',
-      [
-        for (final l in (json['lessons'] as List).cast<Map<String, dynamic>>())
-          Lesson(
-            id: l['id'] as String,
-            emoji: l['emoji'] as String,
-            minutes: l['minutes'] as int,
-            xp: l['xp'] as int,
-            difficulty: l['difficulty'] as String,
-            title: _t(l['title'] as Map<String, dynamic>, locale),
-            hook: _t(l['hook'] as Map<String, dynamic>, locale),
-            // Lecțiile pe blocuri (format 3) nu mai au paragrafe `concept`.
-            concept: l['concept'] == null
-                ? const []
-                : _tl(l['concept'] as Map<String, dynamic>, locale),
-            // Opțional din 2.1: lecțiile cu `scenario` pot renunța la exemplu.
-            example: l['example'] == null
-                ? ''
-                : _t(l['example'] as Map<String, dynamic>, locale),
-            interactive: _parseInteractive(
-                l['interactive'] as Map<String, dynamic>, locale),
-            recap: _tl(l['recap'] as Map<String, dynamic>, locale),
-            action: _t(l['action'] as Map<String, dynamic>, locale),
-            cards: [
-              for (final c
-                  in (l['cards'] as List).cast<Map<String, dynamic>>())
-                ConceptCard(
-                  c['id'] as String,
-                  _t(c['q'] as Map<String, dynamic>, locale),
-                  _t(c['a'] as Map<String, dynamic>, locale),
-                ),
-            ],
-            blocks: _parseBlocks(l['blocks'] as List?, locale),
-            guess: _parseGuess(l['guess'] as Map<String, dynamic>?, locale),
-            check: _parseCheck(l['check'] as Map<String, dynamic>?, locale),
-            scenario: _parseScenario(
-                l['scenario'] as Map<String, dynamic>?, locale),
-            teaser: l['teaser'] == null
-                ? null
-                : _t(l['teaser'] as Map<String, dynamic>, locale),
-          ),
-      ],
-    ));
+    units.add(
+      LearnUnit(
+        unit['id'] as String,
+        unit['ord'] as int,
+        (unit['format'] as int?) ?? 1,
+        _t(unit['title'] as Map<String, dynamic>, locale),
+        unit['emoji'] as String,
+        (unit['color'] as String?) ?? 'blue',
+        [
+          for (final l
+              in (json['lessons'] as List).cast<Map<String, dynamic>>())
+            Lesson(
+              id: l['id'] as String,
+              emoji: l['emoji'] as String,
+              minutes: l['minutes'] as int,
+              xp: l['xp'] as int,
+              difficulty: l['difficulty'] as String,
+              title: _t(l['title'] as Map<String, dynamic>, locale),
+              hook: _t(l['hook'] as Map<String, dynamic>, locale),
+              // Lecțiile pe blocuri (format 3) nu mai au paragrafe `concept`.
+              concept: l['concept'] == null
+                  ? const []
+                  : _tl(l['concept'] as Map<String, dynamic>, locale),
+              // Opțional din 2.1: lecțiile cu `scenario` pot renunța la exemplu.
+              example: l['example'] == null
+                  ? ''
+                  : _t(l['example'] as Map<String, dynamic>, locale),
+              interactive: _parseInteractive(
+                l['interactive'] as Map<String, dynamic>,
+                locale,
+              ),
+              recap: _tl(l['recap'] as Map<String, dynamic>, locale),
+              action: _t(l['action'] as Map<String, dynamic>, locale),
+              cards: [
+                for (final c
+                    in (l['cards'] as List).cast<Map<String, dynamic>>())
+                  ConceptCard(
+                    c['id'] as String,
+                    _t(c['q'] as Map<String, dynamic>, locale),
+                    _t(c['a'] as Map<String, dynamic>, locale),
+                  ),
+              ],
+              blocks: _parseBlocks(l['blocks'] as List?, locale),
+              guess: _parseGuess(l['guess'] as Map<String, dynamic>?, locale),
+              check: _parseCheck(l['check'] as Map<String, dynamic>?, locale),
+              scenario: _parseScenario(
+                l['scenario'] as Map<String, dynamic>?,
+                locale,
+              ),
+              teaser: l['teaser'] == null
+                  ? null
+                  : _t(l['teaser'] as Map<String, dynamic>, locale),
+            ),
+        ],
+      ),
+    );
   }
   return units;
 });
@@ -385,45 +414,49 @@ List<LessonBlock>? _parseBlocks(List? json, String locale) {
       switch (raw['t'] as String) {
         'text' => TextBlock(_t(raw['text'] as Map<String, dynamic>, locale)),
         'callout' => CalloutBlock(
-            icon: raw['icon'] as String,
-            title: raw['title'] == null
-                ? null
-                : _t(raw['title'] as Map<String, dynamic>, locale),
-            text: _t(raw['text'] as Map<String, dynamic>, locale),
-            tone: (raw['tone'] as String?) ?? 'blue',
-          ),
+          icon: raw['icon'] as String,
+          title: raw['title'] == null
+              ? null
+              : _t(raw['title'] as Map<String, dynamic>, locale),
+          text: _t(raw['text'] as Map<String, dynamic>, locale),
+          tone: (raw['tone'] as String?) ?? 'blue',
+        ),
         'stat' => StatBlock(
-            value: raw['value'] as int,
-            suffix: switch (raw['suffix']) {
-              null => '',
-              final String s => s,
-              final Map<String, dynamic> m => _t(m, locale),
-              _ => '',
-            },
-            label: _t(raw['label'] as Map<String, dynamic>, locale),
-          ),
+          value: raw['value'] as int,
+          suffix: switch (raw['suffix']) {
+            null => '',
+            final String s => s,
+            final Map<String, dynamic> m => _t(m, locale),
+            _ => '',
+          },
+          label: _t(raw['label'] as Map<String, dynamic>, locale),
+        ),
         'vs' => VsBlock(
-            leftTitle: _t(
-                (raw['left'] as Map<String, dynamic>)['title']
-                    as Map<String, dynamic>,
-                locale),
-            leftText: _t(
-                (raw['left'] as Map<String, dynamic>)['text']
-                    as Map<String, dynamic>,
-                locale),
-            rightTitle: _t(
-                (raw['right'] as Map<String, dynamic>)['title']
-                    as Map<String, dynamic>,
-                locale),
-            rightText: _t(
-                (raw['right'] as Map<String, dynamic>)['text']
-                    as Map<String, dynamic>,
-                locale),
+          leftTitle: _t(
+            (raw['left'] as Map<String, dynamic>)['title']
+                as Map<String, dynamic>,
+            locale,
           ),
+          leftText: _t(
+            (raw['left'] as Map<String, dynamic>)['text']
+                as Map<String, dynamic>,
+            locale,
+          ),
+          rightTitle: _t(
+            (raw['right'] as Map<String, dynamic>)['title']
+                as Map<String, dynamic>,
+            locale,
+          ),
+          rightText: _t(
+            (raw['right'] as Map<String, dynamic>)['text']
+                as Map<String, dynamic>,
+            locale,
+          ),
+        ),
         'steps' => StepsBlock([
-            for (final i in (raw['items'] as List).cast<Map<String, dynamic>>())
-              _t(i, locale),
-          ]),
+          for (final i in (raw['items'] as List).cast<Map<String, dynamic>>())
+            _t(i, locale),
+        ]),
         'quote' => QuoteBlock(_t(raw['text'] as Map<String, dynamic>, locale)),
         final other => throw FormatException('bloc necunoscut: $other'),
       },
@@ -474,8 +507,7 @@ LessonScenario? _parseScenario(Map<String, dynamic>? json, String locale) {
   );
 }
 
-LessonInteractive _parseInteractive(
-    Map<String, dynamic> json, String locale) {
+LessonInteractive _parseInteractive(Map<String, dynamic> json, String locale) {
   final kind = json['kind'] as String;
   switch (kind) {
     case 'checklist':
@@ -483,8 +515,7 @@ LessonInteractive _parseInteractive(
         kind: kind,
         title: _t(json['title'] as Map<String, dynamic>, locale),
         items: [
-          for (final i
-              in (json['items'] as List).cast<Map<String, dynamic>>())
+          for (final i in (json['items'] as List).cast<Map<String, dynamic>>())
             _t(i, locale),
         ],
       );
@@ -495,8 +526,7 @@ LessonInteractive _parseInteractive(
         left: _t(json['left'] as Map<String, dynamic>, locale),
         right: _t(json['right'] as Map<String, dynamic>, locale),
         cards: [
-          for (final c
-              in (json['cards'] as List).cast<Map<String, dynamic>>())
+          for (final c in (json['cards'] as List).cast<Map<String, dynamic>>())
             SwipeCard(
               _t(c['text'] as Map<String, dynamic>, locale),
               isLeft: c['side'] == 'left',
@@ -522,8 +552,7 @@ LessonInteractive _parseInteractive(
         kind: kind,
         question: _t(json['question'] as Map<String, dynamic>, locale),
         chips: [
-          for (final c
-              in (json['chips'] as List).cast<Map<String, dynamic>>())
+          for (final c in (json['chips'] as List).cast<Map<String, dynamic>>())
             _t(c, locale),
         ],
         correct: json['correct'] as int,
@@ -593,7 +622,7 @@ LessonInteractive _parseInteractive(
   }
 }
 
-// ---- Progres + repository de recapitulare ----
+// ---- Progres + repository de recapitulare
 
 final learnRepositoryProvider = Provider<LearnRepository>((ref) {
   return LearnRepository(
@@ -636,21 +665,25 @@ class LearnRepository {
   /// Completează o lecție (idempotent): XP + ghinde + cardurile intră în coada de
   /// recapitulare (due mâine). Întoarce XP-ul câștigat, sau null dacă era deja completată.
   Future<int?> completeLesson(Lesson lesson) async {
-    final existing = await (_db.select(_db.lessonProgressRows)
-          ..where((r) => r.lessonId.equals(lesson.id)))
-        .getSingleOrNull();
+    final existing = await (_db.select(
+      _db.lessonProgressRows,
+    )..where((r) => r.lessonId.equals(lesson.id))).getSingleOrNull();
     if (existing != null) return null;
 
     final today = dayKey(DateTime.now());
     await _db.transaction(() async {
-      await _db.into(_db.lessonProgressRows).insert(
+      await _db
+          .into(_db.lessonProgressRows)
+          .insert(
             LessonProgressRowsCompanion.insert(
               lessonId: lesson.id,
               completedAt: DateTime.now(),
             ),
           );
       for (final card in lesson.cards) {
-        await _db.into(_db.reviewCards).insert(
+        await _db
+            .into(_db.reviewCards)
+            .insert(
               ReviewCardsCompanion.insert(
                 cardId: card.id,
                 lessonId: lesson.id,
@@ -664,7 +697,8 @@ class LearnRepository {
 
     final profile = await _profiles.get();
     await _profiles.update(
-        LocalProfilesCompanion(xp: Value(profile.xp + lesson.xp)));
+      LocalProfilesCompanion(xp: Value(profile.xp + lesson.xp)),
+    );
     await _profiles.addAcorns(5, reason: 'lesson_${lesson.id}');
     return lesson.xp;
   }
@@ -693,7 +727,8 @@ class LearnRepository {
         difficulty: card.difficulty ?? 5.0,
       );
     }
-    final lastReview = card.lastReview ??
+    final lastReview =
+        card.lastReview ??
         addDaysToKeyLocal(card.nextDue, -(leitnerIntervals[card.box] ?? 1));
     final elapsed = _daysBetween(lastReview, today);
 
@@ -704,16 +739,18 @@ class LearnRepository {
       elapsedDays: (elapsed < 1 ? 1 : elapsed).toDouble(),
     );
 
-    await (_db.update(_db.reviewCards)
-          ..where((c) => c.cardId.equals(card.cardId)))
-        .write(ReviewCardsCompanion(
-      box: Value(fsrsBoxBucket(result.memory.stability)),
-      stability: Value(result.memory.stability),
-      difficulty: Value(result.memory.difficulty),
-      lastReview: Value(today),
-      nextDue: Value(addDaysToKeyLocal(today, result.intervalDays)),
-      lapses: Value(known ? card.lapses : card.lapses + 1),
-    ));
+    await (_db.update(
+      _db.reviewCards,
+    )..where((c) => c.cardId.equals(card.cardId))).write(
+      ReviewCardsCompanion(
+        box: Value(fsrsBoxBucket(result.memory.stability)),
+        stability: Value(result.memory.stability),
+        difficulty: Value(result.memory.difficulty),
+        lastReview: Value(today),
+        nextDue: Value(addDaysToKeyLocal(today, result.intervalDays)),
+        lapses: Value(known ? card.lapses : card.lapses + 1),
+      ),
+    );
   }
 
   /// Recompensează o sesiune de recapitulare terminată și marchează activitatea zilei.
@@ -724,14 +761,16 @@ class LearnRepository {
   }
 
   Future<void> _markActivity(String date, String kind) async {
-    final row = await (_db.select(_db.dailyActivityRows)
-          ..where((r) => r.date.equals(date)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.dailyActivityRows,
+    )..where((r) => r.date.equals(date))).getSingleOrNull();
     final kinds = <String>{
       if (row != null) ...(jsonDecode(row.kinds) as List).cast<String>(),
       kind,
     }.toList();
-    await _db.into(_db.dailyActivityRows).insertOnConflictUpdate(
+    await _db
+        .into(_db.dailyActivityRows)
+        .insertOnConflictUpdate(
           DailyActivityRowsCompanion.insert(
             date: date,
             kinds: jsonEncode(kinds),

@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:drift/native.dart';
@@ -19,18 +19,20 @@ void main() {
     test('fără plecare: locked când cufărul nu e câștigat, ready când e', () {
       expect(
         expeditionPhase(
-            chestEarnedToday: false,
-            departedAt: null,
-            collected: false,
-            now: now),
+          chestEarnedToday: false,
+          departedAt: null,
+          collected: false,
+          now: now,
+        ),
         ExpeditionPhase.locked,
       );
       expect(
         expeditionPhase(
-            chestEarnedToday: true,
-            departedAt: null,
-            collected: false,
-            now: now),
+          chestEarnedToday: true,
+          departedAt: null,
+          collected: false,
+          now: now,
+        ),
         ExpeditionPhase.ready,
       );
     });
@@ -39,28 +41,31 @@ void main() {
       // Plecat cu 3h în urmă → încă pe drum.
       expect(
         expeditionPhase(
-            chestEarnedToday: true,
-            departedAt: now.subtract(const Duration(hours: 3)),
-            collected: false,
-            now: now),
+          chestEarnedToday: true,
+          departedAt: now.subtract(const Duration(hours: 3)),
+          collected: false,
+          now: now,
+        ),
         ExpeditionPhase.away,
       );
       // Fix 6h → s-a întors.
       expect(
         expeditionPhase(
-            chestEarnedToday: true,
-            departedAt: now.subtract(const Duration(hours: 6)),
-            collected: false,
-            now: now),
+          chestEarnedToday: true,
+          departedAt: now.subtract(const Duration(hours: 6)),
+          collected: false,
+          now: now,
+        ),
         ExpeditionPhase.returned,
       );
       // 7h → tot returned.
       expect(
         expeditionPhase(
-            chestEarnedToday: true,
-            departedAt: now.subtract(const Duration(hours: 7)),
-            collected: false,
-            now: now),
+          chestEarnedToday: true,
+          departedAt: now.subtract(const Duration(hours: 7)),
+          collected: false,
+          now: now,
+        ),
         ExpeditionPhase.returned,
       );
     });
@@ -68,10 +73,11 @@ void main() {
     test('collected are prioritate indiferent de timp', () {
       expect(
         expeditionPhase(
-            chestEarnedToday: true,
-            departedAt: now.subtract(const Duration(hours: 2)),
-            collected: true,
-            now: now),
+          chestEarnedToday: true,
+          departedAt: now.subtract(const Duration(hours: 2)),
+          collected: true,
+          now: now,
+        ),
         ExpeditionPhase.collected,
       );
     });
@@ -115,8 +121,11 @@ void main() {
       for (final dk in ['2026-07-14', '2026-07-15', '2026-01-01']) {
         final i = postcardIndex(dayKey: dk, count: 10);
         expect(i, inInclusiveRange(0, 9));
-        expect(i, postcardIndex(dayKey: dk, count: 10),
-            reason: 'aceeași zi → aceeași vedere');
+        expect(
+          i,
+          postcardIndex(dayKey: dk, count: 10),
+          reason: 'aceeași zi → aceeași vedere',
+        );
       }
     });
   });
@@ -136,42 +145,57 @@ void main() {
     Future<List<ExpeditionRow>> allRows() => db.select(db.expeditionRows).get();
     Future<List<AcornEntry>> ledger() => db.select(db.acornEntries).get();
 
-    test('depart e idempotent: două apeluri → un rând, recompensă neschimbată',
-        () async {
-      await repo.depart(streak: 3);
-      final first = await allRows();
-      expect(first, hasLength(1));
-      final reward = first.single.reward;
+    test(
+      'depart e idempotent: două apeluri → un rând, recompensă neschimbată',
+      () async {
+        await repo.depart(streak: 3);
+        final first = await allRows();
+        expect(first, hasLength(1));
+        final reward = first.single.reward;
 
-      await repo.depart(streak: 9); // altă recompensă teoretică, dar e ignorat
-      final after = await allRows();
-      expect(after, hasLength(1), reason: 'insertOrIgnore pe cheia zilei');
-      expect(after.single.reward, reward, reason: 'plecarea nu se re-pornește');
-      // NICIO ghindă la plecare.
-      expect((await profiles.get()).acorns, 0);
-    });
+        await repo.depart(
+          streak: 9,
+        ); // altă recompensă teoretică, dar e ignorat
+        final after = await allRows();
+        expect(after, hasLength(1), reason: 'insertOrIgnore pe cheia zilei');
+        expect(
+          after.single.reward,
+          reward,
+          reason: 'plecarea nu se re-pornește',
+        );
+        // NICIO ghindă la plecare.
+        expect((await profiles.get()).acorns, 0);
+      },
+    );
 
     test('collect înainte de 6h → 0 și nicio ghindă', () async {
       await repo.depart(streak: 4); // departedAt = acum
       expect(await repo.collect(), 0, reason: 'încă pe drum');
       expect((await profiles.get()).acorns, 0);
-      expect(ledger().then((l) => l.any((e) => e.reason.startsWith('expedition_'))),
-          completion(isFalse));
+      expect(
+        ledger().then((l) => l.any((e) => e.reason.startsWith('expedition_'))),
+        completion(isFalse),
+      );
     });
 
     test('collect după 6h creditează exact o dată prin ledger', () async {
       final today = dayKey(DateTime.now());
       // Rând înghețat cu plecare acum 7h.
-      await db.into(db.expeditionRows).insert(ExpeditionRowsCompanion.insert(
-            day: today,
-            departedAt: DateTime.now().subtract(const Duration(hours: 7)),
-            reward: 25,
-          ));
+      await db
+          .into(db.expeditionRows)
+          .insert(
+            ExpeditionRowsCompanion.insert(
+              day: today,
+              departedAt: DateTime.now().subtract(const Duration(hours: 7)),
+              reward: 25,
+            ),
+          );
 
       expect(await repo.collect(), 25);
       expect((await profiles.get()).acorns, 25);
-      final entries =
-          (await ledger()).where((e) => e.reason.startsWith('expedition_'));
+      final entries = (await ledger()).where(
+        (e) => e.reason.startsWith('expedition_'),
+      );
       expect(entries, hasLength(1), reason: 'o singură creditare');
       expect(entries.single.delta, 25);
 
@@ -179,50 +203,65 @@ void main() {
       expect(await repo.collect(), 0);
       expect((await profiles.get()).acorns, 25);
       expect(
-          (await ledger()).where((e) => e.reason.startsWith('expedition_')),
-          hasLength(1),
-          reason: 'fără dublă creditare');
+        (await ledger()).where((e) => e.reason.startsWith('expedition_')),
+        hasLength(1),
+        reason: 'fără dublă creditare',
+      );
     });
 
-    test('autoCollectStale creditează ieri o dată, niciodată de două ori',
-        () async {
-      final yesterday =
-          dayKey(DateTime.now().subtract(const Duration(days: 1)));
-      // Trimis ieri seară, user-ul revine azi, încă necolectat, ≥6h scurse.
-      await db.into(db.expeditionRows).insert(ExpeditionRowsCompanion.insert(
-            day: yesterday,
-            departedAt: DateTime.now().subtract(const Duration(hours: 14)),
-            reward: 20,
-          ));
+    test(
+      'autoCollectStale creditează ieri o dată, niciodată de două ori',
+      () async {
+        final yesterday = dayKey(
+          DateTime.now().subtract(const Duration(days: 1)),
+        );
+        // Trimis ieri seară, user-ul revine azi, încă necolectat, ≥6h scurse.
+        await db
+            .into(db.expeditionRows)
+            .insert(
+              ExpeditionRowsCompanion.insert(
+                day: yesterday,
+                departedAt: DateTime.now().subtract(const Duration(hours: 14)),
+                reward: 20,
+              ),
+            );
 
-      expect(await repo.autoCollectStale(), 20);
-      expect((await profiles.get()).acorns, 20);
-      expect(
-          (await ledger()).where((e) => e.reason == 'expedition_$yesterday'),
-          hasLength(1));
-
-      // A doua rulare (altă sesiune) nu mai creditează.
-      expect(await repo.autoCollectStale(), 0);
-      expect((await profiles.get()).acorns, 20);
-      expect(
+        expect(await repo.autoCollectStale(), 20);
+        expect((await profiles.get()).acorns, 20);
+        expect(
           (await ledger()).where((e) => e.reason == 'expedition_$yesterday'),
           hasLength(1),
-          reason: 'niciodată dublu');
+        );
 
-      // Rândul e marcat colectat.
-      final row = (await allRows()).single;
-      expect(row.collectedAt, isNotNull);
-    });
+        // A doua rulare (altă sesiune) nu mai creditează.
+        expect(await repo.autoCollectStale(), 0);
+        expect((await profiles.get()).acorns, 20);
+        expect(
+          (await ledger()).where((e) => e.reason == 'expedition_$yesterday'),
+          hasLength(1),
+          reason: 'niciodată dublu',
+        );
+
+        // Rândul e marcat colectat.
+        final row = (await allRows()).single;
+        expect(row.collectedAt, isNotNull);
+      },
+    );
 
     test('autoCollectStale ignoră expedițiile prea recente', () async {
-      final yesterday =
-          dayKey(DateTime.now().subtract(const Duration(days: 1)));
+      final yesterday = dayKey(
+        DateTime.now().subtract(const Duration(days: 1)),
+      );
       // Plecat acum 2h (chiar dacă „aparține" zilei de ieri ca dată-cheie).
-      await db.into(db.expeditionRows).insert(ExpeditionRowsCompanion.insert(
-            day: yesterday,
-            departedAt: DateTime.now().subtract(const Duration(hours: 2)),
-            reward: 30,
-          ));
+      await db
+          .into(db.expeditionRows)
+          .insert(
+            ExpeditionRowsCompanion.insert(
+              day: yesterday,
+              departedAt: DateTime.now().subtract(const Duration(hours: 2)),
+              reward: 30,
+            ),
+          );
       expect(await repo.autoCollectStale(), 0, reason: 'încă nu s-a întors');
       expect((await profiles.get()).acorns, 0);
     });
@@ -239,8 +278,11 @@ void main() {
         final node = p['text'] as Map<String, dynamic>;
         for (final loc in ['ro', 'en']) {
           expect(node[loc], isA<String>(), reason: 'lipsește $loc');
-          expect((node[loc] as String).trim(), isNotEmpty,
-              reason: '$loc e gol');
+          expect(
+            (node[loc] as String).trim(),
+            isNotEmpty,
+            reason: '$loc e gol',
+          );
         }
       }
     });
@@ -271,8 +313,11 @@ void main() {
       }
       final text = haystack.toString();
       for (final needle in forbidden) {
-        expect(text.contains(needle.toLowerCase()), isFalse,
-            reason: 'text interzis: „$needle"');
+        expect(
+          text.contains(needle.toLowerCase()),
+          isFalse,
+          reason: 'text interzis: „$needle"',
+        );
       }
     });
   });

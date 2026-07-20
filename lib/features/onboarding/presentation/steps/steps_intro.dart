@@ -1,4 +1,4 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
@@ -22,10 +22,14 @@ class EggStep extends StatefulWidget {
 }
 
 class _EggStepState extends State<EggStep> with TickerProviderStateMixin {
-  late final AnimationController _shake =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 650));
-  late final AnimationController _hatch =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
+  late final AnimationController _shake = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 650),
+  );
+  late final AnimationController _hatch = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 900),
+  );
   bool _hatching = false;
 
   @override
@@ -70,7 +74,9 @@ class _EggStepState extends State<EggStep> with TickerProviderStateMixin {
                         if (t < 0.55)
                           Transform.translate(
                             offset: Offset(
-                                math.sin(_shake.value * math.pi * 6) * 9, 0),
+                              math.sin(_shake.value * math.pi * 6) * 9,
+                              0,
+                            ),
                             child: Transform.rotate(
                               angle:
                                   math.sin(_shake.value * math.pi * 6) * 0.06,
@@ -86,10 +92,14 @@ class _EggStepState extends State<EggStep> with TickerProviderStateMixin {
                         // Cashy apare.
                         if (t >= 0.4)
                           Transform.scale(
-                            scale: Curves.easeOutBack
-                                .transform(((t - 0.4) / 0.6).clamp(0.0, 1.0)),
-                            child: Image.asset(Cashy.cashyDefault,
-                                width: 196, fit: BoxFit.contain),
+                            scale: Curves.easeOutBack.transform(
+                              ((t - 0.4) / 0.6).clamp(0.0, 1.0),
+                            ),
+                            child: Image.asset(
+                              Cashy.cashyDefault,
+                              width: 196,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                       ],
                     );
@@ -105,13 +115,15 @@ class _EggStepState extends State<EggStep> with TickerProviderStateMixin {
                         kicker: l10n.onbEggKicker,
                         title: l10n.onbHatchTitle,
                         body: '',
-                        accent: C.amber)
+                        accent: C.amber,
+                      )
                     : OnbHeader(
                         key: const ValueKey('egg'),
                         kicker: l10n.onbEggKicker,
                         title: l10n.onbEggTitle,
                         body: l10n.onbEggBody,
-                        accent: C.amber),
+                        accent: C.amber,
+                      ),
               ),
             ],
           ),
@@ -151,7 +163,11 @@ class _ClayEgg extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFFFFF7E8), Color(0xFFF6E3BF), Color(0xFFEED3A4)],
+                colors: [
+                  Color(0xFFFFF7E8),
+                  Color(0xFFF6E3BF),
+                  Color(0xFFEED3A4),
+                ],
               ),
               boxShadow: Sh.card,
             ),
@@ -229,8 +245,10 @@ class _CeremonyStepState extends State<CeremonyStep>
   final _name = TextEditingController();
   String _color = 'sky';
   String? _error;
-  late final AnimationController _shake =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 450));
+  late final AnimationController _shake = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 450),
+  );
 
   static const _swatches = ['sky', 'mint', 'amber', 'violet'];
 
@@ -269,20 +287,29 @@ class _CeremonyStepState extends State<CeremonyStep>
                 OnbHalo(
                   accent: pal.accent,
                   size: 190,
-                  child: Image.asset(Cashy.cashyDefault,
-                      width: 150, fit: BoxFit.contain),
+                  child: Image.asset(
+                    Cashy.cashyDefault,
+                    width: 150,
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 OnbHeader(
-                    kicker: l10n.onbCeremonyKicker,
-                    title: l10n.onbCeremonyTitle,
-                    body: l10n.onbCeremonyBody,
-                    accent: pal.accent),
+                  kicker: l10n.onbCeremonyKicker,
+                  title: l10n.onbCeremonyTitle,
+                  body: l10n.onbCeremonyBody,
+                  accent: pal.accent,
+                ),
                 const SizedBox(height: 18),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(l10n.onbNameLabel,
-                      style: T.display(
-                          size: 13, weight: FontWeight.w700, color: C.text2)),
+                  child: Text(
+                    l10n.onbNameLabel,
+                    style: T.display(
+                      size: 13,
+                      weight: FontWeight.w700,
+                      color: C.text2,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Shake(
@@ -298,9 +325,14 @@ class _CeremonyStepState extends State<CeremonyStep>
                 const SizedBox(height: 16),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(l10n.onbColorLabel,
-                      style: T.display(
-                          size: 13, weight: FontWeight.w700, color: C.text2)),
+                  child: Text(
+                    l10n.onbColorLabel,
+                    style: T.display(
+                      size: 13,
+                      weight: FontWeight.w700,
+                      color: C.text2,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -326,10 +358,13 @@ class _CeremonyStepState extends State<CeremonyStep>
                           ),
                           child: _color == key
                               ? const Center(
-                                  child: SvgIcon(Ic.check,
-                                      size: 18,
-                                      color: Colors.white,
-                                      strokeWidth: 3))
+                                  child: SvgIcon(
+                                    Ic.check,
+                                    size: 18,
+                                    color: Colors.white,
+                                    strokeWidth: 3,
+                                  ),
+                                )
                               : null,
                         ),
                       ),
@@ -347,8 +382,12 @@ class _CeremonyStepState extends State<CeremonyStep>
           height: 60,
           fontSize: 18,
           onTap: _submit,
-          trailing: const SvgIcon(Ic.arrowRight,
-              size: 20, color: Colors.white, strokeWidth: 2.6),
+          trailing: const SvgIcon(
+            Ic.arrowRight,
+            size: 20,
+            color: Colors.white,
+            strokeWidth: 2.6,
+          ),
         ),
       ],
     );

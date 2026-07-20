@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +7,7 @@ import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/fmt.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../../domain/engine/dojo_elo.dart';
@@ -20,8 +21,18 @@ import '../data/wardrobe_repository.dart';
 import 'cashy_avatar.dart';
 
 const _monthsRo = [
-  'ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie',
-  'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie',
+  'ianuarie',
+  'februarie',
+  'martie',
+  'aprilie',
+  'mai',
+  'iunie',
+  'iulie',
+  'august',
+  'septembrie',
+  'octombrie',
+  'noiembrie',
+  'decembrie',
 ];
 
 /// Condițiile de merit îndeplinite ACUM, din datele reale ale aplicației.
@@ -72,8 +83,7 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
     super.initState();
     // Bonusul de vizită se acordă la deschidere, o dată pe zi, fără acțiune cerută.
     Future.microtask(() async {
-      final granted =
-          await ref.read(wardrobeRepositoryProvider).visitBonus();
+      final granted = await ref.read(wardrobeRepositoryProvider).visitBonus();
       if (granted > 0 && mounted) setState(() => _visitBonus = granted);
     });
   }
@@ -89,10 +99,8 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
 
     final today = dayKey(DateTime.now());
     final showcaseIds = dailyShowcase(catalog, today).toSet();
-    final backgrounds =
-        catalog.where((i) => i.slot == 'background').toList();
-    final accessories =
-        catalog.where((i) => i.slot == 'accessory').toList();
+    final backgrounds = catalog.where((i) => i.slot == 'background').toList();
+    final accessories = catalog.where((i) => i.slot == 'accessory').toList();
 
     return Scaffold(
       backgroundColor: C.bg,
@@ -108,41 +116,71 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
                   _header(context, acorns),
                   if (_visitBonus > 0) ...[
                     const SizedBox(height: 10),
-                    _visitBonusBanner(),
+                    StaggerIn(child: _visitBonusBanner()),
                   ],
                   const SizedBox(height: 14),
-                  _preview(profile, catalog, owned),
+                  StaggerIn(child: _preview(profile, catalog, owned)),
                   const SizedBox(height: 16),
                   if (showcaseIds.isNotEmpty) ...[
-                    _sectionLabel('VITRINA ZILEI · -20%'),
+                    StaggerIn(
+                      index: 1,
+                      child: _sectionLabel('VITRINA ZILEI · -20%'),
+                    ),
                     const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        for (final item in catalog
-                            .where((i) => showcaseIds.contains(i.id))) ...[
-                          Expanded(
-                            child: _tile(context, item,
+                    StaggerIn(
+                      index: 1,
+                      child: Row(
+                        children: [
+                          for (final item in catalog.where(
+                            (i) => showcaseIds.contains(i.id),
+                          )) ...[
+                            Expanded(
+                              child: _tile(
+                                context,
+                                item,
                                 owned: owned.contains(item.id),
                                 equipped: _isEquipped(profile, item),
                                 unlocked: unlocked,
                                 showcased: true,
-                                acorns: acorns),
-                          ),
-                          const SizedBox(width: 10),
-                        ],
-                      ]..removeLast(),
+                                acorns: acorns,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                          ],
+                        ]..removeLast(),
+                      ),
                     ),
                     const SizedBox(height: 16),
                   ],
-                  _sectionLabel('FUNDALURI'),
+                  StaggerIn(index: 2, child: _sectionLabel('FUNDALURI')),
                   const SizedBox(height: 10),
-                  _grid(context, backgrounds, profile, owned, unlocked,
-                      showcaseIds, acorns),
+                  StaggerIn(
+                    index: 2,
+                    child: _grid(
+                      context,
+                      backgrounds,
+                      profile,
+                      owned,
+                      unlocked,
+                      showcaseIds,
+                      acorns,
+                    ),
+                  ),
                   const SizedBox(height: 16),
-                  _sectionLabel('ACCESORII'),
+                  StaggerIn(index: 3, child: _sectionLabel('ACCESORII')),
                   const SizedBox(height: 10),
-                  _grid(context, accessories, profile, owned, unlocked,
-                      showcaseIds, acorns),
+                  StaggerIn(
+                    index: 3,
+                    child: _grid(
+                      context,
+                      accessories,
+                      profile,
+                      owned,
+                      unlocked,
+                      showcaseIds,
+                      acorns,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -159,13 +197,14 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
         : profile.equippedAccessory == item.id;
   }
 
-  // ---- header + banners ------------------------------------------------------
+  // ---- antet + bannere
 
   Widget _header(BuildContext context, int acorns) {
     return Row(
       children: [
-        GestureDetector(
+        Pressable(
           onTap: () => context.pop(),
+          scale: 0.9,
           child: Container(
             width: 38,
             height: 38,
@@ -176,15 +215,20 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
               boxShadow: Sh.raise,
             ),
             alignment: Alignment.center,
-            child: const SvgIcon(Ic.chevronLeft,
-                size: 18, color: C.text2, strokeWidth: 2.4),
+            child: const SvgIcon(
+              Ic.chevronLeft,
+              size: 18,
+              color: C.text2,
+              strokeWidth: 2.4,
+            ),
           ),
         ),
         const SizedBox(width: 12),
         Expanded(
-          child: Text('Garderoba',
-              style:
-                  T.display(size: 24, weight: FontWeight.w800, color: C.text)),
+          child: Text(
+            'Garderoba',
+            style: T.display(size: 24, weight: FontWeight.w800, color: C.text),
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
@@ -198,9 +242,14 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
             children: [
               const AcornIcon(size: 15),
               const SizedBox(width: 6),
-              Text(fmtThousands(acorns),
-                  style: T.display(
-                      size: 14, weight: FontWeight.w800, color: C.text)),
+              Text(
+                fmtThousands(acorns),
+                style: T.display(
+                  size: 14,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
+              ),
             ],
           ),
         ),
@@ -217,51 +266,76 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
         borderRadius: BorderRadius.circular(R.sm),
         border: Border.all(color: C.line, width: 1),
       ),
-      child: Text('🎁  +$_visitBonus ghinde pentru vizita de azi!',
-          style: T.body(size: 13, weight: FontWeight.w700, color: C.greenDeep)),
+      child: Text(
+        '🎁  +$_visitBonus ghinde pentru vizita de azi!',
+        style: T.body(size: 13, weight: FontWeight.w700, color: C.greenDeep),
+      ),
     );
   }
 
-  Widget _sectionLabel(String text) => Text(text,
-      style: T.display(
-          size: 11.5,
-          weight: FontWeight.w800,
-          color: C.text3,
-          letterSpacing: 11.5 * 0.12));
+  Widget _sectionLabel(String text) => Text(
+    text,
+    style: T.display(
+      size: 11.5,
+      weight: FontWeight.w800,
+      color: C.text3,
+      letterSpacing: 11.5 * 0.12,
+    ),
+  );
 
-  // ---- preview ---------------------------------------------------------------
+  // ---- previzualizare
 
   Widget _preview(
-      dynamic profile, List<CosmeticItem> catalog, Set<String> owned) {
+    dynamic profile,
+    List<CosmeticItem> catalog,
+    Set<String> owned,
+  ) {
     return ClayCard(
       radius: 26,
       padding: const EdgeInsets.all(18),
       child: Row(
         children: [
-          CashyAvatar(asset: Cashy.cashyDefault, size: 96),
+          Floaty(child: CashyAvatar(asset: Cashy.cashyDefault, size: 96)),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(profile?.cashyName ?? 'Cashy',
-                    style: T.display(
-                        size: 20, weight: FontWeight.w800, color: C.text)),
+                Text(
+                  profile?.cashyName ?? 'Cashy',
+                  style: T.display(
+                    size: 20,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text('Atinge un item deținut ca să-l echipezi sau să-l dai jos.',
-                    style: T.body(
-                        size: 12, weight: FontWeight.w500, color: C.text3)),
+                Text(
+                  'Atinge un item deținut ca să-l echipezi sau să-l dai jos.',
+                  style: T.body(
+                    size: 12,
+                    weight: FontWeight.w500,
+                    color: C.text3,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 11,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: C.violetSoft,
                     borderRadius: BorderRadius.circular(R.pill),
                   ),
-                  child: Text('${owned.length}/${catalog.length} în colecție',
-                      style: T.display(
-                          size: 12, weight: FontWeight.w800, color: C.violet)),
+                  child: Text(
+                    '${owned.length}/${catalog.length} în colecție',
+                    style: T.display(
+                      size: 12,
+                      weight: FontWeight.w800,
+                      color: C.violet,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -271,16 +345,17 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
     );
   }
 
-  // ---- grid + tiles ----------------------------------------------------------
+  // ---- grilă + căsuțe
 
   Widget _grid(
-      BuildContext context,
-      List<CosmeticItem> items,
-      dynamic profile,
-      Set<String> owned,
-      Set<String> unlocked,
-      Set<String> showcaseIds,
-      int acorns) {
+    BuildContext context,
+    List<CosmeticItem> items,
+    dynamic profile,
+    Set<String> owned,
+    Set<String> unlocked,
+    Set<String> showcaseIds,
+    int acorns,
+  ) {
     return GridView.count(
       crossAxisCount: 3,
       shrinkWrap: true,
@@ -290,12 +365,15 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
       childAspectRatio: 0.78,
       children: [
         for (final item in items)
-          _tile(context, item,
-              owned: owned.contains(item.id),
-              equipped: _isEquipped(profile, item),
-              unlocked: unlocked,
-              showcased: showcaseIds.contains(item.id),
-              acorns: acorns),
+          _tile(
+            context,
+            item,
+            owned: owned.contains(item.id),
+            equipped: _isEquipped(profile, item),
+            unlocked: unlocked,
+            showcased: showcaseIds.contains(item.id),
+            acorns: acorns,
+          ),
       ],
     );
   }
@@ -326,32 +404,52 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
               borderRadius: BorderRadius.circular(R.sm),
             ),
             alignment: Alignment.center,
-            child:
-                Text(item.emoji, style: const TextStyle(fontSize: 20)),
+            child: Text(item.emoji, style: const TextStyle(fontSize: 20)),
           )
         : Text(item.emoji, style: const TextStyle(fontSize: 34));
     if (meritLocked) {
       // Silueta gri, se vede CE e, nu și cum arată în glorie.
       visual = ColorFiltered(
         colorFilter: const ColorFilter.matrix([
-          0.2126, 0.7152, 0.0722, 0, 60,
-          0.2126, 0.7152, 0.0722, 0, 60,
-          0.2126, 0.7152, 0.0722, 0, 60,
-          0, 0, 0, 1, 0,
+          0.2126,
+          0.7152,
+          0.0722,
+          0,
+          60,
+          0.2126,
+          0.7152,
+          0.0722,
+          0,
+          60,
+          0.2126,
+          0.7152,
+          0.0722,
+          0,
+          60,
+          0,
+          0,
+          0,
+          1,
+          0,
         ]),
         child: Opacity(opacity: 0.55, child: visual),
       );
     }
 
-    return GestureDetector(
+    return Pressable(
+      scale: 0.94,
+      haptic: false,
       onTap: () {
         Juice.tick();
-        _openItemSheet(context, item,
-            owned: owned,
-            equipped: equipped,
-            meritUnlocked: !item.isMerit || unlocked.contains(item.cond),
-            showcased: showcased,
-            acorns: acorns);
+        _openItemSheet(
+          context,
+          item,
+          owned: owned,
+          equipped: equipped,
+          meritUnlocked: !item.isMerit || unlocked.contains(item.cond),
+          showcased: showcased,
+          acorns: acorns,
+        );
       },
       child: Container(
         foregroundDecoration: equipped
@@ -368,19 +466,26 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
             children: [
               SizedBox(height: 48, child: Center(child: visual)),
               const SizedBox(height: 6),
-              Text(item.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                  style: T.display(
-                      size: 11.5, weight: FontWeight.w800, color: C.text)),
+              Text(
+                item.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: T.display(
+                  size: 11.5,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
+              ),
               const SizedBox(height: 5),
-              _tileBadge(item,
-                  owned: owned,
-                  equipped: equipped,
-                  meritLocked: meritLocked,
-                  offSeason: offSeason,
-                  showcased: showcased),
+              _tileBadge(
+                item,
+                owned: owned,
+                equipped: equipped,
+                meritLocked: meritLocked,
+                offSeason: offSeason,
+                showcased: showcased,
+              ),
             ],
           ),
         ),
@@ -405,26 +510,34 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
     }
     if (offSeason) {
       return _badge(
-          'Revine în ${_monthsRo[item.months.first - 1]}', C.inset, C.text3);
+        'Revine în ${_monthsRo[item.months.first - 1]}',
+        C.inset,
+        C.text3,
+      );
     }
     final price = showcased ? showcasePrice(item.price!) : item.price!;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         if (showcased) ...[
-          Text('${item.price}',
-              style: T
-                  .body(size: 10.5, weight: FontWeight.w600, color: C.text3)
-                  .copyWith(decoration: TextDecoration.lineThrough)),
+          Text(
+            '${item.price}',
+            style: T
+                .body(size: 10.5, weight: FontWeight.w600, color: C.text3)
+                .copyWith(decoration: TextDecoration.lineThrough),
+          ),
           const SizedBox(width: 4),
         ],
         const AcornIcon(size: 12),
         const SizedBox(width: 3),
-        Text(fmtThousands(price),
-            style: T.display(
-                size: 12,
-                weight: FontWeight.w800,
-                color: showcased ? C.greenDeep : C.text)),
+        Text(
+          fmtThousands(price),
+          style: T.display(
+            size: 12,
+            weight: FontWeight.w800,
+            color: showcased ? C.greenDeep : C.text,
+          ),
+        ),
       ],
     );
   }
@@ -433,15 +546,19 @@ class _WardrobeScreenState extends ConsumerState<WardrobeScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
-          color: bg, borderRadius: BorderRadius.circular(R.pill)),
-      child: Text(text,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: T.display(size: 10.5, weight: FontWeight.w800, color: fg)),
+        color: bg,
+        borderRadius: BorderRadius.circular(R.pill),
+      ),
+      child: Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: T.display(size: 10.5, weight: FontWeight.w800, color: fg),
+      ),
     );
   }
 
-  // ---- item sheet ------------------------------------------------------------
+  // ---- foaia unui obiect
 
   void _openItemSheet(
     BuildContext context,
@@ -491,8 +608,9 @@ class _ItemSheet extends ConsumerWidget {
     final repo = ref.read(wardrobeRepositoryProvider);
     final month = DateTime.now().month;
     final offSeason = !owned && !item.availableIn(month);
-    final price =
-        item.price == null ? null : (showcased ? showcasePrice(item.price!) : item.price!);
+    final price = item.price == null
+        ? null
+        : (showcased ? showcasePrice(item.price!) : item.price!);
     final affordable = price != null && acorns >= price;
 
     Future<void> equipAndClose() async {
@@ -509,10 +627,15 @@ class _ItemSheet extends ConsumerWidget {
       }
       if (context.mounted) {
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(ok
-                ? '${item.emoji} E al tău! L-am și echipat pe Cashy.'
-                : 'Nu s-a putut cumpăra. Mai încearcă o dată.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              ok
+                  ? '${item.emoji} E al tău! L-am și echipat pe Cashy.'
+                  : 'Nu s-a putut cumpăra. Mai încearcă o dată.',
+            ),
+          ),
+        );
       }
     }
 
@@ -551,8 +674,10 @@ class _ItemSheet extends ConsumerWidget {
                         boxShadow: Sh.raise,
                       ),
                       alignment: Alignment.center,
-                      child: Text(item.emoji,
-                          style: const TextStyle(fontSize: 26)),
+                      child: Text(
+                        item.emoji,
+                        style: const TextStyle(fontSize: 26),
+                      ),
                     )
                   : Text(item.emoji, style: const TextStyle(fontSize: 52)),
               const SizedBox(width: 14),
@@ -560,15 +685,23 @@ class _ItemSheet extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(item.name,
-                        style: T.display(
-                            size: 19, weight: FontWeight.w800, color: C.text)),
+                    Text(
+                      item.name,
+                      style: T.display(
+                        size: 19,
+                        weight: FontWeight.w800,
+                        color: C.text,
+                      ),
+                    ),
                     if (item.condText != null)
-                      Text(item.condText!,
-                          style: T.body(
-                              size: 12.5,
-                              weight: FontWeight.w600,
-                              color: C.violet)),
+                      Text(
+                        item.condText!,
+                        style: T.body(
+                          size: 12.5,
+                          weight: FontWeight.w600,
+                          color: C.violet,
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -594,21 +727,27 @@ class _ItemSheet extends ConsumerWidget {
                     fontSize: 16,
                     onTap: claim,
                   )
-                : _note('🔒 Nu se poate cumpăra cu ghinde, se câștigă. '
-                    'Când îndeplinești condiția, îl revendici gratuit de aici.')
+                : _note(
+                    '🔒 Nu se poate cumpăra cu ghinde, se câștigă. '
+                    'Când îndeplinești condiția, îl revendici gratuit de aici.',
+                  )
           else if (offSeason)
-            _note('🗓️ Item de sezon. Revine în '
-                '${_monthsRo[item.months.first - 1]}, nicio grabă, '
-                'nu dispare nimic definitiv.')
+            _note(
+              '🗓️ Item de sezon. Revine în '
+              '${_monthsRo[item.months.first - 1]}, nicio grabă, '
+              'nu dispare nimic definitiv.',
+            )
           else ...[
             // Costul de oportunitate, negru pe alb, înainte de decizie.
-            _note(affordable
-                ? 'Ai ${fmtThousands(acorns)} ghinde. După cumpărare îți '
-                    'rămân ${fmtThousands(acorns - price)}. '
-                    'Un îngheț de streak costă 200.'
-                : 'Ai ${fmtThousands(acorns)} ghinde, îți mai trebuie '
-                    '${fmtThousands(price! - acorns)}. Lecțiile și Arcade '
-                    'te duc acolo.'),
+            _note(
+              affordable
+                  ? 'Ai ${fmtThousands(acorns)} ghinde. După cumpărare îți '
+                        'rămân ${fmtThousands(acorns - price)}. '
+                        'Un îngheț de streak costă 200.'
+                  : 'Ai ${fmtThousands(acorns)} ghinde, îți mai trebuie '
+                        '${fmtThousands(price! - acorns)}. Lecțiile și Arcade '
+                        'te duc acolo.',
+            ),
             const SizedBox(height: 12),
             if (affordable)
               ClayButton(
@@ -635,9 +774,15 @@ class _ItemSheet extends ConsumerWidget {
         color: C.inset,
         borderRadius: BorderRadius.circular(R.sm),
       ),
-      child: Text(text,
-          style: T.body(
-              size: 13, weight: FontWeight.w600, color: C.text2, height: 1.4)),
+      child: Text(
+        text,
+        style: T.body(
+          size: 13,
+          weight: FontWeight.w600,
+          color: C.text2,
+          height: 1.4,
+        ),
+      ),
     );
   }
 }

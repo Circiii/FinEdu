@@ -11,7 +11,7 @@ import 'lesson_blocks.dart' show RichLessonText;
 /// Widget-uri de pagină 2.1 (guess, micro-check, scenariu). Același contract
 /// ca interactivele, deschid gate-ul prin [onDone].
 
-// ---- Guess, estimare înainte de concept (discrepanța e hook-ul) ----
+// ---- Guess, estimare înainte de concept (discrepanța e hook-ul)
 
 class GuessSlider extends StatefulWidget {
   const GuessSlider({super.key, required this.guess, required this.onDone});
@@ -171,7 +171,7 @@ class _GuessSliderState extends State<GuessSlider> {
   }
 }
 
-// ---- Check, micro-alegerea paginii de concept ----
+// ---- Check, micro-alegerea paginii de concept
 
 class ConceptCheck extends StatefulWidget {
   const ConceptCheck({super.key, required this.check, required this.onDone});
@@ -261,7 +261,7 @@ class _ConceptCheckState extends State<ConceptCheck> {
   }
 }
 
-// ---- Scenario, „tu ce-ai face?" cu o consecință per opțiune (fără răspuns corect) ----
+// ---- Scenario, „tu ce-ai face?" cu o consecință per opțiune (fără răspuns corect)
 
 class ScenarioDecision extends StatefulWidget {
   const ScenarioDecision({

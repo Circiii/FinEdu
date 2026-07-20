@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +7,7 @@ import '../../../../core/analytics/analytics.dart';
 import '../../../../core/analytics/events.dart';
 import '../../../../core/ui/acorn.dart';
 import '../../../../core/ui/clay.dart';
+import '../../../../core/ui/acorn_celebration.dart';
 import '../../../../core/ui/juice.dart';
 import '../../../../core/ui/svg_icon.dart';
 import '../../../../core/ui/tokens.dart';
@@ -46,6 +47,9 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
   int? _reflectionChoice;
   int _reflectReward = 0;
 
+  /// Confetti-ul de scor mare cade o singură dată, oricâte rebuild-uri urmează.
+  bool _celebrated = false;
+
   /// Povestea animată a lui Cashy, segmentele vin o singură dată din
   /// [narrateReport], determinist; UI-ul doar navighează printre ele.
   List<CashyComment> _narration = const [];
@@ -81,8 +85,10 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
       }
       final sc = run.score ?? score(run.state, content);
       final debrief = buildDebrief(run.state, content);
-      final prev =
-          await _repo.previousCompletedForSeed(run.state.seed, exceptId: run.id);
+      final prev = await _repo.previousCompletedForSeed(
+        run.state.seed,
+        exceptId: run.id,
+      );
       if (!mounted) return;
       setState(() {
         _content = content;
@@ -90,7 +96,10 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
         _score = sc;
         _debrief = debrief;
         _narration = narrateReport(
-            debrief: debrief, s: run!.state, seed: run.state.seed);
+          debrief: debrief,
+          s: run!.state,
+          seed: run.state.seed,
+        );
         _prev = prev;
         // Fără decizii de reflectat → sărim direct la raport.
         if (run.state.decisions.isEmpty) _phase = _Phase.report;
@@ -116,10 +125,17 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
   void _onReportShown() {
     ref.read(analyticsProvider).track(AnalyticsEvents.lifeSimDebriefViewed);
     final total = _score?.total ?? 0;
-    if (total >= 70) {
-      Juice.epic();
+    if (total >= 70 && !_celebrated) {
+      _celebrated = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) ConfettiBurst.show(context);
+        if (!mounted) return;
+        AcornCelebration.show(
+          context,
+          title: 'Ai dus luna la capăt!',
+          subtitle:
+              'Scor $total din 100. Uită-te pe raport să vezi unde ai '
+              'câștigat și unde te-a costat.',
+        );
       });
     }
   }
@@ -135,14 +151,16 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
       mode: st.mode,
       seed: st.seed,
     );
-    ref.read(analyticsProvider).track(
-        AnalyticsEvents.lifeSimReplayed, {'role': st.roleId, 'mode': st.mode});
+    ref.read(analyticsProvider).track(AnalyticsEvents.lifeSimReplayed, {
+      'role': st.roleId,
+      'mode': st.mode,
+    });
     ref.invalidate(activeRunProvider);
     if (!mounted) return;
     context.pushReplacement('/arcade/luna/joc', extra: run.id);
   }
 
-  // --- Povestea lui Cashy ----------------------------------------------------
+  // --- Povestea lui Cashy
 
   /// Avansează la segmentul următor. Pe ultimul segment rămâne pe concluzie,
   /// butonul „Vezi scorul" preia de-acolo.
@@ -165,8 +183,7 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
     }
     final ctx = _scoreSectionKey.currentContext;
     if (ctx != null) {
-      Scrollable.ensureVisible(ctx,
-          duration: Dur.base, curve: Curves.easeOut);
+      Scrollable.ensureVisible(ctx, duration: Dur.base, curve: Curves.easeOut);
     }
   }
 
@@ -181,8 +198,8 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
             child: _loadError
                 ? _error()
                 : (_run == null
-                    ? const Center(child: CircularProgressIndicator())
-                    : (_phase == _Phase.reflect ? _reflect() : _report())),
+                      ? const Center(child: CircularProgressIndicator())
+                      : (_phase == _Phase.reflect ? _reflect() : _report())),
           ),
         ],
       ),
@@ -190,15 +207,17 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
   }
 
   Widget _error() => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Text('Raportul nu a putut fi încărcat.',
-              textAlign: TextAlign.center,
-              style: T.body(size: 14, weight: FontWeight.w600, color: C.text2)),
-        ),
-      );
+    child: Padding(
+      padding: const EdgeInsets.all(24),
+      child: Text(
+        'Raportul nu a putut fi încărcat.',
+        textAlign: TextAlign.center,
+        style: T.body(size: 14, weight: FontWeight.w600, color: C.text2),
+      ),
+    ),
+  );
 
-  // --- Reflecția -----------------------------------------------------------
+  // --- Reflecția
 
   Widget _reflect() {
     final s = _run!.state;
@@ -209,12 +228,20 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
         children: [
           Center(child: CashySprite(asset: Cashy.cashyPoint, width: 96)),
           const SizedBox(height: 16),
-          Text('Luna s-a încheiat.',
-              style: T.display(size: 15, weight: FontWeight.w700, color: C.text3)),
+          Text(
+            'Luna s-a încheiat.',
+            style: T.display(size: 15, weight: FontWeight.w700, color: C.text3),
+          ),
           const SizedBox(height: 4),
-          Text('Care decizie crezi că ți-a schimbat cel mai mult luna?',
-              style: T.display(
-                  size: 22, weight: FontWeight.w800, color: C.text, height: 1.2)),
+          Text(
+            'Care decizie crezi că ți-a schimbat cel mai mult luna?',
+            style: T.display(
+              size: 22,
+              weight: FontWeight.w800,
+              color: C.text,
+              height: 1.2,
+            ),
+          ),
           const SizedBox(height: 18),
           for (var i = 0; i < s.decisions.length; i++) ...[
             _reflectOption(i, s.decisions[i]),
@@ -247,13 +274,25 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
                 color: C.blueSoft,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text('Z${d.day}',
-                  style: T.display(size: 12, weight: FontWeight.w800, color: C.blue)),
+              child: Text(
+                'Z${d.day}',
+                style: T.display(
+                  size: 12,
+                  weight: FontWeight.w800,
+                  color: C.blue,
+                ),
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: Text(title,
-                  style: T.body(size: 14.5, weight: FontWeight.w700, color: C.text)),
+              child: Text(
+                title,
+                style: T.body(
+                  size: 14.5,
+                  weight: FontWeight.w700,
+                  color: C.text,
+                ),
+              ),
             ),
           ],
         ),
@@ -261,20 +300,24 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
     );
   }
 
-  // --- Raportul ------------------------------------------------------------
+  // --- Raportul
 
   Widget _report() {
     final sc = _score!;
     final ending = _endingFor(sc.endingId);
     final d = _debrief!;
+    final moments = _topMoments();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 8, 20, 28),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          lifeMonthTopBar(context, 'Raportul lunii',
-              onClose: () => context.go('/arcade')),
+          lifeMonthTopBar(
+            context,
+            'Raportul lunii',
+            onClose: () => context.go('/arcade'),
+          ),
           const SizedBox(height: 10),
           if (_reflectReward > 0) _reflectReceipt(),
           if (_narration.isNotEmpty) ...[
@@ -286,17 +329,23 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
             child: Center(
               child: Column(
                 children: [
-                  Text('SCORUL LUNII',
-                      style: T.display(
-                          size: 11,
-                          weight: FontWeight.w800,
-                          color: C.text3,
-                          letterSpacing: 11 * 0.14)),
+                  Text(
+                    'SCORUL LUNII',
+                    style: T.display(
+                      size: 11,
+                      weight: FontWeight.w800,
+                      color: C.text3,
+                      letterSpacing: 11 * 0.14,
+                    ),
+                  ),
                   const SizedBox(height: 4),
                   AnimatedCount(
                     value: sc.total,
                     style: T.display(
-                        size: 56, weight: FontWeight.w800, color: C.blue),
+                      size: 56,
+                      weight: FontWeight.w800,
+                      color: C.blue,
+                    ),
                     suffix: ' / 100',
                   ),
                 ],
@@ -304,13 +353,29 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
             ),
           ),
           const SizedBox(height: 18),
-          _dimBar('Control financiar', sc.control, 30, C.blue),
-          _dimBar('Reziliență', sc.rezilienta, 30, C.green),
-          _dimBar('Obiective', sc.obiective, 20, C.violet),
-          _dimBar('Echilibru de viață', sc.echilibru, 20, C.amber),
+          StaggerIn(
+            index: 1,
+            child: _dimBar('Control financiar', sc.control, 30, C.blue),
+          ),
+          StaggerIn(
+            index: 2,
+            child: _dimBar('Reziliență', sc.rezilienta, 30, C.green),
+          ),
+          StaggerIn(
+            index: 3,
+            child: _dimBar('Obiective', sc.obiective, 20, C.violet),
+          ),
+          StaggerIn(
+            index: 4,
+            child: _dimBar('Echilibru de viață', sc.echilibru, 20, C.amber),
+          ),
           const SizedBox(height: 20),
           if (ending != null) _endingCard(ending, sc.total),
           const SizedBox(height: 20),
+          if (moments.isNotEmpty) ...[
+            _momentsCard(moments),
+            const SizedBox(height: 20),
+          ],
           if (_prev != null) ...[
             _compareTable(_prev!, _run!),
             const SizedBox(height: 20),
@@ -344,8 +409,14 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
                 boxShadow: Sh.raise,
               ),
               alignment: Alignment.center,
-              child: Text('Înapoi în Arcade',
-                  style: T.display(size: 15, weight: FontWeight.w800, color: C.text2)),
+              child: Text(
+                'Înapoi în Arcade',
+                style: T.display(
+                  size: 15,
+                  weight: FontWeight.w800,
+                  color: C.text2,
+                ),
+              ),
             ),
           ),
         ],
@@ -354,22 +425,28 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
   }
 
   Widget _reflectReceipt() => Container(
-        margin: const EdgeInsets.only(bottom: 14),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        decoration: BoxDecoration(
-          color: C.amberSoft,
-          borderRadius: BorderRadius.circular(R.sm),
-          border: Border.all(color: C.line, width: 1),
+    margin: const EdgeInsets.only(bottom: 14),
+    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+    decoration: BoxDecoration(
+      color: C.amberSoft,
+      borderRadius: BorderRadius.circular(R.sm),
+      border: Border.all(color: C.line, width: 1),
+    ),
+    child: Row(
+      children: [
+        const AcornIcon(size: 17),
+        const SizedBox(width: 8),
+        AcornText(
+          '+$_reflectReward 🌰 pentru reflecție',
+          style: T.display(
+            size: 14,
+            weight: FontWeight.w800,
+            color: C.amberInk,
+          ),
         ),
-        child: Row(
-          children: [
-            const AcornIcon(size: 17),
-            const SizedBox(width: 8),
-            AcornText('+$_reflectReward 🌰 pentru reflecție',
-                style: T.display(size: 14, weight: FontWeight.w800, color: C.amberInk)),
-          ],
-        ),
-      );
+      ],
+    ),
+  );
 
   /// „Cashy îți povestește luna": card mare, tap-to-advance prin segmentele
   /// din [narrateReport].
@@ -393,19 +470,27 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Text('CASHY ÎȚI POVESTEȘTE LUNA',
-                    style: T.display(
-                        size: 11,
-                        weight: FontWeight.w800,
-                        color: C.text3,
-                        letterSpacing: 11 * 0.12)),
+                child: Text(
+                  'CASHY ÎȚI POVESTEȘTE LUNA',
+                  style: T.display(
+                    size: 11,
+                    weight: FontWeight.w800,
+                    color: C.text3,
+                    letterSpacing: 11 * 0.12,
+                  ),
+                ),
               ),
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: _scrollToScore,
-                child: Text('Sari la scor',
-                    style: T.display(
-                        size: 12, weight: FontWeight.w700, color: C.blue)),
+                child: Text(
+                  'Sari la scor',
+                  style: T.display(
+                    size: 12,
+                    weight: FontWeight.w700,
+                    color: C.blue,
+                  ),
+                ),
               ),
             ],
           ),
@@ -426,17 +511,21 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
                         duration: reduceMotion ? Duration.zero : Dur.base,
                         transitionBuilder: (child, anim) => SlideTransition(
                           position: Tween<Offset>(
-                                  begin: const Offset(0.12, 0), end: Offset.zero)
-                              .animate(anim),
+                            begin: const Offset(0.12, 0),
+                            end: Offset.zero,
+                          ).animate(anim),
                           child: FadeTransition(opacity: anim, child: child),
                         ),
-                        child: Text(seg.line,
-                            key: ValueKey(idx),
-                            style: T.body(
-                                size: 14.5,
-                                weight: FontWeight.w600,
-                                color: C.text,
-                                height: 1.45)),
+                        child: Text(
+                          seg.line,
+                          key: ValueKey(idx),
+                          style: T.body(
+                            size: 14.5,
+                            weight: FontWeight.w600,
+                            color: C.text,
+                            height: 1.45,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -486,14 +575,32 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
           Row(
             children: [
               Expanded(
-                child: Text(label,
-                    style: T.body(size: 13.5, weight: FontWeight.w700, color: C.text)),
+                child: Text(
+                  label,
+                  style: T.body(
+                    size: 13.5,
+                    weight: FontWeight.w700,
+                    color: C.text,
+                  ),
+                ),
               ),
-              Text('$weight%',
-                  style: T.body(size: 11.5, weight: FontWeight.w700, color: C.text3)),
+              Text(
+                '$weight%',
+                style: T.body(
+                  size: 11.5,
+                  weight: FontWeight.w700,
+                  color: C.text3,
+                ),
+              ),
               const SizedBox(width: 8),
-              Text('$value',
-                  style: T.display(size: 14, weight: FontWeight.w800, color: color)),
+              Text(
+                '$value',
+                style: T.display(
+                  size: 14,
+                  weight: FontWeight.w800,
+                  color: color,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6),
@@ -501,9 +608,10 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
             borderRadius: BorderRadius.circular(R.pill),
             child: TweenAnimationBuilder<double>(
               tween: Tween<double>(
-                  end: MediaQuery.of(context).disableAnimations
-                      ? value / 100
-                      : value / 100),
+                end: MediaQuery.of(context).disableAnimations
+                    ? value / 100
+                    : value / 100,
+              ),
               duration: MediaQuery.of(context).disableAnimations
                   ? Duration.zero
                   : Dur.epic,
@@ -536,40 +644,139 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
           ? const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xFF63A4FF), C.blueDeep])
+              colors: [Color(0xFF63A4FF), C.blueDeep],
+            )
           : null,
       color: celebrate ? C.blue : C.surface,
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('FINALUL TĂU',
-              style: T.display(
-                  size: 11,
-                  weight: FontWeight.w800,
-                  color: celebrate ? Colors.white70 : C.text3,
-                  letterSpacing: 11 * 0.14)),
+          Text(
+            'FINALUL TĂU',
+            style: T.display(
+              size: 11,
+              weight: FontWeight.w800,
+              color: celebrate ? Colors.white70 : C.text3,
+              letterSpacing: 11 * 0.14,
+            ),
+          ),
           const SizedBox(height: 6),
-          Text(ending.title,
-              style: T.display(
-                  size: 24,
-                  weight: FontWeight.w800,
-                  color: celebrate ? Colors.white : C.text)),
+          Text(
+            ending.title,
+            style: T.display(
+              size: 24,
+              weight: FontWeight.w800,
+              color: celebrate ? Colors.white : C.text,
+            ),
+          ),
           if (ending.description.isNotEmpty) ...[
             const SizedBox(height: 8),
-            Text(ending.description,
-                style: T.body(
-                    size: 14,
-                    weight: FontWeight.w500,
-                    color: celebrate ? Colors.white : C.text2,
-                    height: 1.45)),
+            Text(
+              ending.description,
+              style: T.body(
+                size: 14,
+                weight: FontWeight.w500,
+                color: celebrate ? Colors.white : C.text2,
+                height: 1.45,
+              ),
+            ),
           ],
         ],
       ),
     );
   }
 
-  // --- Comparație same-seed ------------------------------------------------
+  // --- Note de parcurs
+
+  /// Cele mai mari 3 mișcări de bani din deciziile lunii (imediat plus
+  /// întârziat), luate din clasamentele deja calculate de debrief.
+  List<DebriefDecision> _topMoments() {
+    final d = _debrief;
+    if (d == null) return const [];
+    final seen = <String>{};
+    final all = <DebriefDecision>[];
+    for (final o in [...d.efficient, ...d.risky]) {
+      if (o.net.isZero) continue;
+      if (seen.add('${o.day}-${o.eventId}')) all.add(o);
+    }
+    all.sort((a, b) => b.net.bani.abs().compareTo(a.net.bani.abs()));
+    return all.take(3).toList();
+  }
+
+  Widget _momentsCard(List<DebriefDecision> moments) {
+    return ClayCard(
+      radius: 22,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'NOTE DE PARCURS',
+            style: T.display(
+              size: 11,
+              weight: FontWeight.w800,
+              color: C.text3,
+              letterSpacing: 11 * 0.12,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Momentele care ți-au mișcat cei mai mulți bani.',
+            style: T.body(size: 12.5, weight: FontWeight.w500, color: C.text2),
+          ),
+          const SizedBox(height: 10),
+          for (var i = 0; i < moments.length; i++)
+            StaggerIn(index: i, child: _momentRow(moments[i])),
+        ],
+      ),
+    );
+  }
+
+  Widget _momentRow(DebriefDecision o) {
+    final positive = !o.net.isNegative;
+    final color = positive ? C.greenDeep : C.danger;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Container(
+            width: 34,
+            height: 26,
+            decoration: BoxDecoration(
+              color: C.blueSoft,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              'Z${o.day}',
+              style: T.display(
+                size: 11.5,
+                weight: FontWeight.w800,
+                color: C.blue,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              o.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: T.body(size: 13, weight: FontWeight.w700, color: C.text),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            positive ? '+${o.net.lei}' : o.net.lei,
+            style: T.display(size: 13, weight: FontWeight.w800, color: color),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // --- Comparație same-seed
 
   Widget _compareTable(LifeMonthRun prev, LifeMonthRun cur) {
     final p = prev.state;
@@ -579,20 +786,62 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
 
     // (etichetă, valoare1, valoare2, „mai mare e mai bine")
     final rows = <(String, String, String, bool, num, num)>[
-      ('Datorie', p.totalDebt.lei, c.totalDebt.lei, false,
-          p.totalDebt.bani, c.totalDebt.bani),
-      ('Fond', p.emergencyFund.lei, c.emergencyFund.lei, true,
-          p.emergencyFund.bani, c.emergencyFund.bani),
-      ('Facturi la timp', '${p.paidBillsOnTime}', '${c.paidBillsOnTime}', true,
-          p.paidBillsOnTime, c.paidBillsOnTime),
-      ('Stres', '${p.stats.stress}', '${c.stats.stress}', false,
-          p.stats.stress, c.stats.stress),
-      ('Sănătate', '${p.stats.health}', '${c.stats.health}', true,
-          p.stats.health, c.stats.health),
-      ('Relații', '${p.stats.relationships}', '${c.stats.relationships}', true,
-          p.stats.relationships, c.stats.relationships),
-      ('Obiectiv', p.goalSavings.lei, c.goalSavings.lei, true,
-          p.goalSavings.bani, c.goalSavings.bani),
+      (
+        'Datorie',
+        p.totalDebt.lei,
+        c.totalDebt.lei,
+        false,
+        p.totalDebt.bani,
+        c.totalDebt.bani,
+      ),
+      (
+        'Fond',
+        p.emergencyFund.lei,
+        c.emergencyFund.lei,
+        true,
+        p.emergencyFund.bani,
+        c.emergencyFund.bani,
+      ),
+      (
+        'Facturi la timp',
+        '${p.paidBillsOnTime}',
+        '${c.paidBillsOnTime}',
+        true,
+        p.paidBillsOnTime,
+        c.paidBillsOnTime,
+      ),
+      (
+        'Stres',
+        '${p.stats.stress}',
+        '${c.stats.stress}',
+        false,
+        p.stats.stress,
+        c.stats.stress,
+      ),
+      (
+        'Sănătate',
+        '${p.stats.health}',
+        '${c.stats.health}',
+        true,
+        p.stats.health,
+        c.stats.health,
+      ),
+      (
+        'Relații',
+        '${p.stats.relationships}',
+        '${c.stats.relationships}',
+        true,
+        p.stats.relationships,
+        c.stats.relationships,
+      ),
+      (
+        'Obiectiv',
+        p.goalSavings.lei,
+        c.goalSavings.lei,
+        true,
+        p.goalSavings.bani,
+        c.goalSavings.bani,
+      ),
       ('Scor', '${ps.total}', '${cs.total}', true, ps.total, cs.total),
     ];
 
@@ -602,27 +851,42 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('ACEEAȘI LUNĂ, ALTE DECIZII',
-              style: T.display(
-                  size: 11,
-                  weight: FontWeight.w800,
-                  color: C.text3,
-                  letterSpacing: 11 * 0.12)),
+          Text(
+            'ACEEAȘI LUNĂ, ALTE DECIZII',
+            style: T.display(
+              size: 11,
+              weight: FontWeight.w800,
+              color: C.text3,
+              letterSpacing: 11 * 0.12,
+            ),
+          ),
           const SizedBox(height: 12),
           Row(
             children: [
               const Expanded(flex: 4, child: SizedBox()),
               Expanded(
                 flex: 3,
-                child: Text('Runda 1',
-                    textAlign: TextAlign.center,
-                    style: T.display(size: 12, weight: FontWeight.w800, color: C.text3)),
+                child: Text(
+                  'Runda 1',
+                  textAlign: TextAlign.center,
+                  style: T.display(
+                    size: 12,
+                    weight: FontWeight.w800,
+                    color: C.text3,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 3,
-                child: Text('Runda 2',
-                    textAlign: TextAlign.center,
-                    style: T.display(size: 12, weight: FontWeight.w800, color: C.blue)),
+                child: Text(
+                  'Runda 2',
+                  textAlign: TextAlign.center,
+                  style: T.display(
+                    size: 12,
+                    weight: FontWeight.w800,
+                    color: C.blue,
+                  ),
+                ),
               ),
             ],
           ),
@@ -644,16 +908,24 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
         children: [
           Expanded(
             flex: 4,
-            child: Text(r.$1,
-                style: T.body(size: 13, weight: FontWeight.w600, color: C.text2)),
+            child: Text(
+              r.$1,
+              style: T.body(size: 13, weight: FontWeight.w600, color: C.text2),
+            ),
           ),
           Expanded(
             flex: 3,
-            child: Text(r.$2,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: T.display(size: 13, weight: FontWeight.w700, color: C.text3)),
+            child: Text(
+              r.$2,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: T.display(
+                size: 13,
+                weight: FontWeight.w700,
+                color: C.text3,
+              ),
+            ),
           ),
           Expanded(
             flex: 3,
@@ -661,17 +933,29 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
-                  child: Text(r.$3,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: T.display(size: 13, weight: FontWeight.w800, color: color)),
+                  child: Text(
+                    r.$3,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: T.display(
+                      size: 13,
+                      weight: FontWeight.w800,
+                      color: color,
+                    ),
+                  ),
                 ),
                 if (better || worse)
                   Padding(
                     padding: const EdgeInsets.only(left: 3),
-                    child: Text(better ? '↑' : '↓',
-                        style: T.display(size: 12, weight: FontWeight.w800, color: color)),
+                    child: Text(
+                      better ? '↑' : '↓',
+                      style: T.display(
+                        size: 12,
+                        weight: FontWeight.w800,
+                        color: color,
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -681,7 +965,7 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
     );
   }
 
-  // --- Debrief -------------------------------------------------------------
+  // --- Debrief
 
   Widget _debriefSections(DebriefModel d) {
     return Column(
@@ -693,9 +977,7 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
             radius: 18,
             padding: const EdgeInsets.all(14),
             child: Column(
-              children: [
-                for (final t in d.timeline) _timelineRow(t.$1, t.$2),
-              ],
+              children: [for (final t in d.timeline) _timelineRow(t.$1, t.$2)],
             ),
           ),
           const SizedBox(height: 16),
@@ -722,13 +1004,23 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SvgIcon(Ic.clock, size: 18, color: C.amberDeep, strokeWidth: 2.2),
+              const SvgIcon(
+                Ic.clock,
+                size: 18,
+                color: C.amberDeep,
+                strokeWidth: 2.2,
+              ),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(d.counterfactual,
-                    style: T.body(
-                        size: 13.5, weight: FontWeight.w600, color: C.amberInk,
-                        height: 1.45)),
+                child: Text(
+                  d.counterfactual,
+                  style: T.body(
+                    size: 13.5,
+                    weight: FontWeight.w600,
+                    color: C.amberInk,
+                    height: 1.45,
+                  ),
+                ),
               ),
             ],
           ),
@@ -740,31 +1032,41 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
   }
 
   Widget _sectionTitle(String text) => Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: Text(text,
-            style: T.display(size: 15, weight: FontWeight.w800, color: C.text)),
-      );
+    padding: const EdgeInsets.only(bottom: 8),
+    child: Text(
+      text,
+      style: T.display(size: 15, weight: FontWeight.w800, color: C.text),
+    ),
+  );
 
   Widget _timelineRow(int day, String title) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        child: Row(
-          children: [
-            Container(
-              width: 30,
-              alignment: Alignment.center,
-              child: Text('$day',
-                  style: T.display(size: 12.5, weight: FontWeight.w800, color: C.blue)),
+    padding: const EdgeInsets.symmetric(vertical: 5),
+    child: Row(
+      children: [
+        Container(
+          width: 30,
+          alignment: Alignment.center,
+          child: Text(
+            '$day',
+            style: T.display(
+              size: 12.5,
+              weight: FontWeight.w800,
+              color: C.blue,
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: T.body(size: 13, weight: FontWeight.w600, color: C.text)),
-            ),
-          ],
+          ),
         ),
-      );
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: T.body(size: 13, weight: FontWeight.w600, color: C.text),
+          ),
+        ),
+      ],
+    ),
+  );
 
   Widget _decisionRow(DebriefDecision o, {required bool positive}) {
     final net = o.net;
@@ -779,23 +1081,30 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
       ),
       child: Row(
         children: [
-          SvgIcon(positive ? Ic.check : Ic.alert,
-              size: 16,
-              color: positive ? C.greenDeep : C.danger,
-              strokeWidth: 2.2),
+          SvgIcon(
+            positive ? Ic.check : Ic.alert,
+            size: 16,
+            color: positive ? C.greenDeep : C.danger,
+            strokeWidth: 2.2,
+          ),
           const SizedBox(width: 10),
           Expanded(
-            child: Text('Z${o.day} · ${o.title}',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: T.body(size: 13, weight: FontWeight.w700, color: C.text)),
+            child: Text(
+              'Z${o.day} · ${o.title}',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: T.body(size: 13, weight: FontWeight.w700, color: C.text),
+            ),
           ),
           const SizedBox(width: 8),
-          Text(netStr,
-              style: T.display(
-                  size: 13,
-                  weight: FontWeight.w800,
-                  color: positive ? C.greenDeep : C.danger)),
+          Text(
+            netStr,
+            style: T.display(
+              size: 13,
+              weight: FontWeight.w800,
+              color: positive ? C.greenDeep : C.danger,
+            ),
+          ),
         ],
       ),
     );
@@ -810,16 +1119,33 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
         children: [
           Row(
             children: [
-              const SvgIcon(Ic.sparkles, size: 18, color: C.violetDeep, strokeWidth: 2),
+              const SvgIcon(
+                Ic.sparkles,
+                size: 18,
+                color: C.violetDeep,
+                strokeWidth: 2,
+              ),
               const SizedBox(width: 8),
-              Text('De învățat',
-                  style: T.display(size: 15, weight: FontWeight.w800, color: C.text)),
+              Text(
+                'De învățat',
+                style: T.display(
+                  size: 15,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6),
-          Text(_conceptLabel(concept.skillTag),
-              style: T.body(size: 13.5, weight: FontWeight.w600, color: C.text2,
-                  height: 1.4)),
+          Text(
+            _conceptLabel(concept.skillTag),
+            style: T.body(
+              size: 13.5,
+              weight: FontWeight.w600,
+              color: C.text2,
+              height: 1.4,
+            ),
+          ),
           const SizedBox(height: 12),
           ClayButton(
             label: 'Deschide o lecție',
@@ -838,13 +1164,16 @@ class _LifeMonthReportScreenState extends ConsumerState<LifeMonthReportScreen> {
   }
 
   String _conceptLabel(String skillTag) => switch (skillTag) {
-        'emergency_fund' => 'Fondul de urgență te apără de șocuri fără să te împrumuți scump.',
-        'opportunity_cost' => 'Costul de oportunitate: fiecare amânare are un preț mai târziu.',
-        'credit' => 'Creditul are dobândă, banii de azi costă mâine mai mult.',
-        'budgeting' => 'Bugetul îți arată unde pleacă banii înainte să dispară.',
-        'needs_wants' => 'Nevoi vs dorințe: separă-le și cash-flow-ul respiră.',
-        'scams' => 'Țepele exploatează graba, verifică înainte să dai date sau bani.',
-        'saving' => 'Economisirea constantă bate sumele mari, dar rare.',
-        _ => 'Un concept financiar de aprofundat într-o lecție.',
-      };
+    'emergency_fund' =>
+      'Fondul de urgență te apără de șocuri fără să te împrumuți scump.',
+    'opportunity_cost' =>
+      'Costul de oportunitate: fiecare amânare are un preț mai târziu.',
+    'credit' => 'Creditul are dobândă, banii de azi costă mâine mai mult.',
+    'budgeting' => 'Bugetul îți arată unde pleacă banii înainte să dispară.',
+    'needs_wants' => 'Nevoi vs dorințe: separă-le și cash-flow-ul respiră.',
+    'scams' =>
+      'Țepele exploatează graba, verifică înainte să dai date sau bani.',
+    'saving' => 'Economisirea constantă bate sumele mari, dar rare.',
+    _ => 'Un concept financiar de aprofundat într-o lecție.',
+  };
 }

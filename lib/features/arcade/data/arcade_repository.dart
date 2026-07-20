@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,11 +15,13 @@ import '../../../domain/util/day_key.dart';
 // ---------------------------------------------------------------------------
 
 class PriceItem {
-  const PriceItem(this.name,
-      {required this.actual,
-      required this.min,
-      required this.max,
-      required this.step});
+  const PriceItem(
+    this.name, {
+    required this.actual,
+    required this.min,
+    required this.max,
+    required this.step,
+  });
   final String name;
   final int actual;
   final int min;
@@ -61,16 +63,24 @@ class DilemmaPuzzle {
 }
 
 class DailyContent {
-  const DailyContent(
-      {required this.price, required this.myth, required this.dilemma});
+  const DailyContent({
+    required this.price,
+    required this.myth,
+    required this.dilemma,
+  });
   final List<PricePuzzle> price;
   final List<MythPuzzle> myth;
   final List<DilemmaPuzzle> dilemma;
 }
 
 class TurboItem {
-  const TurboItem(this.id, this.label,
-      {required this.price, required this.bucket, this.note});
+  const TurboItem(
+    this.id,
+    this.label, {
+    required this.price,
+    required this.bucket,
+    this.note,
+  });
   final String id;
   final String label;
   final int price;
@@ -81,10 +91,13 @@ class TurboItem {
 String _t(Map<String, dynamic> node, String locale) =>
     (node[locale] ?? node['ro']) as String;
 
-final dailyContentProvider =
-    FutureProvider.family<DailyContent, String>((ref, locale) async {
-  final json = jsonDecode(await loadAssetString('content/arcade/daily.json'))
-      as Map<String, dynamic>;
+final dailyContentProvider = FutureProvider.family<DailyContent, String>((
+  ref,
+  locale,
+) async {
+  final json =
+      jsonDecode(await loadAssetString('content/arcade/daily.json'))
+          as Map<String, dynamic>;
   return DailyContent(
     price: [
       for (final p in (json['price'] as List).cast<Map<String, dynamic>>())
@@ -105,18 +118,15 @@ final dailyContentProvider =
     ],
     myth: [
       for (final m in (json['myth'] as List).cast<Map<String, dynamic>>())
-        MythPuzzle(
-          m['id'] as String,
-          [
-            for (final s
-                in (m['statements'] as List).cast<Map<String, dynamic>>())
-              MythStatement(
-                _t(s['text'] as Map<String, dynamic>, locale),
-                truth: s['truth'] as bool,
-                explain: _t(s['explain'] as Map<String, dynamic>, locale),
-              ),
-          ],
-        ),
+        MythPuzzle(m['id'] as String, [
+          for (final s
+              in (m['statements'] as List).cast<Map<String, dynamic>>())
+            MythStatement(
+              _t(s['text'] as Map<String, dynamic>, locale),
+              truth: s['truth'] as bool,
+              explain: _t(s['explain'] as Map<String, dynamic>, locale),
+            ),
+        ]),
     ],
     dilemma: [
       for (final d in (json['dilemma'] as List).cast<Map<String, dynamic>>())
@@ -124,8 +134,7 @@ final dailyContentProvider =
           d['id'] as String,
           _t(d['scenario'] as Map<String, dynamic>, locale),
           [
-            for (final o
-                in (d['options'] as List).cast<Map<String, dynamic>>())
+            for (final o in (d['options'] as List).cast<Map<String, dynamic>>())
               DilemmaOption(
                 _t(o['text'] as Map<String, dynamic>, locale),
                 _t(o['comment'] as Map<String, dynamic>, locale),
@@ -136,8 +145,10 @@ final dailyContentProvider =
   );
 });
 
-final turboItemsProvider =
-    FutureProvider.family<List<TurboItem>, String>((ref, locale) async {
+final turboItemsProvider = FutureProvider.family<List<TurboItem>, String>((
+  ref,
+  locale,
+) async {
   final json =
       jsonDecode(await loadAssetString('content/arcade/turbo_items.json'))
           as Map<String, dynamic>;
@@ -229,47 +240,57 @@ class ArcadeRepository {
   /// Înregistrează o rundă jucată. Prima rundă a zilei per joc dă recompensa
   /// (alune duble în ziua bonus) și marchează activitatea 'game'; întoarce 0
   /// după. Provocarea Zilei rămâne o dată pe zi, a doua înregistrare e ignorată.
-  Future<int> recordRound(
-      {required String game,
-      required int score,
-      Map<String, Object?> meta = const {}}) async {
+  Future<int> recordRound({
+    required String game,
+    required int score,
+    Map<String, Object?> meta = const {},
+  }) async {
     final today = dayKey(DateTime.now());
-    final existing = await (_db.select(_db.arcadeRounds)
-          ..where((r) => r.game.equals(game) & r.date.equals(today))
-          ..limit(1))
-        .getSingleOrNull();
+    final existing =
+        await (_db.select(_db.arcadeRounds)
+              ..where((r) => r.game.equals(game) & r.date.equals(today))
+              ..limit(1))
+            .getSingleOrNull();
     if (game == 'daily' && existing != null) return 0;
 
-    await _db.into(_db.arcadeRounds).insert(ArcadeRoundsCompanion.insert(
-          game: game,
-          date: today,
-          score: score,
-          meta: Value(jsonEncode(meta)),
-        ));
+    await _db
+        .into(_db.arcadeRounds)
+        .insert(
+          ArcadeRoundsCompanion.insert(
+            game: game,
+            date: today,
+            score: score,
+            meta: Value(jsonEncode(meta)),
+          ),
+        );
     await _markGameActivity(today);
     if (existing != null) return 0;
 
     final base = _baseRewards[game] ?? const ArcadeReward(acorns: 2, xp: 0);
-    final acorns =
-        dailyBonusGame(today) == game ? base.acorns * 2 : base.acorns;
+    final acorns = dailyBonusGame(today) == game
+        ? base.acorns * 2
+        : base.acorns;
     await _profiles.addAcorns(acorns, reason: 'arcade_${game}_first');
     if (base.xp > 0) {
       final profile = await _profiles.get();
-      await _profiles
-          .update(LocalProfilesCompanion(xp: Value(profile.xp + base.xp)));
+      await _profiles.update(
+        LocalProfilesCompanion(xp: Value(profile.xp + base.xp)),
+      );
     }
     return acorns;
   }
 
   Future<void> _markGameActivity(String date) async {
-    final row = await (_db.select(_db.dailyActivityRows)
-          ..where((r) => r.date.equals(date)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.dailyActivityRows,
+    )..where((r) => r.date.equals(date))).getSingleOrNull();
     final kinds = <String>{
       if (row != null) ...(jsonDecode(row.kinds) as List).cast<String>(),
       'game',
     }.toList();
-    await _db.into(_db.dailyActivityRows).insertOnConflictUpdate(
+    await _db
+        .into(_db.dailyActivityRows)
+        .insertOnConflictUpdate(
           DailyActivityRowsCompanion.insert(
             date: date,
             kinds: jsonEncode(kinds),

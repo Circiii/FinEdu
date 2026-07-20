@@ -35,17 +35,25 @@ class JuiceBounce extends StatefulWidget {
 
 class _JuiceBounceState extends State<JuiceBounce>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _c =
-      AnimationController(vsync: this, duration: Dur.emph);
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: Dur.emph,
+  );
   late final Animation<double> _scale = TweenSequence<double>([
     TweenSequenceItem(
-        tween: Tween(begin: 1.0, end: 1.12)
-            .chain(CurveTween(curve: Curves.easeOut)),
-        weight: 35),
+      tween: Tween(
+        begin: 1.0,
+        end: 1.12,
+      ).chain(CurveTween(curve: Curves.easeOut)),
+      weight: 35,
+    ),
     TweenSequenceItem(
-        tween: Tween(begin: 1.12, end: 1.0)
-            .chain(CurveTween(curve: Curves.elasticOut)),
-        weight: 65),
+      tween: Tween(
+        begin: 1.12,
+        end: 1.0,
+      ).chain(CurveTween(curve: Curves.elasticOut)),
+      weight: 65,
+    ),
   ]).animate(_c);
 
   @override
@@ -84,7 +92,9 @@ class JuiceShake extends StatefulWidget {
 class _JuiceShakeState extends State<JuiceShake>
     with SingleTickerProviderStateMixin {
   late final AnimationController _c = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 300));
+    vsync: this,
+    duration: const Duration(milliseconds: 300),
+  );
 
   @override
   void didUpdateWidget(JuiceShake old) {
@@ -131,10 +141,14 @@ class StaggerIn extends StatefulWidget {
 
 class _StaggerInState extends State<StaggerIn>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _c =
-      AnimationController(vsync: this, duration: Dur.emph);
-  late final CurvedAnimation _t =
-      CurvedAnimation(parent: _c, curve: Curves.easeOutCubic);
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: Dur.emph,
+  );
+  late final CurvedAnimation _t = CurvedAnimation(
+    parent: _c,
+    curve: Curves.easeOutCubic,
+  );
   bool _started = false;
 
   @override
@@ -165,7 +179,9 @@ class _StaggerInState extends State<StaggerIn>
       builder: (_, child) => Opacity(
         opacity: _t.value,
         child: Transform.translate(
-            offset: Offset(0, 14 * (1 - _t.value)), child: child),
+          offset: Offset(0, 14 * (1 - _t.value)),
+          child: child,
+        ),
       ),
       child: widget.child,
     );
@@ -173,6 +189,7 @@ class _StaggerInState extends State<StaggerIn>
 }
 
 /// Numărătoare animată (0 → valoare) pentru XP/ghinde în celebrații.
+/// [format] schimbă afișarea numărului (ex. separatori de mii).
 class AnimatedCount extends StatelessWidget {
   const AnimatedCount({
     super.key,
@@ -181,6 +198,8 @@ class AnimatedCount extends StatelessWidget {
     this.prefix = '',
     this.suffix = '',
     this.duration = Dur.epic,
+    this.format,
+    this.textAlign,
   });
 
   final int value;
@@ -188,17 +207,22 @@ class AnimatedCount extends StatelessWidget {
   final String prefix;
   final String suffix;
   final Duration duration;
+  final String Function(int value)? format;
+  final TextAlign? textAlign;
+
+  String _text(int v) => '$prefix${format?.call(v) ?? '$v'}$suffix';
 
   @override
   Widget build(BuildContext context) {
     if (MediaQuery.of(context).disableAnimations) {
-      return Text('$prefix$value$suffix', style: style);
+      return Text(_text(value), style: style, textAlign: textAlign);
     }
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: value.toDouble()),
       duration: duration,
       curve: Curves.easeOutCubic,
-      builder: (_, v, _) => Text('$prefix${v.round()}$suffix', style: style),
+      builder: (_, v, _) =>
+          Text(_text(v.round()), style: style, textAlign: textAlign),
     );
   }
 }
@@ -214,9 +238,11 @@ class ConfettiBurst {
 
     late final OverlayEntry entry;
     entry = OverlayEntry(
-      builder: (_) => _ConfettiOverlay(onDone: () {
-        if (entry.mounted) entry.remove();
-      }),
+      builder: (_) => _ConfettiOverlay(
+        onDone: () {
+          if (entry.mounted) entry.remove();
+        },
+      ),
     );
     overlay.insert(entry);
   }
@@ -323,9 +349,13 @@ class _ConfettiPainter extends CustomPainter {
       canvas.rotate(p.spin * t);
       canvas.drawRRect(
         RRect.fromRectAndRadius(
-            Rect.fromCenter(
-                center: Offset.zero, width: p.size, height: p.size * 0.62),
-            const Radius.circular(2)),
+          Rect.fromCenter(
+            center: Offset.zero,
+            width: p.size,
+            height: p.size * 0.62,
+          ),
+          const Radius.circular(2),
+        ),
         paint,
       );
       canvas.restore();

@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:drift/drift.dart';
@@ -53,30 +53,30 @@ String _t(Map<String, dynamic> node, String locale) =>
 
 final wardrobeCatalogProvider =
     FutureProvider.family<List<CosmeticItem>, String>((ref, locale) async {
-  final json =
-      jsonDecode(await loadAssetString('content/cashy/wardrobe.json'))
-          as Map<String, dynamic>;
-  return [
-    for (final i in (json['items'] as List).cast<Map<String, dynamic>>())
-      CosmeticItem(
-        id: i['id'] as String,
-        slot: i['slot'] as String,
-        tier: i['tier'] as String,
-        emoji: i['emoji'] as String,
-        name: _t(i['name'] as Map<String, dynamic>, locale),
-        price: i['price'] as int?,
-        cond: i['cond'] as String?,
-        condText: i['cond_text'] == null
-            ? null
-            : _t(i['cond_text'] as Map<String, dynamic>, locale),
-        colors: [
-          for (final c in (i['colors'] as List? ?? const []))
-            int.parse(c as String, radix: 16),
-        ],
-        months: (i['luni_disponibile'] as List? ?? const []).cast<int>(),
-      ),
-  ];
-});
+      final json =
+          jsonDecode(await loadAssetString('content/cashy/wardrobe.json'))
+              as Map<String, dynamic>;
+      return [
+        for (final i in (json['items'] as List).cast<Map<String, dynamic>>())
+          CosmeticItem(
+            id: i['id'] as String,
+            slot: i['slot'] as String,
+            tier: i['tier'] as String,
+            emoji: i['emoji'] as String,
+            name: _t(i['name'] as Map<String, dynamic>, locale),
+            price: i['price'] as int?,
+            cond: i['cond'] as String?,
+            condText: i['cond_text'] == null
+                ? null
+                : _t(i['cond_text'] as Map<String, dynamic>, locale),
+            colors: [
+              for (final c in (i['colors'] as List? ?? const []))
+                int.parse(c as String, radix: 16),
+            ],
+            months: (i['luni_disponibile'] as List? ?? const []).cast<int>(),
+          ),
+      ];
+    });
 
 final wardrobeRepositoryProvider = Provider<WardrobeRepository>((ref) {
   return WardrobeRepository(
@@ -93,7 +93,10 @@ final ownedItemsProvider = StreamProvider<Set<String>>((ref) {
 /// „Vitrina zilei": 3 iteme cumpărabile, -20%, alese determinist din dată,
 /// identic pe orice device. Restul catalogului rămâne mereu cumpărabil.
 List<String> dailyShowcase(List<CosmeticItem> catalog, String today) {
-  final buyable = [for (final i in catalog) if (!i.isMerit) i.id]..sort();
+  final buyable = [
+    for (final i in catalog)
+      if (!i.isMerit) i.id,
+  ]..sort();
   final rng = Random(epochDays(today));
   final pool = [...buyable]..shuffle(rng);
   return pool.take(3).toList();
@@ -120,9 +123,9 @@ class WardrobeRepository {
   Future<bool> purchase(CosmeticItem item, {required bool showcased}) async {
     if (item.isMerit || item.price == null) return false;
     if (!item.availableIn(DateTime.now().month)) return false;
-    final owned = await (_db.select(_db.wardrobeItems)
-          ..where((r) => r.itemId.equals(item.id)))
-        .getSingleOrNull();
+    final owned = await (_db.select(
+      _db.wardrobeItems,
+    )..where((r) => r.itemId.equals(item.id))).getSingleOrNull();
     if (owned != null) return false;
 
     final cost = showcased ? showcasePrice(item.price!) : item.price!;
@@ -130,7 +133,9 @@ class WardrobeRepository {
     if (profile.acorns < cost) return false;
 
     await _profiles.addAcorns(-cost, reason: 'wardrobe_${item.id}');
-    await _db.into(_db.wardrobeItems).insert(
+    await _db
+        .into(_db.wardrobeItems)
+        .insert(
           WardrobeItemsCompanion.insert(
             itemId: item.id,
             acquiredAt: DateTime.now(),
@@ -143,7 +148,9 @@ class WardrobeRepository {
   /// Revendică un item de merit a cărui condiție e îndeplinită (gratuit).
   Future<bool> claimMerit(CosmeticItem item) async {
     if (!item.isMerit) return false;
-    await _db.into(_db.wardrobeItems).insert(
+    await _db
+        .into(_db.wardrobeItems)
+        .insert(
           WardrobeItemsCompanion.insert(
             itemId: item.id,
             acquiredAt: DateTime.now(),
@@ -155,22 +162,24 @@ class WardrobeRepository {
 
   /// Echipează (sau dezechipează cu null) un slot.
   Future<void> equip(String slot, String? itemId) {
-    return _profiles.update(slot == 'background'
-        ? LocalProfilesCompanion(equippedBackground: Value(itemId))
-        : LocalProfilesCompanion(equippedAccessory: Value(itemId)));
+    return _profiles.update(
+      slot == 'background'
+          ? LocalProfilesCompanion(equippedBackground: Value(itemId))
+          : LocalProfilesCompanion(equippedAccessory: Value(itemId)),
+    );
   }
 
   /// Bonusul zilnic de vizită. Sursa de adevăr e ledger-ul de ghinde, zero
   /// coloane noi. Întoarce ghindele acordate (0 dacă azi a fost deja revendicat).
   Future<int> visitBonus() async {
     final today = dayKey(DateTime.now());
-    final entries = await (_db.select(_db.acornEntries)
-          ..where((e) => e.reason.equals('shop_visit'))
-          ..orderBy([(e) => OrderingTerm.desc(e.createdAt)])
-          ..limit(1))
-        .get();
-    if (entries.isNotEmpty &&
-        dayKey(entries.first.createdAt) == today) {
+    final entries =
+        await (_db.select(_db.acornEntries)
+              ..where((e) => e.reason.equals('shop_visit'))
+              ..orderBy([(e) => OrderingTerm.desc(e.createdAt)])
+              ..limit(1))
+            .get();
+    if (entries.isNotEmpty && dayKey(entries.first.createdAt) == today) {
       return 0;
     }
     await _profiles.addAcorns(shopVisitBonus, reason: 'shop_visit');

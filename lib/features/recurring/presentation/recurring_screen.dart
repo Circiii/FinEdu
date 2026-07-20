@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -53,26 +53,37 @@ class RecurringScreen extends ConsumerWidget {
                             boxShadow: Sh.raise,
                           ),
                           alignment: Alignment.center,
-                          child: const SvgIcon(Ic.chevronLeft,
-                              size: 18, color: C.text2, strokeWidth: 2.4),
+                          child: const SvgIcon(
+                            Ic.chevronLeft,
+                            size: 18,
+                            color: C.text2,
+                            strokeWidth: 2.4,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text('Abonamente',
-                          style: T.display(
-                              size: 24, weight: FontWeight.w800, color: C.text)),
+                      Text(
+                        'Abonamente',
+                        style: T.display(
+                          size: 24,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 6),
                   Padding(
                     padding: const EdgeInsets.only(left: 2),
                     child: Text(
-                        'Plățile care se repetă. Le adăugăm automat când vine scadența.',
-                        style: T.body(
-                            size: 13.5,
-                            weight: FontWeight.w500,
-                            color: C.text2,
-                            height: 1.4)),
+                      'Plățile care se repetă. Le adăugăm automat când vine scadența.',
+                      style: T.body(
+                        size: 13.5,
+                        weight: FontWeight.w500,
+                        color: C.text2,
+                        height: 1.4,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   if (items.isEmpty)
@@ -89,8 +100,12 @@ class RecurringScreen extends ConsumerWidget {
                     shadow: Sh.blue,
                     height: 54,
                     fontSize: 16,
-                    leading: const SvgIcon(Ic.plus,
-                        size: 19, color: Colors.white, strokeWidth: 2.6),
+                    leading: const SvgIcon(
+                      Ic.plus,
+                      size: 19,
+                      color: Colors.white,
+                      strokeWidth: 2.6,
+                    ),
                     onTap: () {
                       Juice.tick();
                       _addSheet(context, ref);
@@ -115,10 +130,14 @@ class RecurringScreen extends ConsumerWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-                'Niciun abonament încă. Netflix, sală, telefon, adaugă-le o dată și Cashy le ține minte.',
-                style: T.body(
-                    size: 13.5, weight: FontWeight.w600, color: C.text2,
-                    height: 1.4)),
+              'Niciun abonament încă. Netflix, sală, telefon, adaugă-le o dată și Cashy le ține minte.',
+              style: T.body(
+                size: 13.5,
+                weight: FontWeight.w600,
+                color: C.text2,
+                height: 1.4,
+              ),
+            ),
           ),
         ],
       ),
@@ -126,7 +145,10 @@ class RecurringScreen extends ConsumerWidget {
   }
 
   Widget _recurringRow(
-      BuildContext context, WidgetRef ref, LocalRecurringData item) {
+    BuildContext context,
+    WidgetRef ref,
+    LocalRecurringData item,
+  ) {
     final saving = item.type == 'saving';
     return ClayCard(
       radius: 18,
@@ -159,16 +181,25 @@ class RecurringScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(item.merchant,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: T.display(
-                        size: 15, weight: FontWeight.w700, color: C.text)),
+                Text(
+                  item.merchant,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: T.display(
+                    size: 15,
+                    weight: FontWeight.w700,
+                    color: C.text,
+                  ),
+                ),
                 const SizedBox(height: 2),
                 Text(
-                    '${_freqRo[item.frequency]} · ${fmtThousands(item.amount.round())} lei · urm. ${_shortDate(item.nextDueDate)}',
-                    style: T.body(
-                        size: 12, weight: FontWeight.w600, color: C.text3)),
+                  '${_freqRo[item.frequency]} · ${fmtThousands(item.amount.round())} lei · urm. ${_shortDate(item.nextDueDate)}',
+                  style: T.body(
+                    size: 12,
+                    weight: FontWeight.w600,
+                    color: C.text3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -179,8 +210,7 @@ class RecurringScreen extends ConsumerWidget {
                 ref.read(recurringRepositoryProvider).setActive(item.id, v),
           ),
           GestureDetector(
-            onTap: () =>
-                ref.read(recurringRepositoryProvider).remove(item.id),
+            onTap: () => ref.read(recurringRepositoryProvider).remove(item.id),
             child: const Padding(
               padding: EdgeInsets.only(left: 4),
               child: SvgIcon(Ic.x, size: 16, color: C.text3, strokeWidth: 2.2),
@@ -194,8 +224,18 @@ class RecurringScreen extends ConsumerWidget {
   String _shortDate(String key) {
     final d = DateTime.parse(key);
     const m = [
-      'ian', 'feb', 'mar', 'apr', 'mai', 'iun',
-      'iul', 'aug', 'sep', 'oct', 'noi', 'dec',
+      'ian',
+      'feb',
+      'mar',
+      'apr',
+      'mai',
+      'iun',
+      'iul',
+      'aug',
+      'sep',
+      'oct',
+      'noi',
+      'dec',
     ];
     return '${d.day} ${m[d.month - 1]}';
   }
@@ -206,7 +246,8 @@ class RecurringScreen extends ConsumerWidget {
       backgroundColor: C.bg,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
       builder: (_) => const _RecurringSheet(),
     );
   }
@@ -235,19 +276,27 @@ class _RecurringSheetState extends ConsumerState<_RecurringSheet> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-          20, 22, 20, 22 + MediaQuery.of(context).viewInsets.bottom),
+        20,
+        22,
+        20,
+        22 + MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Abonament nou',
-              style: T.display(size: 21, weight: FontWeight.w800, color: C.text)),
+          Text(
+            'Abonament nou',
+            style: T.display(size: 21, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 14),
           _field(_merchant, 'Nume (ex. Netflix)'),
           const SizedBox(height: 10),
-          _field(_amount, 'Sumă (lei)',
-              keyboard:
-                  const TextInputType.numberWithOptions(decimal: true)),
+          _field(
+            _amount,
+            'Sumă (lei)',
+            keyboard: const TextInputType.numberWithOptions(decimal: true),
+          ),
           const SizedBox(height: 12),
           Row(
             children: [
@@ -265,17 +314,19 @@ class _RecurringSheetState extends ConsumerState<_RecurringSheet> {
                         color: _frequency == f ? C.blueSoft : C.surface,
                         borderRadius: BorderRadius.circular(13),
                         border: Border.all(
-                            color: _frequency == f ? C.blue : C.line,
-                            width: 1.5),
+                          color: _frequency == f ? C.blue : C.line,
+                          width: 1.5,
+                        ),
                       ),
                       alignment: Alignment.center,
                       child: Text(
-                          RecurringScreen._freqRo[f]!,
-                          style: T.display(
-                              size: 13,
-                              weight: FontWeight.w800,
-                              color:
-                                  _frequency == f ? C.blueInk : C.text2)),
+                        RecurringScreen._freqRo[f]!,
+                        style: T.display(
+                          size: 13,
+                          weight: FontWeight.w800,
+                          color: _frequency == f ? C.blueInk : C.text2,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -290,11 +341,14 @@ class _RecurringSheetState extends ConsumerState<_RecurringSheet> {
             fontSize: 16,
             onTap: () async {
               final name = _merchant.text.trim();
-              final value =
-                  double.tryParse(_amount.text.trim().replaceAll(',', '.'));
+              final value = double.tryParse(
+                _amount.text.trim().replaceAll(',', '.'),
+              );
               if (name.isEmpty || value == null || value <= 0) return;
               Juice.tick();
-              await ref.read(recurringRepositoryProvider).add(
+              await ref
+                  .read(recurringRepositoryProvider)
+                  .add(
                     merchant: name,
                     amount: value,
                     category: 'altele',
@@ -321,8 +375,11 @@ class _RecurringSheetState extends ConsumerState<_RecurringSheet> {
     return dayKey(next);
   }
 
-  Widget _field(TextEditingController c, String hint,
-      {TextInputType? keyboard}) {
+  Widget _field(
+    TextEditingController c,
+    String hint, {
+    TextInputType? keyboard,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
@@ -336,8 +393,11 @@ class _RecurringSheetState extends ConsumerState<_RecurringSheet> {
         style: T.display(size: 16, weight: FontWeight.w700, color: C.text),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle:
-              T.display(size: 16, weight: FontWeight.w700, color: C.text3),
+          hintStyle: T.display(
+            size: 16,
+            weight: FontWeight.w700,
+            color: C.text3,
+          ),
           border: InputBorder.none,
         ),
       ),

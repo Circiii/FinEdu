@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:drift/drift.dart';
@@ -76,15 +76,18 @@ final insightsRepositoryProvider = Provider<InsightsRepository>((ref) {
 });
 
 /// Cardurile „Pentru tine" de azi (max 2), reactive la tranzacțiile lunii.
-final insightCardsProvider =
-    FutureProvider.family<List<InsightCard>, String>((ref, locale) async {
+final insightCardsProvider = FutureProvider.family<List<InsightCard>, String>((
+  ref,
+  locale,
+) async {
   // Reactivitate: orice mișcare în luna curentă re-derivă selecția.
   ref.watch(monthTransactionsProvider);
   final profile = ref.watch(localProfileStreamProvider).valueOrNull;
   final repo = ref.watch(insightsRepositoryProvider);
 
   final inputs = await repo.buildInputs(
-      budget: (profile?.monthlyBudget ?? 0).toDouble());
+    budget: (profile?.monthlyBudget ?? 0).toDouble(),
+  );
   final candidates = evaluateInsights(inputs);
   final history = await repo.history();
   final picked = selectInsights(
@@ -121,10 +124,11 @@ final insightCardsProvider =
 });
 
 class InsightHistory {
-  const InsightHistory(
-      {required this.recentlyShown,
-      required this.suppressedRules,
-      required this.correctiveStreak});
+  const InsightHistory({
+    required this.recentlyShown,
+    required this.suppressedRules,
+    required this.correctiveStreak,
+  });
   final Set<String> recentlyShown;
   final Set<String> suppressedRules;
   final int correctiveStreak;
@@ -136,7 +140,7 @@ class InsightsRepository {
   final AppDb _db;
   Map<String, dynamic>? _copyCache;
 
-  // ---- agregatele pentru motor --------------------------------------------
+  // ---- agregatele pentru motor
 
   Future<InsightInputs> buildInputs({required double budget}) async {
     final now = DateTime.now();
@@ -146,18 +150,20 @@ class InsightsRepository {
     final twoWeeksAgo = now.subtract(const Duration(days: 14));
     final oneWeekAgo = now.subtract(const Duration(days: 7));
 
-    final all = await (_db.select(_db.localTransactions)
-          ..where((t) =>
-              t.deleted.equals(false) &
-              t.transactionDate.isBiggerOrEqualValue(threeMonthsStart)))
-        .get();
+    final all =
+        await (_db.select(_db.localTransactions)..where(
+              (t) =>
+                  t.deleted.equals(false) &
+                  t.transactionDate.isBiggerOrEqualValue(threeMonthsStart),
+            ))
+            .get();
 
-    bool isExpense(LocalTransaction t) =>
-        t.type == TransactionType.expense.key;
+    bool isExpense(LocalTransaction t) => t.type == TransactionType.expense.key;
     bool isSaving(LocalTransaction t) => t.type == TransactionType.saving.key;
 
-    final monthTx =
-        all.where((t) => !t.transactionDate.isBefore(monthStart)).toList();
+    final monthTx = all
+        .where((t) => !t.transactionDate.isBefore(monthStart))
+        .toList();
     final monthExpenses = monthTx.where(isExpense).toList();
 
     final categoryMonth = <String, double>{};
@@ -166,10 +172,12 @@ class InsightsRepository {
     }
 
     // Ultimele 3 luni calendaristice PLINE: medii per categorie.
-    final prevWindow = all.where((t) =>
-        t.transactionDate.isBefore(monthStart) &&
-        !t.transactionDate.isBefore(threeMonthsStart) &&
-        isExpense(t));
+    final prevWindow = all.where(
+      (t) =>
+          t.transactionDate.isBefore(monthStart) &&
+          !t.transactionDate.isBefore(threeMonthsStart) &&
+          isExpense(t),
+    );
     final monthsSeen = <String>{};
     final categoryPrevTotals = <String, double>{};
     for (final t in prevWindow) {
@@ -184,12 +192,15 @@ class InsightsRepository {
     };
 
     // Săptămâni rulante (recapul de luni: 7 zile vs cele 7 dinainte).
-    final thisWeek = all
-        .where((t) => isExpense(t) && t.transactionDate.isAfter(oneWeekAgo));
-    final prevWeek = all.where((t) =>
-        isExpense(t) &&
-        t.transactionDate.isAfter(twoWeeksAgo) &&
-        !t.transactionDate.isAfter(oneWeekAgo));
+    final thisWeek = all.where(
+      (t) => isExpense(t) && t.transactionDate.isAfter(oneWeekAgo),
+    );
+    final prevWeek = all.where(
+      (t) =>
+          isExpense(t) &&
+          t.transactionDate.isAfter(twoWeeksAgo) &&
+          !t.transactionDate.isAfter(oneWeekAgo),
+    );
     final weekCats = <String, double>{};
     for (final t in thisWeek) {
       weekCats[t.category] = (weekCats[t.category] ?? 0) + t.amount;
@@ -206,11 +217,13 @@ class InsightsRepository {
     // Obiective + progresul lor (economii legate de goalId).
     final goals = await _db.select(_db.localGoals).get();
     final savingsByGoal = <String, double>{};
-    final allSavings = await (_db.select(_db.localTransactions)
-          ..where((t) =>
-              t.deleted.equals(false) &
-              t.type.equals(TransactionType.saving.key)))
-        .get();
+    final allSavings =
+        await (_db.select(_db.localTransactions)..where(
+              (t) =>
+                  t.deleted.equals(false) &
+                  t.type.equals(TransactionType.saving.key),
+            ))
+            .get();
     var savedAllTime = 0.0;
     for (final t in allSavings) {
       savedAllTime += t.amount;
@@ -220,18 +233,24 @@ class InsightsRepository {
     }
 
     // Recurente active: scadențe apropiate + totalul lunar normalizat.
-    final recurring = await (_db.select(_db.localRecurring)
-          ..where((r) => r.active.equals(true)))
-        .get();
+    final recurring = await (_db.select(
+      _db.localRecurring,
+    )..where((r) => r.active.equals(true))).get();
     final upcoming = <RecurringLite>[];
     var recurringMonthly = 0.0;
     for (final r in recurring) {
       final due = DateTime.tryParse(r.nextDueDate);
       if (due != null) {
-        final days = due.difference(DateTime(now.year, now.month, now.day))
+        final days = due
+            .difference(DateTime(now.year, now.month, now.day))
             .inDays;
-        upcoming.add(RecurringLite(
-            merchant: r.merchant, amount: r.amount, dueInDays: days));
+        upcoming.add(
+          RecurringLite(
+            merchant: r.merchant,
+            amount: r.amount,
+            dueInDays: days,
+          ),
+        );
       }
       recurringMonthly += switch (r.frequency) {
         'daily' => r.amount * 30,
@@ -241,22 +260,28 @@ class InsightsRepository {
     }
 
     // Luna trecută (fresh start).
-    final lastMonthTx = all.where((t) =>
-        !t.transactionDate.isBefore(prevMonthStart) &&
-        t.transactionDate.isBefore(monthStart));
-    final lastSpent =
-        lastMonthTx.where(isExpense).fold(0.0, (a, t) => a + t.amount);
-    final lastSaved =
-        lastMonthTx.where(isSaving).fold(0.0, (a, t) => a + t.amount);
+    final lastMonthTx = all.where(
+      (t) =>
+          !t.transactionDate.isBefore(prevMonthStart) &&
+          t.transactionDate.isBefore(monthStart),
+    );
+    final lastSpent = lastMonthTx
+        .where(isExpense)
+        .fold(0.0, (a, t) => a + t.amount);
+    final lastSaved = lastMonthTx
+        .where(isSaving)
+        .fold(0.0, (a, t) => a + t.amount);
 
     // Fereastra de ~90 zile vine din query-ul pe 3 luni calendaristice pline
     // (minim 89 de zile), fără query nou.
     final ninetyDaysAgo = now.subtract(const Duration(days: 90));
-    final window90 = all
-        .where((t) =>
-            isExpense(t) && !t.transactionDate.isBefore(ninetyDaysAgo))
-        .toList()
-      ..sort((a, b) => a.transactionDate.compareTo(b.transactionDate));
+    final window90 =
+        all
+            .where(
+              (t) => isExpense(t) && !t.transactionDate.isBefore(ninetyDaysAgo),
+            )
+            .toList()
+          ..sort((a, b) => a.transactionDate.compareTo(b.transactionDate));
 
     // Ultima cheltuială vs. istoricul categoriei ei, fără ea însăși (nu-și
     // poate trage singură mediana spre sine).
@@ -281,8 +306,9 @@ class InsightsRepository {
     final recurringDueSoon = upcoming
         .where((r) => r.dueInDays >= 0 && r.dueInDays < daysLeftInMonth)
         .fold(0.0, (a, r) => a + r.amount);
-    final savedThisMonth =
-        monthTx.where(isSaving).fold(0.0, (a, t) => a + t.amount);
+    final savedThisMonth = monthTx
+        .where(isSaving)
+        .fold(0.0, (a, t) => a + t.amount);
 
     return InsightInputs(
       now: now,
@@ -327,14 +353,15 @@ class InsightsRepository {
     );
   }
 
-  // ---- istoric: cooldown, suprimare, raportul 2:1 --------------------------
+  // ---- istoric: cooldown, suprimare, raportul 2:1
 
   Future<InsightHistory> history() async {
     final since = DateTime.now().subtract(const Duration(days: 30));
-    final events = await (_db.select(_db.insightEvents)
-          ..where((e) => e.createdAt.isBiggerOrEqualValue(since))
-          ..orderBy([(e) => OrderingTerm.desc(e.createdAt)]))
-        .get();
+    final events =
+        await (_db.select(_db.insightEvents)
+              ..where((e) => e.createdAt.isBiggerOrEqualValue(since))
+              ..orderBy([(e) => OrderingTerm.desc(e.createdAt)]))
+            .get();
 
     final now = DateTime.now();
     final recentlyShown = <String>{};
@@ -344,8 +371,9 @@ class InsightsRepository {
         final age = now.difference(e.createdAt).inDays;
         // Cooldown-ul pentru `shown` începe de mâine, altfel cardul de azi
         // s-ar auto-răci la fiecare re-rulare a provider-ului.
-        final suppressed =
-            e.event == 'dismissed' ? age < window : age >= 1 && age < window;
+        final suppressed = e.event == 'dismissed'
+            ? age < window
+            : age >= 1 && age < window;
         if (suppressed) recentlyShown.add(e.insightId);
       }
     }
@@ -388,24 +416,31 @@ class InsightsRepository {
     final today = DateTime.now();
     final dayStart = DateTime(today.year, today.month, today.day);
     for (final card in cards) {
-      final existing = await (_db.select(_db.insightEvents)
-            ..where((e) =>
-                e.insightId.equals(card.id) &
-                e.event.equals('shown') &
-                e.createdAt.isBiggerOrEqualValue(dayStart))
-            ..limit(1))
-          .getSingleOrNull();
+      final existing =
+          await (_db.select(_db.insightEvents)
+                ..where(
+                  (e) =>
+                      e.insightId.equals(card.id) &
+                      e.event.equals('shown') &
+                      e.createdAt.isBiggerOrEqualValue(dayStart),
+                )
+                ..limit(1))
+              .getSingleOrNull();
       if (existing == null) {
-        await _db.into(_db.insightEvents).insert(InsightEventsCompanion.insert(
-              insightId: card.id,
-              ruleKey: card.ruleKey,
-              kind: card.kind.name,
-              event: 'shown',
-              createdAt: DateTime.now(),
-              // Null când personalizarea e oprită; altfel logăm pentru evaluare off-policy.
-              arm: Value(card.arm),
-              propensity: Value(card.propensity),
-            ));
+        await _db
+            .into(_db.insightEvents)
+            .insert(
+              InsightEventsCompanion.insert(
+                insightId: card.id,
+                ruleKey: card.ruleKey,
+                kind: card.kind.name,
+                event: 'shown',
+                createdAt: DateTime.now(),
+                // Null când personalizarea e oprită; altfel logăm pentru evaluare off-policy.
+                arm: Value(card.arm),
+                propensity: Value(card.propensity),
+              ),
+            );
       }
     }
   }
@@ -415,9 +450,9 @@ class InsightsRepository {
   Future<Map<String, List<ArmObservation>>> banditObservations() async {
     final now = DateTime.now();
     final since = now.subtract(const Duration(days: 90));
-    final events = await (_db.select(_db.insightEvents)
-          ..where((e) => e.createdAt.isBiggerOrEqualValue(since)))
-        .get();
+    final events = await (_db.select(
+      _db.insightEvents,
+    )..where((e) => e.createdAt.isBiggerOrEqualValue(since))).get();
 
     // Index-ul tap-urilor per insightId pentru verificarea ferestrei de 48h.
     final tapsById = <String, List<DateTime>>{};
@@ -430,32 +465,40 @@ class InsightsRepository {
     final byRule = <String, List<ArmObservation>>{};
     for (final e in events) {
       if (e.event != 'shown' || e.arm == null) continue;
-      final success = (tapsById[e.insightId] ?? const <DateTime>[])
-          .any((t) => t.difference(e.createdAt).inMinutes.abs() <= 48 * 60);
-      (byRule[e.ruleKey] ??= <ArmObservation>[]).add(ArmObservation(
-        arm: e.arm!,
-        success: success,
-        ageDays: now.difference(e.createdAt).inMinutes / (60 * 24),
-      ));
+      final success = (tapsById[e.insightId] ?? const <DateTime>[]).any(
+        (t) => t.difference(e.createdAt).inMinutes.abs() <= 48 * 60,
+      );
+      (byRule[e.ruleKey] ??= <ArmObservation>[]).add(
+        ArmObservation(
+          arm: e.arm!,
+          success: success,
+          ageDays: now.difference(e.createdAt).inMinutes / (60 * 24),
+        ),
+      );
     }
     return byRule;
   }
 
   Future<void> record(InsightCard card, String event) {
-    return _db.into(_db.insightEvents).insert(InsightEventsCompanion.insert(
-          insightId: card.id,
-          ruleKey: card.ruleKey,
-          kind: card.kind.name,
-          event: event,
-          createdAt: DateTime.now(),
-        ));
+    return _db
+        .into(_db.insightEvents)
+        .insert(
+          InsightEventsCompanion.insert(
+            insightId: card.id,
+            ruleKey: card.ruleKey,
+            kind: card.kind.name,
+            event: event,
+            createdAt: DateTime.now(),
+          ),
+        );
   }
 
-  // ---- copy ----------------------------------------------------------------
+  // ---- textele
 
   Future<Map<String, dynamic>> copy(String locale) async {
-    _copyCache ??= jsonDecode(await loadAssetString('content/insights.json'))
-        as Map<String, dynamic>;
+    _copyCache ??=
+        jsonDecode(await loadAssetString('content/insights.json'))
+            as Map<String, dynamic>;
     return _copyCache!;
   }
 
@@ -470,41 +513,53 @@ class InsightsRepository {
 
   /// Etichete de afișare pentru categoriile stocate ca id-uri.
   String _categoryLabel(String key) => switch (key) {
-        'mancare' => 'Mâncare',
-        'distractie' => 'Distracție',
-        'transport' => 'Transport',
-        'haine' => 'Haine',
-        'scoala' => 'Școală',
-        'gaming' => 'Gaming',
-        'abonamente' => 'Abonamente',
-        _ => key.isEmpty
-            ? key
-            : key[0].toUpperCase() + key.substring(1),
-      };
+    'mancare' => 'Mâncare',
+    'distractie' => 'Distracție',
+    'transport' => 'Transport',
+    'haine' => 'Haine',
+    'scoala' => 'Școală',
+    'gaming' => 'Gaming',
+    'abonamente' => 'Abonamente',
+    _ => key.isEmpty ? key : key[0].toUpperCase() + key.substring(1),
+  };
 
   /// Alege indexul variantei. Oprită → [legacyIndex] (seed pe zi, neschimbat).
   /// Pornită → banditul, cu Random seed-uit pe (zi|regulă) ca să nu clipească.
   ({int index, int? arm, double? propensity}) _pickVariant(
-      String ruleKey, int count, int legacyIndex, BanditContext? bandit) {
+    String ruleKey,
+    int count,
+    int legacyIndex,
+    BanditContext? bandit,
+  ) {
     if (bandit == null) {
       return (index: legacyIndex, arm: null, propensity: null);
     }
     final counters = deriveCounters(
-        bandit.observations[ruleKey] ?? const <ArmObservation>[]);
+      bandit.observations[ruleKey] ?? const <ArmObservation>[],
+    );
     final rng = Random(('${bandit.dayKey}|$ruleKey').hashCode);
     final pick = pickArm(counters: counters, armCount: count, rng: rng);
     return (index: pick.arm, arm: pick.arm, propensity: pick.propensity);
   }
 
-  InsightCard? resolve(InsightCandidate c, Map<String, dynamic> copy,
-      DateTime now, String locale,
-      {BanditContext? bandit}) {
-    final rule = (copy['rules'] as Map<String, dynamic>)[c.ruleKey]
-        as Map<String, dynamic>?;
+  InsightCard? resolve(
+    InsightCandidate c,
+    Map<String, dynamic> copy,
+    DateTime now,
+    String locale, {
+    BanditContext? bandit,
+  }) {
+    final rule =
+        (copy['rules'] as Map<String, dynamic>)[c.ruleKey]
+            as Map<String, dynamic>?;
     if (rule == null) return null;
     final variants = (rule['variants'] as List).cast<Map<String, dynamic>>();
-    final pick = _pickVariant(c.ruleKey,
-        variants.length, (now.day + c.ruleKey.length) % variants.length, bandit);
+    final pick = _pickVariant(
+      c.ruleKey,
+      variants.length,
+      (now.day + c.ruleKey.length) % variants.length,
+      bandit,
+    );
     final variant = variants[pick.index];
     final values = {
       ...c.values,
@@ -524,8 +579,10 @@ class InsightsRepository {
       ruleKey: c.ruleKey,
       kind: c.kind,
       emoji: rule['emoji'] as String,
-      title:
-          _fill(_t(variant['title'] as Map<String, dynamic>, locale), values),
+      title: _fill(
+        _t(variant['title'] as Map<String, dynamic>, locale),
+        values,
+      ),
       body: _fill(_t(variant['body'] as Map<String, dynamic>, locale), values),
       how: _fill(_t(rule['how'] as Map<String, dynamic>, locale), values),
       ctaLabel: _t(cta['label'] as Map<String, dynamic>, locale),
@@ -536,11 +593,18 @@ class InsightsRepository {
   }
 
   InsightCard educationCard(
-      Map<String, dynamic> copy, DateTime now, String locale,
-      {BanditContext? bandit}) {
+    Map<String, dynamic> copy,
+    DateTime now,
+    String locale, {
+    BanditContext? bandit,
+  }) {
     final pool = (copy['education'] as List).cast<Map<String, dynamic>>();
-    final pick = _pickVariant('education', pool.length,
-        now.difference(DateTime(2026)).inDays % pool.length, bandit);
+    final pick = _pickVariant(
+      'education',
+      pool.length,
+      now.difference(DateTime(2026)).inDays % pool.length,
+      bandit,
+    );
     final e = pool[pick.index];
     return InsightCard(
       id: 'education',

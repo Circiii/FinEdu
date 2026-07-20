@@ -19,9 +19,70 @@ class AcornIcon extends StatelessWidget {
   );
 }
 
+/// Seed-ul ploii, ales o dată la pornirea aplicației: de fiecare dată când
+/// intri, ghindele cad altfel, dar rămân pe loc cât timp te plimbi prin ecrane.
+final int acornRainSeed = DateTime.now().microsecondsSinceEpoch & 0x3fffffff;
+
+/// O ghindă din fundal, cu locul, mărimea, rotația și transparența ei.
+class _Acorn {
+  const _Acorn(this.pos, this.size, this.rot, this.opacity);
+
+  final Offset pos;
+  final double size;
+  final double rot;
+  final double opacity;
+}
+
+/// Așezările deja calculate, pe mărime de ecran. Toate ecranele refolosesc
+/// aceeași ploaie, deci fundalul nu sare când treci dintr-unul în altul.
+final _rainCache = <String, List<_Acorn>>{};
+
+List<_Acorn> _rainFor(Size size) {
+  final key = '${size.width.round()}x${size.height.round()}';
+  final cached = _rainCache[key];
+  if (cached != null) return cached;
+
+  final rng = math.Random(acornRainSeed);
+  final count = (size.width * size.height / 6500).clamp(40, 220).toInt();
+  final placed = <_Acorn>[];
+  for (var i = 0; i < count; i++) {
+    final s = 20 + rng.nextDouble() * 38;
+    // Câteva încercări per ghindă: dacă ar călca peste una deja pusă, căutăm
+    // alt loc; dacă nu încape nicăieri, o sărim.
+    Offset? pos;
+    for (var t = 0; t < 20 && pos == null; t++) {
+      final cand = Offset(
+        rng.nextDouble() * size.width,
+        rng.nextDouble() * size.height,
+      );
+      var free = true;
+      for (final a in placed) {
+        final minDist = (s + a.size) / 2 + 6;
+        if ((cand - a.pos).distanceSquared < minDist * minDist) {
+          free = false;
+          break;
+        }
+      }
+      if (free) pos = cand;
+    }
+    if (pos == null) continue;
+    placed.add(
+      _Acorn(
+        pos,
+        s,
+        (rng.nextDouble() - 0.5) * 1.5,
+        0.045 + rng.nextDouble() * 0.085,
+      ),
+    );
+  }
+
+  if (_rainCache.length > 6) _rainCache.clear();
+  _rainCache[key] = placed;
+  return placed;
+}
+
 /// Ploaie decorativă de ghinde pe fundal: multe, împrăștiate, cu mărimi,
-/// rotații și transparențe diferite, ca și cum ar cădea din cer. Pozițiile
-/// vin dintr-un seed fix, deci arată identic la fiecare deschidere.
+/// rotații și transparențe diferite, ca și cum ar cădea din cer.
 class AcornRain extends StatefulWidget {
   const AcornRain({super.key});
 
@@ -73,51 +134,23 @@ class _AcornRainPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // seed fix: aceeași ploaie la fiecare deschidere
-    final rng = math.Random(20260719);
     final src = Rect.fromLTWH(
       0,
       0,
       image.width.toDouble(),
       image.height.toDouble(),
     );
-    final count = (size.width * size.height / 16000).clamp(26, 120).toInt();
-    final placed = <(Offset, double)>[];
-    for (var i = 0; i < count; i++) {
-      final s = 14 + rng.nextDouble() * 26;
-      // Câteva încercări per ghindă: dacă ar călca peste una deja pusă,
-      // căutăm alt loc; dacă nu încape deloc, o sărim.
-      Offset? pos;
-      for (var t = 0; t < 12 && pos == null; t++) {
-        final cand = Offset(
-          rng.nextDouble() * size.width,
-          rng.nextDouble() * size.height,
-        );
-        var free = true;
-        for (final (p, ps) in placed) {
-          final minDist = (s + ps) / 2 + 8;
-          if ((cand - p).distanceSquared < minDist * minDist) {
-            free = false;
-            break;
-          }
-        }
-        if (free) pos = cand;
-      }
-      if (pos == null) continue;
-      placed.add((pos, s));
-      final rot = (rng.nextDouble() - 0.5) * 1.3;
-      final op = 0.05 + rng.nextDouble() * 0.09;
+    final paint = Paint()..filterQuality = FilterQuality.low;
+    for (final a in _rainFor(size)) {
       canvas
         ..save()
-        ..translate(pos.dx, pos.dy)
-        ..rotate(rot);
+        ..translate(a.pos.dx, a.pos.dy)
+        ..rotate(a.rot);
       canvas.drawImageRect(
         image,
         src,
-        Rect.fromCenter(center: Offset.zero, width: s, height: s),
-        Paint()
-          ..color = Colors.white.withValues(alpha: op)
-          ..filterQuality = FilterQuality.low,
+        Rect.fromCenter(center: Offset.zero, width: a.size, height: a.size),
+        paint..color = Colors.white.withValues(alpha: a.opacity),
       );
       canvas.restore();
     }

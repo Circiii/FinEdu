@@ -13,7 +13,7 @@ import '../../../../core/ui/tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'onb_shared.dart';
 
-// ---- Mini-quiz de calibrare ----
+// ---- Mini-quiz de calibrare
 
 class QuizQuestion {
   const QuizQuestion(this.question, this.options, this.correct, this.explain);
@@ -27,18 +27,21 @@ class QuizQuestion {
 /// Încarcă content/onboarding_quiz.json (după locale: 'ro' | 'en').
 final onboardingQuizProvider =
     FutureProvider.family<List<QuizQuestion>, String>((ref, locale) async {
-  final raw = await rootBundle.loadString('content/onboarding_quiz.json');
-  final json = jsonDecode(raw) as Map<String, dynamic>;
-  return [
-    for (final q in json['questions'] as List)
-      QuizQuestion(
-        (q['question'] as Map)[locale] as String,
-        [for (final o in q['options'] as List) (o as Map)[locale] as String],
-        q['correct'] as int,
-        (q['explain'] as Map)[locale] as String,
-      ),
-  ];
-});
+      final raw = await rootBundle.loadString('content/onboarding_quiz.json');
+      final json = jsonDecode(raw) as Map<String, dynamic>;
+      return [
+        for (final q in json['questions'] as List)
+          QuizQuestion(
+            (q['question'] as Map)[locale] as String,
+            [
+              for (final o in q['options'] as List)
+                (o as Map)[locale] as String,
+            ],
+            q['correct'] as int,
+            (q['explain'] as Map)[locale] as String,
+          ),
+      ];
+    });
 
 class QuizStep extends ConsumerStatefulWidget {
   const QuizStep({super.key, required this.onDone});
@@ -57,9 +60,7 @@ class _QuizStepState extends ConsumerState<QuizStep> {
   bool _rewardPanel = false;
 
   int get _correctCount {
-    final quiz = ref
-        .read(onboardingQuizProvider(_locale(context)))
-        .valueOrNull;
+    final quiz = ref.read(onboardingQuizProvider(_locale(context))).valueOrNull;
     if (quiz == null) return 0;
     var n = 0;
     for (var i = 0; i < _answers.length; i++) {
@@ -100,19 +101,26 @@ class _QuizStepState extends ConsumerState<QuizStep> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(l10n.onbQuizKicker,
-                                  style: T.display(
-                                      size: 12,
-                                      weight: FontWeight.w800,
-                                      color: C.sky,
-                                      letterSpacing: 12 * 0.12)),
                               Text(
-                                  l10n.onbQuizProgress(
-                                      _index + 1, questions.length),
-                                  style: T.display(
-                                      size: 22,
-                                      weight: FontWeight.w800,
-                                      color: C.text)),
+                                l10n.onbQuizKicker,
+                                style: T.display(
+                                  size: 12,
+                                  weight: FontWeight.w800,
+                                  color: C.sky,
+                                  letterSpacing: 12 * 0.12,
+                                ),
+                              ),
+                              Text(
+                                l10n.onbQuizProgress(
+                                  _index + 1,
+                                  questions.length,
+                                ),
+                                style: T.display(
+                                  size: 22,
+                                  weight: FontWeight.w800,
+                                  color: C.text,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -122,12 +130,15 @@ class _QuizStepState extends ConsumerState<QuizStep> {
                     ClayCard(
                       radius: 22,
                       padding: const EdgeInsets.all(18),
-                      child: Text(q.question,
-                          style: T.display(
-                              size: 18.5,
-                              weight: FontWeight.w700,
-                              color: C.text,
-                              height: 1.25)),
+                      child: Text(
+                        q.question,
+                        style: T.display(
+                          size: 18.5,
+                          weight: FontWeight.w700,
+                          color: C.text,
+                          height: 1.25,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 14),
                     for (var i = 0; i < q.options.length; i++) ...[
@@ -141,22 +152,24 @@ class _QuizStepState extends ConsumerState<QuizStep> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SvgIcon(
-                                _picked == q.correct
-                                    ? Ic.check
-                                    : Ic.alert,
-                                size: 17,
-                                color: _picked == q.correct
-                                    ? C.green
-                                    : C.amberDeep,
-                                strokeWidth: 2.6),
+                              _picked == q.correct ? Ic.check : Ic.alert,
+                              size: 17,
+                              color: _picked == q.correct
+                                  ? C.green
+                                  : C.amberDeep,
+                              strokeWidth: 2.6,
+                            ),
                             const SizedBox(width: 8),
                             Expanded(
-                              child: Text(q.explain,
-                                  style: T.body(
-                                      size: 13.5,
-                                      weight: FontWeight.w600,
-                                      color: C.text2,
-                                      height: 1.4)),
+                              child: Text(
+                                q.explain,
+                                style: T.body(
+                                  size: 13.5,
+                                  weight: FontWeight.w600,
+                                  color: C.text2,
+                                  height: 1.4,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -210,20 +223,25 @@ class _QuizStepState extends ConsumerState<QuizStep> {
           border: Border.all(color: border, width: 2),
           boxShadow: answered && (isCorrect || isPicked) ? null : Sh.raise,
         ),
-        child: Text(q.options[i],
-            style: T.body(
-                size: 15,
-                weight: FontWeight.w600,
-                color: C.text,
-                height: 1.3)),
+        child: Text(
+          q.options[i],
+          style: T.body(
+            size: 15,
+            weight: FontWeight.w600,
+            color: C.text,
+            height: 1.3,
+          ),
+        ),
       ),
     );
   }
 
   void _next() {
     _answers.add(_picked!);
-    final total =
-        ref.read(onboardingQuizProvider(_locale(context))).valueOrNull!.length;
+    final total = ref
+        .read(onboardingQuizProvider(_locale(context)))
+        .valueOrNull!
+        .length;
     setState(() {
       _picked = null;
       if (_answers.length >= total) {
@@ -235,8 +253,10 @@ class _QuizStepState extends ConsumerState<QuizStep> {
   }
 
   Widget _reward(AppLocalizations l10n) {
-    final total =
-        ref.read(onboardingQuizProvider(_locale(context))).valueOrNull!.length;
+    final total = ref
+        .read(onboardingQuizProvider(_locale(context)))
+        .valueOrNull!
+        .length;
     return Column(
       children: [
         Expanded(
@@ -245,14 +265,18 @@ class _QuizStepState extends ConsumerState<QuizStep> {
             children: [
               OnbHalo(
                 accent: C.amber,
-                child: Image.asset(Cashy.cashyCelebrate,
-                    width: 186, fit: BoxFit.contain),
+                child: Image.asset(
+                  Cashy.cashyCelebrate,
+                  width: 186,
+                  fit: BoxFit.contain,
+                ),
               ),
               OnbHeader(
-                  kicker: l10n.onbQuizDoneKicker,
-                  title: l10n.onbQuizDoneTitle(_correctCount, total),
-                  body: l10n.onbQuizDoneBody,
-                  accent: C.amber),
+                kicker: l10n.onbQuizDoneKicker,
+                title: l10n.onbQuizDoneTitle(_correctCount, total),
+                body: l10n.onbQuizDoneBody,
+                accent: C.amber,
+              ),
             ],
           ),
         ),
@@ -272,7 +296,7 @@ class _QuizStepState extends ConsumerState<QuizStep> {
   }
 }
 
-// ---- Poarta de vârstă (+ panou terminal too-young) ----
+// ---- Poarta de vârstă (+ panou terminal too-young)
 
 class AgeStep extends StatefulWidget {
   const AgeStep({super.key, required this.onDone});
@@ -317,14 +341,18 @@ class _AgeStepState extends State<AgeStep> {
               children: [
                 OnbHalo(
                   accent: C.violet,
-                  child: Image.asset(Cashy.cashyWorried,
-                      width: 180, fit: BoxFit.contain),
+                  child: Image.asset(
+                    Cashy.cashyWorried,
+                    width: 180,
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 OnbHeader(
-                    kicker: l10n.onbAgeKicker,
-                    title: l10n.onbAgeTooYoungTitle,
-                    body: l10n.onbAgeTooYoungBody,
-                    accent: C.violet),
+                  kicker: l10n.onbAgeKicker,
+                  title: l10n.onbAgeTooYoungTitle,
+                  body: l10n.onbAgeTooYoungBody,
+                  accent: C.violet,
+                ),
               ],
             ),
           ),
@@ -341,10 +369,11 @@ class _AgeStepState extends State<AgeStep> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OnbHeader(
-                  kicker: l10n.onbAgeKicker,
-                  title: l10n.onbAgeTitle,
-                  body: l10n.onbAgeBody,
-                  accent: C.blue),
+                kicker: l10n.onbAgeKicker,
+                title: l10n.onbAgeTitle,
+                body: l10n.onbAgeBody,
+                accent: C.blue,
+              ),
               const SizedBox(height: 20),
               Container(
                 height: 190,
@@ -363,12 +392,14 @@ class _AgeStepState extends State<AgeStep> {
                   childDelegate: ListWheelChildBuilderDelegate(
                     childCount: _years.length,
                     builder: (context, i) => Center(
-                      child: Text('${_years[i]}',
-                          style: T.display(
-                              size: _years[i] == _year ? 26 : 20,
-                              weight: FontWeight.w800,
-                              color:
-                                  _years[i] == _year ? C.blue : C.text3)),
+                      child: Text(
+                        '${_years[i]}',
+                        style: T.display(
+                          size: _years[i] == _year ? 26 : 20,
+                          weight: FontWeight.w800,
+                          color: _years[i] == _year ? C.blue : C.text3,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -391,15 +422,19 @@ class _AgeStepState extends State<AgeStep> {
               widget.onDone(_year);
             }
           },
-          trailing: const SvgIcon(Ic.arrowRight,
-              size: 20, color: Colors.white, strokeWidth: 2.6),
+          trailing: const SvgIcon(
+            Ic.arrowRight,
+            size: 20,
+            color: Colors.white,
+            strokeWidth: 2.6,
+          ),
         ),
       ],
     );
   }
 }
 
-// ---- Email părinte (sub 16 ani) ----
+// ---- Email părinte (sub 16 ani)
 
 class ParentStep extends StatefulWidget {
   const ParentStep({super.key, required this.onDone});
@@ -414,8 +449,10 @@ class _ParentStepState extends State<ParentStep> {
   final _email = TextEditingController();
   String? _error;
 
-  static final _emailRx =
-      RegExp(r'^[\w.+-]+@[\w-]+(\.[\w-]+)+$', caseSensitive: false);
+  static final _emailRx = RegExp(
+    r'^[\w.+-]+@[\w-]+(\.[\w-]+)+$',
+    caseSensitive: false,
+  );
 
   @override
   void dispose() {
@@ -435,20 +472,29 @@ class _ParentStepState extends State<ParentStep> {
                 OnbHalo(
                   accent: C.green,
                   size: 180,
-                  child: Image.asset(Cashy.cashyPoint,
-                      width: 140, fit: BoxFit.contain),
+                  child: Image.asset(
+                    Cashy.cashyPoint,
+                    width: 140,
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 OnbHeader(
-                    kicker: l10n.onbParentKicker,
-                    title: l10n.onbParentTitle,
-                    body: l10n.onbParentBody,
-                    accent: C.green),
+                  kicker: l10n.onbParentKicker,
+                  title: l10n.onbParentTitle,
+                  body: l10n.onbParentBody,
+                  accent: C.green,
+                ),
                 const SizedBox(height: 18),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(l10n.onbParentFieldLabel,
-                      style: T.display(
-                          size: 13, weight: FontWeight.w700, color: C.text2)),
+                  child: Text(
+                    l10n.onbParentFieldLabel,
+                    style: T.display(
+                      size: 13,
+                      weight: FontWeight.w700,
+                      color: C.text2,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 ClayField(
@@ -483,7 +529,7 @@ class _ParentStepState extends State<ParentStep> {
   }
 }
 
-// ---- Buget lunar ----
+// ---- Buget lunar
 
 class BudgetStep extends StatefulWidget {
   const BudgetStep({super.key, required this.onDone});
@@ -509,10 +555,11 @@ class _BudgetStepState extends State<BudgetStep> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OnbHeader(
-                  kicker: l10n.onbBudgetKicker,
-                  title: l10n.onbBudgetTitle,
-                  body: l10n.onbBudgetBody,
-                  accent: C.blue),
+                kicker: l10n.onbBudgetKicker,
+                title: l10n.onbBudgetTitle,
+                body: l10n.onbBudgetBody,
+                accent: C.blue,
+              ),
               const SizedBox(height: 22),
               ClayCard(
                 radius: 22,
@@ -525,26 +572,35 @@ class _BudgetStepState extends State<BudgetStep> {
                       textBaseline: TextBaseline.alphabetic,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.onbBudgetSliderLabel,
-                            style: T.display(
-                                size: 14,
-                                weight: FontWeight.w700,
-                                color: C.text2)),
+                        Text(
+                          l10n.onbBudgetSliderLabel,
+                          style: T.display(
+                            size: 14,
+                            weight: FontWeight.w700,
+                            color: C.text2,
+                          ),
+                        ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.baseline,
                           textBaseline: TextBaseline.alphabetic,
                           children: [
-                            Text(fmtThousands(_value.round()),
-                                style: T.display(
-                                    size: 28,
-                                    weight: FontWeight.w800,
-                                    color: C.blue)),
+                            Text(
+                              fmtThousands(_value.round()),
+                              style: T.display(
+                                size: 28,
+                                weight: FontWeight.w800,
+                                color: C.blue,
+                              ),
+                            ),
                             const SizedBox(width: 4),
-                            Text(l10n.onbBudgetUnit,
-                                style: T.display(
-                                    size: 15,
-                                    weight: FontWeight.w800,
-                                    color: C.text2)),
+                            Text(
+                              l10n.onbBudgetUnit,
+                              style: T.display(
+                                size: 15,
+                                weight: FontWeight.w800,
+                                color: C.text2,
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -578,25 +634,31 @@ class _BudgetStepState extends State<BudgetStep> {
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 14, vertical: 8),
+                                horizontal: 14,
+                                vertical: 8,
+                              ),
                               decoration: BoxDecoration(
                                 color: _value == p.toDouble()
                                     ? C.blueSoft
                                     : C.surface2,
                                 borderRadius: BorderRadius.circular(R.pill),
                                 border: Border.all(
-                                    color: _value == p.toDouble()
-                                        ? C.blue
-                                        : C.line,
-                                    width: 1.5),
+                                  color: _value == p.toDouble()
+                                      ? C.blue
+                                      : C.line,
+                                  width: 1.5,
+                                ),
                               ),
-                              child: Text(fmtThousands(p),
-                                  style: T.display(
-                                      size: 14,
-                                      weight: FontWeight.w800,
-                                      color: _value == p.toDouble()
-                                          ? C.blueInk
-                                          : C.text2)),
+                              child: Text(
+                                fmtThousands(p),
+                                style: T.display(
+                                  size: 14,
+                                  weight: FontWeight.w800,
+                                  color: _value == p.toDouble()
+                                      ? C.blueInk
+                                      : C.text2,
+                                ),
+                              ),
                             ),
                           ),
                       ],
@@ -617,8 +679,12 @@ class _BudgetStepState extends State<BudgetStep> {
             Juice.tick();
             widget.onDone(_value);
           },
-          trailing: const SvgIcon(Ic.arrowRight,
-              size: 20, color: Colors.white, strokeWidth: 2.6),
+          trailing: const SvgIcon(
+            Ic.arrowRight,
+            size: 20,
+            color: Colors.white,
+            strokeWidth: 2.6,
+          ),
         ),
       ],
     );

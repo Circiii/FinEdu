@@ -1,4 +1,5 @@
-﻿import 'package:drift/drift.dart' show Value;
+import 'package:drift/drift.dart' show Value;
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +12,7 @@ import '../../../core/ui/flame.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/fmt.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../../domain/engine/cashy_evolution.dart';
@@ -48,8 +50,7 @@ class ProfileScreen extends ConsumerWidget {
     final dojo = ref.watch(dojoStateProvider).valueOrNull;
     final turboBest = ref.watch(turboBestProvider).valueOrNull;
     final dailySolved = ref.watch(dailySolvedCountProvider).valueOrNull ?? 0;
-    final activeDays =
-        ref.watch(activityDaysProvider).valueOrNull?.length ?? 0;
+    final activeDays = ref.watch(activityDaysProvider).valueOrNull?.length ?? 0;
     final carePts = ref.watch(carePointsProvider);
 
     final lessonsTotal = units.fold<int>(0, (n, u) => n + u.lessons.length);
@@ -65,45 +66,88 @@ class ProfileScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Profil',
-                      style: T.display(
-                          size: 24, weight: FontWeight.w800, color: C.text)),
+                  Text(
+                    'Profil',
+                    style: T.display(
+                      size: 24,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
                   const SizedBox(height: 14),
-                  _hero(profile, carePts),
+                  StaggerIn(index: 0, child: _hero(profile, carePts)),
                   const SizedBox(height: 12),
-                  _scoreSection(score),
+                  StaggerIn(index: 1, child: _scoreSection(score)),
                   const SizedBox(height: 12),
-                  _evolutionCard(carePts),
+                  StaggerIn(index: 2, child: _evolutionCard(carePts)),
                   const SizedBox(height: 12),
-                  _statsGrid(
-                    streakLongest: streak?.longest ?? 0,
-                    activeDays: activeDays,
-                    lessons: '${done.length}/$lessonsTotal',
-                    belt: dojo == null || dojo.rounds == 0
-                        ? ', '
-                        : '${dojo.belt.$1} ${dojo.belt.$2}',
-                    dailySolved: dailySolved,
-                    turboBest: turboBest,
+                  StaggerIn(
+                    index: 3,
+                    child: _statsGrid(
+                      streakLongest: streak?.longest ?? 0,
+                      activeDays: activeDays,
+                      lessons: '${done.length}/$lessonsTotal',
+                      belt: dojo == null || dojo.rounds == 0
+                          ? ', '
+                          : '${dojo.belt.$1} ${dojo.belt.$2}',
+                      dailySolved: dailySolved,
+                      turboBest: turboBest,
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  _sectionLabel('UNELTE'),
+                  StaggerIn(index: 4, child: _sectionLabel('UNELTE')),
                   const SizedBox(height: 10),
-                  _toolRow(context, Ic.repeat, 'Abonamente',
-                      'Plățile care se repetă singure', '/recurring'),
+                  StaggerIn(
+                    index: 4,
+                    child: _toolRow(
+                      context,
+                      Ic.repeat,
+                      'Abonamente',
+                      'Plățile care se repetă singure',
+                      '/recurring',
+                    ),
+                  ),
                   const SizedBox(height: 10),
-                  _toolRow(context, Ic.flame, 'Focul lui Cashy',
-                      'Streak, gheață și borne', '/challenges'),
+                  StaggerIn(
+                    index: 5,
+                    child: _toolRow(
+                      context,
+                      Ic.flame,
+                      'Focul lui Cashy',
+                      'Streak, gheață și borne',
+                      '/challenges',
+                    ),
+                  ),
                   const SizedBox(height: 10),
-                  _toolRow(context, Ic.book, 'Recapitularea lui Cashy',
-                      'Cardurile tale scadente', '/review'),
+                  StaggerIn(
+                    index: 5,
+                    child: _toolRow(
+                      context,
+                      Ic.book,
+                      'Recapitularea lui Cashy',
+                      'Cardurile tale scadente',
+                      '/review',
+                    ),
+                  ),
                   const SizedBox(height: 16),
-                  _sectionLabel('SETĂRI'),
+                  StaggerIn(index: 6, child: _sectionLabel('SETĂRI')),
                   const SizedBox(height: 10),
-                  _budgetRow(context, ref, profile),
+                  StaggerIn(index: 6, child: _budgetRow(context, ref, profile)),
                   const SizedBox(height: 10),
-                  _personalizationRow(context, ref, profile),
+                  StaggerIn(
+                    index: 7,
+                    child: _personalizationRow(context, ref, profile),
+                  ),
                   const SizedBox(height: 16),
-                  _wardrobeEntry(context, ref),
+                  StaggerIn(index: 7, child: _wardrobeEntry(context, ref)),
+                  // Doar în build-ul de dezvoltare: nu ajunge la utilizatori.
+                  if (kDebugMode) ...[
+                    const SizedBox(height: 16),
+                    TextButton(
+                      onPressed: () => context.push('/debug'),
+                      child: const Text('Debug'),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -113,22 +157,25 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _sectionLabel(String text) => Text(text,
-      style: T.display(
-          size: 11.5,
-          weight: FontWeight.w800,
-          color: C.text3,
-          letterSpacing: 11.5 * 0.12));
+  Widget _sectionLabel(String text) => Text(
+    text,
+    style: T.display(
+      size: 11.5,
+      weight: FontWeight.w800,
+      color: C.text3,
+      letterSpacing: 11.5 * 0.12,
+    ),
+  );
 
-  // ---- hero ----------------------------------------------------------------
+  // ---- capul de profil
 
   Widget _hero(LocalProfile? profile, int carePts) {
     final name = profile?.cashyName ?? 'Cashy';
     final xp = profile?.xp ?? 0;
     final acorns = profile?.acorns ?? 0;
     final level = levelForXp(xp);
-    final grad = _cashyGradients[profile?.cashyColor] ??
-        _cashyGradients['sky']!;
+    final grad =
+        _cashyGradients[profile?.cashyColor] ?? _cashyGradients['sky']!;
 
     final stage = stageFor(carePts);
     final next = nextStage(carePts);
@@ -140,42 +187,64 @@ class ProfileScreen extends ConsumerWidget {
       child: Row(
         children: [
           // Garderoba îmbracă avatarul; fără fundal echipat rămâne culoarea de la onboarding.
-          CashyAvatar(
-              asset: Cashy.cashyDefault, size: 92, radius: 24, fallback: grad),
+          Floaty(
+            child: CashyAvatar(
+              asset: Cashy.cashyDefault,
+              size: 92,
+              radius: 24,
+              fallback: grad,
+            ),
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name,
-                    style: T.display(
-                        size: 22, weight: FontWeight.w800, color: C.text)),
+                Text(
+                  name,
+                  style: T.display(
+                    size: 22,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text('Nivel $level · ${fmtThousands(xp)} XP',
-                    style: T.body(
-                        size: 13, weight: FontWeight.w600, color: C.text2)),
+                Text(
+                  'Nivel $level · ${fmtThousands(xp)} XP',
+                  style: T.body(
+                    size: 13,
+                    weight: FontWeight.w600,
+                    color: C.text2,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 // Stadiul de evoluție: identitate + progres spre următorul.
                 // JuiceBounce săltă titlul la creștere (trigger pe titlu, nu la primul load).
                 if (next == null)
                   JuiceBounce(
                     trigger: stage.title,
-                    child: AcornText('${stage.emoji} ${stage.title} · nivel maxim',
-                        style: T.display(
-                            size: 12.5,
-                            weight: FontWeight.w800,
-                            color: C.violetDeep)),
+                    child: AcornText(
+                      '${stage.emoji} ${stage.title} · nivel maxim',
+                      style: T.display(
+                        size: 12.5,
+                        weight: FontWeight.w800,
+                        color: C.violetDeep,
+                      ),
+                    ),
                   )
                 else
                   Row(
                     children: [
                       JuiceBounce(
                         trigger: stage.title,
-                        child: AcornText('${stage.emoji} ${stage.title}',
-                            style: T.display(
-                                size: 12.5,
-                                weight: FontWeight.w800,
-                                color: C.violetDeep)),
+                        child: AcornText(
+                          '${stage.emoji} ${stage.title}',
+                          style: T.display(
+                            size: 12.5,
+                            weight: FontWeight.w800,
+                            color: C.violetDeep,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
@@ -184,13 +253,16 @@ class ProfileScreen extends ConsumerWidget {
                           child: Container(
                             height: 6,
                             color: C.inset,
-                            child: FractionallySizedBox(
-                              alignment: Alignment.centerLeft,
-                              widthFactor: progress.clamp(0.02, 1.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: C.violet,
-                                  borderRadius: BorderRadius.circular(R.pill),
+                            child: AnimatedFrac(
+                              value: progress.clamp(0.02, 1.0),
+                              builder: (_, v) => FractionallySizedBox(
+                                alignment: Alignment.centerLeft,
+                                widthFactor: v.clamp(0.001, 1.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: C.violet,
+                                    borderRadius: BorderRadius.circular(R.pill),
+                                  ),
                                 ),
                               ),
                             ),
@@ -198,22 +270,32 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Text('$carePts/${next.threshold}',
-                          style: T.body(
-                              size: 10.5,
-                              weight: FontWeight.w600,
-                              color: C.text3)),
+                      Text(
+                        '$carePts/${next.threshold}',
+                        style: T.body(
+                          size: 10.5,
+                          weight: FontWeight.w600,
+                          color: C.text3,
+                        ),
+                      ),
                     ],
                   ),
                 const SizedBox(height: 4),
                 // Framing de identitate: „ai crescut", utilizatorul a făcut-o.
-                Text('Ai crescut un ${stage.title}.',
-                    style: T.body(
-                        size: 11, weight: FontWeight.w600, color: C.text3)),
+                Text(
+                  'Ai crescut un ${stage.title}.',
+                  style: T.body(
+                    size: 11,
+                    weight: FontWeight.w600,
+                    color: C.text3,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 6),
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: C.amberSoft,
                     borderRadius: BorderRadius.circular(R.pill),
@@ -224,11 +306,14 @@ class ProfileScreen extends ConsumerWidget {
                     children: [
                       const AcornIcon(size: 15),
                       const SizedBox(width: 6),
-                      Text('${fmtThousands(acorns)} ghinde',
-                          style: T.display(
-                              size: 13.5,
-                              weight: FontWeight.w800,
-                              color: C.text)),
+                      Text(
+                        '${fmtThousands(acorns)} ghinde',
+                        style: T.display(
+                          size: 13.5,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -240,7 +325,7 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  // ---- evoluția lui Cashy --------------------------------------------------
+  // ---- evoluția lui Cashy
 
   /// Cele 6 stadii ca chip-uri: atinse în culoare, viitoare gri, curent cu
   /// bordură violet. Fără cifre care împing „mai repede".
@@ -268,17 +353,20 @@ class ProfileScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 12),
           Text(
-              'Punctele de grijă cresc din zilele active, lecții, streak, '
-              'jocuri și cadourile pentru Cashy.',
-              style: T.body(
-                  size: 11.5, weight: FontWeight.w500, color: C.text3)),
+            'Punctele de grijă cresc din zilele active, lecții, streak, '
+            'jocuri și cadourile pentru Cashy.',
+            style: T.body(size: 11.5, weight: FontWeight.w500, color: C.text3),
+          ),
         ],
       ),
     );
   }
 
-  Widget _stageChip(CashyStage s,
-      {required bool reached, required bool isCurrent}) {
+  Widget _stageChip(
+    CashyStage s, {
+    required bool reached,
+    required bool isCurrent,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
@@ -293,20 +381,26 @@ class ProfileScreen extends ConsumerWidget {
               ? AcornText(s.emoji, style: const TextStyle(fontSize: 15))
               : Opacity(
                   opacity: 0.45,
-                  child:
-                      AcornText(s.emoji, style: const TextStyle(fontSize: 15))),
+                  child: AcornText(
+                    s.emoji,
+                    style: const TextStyle(fontSize: 15),
+                  ),
+                ),
           const SizedBox(width: 6),
-          Text(s.title,
-              style: T.display(
-                  size: 12,
-                  weight: FontWeight.w800,
-                  color: reached ? C.violetDeep : C.text3)),
+          Text(
+            s.title,
+            style: T.display(
+              size: 12,
+              weight: FontWeight.w800,
+              color: reached ? C.violetDeep : C.text3,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  // ---- score ---------------------------------------------------------------
+  // ---- scor
 
   Widget _scoreSection(ScoreBreakdown? score) {
     final total = score?.total ?? 1;
@@ -331,10 +425,16 @@ class ProfileScreen extends ConsumerWidget {
                   top: 22,
                   left: 0,
                   right: 0,
-                  child: Text('$total',
-                      textAlign: TextAlign.center,
-                      style: T.display(
-                          size: 27, weight: FontWeight.w800, color: C.text)),
+                  child: AnimatedCount(
+                    value: total,
+                    duration: const Duration(milliseconds: 900),
+                    textAlign: TextAlign.center,
+                    style: T.display(
+                      size: 27,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
@@ -342,21 +442,32 @@ class ProfileScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Scor FinEdu',
-                        style: T.display(
-                            size: 15, weight: FontWeight.w800, color: C.text)),
+                    Text(
+                      'Scor FinEdu',
+                      style: T.display(
+                        size: 15,
+                        weight: FontWeight.w800,
+                        color: C.text,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text(scoreLevelLabel(total),
-                        style: T.body(
-                            size: 13,
-                            weight: FontWeight.w700,
-                            color: C.blue)),
+                    Text(
+                      scoreLevelLabel(total),
+                      style: T.body(
+                        size: 13,
+                        weight: FontWeight.w700,
+                        color: C.blue,
+                      ),
+                    ),
                     const SizedBox(height: 2),
-                    Text('Se recalculează din datele tale, live.',
-                        style: T.body(
-                            size: 11.5,
-                            weight: FontWeight.w500,
-                            color: C.text3)),
+                    Text(
+                      'Se recalculează din datele tale, live.',
+                      style: T.body(
+                        size: 11.5,
+                        weight: FontWeight.w500,
+                        color: C.text3,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -368,11 +479,14 @@ class ProfileScreen extends ConsumerWidget {
               children: [
                 SizedBox(
                   width: 92,
-                  child: Text(label,
-                      style: T.body(
-                          size: 12.5,
-                          weight: FontWeight.w600,
-                          color: C.text2)),
+                  child: Text(
+                    label,
+                    style: T.body(
+                      size: 12.5,
+                      weight: FontWeight.w600,
+                      color: C.text2,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: ClipRRect(
@@ -380,15 +494,20 @@ class ProfileScreen extends ConsumerWidget {
                     child: Container(
                       height: 9,
                       color: C.inset,
-                      child: FractionallySizedBox(
-                        alignment: Alignment.centerLeft,
-                        widthFactor: (value / 100).clamp(0.02, 1.0),
-                        child: Container(
+                      child: AnimatedFrac(
+                        value: (value / 100).clamp(0.02, 1.0),
+                        duration: const Duration(milliseconds: 900),
+                        builder: (_, v) => FractionallySizedBox(
+                          alignment: Alignment.centerLeft,
+                          widthFactor: v.clamp(0.001, 1.0),
+                          child: Container(
                             decoration: BoxDecoration(
-                          color: color,
-                          borderRadius: BorderRadius.circular(R.pill),
-                          boxShadow: const [],
-                        )),
+                              color: color,
+                              borderRadius: BorderRadius.circular(R.pill),
+                              boxShadow: const [],
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -396,12 +515,16 @@ class ProfileScreen extends ConsumerWidget {
                 const SizedBox(width: 8),
                 SizedBox(
                   width: 32,
-                  child: Text('$value',
-                      textAlign: TextAlign.right,
-                      style: T.display(
-                          size: 12.5,
-                          weight: FontWeight.w800,
-                          color: C.text)),
+                  child: AnimatedCount(
+                    value: value,
+                    duration: const Duration(milliseconds: 900),
+                    textAlign: TextAlign.right,
+                    style: T.display(
+                      size: 12.5,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -412,7 +535,7 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  // ---- stats ---------------------------------------------------------------
+  // ---- statistici
 
   Widget _statsGrid({
     required int streakLongest,
@@ -430,7 +553,13 @@ class ProfileScreen extends ConsumerWidget {
       (Ic.book, '📚', C.sky, 'Lecții terminate', lessons),
       (null, '🥋', C.text, 'Centura Dojo', belt),
       (Ic.target, '🎯', C.violet, 'Provocări rezolvate', '$dailySolved'),
-      (null, '⚡', C.text, 'Record Turbo', turboBest == null ? ', ' : '$turboBest'),
+      (
+        null,
+        '⚡',
+        C.text,
+        'Record Turbo',
+        turboBest == null ? ', ' : '$turboBest',
+      ),
     ];
     return GridView.count(
       crossAxisCount: 2,
@@ -443,35 +572,40 @@ class ProfileScreen extends ConsumerWidget {
         for (final (icon, emoji, color, label, value) in stats)
           ClayCard(
             radius: 18,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             child: Row(
               children: [
                 icon == null
                     ? Text(emoji, style: const TextStyle(fontSize: 20))
                     : icon == Ic.flame
-                        ? const FlameIcon(size: 20)
-                        : SvgIcon(icon, size: 20, color: color, strokeWidth: 2.1),
+                    ? const FlameIcon(size: 20)
+                    : SvgIcon(icon, size: 20, color: color, strokeWidth: 2.1),
                 const SizedBox(width: 9),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(value,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: T.display(
-                              size: 14.5,
-                              weight: FontWeight.w800,
-                              color: C.text)),
-                      Text(label,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: T.body(
-                              size: 10.5,
-                              weight: FontWeight.w600,
-                              color: C.text3)),
+                      Text(
+                        value,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: T.display(
+                          size: 14.5,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                        ),
+                      ),
+                      Text(
+                        label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: T.body(
+                          size: 10.5,
+                          weight: FontWeight.w600,
+                          color: C.text3,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -482,15 +616,17 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  // ---- tools + settings -----------------------------------------------------
+  // ---- unelte + setări
 
-  Widget _toolRow(BuildContext context, String icon, String title,
-      String subtitle, String route) {
-    return GestureDetector(
-      onTap: () {
-        Juice.tick();
-        context.push(route);
-      },
+  Widget _toolRow(
+    BuildContext context,
+    String icon,
+    String title,
+    String subtitle,
+    String route,
+  ) {
+    return Pressable(
+      onTap: () => context.push(route),
       child: ClayCard(
         radius: 18,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
@@ -513,19 +649,31 @@ class ProfileScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: T.display(
-                          size: 14.5, weight: FontWeight.w800, color: C.text)),
-                  Text(subtitle,
-                      style: T.body(
-                          size: 11.5,
-                          weight: FontWeight.w600,
-                          color: C.text3)),
+                  Text(
+                    title,
+                    style: T.display(
+                      size: 14.5,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: T.body(
+                      size: 11.5,
+                      weight: FontWeight.w600,
+                      color: C.text3,
+                    ),
+                  ),
                 ],
               ),
             ),
-            const SvgIcon(Ic.chevronRight,
-                size: 17, color: C.text3, strokeWidth: 2.4),
+            const SvgIcon(
+              Ic.chevronRight,
+              size: 17,
+              color: C.text3,
+              strokeWidth: 2.4,
+            ),
           ],
         ),
       ),
@@ -533,11 +681,13 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _budgetRow(
-      BuildContext context, WidgetRef ref, LocalProfile? profile) {
+    BuildContext context,
+    WidgetRef ref,
+    LocalProfile? profile,
+  ) {
     final budget = (profile?.monthlyBudget ?? 0).round();
-    return GestureDetector(
+    return Pressable(
       onTap: () {
-        Juice.tick();
         showModalBottomSheet<void>(
           context: context,
           isScrollControlled: true,
@@ -558,31 +708,52 @@ class ProfileScreen extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(13),
               ),
               alignment: Alignment.center,
-              child: const SvgIcon(Ic.wallet,
-                  size: 20, color: C.green, strokeWidth: 2.2),
+              child: const SvgIcon(
+                Ic.wallet,
+                size: 20,
+                color: C.green,
+                strokeWidth: 2.2,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Buget lunar',
-                      style: T.display(
-                          size: 14.5, weight: FontWeight.w800, color: C.text)),
-                  Text('Ținta ta pentru luna curentă',
-                      style: T.body(
-                          size: 11.5,
-                          weight: FontWeight.w600,
-                          color: C.text3)),
+                  Text(
+                    'Buget lunar',
+                    style: T.display(
+                      size: 14.5,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
+                  Text(
+                    'Ținta ta pentru luna curentă',
+                    style: T.body(
+                      size: 11.5,
+                      weight: FontWeight.w600,
+                      color: C.text3,
+                    ),
+                  ),
                 ],
               ),
             ),
-            Text('${fmtThousands(budget)} lei',
-                style: T.display(
-                    size: 14.5, weight: FontWeight.w800, color: C.green)),
+            Text(
+              '${fmtThousands(budget)} lei',
+              style: T.display(
+                size: 14.5,
+                weight: FontWeight.w800,
+                color: C.green,
+              ),
+            ),
             const SizedBox(width: 6),
-            const SvgIcon(Ic.chevronRight,
-                size: 17, color: C.text3, strokeWidth: 2.4),
+            const SvgIcon(
+              Ic.chevronRight,
+              size: 17,
+              color: C.text3,
+              strokeWidth: 2.4,
+            ),
           ],
         ),
       ),
@@ -592,7 +763,10 @@ class ProfileScreen extends ConsumerWidget {
   /// Gate de personalizare: opt-in explicit. Switch-ul deschide un sheet, doar
   /// „Activează" pornește profilarea (AADC/GDPR); oprirea e instantanee.
   Widget _personalizationRow(
-      BuildContext context, WidgetRef ref, LocalProfile? profile) {
+    BuildContext context,
+    WidgetRef ref,
+    LocalProfile? profile,
+  ) {
     final on = profile?.personalizationOn ?? false;
     Future<void> setOn(bool value) => ref
         .read(localProfileRepositoryProvider)
@@ -618,15 +792,24 @@ class ProfileScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Personalizare inteligentă',
-                    style: T.display(
-                        size: 14.5, weight: FontWeight.w800, color: C.text)),
                 Text(
-                    on
-                        ? 'Cashy învață local ce ți se potrivește'
-                        : 'Oprită, nimic nu te profilează',
-                    style: T.body(
-                        size: 11.5, weight: FontWeight.w600, color: C.text3)),
+                  'Personalizare inteligentă',
+                  style: T.display(
+                    size: 14.5,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
+                Text(
+                  on
+                      ? 'Cashy învață local ce ți se potrivește'
+                      : 'Oprită, nimic nu te profilează',
+                  style: T.body(
+                    size: 11.5,
+                    weight: FontWeight.w600,
+                    color: C.text3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -655,15 +838,13 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _wardrobeEntry(BuildContext context, WidgetRef ref) {
-    final ownedCount =
-        ref.watch(ownedItemsProvider).valueOrNull?.length ?? 0;
-    final catalogCount =
-        ref.watch(wardrobeCatalogProvider('ro')).valueOrNull?.length;
-    return GestureDetector(
-      onTap: () {
-        Juice.tick();
-        context.push('/garderoba');
-      },
+    final ownedCount = ref.watch(ownedItemsProvider).valueOrNull?.length ?? 0;
+    final catalogCount = ref
+        .watch(wardrobeCatalogProvider('ro'))
+        .valueOrNull
+        ?.length;
+    return Pressable(
+      onTap: () => context.push('/garderoba'),
       child: ClayCard(
         radius: 22,
         shadow: Sh.raise,
@@ -685,20 +866,33 @@ class ProfileScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Garderoba lui Cashy',
-                      style: T.display(
-                          size: 15, weight: FontWeight.w800, color: C.text)),
                   Text(
-                      catalogCount == null
-                          ? 'Fundaluri și accesorii pentru ghindele tale'
-                          : '$ownedCount/$catalogCount în colecție',
-                      style: T.body(
-                          size: 12, weight: FontWeight.w600, color: C.text3)),
+                    'Garderoba lui Cashy',
+                    style: T.display(
+                      size: 15,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
+                  Text(
+                    catalogCount == null
+                        ? 'Fundaluri și accesorii pentru ghindele tale'
+                        : '$ownedCount/$catalogCount în colecție',
+                    style: T.body(
+                      size: 12,
+                      weight: FontWeight.w600,
+                      color: C.text3,
+                    ),
+                  ),
                 ],
               ),
             ),
-            const SvgIcon(Ic.chevronRight,
-                size: 17, color: C.text3, strokeWidth: 2.4),
+            const SvgIcon(
+              Ic.chevronRight,
+              size: 17,
+              color: C.text3,
+              strokeWidth: 2.4,
+            ),
           ],
         ),
       ),
@@ -716,8 +910,9 @@ class _BudgetSheet extends ConsumerStatefulWidget {
 }
 
 class _BudgetSheetState extends ConsumerState<_BudgetSheet> {
-  late final TextEditingController _controller =
-      TextEditingController(text: widget.current > 0 ? '${widget.current}' : '');
+  late final TextEditingController _controller = TextEditingController(
+    text: widget.current > 0 ? '${widget.current}' : '',
+  );
 
   @override
   void dispose() {
@@ -738,8 +933,9 @@ class _BudgetSheetState extends ConsumerState<_BudgetSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Container(
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
         decoration: const BoxDecoration(
@@ -750,13 +946,19 @@ class _BudgetSheetState extends ConsumerState<_BudgetSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Bugetul tău lunar',
-                style: T.display(
-                    size: 19, weight: FontWeight.w800, color: C.text)),
+            Text(
+              'Bugetul tău lunar',
+              style: T.display(
+                size: 19,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text('Cât îți propui să cheltui într-o lună, în total.',
-                style: T.body(
-                    size: 13, weight: FontWeight.w500, color: C.text2)),
+            Text(
+              'Cât îți propui să cheltui într-o lună, în total.',
+              style: T.body(size: 13, weight: FontWeight.w500, color: C.text2),
+            ),
             const SizedBox(height: 14),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -769,13 +971,19 @@ class _BudgetSheetState extends ConsumerState<_BudgetSheet> {
                 keyboardType: TextInputType.number,
                 autofocus: true,
                 style: T.display(
-                    size: 22, weight: FontWeight.w800, color: C.text),
+                  size: 22,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: '800',
                   suffixText: 'lei',
                   suffixStyle: T.body(
-                      size: 15, weight: FontWeight.w600, color: C.text3),
+                    size: 15,
+                    weight: FontWeight.w600,
+                    color: C.text3,
+                  ),
                 ),
               ),
             ),
@@ -810,8 +1018,9 @@ class _PersonalizationSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Container(
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
         decoration: const BoxDecoration(
@@ -836,21 +1045,33 @@ class _PersonalizationSheet extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text('Vrei să învăț ce ți se potrivește?',
-                      style: T.display(
-                          size: 18, weight: FontWeight.w800, color: C.text)),
+                  child: Text(
+                    'Vrei să învăț ce ți se potrivește?',
+                    style: T.display(
+                      size: 18,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 14),
             Text(
-                'Dacă pornești asta, mă uit la ce carduri și sfaturi te ajută '
-                'cu adevărat și ți le arăt pe alea mai des. Fără să te bat la cap.',
-                style: T.body(
-                    size: 13.5, weight: FontWeight.w500, color: C.text2)),
+              'Dacă pornești asta, mă uit la ce carduri și sfaturi te ajută '
+              'cu adevărat și ți le arăt pe alea mai des. Fără să te bat la cap.',
+              style: T.body(
+                size: 13.5,
+                weight: FontWeight.w500,
+                color: C.text2,
+              ),
+            ),
             const SizedBox(height: 12),
             _point('📱', 'Totul se întâmplă PE telefonul tău.'),
-            _point('☁️', 'Nimic nu pleacă în cloud, nici la mine, nici altundeva.'),
+            _point(
+              '☁️',
+              'Nimic nu pleacă în cloud, nici la mine, nici altundeva.',
+            ),
             _point('🎚️', 'O poți opri oricând, din același loc. Zero drama.'),
             const SizedBox(height: 18),
             ClayButton(
@@ -871,9 +1092,14 @@ class _PersonalizationSheet extends StatelessWidget {
               child: Container(
                 height: 48,
                 alignment: Alignment.center,
-                child: Text('Nu acum',
-                    style: T.display(
-                        size: 15, weight: FontWeight.w800, color: C.text3)),
+                child: Text(
+                  'Nu acum',
+                  style: T.display(
+                    size: 15,
+                    weight: FontWeight.w800,
+                    color: C.text3,
+                  ),
+                ),
               ),
             ),
           ],
@@ -883,18 +1109,19 @@ class _PersonalizationSheet extends StatelessWidget {
   }
 
   Widget _point(String emoji, String text) => Padding(
-        padding: const EdgeInsets.only(top: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(emoji, style: const TextStyle(fontSize: 16)),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(text,
-                  style: T.body(
-                      size: 12.5, weight: FontWeight.w600, color: C.text2)),
-            ),
-          ],
+    padding: const EdgeInsets.only(top: 8),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(emoji, style: const TextStyle(fontSize: 16)),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            text,
+            style: T.body(size: 12.5, weight: FontWeight.w600, color: C.text2),
+          ),
         ),
-      );
+      ],
+    ),
+  );
 }

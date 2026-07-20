@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,8 +8,9 @@ import '../data/wardrobe_repository.dart';
 
 /// Look-ul echipat al lui Cashy: culorile fundalului + emoji-ul accesoriului.
 /// Itemele apar doar dacă sunt și deținute (un item dispărut din catalog e ignorat).
-final equippedLookProvider =
-    Provider<({List<Color>? bg, String? accessory})>((ref) {
+final equippedLookProvider = Provider<({List<Color>? bg, String? accessory})>((
+  ref,
+) {
   final profile = ref.watch(localProfileStreamProvider).valueOrNull;
   final catalog = ref.watch(wardrobeCatalogProvider('ro')).valueOrNull;
   final owned = ref.watch(ownedItemsProvider).valueOrNull ?? const <String>{};
@@ -86,8 +87,10 @@ class CashyAvatar extends ConsumerWidget {
             Positioned(
               top: -size * 0.10,
               right: -size * 0.06,
-              child: Text(look.accessory!,
-                  style: TextStyle(fontSize: size * 0.34)),
+              child: Text(
+                look.accessory!,
+                style: TextStyle(fontSize: size * 0.34),
+              ),
             ),
         ],
       ),
@@ -105,8 +108,9 @@ class CashySprite extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accessory =
-        ref.watch(equippedLookProvider.select((l) => l.accessory));
+    final accessory = ref.watch(
+      equippedLookProvider.select((l) => l.accessory),
+    );
     final image = Image.asset(asset, width: width);
     if (accessory == null) return image;
     return SizedBox(

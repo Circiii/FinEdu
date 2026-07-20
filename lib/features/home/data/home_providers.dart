@@ -1,4 +1,4 @@
-﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/db/app_db.dart';
 import '../../../core/db/local_profile_repository.dart';
@@ -17,9 +17,7 @@ final recentTransactionsProvider = StreamProvider<List<Transaction>>((ref) {
 
 /// Toate tranzacțiile din luna calendaristică curentă (inelul de buget + segmente).
 final monthTransactionsProvider = StreamProvider<List<Transaction>>((ref) {
-  return ref
-      .watch(transactionsRepositoryProvider)
-      .watchMonth(DateTime.now());
+  return ref.watch(transactionsRepositoryProvider).watchMonth(DateTime.now());
 });
 
 /// Fiecare zi cu activitate înregistrată, input pentru streak engine.

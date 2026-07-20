@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +7,7 @@ import '../../../core/ui/clay.dart';
 import '../../../core/ui/flame.dart';
 import '../../../core/ui/fmt.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../../domain/engine/dojo_elo.dart';
@@ -43,6 +44,8 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
   bool _summary = false;
   bool _beltUp = false;
   bool _picking = false;
+  int _okBumps = 0; // salt pe scor doar la răspuns bun
+  int _wrongShakes = 0; // scuturare pe card doar la greșeală
 
   String get _locale =>
       Localizations.localeOf(context).languageCode == 'en' ? 'en' : 'ro';
@@ -77,13 +80,16 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
         streak += 1;
         points += 20;
         _roundCorrect += 1;
+        _okBumps += 1;
       } else {
         streak = 0;
+        _wrongShakes += 1;
       }
     });
     // Elo: ambele rating-uri se mută la fiecare răspuns.
-    final result =
-        await ref.read(dojoRepositoryProvider).applyAnswer(msg, correct: ok);
+    final result = await ref
+        .read(dojoRepositoryProvider)
+        .applyAnswer(msg, correct: ok);
     // Un moment = UN nivel de juice: la belt-up, epicul absoarbe minorul
     // (altfel light+heavy s-ar simți ca un bâlbâit, nu ca o centură nouă).
     if (result.beltUp && mounted) {
@@ -158,10 +164,11 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
         children: [
           Row(
             children: [
-              GestureDetector(
+              Pressable(
                 onTap: () => context.pop(),
                 child: Container(
-                  width: 38, height: 38,
+                  width: 38,
+                  height: 38,
                   margin: const EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
                     color: C.surface,
@@ -170,45 +177,88 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
                     boxShadow: Sh.raise,
                   ),
                   alignment: Alignment.center,
-                  child: const SvgIcon(Ic.chevronLeft, size: 18, color: C.text2, strokeWidth: 2.4),
+                  child: const SvgIcon(
+                    Ic.chevronLeft,
+                    size: 18,
+                    color: C.text2,
+                    strokeWidth: 2.4,
+                  ),
                 ),
               ),
               Container(
-                width: 44, height: 44,
+                width: 44,
+                height: 44,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFFFF8794), C.danger, C.dangerDeep], stops: [0, 0.6, 1]),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFFFF8794), C.danger, C.dangerDeep],
+                    stops: [0, 0.6, 1],
+                  ),
                   borderRadius: BorderRadius.circular(R.sm),
                   boxShadow: Sh.danger,
                 ),
                 alignment: Alignment.center,
-                child: const SvgIcon(Ic.shield, size: 24, color: Colors.white, strokeWidth: 2),
+                child: const SvgIcon(
+                  Ic.shield,
+                  size: 24,
+                  color: Colors.white,
+                  strokeWidth: 2,
+                ),
               ),
               const SizedBox(width: 11),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Scam Dojo', style: T.display(size: 23, weight: FontWeight.w800, color: C.text, height: 1.0)),
+                  Text(
+                    'Scam Dojo',
+                    style: T.display(
+                      size: 23,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                      height: 1.0,
+                    ),
+                  ),
                   const SizedBox(height: 2),
-                  Text('Antrenament anti-țeapă', style: T.body(size: 12, weight: FontWeight.w600, color: C.text2)),
+                  Text(
+                    'Antrenament anti-țeapă',
+                    style: T.body(
+                      size: 12,
+                      weight: FontWeight.w600,
+                      color: C.text2,
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: C.amberSoft,
-              borderRadius: BorderRadius.circular(R.pill),
-              border: Border.all(color: C.line, width: 1),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SvgIcon(Ic.star, size: 15, color: C.amber, fill: true),
-                const SizedBox(width: 5),
-                Text(fmtThousands(points), style: T.display(size: 15, weight: FontWeight.w800, color: C.text)),
-              ],
+          JuiceBounce(
+            trigger: _okBumps == 0 ? null : _okBumps,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: C.amberSoft,
+                borderRadius: BorderRadius.circular(R.pill),
+                border: Border.all(color: C.line, width: 1),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SvgIcon(Ic.star, size: 15, color: C.amber, fill: true),
+                  const SizedBox(width: 5),
+                  AnimatedCount(
+                    value: points,
+                    format: fmtThousands,
+                    duration: Dur.emph,
+                    style: T.display(
+                      size: 15,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -231,8 +281,14 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
           children: [
             Text(emoji, style: const TextStyle(fontSize: 20)),
             const SizedBox(width: 8),
-            Text('Centura $name',
-                style: T.display(size: 13.5, weight: FontWeight.w800, color: C.text)),
+            Text(
+              'Centura $name',
+              style: T.display(
+                size: 13.5,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
             const Spacer(),
             Expanded(
               child: ClipRRect(
@@ -240,20 +296,45 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
                 child: Container(
                   height: 8,
                   color: C.inset,
-                  child: FractionallySizedBox(
-                    alignment: Alignment.centerLeft,
-                    widthFactor: dojoBeltProgress(state.rating).clamp(0.03, 1.0),
-                    child: Container(
+                  child: AnimatedFrac(
+                    value: dojoBeltProgress(state.rating).clamp(0.03, 1.0),
+                    builder: (context, v) => FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: v,
+                      child: Container(
                         decoration: BoxDecoration(
-                            gradient: Grad.danger,
-                            borderRadius: BorderRadius.circular(R.pill))),
+                          gradient: Grad.danger,
+                          borderRadius: BorderRadius.circular(R.pill),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(width: 8),
-            Text(next == null ? 'MAX' : '${state.rating} / $next',
-                style: T.display(size: 11.5, weight: FontWeight.w700, color: C.text3)),
+            JuiceBounce(
+              trigger: state.rating,
+              child: next == null
+                  ? Text(
+                      'MAX',
+                      style: T.display(
+                        size: 11.5,
+                        weight: FontWeight.w700,
+                        color: C.text3,
+                      ),
+                    )
+                  : AnimatedCount(
+                      value: state.rating,
+                      suffix: ' / $next',
+                      duration: Dur.emph,
+                      style: T.display(
+                        size: 11.5,
+                        weight: FontWeight.w700,
+                        color: C.text3,
+                      ),
+                    ),
+            ),
           ],
         ),
       ),
@@ -269,15 +350,34 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Mesajul ${_index + 1} / ${_round!.length}',
-                  style: T.display(size: 12.5, weight: FontWeight.w700, color: C.text2)),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const FlameIcon(size: 13),
-                  const SizedBox(width: 4),
-                  Text('Serie $streak', style: T.display(size: 12.5, weight: FontWeight.w800, color: C.danger)),
-                ],
+              Text(
+                'Mesajul ${_index + 1} / ${_round!.length}',
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w700,
+                  color: C.text2,
+                ),
+              ),
+              JuiceBounce(
+                trigger: _okBumps == 0 ? null : _okBumps,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (streak > 0)
+                      const Pulse(child: FlameIcon(size: 13))
+                    else
+                      const FlameIcon(size: 13),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Serie $streak',
+                      style: T.display(
+                        size: 12.5,
+                        weight: FontWeight.w800,
+                        color: C.danger,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -287,13 +387,16 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
             child: Container(
               height: 8,
               color: C.inset,
-              child: FractionallySizedBox(
-                widthFactor: pct,
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(colors: [C.blue, C.sky]),
-                    borderRadius: BorderRadius.circular(5),
+              child: AnimatedFrac(
+                value: pct,
+                builder: (context, v) => FractionallySizedBox(
+                  widthFactor: v,
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [C.blue, C.sky]),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                   ),
                 ),
               ),
@@ -306,6 +409,39 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
 
   Widget _messageCard() {
     final accent = _accentColors[msg.accent] ?? C.danger;
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
+    // Fiecare mesaj alunecă dinspre stânga, ca primit într-o conversație.
+    return StaggerIn(
+      child: AnimatedSwitcher(
+        duration: reduceMotion ? Duration.zero : Dur.emph,
+        switchInCurve: Curves.easeOutCubic,
+        switchOutCurve: Curves.easeInCubic,
+        transitionBuilder: (child, anim) => FadeTransition(
+          opacity: anim,
+          child: SlideTransition(
+            position: Tween(
+              begin: const Offset(-0.16, 0),
+              end: Offset.zero,
+            ).animate(anim),
+            child: child,
+          ),
+        ),
+        // Aliniere sus, ca schimbul de carduri să nu sară pe verticală.
+        layoutBuilder: (current, previous) => Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.topCenter,
+          children: [...previous, ?current],
+        ),
+        child: JuiceShake(
+          key: ValueKey(msg.id),
+          trigger: _wrongShakes,
+          child: _messageBody(accent),
+        ),
+      ),
+    );
+  }
+
+  Widget _messageBody(Color accent) {
     return ClayCard(
       radius: 24,
       padding: const EdgeInsets.all(16),
@@ -315,10 +451,19 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
           Row(
             children: [
               Container(
-                width: 42, height: 42,
-                decoration: BoxDecoration(color: accent.withValues(alpha: 0.92), borderRadius: BorderRadius.circular(13)),
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: accent.withValues(alpha: 0.92),
+                  borderRadius: BorderRadius.circular(13),
+                ),
                 alignment: Alignment.center,
-                child: const SvgIcon(Ic.message, size: 22, color: Colors.white, strokeWidth: 2),
+                child: const SvgIcon(
+                  Ic.message,
+                  size: 22,
+                  color: Colors.white,
+                  strokeWidth: 2,
+                ),
               ),
               const SizedBox(width: 11),
               Expanded(
@@ -326,16 +471,43 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(msg.from, style: T.display(size: 16, weight: FontWeight.w800, color: C.text)),
-                    Text(msg.channel, style: T.body(size: 12, weight: FontWeight.w600, color: C.text3)),
+                    Text(
+                      msg.from,
+                      style: T.display(
+                        size: 16,
+                        weight: FontWeight.w800,
+                        color: C.text,
+                      ),
+                    ),
+                    Text(
+                      msg.channel,
+                      style: T.body(
+                        size: 12,
+                        weight: FontWeight.w600,
+                        color: C.text3,
+                      ),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
-                decoration: BoxDecoration(color: C.inset, borderRadius: BorderRadius.circular(R.pill)),
-                child: Text(msg.tag, style: T.display(size: 11.5, weight: FontWeight.w700, color: C.text2)),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 11,
+                  vertical: 5,
+                ),
+                decoration: BoxDecoration(
+                  color: C.inset,
+                  borderRadius: BorderRadius.circular(R.pill),
+                ),
+                child: Text(
+                  msg.tag,
+                  style: T.display(
+                    size: 11.5,
+                    weight: FontWeight.w700,
+                    color: C.text2,
+                  ),
+                ),
               ),
             ],
           ),
@@ -343,8 +515,19 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(color: C.inset, borderRadius: BorderRadius.circular(15)),
-            child: Text(msg.text, style: T.body(size: 14.5, weight: FontWeight.w400, color: C.text, height: 1.5)),
+            decoration: BoxDecoration(
+              color: C.inset,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Text(
+              msg.text,
+              style: T.body(
+                size: 14.5,
+                weight: FontWeight.w400,
+                color: C.text,
+                height: 1.5,
+              ),
+            ),
           ),
         ],
       ),
@@ -352,44 +535,105 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
   }
 
   Widget _question() {
+    // Cheia pe mesaj reia intrarea în cascadă la fiecare mesaj.
     return Padding(
+      key: ValueKey('intrebare-${msg.id}'),
       padding: const EdgeInsets.only(top: 16),
       child: Column(
         children: [
-          Column(
-            children: [
-              Image.asset(Cashy.cashyPoint, width: 92),
-              const SizedBox(height: 4),
-              Text('Țeapă sau sigur?', style: T.display(size: 22, weight: FontWeight.w800, color: C.text)),
-              const SizedBox(height: 2),
-              Text('Citește cu atenție. Tu ce zici?', style: T.body(size: 14, weight: FontWeight.w400, color: C.text2)),
-            ],
+          StaggerIn(
+            index: 1,
+            child: Column(
+              children: [
+                Image.asset(Cashy.cashyPoint, width: 92),
+                const SizedBox(height: 4),
+                Text(
+                  'Țeapă sau sigur?',
+                  style: T.display(
+                    size: 22,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Citește cu atenție. Tu ce zici?',
+                  style: T.body(
+                    size: 14,
+                    weight: FontWeight.w400,
+                    color: C.text2,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(child: _answerBtn('Țeapă!', Grad.danger, Sh.danger, Ic.flag, 2.2, () => _answer(true))),
-              const SizedBox(width: 12),
-              Expanded(child: _answerBtn('E sigur', Grad.green, Sh.green, Ic.check, 2.6, () => _answer(false))),
-            ],
+          StaggerIn(
+            index: 2,
+            child: Row(
+              children: [
+                Expanded(
+                  child: _answerBtn(
+                    'Țeapă!',
+                    Grad.danger,
+                    Sh.danger,
+                    Ic.flag,
+                    2.2,
+                    () => _answer(true),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _answerBtn(
+                    'E sigur',
+                    Grad.green,
+                    Sh.green,
+                    Ic.check,
+                    2.6,
+                    () => _answer(false),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _answerBtn(String label, Gradient grad, List<BoxShadow> shadow, String icon, double sw, VoidCallback onTap) {
-    return GestureDetector(
+  Widget _answerBtn(
+    String label,
+    Gradient grad,
+    List<BoxShadow> shadow,
+    String icon,
+    double sw,
+    VoidCallback onTap,
+  ) {
+    // Fără haptic la apăsare: verdictul dă singur nivelul de juice.
+    return Pressable(
       onTap: onTap,
+      scale: 0.93,
+      haptic: false,
       child: Container(
         height: 64,
-        decoration: BoxDecoration(gradient: grad, borderRadius: BorderRadius.circular(R.md), boxShadow: shadow),
+        decoration: BoxDecoration(
+          gradient: grad,
+          borderRadius: BorderRadius.circular(R.md),
+          boxShadow: shadow,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgIcon(icon, size: 22, color: Colors.white, strokeWidth: sw),
             const SizedBox(width: 8),
-            Text(label, style: T.display(size: 17, weight: FontWeight.w800, color: Colors.white)),
+            Text(
+              label,
+              style: T.display(
+                size: 17,
+                weight: FontWeight.w800,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),
@@ -403,7 +647,9 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
         : (msg.isScam ? 'Te-a păcălit, era țeapă.' : 'De fapt era în regulă.');
     final cashy = correct ? Cashy.cashyCelebrate : Cashy.cashyWorried;
     final last = _index == _round!.length - 1;
+    // Cheia pe mesaj reia ștampila și cascada la fiecare verdict.
     return Padding(
+      key: ValueKey('verdict-${msg.id}'),
       padding: const EdgeInsets.only(top: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -417,18 +663,41 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: correct ? C.green : C.danger,
-                        borderRadius: BorderRadius.circular(R.pill),
-                        boxShadow: correct ? Sh.green : Sh.danger,
+                    // Eticheta sare în scenă ca o ștampilă pe mesaj.
+                    PopIn(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 11,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: correct ? C.green : C.danger,
+                          borderRadius: BorderRadius.circular(R.pill),
+                          boxShadow: correct ? Sh.green : Sh.danger,
+                        ),
+                        child: Text(
+                          correct ? 'CORECT' : 'GREȘIT',
+                          style: T.display(
+                            size: 11,
+                            weight: FontWeight.w800,
+                            color: Colors.white,
+                            letterSpacing: 11 * 0.12,
+                          ),
+                        ),
                       ),
-                      child: Text(correct ? 'CORECT' : 'GREȘIT',
-                          style: T.display(size: 11, weight: FontWeight.w800, color: Colors.white, letterSpacing: 11 * 0.12)),
                     ),
                     const SizedBox(height: 5),
-                    Text(title, style: T.display(size: 21, weight: FontWeight.w800, color: C.text, height: 1.15)),
+                    StaggerIn(
+                      child: Text(
+                        title,
+                        style: T.display(
+                          size: 21,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                          height: 1.15,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -436,63 +705,129 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
           ),
           if (_beltUp) ...[
             const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-              decoration: BoxDecoration(
-                color: C.amberSoft,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: C.line, width: 1),
-              ),
-              child: Text(
+            PopIn(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 11,
+                ),
+                decoration: BoxDecoration(
+                  color: C.amberSoft,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: C.line, width: 1),
+                ),
+                child: Text(
                   '🥋 CENTURĂ NOUĂ! Ești centura ${ref.watch(dojoStateProvider).valueOrNull?.belt.$2 ?? ''}.',
-                  style: T.display(size: 13.5, weight: FontWeight.w800, color: C.amberInk)),
+                  style: T.display(
+                    size: 13.5,
+                    weight: FontWeight.w800,
+                    color: C.amberInk,
+                  ),
+                ),
+              ),
             ),
           ],
           const SizedBox(height: 14),
-          ClayCard(
-            radius: R.md,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(msg.isScam ? 'STEAGURI ROȘII' : 'DE CE E SIGUR',
-                    style: T.display(size: 12, weight: FontWeight.w800, color: flagColor, letterSpacing: 12 * 0.1)),
-                const SizedBox(height: 12),
-                for (var i = 0; i < msg.flags.length; i++) ...[
-                  if (i > 0) const SizedBox(height: 11),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 20, height: 20,
-                        margin: const EdgeInsets.only(top: 1),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: flagColor),
-                        alignment: Alignment.center,
-                        child: const SvgIcon(Ic.check, size: 12, color: Colors.white, strokeWidth: 3.2),
+          StaggerIn(
+            index: 1,
+            child: ClayCard(
+              radius: R.md,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    msg.isScam ? 'STEAGURI ROȘII' : 'DE CE E SIGUR',
+                    style: T.display(
+                      size: 12,
+                      weight: FontWeight.w800,
+                      color: flagColor,
+                      letterSpacing: 12 * 0.1,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  // Steagurile curg unul câte unul, ca să fie citite pe rând.
+                  for (var i = 0; i < msg.flags.length; i++) ...[
+                    if (i > 0) const SizedBox(height: 11),
+                    StaggerIn(
+                      index: 2 + i,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 20,
+                            height: 20,
+                            margin: const EdgeInsets.only(top: 1),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: flagColor,
+                            ),
+                            alignment: Alignment.center,
+                            child: const SvgIcon(
+                              Ic.check,
+                              size: 12,
+                              color: Colors.white,
+                              strokeWidth: 3.2,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              msg.flags[i],
+                              style: T.body(
+                                size: 13.5,
+                                weight: FontWeight.w400,
+                                color: C.text,
+                                height: 1.45,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(child: Text(msg.flags[i], style: T.body(size: 13.5, weight: FontWeight.w400, color: C.text, height: 1.45))),
-                    ],
+                    ),
+                  ],
+                  StaggerIn(
+                    index: 2 + msg.flags.length,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 14),
+                      padding: const EdgeInsets.only(top: 14),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: C.line, width: 1),
+                        ),
+                      ),
+                      child: Text(
+                        msg.explain,
+                        style: T.body(
+                          size: 13.5,
+                          weight: FontWeight.w400,
+                          color: C.text2,
+                          height: 1.5,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
-                Container(
-                  margin: const EdgeInsets.only(top: 14),
-                  padding: const EdgeInsets.only(top: 14),
-                  decoration: const BoxDecoration(border: Border(top: BorderSide(color: C.line, width: 1))),
-                  child: Text(msg.explain, style: T.body(size: 13.5, weight: FontWeight.w400, color: C.text2, height: 1.5)),
-                ),
-              ],
+              ),
             ),
           ),
           const SizedBox(height: 14),
-          ClayButton(
-            label: last ? 'Încheie runda' : 'Următorul',
-            gradient: Grad.blue,
-            shadow: Sh.blue,
-            height: 58,
-            fontSize: 17,
-            trailing: const SvgIcon(Ic.arrowRight, size: 20, color: Colors.white, strokeWidth: 2.6),
-            onTap: _next,
+          StaggerIn(
+            index: 2,
+            child: ClayButton(
+              label: last ? 'Încheie runda' : 'Următorul',
+              gradient: Grad.blue,
+              shadow: Sh.blue,
+              height: 58,
+              fontSize: 17,
+              trailing: const SvgIcon(
+                Ic.arrowRight,
+                size: 20,
+                color: Colors.white,
+                strokeWidth: 2.6,
+              ),
+              onTap: _next,
+            ),
           ),
         ],
       ),
@@ -506,89 +841,150 @@ class _DojoScreenState extends ConsumerState<DojoScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 10),
-        Center(child: CashySprite(
-            asset: _roundCorrect >= 4 ? Cashy.cashyCelebrate : Cashy.cashyStudy,
-            width: 130)),
+        StaggerIn(
+          child: Center(
+            child: CashySprite(
+              asset: _roundCorrect >= 4
+                  ? Cashy.cashyCelebrate
+                  : Cashy.cashyStudy,
+              width: 130,
+            ),
+          ),
+        ),
         const SizedBox(height: 8),
-        Center(
-          child: Text('Rundă completă!',
-              style: T.display(size: 24, weight: FontWeight.w800, color: C.text)),
+        StaggerIn(
+          index: 1,
+          child: Center(
+            child: Text(
+              'Rundă completă!',
+              style: T.display(
+                size: 24,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 4),
-        Center(
-          child: Text('$_roundCorrect din ${_round!.length} mesaje judecate corect',
-              style: T.body(size: 14, weight: FontWeight.w600, color: C.text2)),
+        StaggerIn(
+          index: 2,
+          child: Center(
+            child: AnimatedCount(
+              value: _roundCorrect,
+              suffix: ' din ${_round!.length} mesaje judecate corect',
+              style: T.body(size: 14, weight: FontWeight.w600, color: C.text2),
+            ),
+          ),
         ),
         if (state != null) ...[
           const SizedBox(height: 16),
-          ClayCard(
-            radius: R.md,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(state.belt.$1, style: const TextStyle(fontSize: 26)),
-                    const SizedBox(width: 10),
-                    Text('Centura ${state.belt.$2}',
-                        style: T.display(size: 17, weight: FontWeight.w800, color: C.text)),
-                    const Spacer(),
-                    Text(
-                        dojoNextBeltAt(state.rating) == null
-                            ? 'nivel maxim'
-                            : 'imunitate ${state.rating}',
-                        style: T.body(size: 12.5, weight: FontWeight.w600, color: C.text3)),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(R.pill),
-                  child: Container(
-                    height: 10,
-                    color: C.inset,
-                    child: FractionallySizedBox(
-                      alignment: Alignment.centerLeft,
-                      widthFactor: dojoBeltProgress(state.rating).clamp(0.03, 1.0),
-                      child: Container(
-                          decoration: BoxDecoration(
+          StaggerIn(
+            index: 3,
+            child: ClayCard(
+              radius: R.md,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(state.belt.$1, style: const TextStyle(fontSize: 26)),
+                      const SizedBox(width: 10),
+                      Text(
+                        'Centura ${state.belt.$2}',
+                        style: T.display(
+                          size: 17,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                        ),
+                      ),
+                      const Spacer(),
+                      dojoNextBeltAt(state.rating) == null
+                          ? Text(
+                              'nivel maxim',
+                              style: T.body(
+                                size: 12.5,
+                                weight: FontWeight.w600,
+                                color: C.text3,
+                              ),
+                            )
+                          : AnimatedCount(
+                              value: state.rating,
+                              prefix: 'imunitate ',
+                              style: T.body(
+                                size: 12.5,
+                                weight: FontWeight.w600,
+                                color: C.text3,
+                              ),
+                            ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(R.pill),
+                    child: Container(
+                      height: 10,
+                      color: C.inset,
+                      child: AnimatedFrac(
+                        value: dojoBeltProgress(state.rating).clamp(0.03, 1.0),
+                        builder: (context, v) => FractionallySizedBox(
+                          alignment: Alignment.centerLeft,
+                          widthFactor: v,
+                          child: Container(
+                            decoration: BoxDecoration(
                               gradient: Grad.danger,
-                              borderRadius: BorderRadius.circular(R.pill))),
+                              borderRadius: BorderRadius.circular(R.pill),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                if (dojoNextBeltAt(state.rating) != null) ...[
-                  const SizedBox(height: 6),
-                  Text('Următoarea centură la ${dojoNextBeltAt(state.rating)}',
-                      style: T.body(size: 12, weight: FontWeight.w600, color: C.text3)),
+                  if (dojoNextBeltAt(state.rating) != null) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      'Următoarea centură la ${dojoNextBeltAt(state.rating)}',
+                      style: T.body(
+                        size: 12,
+                        weight: FontWeight.w600,
+                        color: C.text3,
+                      ),
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ],
         const SizedBox(height: 16),
-        ClayButton(
-          label: 'Încă o rundă',
-          gradient: Grad.danger,
-          shadow: Sh.danger,
-          height: 58,
-          fontSize: 17,
-          onTap: () {
-            Juice.tick();
-            _startRound(all);
-          },
+        StaggerIn(
+          index: 4,
+          child: ClayButton(
+            label: 'Încă o rundă',
+            gradient: Grad.danger,
+            shadow: Sh.danger,
+            height: 58,
+            fontSize: 17,
+            onTap: () {
+              Juice.tick();
+              _startRound(all);
+            },
+          ),
         ),
         const SizedBox(height: 10),
-        ClayButton(
-          label: 'Înapoi în Poiană',
-          gradient: Grad.blue,
-          shadow: Sh.blue,
-          height: 52,
-          fontSize: 15,
-          onTap: () {
-            Juice.tick();
-            context.pop();
-          },
+        StaggerIn(
+          index: 5,
+          child: ClayButton(
+            label: 'Înapoi în Poiană',
+            gradient: Grad.blue,
+            shadow: Sh.blue,
+            height: 52,
+            fontSize: 15,
+            onTap: () {
+              Juice.tick();
+              context.pop();
+            },
+          ),
         ),
       ],
     );

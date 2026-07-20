@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +10,9 @@ import '../../../core/ui/category_icon.dart';
 import '../../../core/ui/flame.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/fmt.dart';
+import '../../../core/ui/acorn_celebration.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../../domain/engine/cashy_state.dart';
@@ -32,8 +34,18 @@ class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   static const _monthsRo = [
-    'Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie',
-    'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie',
+    'Ianuarie',
+    'Februarie',
+    'Martie',
+    'Aprilie',
+    'Mai',
+    'Iunie',
+    'Iulie',
+    'August',
+    'Septembrie',
+    'Octombrie',
+    'Noiembrie',
+    'Decembrie',
   ];
 
   @override
@@ -63,32 +75,45 @@ class HomeScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _greeting(context, profile, streak),
-                  _budgetHero(context, budget, spent, monthTx),
+                  // Secțiunile curg în ecran în cascadă, de sus în jos.
+                  StaggerIn(
+                    index: 0,
+                    child: _greeting(context, profile, streak),
+                  ),
+                  StaggerIn(
+                    index: 1,
+                    child: _budgetHero(context, budget, spent, monthTx),
+                  ),
                   const SizedBox(height: 12),
-                  _scoreCard(context, ref),
+                  StaggerIn(index: 2, child: _scoreCard(context, ref)),
                   const SizedBox(height: 12),
-                  _questsCard(context, ref, quests),
+                  StaggerIn(index: 3, child: _questsCard(context, ref, quests)),
                   const SizedBox(height: 14),
-                  const ExpeditionCard(),
+                  const StaggerIn(index: 4, child: ExpeditionCard()),
                   const SizedBox(height: 12),
-                  _goalsCard(context, ref),
+                  StaggerIn(index: 5, child: _goalsCard(context, ref)),
                   const SizedBox(height: 14),
-                  GestureDetector(
-                    onTap: () {
-                      Juice.tick();
-                      context.push('/finbot');
-                    },
-                    child: _cashySpeech(profile, mood, budget),
+                  StaggerIn(
+                    index: 6,
+                    child: Pressable(
+                      onTap: () => context.push('/finbot'),
+                      child: _cashySpeech(profile, mood, budget),
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  _sectionLabel('Tranzacții recente'),
+                  StaggerIn(
+                    index: 7,
+                    child: _sectionLabel('Tranzacții recente'),
+                  ),
                   const SizedBox(height: 12),
-                  _transactions(context, ref, recent),
+                  StaggerIn(
+                    index: 7,
+                    child: _transactions(context, ref, recent),
+                  ),
                   const SizedBox(height: 18),
-                  _sectionLabel('Pentru tine'),
+                  StaggerIn(index: 8, child: _sectionLabel('Pentru tine')),
                   const SizedBox(height: 12),
-                  const InsightCardsSection(),
+                  const StaggerIn(index: 8, child: InsightCardsSection()),
                 ],
               ),
             ),
@@ -98,13 +123,9 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  // ---- greeting ----------------------------------------------------------
+  // ---- salutul de sus
 
-  Widget _greeting(
-    BuildContext context,
-    LocalProfile? profile,
-    int streak,
-  ) {
+  Widget _greeting(BuildContext context, LocalProfile? profile, int streak) {
     final name = profile?.cashyName ?? 'Cashy';
     final acorns = profile?.acorns ?? 0;
 
@@ -115,46 +136,62 @@ class HomeScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              // Veverița-ghid, mare și fără casetă: salută cu degetul întins.
-              const CashySprite(asset: Cashy.cashyPoint, width: 78),
+              // Veverița-ghid, mare și fără casetă: salută cu degetul întins
+              // și plutește ușor, ca și cum ar respira.
+              const Floaty(
+                child: CashySprite(asset: Cashy.cashyPoint, width: 78),
+              ),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Salut! Eu sunt',
-                      style: T.body(
-                          size: 13,
-                          weight: FontWeight.w600,
-                          color: C.text2,
-                          height: 1.0)),
-                  Text(name,
-                      style: T.display(
-                          size: 21,
-                          weight: FontWeight.w800,
-                          color: C.text,
-                          height: 1.2)),
+                  Text(
+                    'Salut! Eu sunt',
+                    style: T.body(
+                      size: 13,
+                      weight: FontWeight.w600,
+                      color: C.text2,
+                      height: 1.0,
+                    ),
+                  ),
+                  Text(
+                    name,
+                    style: T.display(
+                      size: 21,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                      height: 1.2,
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
           Row(
             children: [
-              GestureDetector(
-                onTap: () {
-                  Juice.tick();
-                  context.push('/challenges');
-                },
+              Pressable(
+                onTap: () => context.push('/challenges'),
                 child: _chip(
                   bg: C.amberSoft,
                   border: C.line,
-                  child: Row(children: [
-                    const FlameIcon(size: 15),
-                    const SizedBox(width: 5),
-                    Text('$streak',
+                  child: Row(
+                    children: [
+                      // Flacăra aprinsă pulsează cât timp streak-ul trăiește.
+                      streak > 0
+                          ? const Pulse(scale: 1.12, child: FlameIcon(size: 15))
+                          : const FlameIcon(size: 15),
+                      const SizedBox(width: 5),
+                      Text(
+                        '$streak',
                         style: T.display(
-                            size: 15, weight: FontWeight.w800, color: C.text)),
-                  ]),
+                          size: 15,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -166,13 +203,20 @@ class HomeScreen extends ConsumerWidget {
                   bg: C.surface,
                   border: C.line,
                   shadow: Sh.raise,
-                  child: Row(children: [
-                    const AcornIcon(size: 15),
-                    const SizedBox(width: 5),
-                    Text(fmtThousands(acorns),
+                  child: Row(
+                    children: [
+                      const AcornIcon(size: 15),
+                      const SizedBox(width: 5),
+                      Text(
+                        fmtThousands(acorns),
                         style: T.display(
-                            size: 15, weight: FontWeight.w800, color: C.text)),
-                  ]),
+                          size: 15,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -182,11 +226,12 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _chip(
-      {required Color bg,
-      required Color border,
-      List<BoxShadow>? shadow,
-      required Widget child}) {
+  Widget _chip({
+    required Color bg,
+    required Color border,
+    List<BoxShadow>? shadow,
+    required Widget child,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -199,7 +244,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  // ---- budget hero --------------------------------------------------------
+  // ---- bugetul lunii
 
   Widget _budgetHero(
     BuildContext context,
@@ -223,17 +268,33 @@ class HomeScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Buget lunar · ${_monthsRo[now.month - 1]}',
-                  style: T.display(
-                      size: 17, weight: FontWeight.w800, color: C.text)),
-              Row(children: [
-                Text(budget == null ? 'Setează bugetul' : 'Detalii',
+              Text(
+                'Buget lunar · ${_monthsRo[now.month - 1]}',
+                style: T.display(
+                  size: 17,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    budget == null ? 'Setează bugetul' : 'Detalii',
                     style: T.body(
-                        size: 12.5, weight: FontWeight.w700, color: C.text3)),
-                const SizedBox(width: 3),
-                const SvgIcon(Ic.chevronRight,
-                    size: 14, color: C.text3, strokeWidth: 2.4),
-              ]),
+                      size: 12.5,
+                      weight: FontWeight.w700,
+                      color: C.text3,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  const SvgIcon(
+                    Ic.chevronRight,
+                    size: 14,
+                    color: C.text3,
+                    strokeWidth: 2.4,
+                  ),
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -245,17 +306,28 @@ class HomeScreen extends ConsumerWidget {
                 center: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('${(pct * 100).round()}%',
+                    // Procentul se numără în același ritm cu umplerea inelului.
+                    AnimatedFrac(
+                      value: pct,
+                      duration: const Duration(milliseconds: 900),
+                      builder: (_, v) => Text(
+                        '${(v * 100).round()}%',
                         style: T.display(
-                            size: 33,
-                            weight: FontWeight.w800,
-                            color: C.text,
-                            height: 1.0)),
-                    Text('folosit',
-                        style: T.body(
-                            size: 10.5,
-                            weight: FontWeight.w700,
-                            color: C.text3)),
+                          size: 33,
+                          weight: FontWeight.w800,
+                          color: C.text,
+                          height: 1.0,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'folosit',
+                      style: T.body(
+                        size: 10.5,
+                        weight: FontWeight.w700,
+                        color: C.text3,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -264,36 +336,47 @@ class HomeScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(fmtThousands(spent.round()),
-                        style: T.display(
-                            size: 40,
-                            weight: FontWeight.w800,
-                            color: C.text,
-                            height: 1.0)),
+                    AnimatedCount(
+                      value: spent.round(),
+                      format: fmtThousands,
+                      duration: const Duration(milliseconds: 900),
+                      style: T.display(
+                        size: 40,
+                        weight: FontWeight.w800,
+                        color: C.text,
+                        height: 1.0,
+                      ),
+                    ),
                     const SizedBox(height: 3),
                     Text(
-                        budget == null
-                            ? 'cheltuiți luna asta'
-                            : 'din ${fmtThousands(budget.round())} lei',
-                        style: T.display(
-                            size: 14, weight: FontWeight.w700, color: C.text3)),
-                    const SizedBox(height: 14),
-                    Row(children: [
-                      _miniStat(
-                        remain == null || remain >= 0
-                            ? C.greenSoft
-                            : C.dangerSoft,
-                        remain == null
-                            ? ', '
-                            : '${fmtThousands(remain.round())} lei',
-                        remain == null || remain >= 0
-                            ? C.greenDeep
-                            : C.dangerDeep,
-                        remain != null && remain < 0 ? 'peste' : 'rămân',
+                      budget == null
+                          ? 'cheltuiți luna asta'
+                          : 'din ${fmtThousands(budget.round())} lei',
+                      style: T.display(
+                        size: 14,
+                        weight: FontWeight.w700,
+                        color: C.text3,
                       ),
-                      const SizedBox(width: 8),
-                      _miniStat(C.inset, '$daysLeft zile', C.text, 'reset'),
-                    ]),
+                    ),
+                    const SizedBox(height: 14),
+                    Row(
+                      children: [
+                        _miniStat(
+                          remain == null || remain >= 0
+                              ? C.greenSoft
+                              : C.dangerSoft,
+                          remain == null
+                              ? ', '
+                              : '${fmtThousands(remain.round())} lei',
+                          remain == null || remain >= 0
+                              ? C.greenDeep
+                              : C.dangerDeep,
+                          remain != null && remain < 0 ? 'peste' : 'rămân',
+                        ),
+                        const SizedBox(width: 8),
+                        _miniStat(C.inset, '$daysLeft zile', C.text, 'reset'),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -303,7 +386,8 @@ class HomeScreen extends ConsumerWidget {
             const SizedBox(height: 18),
             Container(
               decoration: const BoxDecoration(
-                  border: Border(top: BorderSide(color: C.line, width: 1))),
+                border: Border(top: BorderSide(color: C.line, width: 1)),
+              ),
               padding: const EdgeInsets.only(top: 14),
               child: _categoryBreakdown(monthTx),
             ),
@@ -331,18 +415,22 @@ class HomeScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SegmentBar(segments: [
-          for (final e in top) (pctOf(e.value), _catVisual(e.key).color),
-          if (restPct > 0) (pctOf(restPct), C.text3),
-        ]),
+        SegmentBar(
+          segments: [
+            for (final e in top) (pctOf(e.value), _catVisual(e.key).color),
+            if (restPct > 0) (pctOf(restPct), C.text3),
+          ],
+        ),
         const SizedBox(height: 12),
         Wrap(
           spacing: 14,
           runSpacing: 10,
           children: [
             for (final e in top)
-              _legend(_catVisual(e.key).color,
-                  '${_catVisual(e.key).label} ${pctOf(e.value)}%'),
+              _legend(
+                _catVisual(e.key).color,
+                '${_catVisual(e.key).label} ${pctOf(e.value)}%',
+              ),
           ],
         ),
       ],
@@ -353,18 +441,30 @@ class HomeScreen extends ConsumerWidget {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        decoration:
-            BoxDecoration(color: bg, borderRadius: BorderRadius.circular(12)),
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(value,
-                style: T.display(
-                    size: 15, weight: FontWeight.w800, color: valueColor)),
-            Text(label,
-                style:
-                    T.body(size: 10.5, weight: FontWeight.w700, color: C.text2)),
+            Text(
+              value,
+              style: T.display(
+                size: 15,
+                weight: FontWeight.w800,
+                color: valueColor,
+              ),
+            ),
+            Text(
+              label,
+              style: T.body(
+                size: 10.5,
+                weight: FontWeight.w700,
+                color: C.text2,
+              ),
+            ),
           ],
         ),
       ),
@@ -376,27 +476,29 @@ class HomeScreen extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-            width: 9,
-            height: 9,
-            decoration: BoxDecoration(
-                color: color, borderRadius: BorderRadius.circular(3))),
+          width: 9,
+          height: 9,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(3),
+          ),
+        ),
         const SizedBox(width: 5),
-        Text(label,
-            style: T.body(size: 11.5, weight: FontWeight.w600, color: C.text2)),
+        Text(
+          label,
+          style: T.body(size: 11.5, weight: FontWeight.w600, color: C.text2),
+        ),
       ],
     );
   }
 
-  // ---- scor ----
+  // ---- scor
 
   Widget _scoreCard(BuildContext context, WidgetRef ref) {
     final score = ref.watch(scoreProvider).valueOrNull;
     final total = score?.total ?? 1;
-    return GestureDetector(
-      onTap: () {
-        Juice.tick();
-        context.go('/profil');
-      },
+    return Pressable(
+      onTap: () => context.go('/profil'),
       child: ClayCard(
         radius: 22,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -408,10 +510,16 @@ class HomeScreen extends ConsumerWidget {
                 top: 22,
                 left: 0,
                 right: 0,
-                child: Text('$total',
-                    textAlign: TextAlign.center,
-                    style: T.display(
-                        size: 27, weight: FontWeight.w800, color: C.text)),
+                child: AnimatedCount(
+                  value: total,
+                  duration: const Duration(milliseconds: 900),
+                  textAlign: TextAlign.center,
+                  style: T.display(
+                    size: 27,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -419,45 +527,59 @@ class HomeScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Scor FinEdu',
-                      style: T.display(
-                          size: 13, weight: FontWeight.w700, color: C.text2)),
+                  Text(
+                    'Scor FinEdu',
+                    style: T.display(
+                      size: 13,
+                      weight: FontWeight.w700,
+                      color: C.text2,
+                    ),
+                  ),
                   const SizedBox(height: 5),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       gradient: Grad.scorePill,
                       borderRadius: BorderRadius.circular(R.pill),
                       boxShadow: Sh.blue,
                     ),
-                    child: Text(scoreLevelLabel(total),
-                        style: T.display(
-                            size: 13,
-                            weight: FontWeight.w800,
-                            color: C.blueInk)),
+                    child: Text(
+                      scoreLevelLabel(total),
+                      style: T.display(
+                        size: 13,
+                        weight: FontWeight.w800,
+                        color: C.blueInk,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            const SvgIcon(Ic.chevronRight,
-                size: 18, color: C.text3, strokeWidth: 2.4),
+            const SvgIcon(
+              Ic.chevronRight,
+              size: 18,
+              color: C.text3,
+              strokeWidth: 2.4,
+            ),
           ],
         ),
       ),
     );
   }
 
-  // ---- misiunile zilei ----
+  // ---- misiunile zilei
 
   static String _questLabel(QuestId id) => switch (id) {
-        QuestId.logToday => 'Loghează o cheltuială',
-        // Id-ul rămâne `dojoRound` (persistat în ledger), dar orice joc din
-        // Arcade îl bifează, toate marchează kind-ul 'game'.
-        QuestId.dojoRound => 'Joacă un joc din Arcade',
-        QuestId.noFunSpend => 'Zi fără cheltuieli pe distracție',
-        QuestId.keepFlame => 'Ține focul aprins azi',
-      };
+    QuestId.logToday => 'Loghează o cheltuială',
+    // Id-ul rămâne `dojoRound` (persistat în ledger), dar orice joc din
+    // Arcade îl bifează, toate marchează kind-ul 'game'.
+    QuestId.dojoRound => 'Joacă un joc din Arcade',
+    QuestId.noFunSpend => 'Zi fără cheltuieli pe distracție',
+    QuestId.keepFlame => 'Ține focul aprins azi',
+  };
 
   Widget _questsCard(BuildContext context, WidgetRef ref, QuestsView? view) {
     return ClayCard(
@@ -469,22 +591,32 @@ class HomeScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('MISIUNILE ZILEI',
-                  style: T.display(
-                      size: 12,
-                      weight: FontWeight.w700,
-                      color: C.text3,
-                      letterSpacing: 12 * 0.12)),
+              Text(
+                'MISIUNILE ZILEI',
+                style: T.display(
+                  size: 12,
+                  weight: FontWeight.w700,
+                  color: C.text3,
+                  letterSpacing: 12 * 0.12,
+                ),
+              ),
               if (view != null)
-                Text('${view.chest.progress}/3',
-                    style: T.display(
-                        size: 12, weight: FontWeight.w800, color: C.text2)),
+                Text(
+                  '${view.chest.progress}/3',
+                  style: T.display(
+                    size: 12,
+                    weight: FontWeight.w800,
+                    color: C.text2,
+                  ),
+                ),
             ],
           ),
           const SizedBox(height: 12),
           if (view == null)
-            Text('Se încarcă...',
-                style: T.body(size: 13, weight: FontWeight.w600, color: C.text3))
+            Text(
+              'Se încarcă...',
+              style: T.body(size: 13, weight: FontWeight.w600, color: C.text3),
+            )
           else ...[
             for (final q in view.quests) ...[
               _questRow(context, ref, q),
@@ -511,20 +643,28 @@ class HomeScreen extends ConsumerWidget {
           ),
           alignment: Alignment.center,
           child: q.claimed || q.done
-              ? const SvgIcon(Ic.check,
-                  size: 13, color: Colors.white, strokeWidth: 3)
+              ? const SvgIcon(
+                  Ic.check,
+                  size: 13,
+                  color: Colors.white,
+                  strokeWidth: 3,
+                )
               : null,
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(_questLabel(q.def.id),
-              style: T.body(
-                  size: 14,
-                  weight: FontWeight.w600,
-                  color: q.claimed ? C.text3 : C.text)),
+          child: Text(
+            _questLabel(q.def.id),
+            style: T.body(
+              size: 14,
+              weight: FontWeight.w600,
+              color: q.claimed ? C.text3 : C.text,
+            ),
+          ),
         ),
         if (showClaim)
-          GestureDetector(
+          Pressable(
+            haptic: false,
             onTap: () async {
               final ok = await ref
                   .read(gamificationServiceProvider)
@@ -532,35 +672,49 @@ class HomeScreen extends ConsumerWidget {
               ref.invalidate(questsViewProvider);
               if (ok) Juice.correct();
               if (ok && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: AcornText('+${q.def.reward} 🌰',
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: AcornText(
+                      '+${q.def.reward} 🌰',
                       style: T.display(
-                          size: 15,
-                          weight: FontWeight.w800,
-                          color: Colors.white)),
-                  duration: const Duration(seconds: 1),
-                  backgroundColor: C.text,
-                  behavior: SnackBarBehavior.floating,
-                ));
+                        size: 15,
+                        weight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
+                    ),
+                    duration: const Duration(seconds: 1),
+                    backgroundColor: C.text,
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
               }
             },
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 gradient: Grad.amber,
                 borderRadius: BorderRadius.circular(R.pill),
                 boxShadow: Sh.amber,
               ),
-              child: AcornText('+${q.def.reward} 🌰',
-                  style: T.display(
-                      size: 12.5, weight: FontWeight.w800, color: Colors.white)),
+              child: AcornText(
+                '+${q.def.reward} 🌰',
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w800,
+                  color: Colors.white,
+                ),
+              ),
             ),
           )
         else if (q.claimed)
-          AcornText('+${q.def.reward} 🌰',
-              style: T.display(
-                  size: 12.5, weight: FontWeight.w700, color: C.text3)),
+          AcornText(
+            '+${q.def.reward} 🌰',
+            style: T.display(
+              size: 12.5,
+              weight: FontWeight.w700,
+              color: C.text3,
+            ),
+          ),
       ],
     );
   }
@@ -574,24 +728,22 @@ class HomeScreen extends ConsumerWidget {
     } else {
       label = 'Bifează toate 3 → primești un cufăr';
     }
-    return GestureDetector(
+    return Pressable(
+      haptic: false,
       onTap: chest.openable
           ? () async {
-              final won =
-                  await ref.read(gamificationServiceProvider).openChest();
+              final won = await ref
+                  .read(gamificationServiceProvider)
+                  .openChest();
               ref.invalidate(questsViewProvider);
-              if (won != null) Juice.major();
               if (won != null && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('🎁 +$won 🌰 din cufăr!',
-                      style: T.display(
-                          size: 15,
-                          weight: FontWeight.w800,
-                          color: Colors.white)),
-                  duration: const Duration(seconds: 2),
-                  backgroundColor: C.text,
-                  behavior: SnackBarBehavior.floating,
-                ));
+                AcornCelebration.show(
+                  context,
+                  title: 'Cufărul e deschis!',
+                  subtitle:
+                      '$won de ghinde îți cad în buzunar. Bifează din '
+                      'nou toate misiunile și mâine ai altul.',
+                );
               }
             }
           : null,
@@ -601,20 +753,26 @@ class HomeScreen extends ConsumerWidget {
           color: chest.openable ? C.amberSoft : C.inset,
           borderRadius: BorderRadius.circular(R.sm),
           border: Border.all(
-              color: chest.openable ? C.amber : Colors.transparent,
-              width: 1.5),
+            color: chest.openable ? C.amber : Colors.transparent,
+            width: 1.5,
+          ),
         ),
         child: Row(
           children: [
-            Text(chest.openable ? '🎁' : '📦',
-                style: const TextStyle(fontSize: 16)),
+            Text(
+              chest.openable ? '🎁' : '📦',
+              style: const TextStyle(fontSize: 16),
+            ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(label,
-                  style: T.body(
-                      size: 12.5,
-                      weight: FontWeight.w700,
-                      color: chest.openable ? C.amberInk : C.text2)),
+              child: Text(
+                label,
+                style: T.body(
+                  size: 12.5,
+                  weight: FontWeight.w700,
+                  color: chest.openable ? C.amberInk : C.text2,
+                ),
+              ),
             ),
           ],
         ),
@@ -622,7 +780,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  // ---- obiective de economisire ----
+  // ---- obiective de economisire
 
   Widget _goalsCard(BuildContext context, WidgetRef ref) {
     final goals = ref.watch(goalsWithProgressProvider).valueOrNull ?? const [];
@@ -635,44 +793,52 @@ class HomeScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('OBIECTIVELE MELE',
+              Text(
+                'OBIECTIVELE MELE',
+                style: T.display(
+                  size: 12,
+                  weight: FontWeight.w700,
+                  color: C.text3,
+                  letterSpacing: 12 * 0.12,
+                ),
+              ),
+              Pressable(
+                onTap: () => _createGoalSheet(context, ref),
+                child: Text(
+                  '+ Nou',
                   style: T.display(
-                      size: 12,
-                      weight: FontWeight.w700,
-                      color: C.text3,
-                      letterSpacing: 12 * 0.12)),
-              GestureDetector(
-                onTap: () {
-                  Juice.tick();
-                  _createGoalSheet(context, ref);
-                },
-                child: Text('+ Nou',
-                    style: T.display(
-                        size: 12.5, weight: FontWeight.w800, color: C.blue)),
+                    size: 12.5,
+                    weight: FontWeight.w800,
+                    color: C.blue,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 12),
           if (goals.isEmpty)
-            GestureDetector(
-              onTap: () {
-                Juice.tick();
-                _createGoalSheet(context, ref);
-              },
+            Pressable(
+              onTap: () => _createGoalSheet(context, ref),
               child: Row(
                 children: [
                   const Text('🎯', style: TextStyle(fontSize: 22)),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                        'Setează-ți primul obiectiv, Cashy strânge cu tine.',
-                        style: T.body(
-                            size: 13.5,
-                            weight: FontWeight.w600,
-                            color: C.text2)),
+                      'Setează-ți primul obiectiv, Cashy strânge cu tine.',
+                      style: T.body(
+                        size: 13.5,
+                        weight: FontWeight.w600,
+                        color: C.text2,
+                      ),
+                    ),
                   ),
-                  const SvgIcon(Ic.chevronRight,
-                      size: 16, color: C.text3, strokeWidth: 2.4),
+                  const SvgIcon(
+                    Ic.chevronRight,
+                    size: 16,
+                    color: C.text3,
+                    strokeWidth: 2.4,
+                  ),
                 ],
               ),
             )
@@ -687,11 +853,8 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _goalRow(BuildContext context, GoalProgress g) {
-    return GestureDetector(
-      onTap: () {
-        Juice.tick();
-        context.push('/add?type=saving&goal=${g.goal.id}');
-      },
+    return Pressable(
+      onTap: () => context.push('/add?type=saving&goal=${g.goal.id}'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -700,20 +863,27 @@ class HomeScreen extends ConsumerWidget {
               Text(g.goal.emoji, style: const TextStyle(fontSize: 17)),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(g.goal.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: T.display(
-                        size: 14.5, weight: FontWeight.w700, color: C.text)),
+                child: Text(
+                  g.goal.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: T.display(
+                    size: 14.5,
+                    weight: FontWeight.w700,
+                    color: C.text,
+                  ),
+                ),
               ),
               Text(
-                  g.reached
-                      ? 'Atins! 🎉'
-                      : '${fmtThousands(g.saved.round())} / ${fmtThousands(g.goal.targetAmount.round())} lei',
-                  style: T.display(
-                      size: 12.5,
-                      weight: FontWeight.w800,
-                      color: g.reached ? C.green : C.text2)),
+                g.reached
+                    ? 'Atins! 🎉'
+                    : '${fmtThousands(g.saved.round())} / ${fmtThousands(g.goal.targetAmount.round())} lei',
+                style: T.display(
+                  size: 12.5,
+                  weight: FontWeight.w800,
+                  color: g.reached ? C.green : C.text2,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 7),
@@ -722,13 +892,16 @@ class HomeScreen extends ConsumerWidget {
             child: Container(
               height: 10,
               color: C.inset,
-              child: FractionallySizedBox(
-                alignment: Alignment.centerLeft,
-                widthFactor: g.pct,
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: g.reached ? Grad.green : Grad.blue,
-                    borderRadius: BorderRadius.circular(R.pill),
+              child: AnimatedFrac(
+                value: g.pct,
+                builder: (_, v) => FractionallySizedBox(
+                  alignment: Alignment.centerLeft,
+                  widthFactor: v,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: g.reached ? Grad.green : Grad.blue,
+                      borderRadius: BorderRadius.circular(R.pill),
+                    ),
                   ),
                 ),
               ),
@@ -745,12 +918,13 @@ class HomeScreen extends ConsumerWidget {
       backgroundColor: C.bg,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
       builder: (_) => const _GoalSheet(),
     );
   }
 
-  // ---- cashy speech --------------------------------------------------------
+  // ---- ce spune Cashy
 
   Widget _cashySpeech(LocalProfile? profile, CashyMood mood, double? budget) {
     final message = budget == null
@@ -768,7 +942,7 @@ class HomeScreen extends ConsumerWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CashySprite(asset: mood.asset, width: 76),
+          Floaty(phase: 0.5, child: CashySprite(asset: mood.asset, width: 76)),
           const SizedBox(width: 8),
           Expanded(
             child: Container(
@@ -784,12 +958,15 @@ class HomeScreen extends ConsumerWidget {
                 border: Border.all(color: C.line, width: 1),
                 boxShadow: Sh.raise,
               ),
-              child: Text(message,
-                  style: T.body(
-                      size: 14,
-                      weight: FontWeight.w400,
-                      color: C.text2,
-                      height: 1.45)),
+              child: Text(
+                message,
+                style: T.body(
+                  size: 14,
+                  weight: FontWeight.w400,
+                  color: C.text2,
+                  height: 1.45,
+                ),
+              ),
             ),
           ),
         ],
@@ -797,24 +974,30 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  // ---- sections ------------------------------------------------------------
+  // ---- titluri de secțiune
 
   Widget _sectionLabel(String label) {
     return Padding(
       padding: const EdgeInsets.only(left: 4),
-      child: Text(label.toUpperCase(),
-          style: T.display(
-              size: 12,
-              weight: FontWeight.w700,
-              color: C.text3,
-              letterSpacing: 12 * 0.12)),
+      child: Text(
+        label.toUpperCase(),
+        style: T.display(
+          size: 12,
+          weight: FontWeight.w700,
+          color: C.text3,
+          letterSpacing: 12 * 0.12,
+        ),
+      ),
     );
   }
 
-  // ---- transactions ---------------------------------------------------------
+  // ---- tranzacții
 
   Widget _transactions(
-      BuildContext context, WidgetRef ref, List<Transaction> recent) {
+    BuildContext context,
+    WidgetRef ref,
+    List<Transaction> recent,
+  ) {
     if (recent.isEmpty) {
       return ClayCard(
         radius: 22,
@@ -822,21 +1005,25 @@ class HomeScreen extends ConsumerWidget {
         child: Row(
           children: [
             const ClayIcon(
-                path: Ic.plus,
-                tint: C.blueSoft,
-                color: C.blue,
-                size: 44,
-                radius: R.sm,
-                iconSize: 22,
-                strokeWidth: 2.4),
+              path: Ic.plus,
+              tint: C.blueSoft,
+              color: C.blue,
+              size: 44,
+              radius: R.sm,
+              iconSize: 22,
+              strokeWidth: 2.4,
+            ),
             const SizedBox(width: 13),
             Expanded(
-              child: Text('Nicio tranzacție încă, apasă + și loghează prima.',
-                  style: T.body(
-                      size: 14,
-                      weight: FontWeight.w600,
-                      color: C.text2,
-                      height: 1.4)),
+              child: Text(
+                'Nicio tranzacție încă, apasă + și loghează prima.',
+                style: T.body(
+                  size: 14,
+                  weight: FontWeight.w600,
+                  color: C.text2,
+                  height: 1.4,
+                ),
+              ),
             ),
           ],
         ),
@@ -847,9 +1034,7 @@ class HomeScreen extends ConsumerWidget {
       radius: 22,
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
       child: Column(
-        children: [
-          for (final t in recent) _txRow(context, ref, t),
-        ],
+        children: [for (final t in recent) _txRow(context, ref, t)],
       ),
     );
   }
@@ -875,7 +1060,8 @@ class HomeScreen extends ConsumerWidget {
                     size: 42,
                     radius: 13,
                     iconSize: 21,
-                    strokeWidth: 2)
+                    strokeWidth: 2,
+                  )
                 : CategoryTileIcon(
                     category: t.category,
                     fallbackPath: visual.icon,
@@ -883,34 +1069,46 @@ class HomeScreen extends ConsumerWidget {
                     color: visual.color,
                     size: 42,
                     radius: 13,
-                    iconSize: 21),
+                    iconSize: 21,
+                  ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(t.merchant ?? visual.label,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: T.display(
-                          size: 15,
-                          weight: FontWeight.w700,
-                          color: C.text,
-                          height: 1.1)),
+                  Text(
+                    t.merchant ?? visual.label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: T.display(
+                      size: 15,
+                      weight: FontWeight.w700,
+                      color: C.text,
+                      height: 1.1,
+                    ),
+                  ),
                   const SizedBox(height: 2),
-                  Text('${visual.label} · ${_relativeDate(t.transactionDate)}',
-                      style: T.body(
-                          size: 12, weight: FontWeight.w600, color: C.text3)),
+                  Text(
+                    '${visual.label} · ${_relativeDate(t.transactionDate)}',
+                    style: T.body(
+                      size: 12,
+                      weight: FontWeight.w600,
+                      color: C.text3,
+                    ),
+                  ),
                 ],
               ),
             ),
             const SizedBox(width: 8),
-            Text(amountText,
-                style: T.display(
-                    size: 15.5,
-                    weight: FontWeight.w800,
-                    color: saving ? C.green : C.text)),
+            Text(
+              amountText,
+              style: T.display(
+                size: 15.5,
+                weight: FontWeight.w800,
+                color: saving ? C.green : C.text,
+              ),
+            ),
           ],
         ),
       ),
@@ -918,29 +1116,45 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Future<void> _confirmDelete(
-      BuildContext context, WidgetRef ref, Transaction t) async {
+    BuildContext context,
+    WidgetRef ref,
+    Transaction t,
+  ) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: C.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
-        title: Text('Ștergi tranzacția?',
-            style: T.display(size: 18, weight: FontWeight.w800, color: C.text)),
+        title: Text(
+          'Ștergi tranzacția?',
+          style: T.display(size: 18, weight: FontWeight.w800, color: C.text),
+        ),
         content: Text(
-            '${t.merchant ?? _catVisual(t.category).label} · ${_fmtLei(t.amount)} lei',
-            style: T.body(size: 14, weight: FontWeight.w600, color: C.text2)),
+          '${t.merchant ?? _catVisual(t.category).label} · ${_fmtLei(t.amount)} lei',
+          style: T.body(size: 14, weight: FontWeight.w600, color: C.text2),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: Text('Nu',
-                style:
-                    T.display(size: 15, weight: FontWeight.w700, color: C.text3)),
+            child: Text(
+              'Nu',
+              style: T.display(
+                size: 15,
+                weight: FontWeight.w700,
+                color: C.text3,
+              ),
+            ),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text('Șterge',
-                style: T.display(
-                    size: 15, weight: FontWeight.w800, color: C.danger)),
+            child: Text(
+              'Șterge',
+              style: T.display(
+                size: 15,
+                weight: FontWeight.w800,
+                color: C.danger,
+              ),
+            ),
           ),
         ],
       ),
@@ -957,14 +1171,12 @@ class HomeScreen extends ConsumerWidget {
 
   String _relativeDate(DateTime d) {
     final today = dayKey(DateTime.now());
-    final yesterday =
-        dayKey(DateTime.now().subtract(const Duration(days: 1)));
+    final yesterday = dayKey(DateTime.now().subtract(const Duration(days: 1)));
     final key = dayKey(d);
     if (key == today) return 'azi';
     if (key == yesterday) return 'ieri';
     return '${d.day} ${_monthsRo[d.month - 1].substring(0, 3).toLowerCase()}';
   }
-
 }
 
 /// Sheet de creare obiectiv. StatefulWidget ca să disposăm controller-ul o
@@ -994,13 +1206,19 @@ class _GoalSheetState extends ConsumerState<_GoalSheet> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-          20, 22, 20, 22 + MediaQuery.of(context).viewInsets.bottom),
+        20,
+        22,
+        20,
+        22 + MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Obiectiv nou',
-              style: T.display(size: 21, weight: FontWeight.w800, color: C.text)),
+          Text(
+            'Obiectiv nou',
+            style: T.display(size: 21, weight: FontWeight.w800, color: C.text),
+          ),
           const SizedBox(height: 14),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -1012,11 +1230,18 @@ class _GoalSheetState extends ConsumerState<_GoalSheet> {
             child: TextField(
               controller: _name,
               maxLength: 24,
-              style: T.display(size: 17, weight: FontWeight.w700, color: C.text),
+              style: T.display(
+                size: 17,
+                weight: FontWeight.w700,
+                color: C.text,
+              ),
               decoration: InputDecoration(
                 hintText: 'ex. Căști noi',
-                hintStyle:
-                    T.display(size: 17, weight: FontWeight.w700, color: C.text3),
+                hintStyle: T.display(
+                  size: 17,
+                  weight: FontWeight.w700,
+                  color: C.text3,
+                ),
                 border: InputBorder.none,
                 counterText: '',
               ),
@@ -1035,18 +1260,25 @@ class _GoalSheetState extends ConsumerState<_GoalSheet> {
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 13, vertical: 8),
+                      horizontal: 13,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: _target == t ? C.blueSoft : C.surface,
                       borderRadius: BorderRadius.circular(R.pill),
                       border: Border.all(
-                          color: _target == t ? C.blue : C.line, width: 1.5),
+                        color: _target == t ? C.blue : C.line,
+                        width: 1.5,
+                      ),
                     ),
-                    child: Text('${fmtThousands(t)} lei',
-                        style: T.display(
-                            size: 13,
-                            weight: FontWeight.w800,
-                            color: _target == t ? C.blueInk : C.text2)),
+                    child: Text(
+                      '${fmtThousands(t)} lei',
+                      style: T.display(
+                        size: 13,
+                        weight: FontWeight.w800,
+                        color: _target == t ? C.blueInk : C.text2,
+                      ),
+                    ),
                   ),
                 ),
             ],
@@ -1068,7 +1300,9 @@ class _GoalSheetState extends ConsumerState<_GoalSheet> {
                       color: _emoji == e ? C.blueSoft : C.surface,
                       borderRadius: BorderRadius.circular(13),
                       border: Border.all(
-                          color: _emoji == e ? C.blue : C.line, width: 1.5),
+                        color: _emoji == e ? C.blue : C.line,
+                        width: 1.5,
+                      ),
                     ),
                     alignment: Alignment.center,
                     child: Text(e, style: const TextStyle(fontSize: 18)),
@@ -1087,8 +1321,13 @@ class _GoalSheetState extends ConsumerState<_GoalSheet> {
               final n = _name.text.trim();
               if (n.isEmpty) return;
               Juice.tick();
-              await ref.read(goalsRepositoryProvider).create(
-                  name: n, targetAmount: _target.toDouble(), emoji: _emoji);
+              await ref
+                  .read(goalsRepositoryProvider)
+                  .create(
+                    name: n,
+                    targetAmount: _target.toDouble(),
+                    emoji: _emoji,
+                  );
               if (context.mounted) Navigator.pop(context);
             },
           ),
@@ -1098,7 +1337,7 @@ class _GoalSheetState extends ConsumerState<_GoalSheet> {
   }
 }
 
-// ---- Vizualele categoriilor (catalog local, temporar) ----
+// ---- Cum arată fiecare categorie
 
 class _CatVisual {
   const _CatVisual(this.label, this.icon, this.tint, this.color);
@@ -1110,32 +1349,69 @@ class _CatVisual {
 }
 
 _CatVisual _catVisual(String category) => switch (category) {
-      'mancare' =>
-        const _CatVisual('Mâncare', Ic.heart, Color(0x26FF7A59), C.catFood),
-      'transport' =>
-        const _CatVisual('Transport', Ic.bus, Color(0x242B86FF), C.blue),
-      'distractie' =>
-        const _CatVisual('Distracție', Ic.film, Color(0x26A78BFA), C.violet),
-      'educatie' =>
-        const _CatVisual('Educație', Ic.book, Color(0x242B86FF), C.sky),
-      'haine' =>
-        const _CatVisual('Haine', Ic.bag, Color(0x29FFB020), C.amber),
-      'sanatate' =>
-        const _CatVisual('Sănătate', Ic.heart, Color(0x2622C55E), C.green),
-      'chirie' =>
-        const _CatVisual('Chirie', Ic.home, Color(0x26A78BFA), C.violet),
-      // Destinații de economisire (familia verde, bani puși deoparte, nu cheltuiți).
-      'fond_urgenta' =>
-        const _CatVisual('Fond urgență', Ic.shield, Color(0x2622C55E), C.green),
-      'obiectiv' =>
-        const _CatVisual('Obiectiv', Ic.target, Color(0x2622C55E), C.green),
-      'investitii' =>
-        const _CatVisual('Investiții', Ic.trending, Color(0x2622C55E), C.green),
-      'pensie' => const _CatVisual(
-          'Pe termen lung', Ic.clock, Color(0x2622C55E), C.green),
-      'depozit' =>
-        const _CatVisual('Depozit', Ic.wallet, Color(0x2622C55E), C.green),
-      'altele_economii' =>
-        const _CatVisual('Economii', Ic.coins, Color(0x2622C55E), C.green),
-      _ => const _CatVisual('Altele', Ic.plus, Color(0x229AABC5), C.text2),
-    };
+  'mancare' => const _CatVisual(
+    'Mâncare',
+    Ic.heart,
+    Color(0x26FF7A59),
+    C.catFood,
+  ),
+  'transport' => const _CatVisual(
+    'Transport',
+    Ic.bus,
+    Color(0x242B86FF),
+    C.blue,
+  ),
+  'distractie' => const _CatVisual(
+    'Distracție',
+    Ic.film,
+    Color(0x26A78BFA),
+    C.violet,
+  ),
+  'educatie' => const _CatVisual('Educație', Ic.book, Color(0x242B86FF), C.sky),
+  'haine' => const _CatVisual('Haine', Ic.bag, Color(0x29FFB020), C.amber),
+  'sanatate' => const _CatVisual(
+    'Sănătate',
+    Ic.heart,
+    Color(0x2622C55E),
+    C.green,
+  ),
+  'chirie' => const _CatVisual('Chirie', Ic.home, Color(0x26A78BFA), C.violet),
+  // Destinații de economisire (familia verde, bani puși deoparte, nu cheltuiți).
+  'fond_urgenta' => const _CatVisual(
+    'Fond urgență',
+    Ic.shield,
+    Color(0x2622C55E),
+    C.green,
+  ),
+  'obiectiv' => const _CatVisual(
+    'Obiectiv',
+    Ic.target,
+    Color(0x2622C55E),
+    C.green,
+  ),
+  'investitii' => const _CatVisual(
+    'Investiții',
+    Ic.trending,
+    Color(0x2622C55E),
+    C.green,
+  ),
+  'pensie' => const _CatVisual(
+    'Pe termen lung',
+    Ic.clock,
+    Color(0x2622C55E),
+    C.green,
+  ),
+  'depozit' => const _CatVisual(
+    'Depozit',
+    Ic.wallet,
+    Color(0x2622C55E),
+    C.green,
+  ),
+  'altele_economii' => const _CatVisual(
+    'Economii',
+    Ic.coins,
+    Color(0x2622C55E),
+    C.green,
+  ),
+  _ => const _CatVisual('Altele', Ic.plus, Color(0x229AABC5), C.text2),
+};

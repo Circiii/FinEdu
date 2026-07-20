@@ -77,7 +77,7 @@ Widget feedbackRow({required bool correct, required String text}) {
   );
 }
 
-// ---- MCQ (2.1: `why` per opțiune la reveal) ----
+// ---- MCQ (2.1: `why` per opțiune la reveal)
 
 class McqInteractive extends StatefulWidget {
   const McqInteractive({
@@ -197,7 +197,7 @@ class _McqInteractiveState extends State<McqInteractive> {
   }
 }
 
-// ---- Checklist ----
+// ---- Checklist
 
 class ChecklistInteractive extends StatefulWidget {
   const ChecklistInteractive({

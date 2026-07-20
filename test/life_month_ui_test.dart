@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
@@ -73,7 +73,12 @@ LifeSimContent _fixtureContent() {
   };
   final goals = {
     'goals': [
-      {'id': 'g1', 'name': _bi('Garsonieră'), 'target_bani': 200000, 'why': _bi('Casa mea.')},
+      {
+        'id': 'g1',
+        'name': _bi('Garsonieră'),
+        'target_bani': 200000,
+        'why': _bi('Casa mea.'),
+      },
     ],
   };
   final endings = {
@@ -131,43 +136,55 @@ LifeSimContent _fixtureContent() {
 // ---------------------------------------------------------------------------
 
 ProviderContainer _container(AppDb db, LifeSimContent content) {
-  final c = ProviderContainer(overrides: [
-    appDbProvider.overrideWithValue(db),
-    lifeSimContentProvider.overrideWith((ref) => content),
-    // Evită dependența avatarului de garderobă/profil în teste.
-    equippedLookProvider.overrideWithValue((bg: null, accessory: null)),
-  ]);
+  final c = ProviderContainer(
+    overrides: [
+      appDbProvider.overrideWithValue(db),
+      lifeSimContentProvider.overrideWith((ref) => content),
+      // Evită dependența avatarului de garderobă/profil în teste.
+      equippedLookProvider.overrideWithValue((bg: null, accessory: null)),
+    ],
+  );
   return c;
 }
 
 GoRouter _router(String initial) => GoRouter(
-      initialLocation: initial,
-      routes: [
-        GoRoute(
-            path: '/arcade',
-            builder: (_, _) =>
-                const Scaffold(body: Center(child: Text('ARCADE_HUB')))),
-        GoRoute(
-            path: '/arcade/luna',
-            builder: (_, _) => const LifeMonthIntroScreen()),
-        GoRoute(
-            path: '/arcade/luna/joc',
-            builder: (_, s) => LifeMonthScreen(runId: s.extra as String?)),
-        GoRoute(
-            path: '/arcade/luna/raport',
-            builder: (_, s) => LifeMonthReportScreen(runId: s.extra as String?)),
-        GoRoute(
-            path: '/learn',
-            builder: (_, _) => const Scaffold(body: Center(child: Text('LEARN')))),
-      ],
-    );
+  initialLocation: initial,
+  routes: [
+    GoRoute(
+      path: '/arcade',
+      builder: (_, _) =>
+          const Scaffold(body: Center(child: Text('ARCADE_HUB'))),
+    ),
+    GoRoute(
+      path: '/arcade/luna',
+      builder: (_, _) => const LifeMonthIntroScreen(),
+    ),
+    GoRoute(
+      path: '/arcade/luna/joc',
+      builder: (_, s) => LifeMonthScreen(runId: s.extra as String?),
+    ),
+    GoRoute(
+      path: '/arcade/luna/raport',
+      builder: (_, s) => LifeMonthReportScreen(runId: s.extra as String?),
+    ),
+    GoRoute(
+      path: '/learn',
+      builder: (_, _) => const Scaffold(body: Center(child: Text('LEARN'))),
+    ),
+  ],
+);
 
-Future<void> _pump(WidgetTester tester, ProviderContainer container,
-    String initial) async {
-  await tester.pumpWidget(UncontrolledProviderScope(
-    container: container,
-    child: MaterialApp.router(routerConfig: _router(initial)),
-  ));
+Future<void> _pump(
+  WidgetTester tester,
+  ProviderContainer container,
+  String initial,
+) async {
+  await tester.pumpWidget(
+    UncontrolledProviderScope(
+      container: container,
+      child: MaterialApp.router(routerConfig: _router(initial)),
+    ),
+  );
   await tester.pumpAndSettle();
 }
 
@@ -177,7 +194,7 @@ void main() {
   final content = _fixtureContent();
 
   // =========================================================================
-  // Repository unit tests
+  // Teste pe repository
   // =========================================================================
 
   group('LifeMonthRepository', () {
@@ -194,7 +211,12 @@ void main() {
 
     test('createRun persistă rândul și întoarce starea (ziua 0)', () async {
       final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'ghidat', seed: 7);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'ghidat',
+        seed: 7,
+      );
       expect(run.state.day, 0);
       expect(run.state.cash.bani, 100000);
       final rows = await db.select(db.lifeSimRuns).get();
@@ -204,156 +226,216 @@ void main() {
       expect(rows.single.completedAt, isNull);
     });
 
-    test('saveSnapshot actualizează ziua + stateJson; activeRun le reflectă',
-        () async {
-      final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'ghidat', seed: 7);
-      final advanced = engine.advanceDay(run.state, content).state; // ziua 1
-      await repo.saveSnapshot(run.id, advanced);
-      final active = await repo.activeRun();
-      expect(active, isNotNull);
-      expect(active!.id, run.id);
-      expect(active.state.day, 1);
-      expect(active.state.cash.bani, 100000 + 300000); // + salariu 3000 lei
-    });
+    test(
+      'saveSnapshot actualizează ziua + stateJson; activeRun le reflectă',
+      () async {
+        final run = await repo.createRun(
+          content: content,
+          roleId: 'r1',
+          goalId: 'g1',
+          mode: 'ghidat',
+          seed: 7,
+        );
+        final advanced = engine.advanceDay(run.state, content).state; // ziua 1
+        await repo.saveSnapshot(run.id, advanced);
+        final active = await repo.activeRun();
+        expect(active, isNotNull);
+        expect(active!.id, run.id);
+        expect(active.state.day, 1);
+        expect(active.state.cash.bani, 100000 + 300000); // + salariu 3000 lei
+      },
+    );
 
     test('activeRun e null când nu există runde neterminate', () async {
       expect(await repo.activeRun(), isNull);
     });
 
-    test('completeRun: prima terminare a zilei plătește 15🌰 + 30 XP o dată',
-        () async {
-      final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'realist', seed: 1);
-      final st = run.state.copyWith(day: 30);
-      final sc = score(st, content);
+    test(
+      'completeRun: prima terminare a zilei plătește 15🌰 + 30 XP o dată',
+      () async {
+        final run = await repo.createRun(
+          content: content,
+          roleId: 'r1',
+          goalId: 'g1',
+          mode: 'realist',
+          seed: 1,
+        );
+        final st = run.state.copyWith(day: 30);
+        final sc = score(st, content);
 
-      final res = await repo.completeRun(runId: run.id, state: st, score: sc);
-      expect(res.acornsAwarded, 15);
-      expect(res.xpAwarded, 30);
-      expect(res.improved, isFalse);
+        final res = await repo.completeRun(runId: run.id, state: st, score: sc);
+        expect(res.acornsAwarded, 15);
+        expect(res.xpAwarded, 30);
+        expect(res.improved, isFalse);
 
-      final profile = await profiles.get();
-      expect(profile.acorns, 15);
-      expect(profile.xp, 30);
+        final profile = await profiles.get();
+        expect(profile.acorns, 15);
+        expect(profile.xp, 30);
 
-      // Rândul e marcat terminat + resultJson scris.
-      final row = await (db.select(db.lifeSimRuns)
-            ..where((r) => r.id.equals(run.id)))
-          .getSingle();
-      expect(row.completedAt, isNotNull);
-      expect(row.resultJson, isNotNull);
+        // Rândul e marcat terminat + resultJson scris.
+        final row = await (db.select(
+          db.lifeSimRuns,
+        )..where((r) => r.id.equals(run.id))).getSingle();
+        expect(row.completedAt, isNotNull);
+        expect(row.resultJson, isNotNull);
 
-      // Ledger: exact o intrare 'life_sim_complete'.
-      final ledger = await (db.select(db.acornEntries)
-            ..where((e) => e.reason.equals('life_sim_complete')))
-          .get();
-      expect(ledger, hasLength(1));
-      expect(ledger.single.delta, 15);
-    });
+        // Ledger: exact o intrare 'life_sim_complete'.
+        final ledger = await (db.select(
+          db.acornEntries,
+        )..where((e) => e.reason.equals('life_sim_complete'))).get();
+        expect(ledger, hasLength(1));
+        expect(ledger.single.delta, 15);
+      },
+    );
 
     test('plafon: a doua terminare din aceeași zi nu plătește', () async {
       final a = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'realist', seed: 1);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'realist',
+        seed: 1,
+      );
       final b = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'realist', seed: 2);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'realist',
+        seed: 2,
+      );
       final sa = a.state.copyWith(day: 30);
       final sb = b.state.copyWith(day: 30);
 
-      final first =
-          await repo.completeRun(runId: a.id, state: sa, score: score(sa, content));
+      final first = await repo.completeRun(
+        runId: a.id,
+        state: sa,
+        score: score(sa, content),
+      );
       expect(first.acornsAwarded, 15);
-      final second =
-          await repo.completeRun(runId: b.id, state: sb, score: score(sb, content));
+      final second = await repo.completeRun(
+        runId: b.id,
+        state: sb,
+        score: score(sb, content),
+      );
       expect(second.acornsAwarded, 0);
       expect(second.xpAwarded, 0);
       // Runda b e totuși marcată terminată.
-      final row = await (db.select(db.lifeSimRuns)
-            ..where((r) => r.id.equals(b.id)))
-          .getSingle();
+      final row = await (db.select(
+        db.lifeSimRuns,
+      )..where((r) => r.id.equals(b.id))).getSingle();
       expect(row.completedAt, isNotNull);
     });
 
-    test(
-        'completeRun pe o rundă DEJA terminată nu mai recompensează (o rundă '
+    test('completeRun pe o rundă DEJA terminată nu mai recompensează (o rundă '
         'se plătește o dată în viața ei, nu o dată pe zi)', () async {
       final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'realist', seed: 11);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'realist',
+        seed: 11,
+      );
       final st = run.state.copyWith(day: 30);
       final sc = score(st, content);
 
-      final first =
-          await repo.completeRun(runId: run.id, state: st, score: sc);
+      final first = await repo.completeRun(runId: run.id, state: st, score: sc);
       expect(first.acornsAwarded, 15);
       expect(first.xpAwarded, 30);
 
       // Reapelat pe ACEEAȘI rundă (deja completedAt != null), chiar dacă
       // ledger-ul de azi ar mai avea loc de plată, nu se mai plătește nimic.
-      final second =
-          await repo.completeRun(runId: run.id, state: st, score: sc);
+      final second = await repo.completeRun(
+        runId: run.id,
+        state: st,
+        score: sc,
+      );
       expect(second.acornsAwarded, 0);
       expect(second.xpAwarded, 0);
       expect(second.improved, isFalse);
 
       // Ledger-ul nu are decât intrarea din prima terminare.
-      final ledger = await (db.select(db.acornEntries)
-            ..where((e) => e.reason.equals('life_sim_complete')))
-          .get();
+      final ledger = await (db.select(
+        db.acornEntries,
+      )..where((e) => e.reason.equals('life_sim_complete'))).get();
       expect(ledger, hasLength(1));
       final profile = await profiles.get();
       expect(profile.acorns, 15);
       expect(profile.xp, 30);
     });
 
-    test('bonus de îmbunătățire pe același seed (rundă anterioară pe zi trecută)',
-        () async {
-      // Rundă anterioară A: același seed, terminată IERI (fără ledger azi), scor 40.
-      final base = engine
-          .createRun(c: content, roleId: 'r1', goalId: 'g1', mode: 'realist', seed: 999)
-          .copyWith(day: 30);
-      final yesterday = DateTime.now().subtract(const Duration(days: 1));
-      await db.into(db.lifeSimRuns).insert(LifeSimRunsCompanion.insert(
-            id: 'A',
-            seed: 999,
-            roleId: 'r1',
-            goalId: 'g1',
-            mode: 'realist',
-            contentVersion: '1.0.0-test',
-            stateJson: jsonEncode(base.toJson()),
-            startedAt: yesterday,
-            completedAt: Value(yesterday),
-            resultJson: Value(jsonEncode(const LifeSimScore(
-              control: 50,
-              rezilienta: 50,
-              obiective: 40,
-              echilibru: 40,
-              total: 40,
-              endingId: 'navigatorul',
-            ).toJson())),
-          ));
+    test(
+      'bonus de îmbunătățire pe același seed (rundă anterioară pe zi trecută)',
+      () async {
+        // Rundă anterioară A: același seed, terminată IERI (fără ledger azi), scor 40.
+        final base = engine
+            .createRun(
+              c: content,
+              roleId: 'r1',
+              goalId: 'g1',
+              mode: 'realist',
+              seed: 999,
+            )
+            .copyWith(day: 30);
+        final yesterday = DateTime.now().subtract(const Duration(days: 1));
+        await db
+            .into(db.lifeSimRuns)
+            .insert(
+              LifeSimRunsCompanion.insert(
+                id: 'A',
+                seed: 999,
+                roleId: 'r1',
+                goalId: 'g1',
+                mode: 'realist',
+                contentVersion: '1.0.0-test',
+                stateJson: jsonEncode(base.toJson()),
+                startedAt: yesterday,
+                completedAt: Value(yesterday),
+                resultJson: Value(
+                  jsonEncode(
+                    const LifeSimScore(
+                      control: 50,
+                      rezilienta: 50,
+                      obiective: 40,
+                      echilibru: 40,
+                      total: 40,
+                      endingId: 'navigatorul',
+                    ).toJson(),
+                  ),
+                ),
+              ),
+            );
 
-      // Rundă B: același seed, scor 60 azi → 15 + 10 (improve).
-      final b = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'realist', seed: 999);
-      const better = LifeSimScore(
-        control: 70,
-        rezilienta: 60,
-        obiective: 55,
-        echilibru: 55,
-        total: 60,
-        endingId: 'strategul',
-      );
-      final res = await repo.completeRun(
-          runId: b.id, state: b.state.copyWith(day: 30), score: better);
-      expect(res.improved, isTrue);
-      expect(res.previousBest, 40);
-      expect(res.acornsAwarded, 25);
+        // Rundă B: același seed, scor 60 azi → 15 + 10 (improve).
+        final b = await repo.createRun(
+          content: content,
+          roleId: 'r1',
+          goalId: 'g1',
+          mode: 'realist',
+          seed: 999,
+        );
+        const better = LifeSimScore(
+          control: 70,
+          rezilienta: 60,
+          obiective: 55,
+          echilibru: 55,
+          total: 60,
+          endingId: 'strategul',
+        );
+        final res = await repo.completeRun(
+          runId: b.id,
+          state: b.state.copyWith(day: 30),
+          score: better,
+        );
+        expect(res.improved, isTrue);
+        expect(res.previousBest, 40);
+        expect(res.acornsAwarded, 25);
 
-      final improveLedger = await (db.select(db.acornEntries)
-            ..where((e) => e.reason.equals('life_sim_improve')))
-          .get();
-      expect(improveLedger.single.delta, 10);
-    });
+        final improveLedger = await (db.select(
+          db.acornEntries,
+        )..where((e) => e.reason.equals('life_sim_improve'))).get();
+        expect(improveLedger.single.delta, 10);
+      },
+    );
 
     test('rewardReflection plătește o dată pe zi', () async {
       expect(await repo.rewardReflection(), 5);
@@ -362,7 +444,7 @@ void main() {
   });
 
   // =========================================================================
-  // Widget tests
+  // Teste de interfață
   // =========================================================================
 
   group('LifeMonth widgets', () {
@@ -386,8 +468,9 @@ void main() {
       expect(find.text('Începe'), findsOneWidget);
     });
 
-    testWidgets('pornirea unui run ajunge la ecranul principal cu „+ O zi"',
-        (tester) async {
+    testWidgets('pornirea unui run ajunge la ecranul principal cu „+ O zi"', (
+      tester,
+    ) async {
       await _pump(tester, container, '/arcade/luna');
       await tester.ensureVisible(find.text('Începe'));
       await tester.tap(find.text('Începe'));
@@ -402,11 +485,17 @@ void main() {
       expect(find.text('din 30'), findsOneWidget);
     });
 
-    testWidgets('avansarea unei zile liniștite mișcă ziua și balanța',
-        (tester) async {
+    testWidgets('avansarea unei zile liniștite mișcă ziua și balanța', (
+      tester,
+    ) async {
       final repo = container.read(lifeMonthRepositoryProvider);
       await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'ghidat', seed: 42);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'ghidat',
+        seed: 42,
+      );
 
       await _pump(tester, container, '/arcade/luna/joc');
       expect(find.text('+ O zi'), findsOneWidget);
@@ -423,11 +512,17 @@ void main() {
       expect(find.textContaining('4.000 lei'), findsWidgets);
     });
 
-    testWidgets('o zi cu eveniment arată foaia; alegerea persistă decizia',
-        (tester) async {
+    testWidgets('o zi cu eveniment arată foaia; alegerea persistă decizia', (
+      tester,
+    ) async {
       final repo = container.read(lifeMonthRepositoryProvider);
       final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'ghidat', seed: 5);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'ghidat',
+        seed: 5,
+      );
       // Aducem starea la ziua 1 și programăm ev_test pentru ziua 2 (prioritate).
       var st = engine.advanceDay(run.state, content).state; // ziua 1 + salariu
       st = st.copyWith(scheduledEvents: [(2, 'ev_test')]);
@@ -452,11 +547,17 @@ void main() {
       expect(decisions.single.choiceIdx, 1);
     });
 
-    testWidgets('terminarea la ziua 30 scrie rezultatul + recompensa o dată',
-        (tester) async {
+    testWidgets('terminarea la ziua 30 scrie rezultatul + recompensa o dată', (
+      tester,
+    ) async {
       final repo = container.read(lifeMonthRepositoryProvider);
       final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'realist', seed: 3);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'realist',
+        seed: 3,
+      );
       // Sărim la ziua 29 (zilele 26-30 nu au evenimente → avansul e liniștit).
       await repo.saveSnapshot(run.id, run.state.copyWith(day: 29));
 
@@ -470,56 +571,77 @@ void main() {
       expect(find.text('SCORUL LUNII'), findsOneWidget);
 
       // Rândul e terminat cu rezultat.
-      final row = await (db.select(db.lifeSimRuns)
-            ..where((r) => r.id.equals(run.id)))
-          .getSingle();
+      final row = await (db.select(
+        db.lifeSimRuns,
+      )..where((r) => r.id.equals(run.id))).getSingle();
       expect(row.completedAt, isNotNull);
       expect(row.resultJson, isNotNull);
 
       // Ledger: exact o recompensă de terminare azi.
       final today = dayKey(DateTime.now());
-      final ledger = await (db.select(db.acornEntries)
-            ..where((e) => e.reason.equals('life_sim_complete')))
-          .get();
-      final todayEntries =
-          ledger.where((e) => dayKey(e.createdAt) == today).toList();
+      final ledger = await (db.select(
+        db.acornEntries,
+      )..where((e) => e.reason.equals('life_sim_complete'))).get();
+      final todayEntries = ledger
+          .where((e) => dayKey(e.createdAt) == today)
+          .toList();
       expect(todayEntries, hasLength(1));
       expect(todayEntries.single.delta, 15);
+
+      // Scorul trece de prag, deci se deschide ploaia de ghinde: o lăsăm să
+      // se închidă singură, altfel rămâne un cronometru în aer la final.
+      await tester.pump(const Duration(seconds: 5));
+      await tester.pumpAndSettle();
     });
 
     testWidgets(
-        'dublu-tap pe „Vezi raportul" la resume-ul zilei 30 nu recompensează '
-        'de două ori (butonul se dezactivează la primul tap)', (tester) async {
+      'dublu-tap pe „Vezi raportul" la resume-ul zilei 30 nu recompensează '
+      'de două ori (butonul se dezactivează la primul tap)',
+      (tester) async {
+        final repo = container.read(lifeMonthRepositoryProvider);
+        final run = await repo.createRun(
+          content: content,
+          roleId: 'r1',
+          goalId: 'g1',
+          mode: 'realist',
+          seed: 77,
+        );
+        // Rundă deja la ziua 30, ex. resume după o terminare întreruptă.
+        await repo.saveSnapshot(run.id, run.state.copyWith(day: 30));
+
+        await _pump(tester, container, '/arcade/luna/joc');
+        expect(find.text('Vezi raportul'), findsOneWidget);
+
+        // Dublu-tap ÎNAINTE de orice pump, reproduce cursa reală: al doilea
+        // tap trebuie să lovească guard-ul `_busy` (setat sincron la primul).
+        await tester.tap(find.text('Vezi raportul'));
+        await tester.tap(find.text('Vezi raportul'));
+        await tester.pumpAndSettle();
+
+        expect(find.text('SCORUL LUNII'), findsOneWidget);
+        final ledger = await (db.select(
+          db.acornEntries,
+        )..where((e) => e.reason.equals('life_sim_complete'))).get();
+        expect(ledger, hasLength(1));
+        final profile = await container
+            .read(localProfileRepositoryProvider)
+            .get();
+        expect(profile.acorns, 15);
+        expect(profile.xp, 30);
+      },
+    );
+
+    testWidgets('resume: încărcarea din snapshot arată aceeași zi și cash', (
+      tester,
+    ) async {
       final repo = container.read(lifeMonthRepositoryProvider);
       final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'realist', seed: 77);
-      // Rundă deja la ziua 30, ex. resume după o terminare întreruptă.
-      await repo.saveSnapshot(run.id, run.state.copyWith(day: 30));
-
-      await _pump(tester, container, '/arcade/luna/joc');
-      expect(find.text('Vezi raportul'), findsOneWidget);
-
-      // Dublu-tap ÎNAINTE de orice pump, reproduce cursa reală: al doilea
-      // tap trebuie să lovească guard-ul `_busy` (setat sincron la primul).
-      await tester.tap(find.text('Vezi raportul'));
-      await tester.tap(find.text('Vezi raportul'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('SCORUL LUNII'), findsOneWidget);
-      final ledger = await (db.select(db.acornEntries)
-            ..where((e) => e.reason.equals('life_sim_complete')))
-          .get();
-      expect(ledger, hasLength(1));
-      final profile = await container.read(localProfileRepositoryProvider).get();
-      expect(profile.acorns, 15);
-      expect(profile.xp, 30);
-    });
-
-    testWidgets('resume: încărcarea din snapshot arată aceeași zi și cash',
-        (tester) async {
-      final repo = container.read(lifeMonthRepositoryProvider);
-      final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'ghidat', seed: 42);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'ghidat',
+        seed: 42,
+      );
       // Avansăm 3 zile în motor și salvăm instantaneul.
       var st = run.state;
       for (var i = 0; i < 3; i++) {
@@ -536,11 +658,17 @@ void main() {
 
     // --- Noul layout 2.0: stat-uri, portofel cu datorii, calendar cu restanțe -
 
-    testWidgets('rândul de stat-uri există și deschide foaia care le explică',
-        (tester) async {
+    testWidgets('rândul de stat-uri există și deschide foaia care le explică', (
+      tester,
+    ) async {
       final repo = container.read(lifeMonthRepositoryProvider);
       await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'ghidat', seed: 42);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'ghidat',
+        seed: 42,
+      );
 
       await _pump(tester, container, '/arcade/luna/joc');
       // Rândul celor 4 mini-bare de viață e pe ecranul principal.
@@ -554,49 +682,64 @@ void main() {
     });
 
     testWidgets(
-        'Portofelul deschide sumele rapide și plata anticipată a datoriei',
-        (tester) async {
+      'Portofelul deschide sumele rapide și plata anticipată a datoriei',
+      (tester) async {
+        final repo = container.read(lifeMonthRepositoryProvider);
+        final run = await repo.createRun(
+          content: content,
+          roleId: 'r1',
+          goalId: 'g1',
+          mode: 'ghidat',
+          seed: 8,
+        );
+        // Injectăm o datorie ca să apară secțiunea „Datorii" cu butonul de plată.
+        final withDebt = run.state.copyWith(
+          debts: const [
+            DebtState(
+              id: 'imprumut',
+              principal: Money(200000),
+              monthly: Money(20000),
+              dueDay: 12,
+            ),
+          ],
+        );
+        await repo.saveSnapshot(run.id, withDebt);
+
+        await _pump(tester, container, '/arcade/luna/joc');
+        // Rândul de acces e sub prag pe ecranul de test: îl aducem în vizor.
+        await tester.ensureVisible(find.text('Portofel'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Portofel'));
+        await tester.pumpAndSettle();
+
+        // Foaia nouă: sume rapide 50/250 și secțiunea de datorii.
+        expect(find.text('MUTĂ BANI'), findsOneWidget);
+        expect(find.text('50'), findsOneWidget);
+        expect(find.text('250'), findsOneWidget);
+        expect(find.text('DATORII'), findsOneWidget);
+        expect(find.text('Plătește'), findsOneWidget);
+
+        // Plata anticipată scade principalul prin motor (cash 1000 lei acoperă 100).
+        await tester.ensureVisible(find.text('Plătește'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Plătește'));
+        await tester.pumpAndSettle();
+        final saved = await repo.getRun(run.id);
+        expect(saved!.state.debts.single.principal.bani, lessThan(200000));
+      },
+    );
+
+    testWidgets('Calendarul arată restanțele injectate în stare', (
+      tester,
+    ) async {
       final repo = container.read(lifeMonthRepositoryProvider);
       final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'ghidat', seed: 8);
-      // Injectăm o datorie ca să apară secțiunea „Datorii" cu butonul de plată.
-      final withDebt = run.state.copyWith(debts: const [
-        DebtState(
-          id: 'imprumut',
-          principal: Money(200000),
-          monthly: Money(20000),
-          dueDay: 12,
-        ),
-      ]);
-      await repo.saveSnapshot(run.id, withDebt);
-
-      await _pump(tester, container, '/arcade/luna/joc');
-      // Rândul de acces e sub prag pe ecranul de test: îl aducem în vizor.
-      await tester.ensureVisible(find.text('Portofel'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Portofel'));
-      await tester.pumpAndSettle();
-
-      // Foaia nouă: sume rapide 50/250 și secțiunea de datorii.
-      expect(find.text('MUTĂ BANI'), findsOneWidget);
-      expect(find.text('50'), findsOneWidget);
-      expect(find.text('250'), findsOneWidget);
-      expect(find.text('DATORII'), findsOneWidget);
-      expect(find.text('Plătește'), findsOneWidget);
-
-      // Plata anticipată scade principalul prin motor (cash 1000 lei acoperă 100).
-      await tester.ensureVisible(find.text('Plătește'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Plătește'));
-      await tester.pumpAndSettle();
-      final saved = await repo.getRun(run.id);
-      expect(saved!.state.debts.single.principal.bani, lessThan(200000));
-    });
-
-    testWidgets('Calendarul arată restanțele injectate în stare', (tester) async {
-      final repo = container.read(lifeMonthRepositoryProvider);
-      final run = await repo.createRun(
-          content: content, roleId: 'r1', goalId: 'g1', mode: 'ghidat', seed: 9);
+        content: content,
+        roleId: 'r1',
+        goalId: 'g1',
+        mode: 'ghidat',
+        seed: 9,
+      );
       // Chiria (ziua 5) ratată, cu ziua curentă trecută de scadență.
       final withArrears = run.state.copyWith(
         day: 8,

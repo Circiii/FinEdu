@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
-import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../wardrobe/presentation/cashy_avatar.dart';
@@ -157,18 +157,27 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
               child: Stack(
                 children: [
                   // Șoseaua, dintr-o singură bucată, sub toate nodurile.
+                  // La deschidere se desenează singură de sus în jos.
                   Positioned.fill(
-                    child: CustomPaint(
-                      painter: _RoadPainter(
-                        dxs: dxs,
-                        slotH: _slotH,
-                        bubbleCY: _bubbleCY,
-                        reached: reached,
-                        ribbon: look.gradient.colors.first.withValues(
-                          alpha: 0.14,
+                    child: AnimatedFrac(
+                      value: 1,
+                      duration: const Duration(milliseconds: 1100),
+                      curve: Curves.easeInOutCubic,
+                      builder: (_, drawn) => CustomPaint(
+                        painter: _RoadPainter(
+                          dxs: dxs,
+                          slotH: _slotH,
+                          bubbleCY: _bubbleCY,
+                          reached: reached,
+                          drawn: drawn,
+                          ribbon: look.gradient.colors.first.withValues(
+                            alpha: 0.14,
+                          ),
+                          traveled: C.green.withValues(alpha: 0.22),
+                          dash: look.gradient.colors.last.withValues(
+                            alpha: 0.4,
+                          ),
                         ),
-                        traveled: C.green.withValues(alpha: 0.22),
-                        dash: look.gradient.colors.last.withValues(alpha: 0.4),
                       ),
                     ),
                   ),
@@ -244,11 +253,9 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
   Widget _headerContent(LearnUnit unit, int doneIn) {
     return Row(
       children: [
-        GestureDetector(
-          onTap: () {
-            Juice.tick();
-            context.pop();
-          },
+        Pressable(
+          onTap: () => context.pop(),
+          scale: 0.9,
           child: Container(
             width: 38,
             height: 38,
@@ -289,13 +296,14 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                 child: Container(
                   height: 7,
                   color: Colors.white.withValues(alpha: 0.25),
-                  child: FractionallySizedBox(
-                    alignment: Alignment.centerLeft,
-                    widthFactor: (doneIn / unit.lessons.length).clamp(
-                      0.04,
-                      1.0,
+                  child: AnimatedFrac(
+                    value: (doneIn / unit.lessons.length).clamp(0.04, 1.0),
+                    duration: const Duration(milliseconds: 900),
+                    builder: (_, v) => FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: math.max(v, 0.001),
+                      child: Container(color: Colors.white),
                     ),
-                    child: Container(color: Colors.white),
                   ),
                 ),
               ),
@@ -329,7 +337,7 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
       _NodeState.locked => 76.0,
     };
 
-    return StaggerIn(
+    return PopIn(
       index: index,
       child: Transform.translate(
         offset: Offset(dx, 0),
@@ -375,15 +383,18 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                     Positioned(
                       left: dx >= 0 ? -78 : null,
                       right: dx < 0 ? -78 : null,
-                      child: Transform.flip(
-                        flipX: dx < 0,
-                        child: const CashySprite(
-                          asset: Cashy.cashyPoint,
-                          width: 64,
+                      child: Floaty(
+                        child: Transform.flip(
+                          flipX: dx < 0,
+                          child: const CashySprite(
+                            asset: Cashy.cashyPoint,
+                            width: 64,
+                          ),
                         ),
                       ),
                     ),
-                  GestureDetector(
+                  Pressable(
+                    scale: 0.92,
                     onTap: locked
                         ? () => ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -400,58 +411,61 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
                               behavior: SnackBarBehavior.floating,
                             ),
                           )
-                        : () {
-                            Juice.tick();
-                            context.push('/learn/lesson/${lesson.id}');
+                        : () => context.push('/learn/lesson/${lesson.id}'),
+                    // Bula curentă pulsează discret: se vede unde ești.
+                    child: Pulse(
+                      scale: isCurrent ? 1.045 : 1.0,
+                      child: Container(
+                        width: size,
+                        height: size,
+                        decoration: BoxDecoration(
+                          gradient: state == _NodeState.done
+                              ? Grad.green
+                              : null,
+                          color: switch (state) {
+                            _NodeState.done => null,
+                            _NodeState.current => C.surface,
+                            _NodeState.locked => C.inset,
                           },
-                    child: Container(
-                      width: size,
-                      height: size,
-                      decoration: BoxDecoration(
-                        gradient: state == _NodeState.done ? Grad.green : null,
-                        color: switch (state) {
-                          _NodeState.done => null,
-                          _NodeState.current => C.surface,
-                          _NodeState.locked => C.inset,
-                        },
-                        shape: BoxShape.circle,
-                        border: switch (state) {
-                          // Inelul alb dă adâncime; albastrul marchează startul.
-                          _NodeState.done => Border.all(
-                            color: Colors.white.withValues(alpha: 0.45),
-                            width: 4,
+                          shape: BoxShape.circle,
+                          border: switch (state) {
+                            // Inelul alb dă adâncime; albastrul marchează startul.
+                            _NodeState.done => Border.all(
+                              color: Colors.white.withValues(alpha: 0.45),
+                              width: 4,
+                            ),
+                            _NodeState.current => Border.all(
+                              color: C.blue,
+                              width: 4,
+                            ),
+                            _NodeState.locked => null,
+                          },
+                          boxShadow: switch (state) {
+                            _NodeState.done => Sh.green,
+                            _NodeState.current => Sh.blue,
+                            _NodeState.locked => Sh.insetSoft,
+                          },
+                        ),
+                        alignment: Alignment.center,
+                        child: switch (state) {
+                          _NodeState.done => const SvgIcon(
+                            Ic.check,
+                            size: 30,
+                            color: Colors.white,
+                            strokeWidth: 3,
                           ),
-                          _NodeState.current => Border.all(
-                            color: C.blue,
-                            width: 4,
+                          _NodeState.current => Text(
+                            lesson.emoji,
+                            style: const TextStyle(fontSize: 36),
                           ),
-                          _NodeState.locked => null,
-                        },
-                        boxShadow: switch (state) {
-                          _NodeState.done => Sh.green,
-                          _NodeState.current => Sh.blue,
-                          _NodeState.locked => Sh.insetSoft,
+                          _NodeState.locked => const SvgIcon(
+                            Ic.lock,
+                            size: 22,
+                            color: C.text3,
+                            strokeWidth: 2.2,
+                          ),
                         },
                       ),
-                      alignment: Alignment.center,
-                      child: switch (state) {
-                        _NodeState.done => const SvgIcon(
-                          Ic.check,
-                          size: 30,
-                          color: Colors.white,
-                          strokeWidth: 3,
-                        ),
-                        _NodeState.current => Text(
-                          lesson.emoji,
-                          style: const TextStyle(fontSize: 36),
-                        ),
-                        _NodeState.locked => const SvgIcon(
-                          Ic.lock,
-                          size: 22,
-                          color: C.text3,
-                          strokeWidth: 2.2,
-                        ),
-                      },
                     ),
                   ),
                 ],
@@ -496,7 +510,7 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
     required int index,
   }) {
     final look = unitLook(unit.color);
-    return StaggerIn(
+    return PopIn(
       index: index,
       child: Transform.translate(
         offset: Offset(dx, 0),
@@ -506,25 +520,29 @@ class _UnitPathScreenState extends ConsumerState<UnitPathScreen> {
             SizedBox(
               height: 100,
               child: Center(
-                child: Container(
-                  width: 88,
-                  height: 88,
-                  decoration: BoxDecoration(
-                    gradient: complete ? look.gradient : null,
-                    color: complete ? null : C.inset,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: complete
-                          ? Colors.white.withValues(alpha: 0.45)
-                          : C.line2,
-                      width: 4,
+                // Trofeul câștigat plutește, cel blocat stă pe loc.
+                child: Floaty(
+                  amplitude: complete ? 1 : 0,
+                  child: Container(
+                    width: 88,
+                    height: 88,
+                    decoration: BoxDecoration(
+                      gradient: complete ? look.gradient : null,
+                      color: complete ? null : C.inset,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: complete
+                            ? Colors.white.withValues(alpha: 0.45)
+                            : C.line2,
+                        width: 4,
+                      ),
+                      boxShadow: complete ? look.shadow : Sh.insetSoft,
                     ),
-                    boxShadow: complete ? look.shadow : Sh.insetSoft,
-                  ),
-                  alignment: Alignment.center,
-                  child: Opacity(
-                    opacity: complete ? 1 : 0.45,
-                    child: const Text('🏆', style: TextStyle(fontSize: 36)),
+                    alignment: Alignment.center,
+                    child: Opacity(
+                      opacity: complete ? 1 : 0.45,
+                      child: const Text('🏆', style: TextStyle(fontSize: 36)),
+                    ),
                   ),
                 ),
               ),
@@ -557,6 +575,7 @@ class _RoadPainter extends CustomPainter {
     required this.ribbon,
     required this.traveled,
     required this.dash,
+    this.drawn = 1,
   });
 
   final List<double> dxs;
@@ -566,6 +585,9 @@ class _RoadPainter extends CustomPainter {
   final Color ribbon;
   final Color traveled;
   final Color dash;
+
+  /// Cât din drum e desenat (0..1), pentru efectul de la deschidere.
+  final double drawn;
 
   Path _roadThrough(Size size, int upTo) {
     final cx = size.width / 2;
@@ -580,9 +602,19 @@ class _RoadPainter extends CustomPainter {
     return path;
   }
 
+  /// Taie traseul la fracția [f] din lungimea lui.
+  Path _trim(Path p, double f) {
+    if (f >= 1) return p;
+    final out = Path();
+    for (final m in p.computeMetrics()) {
+      out.addPath(m.extractPath(0, m.length * f), Offset.zero);
+    }
+    return out;
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
-    final full = _roadThrough(size, dxs.length - 1);
+    final full = _trim(_roadThrough(size, dxs.length - 1), drawn);
 
     canvas.drawPath(
       full,
@@ -595,7 +627,7 @@ class _RoadPainter extends CustomPainter {
 
     if (reached > 0) {
       canvas.drawPath(
-        _roadThrough(size, reached),
+        _trim(_roadThrough(size, reached), drawn),
         Paint()
           ..color = traveled
           ..style = PaintingStyle.stroke
@@ -604,7 +636,7 @@ class _RoadPainter extends CustomPainter {
       );
     }
 
-    // Linia punctată din mijloc, pe toată lungimea drumului.
+    // Linia punctată din mijloc, doar pe porțiunea deja desenată.
     final paint = Paint()
       ..color = dash
       ..style = PaintingStyle.stroke
@@ -623,6 +655,7 @@ class _RoadPainter extends CustomPainter {
   bool shouldRepaint(_RoadPainter old) =>
       old.dxs != dxs ||
       old.reached != reached ||
+      old.drawn != drawn ||
       old.ribbon != ribbon ||
       old.traveled != traveled ||
       old.dash != dash;

@@ -7,7 +7,7 @@ import '../../../core/ui/tokens.dart';
 import '../../wardrobe/presentation/cashy_avatar.dart';
 import '../data/lessons_repository.dart';
 
-// ---- Markup inline: **îngroșat** și ==evidențiat== (signaling, Mayer) ----
+// ---- Markup inline: **îngroșat** și ==evidențiat== (signaling, Mayer)
 
 final _markup = RegExp(r'\*\*(.+?)\*\*|==(.+?)==');
 
@@ -65,7 +65,7 @@ class RichLessonText extends StatelessWidget {
   }
 }
 
-// ---- Widgeturi per tip de bloc ----
+// ---- Widgeturi per tip de bloc
 
 ({Color soft, Color deep}) _tone(String tone) => switch (tone) {
   'amber' => (soft: C.amberSoft, deep: C.amberDeep),
@@ -330,7 +330,7 @@ class LessonBlockView extends StatelessWidget {
   }
 }
 
-// ---- Dezvăluire progresivă (segmenting, Mayer): un bloc per tap ----
+// ---- Dezvăluire progresivă (segmenting, Mayer): un bloc per tap
 
 /// Pagina de concept pe blocuri: primul bloc e vizibil, fiecare tap aduce
 /// următorul; [trailing] (micro-check-ul) apare abia după ultimul bloc.

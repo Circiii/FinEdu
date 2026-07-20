@@ -24,14 +24,18 @@ final notificationsRescheduleProvider = FutureProvider<void>((ref) async {
 
     // Copy-ul, ca la ceilalți loaderi de conținut: locală 'ro' (app-ul e RO).
     const locale = 'ro';
-    final content = jsonDecode(await loadAssetString('content/notifications.json'))
-        as Map<String, dynamic>;
+    final content =
+        jsonDecode(await loadAssetString('content/notifications.json'))
+            as Map<String, dynamic>;
 
     final slots = <({int id, DateTime when, String title, String body})>[];
     for (final p in plan) {
       final variants = (content[p.kind] as List).cast<Map<String, dynamic>>();
-      final v = variants[
-          variantIndex(dayKey: dayKey(p.when), count: variants.length)];
+      final v =
+          variants[variantIndex(
+            dayKey: dayKey(p.when),
+            count: variants.length,
+          )];
       slots.add((
         id: p.id,
         when: p.when,

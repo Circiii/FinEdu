@@ -40,14 +40,18 @@ class GoalsRepository {
     String? deadline,
   }) async {
     final id = _uuid.v4();
-    await _db.into(_db.localGoals).insert(LocalGoalsCompanion.insert(
-          id: id,
-          name: name,
-          targetAmount: targetAmount,
-          emoji: Value(emoji),
-          deadline: Value(deadline),
-          createdAt: DateTime.now(),
-        ));
+    await _db
+        .into(_db.localGoals)
+        .insert(
+          LocalGoalsCompanion.insert(
+            id: id,
+            name: name,
+            targetAmount: targetAmount,
+            emoji: Value(emoji),
+            deadline: Value(deadline),
+            createdAt: DateTime.now(),
+          ),
+        );
     return id;
   }
 
@@ -57,22 +61,26 @@ class GoalsRepository {
 
   Stream<List<GoalProgress>> watchWithProgress() {
     final saved = _db.localTransactions.amount.sum(
-      filter: _db.localTransactions.deleted.equals(false) &
+      filter:
+          _db.localTransactions.deleted.equals(false) &
           _db.localTransactions.type.equals(TransactionType.saving.key),
     );
-    final query = _db.select(_db.localGoals).join([
-      leftOuterJoin(
-        _db.localTransactions,
-        _db.localTransactions.goalId.equalsExp(_db.localGoals.id),
-      ),
-    ])
-      ..addColumns([saved])
-      ..groupBy([_db.localGoals.id])
-      ..orderBy([OrderingTerm.asc(_db.localGoals.createdAt)]);
+    final query =
+        _db.select(_db.localGoals).join([
+            leftOuterJoin(
+              _db.localTransactions,
+              _db.localTransactions.goalId.equalsExp(_db.localGoals.id),
+            ),
+          ])
+          ..addColumns([saved])
+          ..groupBy([_db.localGoals.id])
+          ..orderBy([OrderingTerm.asc(_db.localGoals.createdAt)]);
 
-    return query.watch().map((rows) => [
-          for (final row in rows)
-            GoalProgress(row.readTable(_db.localGoals), row.read(saved) ?? 0),
-        ]);
+    return query.watch().map(
+      (rows) => [
+        for (final row in rows)
+          GoalProgress(row.readTable(_db.localGoals), row.read(saved) ?? 0),
+      ],
+    );
   }
 }

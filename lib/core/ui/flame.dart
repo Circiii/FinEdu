@@ -9,9 +9,12 @@ class FlameIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Image.asset(
-        'assets/icons/flame.png',
-        width: size,
-        height: size,
-        filterQuality: FilterQuality.medium,
-      );
+    'assets/icons/flame.png',
+    width: size,
+    height: size,
+    // Desenul e mai înalt decât lat: îl încadrăm fără să-l turtim, iar
+    // cutia rămâne pătrată, ca să nu se miște nimic în jurul lui.
+    fit: BoxFit.contain,
+    filterQuality: FilterQuality.medium,
+  );
 }

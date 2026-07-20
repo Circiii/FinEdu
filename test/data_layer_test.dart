@@ -1,5 +1,5 @@
-// Unit tests for the offline-first data layer (F0-B):
-// repository writes, outbox, daily activity, sync engine no-op, mapper.
+// Teste pentru stratul de date local: scrieri, outbox, activitatea zilei,
+// motorul de sincronizare și maparea modelelor.
 
 import 'dart:convert';
 
@@ -25,41 +25,43 @@ void main() {
     await db.close();
   });
 
-  test('addExpense writes the row, an outbox entry and daily activity "log"',
-      () async {
-    final tx = await repo.addExpense(
-      amount: 12.5,
-      category: 'mancare',
-      merchant: 'Mega Image',
-    );
+  test(
+    'addExpense writes the row, an outbox entry and daily activity "log"',
+    () async {
+      final tx = await repo.addExpense(
+        amount: 12.5,
+        category: 'mancare',
+        merchant: 'Mega Image',
+      );
 
-    // Row exists with the expected values.
-    final rows = await db.select(db.localTransactions).get();
-    expect(rows, hasLength(1));
-    final row = rows.single;
-    expect(row.id, tx.id);
-    expect(row.amount, 12.5);
-    expect(row.category, 'mancare');
-    expect(row.type, 'expense');
-    expect(row.merchant, 'Mega Image');
-    expect(row.deleted, isFalse);
-    expect(row.pendingSync, isTrue);
+      // Rândul există, cu valorile așteptate.
+      final rows = await db.select(db.localTransactions).get();
+      expect(rows, hasLength(1));
+      final row = rows.single;
+      expect(row.id, tx.id);
+      expect(row.amount, 12.5);
+      expect(row.category, 'mancare');
+      expect(row.type, 'expense');
+      expect(row.merchant, 'Mega Image');
+      expect(row.deleted, isFalse);
+      expect(row.pendingSync, isTrue);
 
-    // Outbox entry enqueued with the sync payload.
-    final outbox = await db.select(db.outboxEntries).get();
-    expect(outbox, hasLength(1));
-    expect(outbox.single.opType, 'upsert_transaction');
-    final payload = jsonDecode(outbox.single.payload) as Map<String, dynamic>;
-    expect(payload['client_id'], tx.id);
-    expect(payload['amount'], 12.5);
+      // În outbox a intrat operația de trimis mai târziu.
+      final outbox = await db.select(db.outboxEntries).get();
+      expect(outbox, hasLength(1));
+      expect(outbox.single.opType, 'upsert_transaction');
+      final payload = jsonDecode(outbox.single.payload) as Map<String, dynamic>;
+      expect(payload['client_id'], tx.id);
+      expect(payload['amount'], 12.5);
 
-    // Daily activity for the transaction's day contains 'log'.
-    final activity = await db.select(db.dailyActivityRows).get();
-    expect(activity, hasLength(1));
-    expect(activity.single.date, dayKey(tx.transactionDate));
-    final kinds = (jsonDecode(activity.single.kinds) as List).cast<String>();
-    expect(kinds, contains('log'));
-  });
+      // Activitatea zilei conține 'log'.
+      final activity = await db.select(db.dailyActivityRows).get();
+      expect(activity, hasLength(1));
+      expect(activity.single.date, dayKey(tx.transactionDate));
+      final kinds = (jsonDecode(activity.single.kinds) as List).cast<String>();
+      expect(kinds, contains('log'));
+    },
+  );
 
   test('softDelete marks the row deleted and enqueues a delete op', () async {
     final tx = await repo.addExpense(amount: 30, category: 'transport');
@@ -71,32 +73,34 @@ void main() {
     expect(row.pendingSync, isTrue);
 
     final outbox = await db.select(db.outboxEntries).get();
-    // addExpense enqueued 1 op; softDelete adds the delete op.
+    // addExpense pune o operație, ștergerea o adaugă pe a doua.
     expect(outbox, hasLength(2));
     final deleteOp = outbox.last;
     expect(deleteOp.opType, 'delete_transaction');
     expect(jsonDecode(deleteOp.payload), {'id': tx.id});
   });
 
-  test('markNoSpendToday is idempotent (a single row after two calls)',
-      () async {
-    await repo.markNoSpendToday();
-    await repo.markNoSpendToday();
+  test(
+    'markNoSpendToday is idempotent (a single row after two calls)',
+    () async {
+      await repo.markNoSpendToday();
+      await repo.markNoSpendToday();
 
-    final days = await db.select(db.noSpendDays).get();
-    expect(days, hasLength(1));
-    expect(days.single.date, dayKey(DateTime.now()));
+      final days = await db.select(db.noSpendDays).get();
+      expect(days, hasLength(1));
+      expect(days.single.date, dayKey(DateTime.now()));
 
-    // Only the first call enqueues an op or logs activity.
-    final outbox = await db.select(db.outboxEntries).get();
-    expect(outbox, hasLength(1));
-    expect(outbox.single.opType, 'mark_no_spend');
+      // Doar primul apel pune operația și marchează ziua.
+      final outbox = await db.select(db.outboxEntries).get();
+      expect(outbox, hasLength(1));
+      expect(outbox.single.opType, 'mark_no_spend');
 
-    final activity = await db.select(db.dailyActivityRows).get();
-    expect(activity, hasLength(1));
-    final kinds = (jsonDecode(activity.single.kinds) as List).cast<String>();
-    expect(kinds, contains('log'));
-  });
+      final activity = await db.select(db.dailyActivityRows).get();
+      expect(activity, hasLength(1));
+      final kinds = (jsonDecode(activity.single.kinds) as List).cast<String>();
+      expect(kinds, contains('log'));
+    },
+  );
 
   test('SyncEngine with hasBackend=false: syncNow() is a safe no-op', () async {
     await repo.addExpense(amount: 5, category: 'altele');
@@ -105,16 +109,16 @@ void main() {
 
     final engine = SyncEngine(db: db, hasBackend: false);
 
-    // Must not throw...
+    // Nu are voie să crape...
     await engine.syncNow();
 
-    // ...and must not touch the outbox (no drain, no attempts bump).
+    // ...și nu are voie să atingă outbox-ul.
     final after = await db.select(db.outboxEntries).get();
     expect(after, hasLength(1));
     expect(after.single.attempts, 0);
     expect(after.single.lastError, isNull);
 
-    // The row stays pending.
+    // Rândul rămâne în așteptare.
     final row = (await db.select(db.localTransactions).get()).single;
     expect(row.pendingSync, isTrue);
 
@@ -137,13 +141,13 @@ void main() {
       pendingSync: true,
     );
 
-    // Domain -> row -> domain is the identity.
+    // Model -> rând -> model dă exact ce a intrat.
     expect(original.toRow().toDomain(), original);
 
-    // And survives an actual DB write/read cycle.
+    // Și rezistă la un ciclu real de scriere și citire.
     await db.into(db.localTransactions).insert(original.toRow());
-    final fromDb =
-        (await db.select(db.localTransactions).get()).single.toDomain();
+    final fromDb = (await db.select(db.localTransactions).get()).single
+        .toDomain();
     expect(fromDb, original);
   });
 }

@@ -26,12 +26,14 @@ LessonInteractive _sim({
   );
 }
 
-Widget _app(LessonInteractive it) =>
-    MaterialApp(home: Scaffold(body: ParamSimInteractive(it: it)));
+Widget _app(LessonInteractive it) => MaterialApp(
+  home: Scaffold(body: ParamSimInteractive(it: it)),
+);
 
 void main() {
-  testWidgets('renders headline with compound total and exposed sliders only',
-      (tester) async {
+  testWidgets('renders headline with compound total and exposed sliders only', (
+    tester,
+  ) async {
     await tester.pumpWidget(_app(_sim()));
     await tester.pump();
 
@@ -45,26 +47,37 @@ void main() {
     expect(find.textContaining('~13 ani'), findsOneWidget);
   });
 
-  testWidgets('full lab exposes 3 sliders + inflation and race toggles',
-      (tester) async {
-    await tester.pumpWidget(_app(_sim(
-        exposed: ['years', 'monthly', 'rate'],
-        inflation: true,
-        race: true,
-        yearsDefault: 15)));
+  testWidgets('full lab exposes 3 sliders + inflation and race toggles', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _app(
+        _sim(
+          exposed: ['years', 'monthly', 'rate'],
+          inflation: true,
+          race: true,
+          yearsDefault: 15,
+        ),
+      ),
+    );
     await tester.pump();
 
     expect(find.byType(Slider), findsNWidgets(3));
-    expect(find.textContaining('4-7%'), findsOneWidget,
-        reason: 'eticheta de onestitate RO pe slider-ul de rată');
+    expect(
+      find.textContaining('4-7%'),
+      findsOneWidget,
+      reason: 'eticheta de onestitate RO pe slider-ul de rată',
+    );
     expect(find.textContaining('Valoarea reală'), findsOneWidget);
     expect(find.textContaining('Cursa: Ana'), findsOneWidget);
   });
 
-  testWidgets('race mode shows Ana vs Vlad with the difference comment',
-      (tester) async {
-    await tester.pumpWidget(_app(
-        _sim(exposed: ['years', 'monthly', 'rate'], race: true)));
+  testWidgets('race mode shows Ana vs Vlad with the difference comment', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _app(_sim(exposed: ['years', 'monthly', 'rate'], race: true)),
+    );
     await tester.pump();
 
     await tester.ensureVisible(find.textContaining('Cursa: Ana'));
@@ -77,8 +90,9 @@ void main() {
     expect(find.textContaining('Vlad nu e pierzător'), findsOneWidget);
   });
 
-  testWidgets('inflation toggle draws the dashed real-value legend',
-      (tester) async {
+  testWidgets('inflation toggle draws the dashed real-value legend', (
+    tester,
+  ) async {
     await tester.pumpWidget(_app(_sim(inflation: true)));
     await tester.pump();
 
@@ -88,13 +102,16 @@ void main() {
     expect(find.text('Valoarea reală'), findsOneWidget, reason: 'în legendă');
   });
 
-  testWidgets('"Cum calculăm?" expands the formula + disclaimer',
-      (tester) async {
+  testWidgets('"Cum calculăm?" expands the formula + disclaimer', (
+    tester,
+  ) async {
     await tester.pumpWidget(_app(_sim()));
     await tester.pump();
 
-    expect(find.textContaining('model educativ', findRichText: true),
-        findsNothing);
+    expect(
+      find.textContaining('model educativ', findRichText: true),
+      findsNothing,
+    );
     await tester.tap(find.text('Cum calculăm?'));
     await tester.pump();
     expect(find.textContaining('Model educativ'), findsOneWidget);

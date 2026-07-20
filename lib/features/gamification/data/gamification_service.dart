@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,8 +43,11 @@ class QuestView {
 }
 
 class ChestView {
-  const ChestView(
-      {required this.progress, required this.openable, required this.earnedToday});
+  const ChestView({
+    required this.progress,
+    required this.openable,
+    required this.earnedToday,
+  });
   final int progress; // misiuni revendicate azi (0..3)
   final bool openable; // câștigat într-o zi anterioară, încă nedeschis
   final bool earnedToday;
@@ -62,12 +65,12 @@ class GamificationService {
   final AppDb _db;
   final LocalProfileRepository _profiles;
 
-  // --- Streak ---------------------------------------------------------------
+  // --- Streak
 
   Future<StreakSnapshot> _loadSnapshot() async {
-    final row = await (_db.select(_db.streakStates)
-          ..where((s) => s.id.equals(0)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.streakStates,
+    )..where((s) => s.id.equals(0))).getSingleOrNull();
     if (row == null) return const StreakSnapshot();
     return StreakSnapshot(
       freezes: row.freezes,
@@ -81,7 +84,9 @@ class GamificationService {
   }
 
   Future<void> _saveSnapshot(StreakSnapshot s) {
-    return _db.into(_db.streakStates).insertOnConflictUpdate(
+    return _db
+        .into(_db.streakStates)
+        .insertOnConflictUpdate(
           StreakStatesCompanion(
             id: const Value(0),
             freezes: Value(s.freezes),
@@ -90,7 +95,8 @@ class GamificationService {
             earnbackUntil: Value(s.earnbackUntil),
             earnbackGap: Value(jsonEncode(s.earnbackGap.toList())),
             claimedMilestones: Value(
-                jsonEncode(s.claimedMilestones.map((m) => '$m').toList())),
+              jsonEncode(s.claimedMilestones.map((m) => '$m').toList()),
+            ),
             lastEvaluated: Value(s.lastEvaluated),
           ),
         );
@@ -133,7 +139,7 @@ class GamificationService {
     return true;
   }
 
-  // --- Quests + chest --------------------------------------------------------
+  // --- Misiuni + cufăr
 
   Future<QuestsView> questsToday() async {
     final today = dayKey(DateTime.now());
@@ -147,31 +153,38 @@ class GamificationService {
       for (final def in defs)
         QuestView(
           def,
-          done: questDone(def.id,
-              todayKinds: kinds,
-              todayExpenseCategories: categories,
-              streakCurrent: streak),
+          done: questDone(
+            def.id,
+            todayKinds: kinds,
+            todayExpenseCategories: categories,
+            streakCurrent: streak,
+          ),
           claimed: claims.contains(def.slot),
         ),
     ];
 
     // Cufărul se câștigă în momentul în care toate 3 sunt revendicate; deschidere din ziua următoare.
-    final chestRow = await (_db.select(_db.chestStates)
-          ..where((c) => c.id.equals(0)))
-        .getSingleOrNull();
+    final chestRow = await (_db.select(
+      _db.chestStates,
+    )..where((c) => c.id.equals(0))).getSingleOrNull();
     var earnedDate = chestRow?.earnedDate;
     if (claims.length == 3 && earnedDate != today) {
       // Cufăr nou pentru azi (nu retrogradează unul mai vechi nedeschis,
       // deschiderea se face pe date).
       if (earnedDate == null || chestRow?.openedDate == earnedDate) {
         earnedDate = today;
-        await _db.into(_db.chestStates).insertOnConflictUpdate(
+        await _db
+            .into(_db.chestStates)
+            .insertOnConflictUpdate(
               ChestStatesCompanion(
-                  id: const Value(0), earnedDate: Value(today)),
+                id: const Value(0),
+                earnedDate: Value(today),
+              ),
             );
       }
     }
-    final openable = earnedDate != null &&
+    final openable =
+        earnedDate != null &&
         earnedDate != today &&
         chestRow?.openedDate != earnedDate;
 
@@ -190,7 +203,9 @@ class GamificationService {
     final today = dayKey(DateTime.now());
     final claims = await _claims(today);
     if (claims.contains(def.slot)) return false;
-    await _db.into(_db.questClaims).insert(
+    await _db
+        .into(_db.questClaims)
+        .insert(
           QuestClaimsCompanion.insert(
             date: today,
             slot: def.slot,
@@ -205,9 +220,9 @@ class GamificationService {
   /// câștigate, sau null dacă nu e nimic de deschis.
   Future<int?> openChest() async {
     final today = dayKey(DateTime.now());
-    final row = await (_db.select(_db.chestStates)
-          ..where((c) => c.id.equals(0)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.chestStates,
+    )..where((c) => c.id.equals(0))).getSingleOrNull();
     final earned = row?.earnedDate;
     if (earned == null || earned == today || row?.openedDate == earned) {
       return null;
@@ -215,7 +230,9 @@ class GamificationService {
     final streak = (await evaluateNow()).current;
     final value = chestValue(earned, streak);
     await _profiles.addAcorns(value, reason: 'chest_$earned');
-    await _db.into(_db.chestStates).insertOnConflictUpdate(
+    await _db
+        .into(_db.chestStates)
+        .insertOnConflictUpdate(
           ChestStatesCompanion(id: const Value(0), openedDate: Value(earned)),
         );
     return value;
@@ -225,7 +242,7 @@ class GamificationService {
   // ArcadeRepository.recordRound, el deține marcarea activității 'game' și
   // economia primei runde a zilei.
 
-  // --- Internals -------------------------------------------------------------
+  // --- Interne
 
   Future<Set<String>> _activityDays() async {
     final rows = await _db.select(_db.dailyActivityRows).get();
@@ -234,29 +251,31 @@ class GamificationService {
 
   Future<Set<String>> _todayKinds() async {
     final today = dayKey(DateTime.now());
-    final row = await (_db.select(_db.dailyActivityRows)
-          ..where((r) => r.date.equals(today)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.dailyActivityRows,
+    )..where((r) => r.date.equals(today))).getSingleOrNull();
     if (row == null) return const {};
     return (jsonDecode(row.kinds) as List).cast<String>().toSet();
   }
 
   Future<Set<int>> _claims(String date) async {
-    final rows = await (_db.select(_db.questClaims)
-          ..where((q) => q.date.equals(date)))
-        .get();
+    final rows = await (_db.select(
+      _db.questClaims,
+    )..where((q) => q.date.equals(date))).get();
     return rows.map((r) => r.slot).toSet();
   }
 
   Future<Set<String>> _todayExpenseCategories() async {
     final now = DateTime.now();
     final start = DateTime(now.year, now.month, now.day);
-    final rows = await (_db.select(_db.localTransactions)
-          ..where((t) =>
-              t.deleted.equals(false) &
-              t.type.equals(TransactionType.expense.key) &
-              t.transactionDate.isBiggerOrEqualValue(start)))
-        .get();
+    final rows =
+        await (_db.select(_db.localTransactions)..where(
+              (t) =>
+                  t.deleted.equals(false) &
+                  t.type.equals(TransactionType.expense.key) &
+                  t.transactionDate.isBiggerOrEqualValue(start),
+            ))
+            .get();
     return rows.map((r) => r.category).toSet();
   }
 }

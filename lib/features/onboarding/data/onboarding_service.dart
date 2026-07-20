@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:drift/drift.dart' show Value;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,16 +45,16 @@ class OnboardingService {
   }
 
   Future<bool> _hasAnyActivity() async {
-    final row = await (_db.select(_db.dailyActivityRows)..limit(1))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.dailyActivityRows,
+    )..limit(1)).getSingleOrNull();
     return row != null;
   }
 
   Future<void> saveCeremony({required String name, required String color}) {
-    return _profiles.update(LocalProfilesCompanion(
-      cashyName: Value(name),
-      cashyColor: Value(color),
-    ));
+    return _profiles.update(
+      LocalProfilesCompanion(cashyName: Value(name), cashyColor: Value(color)),
+    );
   }
 
   /// Persistă răspunsurile la quiz (seed Elo) și creditează +5 ghinde.
@@ -72,25 +72,29 @@ class OnboardingService {
     if (age < 14) return null;
     final band = age <= 15 ? '14_15' : (age <= 17 ? '16_17' : '18_25');
     final track = age <= 18 ? 'A' : 'B';
-    await _profiles.update(LocalProfilesCompanion(
-      ageBand: Value(band),
-      track: Value(track),
-      parentalStatus:
-          Value(band == '14_15' ? 'pending' : 'not_required'),
-    ));
+    await _profiles.update(
+      LocalProfilesCompanion(
+        ageBand: Value(band),
+        track: Value(track),
+        parentalStatus: Value(band == '14_15' ? 'pending' : 'not_required'),
+      ),
+    );
     return band;
   }
 
   Future<void> saveParentEmail(String email) {
-    return _profiles.update(LocalProfilesCompanion(
-      parentEmail: Value(email),
-      parentalStatus: const Value('pending'),
-    ));
+    return _profiles.update(
+      LocalProfilesCompanion(
+        parentEmail: Value(email),
+        parentalStatus: const Value('pending'),
+      ),
+    );
   }
 
   Future<void> saveBudget(double budget) {
-    return _profiles
-        .update(LocalProfilesCompanion(monthlyBudget: Value(budget)));
+    return _profiles.update(
+      LocalProfilesCompanion(monthlyBudget: Value(budget)),
+    );
   }
 
   /// Loghează prima cheltuială ghidată (+2 ghinde, ca orice log).
@@ -111,13 +115,13 @@ class OnboardingService {
 
   /// Poarta se deschide, userul e onboarded.
   Future<void> completeWeekStep() {
-    return _profiles
-        .update(const LocalProfilesCompanion(onboarded: Value(true)));
+    return _profiles.update(
+      const LocalProfilesCompanion(onboarded: Value(true)),
+    );
   }
 
   /// 'accepted' | 'later'.
   Future<void> saveNotifChoice(String choice) {
-    return _profiles
-        .update(LocalProfilesCompanion(notifChoice: Value(choice)));
+    return _profiles.update(LocalProfilesCompanion(notifChoice: Value(choice)));
   }
 }

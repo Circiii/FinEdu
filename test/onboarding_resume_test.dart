@@ -1,4 +1,4 @@
-﻿import 'package:drift/native.dart';
+import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:finedu_flutter/core/db/app_db.dart';
@@ -23,11 +23,13 @@ void main() {
     expect(await service.resumeStep(), OnbStep.egg);
   });
 
-  test('ceremony without quiz still resumes at the egg (intro redoes)',
-      () async {
-    await service.saveCeremony(name: 'Ronți', color: 'mint');
-    expect(await service.resumeStep(), OnbStep.egg);
-  });
+  test(
+    'ceremony without quiz still resumes at the egg (intro redoes)',
+    () async {
+      await service.saveCeremony(name: 'Ronți', color: 'mint');
+      expect(await service.resumeStep(), OnbStep.egg);
+    },
+  );
 
   test('after quiz → age', () async {
     await service.saveCeremony(name: 'Ronți', color: 'mint');
@@ -51,14 +53,13 @@ void main() {
     expect((await profiles.get()).ageBand, isNull);
   });
 
-  test('the exact birth year is never persisted, only band + track',
-      () async {
+  test('the exact birth year is never persisted, only band + track', () async {
     await service.saveAge(DateTime.now().year - 17);
     final p = await profiles.get();
     expect(p.ageBand, '16_17');
     expect(p.track, 'A');
-    // The LocalProfiles schema has no birth-year column; this asserts the
-    // service derives an adult band correctly too.
+    // Profilul local nu ține anul nașterii, deci verificăm că serviciul
+    // deduce corect și banda de adult.
     await service.saveAge(DateTime.now().year - 22);
     expect((await profiles.get()).track, 'B');
   });

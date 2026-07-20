@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +41,7 @@ class TransactionsRepository {
   /// Apelat după fiecare mutație (declanșează un sync debounced).
   final void Function()? onWrite;
 
-  // --- Reads -------------------------------------------------------------
+  // --- Citiri
 
   /// Urmărește ultimele [limit] tranzacții neșterse.
   Stream<List<Transaction>> watchRecent(int limit) {
@@ -49,9 +49,7 @@ class TransactionsRepository {
       ..where((t) => t.deleted.equals(false))
       ..orderBy([(t) => OrderingTerm.desc(t.transactionDate)])
       ..limit(limit);
-    return query
-        .watch()
-        .map((rows) => rows.map((r) => r.toDomain()).toList());
+    return query.watch().map((rows) => rows.map((r) => r.toDomain()).toList());
   }
 
   /// Urmărește toate tranzacțiile neșterse din luna calendaristică a [month].
@@ -59,33 +57,34 @@ class TransactionsRepository {
     final start = DateTime(month.year, month.month);
     final end = DateTime(month.year, month.month + 1);
     final query = _db.select(_db.localTransactions)
-      ..where((t) =>
-          t.deleted.equals(false) &
-          t.transactionDate.isBiggerOrEqualValue(start) &
-          t.transactionDate.isSmallerThanValue(end))
+      ..where(
+        (t) =>
+            t.deleted.equals(false) &
+            t.transactionDate.isBiggerOrEqualValue(start) &
+            t.transactionDate.isSmallerThanValue(end),
+      )
       ..orderBy([(t) => OrderingTerm.desc(t.transactionDate)]);
-    return query
-        .watch()
-        .map((rows) => rows.map((r) => r.toDomain()).toList());
+    return query.watch().map((rows) => rows.map((r) => r.toDomain()).toList());
   }
 
   /// Timestamp-urile `createdAt` ale ultimelor [limit] tranzacții, semnalul pentru
   /// ora preferată de notificare (nu `transactionDate`, ca să prindă CÂND a logat).
   Future<List<DateTime>> recentTimestamps(int limit) async {
-    final rows = await (_db.select(_db.localTransactions)
-          ..where((t) => t.deleted.equals(false))
-          ..orderBy([(t) => OrderingTerm.desc(t.createdAt)])
-          ..limit(limit))
-        .get();
+    final rows =
+        await (_db.select(_db.localTransactions)
+              ..where((t) => t.deleted.equals(false))
+              ..orderBy([(t) => OrderingTerm.desc(t.createdAt)])
+              ..limit(limit))
+            .get();
     return rows.map((r) => r.createdAt).toList();
   }
 
   /// Sumele întregi cele mai frecvente (chipuri de sumă rapidă): rotunjește
   /// la leu, numără aparițiile, întoarce primele [limit].
   Future<List<int>> frequentAmounts({int limit = 4}) async {
-    final rows = await (_db.select(_db.localTransactions)
-          ..where((t) => t.deleted.equals(false)))
-        .get();
+    final rows = await (_db.select(
+      _db.localTransactions,
+    )..where((t) => t.deleted.equals(false))).get();
     final counts = <int, int>{};
     for (final r in rows) {
       final rounded = r.amount.round();
@@ -100,14 +99,17 @@ class TransactionsRepository {
   /// Ultimele [limit] cheltuieli ca (categorie, sumă, zi), date de antrenament
   /// pentru sugestia de categorie; `weekday` e ziua cheltuielii, nu ziua logării.
   Future<List<({String category, double amount, int weekday})>>
-      recentExpenseFeatures({int limit = 120}) async {
-    final rows = await (_db.select(_db.localTransactions)
-          ..where((t) =>
-              t.deleted.equals(false) &
-              t.type.equals(TransactionType.expense.key))
-          ..orderBy([(t) => OrderingTerm.desc(t.transactionDate)])
-          ..limit(limit))
-        .get();
+  recentExpenseFeatures({int limit = 120}) async {
+    final rows =
+        await (_db.select(_db.localTransactions)
+              ..where(
+                (t) =>
+                    t.deleted.equals(false) &
+                    t.type.equals(TransactionType.expense.key),
+              )
+              ..orderBy([(t) => OrderingTerm.desc(t.transactionDate)])
+              ..limit(limit))
+            .get();
     return [
       for (final r in rows)
         (
@@ -126,7 +128,7 @@ class TransactionsRepository {
         .map((rows) => rows.map((r) => r.date).toSet());
   }
 
-  // --- Writes ------------------------------------------------------------
+  // --- Scrieri
 
   /// Loghează o cheltuială (local + outbox + activitate 'log').
   Future<Transaction> addExpense({
@@ -194,11 +196,13 @@ class TransactionsRepository {
     );
 
     await _db.transaction(() async {
-      await _db.into(_db.localTransactions).insert(
-            tx.toRow().copyWith(goalId: Value(goalId)),
-          );
+      await _db
+          .into(_db.localTransactions)
+          .insert(tx.toRow().copyWith(goalId: Value(goalId)));
       await _enqueue(
-          'upsert_transaction', _transactionPayload(tx, goalId: goalId));
+        'upsert_transaction',
+        _transactionPayload(tx, goalId: goalId),
+      );
       await _markActivity(dayKey(tx.transactionDate), 'log');
     });
 
@@ -211,14 +215,14 @@ class TransactionsRepository {
   Future<void> markNoSpendToday() async {
     final today = dayKey(DateTime.now());
     await _db.transaction(() async {
-      final existing = await (_db.select(_db.noSpendDays)
-            ..where((d) => d.date.equals(today)))
-          .getSingleOrNull();
+      final existing = await (_db.select(
+        _db.noSpendDays,
+      )..where((d) => d.date.equals(today))).getSingleOrNull();
       if (existing != null) return; // idempotent
 
-      await _db.into(_db.noSpendDays).insert(NoSpendDaysCompanion.insert(
-            date: today,
-          ));
+      await _db
+          .into(_db.noSpendDays)
+          .insert(NoSpendDaysCompanion.insert(date: today));
       await _enqueue('mark_no_spend', {'date': today});
       await _markActivity(today, 'log');
     });
@@ -229,40 +233,49 @@ class TransactionsRepository {
   Future<void> softDelete(String id) async {
     final now = DateTime.now();
     await _db.transaction(() async {
-      await (_db.update(_db.localTransactions)..where((t) => t.id.equals(id)))
-          .write(LocalTransactionsCompanion(
-        deleted: const Value(true),
-        pendingSync: const Value(true),
-        updatedAt: Value(now),
-      ));
+      await (_db.update(
+        _db.localTransactions,
+      )..where((t) => t.id.equals(id))).write(
+        LocalTransactionsCompanion(
+          deleted: const Value(true),
+          pendingSync: const Value(true),
+          updatedAt: Value(now),
+        ),
+      );
       await _enqueue('delete_transaction', {'id': id});
     });
     onWrite?.call();
   }
 
-  // --- Internals ---------------------------------------------------------
+  // --- Interne
 
   Future<void> _enqueue(String opType, Map<String, dynamic> payload) {
-    return _db.into(_db.outboxEntries).insert(OutboxEntriesCompanion.insert(
-          opType: opType,
-          payload: jsonEncode(payload),
-          createdAt: DateTime.now(),
-        ));
+    return _db
+        .into(_db.outboxEntries)
+        .insert(
+          OutboxEntriesCompanion.insert(
+            opType: opType,
+            payload: jsonEncode(payload),
+            createdAt: DateTime.now(),
+          ),
+        );
   }
 
   /// Upsert pe rândul de activitate al zilei, adăugând [kind] în lista JSON
   /// `kinds` dacă lipsește.
   Future<void> _markActivity(String date, String kind) async {
-    final row = await (_db.select(_db.dailyActivityRows)
-          ..where((r) => r.date.equals(date)))
-        .getSingleOrNull();
+    final row = await (_db.select(
+      _db.dailyActivityRows,
+    )..where((r) => r.date.equals(date))).getSingleOrNull();
 
     final kinds = <String>{
       if (row != null) ...(jsonDecode(row.kinds) as List).cast<String>(),
       kind,
     }.toList();
 
-    await _db.into(_db.dailyActivityRows).insertOnConflictUpdate(
+    await _db
+        .into(_db.dailyActivityRows)
+        .insertOnConflictUpdate(
           DailyActivityRowsCompanion.insert(
             date: date,
             kinds: jsonEncode(kinds),
@@ -270,8 +283,7 @@ class TransactionsRepository {
         );
   }
 
-  Map<String, dynamic> _transactionPayload(Transaction tx,
-          {String? goalId}) =>
+  Map<String, dynamic> _transactionPayload(Transaction tx, {String? goalId}) =>
       {
         'client_id': tx.id,
         'amount': tx.amount,

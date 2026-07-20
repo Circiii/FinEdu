@@ -9,7 +9,7 @@ import '../../../../core/ui/tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'onb_shared.dart';
 
-// ---- Prima cheltuială ghidată ----
+// ---- Prima cheltuială ghidată
 
 class _Cat {
   const _Cat(this.key, this.icon, this.tint, this.color);
@@ -47,11 +47,11 @@ class _ExpenseStepState extends State<ExpenseStep> {
   ];
 
   String _catLabel(AppLocalizations l10n, String key) => switch (key) {
-        'mancare' => l10n.onbCatFood,
-        'transport' => l10n.onbCatTransport,
-        'distractie' => l10n.onbCatFun,
-        _ => l10n.onbCatOther,
-      };
+    'mancare' => l10n.onbCatFood,
+    'transport' => l10n.onbCatTransport,
+    'distractie' => l10n.onbCatFun,
+    _ => l10n.onbCatOther,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -67,15 +67,21 @@ class _ExpenseStepState extends State<ExpenseStep> {
               children: [
                 Center(
                   child: OnbHeader(
-                      kicker: l10n.onbExpenseKicker,
-                      title: l10n.onbExpenseTitle,
-                      body: l10n.onbExpenseBody,
-                      accent: C.blue),
+                    kicker: l10n.onbExpenseKicker,
+                    title: l10n.onbExpenseTitle,
+                    body: l10n.onbExpenseBody,
+                    accent: C.blue,
+                  ),
                 ),
                 const SizedBox(height: 20),
-                Text(l10n.onbExpenseAmountLabel,
-                    style: T.display(
-                        size: 13, weight: FontWeight.w700, color: C.text2)),
+                Text(
+                  l10n.onbExpenseAmountLabel,
+                  style: T.display(
+                    size: 13,
+                    weight: FontWeight.w700,
+                    color: C.text2,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -87,30 +93,34 @@ class _ExpenseStepState extends State<ExpenseStep> {
                             setState(() => _amount = a.toDouble());
                           },
                           child: Container(
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 13),
+                            padding: const EdgeInsets.symmetric(vertical: 13),
                             margin: EdgeInsets.only(
-                                right: a != _amounts.last ? 8 : 0),
+                              right: a != _amounts.last ? 8 : 0,
+                            ),
                             decoration: BoxDecoration(
                               color: _amount == a.toDouble()
                                   ? C.blueSoft
                                   : C.surface,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                  color: _amount == a.toDouble()
-                                      ? C.blue
-                                      : C.line,
-                                  width: 1.5),
+                                color: _amount == a.toDouble()
+                                    ? C.blue
+                                    : C.line,
+                                width: 1.5,
+                              ),
                               boxShadow: Sh.raise,
                             ),
                             alignment: Alignment.center,
-                            child: Text('$a',
-                                style: T.display(
-                                    size: 18,
-                                    weight: FontWeight.w800,
-                                    color: _amount == a.toDouble()
-                                        ? C.blueInk
-                                        : C.text)),
+                            child: Text(
+                              '$a',
+                              style: T.display(
+                                size: 18,
+                                weight: FontWeight.w800,
+                                color: _amount == a.toDouble()
+                                    ? C.blueInk
+                                    : C.text,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -118,9 +128,14 @@ class _ExpenseStepState extends State<ExpenseStep> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                Text(l10n.onbExpenseCategoryLabel,
-                    style: T.display(
-                        size: 13, weight: FontWeight.w700, color: C.text2)),
+                Text(
+                  l10n.onbExpenseCategoryLabel,
+                  style: T.display(
+                    size: 13,
+                    weight: FontWeight.w700,
+                    color: C.text2,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 GridView.count(
                   crossAxisCount: 2,
@@ -137,37 +152,41 @@ class _ExpenseStepState extends State<ExpenseStep> {
                           setState(() => _category = cat.key);
                         },
                         child: Container(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
                             color: _category == cat.key
                                 ? C.surface
                                 : C.surface2,
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
-                                color: _category == cat.key
-                                    ? C.blue
-                                    : Colors.transparent,
-                                width: 2),
+                              color: _category == cat.key
+                                  ? C.blue
+                                  : Colors.transparent,
+                              width: 2,
+                            ),
                             boxShadow: Sh.raise,
                           ),
                           child: Row(
                             children: [
                               CategoryTileIcon(
-                                  category: cat.key,
-                                  fallbackPath: cat.icon,
-                                  tint: cat.tint,
-                                  color: cat.color,
-                                  size: 34,
-                                  radius: 11,
-                                  iconSize: 18),
+                                category: cat.key,
+                                fallbackPath: cat.icon,
+                                tint: cat.tint,
+                                color: cat.color,
+                                size: 34,
+                                radius: 11,
+                                iconSize: 18,
+                              ),
                               const SizedBox(width: 10),
                               Expanded(
-                                child: Text(_catLabel(l10n, cat.key),
-                                    style: T.display(
-                                        size: 14.5,
-                                        weight: FontWeight.w700,
-                                        color: C.text)),
+                                child: Text(
+                                  _catLabel(l10n, cat.key),
+                                  style: T.display(
+                                    size: 14.5,
+                                    weight: FontWeight.w700,
+                                    color: C.text,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -181,11 +200,14 @@ class _ExpenseStepState extends State<ExpenseStep> {
                     onTap: widget.onNoSpend,
                     child: Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(l10n.onbExpenseNoSpend,
-                          style: T.display(
-                              size: 15,
-                              weight: FontWeight.w700,
-                              color: C.blue)),
+                      child: Text(
+                        l10n.onbExpenseNoSpend,
+                        style: T.display(
+                          size: 15,
+                          weight: FontWeight.w700,
+                          color: C.blue,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -213,7 +235,7 @@ class _ExpenseStepState extends State<ExpenseStep> {
   }
 }
 
-// ---- Progres inițial ("Prima Săptămână") ----
+// ---- Progres inițial ("Prima Săptămână")
 
 class WeekStep extends StatelessWidget {
   const WeekStep({super.key, required this.cashyName, required this.onDone});
@@ -236,14 +258,18 @@ class WeekStep extends StatelessWidget {
                 OnbHalo(
                   accent: C.green,
                   size: 170,
-                  child: Image.asset(Cashy.cashyCelebrate,
-                      width: 132, fit: BoxFit.contain),
+                  child: Image.asset(
+                    Cashy.cashyCelebrate,
+                    width: 132,
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 OnbHeader(
-                    kicker: l10n.onbWeekKicker,
-                    title: l10n.onbWeekTitle(cashyName),
-                    body: l10n.onbWeekBody,
-                    accent: C.green),
+                  kicker: l10n.onbWeekKicker,
+                  title: l10n.onbWeekTitle(cashyName),
+                  body: l10n.onbWeekBody,
+                  accent: C.green,
+                ),
                 const SizedBox(height: 18),
                 ClayCard(
                   radius: 22,
@@ -254,16 +280,22 @@ class WeekStep extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.onbWeekProgress(_done, _total),
-                              style: T.display(
-                                  size: 14,
-                                  weight: FontWeight.w800,
-                                  color: C.text)),
-                          Text('${(_done / _total * 100).round()}%',
-                              style: T.display(
-                                  size: 14,
-                                  weight: FontWeight.w800,
-                                  color: C.green)),
+                          Text(
+                            l10n.onbWeekProgress(_done, _total),
+                            style: T.display(
+                              size: 14,
+                              weight: FontWeight.w800,
+                              color: C.text,
+                            ),
+                          ),
+                          Text(
+                            '${(_done / _total * 100).round()}%',
+                            style: T.display(
+                              size: 14,
+                              weight: FontWeight.w800,
+                              color: C.green,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 12),
@@ -275,12 +307,12 @@ class WeekStep extends StatelessWidget {
                               child: Container(
                                 height: 12,
                                 margin: EdgeInsets.only(
-                                    right: i < _total - 1 ? 4 : 0),
+                                  right: i < _total - 1 ? 4 : 0,
+                                ),
                                 decoration: BoxDecoration(
                                   color: i < _done ? C.green : C.inset,
                                   borderRadius: BorderRadius.circular(6),
-                                  boxShadow:
-                                      i < _done ? null : Sh.insetSoft,
+                                  boxShadow: i < _done ? null : Sh.insetSoft,
                                 ),
                               ),
                             ),
@@ -295,14 +327,21 @@ class WeekStep extends StatelessWidget {
                       Row(
                         children: [
                           const SizedBox(width: 2),
-                          const SvgIcon(Ic.clock,
-                              size: 16, color: C.text3, strokeWidth: 2.2),
+                          const SvgIcon(
+                            Ic.clock,
+                            size: 16,
+                            color: C.text3,
+                            strokeWidth: 2.2,
+                          ),
                           const SizedBox(width: 9),
-                          Text(l10n.onbWeekTodo(_total - _done),
-                              style: T.body(
-                                  size: 13.5,
-                                  weight: FontWeight.w600,
-                                  color: C.text2)),
+                          Text(
+                            l10n.onbWeekTodo(_total - _done),
+                            style: T.body(
+                              size: 13.5,
+                              weight: FontWeight.w600,
+                              color: C.text2,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -338,25 +377,27 @@ class WeekStep extends StatelessWidget {
             color: C.green,
           ),
           alignment: Alignment.center,
-          child: const SvgIcon(Ic.check,
-              size: 12, color: Colors.white, strokeWidth: 3),
+          child: const SvgIcon(
+            Ic.check,
+            size: 12,
+            color: Colors.white,
+            strokeWidth: 3,
+          ),
         ),
         const SizedBox(width: 9),
-        Text(label,
-            style: T.body(size: 13.5, weight: FontWeight.w600, color: C.text)),
+        Text(
+          label,
+          style: T.body(size: 13.5, weight: FontWeight.w600, color: C.text),
+        ),
       ],
     );
   }
 }
 
-// ---- Soft-ask notificări ----
+// ---- Soft-ask notificări
 
 class NotifStep extends StatelessWidget {
-  const NotifStep({
-    super.key,
-    required this.onYes,
-    required this.onLater,
-  });
+  const NotifStep({super.key, required this.onYes, required this.onLater});
 
   final VoidCallback onYes;
   final VoidCallback onLater;
@@ -372,14 +413,18 @@ class NotifStep extends StatelessWidget {
             children: [
               OnbHalo(
                 accent: C.blue,
-                child: Image.asset(Cashy.cashyPoint,
-                    width: 180, fit: BoxFit.contain),
+                child: Image.asset(
+                  Cashy.cashyPoint,
+                  width: 180,
+                  fit: BoxFit.contain,
+                ),
               ),
               OnbHeader(
-                  kicker: l10n.onbNotifKicker,
-                  title: l10n.onbNotifTitle,
-                  body: l10n.onbNotifBody,
-                  accent: C.blue),
+                kicker: l10n.onbNotifKicker,
+                title: l10n.onbNotifTitle,
+                body: l10n.onbNotifBody,
+                accent: C.blue,
+              ),
             ],
           ),
         ),
@@ -393,17 +438,26 @@ class NotifStep extends StatelessWidget {
             Juice.tick();
             onYes();
           },
-          leading: const SvgIcon(Ic.bell,
-              size: 20, color: Colors.white, strokeWidth: 2.4),
+          leading: const SvgIcon(
+            Ic.bell,
+            size: 20,
+            color: Colors.white,
+            strokeWidth: 2.4,
+          ),
         ),
         const SizedBox(height: 10),
         GestureDetector(
           onTap: onLater,
           child: Padding(
             padding: const EdgeInsets.all(10),
-            child: Text(l10n.onbNotifLater,
-                style: T.display(
-                    size: 15, weight: FontWeight.w700, color: C.text3)),
+            child: Text(
+              l10n.onbNotifLater,
+              style: T.display(
+                size: 15,
+                weight: FontWeight.w700,
+                color: C.text3,
+              ),
+            ),
           ),
         ),
       ],

@@ -1,21 +1,25 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/ui/juice.dart';
+import '../../../../core/ui/motion.dart';
 import '../../../../core/ui/svg_icon.dart';
 import '../../../../core/ui/tokens.dart';
 import '../../../../domain/engine/life_sim/life_sim_commentary.dart';
 
 /// Bara de sus comună celor trei ecrane „30 de Zile": buton de închidere + titlu.
-Widget lifeMonthTopBar(BuildContext context, String title, {VoidCallback? onClose}) {
+Widget lifeMonthTopBar(
+  BuildContext context,
+  String title, {
+  VoidCallback? onClose,
+}) {
   return Padding(
     padding: const EdgeInsets.only(top: 4, bottom: 4),
     child: Row(
       children: [
-        GestureDetector(
+        Pressable(
+          scale: 0.9,
           onTap: () {
-            Juice.tick();
             if (onClose != null) {
               onClose();
             } else {
@@ -32,12 +36,19 @@ Widget lifeMonthTopBar(BuildContext context, String title, {VoidCallback? onClos
               boxShadow: Sh.raise,
             ),
             alignment: Alignment.center,
-            child: const SvgIcon(Ic.x, size: 16, color: C.text2, strokeWidth: 2.4),
+            child: const SvgIcon(
+              Ic.x,
+              size: 16,
+              color: C.text2,
+              strokeWidth: 2.4,
+            ),
           ),
         ),
         const SizedBox(width: 12),
-        Text(title,
-            style: T.display(size: 18, weight: FontWeight.w800, color: C.text)),
+        Text(
+          title,
+          style: T.display(size: 18, weight: FontWeight.w800, color: C.text),
+        ),
       ],
     ),
   );
@@ -73,7 +84,16 @@ String cashyForIllustration(String illustration, {int difficulty = 1}) {
   final k = illustration.toLowerCase();
   bool has(List<String> words) => words.any(k.contains);
 
-  if (has(['celebr', 'bonus', 'win', 'reward', 'gift', 'happy', 'prize', 'lucky'])) {
+  if (has([
+    'celebr',
+    'bonus',
+    'win',
+    'reward',
+    'gift',
+    'happy',
+    'prize',
+    'lucky',
+  ])) {
     return Cashy.cashyCelebrate;
   }
   if (has([
@@ -107,11 +127,11 @@ String cashyForIllustration(String illustration, {int difficulty = 1}) {
 /// Mapează mood-ul din motorul de comentarii la sprite-ul lui Cashy, folosit
 /// și pe ecranul de joc, și pe raport, ca interpretarea să nu diverge.
 String assetForCashyMood(CashyMoodGame mood) => switch (mood) {
-      CashyMoodGame.happy => Cashy.cashyDefault,
-      CashyMoodGame.worried => Cashy.cashyWorried,
-      CashyMoodGame.thinking => Cashy.cashyStudy,
-      CashyMoodGame.celebrate => Cashy.cashyCelebrate,
-    };
+  CashyMoodGame.happy => Cashy.cashyDefault,
+  CashyMoodGame.worried => Cashy.cashyWorried,
+  CashyMoodGame.thinking => Cashy.cashyStudy,
+  CashyMoodGame.celebrate => Cashy.cashyCelebrate,
+};
 
 /// Scale-in la apariție (0.8 → 1.0) care respectă reduce-motion (instant).
 /// JuiceBounce sare pe schimbarea trigger-ului; asta animează prima afișare.
@@ -131,13 +151,18 @@ class LifeMonthScaleIn extends StatefulWidget {
 
 class _LifeMonthScaleInState extends State<LifeMonthScaleIn>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _c =
-      AnimationController(vsync: this, duration: widget.duration);
-  late final Animation<double> _scale = Tween<double>(begin: 0.82, end: 1.0)
-      .chain(CurveTween(curve: Curves.easeOutBack))
-      .animate(_c);
-  late final Animation<double> _fade =
-      CurvedAnimation(parent: _c, curve: Curves.easeOut);
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: widget.duration,
+  );
+  late final Animation<double> _scale = Tween<double>(
+    begin: 0.82,
+    end: 1.0,
+  ).chain(CurveTween(curve: Curves.easeOutBack)).animate(_c);
+  late final Animation<double> _fade = CurvedAnimation(
+    parent: _c,
+    curve: Curves.easeOut,
+  );
 
   @override
   void didChangeDependencies() {

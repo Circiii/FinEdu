@@ -8,6 +8,8 @@ import '../../../core/analytics/events.dart';
 import '../../../core/db/app_db.dart';
 import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
+import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../wardrobe/presentation/cashy_avatar.dart';
@@ -107,8 +109,9 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       children: [
         Row(
           children: [
-            GestureDetector(
+            Pressable(
               onTap: () => context.pop(),
+              scale: 0.9,
               child: Container(
                 width: 38,
                 height: 38,
@@ -144,46 +147,70 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(Cashy.cashyStudy, width: 84),
+              Floaty(child: Image.asset(Cashy.cashyStudy, width: 84)),
               const SizedBox(height: 16),
-              ClayCard(
-                radius: 24,
-                padding: const EdgeInsets.all(22),
-                child: Column(
-                  children: [
-                    Text(
-                      content?.question ?? '',
-                      textAlign: TextAlign.center,
-                      style: T.display(
-                        size: 19,
-                        weight: FontWeight.w700,
-                        color: C.text,
-                        height: 1.3,
-                      ),
-                    ),
-                    if (_revealed) ...[
-                      const SizedBox(height: 16),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          color: C.inset,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: Sh.insetSoft,
-                        ),
-                        child: Text(
-                          content?.answer ?? '',
+              // Fiecare card nou intră alunecând dinspre dreapta.
+              AnimatedSwitcher(
+                duration: Dur.emph,
+                switchInCurve: Curves.easeOutCubic,
+                switchOutCurve: Curves.easeInCubic,
+                transitionBuilder: (child, anim) => FadeTransition(
+                  opacity: anim,
+                  child: SlideTransition(
+                    position: Tween(
+                      begin: const Offset(0.12, 0),
+                      end: Offset.zero,
+                    ).animate(anim),
+                    child: child,
+                  ),
+                ),
+                child: ClayCard(
+                  key: ValueKey(card.cardId),
+                  radius: 24,
+                  padding: const EdgeInsets.all(22),
+                  child: AnimatedSize(
+                    duration: Dur.base,
+                    curve: Curves.easeOutCubic,
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      children: [
+                        Text(
+                          content?.question ?? '',
                           textAlign: TextAlign.center,
-                          style: T.body(
-                            size: 15,
-                            weight: FontWeight.w600,
-                            color: C.text2,
-                            height: 1.45,
+                          style: T.display(
+                            size: 19,
+                            weight: FontWeight.w700,
+                            color: C.text,
+                            height: 1.3,
                           ),
                         ),
-                      ),
-                    ],
-                  ],
+                        if (_revealed) ...[
+                          const SizedBox(height: 16),
+                          StaggerIn(
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                color: C.inset,
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: Sh.insetSoft,
+                              ),
+                              child: Text(
+                                content?.answer ?? '',
+                                textAlign: TextAlign.center,
+                                style: T.body(
+                                  size: 15,
+                                  weight: FontWeight.w600,
+                                  color: C.text2,
+                                  height: 1.45,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 ),
               ),
               // Transparență FSRS: stabilitatea reală („cât ține memoria"), doar
@@ -247,16 +274,26 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const CashySprite(asset: Cashy.cashyCelebrate, width: 190),
+        const PopIn(
+          child: Floaty(
+            child: CashySprite(asset: Cashy.cashyCelebrate, width: 190),
+          ),
+        ),
         const SizedBox(height: 12),
-        Text(
-          'Recapitulare gata!',
-          style: T.display(size: 28, weight: FontWeight.w800, color: C.text),
+        StaggerIn(
+          index: 1,
+          child: Text(
+            'Recapitulare gata!',
+            style: T.display(size: 28, weight: FontWeight.w800, color: C.text),
+          ),
         ),
         const SizedBox(height: 6),
-        AcornText(
-          '$_known din ${_queue!.length} știute · +3 🌰',
-          style: T.display(size: 16, weight: FontWeight.w700, color: C.text2),
+        StaggerIn(
+          index: 2,
+          child: AcornText(
+            '$_known din ${_queue!.length} știute · +3 🌰',
+            style: T.display(size: 16, weight: FontWeight.w700, color: C.text2),
+          ),
         ),
         const SizedBox(height: 8),
         Text(
@@ -284,7 +321,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(Cashy.cashyDefault, width: 170),
+        Floaty(child: Image.asset(Cashy.cashyDefault, width: 170)),
         const SizedBox(height: 12),
         Text(
           'Nimic de recapitulat azi',

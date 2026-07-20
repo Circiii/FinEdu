@@ -1,5 +1,4 @@
-﻿import 'dart:convert';
-import 'dart:io';
+import 'dart:convert';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
@@ -7,7 +6,6 @@ import 'package:flutter/rendering.dart' show RenderRepaintBoundary;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/analytics/analytics.dart';
@@ -16,6 +14,7 @@ import '../../../core/db/app_db.dart';
 import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../../domain/engine/daily_challenge.dart';
@@ -48,12 +47,14 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
   int _mythIndex = 0;
   bool? _mythPick; // alegerea adevăr/fals a userului pentru afirmația curentă
   final List<bool> _mythResults = [];
+  int _mythShakes = 0; // crește la fiecare greșeală și scutură afirmația
 
   // Stare dilemă
   int? _dilemmaPick;
 
   int? _justRewarded; // ghinde acordate în sesiunea asta (banner recompensă)
   bool _finishing = false;
+  bool _celebrated = false; // confetti o singură dată pe sesiune
 
   String get _locale =>
       Localizations.localeOf(context).languageCode == 'en' ? 'en' : 'ro';
@@ -64,30 +65,43 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
     if (_finishing) return;
     _finishing = true;
     final format = formatFor(_today).name;
-    final earned = await ref.read(arcadeRepositoryProvider).recordRound(
-      game: 'daily',
-      score: score,
-      meta: {'format': format, 'grid': grid, 'score': score},
-    );
-    ref.read(analyticsProvider).track(
-        AnalyticsEvents.gamePlayed, {'game': 'daily', 'format': format});
+    final earned = await ref
+        .read(arcadeRepositoryProvider)
+        .recordRound(
+          game: 'daily',
+          score: score,
+          meta: {'format': format, 'grid': grid, 'score': score},
+        );
+    ref.read(analyticsProvider).track(AnalyticsEvents.gamePlayed, {
+      'game': 'daily',
+      'format': format,
+    });
     ref.invalidate(questsViewProvider);
     if (mounted) setState(() => _justRewarded = earned);
+    // Scor aproape perfect: o singură petrecere pe sesiune.
+    if (mounted && score >= 90 && !_celebrated) {
+      _celebrated = true;
+      Juice.epic();
+      ConfettiBurst.show(context);
+    }
   }
 
   Future<void> _share() async {
     Juice.tick();
-    final boundary = _shareKey.currentContext?.findRenderObject()
-        as RenderRepaintBoundary?;
+    final boundary =
+        _shareKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
     if (boundary == null) return;
     final image = await boundary.toImage(pixelRatio: 3);
     final data = await image.toByteData(format: ui.ImageByteFormat.png);
     if (data == null) return;
-    final dir = await getTemporaryDirectory();
-    final file = File('${dir.path}/finedu_provocarea_$_today.png');
-    await file.writeAsBytes(data.buffer.asUint8List());
-    await Share.shareXFiles([XFile(file.path)],
-        text: 'Provocarea Zilei · FinEdu');
+    // Imaginea pleacă direct din memorie, fără fișier temporar: așa merge la
+    // fel pe Android, pe Windows și în browser, unde nu există disc local.
+    final name = 'finedu_provocarea_$_today.png';
+    await Share.shareXFiles(
+      [XFile.fromData(data.buffer.asUint8List(), mimeType: 'image/png')],
+      fileNameOverrides: [name],
+      text: 'Provocarea Zilei · FinEdu',
+    );
   }
 
   @override
@@ -132,8 +146,9 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
     };
     return Row(
       children: [
-        GestureDetector(
+        Pressable(
           onTap: () => context.pop(),
+          scale: 0.9,
           child: Container(
             width: 38,
             height: 38,
@@ -144,8 +159,12 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
               boxShadow: Sh.raise,
             ),
             alignment: Alignment.center,
-            child:
-                const SvgIcon(Ic.x, size: 16, color: C.text2, strokeWidth: 2.4),
+            child: const SvgIcon(
+              Ic.x,
+              size: 16,
+              color: C.text2,
+              strokeWidth: 2.4,
+            ),
           ),
         ),
         const SizedBox(width: 12),
@@ -153,12 +172,22 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Provocarea Zilei',
-                  style: T.display(
-                      size: 18, weight: FontWeight.w800, color: C.text)),
-              Text(title,
-                  style: T.body(
-                      size: 12.5, weight: FontWeight.w600, color: C.text3)),
+              Text(
+                'Provocarea Zilei',
+                style: T.display(
+                  size: 18,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
+              ),
+              Text(
+                title,
+                style: T.body(
+                  size: 12.5,
+                  weight: FontWeight.w600,
+                  color: C.text3,
+                ),
+              ),
             ],
           ),
         ),
@@ -174,11 +203,14 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
     final format = formatFor(_today);
     return switch (format) {
       DailyFormat.price => _pricePlay(
-          content.price[puzzleIndexFor(_today, content.price.length)]),
-      DailyFormat.myth =>
-        _mythPlay(content.myth[puzzleIndexFor(_today, content.myth.length)]),
+        content.price[puzzleIndexFor(_today, content.price.length)],
+      ),
+      DailyFormat.myth => _mythPlay(
+        content.myth[puzzleIndexFor(_today, content.myth.length)],
+      ),
       DailyFormat.dilemma => _dilemmaPlay(
-          content.dilemma[puzzleIndexFor(_today, content.dilemma.length)]),
+        content.dilemma[puzzleIndexFor(_today, content.dilemma.length)],
+      ),
     };
   }
 
@@ -190,6 +222,11 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
     }
     final last = _priceIndex == puzzle.items.length - 1;
     final points = pricePoints(guess: _slider.round(), actual: item.actual);
+    // Cât de aproape a fost ghicirea, 0..1, pentru bara de după blocare.
+    final closeness = (1 - (_slider.round() - item.actual).abs() / item.actual)
+        .clamp(0.0, 1.0)
+        .toDouble();
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
 
     return Column(
       children: [
@@ -200,74 +237,156 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(puzzle.title,
+                StaggerIn(
+                  child: Text(
+                    puzzle.title,
                     style: T.display(
-                        size: 20, weight: FontWeight.w800, color: C.text)),
-                const SizedBox(height: 12),
-                ClayCard(
-                  radius: 22,
-                  padding: const EdgeInsets.all(18),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(item.name,
-                          style: T.display(
-                              size: 17,
-                              weight: FontWeight.w700,
-                              color: C.text,
-                              height: 1.25)),
-                      const SizedBox(height: 12),
-                      Center(
-                        child: Text('${_slider.round()} lei',
-                            style: T.display(
-                                size: 32,
-                                weight: FontWeight.w800,
-                                color: _locked ? C.text3 : C.blue)),
-                      ),
-                      SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: C.blue,
-                          inactiveTrackColor: C.inset,
-                          thumbColor: C.blue,
-                          overlayColor: C.blueSoft,
-                          trackHeight: 8,
-                        ),
-                        child: Slider(
-                          value: _slider,
-                          min: item.min.toDouble(),
-                          max: item.max.toDouble(),
-                          divisions:
-                              ((item.max - item.min) / item.step).round(),
-                          onChanged: _locked
-                              ? null
-                              : (v) => setState(() => _slider = v),
-                        ),
-                      ),
-                    ],
+                      size: 20,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
                   ),
                 ),
-                if (_locked) ...[
-                  const SizedBox(height: 12),
-                  ClayCard(
-                    radius: 18,
-                    padding: const EdgeInsets.all(14),
-                    child: Row(
+                const SizedBox(height: 12),
+                StaggerIn(
+                  index: 1,
+                  child: AnimatedSwitcher(
+                    duration: reduceMotion ? Duration.zero : Dur.base,
+                    switchInCurve: Curves.easeOutCubic,
+                    switchOutCurve: Curves.easeInCubic,
+                    transitionBuilder: _slideFade,
+                    layoutBuilder: _topStack,
+                    child: Column(
+                      key: ValueKey(_priceIndex),
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(priceEmoji(points),
-                            style: const TextStyle(fontSize: 26)),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                              'Prețul real: ${item.actual} lei · +$points puncte',
-                              style: T.display(
-                                  size: 15,
+                        ClayCard(
+                          radius: 22,
+                          padding: const EdgeInsets.all(18),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item.name,
+                                style: T.display(
+                                  size: 17,
                                   weight: FontWeight.w700,
-                                  color: C.text)),
+                                  color: C.text,
+                                  height: 1.25,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Center(
+                                // La blocare trigger-ul trece pe null, deci
+                                // valoarea mai saltă o dată, ca o ștampilă.
+                                child: JuiceBounce(
+                                  trigger: _locked ? null : _slider.round(),
+                                  child: Text(
+                                    '${_slider.round()} lei',
+                                    style: T.display(
+                                      size: 32,
+                                      weight: FontWeight.w800,
+                                      color: _locked ? C.text3 : C.blue,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SliderTheme(
+                                data: SliderTheme.of(context).copyWith(
+                                  activeTrackColor: C.blue,
+                                  inactiveTrackColor: C.inset,
+                                  thumbColor: C.blue,
+                                  overlayColor: C.blueSoft,
+                                  trackHeight: 8,
+                                ),
+                                child: Slider(
+                                  value: _slider,
+                                  min: item.min.toDouble(),
+                                  max: item.max.toDouble(),
+                                  divisions: ((item.max - item.min) / item.step)
+                                      .round(),
+                                  onChanged: _locked
+                                      ? null
+                                      : (v) {
+                                          if (v.round() != _slider.round()) {
+                                            Juice.tick();
+                                          }
+                                          setState(() => _slider = v);
+                                        },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        if (_locked) ...[
+                          const SizedBox(height: 12),
+                          PopIn(
+                            child: ClayCard(
+                              radius: 18,
+                              padding: const EdgeInsets.all(14),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        priceEmoji(points),
+                                        style: const TextStyle(fontSize: 26),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: AnimatedCount(
+                                          value: item.actual,
+                                          prefix: 'Prețul real: ',
+                                          suffix: ' lei · +$points puncte',
+                                          duration: Dur.emph,
+                                          style: T.display(
+                                            size: 15,
+                                            weight: FontWeight.w700,
+                                            color: C.text,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(R.pill),
+                                    child: Container(
+                                      height: 8,
+                                      color: C.inset,
+                                      child: AnimatedFrac(
+                                        value: closeness,
+                                        builder: (context, v) =>
+                                            FractionallySizedBox(
+                                              alignment: Alignment.centerLeft,
+                                              widthFactor: v,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: points >= 20
+                                                      ? C.green
+                                                      : (points > 0
+                                                            ? C.amber
+                                                            : C.danger),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                        R.pill,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),
-                ],
+                ),
               ],
             ),
           ),
@@ -291,8 +410,7 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
               return;
             }
             if (last) {
-              final score =
-                  _pricePoints.fold<int>(0, (a, b) => a + b);
+              final score = _pricePoints.fold<int>(0, (a, b) => a + b);
               final grid = _pricePoints.map(priceEmoji).join();
               await _finish(score: score, grid: grid);
             } else {
@@ -313,6 +431,7 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
     final answered = _mythPick != null;
     final correct = _mythPick == statement.truth;
     final last = _mythIndex == puzzle.statements.length - 1;
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
 
     return Column(
       children: [
@@ -320,95 +439,121 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
         const SizedBox(height: 10),
         Expanded(
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClayCard(
-                  radius: 22,
-                  padding: const EdgeInsets.all(20),
-                  child: Text(statement.text,
-                      style: T.display(
-                          size: 18,
-                          weight: FontWeight.w700,
-                          color: C.text,
-                          height: 1.35)),
-                ),
-                const SizedBox(height: 14),
-                if (!answered)
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ClayButton(
-                          label: 'MIT',
-                          gradient: Grad.danger,
-                          shadow: Sh.danger,
-                          height: 52,
-                          fontSize: 15,
-                          onTap: () {
-                            if (!statement.truth) Juice.correct();
-                            setState(() {
-                              _mythPick = false;
-                              _mythResults.add(!statement.truth);
-                            });
-                          },
+            child: StaggerIn(
+              child: AnimatedSwitcher(
+                duration: reduceMotion ? Duration.zero : Dur.base,
+                switchInCurve: Curves.easeOutCubic,
+                switchOutCurve: Curves.easeInCubic,
+                transitionBuilder: _slideFade,
+                layoutBuilder: _topStack,
+                child: Column(
+                  key: ValueKey(_mythIndex),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    JuiceShake(
+                      trigger: _mythShakes,
+                      child: ClayCard(
+                        radius: 22,
+                        padding: const EdgeInsets.all(20),
+                        child: Text(
+                          statement.text,
+                          style: T.display(
+                            size: 18,
+                            weight: FontWeight.w700,
+                            color: C.text,
+                            height: 1.35,
+                          ),
                         ),
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ClayButton(
-                          label: 'ADEVĂR',
-                          gradient: Grad.green,
-                          shadow: Sh.green,
-                          height: 52,
-                          fontSize: 15,
-                          onTap: () {
-                            if (statement.truth) Juice.correct();
-                            setState(() {
-                              _mythPick = true;
-                              _mythResults.add(statement.truth);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  )
-                else ...[
-                  ClayCard(
-                    radius: 18,
-                    padding: const EdgeInsets.all(14),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(correct ? '🟩' : '🟥',
-                            style: const TextStyle(fontSize: 22)),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
+                    ),
+                    const SizedBox(height: 14),
+                    if (!answered)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _answerPill(
+                              label: 'MIT',
+                              gradient: Grad.danger,
+                              shadow: Sh.danger,
+                              onTap: () {
+                                if (!statement.truth) Juice.correct();
+                                setState(() {
+                                  if (statement.truth) _mythShakes++;
+                                  _mythPick = false;
+                                  _mythResults.add(!statement.truth);
+                                });
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _answerPill(
+                              label: 'ADEVĂR',
+                              gradient: Grad.green,
+                              shadow: Sh.green,
+                              onTap: () {
+                                if (statement.truth) Juice.correct();
+                                setState(() {
+                                  if (!statement.truth) _mythShakes++;
+                                  _mythPick = true;
+                                  _mythResults.add(statement.truth);
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    else ...[
+                      PopIn(
+                        child: ClayCard(
+                          radius: 18,
+                          padding: const EdgeInsets.all(14),
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                  correct
-                                      ? 'Corect: e ${statement.truth ? 'adevăr' : 'mit'}!'
-                                      : 'De fapt, e ${statement.truth ? 'adevăr' : 'mit'}.',
-                                  style: T.display(
-                                      size: 15,
-                                      weight: FontWeight.w800,
-                                      color: C.text)),
-                              const SizedBox(height: 4),
-                              Text(statement.explain,
-                                  style: T.body(
-                                      size: 13.5,
-                                      weight: FontWeight.w600,
-                                      color: C.text2,
-                                      height: 1.4)),
+                                correct ? '🟩' : '🟥',
+                                style: const TextStyle(fontSize: 22),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      correct
+                                          ? 'Corect: e ${statement.truth ? 'adevăr' : 'mit'}!'
+                                          : 'De fapt, e ${statement.truth ? 'adevăr' : 'mit'}.',
+                                      style: T.display(
+                                        size: 15,
+                                        weight: FontWeight.w800,
+                                        color: C.text,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    StaggerIn(
+                                      index: 1,
+                                      child: Text(
+                                        statement.explain,
+                                        style: T.body(
+                                          size: 13.5,
+                                          weight: FontWeight.w600,
+                                          color: C.text2,
+                                          height: 1.4,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ],
+                      ),
+                    ],
+                  ],
+                ),
+              ),
             ),
           ),
         ),
@@ -423,8 +568,7 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
               ? null
               : () async {
                   if (last) {
-                    final correctCount =
-                        _mythResults.where((r) => r).length;
+                    final correctCount = _mythResults.where((r) => r).length;
                     final grid = _mythResults
                         .map((r) => mythEmoji(correct: r))
                         .join();
@@ -441,7 +585,36 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
     );
   }
 
+  /// Pastilă de răspuns fără haptic la apăsare: greșeala nu primește haptic,
+  /// deci vibrația vine doar din Juice.correct la răspuns bun.
+  Widget _answerPill({
+    required String label,
+    required Gradient gradient,
+    required List<BoxShadow> shadow,
+    required VoidCallback onTap,
+  }) {
+    return Pressable(
+      onTap: onTap,
+      scale: 0.93,
+      haptic: false,
+      child: Container(
+        height: 52,
+        decoration: BoxDecoration(
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(R.pill),
+          boxShadow: shadow,
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: T.display(size: 15, weight: FontWeight.w800, color: C.blueInk),
+        ),
+      ),
+    );
+  }
+
   Widget _dilemmaPlay(DilemmaPuzzle puzzle) {
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
     return Column(
       children: [
         Expanded(
@@ -449,75 +622,106 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Nu există răspuns greșit, doar consecințe.',
+                StaggerIn(
+                  child: Text(
+                    'Nu există răspuns greșit, doar consecințe.',
                     style: T.body(
-                        size: 12.5, weight: FontWeight.w600, color: C.text3)),
+                      size: 12.5,
+                      weight: FontWeight.w600,
+                      color: C.text3,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 10),
-                ClayCard(
-                  radius: 22,
-                  padding: const EdgeInsets.all(18),
-                  child: Text(puzzle.scenario,
+                StaggerIn(
+                  index: 1,
+                  child: ClayCard(
+                    radius: 22,
+                    padding: const EdgeInsets.all(18),
+                    child: Text(
+                      puzzle.scenario,
                       style: T.display(
-                          size: 17,
-                          weight: FontWeight.w700,
-                          color: C.text,
-                          height: 1.35)),
+                        size: 17,
+                        weight: FontWeight.w700,
+                        color: C.text,
+                        height: 1.35,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 12),
                 for (var i = 0; i < puzzle.options.length; i++) ...[
-                  GestureDetector(
-                    onTap: () {
-                      if (_dilemmaPick != i) Juice.tick();
-                      setState(() => _dilemmaPick = i);
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(14),
-                      margin: const EdgeInsets.only(bottom: 8),
-                      decoration: BoxDecoration(
-                        color: _dilemmaPick == i ? C.blueSoft : C.surface2,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
+                  StaggerIn(
+                    index: 2 + i,
+                    child: Pressable(
+                      haptic: false,
+                      onTap: () {
+                        if (_dilemmaPick != i) Juice.tick();
+                        setState(() => _dilemmaPick = i);
+                      },
+                      child: AnimatedContainer(
+                        duration: reduceMotion ? Duration.zero : Dur.fast,
+                        curve: Curves.easeOut,
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(14),
+                        margin: const EdgeInsets.only(bottom: 8),
+                        decoration: BoxDecoration(
+                          color: _dilemmaPick == i ? C.blueSoft : C.surface2,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
                             color: _dilemmaPick == i
                                 ? C.blue
                                 : Colors.transparent,
-                            width: 2),
-                        boxShadow: _dilemmaPick == null ? Sh.raise : null,
-                      ),
-                      child: Opacity(
-                        opacity: _dilemmaPick == null || _dilemmaPick == i
-                            ? 1
-                            : 0.55,
-                        child: Text(puzzle.options[i].text,
+                            width: 2,
+                          ),
+                          // Listă goală, nu null: lerp-ul umbrelor nu acceptă null.
+                          boxShadow: _dilemmaPick == null ? Sh.raise : const [],
+                        ),
+                        child: AnimatedOpacity(
+                          duration: reduceMotion ? Duration.zero : Dur.fast,
+                          opacity: _dilemmaPick == null || _dilemmaPick == i
+                              ? 1
+                              : 0.55,
+                          child: Text(
+                            puzzle.options[i].text,
                             style: T.body(
-                                size: 14.5,
-                                weight: FontWeight.w600,
-                                color: C.text,
-                                height: 1.3)),
+                              size: 14.5,
+                              weight: FontWeight.w600,
+                              color: C.text,
+                              height: 1.3,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ],
                 if (_dilemmaPick != null) ...[
                   const SizedBox(height: 4),
-                  ClayCard(
-                    radius: 18,
-                    padding: const EdgeInsets.all(14),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(Cashy.cashyPoint, width: 40),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
+                  // Cheia pe alegere reia intrarea la fiecare opțiune nouă.
+                  StaggerIn(
+                    key: ValueKey(_dilemmaPick),
+                    child: ClayCard(
+                      radius: 18,
+                      padding: const EdgeInsets.all(14),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(Cashy.cashyPoint, width: 40),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
                               puzzle.options[_dilemmaPick!].comment,
                               style: T.body(
-                                  size: 13.5,
-                                  weight: FontWeight.w600,
-                                  color: C.text2,
-                                  height: 1.4)),
-                        ),
-                      ],
+                                size: 13.5,
+                                weight: FontWeight.w600,
+                                color: C.text2,
+                                height: 1.4,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -544,11 +748,14 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
   }
 
   Widget _progressDots(int total, int index, bool currentDone) {
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
     return Row(
       children: [
         for (var i = 0; i < total; i++)
           Expanded(
-            child: Container(
+            child: AnimatedContainer(
+              duration: reduceMotion ? Duration.zero : Dur.base,
+              curve: Curves.easeOut,
               height: 8,
               margin: EdgeInsets.only(right: i < total - 1 ? 6 : 0),
               decoration: BoxDecoration(
@@ -561,6 +768,29 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
             ),
           ),
       ],
+    );
+  }
+
+  // Trecerea între întrebări: alunecare orizontală mică plus fade.
+  Widget _slideFade(Widget child, Animation<double> anim) {
+    return FadeTransition(
+      opacity: anim,
+      child: SlideTransition(
+        position: Tween(
+          begin: const Offset(0.1, 0),
+          end: Offset.zero,
+        ).animate(anim),
+        child: child,
+      ),
+    );
+  }
+
+  // Stack ancorat stânga-sus, altfel cardurile ar sări spre centru la schimb.
+  Widget _topStack(Widget? current, List<Widget> previous) {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.topLeft,
+      children: [...previous, ?current],
     );
   }
 
@@ -579,16 +809,20 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
         children: [
           if (_justRewarded != null && _justRewarded! > 0) ...[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 color: C.amberSoft,
                 borderRadius: BorderRadius.circular(R.pill),
                 border: Border.all(color: C.line, width: 1),
               ),
-              child: AcornText('+$_justRewarded 🌰 · +10 XP',
-                  style: T.display(
-                      size: 15, weight: FontWeight.w800, color: C.text)),
+              child: AcornText(
+                '+$_justRewarded 🌰 · +10 XP',
+                style: T.display(
+                  size: 15,
+                  weight: FontWeight.w800,
+                  color: C.text,
+                ),
+              ),
             ),
             const SizedBox(height: 12),
           ],
@@ -611,54 +845,74 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('PROVOCAREA ZILEI',
-                      style: T.display(
-                          size: 13,
-                          weight: FontWeight.w800,
-                          color: Colors.white,
-                          letterSpacing: 13 * 0.12)),
-                  Text(round.date,
-                      style: T.body(
-                          size: 12,
-                          weight: FontWeight.w600,
-                          color: Colors.white70)),
+                  Text(
+                    'PROVOCAREA ZILEI',
+                    style: T.display(
+                      size: 13,
+                      weight: FontWeight.w800,
+                      color: Colors.white,
+                      letterSpacing: 13 * 0.12,
+                    ),
+                  ),
+                  Text(
+                    round.date,
+                    style: T.body(
+                      size: 12,
+                      weight: FontWeight.w600,
+                      color: Colors.white70,
+                    ),
+                  ),
                   const Spacer(),
                   Center(
-                    child: Text(grid,
-                        style: const TextStyle(fontSize: 40, height: 1.2)),
+                    child: Text(
+                      grid,
+                      style: const TextStyle(fontSize: 40, height: 1.2),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   if (!isDilemma)
                     Center(
-                      child: Text('${round.score} / 100',
-                          style: T.display(
-                              size: 34,
-                              weight: FontWeight.w800,
-                              color: Colors.white)),
+                      child: Text(
+                        '${round.score} / 100',
+                        style: T.display(
+                          size: 34,
+                          weight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
                     )
                   else
                     Center(
-                      child: Text('Dilema, rezolvată',
-                          style: T.display(
-                              size: 20,
-                              weight: FontWeight.w800,
-                              color: Colors.white)),
+                      child: Text(
+                        'Dilema, rezolvată',
+                        style: T.display(
+                          size: 20,
+                          weight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('🐿️ FinEdu',
-                          style: T.display(
-                              size: 15,
-                              weight: FontWeight.w800,
-                              color: Colors.white)),
-                      Text('Tu cât faci?',
-                          style: T.body(
-                              size: 12,
-                              weight: FontWeight.w600,
-                              color: Colors.white70)),
+                      Text(
+                        '🐿️ FinEdu',
+                        style: T.display(
+                          size: 15,
+                          weight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        'Tu cât faci?',
+                        style: T.body(
+                          size: 12,
+                          weight: FontWeight.w600,
+                          color: Colors.white70,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -666,10 +920,11 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
             ),
           ),
           const SizedBox(height: 14),
-          Text('Fără spoilere, grila arată doar cât de aproape ai fost.',
-              textAlign: TextAlign.center,
-              style:
-                  T.body(size: 12.5, weight: FontWeight.w500, color: C.text3)),
+          Text(
+            'Fără spoilere, grila arată doar cât de aproape ai fost.',
+            textAlign: TextAlign.center,
+            style: T.body(size: 12.5, weight: FontWeight.w500, color: C.text3),
+          ),
           const SizedBox(height: 12),
           ClayButton(
             label: 'Trimite provocarea  📤',
@@ -680,9 +935,10 @@ class _DailyChallengeScreenState extends ConsumerState<DailyChallengeScreen> {
             onTap: _share,
           ),
           const SizedBox(height: 10),
-          Text('Puzzle nou mâine. Aceleași întrebări pentru toată lumea.',
-              style:
-                  T.body(size: 12.5, weight: FontWeight.w600, color: C.text2)),
+          Text(
+            'Puzzle nou mâine. Aceleași întrebări pentru toată lumea.',
+            style: T.body(size: 12.5, weight: FontWeight.w600, color: C.text2),
+          ),
         ],
       ),
     );

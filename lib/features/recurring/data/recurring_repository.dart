@@ -1,4 +1,4 @@
-﻿import 'package:drift/drift.dart';
+import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
@@ -28,9 +28,9 @@ class RecurringRepository {
   final TransactionsRepository _transactions;
 
   Stream<List<LocalRecurringData>> watchAll() {
-    return (_db.select(_db.localRecurring)
-          ..orderBy([(r) => OrderingTerm.asc(r.nextDueDate)]))
-        .watch();
+    return (_db.select(
+      _db.localRecurring,
+    )..orderBy([(r) => OrderingTerm.asc(r.nextDueDate)])).watch();
   }
 
   Future<void> add({
@@ -41,16 +41,20 @@ class RecurringRepository {
     required String frequency,
     required String nextDueDate,
   }) {
-    return _db.into(_db.localRecurring).insert(LocalRecurringCompanion.insert(
-          id: _uuid.v4(),
-          merchant: merchant,
-          amount: amount,
-          category: category,
-          type: Value(type),
-          frequency: Value(frequency),
-          nextDueDate: nextDueDate,
-          createdAt: DateTime.now(),
-        ));
+    return _db
+        .into(_db.localRecurring)
+        .insert(
+          LocalRecurringCompanion.insert(
+            id: _uuid.v4(),
+            merchant: merchant,
+            amount: amount,
+            category: category,
+            type: Value(type),
+            frequency: Value(frequency),
+            nextDueDate: nextDueDate,
+            createdAt: DateTime.now(),
+          ),
+        );
   }
 
   Future<void> setActive(String id, bool active) {
@@ -66,9 +70,9 @@ class RecurringRepository {
   /// reale (idempotent, avansează `nextDueDate`). Apelat la pornirea aplicației.
   Future<int> materializeDue() async {
     final today = dayKey(DateTime.now());
-    final items = await (_db.select(_db.localRecurring)
-          ..where((r) => r.active.equals(true)))
-        .get();
+    final items = await (_db.select(
+      _db.localRecurring,
+    )..where((r) => r.active.equals(true))).get();
 
     var emitted = 0;
     for (final item in items) {

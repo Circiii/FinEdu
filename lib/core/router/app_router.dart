@@ -9,6 +9,7 @@ import '../../features/gamification/data/gamification_service.dart';
 import '../ui/tokens.dart';
 import '../ui/clay.dart';
 import '../ui/juice.dart';
+import '../ui/motion.dart';
 import '../ui/svg_icon.dart';
 import 'onboarding_gate.dart';
 
@@ -21,10 +22,12 @@ import '../../features/learning/presentation/unit_path_screen.dart';
 import '../../features/arcade/presentation/arcade_screen.dart';
 import '../../features/arcade/presentation/daily_challenge_screen.dart';
 import '../../features/arcade/presentation/dojo_screen.dart';
+import '../../features/arcade/presentation/stejar_screen.dart';
 import '../../features/arcade/presentation/turbo_budget_screen.dart';
 import '../../features/arcade/life_month/presentation/life_month_intro_screen.dart';
 import '../../features/arcade/life_month/presentation/life_month_screen.dart';
 import '../../features/arcade/life_month/presentation/life_month_report_screen.dart';
+import '../../features/profile/presentation/debug_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/recurring/presentation/recurring_screen.dart';
 import '../../features/streak/presentation/streak_screen.dart';
@@ -46,20 +49,45 @@ GoRouter buildRouter({String initialLocation = '/onboarding'}) {
       return null;
     },
     routes: [
-      // Rute fullscreen, în afara tab shell-ului.
-      GoRoute(path: '/onboarding', builder: (_, _) => const OnboardingScreen()),
+      // Rute fullscreen, în afara tab shell-ului. Toate intră cu ClayPage:
+      // alunecare mică de jos + fade.
+      GoRoute(
+        path: '/onboarding',
+        pageBuilder: (_, _) => ClayPage(child: const OnboardingScreen()),
+      ),
       GoRoute(
         path: '/add',
-        builder: (_, state) => AddExpenseScreen(
-          initialType: state.uri.queryParameters['type'],
-          initialGoalId: state.uri.queryParameters['goal'],
+        pageBuilder: (_, state) => ClayPage(
+          child: AddExpenseScreen(
+            initialType: state.uri.queryParameters['type'],
+            initialGoalId: state.uri.queryParameters['goal'],
+          ),
         ),
       ),
-      GoRoute(path: '/finbot', builder: (_, _) => const FinbotScreen()),
-      GoRoute(path: '/challenges', builder: (_, _) => const StreakScreen()),
-      GoRoute(path: '/recurring', builder: (_, _) => const RecurringScreen()),
-      GoRoute(path: '/review', builder: (_, _) => const ReviewScreen()),
-      GoRoute(path: '/garderoba', builder: (_, _) => const WardrobeScreen()),
+      GoRoute(
+        path: '/finbot',
+        pageBuilder: (_, _) => ClayPage(child: const FinbotScreen()),
+      ),
+      GoRoute(
+        path: '/challenges',
+        pageBuilder: (_, _) => ClayPage(child: const StreakScreen()),
+      ),
+      GoRoute(
+        path: '/recurring',
+        pageBuilder: (_, _) => ClayPage(child: const RecurringScreen()),
+      ),
+      GoRoute(
+        path: '/review',
+        pageBuilder: (_, _) => ClayPage(child: const ReviewScreen()),
+      ),
+      GoRoute(
+        path: '/garderoba',
+        pageBuilder: (_, _) => ClayPage(child: const WardrobeScreen()),
+      ),
+      GoRoute(
+        path: '/debug',
+        pageBuilder: (_, _) => ClayPage(child: const DebugScreen()),
+      ),
 
       // Shell cu taburi și BottomNav mereu vizibil
       StatefulShellRoute.indexedStack(
@@ -79,14 +107,19 @@ GoRouter buildRouter({String initialLocation = '/onboarding'}) {
                 routes: [
                   GoRoute(
                     path: 'lesson/:id',
-                    builder: (_, state) => LessonPlayerScreen(
-                      lessonId: state.pathParameters['id']!,
+                    pageBuilder: (_, state) => ClayPage(
+                      child: LessonPlayerScreen(
+                        lessonId: state.pathParameters['id']!,
+                      ),
                     ),
                   ),
                   GoRoute(
                     path: 'unit/:uid',
-                    builder: (_, state) =>
-                        UnitPathScreen(unitId: state.pathParameters['uid']!),
+                    pageBuilder: (_, state) => ClayPage(
+                      child: UnitPathScreen(
+                        unitId: state.pathParameters['uid']!,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -99,31 +132,46 @@ GoRouter buildRouter({String initialLocation = '/onboarding'}) {
                 builder: (_, _) => const ArcadeScreen(),
                 routes: [
                   // Jocurile sunt sub-ecrane deschise din hub-ul Arcade.
-                  GoRoute(path: 'dojo', builder: (_, _) => const DojoScreen()),
+                  GoRoute(
+                    path: 'dojo',
+                    pageBuilder: (_, _) => ClayPage(child: const DojoScreen()),
+                  ),
                   GoRoute(
                     path: 'daily',
-                    builder: (_, _) => const DailyChallengeScreen(),
+                    pageBuilder: (_, _) =>
+                        ClayPage(child: const DailyChallengeScreen()),
                   ),
                   GoRoute(
                     path: 'turbo',
-                    builder: (_, _) => const TurboBudgetScreen(),
+                    pageBuilder: (_, _) =>
+                        ClayPage(child: const TurboBudgetScreen()),
+                  ),
+                  GoRoute(
+                    path: 'stejar',
+                    pageBuilder: (_, _) =>
+                        ClayPage(child: const StejarScreen()),
                   ),
                   // „30 de Zile”: intro → joc → raport. Runda se pasează prin
                   // `extra` (id); dacă lipsește, ecranele cad pe runda activă
                   // / ultima terminată.
                   GoRoute(
                     path: 'luna',
-                    builder: (_, _) => const LifeMonthIntroScreen(),
+                    pageBuilder: (_, _) =>
+                        ClayPage(child: const LifeMonthIntroScreen()),
                   ),
                   GoRoute(
                     path: 'luna/joc',
-                    builder: (_, state) =>
-                        LifeMonthScreen(runId: state.extra as String?),
+                    pageBuilder: (_, state) => ClayPage(
+                      child: LifeMonthScreen(runId: state.extra as String?),
+                    ),
                   ),
                   GoRoute(
                     path: 'luna/raport',
-                    builder: (_, state) =>
-                        LifeMonthReportScreen(runId: state.extra as String?),
+                    pageBuilder: (_, state) => ClayPage(
+                      child: LifeMonthReportScreen(
+                        runId: state.extra as String?,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -187,7 +235,9 @@ class _AppShell extends ConsumerWidget {
       backgroundColor: C.bg,
       body: Column(
         children: [
-          Expanded(child: shell),
+          Expanded(
+            child: TabFade(index: shell.currentIndex, child: shell),
+          ),
           Container(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             decoration: const BoxDecoration(

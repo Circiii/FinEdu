@@ -8,11 +8,11 @@ import '../../../../core/ui/tokens.dart';
 
 /// Paleta de culori pentru cheia Cashy ('sky'|'mint'|'amber'|'violet').
 ({Color accent, Color soft}) onbAccentFor(String key) => switch (key) {
-      'mint' => (accent: C.green, soft: C.greenSoft),
-      'amber' => (accent: C.amber, soft: C.amberSoft),
-      'violet' => (accent: C.violet, soft: C.violetSoft),
-      _ => (accent: C.sky, soft: C.skySoft),
-    };
+  'mint' => (accent: C.green, soft: C.greenSoft),
+  'amber' => (accent: C.amber, soft: C.amberSoft),
+  'violet' => (accent: C.violet, soft: C.violetSoft),
+  _ => (accent: C.sky, soft: C.skySoft),
+};
 
 /// Scena cu halou radial + cerc punctat pe care se centrează fiecare pas.
 class OnbHalo extends StatelessWidget {
@@ -79,32 +79,41 @@ class OnbHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AcornText(kicker.toUpperCase(),
-            style: T.display(
-                size: 12,
-                weight: FontWeight.w800,
-                color: accent,
-                letterSpacing: 12 * 0.12)),
+        AcornText(
+          kicker.toUpperCase(),
+          style: T.display(
+            size: 12,
+            weight: FontWeight.w800,
+            color: accent,
+            letterSpacing: 12 * 0.12,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 8, 0, 12),
-          child: Text(title,
-              textAlign: TextAlign.center,
-              style: T.display(
-                  size: 30,
-                  weight: FontWeight.w800,
-                  color: C.text,
-                  height: 1.08,
-                  letterSpacing: 30 * -0.015)),
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: T.display(
+              size: 30,
+              weight: FontWeight.w800,
+              color: C.text,
+              height: 1.08,
+              letterSpacing: 30 * -0.015,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Text(body,
-              textAlign: TextAlign.center,
-              style: T.body(
-                  size: 15.5,
-                  weight: FontWeight.w400,
-                  color: C.text2,
-                  height: 1.5)),
+          child: Text(
+            body,
+            textAlign: TextAlign.center,
+            style: T.body(
+              size: 15.5,
+              weight: FontWeight.w400,
+              color: C.text2,
+              height: 1.5,
+            ),
+          ),
         ),
       ],
     );
@@ -150,8 +159,11 @@ class ClayField extends StatelessWidget {
             style: T.display(size: 18, weight: FontWeight.w700, color: C.text),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle:
-                  T.display(size: 18, weight: FontWeight.w700, color: C.text3),
+              hintStyle: T.display(
+                size: 18,
+                weight: FontWeight.w700,
+                color: C.text3,
+              ),
               border: InputBorder.none,
               counterText: '',
             ),
@@ -160,9 +172,10 @@ class ClayField extends StatelessWidget {
         if (errorText != null)
           Padding(
             padding: const EdgeInsets.only(top: 8, left: 6),
-            child: Text(errorText!,
-                style:
-                    T.body(size: 13, weight: FontWeight.w600, color: C.danger)),
+            child: Text(
+              errorText!,
+              style: T.body(size: 13, weight: FontWeight.w600, color: C.danger),
+            ),
           ),
       ],
     );
@@ -209,8 +222,13 @@ class DashedCircle extends CustomPainter {
     final gapAngle = (2 * math.pi - sweep * count) / count;
     double a = -math.pi / 2;
     for (var i = 0; i < count; i++) {
-      canvas.drawArc(Rect.fromCircle(center: center, radius: radius), a, sweep,
-          false, paint);
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        a,
+        sweep,
+        false,
+        paint,
+      );
       a += sweep + gapAngle;
     }
   }

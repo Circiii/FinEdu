@@ -7,7 +7,9 @@ import '../../../core/analytics/analytics.dart';
 import '../../../core/analytics/events.dart';
 import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
+import '../../../core/ui/acorn_celebration.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../gamification/data/gamification_service.dart';
@@ -107,11 +109,17 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       _earnedXp = earned ?? 0;
       _celebrating = true;
     });
-    // Lecția completă e „major"; dacă tocmai a închis UNITATEA, e epic.
-    // `earned > 0` = prima terminare a lecției, recitirile nu re-sărbătoresc.
+    // Lecția completă e „major"; dacă tocmai a închis UNITATEA, se deschide
+    // ploaia de ghinde. `earned > 0` = prima terminare, recitirile nu
+    // re-sărbătoresc.
     if (_earnedXp > 0 && await _unitJustCompleted(lesson) && mounted) {
-      Juice.epic();
-      ConfettiBurst.show(context);
+      AcornCelebration.show(
+        context,
+        title: 'Unitate cucerită!',
+        subtitle:
+            'Ai terminat toate lecțiile. Cardurile intră în '
+            'recapitulare, ca să nu le uiți.',
+      );
     } else {
       Juice.major();
     }
@@ -622,36 +630,54 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CashySprite(asset: Cashy.cashyCelebrate, width: 200),
+          // Cashy sare în scenă și plutește, restul curge în cascadă sub el.
+          const PopIn(
+            child: Floaty(
+              child: CashySprite(asset: Cashy.cashyCelebrate, width: 200),
+            ),
+          ),
           const SizedBox(height: 12),
-          Text(
-            _earnedXp > 0 ? 'Lecție terminată!' : 'Deja o știai!',
-            style: T.display(size: 30, weight: FontWeight.w800, color: C.text),
+          StaggerIn(
+            index: 1,
+            child: Text(
+              _earnedXp > 0 ? 'Lecție terminată!' : 'Deja o știai!',
+              style: T.display(
+                size: 30,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
           ),
           const SizedBox(height: 8),
           if (_earnedXp > 0)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-              decoration: BoxDecoration(
-                color: C.amberSoft,
-                borderRadius: BorderRadius.circular(R.pill),
-                border: Border.all(color: C.line, width: 1),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AnimatedCount(
-                    value: _earnedXp,
-                    prefix: '+',
-                    suffix: ' XP  ·  +5 ',
-                    style: T.display(
-                      size: 16,
-                      weight: FontWeight.w800,
-                      color: C.text,
+            StaggerIn(
+              index: 2,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: C.amberSoft,
+                  borderRadius: BorderRadius.circular(R.pill),
+                  border: Border.all(color: C.line, width: 1),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AnimatedCount(
+                      value: _earnedXp,
+                      prefix: '+',
+                      suffix: ' XP  ·  +5 ',
+                      style: T.display(
+                        size: 16,
+                        weight: FontWeight.w800,
+                        color: C.text,
+                      ),
                     ),
-                  ),
-                  const AcornIcon(size: 18),
-                ],
+                    const AcornIcon(size: 18),
+                  ],
+                ),
               ),
             ),
           const SizedBox(height: 6),

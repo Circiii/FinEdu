@@ -15,7 +15,10 @@ void main() {
 
     test('monthly clamps to the last day of a short month', () {
       expect(advanceDueDate('2026-01-31', 'monthly'), '2026-02-28');
-      expect(advanceDueDate('2028-01-31', 'monthly'), '2028-02-29'); // leap
+      expect(
+        advanceDueDate('2028-01-31', 'monthly'),
+        '2028-02-29',
+      ); // an bisect
       expect(advanceDueDate('2026-01-15', 'monthly'), '2026-02-15');
     });
 
@@ -27,15 +30,25 @@ void main() {
   group('collectDue', () {
     test('nothing due when next date is in the future', () {
       final r = collectDue(
-          nextDueDate: '2026-08-01', frequency: 'monthly', today: '2026-07-07');
+        nextDueDate: '2026-08-01',
+        frequency: 'monthly',
+        today: '2026-07-07',
+      );
       expect(r.due, isEmpty);
       expect(r.nextDue, '2026-08-01');
     });
 
     test('recovers multiple missed monthly occurrences', () {
       final r = collectDue(
-          nextDueDate: '2026-05-01', frequency: 'monthly', today: '2026-07-07');
-      expect(r.due.map((d) => d.dateKey), ['2026-05-01', '2026-06-01', '2026-07-01']);
+        nextDueDate: '2026-05-01',
+        frequency: 'monthly',
+        today: '2026-07-07',
+      );
+      expect(r.due.map((d) => d.dateKey), [
+        '2026-05-01',
+        '2026-06-01',
+        '2026-07-01',
+      ]);
       expect(r.nextDue, '2026-08-01');
     });
   });
@@ -52,31 +65,33 @@ void main() {
     });
     tearDown(() => db.close());
 
-    test('emits one transaction per due occurrence and advances the date',
-        () async {
-      // A monthly subscription first due yesterday.
-      final today = DateTime.now();
-      final yesterday = today.subtract(const Duration(days: 1));
-      final key =
-          '${yesterday.year}-${yesterday.month.toString().padLeft(2, '0')}-${yesterday.day.toString().padLeft(2, '0')}';
-      await recurring.add(
-        merchant: 'Netflix',
-        amount: 55,
-        category: 'distractie',
-        type: 'expense',
-        frequency: 'monthly',
-        nextDueDate: key,
-      );
+    test(
+      'emits one transaction per due occurrence and advances the date',
+      () async {
+        // Un abonament lunar, scadent prima dată ieri.
+        final today = DateTime.now();
+        final yesterday = today.subtract(const Duration(days: 1));
+        final key =
+            '${yesterday.year}-${yesterday.month.toString().padLeft(2, '0')}-${yesterday.day.toString().padLeft(2, '0')}';
+        await recurring.add(
+          merchant: 'Netflix',
+          amount: 55,
+          category: 'distractie',
+          type: 'expense',
+          frequency: 'monthly',
+          nextDueDate: key,
+        );
 
-      final emitted = await recurring.materializeDue();
-      expect(emitted, 1);
+        final emitted = await recurring.materializeDue();
+        expect(emitted, 1);
 
-      final recent = await tx.watchRecent(5).first;
-      expect(recent.single.merchant, 'Netflix');
-      expect(recent.single.amount, 55);
+        final recent = await tx.watchRecent(5).first;
+        expect(recent.single.merchant, 'Netflix');
+        expect(recent.single.amount, 55);
 
-      // Running again is a no-op (date advanced past today).
-      expect(await recurring.materializeDue(), 0);
-    });
+        // A doua rulare nu mai face nimic, data a trecut de azi.
+        expect(await recurring.materializeDue(), 0);
+      },
+    );
   });
 }

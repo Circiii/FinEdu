@@ -1,4 +1,4 @@
-﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/engine/score_engine.dart';
 import '../../../domain/models/transaction.dart';
@@ -25,20 +25,25 @@ final scoreProvider = Provider<AsyncValue<ScoreBreakdown>>((ref) {
   }
 
   final tx = month.valueOrNull ?? const [];
-  final expenses =
-      tx.where((t) => t.type == TransactionType.expense).toList();
+  final expenses = tx.where((t) => t.type == TransactionType.expense).toList();
   final savings = tx.where((t) => t.type == TransactionType.saving);
-  final allLessons = (units.valueOrNull ?? const [])
-      .fold<int>(0, (n, u) => n + u.lessons.length);
+  final allLessons = (units.valueOrNull ?? const []).fold<int>(
+    0,
+    (n, u) => n + u.lessons.length,
+  );
 
-  return AsyncValue.data(computeScore(ScoreInputs(
-    budget: (profile.valueOrNull?.monthlyBudget ?? 0).toDouble(),
-    spentThisMonth: expenses.fold(0.0, (a, t) => a + t.amount),
-    savedThisMonth: savings.fold(0.0, (a, t) => a + t.amount),
-    streak: streak.valueOrNull?.current ?? 0,
-    txThisMonth: tx.length,
-    categoriesThisMonth: expenses.map((t) => t.category).toSet().length,
-    lessonsDone: done.valueOrNull?.length ?? 0,
-    lessonsTotal: allLessons,
-  )));
+  return AsyncValue.data(
+    computeScore(
+      ScoreInputs(
+        budget: (profile.valueOrNull?.monthlyBudget ?? 0).toDouble(),
+        spentThisMonth: expenses.fold(0.0, (a, t) => a + t.amount),
+        savedThisMonth: savings.fold(0.0, (a, t) => a + t.amount),
+        streak: streak.valueOrNull?.current ?? 0,
+        txThisMonth: tx.length,
+        categoriesThisMonth: expenses.map((t) => t.category).toSet().length,
+        lessonsDone: done.valueOrNull?.length ?? 0,
+        lessonsTotal: allLessons,
+      ),
+    ),
+  );
 });

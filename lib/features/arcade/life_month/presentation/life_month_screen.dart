@@ -1,4 +1,7 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'dart:async';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +10,7 @@ import '../../../../core/analytics/analytics.dart';
 import '../../../../core/analytics/events.dart';
 import '../../../../core/ui/clay.dart';
 import '../../../../core/ui/juice.dart';
+import '../../../../core/ui/motion.dart';
 import '../../../../core/ui/svg_icon.dart';
 import '../../../../core/ui/tokens.dart';
 import '../../../../domain/engine/life_sim/life_sim_commentary.dart';
@@ -50,6 +54,26 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
   bool _versionMismatch = false;
   final _stripCtrl = ScrollController();
 
+  /// Bannerul „SALARIU +X" al zilei de plată; pleacă singur după câteva
+  /// secunde sau la tap.
+  Money? _salaryBanner;
+  Timer? _salaryTimer;
+
+  /// Borna zilelor 10 și 20, afișată peste conținut fără să blocheze fluxul.
+  String? _milestone;
+  Timer? _milestoneTimer;
+
+  /// Fluxul de bani al zilelor jucate în sesiunea asta: zi -> (încasat,
+  /// cheltuit). Sursa recapului de săptămână; la resume zilele vechi lipsesc
+  /// și recapul pur și simplu nu apare.
+  final Map<int, (Money, Money)> _dayFlows = {};
+  int _flowDay = 0;
+  Money _flowStartTotal = Money.zero;
+  Money _flowIncome = Money.zero;
+
+  /// Recapul săptămânii tocmai încheiate: (săptămâna, cheltuit, încasat).
+  (int, Money, Money)? _weekRecap;
+
   /// Ultimul comentariu al lui Cashy (din [engine.applyChoice] via
   /// [commentOnChoice], sau din [commentOnQuietDay] după o zi fără eveniment).
   /// Null doar înainte de prima zi, atunci arătăm salutul implicit.
@@ -73,6 +97,8 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
 
   @override
   void dispose() {
+    _salaryTimer?.cancel();
+    _milestoneTimer?.cancel();
     _stripCtrl.dispose();
     super.dispose();
   }
@@ -112,7 +138,7 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     }
   }
 
-  // --- Bucla de joc --------------------------------------------------------
+  // --- Bucla de joc
 
   Future<void> _advance() async {
     final content = _content;
@@ -127,40 +153,128 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     }
 
     Juice.tick();
+    _closeDayFlow();
     final result = engine.advanceDay(state, content);
+    _startDayFlow(state, result);
     setState(() {
       _state = result.state;
       _lastResult = result;
       _busy = true;
+      _weekRecap = null;
+      _salaryBanner = result.salaryReceived;
     });
+    if (result.salaryReceived != null) {
+      _salaryTimer?.cancel();
+      _salaryTimer = Timer(const Duration(milliseconds: 2600), () {
+        if (mounted) setState(() => _salaryBanner = null);
+      });
+    }
     await _repo.saveSnapshot(_runId!, result.state);
     // Cardul din Arcade citește ziua din activeRunProvider (cache); fără asta
     // rămâne pe „Continuă ziua 1" cât timp joci.
     ref.invalidate(activeRunProvider);
     _scrollToCurrentDay();
-    ref.read(analyticsProvider).track(AnalyticsEvents.lifeSimDayAdvanced,
-        {'day': result.state.day, 'had_event': result.event != null});
+    ref.read(analyticsProvider).track(AnalyticsEvents.lifeSimDayAdvanced, {
+      'day': result.state.day,
+      'had_event': result.event != null,
+    });
 
     if (!mounted) return;
     if (result.salaryReceived != null) {
-      // Salariul e un moment: confetti + haptic mare, apoi foaia de alocare.
+      // Salariul e un moment: confetti + haptic mare, bannerul sare în scenă
+      // și contorul urcă la vedere; abia apoi vine foaia de alocare.
       Juice.major();
       ConfettiBurst.show(context);
+      await _beat(650);
+      if (!mounted) return;
       await _showAllocationSheet(result.salaryReceived!);
     }
     if (result.event != null) {
+      // Întâi intră ziua și rândurile ei, apoi foaia de eveniment.
+      await _beat(300);
+      if (!mounted) return;
       await _showEventSheet(result.event!);
     } else {
       // Zi liniștită, tot merită o vorbă din partea lui Cashy.
       await _applyCashyComment(
-          commentOnQuietDay(s: result.state, seed: result.state.seed));
+        commentOnQuietDay(s: result.state, seed: result.state.seed),
+      );
     }
     if (!mounted) return;
+    _maybeShowMilestone(_state!.day);
+    _maybeShowWeekRecap(_state!.day);
     if (_state!.day >= 30) {
       await _complete();
       return;
     }
     setState(() => _busy = false);
+  }
+
+  /// Pauză scurtă de ritm între momentele zilei. Sare complet cu reduce-motion
+  /// sau dacă ecranul a dispărut între timp.
+  Future<void> _beat(int ms) async {
+    if (!mounted || MediaQuery.of(context).disableAnimations) return;
+    await Future.delayed(Duration(milliseconds: ms));
+  }
+
+  // --- Fluxul de bani pe zile (recapul de săptămână)
+
+  /// Închide măsurătoarea zilei curente: venitul l-am adunat pe parcurs, iar
+  /// cheltuiala iese din diferența față de totalul de la începutul zilei.
+  void _closeDayFlow() {
+    final s = _state;
+    if (_flowDay <= 0 || s == null) return;
+    final net = _moneyValue(s) - _flowStartTotal;
+    var spent = _flowIncome - net;
+    if (spent.isNegative) spent = Money.zero;
+    _dayFlows[_flowDay] = (_flowIncome, spent);
+    _flowDay = 0;
+  }
+
+  void _startDayFlow(LifeSimState before, engine.DayResult result) {
+    _flowDay = result.state.day;
+    _flowStartTotal = _moneyValue(before);
+    var income = Money.zero;
+    if (result.salaryReceived != null) {
+      income = income + result.salaryReceived!;
+    }
+    for (final f in result.state.firedEffects) {
+      if (f.day != result.state.day) continue;
+      final tot = f.cashDelta + f.fundDelta + f.goalDelta;
+      if (tot > Money.zero) income = income + tot;
+    }
+    _flowIncome = income;
+  }
+
+  /// La finalul zilelor 7/14/21/28 arată recapul, dar doar dacă toate cele 7
+  /// zile au fost jucate în sesiunea asta (la resume istoricul lipsește).
+  void _maybeShowWeekRecap(int day) {
+    if (day < 7 || day % 7 != 0 || day >= 30) return;
+    _closeDayFlow();
+    var income = Money.zero;
+    var spent = Money.zero;
+    for (var d = day - 6; d <= day; d++) {
+      final f = _dayFlows[d];
+      if (f == null) return;
+      income = income + f.$1;
+      spent = spent + f.$2;
+    }
+    setState(() => _weekRecap = (day ~/ 7, spent, income));
+  }
+
+  /// Borna zilelor 10 și 20: un banner mic care nu blochează nimic și pleacă
+  /// singur după câteva secunde sau la tap.
+  void _maybeShowMilestone(int day) {
+    if (day != 10 && day != 20) return;
+    _milestoneTimer?.cancel();
+    setState(
+      () => _milestone = day == 10
+          ? 'Ai trecut de ziua 10! Jumătatea drumului se apropie.'
+          : 'Ziua 20 bifată! Ultima linie dreaptă începe.',
+    );
+    _milestoneTimer = Timer(const Duration(milliseconds: 2500), () {
+      if (mounted) setState(() => _milestone = null);
+    });
   }
 
   Future<void> _complete() async {
@@ -171,8 +285,10 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     final sc = score(settled, content);
     await _repo.saveSnapshot(_runId!, settled);
     await _repo.completeRun(runId: _runId!, state: settled, score: sc);
-    ref.read(analyticsProvider).track(AnalyticsEvents.lifeSimCompleted,
-        {'score': sc.total, 'ending': sc.endingId});
+    ref.read(analyticsProvider).track(AnalyticsEvents.lifeSimCompleted, {
+      'score': sc.total,
+      'ending': sc.endingId,
+    });
     ref.invalidate(activeRunProvider);
     ref.invalidate(lastCompletedRunProvider);
     if (!mounted) return;
@@ -180,8 +296,8 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
   }
 
   /// Aplică un [CashyComment] compus determinist, dându-i mai întâi șansa
-  /// hook-ului LLM să-l lustruiască. Offline azi → [polish] întoarce mereu
-  /// null, deci linia compusă rămâne cea afișată.
+  /// hook-ului pentru un model de limbaj să-l lustruiască. Offline, [polish]
+  /// întoarce null, deci rămâne linia compusă.
   Future<void> _applyCashyComment(CashyComment comment) async {
     final narrator = ref.read(cashyNarratorProvider);
     final polished = await narrator.polish(comment.line, {
@@ -189,9 +305,15 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       'day': _state?.day,
     });
     if (!mounted) return;
-    setState(() => _comment = polished == null
-        ? comment
-        : CashyComment(line: polished, more: comment.more, mood: comment.mood));
+    setState(
+      () => _comment = polished == null
+          ? comment
+          : CashyComment(
+              line: polished,
+              more: comment.more,
+              mood: comment.mood,
+            ),
+    );
   }
 
   /// Dacă tocmai s-a atins tinta obiectivului, sărbătorim o singură dată pe
@@ -219,7 +341,7 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     }
   }
 
-  // --- Foaia de eveniment --------------------------------------------------
+  // --- Foaia de eveniment
 
   Future<void> _showEventSheet(LifeSimEvent event) async {
     final chosen = await showModalBottomSheet<int>(
@@ -229,7 +351,8 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       isDismissible: false,
       enableDrag: false,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
       // isDismissible/enableDrag nu opresc back-ul Android, doar PopScope o
       // face. Fără el, back-ul ar închide evenimentul fără niciun efect aplicat.
       builder: (_) => PopScope(canPop: false, child: _EventSheet(event: event)),
@@ -239,17 +362,24 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     final beforeState = _state!;
     final before = _moneyValue(beforeState);
     final after = engine.applyChoice(beforeState, event, chosen, _content!);
-    final gained = _moneyValue(after) >= before;
+    final choiceDelta = _moneyValue(after) - before;
+    final gained = !choiceDelta.isNegative;
     // Câștig → haptic pozitiv; pierderile sunt tăcute (fără shaming).
     if (gained) Juice.correct();
+    // Banii câștigați din alegere intră la venitul zilei, pentru recap.
+    if (choiceDelta > Money.zero && _flowDay == after.day) {
+      _flowIncome = _flowIncome + choiceDelta;
+    }
 
-    await _applyCashyComment(commentOnChoice(
-      event: event,
-      choiceIdx: chosen,
-      before: beforeState,
-      after: after,
-      seed: after.seed,
-    ));
+    await _applyCashyComment(
+      commentOnChoice(
+        event: event,
+        choiceIdx: chosen,
+        before: beforeState,
+        after: after,
+        seed: after.seed,
+      ),
+    );
     if (!mounted) return;
 
     setState(() => _state = after);
@@ -261,18 +391,23 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       choiceIdx: chosen,
     );
     await _repo.saveSnapshot(_runId!, after);
-    ref.read(analyticsProvider).track(AnalyticsEvents.lifeSimChoiceMade,
-        {'event_id': event.id, 'choice_idx': chosen});
+    ref.read(analyticsProvider).track(AnalyticsEvents.lifeSimChoiceMade, {
+      'event_id': event.id,
+      'choice_idx': chosen,
+    });
 
     if (!mounted) return;
     _toast(_consequenceLine(event, chosen, before, after), gained: gained);
   }
 
-  Money _moneyValue(LifeSimState s) =>
-      s.cash + s.emergencyFund + s.goalSavings;
+  Money _moneyValue(LifeSimState s) => s.cash + s.emergencyFund + s.goalSavings;
 
   String _consequenceLine(
-      LifeSimEvent e, int idx, Money before, LifeSimState after) {
+    LifeSimEvent e,
+    int idx,
+    Money before,
+    LifeSimState after,
+  ) {
     final total = _moneyValue(after) - before;
     if (!total.isZero) {
       final signed = total.isNegative ? total.lei : '+${total.lei}';
@@ -285,18 +420,27 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
   void _toast(String message, {required bool gained}) {
     final messenger = ScaffoldMessenger.of(context);
     messenger.clearSnackBars();
-    messenger.showSnackBar(SnackBar(
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: gained ? C.greenDeep : C.text,
-      duration: const Duration(seconds: 3),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(R.sm)),
-      content: Text(message,
-          style:
-              T.body(size: 13.5, weight: FontWeight.w700, color: Colors.white)),
-    ));
+    messenger.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: gained ? C.greenDeep : C.text,
+        duration: const Duration(seconds: 3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(R.sm),
+        ),
+        content: Text(
+          message,
+          style: T.body(
+            size: 13.5,
+            weight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 
-  // --- Foaia de alocare a salariului --------------------------------------
+  // --- Foaia de alocare a salariului
 
   Future<void> _showAllocationSheet(Money salary) async {
     final result = await showModalBottomSheet<(Money, Money)?>(
@@ -306,7 +450,8 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       isDismissible: false,
       enableDrag: false,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
       // Ca la foaia de eveniment: back-ul Android nu trebuie să scoată din
       // alocare fără o alegere explicită (isDismissible nu-l oprește).
       builder: (_) => PopScope(
@@ -318,7 +463,11 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     final (toFund, toGoal) = result;
     if (toFund.isZero && toGoal.isZero) return;
     try {
-      final after = engine.allocateSalary(_state!, toFund: toFund, toGoal: toGoal);
+      final after = engine.allocateSalary(
+        _state!,
+        toFund: toFund,
+        toGoal: toGoal,
+      );
       Juice.tick();
       setState(() => _state = after);
       _maybeCelebrateGoal();
@@ -328,7 +477,7 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     }
   }
 
-  // --- Foile de acces permanent -------------------------------------------
+  // --- Foile de acces permanent
 
   void _openWallet() {
     showModalBottomSheet<void>(
@@ -336,7 +485,8 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       backgroundColor: C.bg,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
       // Foaia ține o copie de lucru și aplică mutările prin motor; noi doar
       // reflectăm rezultatul pe ecran și îl persistăm.
       builder: (_) => _WalletSheet(
@@ -356,7 +506,8 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       backgroundColor: C.bg,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
       builder: (_) => _CalendarSheet(state: _state!, content: _content!),
     );
   }
@@ -367,12 +518,13 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       backgroundColor: C.bg,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
       builder: (_) => _GoalSheet(state: _state!, content: _content!),
     );
   }
 
-  // --- Build ---------------------------------------------------------------
+  // --- Construcția ecranului
 
   @override
   Widget build(BuildContext context) {
@@ -394,23 +546,28 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
   Widget _loading() => const Center(child: CircularProgressIndicator());
 
   Widget _error() => Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            lifeMonthTopBar(context, '30 de Zile', onClose: () => context.go('/arcade')),
-            const Spacer(),
-            Image.asset(Cashy.cashyWorried, width: 110),
-            const SizedBox(height: 12),
-            Text(
-                _versionMismatch
-                    ? 'Runda asta e dintr-o versiune mai veche a jocului, pornește o lună nouă.'
-                    : 'Runda nu a putut fi încărcată',
-                textAlign: TextAlign.center,
-                style: T.display(size: 19, weight: FontWeight.w800, color: C.text)),
-            const Spacer(),
-          ],
+    padding: const EdgeInsets.all(20),
+    child: Column(
+      children: [
+        lifeMonthTopBar(
+          context,
+          '30 de Zile',
+          onClose: () => context.go('/arcade'),
         ),
-      );
+        const Spacer(),
+        Image.asset(Cashy.cashyWorried, width: 110),
+        const SizedBox(height: 12),
+        Text(
+          _versionMismatch
+              ? 'Runda asta e dintr-o versiune mai veche a jocului, pornește o lună nouă.'
+              : 'Runda nu a putut fi încărcată',
+          textAlign: TextAlign.center,
+          style: T.display(size: 19, weight: FontWeight.w800, color: C.text),
+        ),
+        const Spacer(),
+      ],
+    ),
+  );
 
   Widget _body() {
     final s = _state!;
@@ -418,32 +575,55 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
-          child: lifeMonthTopBar(context, '30 de Zile',
-              onClose: () => context.go('/arcade')),
+          child: lifeMonthTopBar(
+            context,
+            '30 de Zile',
+            onClose: () => context.go('/arcade'),
+          ),
         ),
         Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(18, 4, 18, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _dayHeader(s),
-                const SizedBox(height: 12),
-                _daysStrip(s),
-                const SizedBox(height: 18),
-                _BalancePanel(cash: s.cash),
-                const SizedBox(height: 14),
-                _chips(s),
-                const SizedBox(height: 12),
-                _statsRow(s),
-                const SizedBox(height: 18),
-                _CashyCommentator(comment: _comment ?? _greeting),
-                const SizedBox(height: 16),
-                _situationCard(s),
-                const SizedBox(height: 16),
-                _accessRow(),
-              ],
-            ),
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(18, 4, 18, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _dayHeader(s),
+                    const SizedBox(height: 12),
+                    _daysStrip(s),
+                    if (_salaryBanner != null) ...[
+                      const SizedBox(height: 8),
+                      _salaryBannerCard(_salaryBanner!),
+                      const SizedBox(height: 10),
+                    ] else
+                      const SizedBox(height: 18),
+                    _BalancePanel(cash: s.cash),
+                    const SizedBox(height: 14),
+                    _chips(s),
+                    const SizedBox(height: 12),
+                    _statsRow(s),
+                    const SizedBox(height: 18),
+                    _CashyCommentator(comment: _comment ?? _greeting),
+                    const SizedBox(height: 16),
+                    if (_weekRecap != null) ...[
+                      _weekRecapCard(),
+                      const SizedBox(height: 16),
+                    ],
+                    _situationCard(s),
+                    const SizedBox(height: 16),
+                    _accessRow(),
+                  ],
+                ),
+              ),
+              if (_milestone != null)
+                Positioned(
+                  top: 6,
+                  left: 26,
+                  right: 26,
+                  child: Center(child: _milestoneBanner()),
+                ),
+            ],
           ),
         ),
         Padding(
@@ -468,18 +648,184 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         AnimatedSwitcher(
-          duration:
-              MediaQuery.of(context).disableAnimations ? Duration.zero : Dur.base,
+          duration: MediaQuery.of(context).disableAnimations
+              ? Duration.zero
+              : Dur.base,
           transitionBuilder: (child, anim) => RotationTransition(
             turns: Tween(begin: 0.06, end: 0.0).animate(anim),
             child: FadeTransition(opacity: anim, child: child),
           ),
-          child: Text('Ziua $day',
-              key: ValueKey(s.day),
-              style: T.display(size: 26, weight: FontWeight.w800, color: C.text)),
+          child: Text(
+            'Ziua $day',
+            key: ValueKey(s.day),
+            style: T.display(size: 26, weight: FontWeight.w800, color: C.text),
+          ),
         ),
-        Text('din 30',
-            style: T.body(size: 15, weight: FontWeight.w700, color: C.text3)),
+        Text(
+          'din 30',
+          style: T.body(size: 15, weight: FontWeight.w700, color: C.text3),
+        ),
+      ],
+    );
+  }
+
+  /// Bannerul zilei de salariu: sare în scenă o singură dată pe zi de plată.
+  Widget _salaryBannerCard(Money salary) {
+    return PopIn(
+      key: ValueKey('salariu${_state?.day}'),
+      child: GestureDetector(
+        onTap: () {
+          _salaryTimer?.cancel();
+          setState(() => _salaryBanner = null);
+        },
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+          decoration: BoxDecoration(
+            gradient: Grad.green,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: Sh.green,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SvgIcon(
+                Ic.coins,
+                size: 18,
+                color: Colors.white,
+                strokeWidth: 2.4,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'SALARIU +${salary.lei}',
+                style: T.display(
+                  size: 15.5,
+                  weight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: 15.5 * 0.04,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _milestoneBanner() {
+    return PopIn(
+      key: ValueKey(_milestone),
+      child: GestureDetector(
+        onTap: () {
+          _milestoneTimer?.cancel();
+          setState(() => _milestone = null);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+            color: C.surface,
+            borderRadius: BorderRadius.circular(R.pill),
+            border: Border.all(color: C.line2, width: 1),
+            boxShadow: Sh.raise,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SvgIcon(Ic.flag, size: 15, color: C.blue, strokeWidth: 2.2),
+              const SizedBox(width: 7),
+              Flexible(
+                child: Text(
+                  _milestone!,
+                  maxLines: 2,
+                  style: T.display(
+                    size: 12.5,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Recapul compact al săptămânii încheiate: cât a intrat, cât a ieșit, cu
+  /// două bare care se umplu la vedere.
+  Widget _weekRecapCard() {
+    final (week, spent, income) = _weekRecap!;
+    final maxBani = spent.bani > income.bani ? spent.bani : income.bani;
+    double frac(Money m) => maxBani <= 0 ? 0 : m.bani / maxBani;
+    return PopIn(
+      key: ValueKey('sapt$week'),
+      child: ClayCard(
+        radius: R.md,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'SĂPTĂMÂNA $week',
+              style: T.display(
+                size: 11,
+                weight: FontWeight.w800,
+                color: C.text3,
+                letterSpacing: 11 * 0.12,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              'Ai cheltuit ${spent.lei}, ai încasat ${income.lei}.',
+              style: T.body(size: 13, weight: FontWeight.w600, color: C.text2),
+            ),
+            const SizedBox(height: 12),
+            _recapBar('Cheltuieli', spent, C.danger, frac(spent)),
+            const SizedBox(height: 8),
+            _recapBar('Încasări', income, C.greenDeep, frac(income)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _recapBar(String label, Money m, Color color, double frac) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 78,
+          child: Text(
+            label,
+            style: T.body(size: 12, weight: FontWeight.w600, color: C.text2),
+          ),
+        ),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(R.pill),
+            child: SizedBox(
+              height: 9,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  const ColoredBox(color: C.inset),
+                  AnimatedFrac(
+                    value: frac,
+                    builder: (_, v) => FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: v,
+                      child: ColoredBox(color: color),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          m.lei,
+          style: T.display(size: 12.5, weight: FontWeight.w800, color: color),
+        ),
       ],
     );
   }
@@ -527,8 +873,12 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     } else if (isPayday) {
       top = JuiceBounce(
         trigger: s.day,
-        child: const SvgIcon(Ic.coins,
-            size: 20, color: C.greenDeep, strokeWidth: 2.2),
+        child: const SvgIcon(
+          Ic.coins,
+          size: 20,
+          color: C.greenDeep,
+          strokeWidth: 2.2,
+        ),
       );
     } else if (mark != null) {
       top = _markDot(mark);
@@ -553,9 +903,14 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
           if (ghidat)
             Padding(
               padding: const EdgeInsets.only(top: 2),
-              child: Text('${_billsTotal(bills).bani ~/ 100}',
-                  style: T.body(
-                      size: 9, weight: FontWeight.w700, color: C.amberDeep)),
+              child: Text(
+                '${_billsTotal(bills).bani ~/ 100}',
+                style: T.body(
+                  size: 9,
+                  weight: FontWeight.w700,
+                  color: C.amberDeep,
+                ),
+              ),
             ),
         ],
       );
@@ -566,12 +921,12 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     final borderColor = isCurrent
         ? C.blueDeep
         : mark == _DayMark.missed
-            ? C.danger.withValues(alpha: 0.55)
-            : mark == _DayMark.event
-                ? C.violet.withValues(alpha: 0.55)
-                : mark == _DayMark.paid
-                    ? C.green.withValues(alpha: 0.45)
-                    : C.line;
+        ? C.danger.withValues(alpha: 0.55)
+        : mark == _DayMark.event
+        ? C.violet.withValues(alpha: 0.55)
+        : mark == _DayMark.paid
+        ? C.green.withValues(alpha: 0.45)
+        : C.line;
 
     return Container(
       width: 46,
@@ -590,13 +945,14 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
               boxShadow: isCurrent ? Sh.blue : null,
             ),
             alignment: Alignment.center,
-            child: Text('$day',
-                style: T.display(
-                    size: 13,
-                    weight: FontWeight.w800,
-                    color: isCurrent
-                        ? Colors.white
-                        : (isPast ? C.text3 : C.text2))),
+            child: Text(
+              '$day',
+              style: T.display(
+                size: 13,
+                weight: FontWeight.w800,
+                color: isCurrent ? Colors.white : (isPast ? C.text3 : C.text2),
+              ),
+            ),
           ),
         ],
       ),
@@ -604,26 +960,41 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
   }
 
   Widget _markDot(_DayMark mark) => switch (mark) {
-        _DayMark.missed => Container(
-            width: 10,
-            height: 10,
-            decoration:
-                const BoxDecoration(color: C.danger, shape: BoxShape.circle),
-          ),
-        _DayMark.event => Container(
-            width: 10,
-            height: 10,
-            decoration:
-                const BoxDecoration(color: C.violet, shape: BoxShape.circle),
-          ),
-        _DayMark.paid => const SvgIcon(Ic.check,
-            size: 14, color: C.green, strokeWidth: 2.8),
-      };
+    _DayMark.missed => Container(
+      width: 10,
+      height: 10,
+      decoration: const BoxDecoration(color: C.danger, shape: BoxShape.circle),
+    ),
+    _DayMark.event => Container(
+      width: 10,
+      height: 10,
+      decoration: const BoxDecoration(color: C.violet, shape: BoxShape.circle),
+    ),
+    _DayMark.paid => const SvgIcon(
+      Ic.check,
+      size: 14,
+      color: C.green,
+      strokeWidth: 2.8,
+    ),
+  };
 
-  /// Rândul de stat-uri de viață: 4 mini-bare animate. Tap → foaia care explică
-  /// ce înseamnă și cum intră în scor.
+  /// Rândul de stat-uri de viață: 4 mini-bare animate. Tap pe o bară → foaia
+  /// statului atins; tap între bare → foaia care le explică pe toate.
   Widget _statsRow(LifeSimState s) {
     final st = s.stats;
+    Widget bar(_StatDetail d, int value, bool critical) => GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        Juice.tick();
+        _openStatDetail(d, value);
+      },
+      child: _StatBar(
+        icon: d.icon,
+        color: d.color,
+        value: value,
+        critical: critical,
+      ),
+    );
     return GestureDetector(
       key: const Key('lifeStatsRow'),
       behavior: HitTestBehavior.opaque,
@@ -633,36 +1004,14 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       },
       child: Row(
         children: [
-          Expanded(
-            child: _StatBar(
-                icon: Ic.heart,
-                color: C.green,
-                value: st.health,
-                critical: st.health < 25),
-          ),
+          Expanded(child: bar(_statHealth, st.health, st.health < 25)),
+          const SizedBox(width: 10),
+          Expanded(child: bar(_statEnergy, st.energy, st.energy < 25)),
+          const SizedBox(width: 10),
+          Expanded(child: bar(_statStress, st.stress, st.stress > 75)),
           const SizedBox(width: 10),
           Expanded(
-            child: _StatBar(
-                icon: Ic.flame,
-                color: C.blue,
-                value: st.energy,
-                critical: st.energy < 25),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: _StatBar(
-                icon: Ic.alert,
-                color: C.amberDeep,
-                value: st.stress,
-                critical: st.stress > 75),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: _StatBar(
-                icon: Ic.message,
-                color: C.violet,
-                value: st.relationships,
-                critical: st.relationships < 25),
+            child: bar(_statRelations, st.relationships, st.relationships < 25),
           ),
         ],
       ),
@@ -675,39 +1024,94 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       backgroundColor: C.bg,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
       builder: (_) => _StatsSheet(stats: stats),
     );
   }
 
+  void _openStatDetail(_StatDetail d, int value) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: C.bg,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+      ),
+      builder: (_) => _StatDetailSheet(detail: d, value: value),
+    );
+  }
+
   Widget _chips(LifeSimState s) {
-    final next = _nextDue(s);
     return Row(
       children: [
         Expanded(
-          child: _chip(Ic.shield, 'Fond', s.emergencyFund.lei, C.green, C.greenSoft),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _chip(Ic.coins, 'Datorii', s.totalDebt.lei,
-              s.totalDebt.isZero ? C.text3 : C.danger,
-              s.totalDebt.isZero ? C.inset : C.dangerSoft),
+          child: _chip(
+            Ic.shield,
+            'Fond',
+            s.emergencyFund.lei,
+            C.green,
+            C.greenSoft,
+            onTap: _openWallet,
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: _chip(
-              Ic.clock,
-              'Factură',
-              next == null ? ', ' : '${next.$2.lei} · z${next.$3}',
-              C.amberDeep,
-              C.amberSoft),
+            Ic.coins,
+            'Datorii',
+            s.totalDebt.lei,
+            s.totalDebt.isZero ? C.text3 : C.danger,
+            s.totalDebt.isZero ? C.inset : C.dangerSoft,
+            onTap: _openWallet,
+          ),
         ),
+        const SizedBox(width: 8),
+        Expanded(child: _billChip(s)),
       ],
     );
   }
 
-  Widget _chip(String icon, String label, String value, Color color, Color bg) {
-    return Container(
+  /// Chip-ul de factură își schimbă culoarea după cât de aproape e scadența:
+  /// liniștit când e departe, amber cu 1-2 zile înainte, roșu pe restanță.
+  /// Pulsul stă doar pe iconiță și doar când chiar arde. Tap → calendarul.
+  Widget _billChip(LifeSimState s) {
+    final next = _nextDue(s);
+    final overdue = s.arrears.isNotEmpty;
+    final daysLeft = next == null ? null : next.$3 - s.day;
+    final (color, bg) = overdue
+        ? (C.dangerDeep, C.dangerSoft)
+        : daysLeft == null
+        ? (C.text3, C.inset)
+        : daysLeft <= 2
+        ? (C.amberDeep, C.amberSoft)
+        : (C.greenDeep, C.greenSoft);
+    final urgent = overdue || (daysLeft != null && daysLeft <= 2);
+    return _chip(
+      Ic.clock,
+      'Factură',
+      next == null ? ', ' : '${next.$2.lei} · z${next.$3}',
+      color,
+      bg,
+      onTap: _openCalendar,
+      pulseTrigger: urgent ? s.day : null,
+    );
+  }
+
+  Widget _chip(
+    String icon,
+    String label,
+    String value,
+    Color color,
+    Color bg, {
+    VoidCallback? onTap,
+    Object? pulseTrigger,
+  }) {
+    Widget iconW = SvgIcon(icon, size: 13, color: color, strokeWidth: 2);
+    if (pulseTrigger != null) {
+      iconW = _UrgentPulse(trigger: pulseTrigger, child: iconW);
+    }
+    final chip = Container(
       padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 9),
       decoration: BoxDecoration(
         color: bg,
@@ -719,21 +1123,34 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
         children: [
           Row(
             children: [
-              SvgIcon(icon, size: 13, color: color, strokeWidth: 2),
+              iconW,
               const SizedBox(width: 4),
-              Text(label,
-                  style: T.display(
-                      size: 10.5, weight: FontWeight.w800, color: color)),
+              Text(
+                label,
+                style: T.display(
+                  size: 10.5,
+                  weight: FontWeight.w800,
+                  color: color,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 4),
-          Text(value,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: T.display(size: 12.5, weight: FontWeight.w800, color: C.text)),
+          Text(
+            value,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: T.display(
+              size: 12.5,
+              weight: FontWeight.w800,
+              color: C.text,
+            ),
+          ),
         ],
       ),
     );
+    if (onTap == null) return chip;
+    return Pressable(scale: 0.96, onTap: onTap, child: chip);
   }
 
   Widget _situationCard(LifeSimState s) {
@@ -748,10 +1165,14 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                  'Apasă „+ O zi" ca să pornești luna. Salariul intră azi.',
-                  style: T.body(
-                      size: 13.5, weight: FontWeight.w600, color: C.text2,
-                      height: 1.4)),
+                'Apasă „+ O zi" ca să pornești luna. Salariul intră azi.',
+                style: T.body(
+                  size: 13.5,
+                  weight: FontWeight.w600,
+                  color: C.text2,
+                  height: 1.4,
+                ),
+              ),
             ),
           ],
         ),
@@ -760,13 +1181,20 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
 
     final lines = <Widget>[];
     if (r.salaryReceived != null) {
-      lines.add(_sitLine(Ic.coins, C.greenDeep, 'Salariu',
-          '+${r.salaryReceived!.lei}'));
+      lines.add(
+        _sitLine(Ic.coins, C.greenDeep, 'Salariu', '+${r.salaryReceived!.lei}'),
+      );
     }
     for (final id in r.billsPaid) {
       final def = _content!.recurringById(id);
-      lines.add(_sitLine(Ic.check, C.text2, def?.name ?? id,
-          def == null ? 'plătită' : '-${def.amount.lei}'));
+      lines.add(
+        _sitLine(
+          Ic.check,
+          C.text2,
+          def?.name ?? id,
+          def == null ? 'plătită' : '-${def.amount.lei}',
+        ),
+      );
     }
     for (final id in r.billsMissed) {
       final def = _content!.recurringById(id);
@@ -774,8 +1202,9 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
     }
     for (final id in r.arrearsPaid) {
       final def = _content!.recurringById(id);
-      lines.add(_sitLine(
-          Ic.check, C.amberDeep, def?.name ?? id, 'restanță stinsă'));
+      lines.add(
+        _sitLine(Ic.check, C.amberDeep, def?.name ?? id, 'restanță stinsă'),
+      );
     }
     for (final eff in r.effectsFired) {
       lines.add(_sitLine(Ic.clock, C.amberDeep, eff.$1, eff.$2));
@@ -790,14 +1219,26 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('ZIUA ${s.day}',
-              style: T.display(
-                  size: 11,
-                  weight: FontWeight.w800,
-                  color: C.text3,
-                  letterSpacing: 11 * 0.12)),
+          Text(
+            'ZIUA ${s.day}',
+            style: T.display(
+              size: 11,
+              weight: FontWeight.w800,
+              color: C.text3,
+              letterSpacing: 11 * 0.12,
+            ),
+          ),
           const SizedBox(height: 10),
-          ...lines,
+          // Cheile pe zi refac stagger-ul în fiecare dimineață, nu doar la
+          // prima construire a cardului.
+          ...List.generate(
+            lines.length,
+            (i) => StaggerIn(
+              key: ValueKey('zi${s.day}r$i'),
+              index: i,
+              child: lines[i],
+            ),
+          ),
         ],
       ),
     );
@@ -811,14 +1252,18 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
           SvgIcon(icon, size: 15, color: color, strokeWidth: 2.2),
           const SizedBox(width: 9),
           Expanded(
-            child: Text(label,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: T.body(size: 13, weight: FontWeight.w600, color: C.text)),
+            child: Text(
+              label,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: T.body(size: 13, weight: FontWeight.w600, color: C.text),
+            ),
           ),
           const SizedBox(width: 8),
-          Text(value,
-              style: T.display(size: 13, weight: FontWeight.w800, color: color)),
+          Text(
+            value,
+            style: T.display(size: 13, weight: FontWeight.w800, color: color),
+          ),
         ],
       ),
     );
@@ -855,15 +1300,21 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
           children: [
             SvgIcon(icon, size: 18, color: C.blue, strokeWidth: 2),
             const SizedBox(height: 3),
-            Text(label,
-                style: T.display(size: 11, weight: FontWeight.w800, color: C.text2)),
+            Text(
+              label,
+              style: T.display(
+                size: 11,
+                weight: FontWeight.w800,
+                color: C.text2,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  // --- Helpers de conținut -------------------------------------------------
+  // --- Helpers de conținut
 
   List<RecurringDef> _billsDueOn(int day) {
     final s = _state!;
@@ -911,10 +1362,8 @@ class _LifeMonthScreenState extends ConsumerState<LifeMonthScreen> {
   }
 }
 
-// ===========================================================================
 // Cashy comentatorul, mare, reacționează la fiecare decizie, spune MAI MULT
 // la tap (line → more[0] → more[1] → înapoi la line).
-// ===========================================================================
 
 class _CashyCommentator extends StatefulWidget {
   const _CashyCommentator({required this.comment});
@@ -983,7 +1432,10 @@ class _CashyCommentatorState extends State<_CashyCommentator> {
                   child: Container(
                     key: ValueKey(text),
                     width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 13,
+                    ),
                     decoration: BoxDecoration(
                       color: C.surface,
                       borderRadius: const BorderRadius.only(
@@ -995,9 +1447,15 @@ class _CashyCommentatorState extends State<_CashyCommentator> {
                       border: Border.all(color: C.line, width: 1),
                       boxShadow: Sh.raise,
                     ),
-                    child: Text(text,
-                        style: T.body(
-                            size: 14, weight: FontWeight.w500, color: C.text2, height: 1.4)),
+                    child: Text(
+                      text,
+                      style: T.body(
+                        size: 14,
+                        weight: FontWeight.w500,
+                        color: C.text2,
+                        height: 1.4,
+                      ),
+                    ),
                   ),
                 ),
                 if (showHint)
@@ -1005,8 +1463,14 @@ class _CashyCommentatorState extends State<_CashyCommentator> {
                     padding: const EdgeInsets.only(top: 6, left: 4),
                     child: Opacity(
                       opacity: 0.6,
-                      child: Text('atinge-mă',
-                          style: T.display(size: 11, weight: FontWeight.w800, color: C.text3)),
+                      child: Text(
+                        'atinge-mă',
+                        style: T.display(
+                          size: 11,
+                          weight: FontWeight.w800,
+                          color: C.text3,
+                        ),
+                      ),
                     ),
                   ),
               ],
@@ -1018,16 +1482,13 @@ class _CashyCommentatorState extends State<_CashyCommentator> {
   }
 }
 
-// ===========================================================================
 // Drumul lunii: marca unei zile trecute.
-// ===========================================================================
 
 enum _DayMark { missed, event, paid }
 
-// ===========================================================================
-// Balanța „în buzunar": contor animat + floater de delta care se ridică și se
-// estompează la fiecare schimbare de cash (600ms, sare cu reduce-motion).
-// ===========================================================================
+// Balanța „în buzunar": contor animat + chip de delta care sare lângă sold,
+// urcă și se estompează la fiecare schimbare de cash (900ms, sare cu
+// reduce-motion). Verde pe plus, roșu pe minus.
 
 class _BalancePanel extends StatefulWidget {
   const _BalancePanel({required this.cash});
@@ -1043,7 +1504,7 @@ class _BalancePanelState extends State<_BalancePanel>
 
   /// Textul care plutește acum; null cât timp nu se ridică nimic.
   String? _floater;
-  Color _floaterColor = C.greenDeep;
+  bool _floaterGain = true;
 
   @override
   void initState() {
@@ -1051,14 +1512,15 @@ class _BalancePanelState extends State<_BalancePanel>
     // Creat aici, nu ca `late` leneș: build atinge controllerul doar cât timp
     // floater-ul nu e null, deci fără schimbare de cash inițializarea leneșă ar
     // pica abia în dispose si ar crea un ticker pe un element deja scos.
-    _c = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 600),
-    )..addStatusListener((s) {
-        if (s == AnimationStatus.completed && mounted) {
-          setState(() => _floater = null);
-        }
-      });
+    _c =
+        AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 900),
+        )..addStatusListener((s) {
+          if (s == AnimationStatus.completed && mounted) {
+            setState(() => _floater = null);
+          }
+        });
   }
 
   @override
@@ -1068,7 +1530,7 @@ class _BalancePanelState extends State<_BalancePanel>
     if (MediaQuery.of(context).disableAnimations) return;
     final delta = widget.cash - old.cash;
     _floater = delta.isNegative ? delta.lei : '+${delta.lei}';
-    _floaterColor = delta.isNegative ? C.danger : C.greenDeep;
+    _floaterGain = !delta.isNegative;
     _c.forward(from: 0);
   }
 
@@ -1082,12 +1544,15 @@ class _BalancePanelState extends State<_BalancePanel>
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('ÎN BUZUNAR',
-            style: T.display(
-                size: 11,
-                weight: FontWeight.w800,
-                color: C.text3,
-                letterSpacing: 11 * 0.14)),
+        Text(
+          'ÎN BUZUNAR',
+          style: T.display(
+            size: 11,
+            weight: FontWeight.w800,
+            color: C.text3,
+            letterSpacing: 11 * 0.14,
+          ),
+        ),
         const SizedBox(height: 4),
         Stack(
           clipBehavior: Clip.none,
@@ -1098,9 +1563,10 @@ class _BalancePanelState extends State<_BalancePanel>
               child: _MoneyCount(
                 value: widget.cash,
                 style: T.display(
-                    size: 38,
-                    weight: FontWeight.w800,
-                    color: widget.cash.isNegative ? C.danger : C.text),
+                  size: 38,
+                  weight: FontWeight.w800,
+                  color: widget.cash.isNegative ? C.danger : C.text,
+                ),
               ),
             ),
             if (_floater != null)
@@ -1111,15 +1577,43 @@ class _BalancePanelState extends State<_BalancePanel>
                     animation: _c,
                     builder: (_, _) {
                       final t = _c.value;
+                      final fg = _floaterGain ? C.greenDeep : C.danger;
+                      // Pop scurt la intrare, urcă lin, se stinge pe final.
+                      final pop = Curves.easeOutBack.transform(
+                        (t / 0.22).clamp(0.0, 1.0),
+                      );
+                      final fade = t < 0.4 ? 1.0 : 1 - (t - 0.4) / 0.6;
                       return Opacity(
-                        opacity: (1 - t).clamp(0.0, 1.0),
+                        opacity: fade.clamp(0.0, 1.0),
                         child: Transform.translate(
-                          offset: Offset(0, -18 - 30 * t),
-                          child: Text(_floater!,
-                              style: T.display(
-                                  size: 19,
+                          offset: Offset(0, -20 - 24 * t),
+                          child: Transform.scale(
+                            scale: pop,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: _floaterGain
+                                    ? C.greenSoft
+                                    : C.dangerSoft,
+                                borderRadius: BorderRadius.circular(R.pill),
+                                border: Border.all(
+                                  color: fg.withValues(alpha: 0.35),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                _floater!,
+                                style: T.display(
+                                  size: 15,
                                   weight: FontWeight.w800,
-                                  color: _floaterColor)),
+                                  color: fg,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -1133,9 +1627,7 @@ class _BalancePanelState extends State<_BalancePanel>
   }
 }
 
-// ===========================================================================
 // Mini-barele de stat-uri de viață + foaia care le explică.
-// ===========================================================================
 
 class _StatBar extends StatelessWidget {
   const _StatBar({
@@ -1172,8 +1664,7 @@ class _StatBar extends StatelessWidget {
                   children: [
                     ColoredBox(color: track),
                     TweenAnimationBuilder<double>(
-                      tween:
-                          Tween<double>(end: (value / 100).clamp(0.0, 1.0)),
+                      tween: Tween<double>(end: (value / 100).clamp(0.0, 1.0)),
                       duration: reduceMotion ? Duration.zero : Dur.base,
                       curve: Curves.easeOut,
                       builder: (_, v, _) => FractionallySizedBox(
@@ -1207,26 +1698,53 @@ class _StatsSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Cele 4 stat-uri de viață',
-                style: T.display(
-                    size: 19, weight: FontWeight.w800, color: C.text)),
+            Text(
+              'Cele 4 stat-uri de viață',
+              style: T.display(
+                size: 19,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
             const SizedBox(height: 4),
             Text(
-                'Media lor, cu stresul inversat, e „Echilibru": 20% din scorul lunii.',
-                style: T.body(
-                    size: 13,
-                    weight: FontWeight.w500,
-                    color: C.text2,
-                    height: 1.4)),
+              'Media lor, cu stresul inversat, e „Echilibru": 20% din scorul lunii.',
+              style: T.body(
+                size: 13,
+                weight: FontWeight.w500,
+                color: C.text2,
+                height: 1.4,
+              ),
+            ),
             const SizedBox(height: 14),
-            _row(Ic.heart, C.green, 'Sănătate', stats.health,
-                'Scade dacă te epuizezi sau stai prea mult sub stres. O ții sus odihnindu-te.'),
-            _row(Ic.flame, C.blue, 'Energie', stats.energy,
-                'Scade puțin zilnic și mai mult când ești stresat. Fără energie, sănătatea suferă.'),
-            _row(Ic.alert, C.amberDeep, 'Stres', stats.stress,
-                'Crește la facturi ratate și presiune. Un pic e normal, prea mult îți arde energia.'),
-            _row(Ic.message, C.violet, 'Relații', stats.relationships,
-                'Se răcesc dacă uiți de viața socială. Timpul cu oamenii le ține calde.'),
+            _row(
+              Ic.heart,
+              C.green,
+              'Sănătate',
+              stats.health,
+              'Scade dacă te epuizezi sau stai prea mult sub stres. O ții sus odihnindu-te.',
+            ),
+            _row(
+              Ic.flame,
+              C.blue,
+              'Energie',
+              stats.energy,
+              'Scade puțin zilnic și mai mult când ești stresat. Fără energie, sănătatea suferă.',
+            ),
+            _row(
+              Ic.alert,
+              C.amberDeep,
+              'Stres',
+              stats.stress,
+              'Crește la facturi ratate și presiune. Un pic e normal, prea mult îți arde energia.',
+            ),
+            _row(
+              Ic.message,
+              C.violet,
+              'Relații',
+              stats.relationships,
+              'Se răcesc dacă uiți de viața socială. Timpul cu oamenii le ține calde.',
+            ),
           ],
         ),
       ),
@@ -1256,22 +1774,35 @@ class _StatsSheet extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(name,
-                        style: T.display(
-                            size: 15, weight: FontWeight.w800, color: C.text)),
+                    Text(
+                      name,
+                      style: T.display(
+                        size: 15,
+                        weight: FontWeight.w800,
+                        color: C.text,
+                      ),
+                    ),
                     const Spacer(),
-                    Text('$value',
-                        style: T.display(
-                            size: 15, weight: FontWeight.w800, color: color)),
+                    Text(
+                      '$value',
+                      style: T.display(
+                        size: 15,
+                        weight: FontWeight.w800,
+                        color: color,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 2),
-                Text(desc,
-                    style: T.body(
-                        size: 12.5,
-                        weight: FontWeight.w500,
-                        color: C.text2,
-                        height: 1.35)),
+                Text(
+                  desc,
+                  style: T.body(
+                    size: 12.5,
+                    weight: FontWeight.w500,
+                    color: C.text2,
+                    height: 1.35,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1281,9 +1812,261 @@ class _StatsSheet extends StatelessWidget {
   }
 }
 
-// ===========================================================================
+// Puls finit pe iconițe urgente: trei bătăi amortizate la intrare și la
+// fiecare schimbare de trigger, apoi liniște. Bucla infinită ar obosi ochiul
+// și ar ține ecranul într-o animație permanentă.
+
+class _UrgentPulse extends StatefulWidget {
+  const _UrgentPulse({required this.trigger, required this.child});
+
+  final Object trigger;
+  final Widget child;
+
+  @override
+  State<_UrgentPulse> createState() => _UrgentPulseState();
+}
+
+class _UrgentPulseState extends State<_UrgentPulse>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1500),
+  );
+  bool _started = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+    if (!MediaQuery.of(context).disableAnimations) _c.forward();
+  }
+
+  @override
+  void didUpdateWidget(_UrgentPulse old) {
+    super.didUpdateWidget(old);
+    if (old.trigger != widget.trigger &&
+        !MediaQuery.of(context).disableAnimations) {
+      _c.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (_, child) {
+        final t = _c.value;
+        final scale = 1 + 0.24 * math.sin(t * math.pi * 3).abs() * (1 - t);
+        return Transform.scale(scale: scale, child: child);
+      },
+      child: widget.child,
+    );
+  }
+}
+
+// Foaia unui singur stat: ce înseamnă bara atinsă și cum o refaci.
+
+class _StatDetail {
+  const _StatDetail({
+    required this.icon,
+    required this.color,
+    required this.name,
+    required this.meaning,
+    required this.tip,
+    this.inverted = false,
+  });
+
+  final String icon;
+  final Color color;
+  final String name;
+  final String meaning;
+  final String tip;
+
+  /// La stres, mult înseamnă rău: pragul critic e sus, nu jos.
+  final bool inverted;
+}
+
+const _statHealth = _StatDetail(
+  icon: Ic.heart,
+  color: C.green,
+  name: 'Sănătate',
+  meaning: 'Arată cât de bine se simte corpul tău luna asta.',
+  tip:
+      'Se reface când te odihnești și nu lași stresul să stea sus zile la rând.',
+);
+
+const _statEnergy = _StatDetail(
+  icon: Ic.flame,
+  color: C.blue,
+  name: 'Energie',
+  meaning: 'Puterea ta pentru ziua de azi. Scade câte puțin în fiecare zi.',
+  tip: 'Somnul și pauzele o încarcă la loc. Dacă ajunge jos, suferă sănătatea.',
+);
+
+const _statStress = _StatDetail(
+  icon: Ic.alert,
+  color: C.amberDeep,
+  name: 'Stres',
+  meaning: 'Presiunea care se adună când apar facturi și surprize.',
+  tip: 'Scade când plătești la timp și nu stai pe minus. Puțin stres e normal.',
+  inverted: true,
+);
+
+const _statRelations = _StatDetail(
+  icon: Ic.message,
+  color: C.violet,
+  name: 'Relații',
+  meaning: 'Cât de aproape rămâi de prieteni și familie.',
+  tip: 'Un mesaj sau o ieșire scurtă le ține calde, fără să golești buzunarul.',
+);
+
+class _StatDetailSheet extends StatelessWidget {
+  const _StatDetailSheet({required this.detail, required this.value});
+
+  final _StatDetail detail;
+  final int value;
+
+  @override
+  Widget build(BuildContext context) {
+    final critical = detail.inverted ? value > 75 : value < 25;
+    final color = critical ? C.danger : detail.color;
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.14),
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                  alignment: Alignment.center,
+                  child: SvgIcon(
+                    detail.icon,
+                    size: 22,
+                    color: color,
+                    strokeWidth: 2.2,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    detail.name,
+                    style: T.display(
+                      size: 19,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
+                ),
+                Text(
+                  '$value',
+                  style: T.display(
+                    size: 26,
+                    weight: FontWeight.w800,
+                    color: color,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(R.pill),
+              child: SizedBox(
+                height: 14,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    const ColoredBox(color: C.inset),
+                    AnimatedFrac(
+                      value: value / 100,
+                      builder: (_, v) => FractionallySizedBox(
+                        alignment: Alignment.centerLeft,
+                        widthFactor: v,
+                        child: ColoredBox(color: color),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 6),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                '$value din 100',
+                style: T.body(
+                  size: 11.5,
+                  weight: FontWeight.w600,
+                  color: C.text3,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              detail.meaning,
+              style: T.body(
+                size: 13.5,
+                weight: FontWeight.w500,
+                color: C.text2,
+                height: 1.45,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
+              decoration: BoxDecoration(
+                color: C.surface,
+                borderRadius: BorderRadius.circular(R.sm),
+                border: Border.all(color: C.line, width: 1),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SvgIcon(
+                    Ic.sparkles,
+                    size: 16,
+                    color: C.violetDeep,
+                    strokeWidth: 2,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      detail.tip,
+                      style: T.body(
+                        size: 12.5,
+                        weight: FontWeight.w600,
+                        color: C.text2,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // Balanța animată (bani → lei formatat), reduce-motion aware.
-// ===========================================================================
 
 class _MoneyCount extends StatelessWidget {
   const _MoneyCount({required this.value, required this.style});
@@ -1304,9 +2087,7 @@ class _MoneyCount extends StatelessWidget {
   }
 }
 
-// ===========================================================================
 // Foaia de eveniment (nu se închide la tap-outside).
-// ===========================================================================
 
 class _EventSheet extends StatefulWidget {
   const _EventSheet({required this.event});
@@ -1342,27 +2123,37 @@ class _EventSheetState extends State<_EventSheet> {
             JuiceBounce(
               trigger: _bounce,
               child: CashySprite(
-                asset: cashyForIllustration(event.illustration,
-                    difficulty: event.difficulty),
+                asset: cashyForIllustration(
+                  event.illustration,
+                  difficulty: event.difficulty,
+                ),
                 width: 88,
               ),
             ),
             const SizedBox(height: 14),
-            Text(event.title,
-                textAlign: TextAlign.center,
-                style:
-                    T.display(size: 21, weight: FontWeight.w800, color: C.text)),
+            Text(
+              event.title,
+              textAlign: TextAlign.center,
+              style: T.display(
+                size: 21,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
             const SizedBox(height: 8),
             _IntensityChip(difficulty: event.difficulty),
             if (event.narrative.isNotEmpty) ...[
               const SizedBox(height: 10),
-              Text(event.narrative,
-                  textAlign: TextAlign.center,
-                  style: T.body(
-                      size: 14,
-                      weight: FontWeight.w500,
-                      color: C.text2,
-                      height: 1.45)),
+              Text(
+                event.narrative,
+                textAlign: TextAlign.center,
+                style: T.body(
+                  size: 14,
+                  weight: FontWeight.w500,
+                  color: C.text2,
+                  height: 1.45,
+                ),
+              ),
             ],
             const SizedBox(height: 18),
             for (var i = 0; i < event.choices.length; i++) ...[
@@ -1392,12 +2183,14 @@ class _IntensityChip extends StatelessWidget {
     final (label, color, bg) = difficulty >= 3
         ? ('Șoc', C.danger, C.dangerSoft)
         : difficulty == 2
-            ? ('Mediu', C.amberDeep, C.amberSoft)
-            : ('Ușor', C.greenDeep, C.greenSoft);
+        ? ('Mediu', C.amberDeep, C.amberSoft)
+        : ('Ușor', C.greenDeep, C.greenSoft);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
-      decoration:
-          BoxDecoration(color: bg, borderRadius: BorderRadius.circular(R.pill)),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(R.pill),
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -1407,9 +2200,10 @@ class _IntensityChip extends StatelessWidget {
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 6),
-          Text(label,
-              style:
-                  T.display(size: 12, weight: FontWeight.w800, color: color)),
+          Text(
+            label,
+            style: T.display(size: 12, weight: FontWeight.w800, color: color),
+          ),
         ],
       ),
     );
@@ -1455,13 +2249,22 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
           child: Row(
             children: [
               Expanded(
-                child: Text(widget.label,
-                    style: T.body(
-                        size: 14.5, weight: FontWeight.w700, color: C.text)),
+                child: Text(
+                  widget.label,
+                  style: T.body(
+                    size: 14.5,
+                    weight: FontWeight.w700,
+                    color: C.text,
+                  ),
+                ),
               ),
               const SizedBox(width: 8),
-              const SvgIcon(Ic.chevronRight,
-                  size: 18, color: C.text3, strokeWidth: 2.4),
+              const SvgIcon(
+                Ic.chevronRight,
+                size: 18,
+                color: C.text3,
+                strokeWidth: 2.4,
+              ),
             ],
           ),
         ),
@@ -1470,9 +2273,7 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
   }
 }
 
-// ===========================================================================
 // Foaia de alocare a salariului.
-// ===========================================================================
 
 class _AllocationSheet extends StatelessWidget {
   const _AllocationSheet({required this.salary, required this.cash});
@@ -1489,9 +2290,24 @@ class _AllocationSheet extends StatelessWidget {
     // Presetări clamped la cash-ul disponibil. Total (fond+obiectiv) ≤ cash.
     final presets = <(String, String, Money, Money)>[
       ('Sar peste', 'Las tot ca lichid', Money.zero, Money.zero),
-      ('Echilibrat', '20% fond · 10% obiectiv', _pct(20), _clampGoal(_pct(20), _pct(10))),
-      ('Prudent', '35% fond · 5% obiectiv', _pct(35), _clampGoal(_pct(35), _pct(5))),
-      ('Spre obiectiv', '10% fond · 25% obiectiv', _pct(10), _clampGoal(_pct(10), _pct(25))),
+      (
+        'Echilibrat',
+        '20% fond · 10% obiectiv',
+        _pct(20),
+        _clampGoal(_pct(20), _pct(10)),
+      ),
+      (
+        'Prudent',
+        '35% fond · 5% obiectiv',
+        _pct(35),
+        _clampGoal(_pct(35), _pct(5)),
+      ),
+      (
+        'Spre obiectiv',
+        '10% fond · 25% obiectiv',
+        _pct(10),
+        _clampGoal(_pct(10), _pct(25)),
+      ),
     ];
 
     return SafeArea(
@@ -1504,17 +2320,33 @@ class _AllocationSheet extends StatelessWidget {
           children: [
             Row(
               children: [
-                const SvgIcon(Ic.coins, size: 20, color: C.greenDeep, strokeWidth: 2.2),
+                const SvgIcon(
+                  Ic.coins,
+                  size: 20,
+                  color: C.greenDeep,
+                  strokeWidth: 2.2,
+                ),
                 const SizedBox(width: 8),
-                Text('A intrat salariul: ${salary.lei}',
-                    style: T.display(
-                        size: 17, weight: FontWeight.w800, color: C.text)),
+                Text(
+                  'A intrat salariul: ${salary.lei}',
+                  style: T.display(
+                    size: 17,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 6),
-            Text('Pune deoparte înainte să cheltui, sau sari și înveți din consecințe.',
-                style: T.body(size: 13, weight: FontWeight.w500, color: C.text2,
-                    height: 1.4)),
+            Text(
+              'Pune deoparte înainte să cheltui, sau sari și înveți din consecințe.',
+              style: T.body(
+                size: 13,
+                weight: FontWeight.w500,
+                color: C.text2,
+                height: 1.4,
+              ),
+            ),
             const SizedBox(height: 14),
             for (final p in presets) ...[
               _AllocOption(
@@ -1576,18 +2408,33 @@ class _AllocOption extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: T.display(
-                          size: 15, weight: FontWeight.w800, color: C.text)),
+                  Text(
+                    title,
+                    style: T.display(
+                      size: 15,
+                      weight: FontWeight.w800,
+                      color: C.text,
+                    ),
+                  ),
                   const SizedBox(height: 2),
-                  Text(subtitle,
-                      style: T.body(
-                          size: 12, weight: FontWeight.w500, color: C.text2)),
+                  Text(
+                    subtitle,
+                    style: T.body(
+                      size: 12,
+                      weight: FontWeight.w500,
+                      color: C.text2,
+                    ),
+                  ),
                 ],
               ),
             ),
             if (!skip)
-              const SvgIcon(Ic.chevronRight, size: 18, color: C.text3, strokeWidth: 2.4),
+              const SvgIcon(
+                Ic.chevronRight,
+                size: 18,
+                color: C.text3,
+                strokeWidth: 2.4,
+              ),
           ],
         ),
       ),
@@ -1595,9 +2442,7 @@ class _AllocOption extends StatelessWidget {
   }
 }
 
-// ===========================================================================
 // Foaia „Portofel", solduri + transferuri pe plicuri.
-// ===========================================================================
 
 class _WalletSheet extends StatefulWidget {
   const _WalletSheet({required this.initial, required this.onChanged});
@@ -1630,11 +2475,13 @@ class _WalletSheetState extends State<_WalletSheet> {
   void _move({required bool toFund}) {
     if (_s.cash < _amount) return;
     Juice.tick();
-    _apply(engine.allocateSalary(
-      _s,
-      toFund: toFund ? _amount : Money.zero,
-      toGoal: toFund ? Money.zero : _amount,
-    ));
+    _apply(
+      engine.allocateSalary(
+        _s,
+        toFund: toFund ? _amount : Money.zero,
+        toGoal: toFund ? Money.zero : _amount,
+      ),
+    );
   }
 
   void _payDebt(String id) {
@@ -1654,22 +2501,33 @@ class _WalletSheetState extends State<_WalletSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Portofel',
-                style:
-                    T.display(size: 19, weight: FontWeight.w800, color: C.text)),
+            Text(
+              'Portofel',
+              style: T.display(
+                size: 19,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
             const SizedBox(height: 14),
             _row('În buzunar', s.cash, C.text),
             _row('Fond de urgență', s.emergencyFund, C.greenDeep),
             _row('Obiectiv', s.goalSavings, C.blue),
-            _row('Datorii', s.totalDebt,
-                s.totalDebt.isZero ? C.text3 : C.danger),
+            _row(
+              'Datorii',
+              s.totalDebt,
+              s.totalDebt.isZero ? C.text3 : C.danger,
+            ),
             const SizedBox(height: 16),
-            Text('MUTĂ BANI',
-                style: T.display(
-                    size: 11,
-                    weight: FontWeight.w800,
-                    color: C.text3,
-                    letterSpacing: 11 * 0.12)),
+            Text(
+              'MUTĂ BANI',
+              style: T.display(
+                size: 11,
+                weight: FontWeight.w800,
+                color: C.text3,
+                letterSpacing: 11 * 0.12,
+              ),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -1684,28 +2542,46 @@ class _WalletSheetState extends State<_WalletSheet> {
             Row(
               children: [
                 Expanded(
-                  child: _moveBtn('→ Fond', C.green, Sh.green,
-                      s.cash >= _amount, () => _move(toFund: true)),
+                  child: _moveBtn(
+                    '→ Fond',
+                    C.green,
+                    Sh.green,
+                    s.cash >= _amount,
+                    () => _move(toFund: true),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: _moveBtn('→ Obiectiv', C.blue, Sh.blue,
-                      s.cash >= _amount, () => _move(toFund: false)),
+                  child: _moveBtn(
+                    '→ Obiectiv',
+                    C.blue,
+                    Sh.blue,
+                    s.cash >= _amount,
+                    () => _move(toFund: false),
+                  ),
                 ),
               ],
             ),
             if (s.debts.isNotEmpty) ...[
               const SizedBox(height: 18),
-              Text('DATORII',
-                  style: T.display(
-                      size: 11,
-                      weight: FontWeight.w800,
-                      color: C.text3,
-                      letterSpacing: 11 * 0.12)),
+              Text(
+                'DATORII',
+                style: T.display(
+                  size: 11,
+                  weight: FontWeight.w800,
+                  color: C.text3,
+                  letterSpacing: 11 * 0.12,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text('Plătește anticipat ca să scazi principalul și dobânda viitoare.',
-                  style: T.body(
-                      size: 12, weight: FontWeight.w500, color: C.text2)),
+              Text(
+                'Plătește anticipat ca să scazi principalul și dobânda viitoare.',
+                style: T.body(
+                  size: 12,
+                  weight: FontWeight.w500,
+                  color: C.text2,
+                ),
+              ),
               const SizedBox(height: 10),
               for (final d in s.debts) _debtRow(d),
             ],
@@ -1716,22 +2592,24 @@ class _WalletSheetState extends State<_WalletSheet> {
   }
 
   Widget _row(String label, Money value, Color color) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(label,
-                style:
-                    T.body(size: 14, weight: FontWeight.w600, color: C.text2)),
-            JuiceBounce(
-              trigger: value.bani,
-              child: Text(value.lei,
-                  style: T.display(
-                      size: 15, weight: FontWeight.w800, color: color)),
-            ),
-          ],
+    padding: const EdgeInsets.symmetric(vertical: 6),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: T.body(size: 14, weight: FontWeight.w600, color: C.text2),
         ),
-      );
+        JuiceBounce(
+          trigger: value.bani,
+          child: Text(
+            value.lei,
+            style: T.display(size: 15, weight: FontWeight.w800, color: color),
+          ),
+        ),
+      ],
+    ),
+  );
 
   Widget _amountChip(Money m, String label) {
     final selected = _amount.bani == m.bani;
@@ -1747,21 +2625,31 @@ class _WalletSheetState extends State<_WalletSheet> {
             color: selected ? C.blueSoft : C.surface,
             borderRadius: BorderRadius.circular(R.sm),
             border: Border.all(
-                color: selected ? C.blue : C.line, width: selected ? 1.5 : 1),
+              color: selected ? C.blue : C.line,
+              width: selected ? 1.5 : 1,
+            ),
           ),
           alignment: Alignment.center,
-          child: Text(label,
-              style: T.display(
-                  size: 15,
-                  weight: FontWeight.w800,
-                  color: selected ? C.blue : C.text2)),
+          child: Text(
+            label,
+            style: T.display(
+              size: 15,
+              weight: FontWeight.w800,
+              color: selected ? C.blue : C.text2,
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _moveBtn(String label, Color color, List<BoxShadow> shadow,
-      bool enabled, VoidCallback onTap) {
+  Widget _moveBtn(
+    String label,
+    Color color,
+    List<BoxShadow> shadow,
+    bool enabled,
+    VoidCallback onTap,
+  ) {
     return Opacity(
       opacity: enabled ? 1 : 0.4,
       child: GestureDetector(
@@ -1778,9 +2666,14 @@ class _WalletSheetState extends State<_WalletSheet> {
             boxShadow: enabled ? shadow : null,
           ),
           alignment: Alignment.center,
-          child: Text(label,
-              style: T.display(
-                  size: 14, weight: FontWeight.w800, color: Colors.white)),
+          child: Text(
+            label,
+            style: T.display(
+              size: 14,
+              weight: FontWeight.w800,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
     );
@@ -1804,16 +2697,24 @@ class _WalletSheetState extends State<_WalletSheet> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Rată datorie',
-                    style: T.body(
-                        size: 13.5, weight: FontWeight.w700, color: C.text)),
+                Text(
+                  'Rată datorie',
+                  style: T.body(
+                    size: 13.5,
+                    weight: FontWeight.w700,
+                    color: C.text,
+                  ),
+                ),
                 JuiceBounce(
                   trigger: d.principal.bani,
-                  child: Text(d.principal.lei,
-                      style: T.display(
-                          size: 12.5,
-                          weight: FontWeight.w700,
-                          color: C.text2)),
+                  child: Text(
+                    d.principal.lei,
+                    style: T.display(
+                      size: 12.5,
+                      weight: FontWeight.w700,
+                      color: C.text2,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1824,18 +2725,23 @@ class _WalletSheetState extends State<_WalletSheet> {
             child: GestureDetector(
               onTap: enabled ? () => _payDebt(d.id) : null,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 9,
+                ),
                 decoration: BoxDecoration(
                   color: C.dangerSoft,
                   borderRadius: BorderRadius.circular(R.pill),
                   border: Border.all(color: C.danger, width: 1),
                 ),
-                child: Text('Plătește',
-                    style: T.display(
-                        size: 12.5,
-                        weight: FontWeight.w800,
-                        color: C.dangerDeep)),
+                child: Text(
+                  'Plătește',
+                  style: T.display(
+                    size: 12.5,
+                    weight: FontWeight.w800,
+                    color: C.dangerDeep,
+                  ),
+                ),
               ),
             ),
           ),
@@ -1845,9 +2751,7 @@ class _WalletSheetState extends State<_WalletSheet> {
   }
 }
 
-// ===========================================================================
 // Foaia „Calendar", recurente cu ziua scadenței.
-// ===========================================================================
 
 class _CalendarSheet extends StatelessWidget {
   const _CalendarSheet({required this.state, required this.content});
@@ -1873,10 +2777,14 @@ class _CalendarSheet extends StatelessWidget {
     }
     restante.sort((a, b) => a.$3.compareTo(b.$3));
 
-    final urmeaza = [for (final i in items) if (i.$4 > state.day) i]
-      ..sort((a, b) => a.$4.compareTo(b.$4));
-    final trecute = [for (final i in items) if (i.$4 <= state.day) i]
-      ..sort((a, b) => a.$4.compareTo(b.$4));
+    final urmeaza = [
+      for (final i in items)
+        if (i.$4 > state.day) i,
+    ]..sort((a, b) => a.$4.compareTo(b.$4));
+    final trecute = [
+      for (final i in items)
+        if (i.$4 <= state.day) i,
+    ]..sort((a, b) => a.$4.compareTo(b.$4));
 
     bool wasMissed(String id, int day) =>
         state.missedBills.any((m) => m.$1 == id && m.$2 == day);
@@ -1889,27 +2797,43 @@ class _CalendarSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Calendarul facturilor',
-                style:
-                    T.display(size: 19, weight: FontWeight.w800, color: C.text)),
+            Text(
+              'Calendarul facturilor',
+              style: T.display(
+                size: 19,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text('Ce ai plătit, ce urmează și ce a rămas restanță.',
-                style:
-                    T.body(size: 13, weight: FontWeight.w500, color: C.text2)),
+            Text(
+              'Ce ai plătit, ce urmează și ce a rămas restanță.',
+              style: T.body(size: 13, weight: FontWeight.w500, color: C.text2),
+            ),
             const SizedBox(height: 14),
             if (restante.isEmpty && urmeaza.isEmpty && trecute.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text('Nicio recurentă activă.',
-                    style: T.body(
-                        size: 14, weight: FontWeight.w500, color: C.text3)),
+                child: Text(
+                  'Nicio recurentă activă.',
+                  style: T.body(
+                    size: 14,
+                    weight: FontWeight.w500,
+                    color: C.text3,
+                  ),
+                ),
               ),
             if (restante.isNotEmpty) ...[
               _section('Restanțe', C.danger),
               const SizedBox(height: 4),
-              Text('Se sting automat, cea mai veche prima, când intră bani.',
-                  style: T.body(
-                      size: 12, weight: FontWeight.w500, color: C.text2)),
+              Text(
+                'Se sting automat, cea mai veche prima, când intră bani.',
+                style: T.body(
+                  size: 12,
+                  weight: FontWeight.w500,
+                  color: C.text2,
+                ),
+              ),
               const SizedBox(height: 8),
               for (final r in restante)
                 _rowTile(
@@ -1917,9 +2841,14 @@ class _CalendarSheet extends StatelessWidget {
                   name: r.$1,
                   dayBg: C.dangerSoft,
                   dayColor: C.dangerDeep,
-                  trailing: Text(r.$2.lei,
-                      style: T.display(
-                          size: 14, weight: FontWeight.w800, color: C.danger)),
+                  trailing: Text(
+                    r.$2.lei,
+                    style: T.display(
+                      size: 14,
+                      weight: FontWeight.w800,
+                      color: C.danger,
+                    ),
+                  ),
                 ),
             ],
             if (urmeaza.isNotEmpty) ...[
@@ -1932,9 +2861,14 @@ class _CalendarSheet extends StatelessWidget {
                   name: i.$2,
                   dayBg: C.blueSoft,
                   dayColor: C.blue,
-                  trailing: Text(i.$3.lei,
-                      style: T.display(
-                          size: 14, weight: FontWeight.w800, color: C.text2)),
+                  trailing: Text(
+                    i.$3.lei,
+                    style: T.display(
+                      size: 14,
+                      weight: FontWeight.w800,
+                      color: C.text2,
+                    ),
+                  ),
                 ),
             ],
             if (trecute.isNotEmpty) ...[
@@ -1948,10 +2882,18 @@ class _CalendarSheet extends StatelessWidget {
                   dayBg: C.inset,
                   dayColor: C.text3,
                   trailing: wasMissed(i.$1, i.$4)
-                      ? const SvgIcon(Ic.alert,
-                          size: 18, color: C.danger, strokeWidth: 2.2)
-                      : const SvgIcon(Ic.check,
-                          size: 18, color: C.green, strokeWidth: 2.6),
+                      ? const SvgIcon(
+                          Ic.alert,
+                          size: 18,
+                          color: C.danger,
+                          strokeWidth: 2.2,
+                        )
+                      : const SvgIcon(
+                          Ic.check,
+                          size: 18,
+                          color: C.green,
+                          strokeWidth: 2.6,
+                        ),
                 ),
             ],
           ],
@@ -1961,21 +2903,24 @@ class _CalendarSheet extends StatelessWidget {
   }
 
   Widget _section(String label, Color color) => Row(
-        children: [
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          ),
-          const SizedBox(width: 8),
-          Text(label.toUpperCase(),
-              style: T.display(
-                  size: 12,
-                  weight: FontWeight.w800,
-                  color: color,
-                  letterSpacing: 12 * 0.08)),
-        ],
-      );
+    children: [
+      Container(
+        width: 8,
+        height: 8,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
+      const SizedBox(width: 8),
+      Text(
+        label.toUpperCase(),
+        style: T.display(
+          size: 12,
+          weight: FontWeight.w800,
+          color: color,
+          letterSpacing: 12 * 0.08,
+        ),
+      ),
+    ],
+  );
 
   Widget _rowTile({
     required int day,
@@ -1998,19 +2943,27 @@ class _CalendarSheet extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-                color: dayBg, borderRadius: BorderRadius.circular(11)),
+              color: dayBg,
+              borderRadius: BorderRadius.circular(11),
+            ),
             alignment: Alignment.center,
-            child: Text('z$day',
-                style: T.display(
-                    size: 13, weight: FontWeight.w800, color: dayColor)),
+            child: Text(
+              'z$day',
+              style: T.display(
+                size: 13,
+                weight: FontWeight.w800,
+                color: dayColor,
+              ),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style:
-                    T.body(size: 14, weight: FontWeight.w700, color: C.text)),
+            child: Text(
+              name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: T.body(size: 14, weight: FontWeight.w700, color: C.text),
+            ),
           ),
           const SizedBox(width: 8),
           trailing,
@@ -2020,9 +2973,7 @@ class _CalendarSheet extends StatelessWidget {
   }
 }
 
-// ===========================================================================
 // Foaia „Obiectiv", progres.
-// ===========================================================================
 
 class _GoalSheet extends StatelessWidget {
   const _GoalSheet({required this.state, required this.content});
@@ -2044,13 +2995,25 @@ class _GoalSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(goal?.name ?? 'Obiectivul lunii',
-                style: T.display(size: 19, weight: FontWeight.w800, color: C.text)),
+            Text(
+              goal?.name ?? 'Obiectivul lunii',
+              style: T.display(
+                size: 19,
+                weight: FontWeight.w800,
+                color: C.text,
+              ),
+            ),
             if (goal != null && goal.why.isNotEmpty) ...[
               const SizedBox(height: 4),
-              Text(goal.why,
-                  style: T.body(size: 13, weight: FontWeight.w500, color: C.text2,
-                      height: 1.4)),
+              Text(
+                goal.why,
+                style: T.body(
+                  size: 13,
+                  weight: FontWeight.w500,
+                  color: C.text2,
+                  height: 1.4,
+                ),
+              ),
             ],
             const SizedBox(height: 16),
             ClipRRect(
@@ -2066,15 +3029,29 @@ class _GoalSheet extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${state.goalSavings.lei} strânși',
-                    style: T.display(size: 14, weight: FontWeight.w800, color: C.text)),
-                Text('din ${state.goalTarget.lei}',
-                    style: T.body(size: 13, weight: FontWeight.w600, color: C.text2)),
+                Text(
+                  '${state.goalSavings.lei} strânși',
+                  style: T.display(
+                    size: 14,
+                    weight: FontWeight.w800,
+                    color: C.text,
+                  ),
+                ),
+                Text(
+                  'din ${state.goalTarget.lei}',
+                  style: T.body(
+                    size: 13,
+                    weight: FontWeight.w600,
+                    color: C.text2,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('${(pct * 100).round()}% atins',
-                style: T.body(size: 13, weight: FontWeight.w600, color: C.text3)),
+            Text(
+              '${(pct * 100).round()}% atins',
+              style: T.body(size: 13, weight: FontWeight.w600, color: C.text3),
+            ),
           ],
         ),
       ),

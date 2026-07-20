@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +26,7 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 }
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
-  OnbStep? _step; // null while resuming
+  OnbStep? _step; // null până se încarcă pasul salvat
   String _cashyName = 'Cashy';
   String? _ageBand;
 
@@ -44,24 +44,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   void _track(String stepId, [Map<String, Object?> extra = const {}]) {
-    ref.read(analyticsProvider).track(
-      AnalyticsEvents.activationStep,
-      {'step_id': stepId, ...extra},
-    );
+    ref.read(analyticsProvider).track(AnalyticsEvents.activationStep, {
+      'step_id': stepId,
+      ...extra,
+    });
   }
 
   /// Secvența de pași vizibili, `parent` există doar pe ruta under-16.
   List<OnbStep> get _sequence => [
-        OnbStep.egg,
-        OnbStep.ceremony,
-        OnbStep.quiz,
-        OnbStep.age,
-        if (_ageBand == '14_15') OnbStep.parent,
-        OnbStep.budget,
-        OnbStep.expense,
-        OnbStep.week,
-        OnbStep.notif,
-      ];
+    OnbStep.egg,
+    OnbStep.ceremony,
+    OnbStep.quiz,
+    OnbStep.age,
+    if (_ageBand == '14_15') OnbStep.parent,
+    OnbStep.budget,
+    OnbStep.expense,
+    OnbStep.week,
+    OnbStep.notif,
+  ];
 
   void _go(OnbStep step) => setState(() => _step = step);
 
@@ -115,7 +115,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final seq = _sequence;
     final index = seq.indexOf(step);
     // Fără back după pașii gate (de la expense încolo se scriu date reale).
-    final canGoBack = index > 0 && step != OnbStep.week && step != OnbStep.notif;
+    final canGoBack =
+        index > 0 && step != OnbStep.week && step != OnbStep.notif;
 
     return SizedBox(
       height: 46,
@@ -138,8 +139,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           boxShadow: Sh.raise,
                         ),
                         alignment: Alignment.center,
-                        child: const SvgIcon(Ic.chevronLeft,
-                            size: 18, color: C.text2, strokeWidth: 2.4),
+                        child: const SvgIcon(
+                          Ic.chevronLeft,
+                          size: 18,
+                          color: C.text2,
+                          strokeWidth: 2.4,
+                        ),
                       ),
                     ),
                   )
@@ -176,64 +181,78 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final l10n = AppLocalizations.of(context)!;
     switch (step) {
       case OnbStep.egg:
-        return EggStep(onHatched: () {
-          _track('egg_hatched');
-          _go(OnbStep.ceremony);
-        });
+        return EggStep(
+          onHatched: () {
+            _track('egg_hatched');
+            _go(OnbStep.ceremony);
+          },
+        );
 
       case OnbStep.ceremony:
-        return CeremonyStep(onDone: (name, color) async {
-          await _service.saveCeremony(name: name, color: color);
-          _cashyName = name;
-          _track('ceremony_done');
-          _go(OnbStep.quiz);
-        });
+        return CeremonyStep(
+          onDone: (name, color) async {
+            await _service.saveCeremony(name: name, color: color);
+            _cashyName = name;
+            _track('ceremony_done');
+            _go(OnbStep.quiz);
+          },
+        );
 
       case OnbStep.quiz:
-        return QuizStep(onDone: (answers, correct) async {
-          await _service.saveQuiz(answers);
-          _track('quiz_done', {'correct_n': correct});
-          _go(OnbStep.age);
-        });
+        return QuizStep(
+          onDone: (answers, correct) async {
+            await _service.saveQuiz(answers);
+            _track('quiz_done', {'correct_n': correct});
+            _go(OnbStep.age);
+          },
+        );
 
       case OnbStep.age:
-        return AgeStep(onDone: (birthYear) async {
-          final band = await _service.saveAge(birthYear);
-          if (band == null) return; // panoul „prea tânăr" e intern pasului
-          _ageBand = band;
-          _track('age_set', {'band': band});
-          _go(band == '14_15' ? OnbStep.parent : OnbStep.budget);
-        });
+        return AgeStep(
+          onDone: (birthYear) async {
+            final band = await _service.saveAge(birthYear);
+            if (band == null) return; // panoul „prea tânăr" e intern pasului
+            _ageBand = band;
+            _track('age_set', {'band': band});
+            _go(band == '14_15' ? OnbStep.parent : OnbStep.budget);
+          },
+        );
 
       case OnbStep.parent:
-        return ParentStep(onDone: (email) async {
-          await _service.saveParentEmail(email);
-          _track('parent_email_set');
-          _go(OnbStep.budget);
-        });
+        return ParentStep(
+          onDone: (email) async {
+            await _service.saveParentEmail(email);
+            _track('parent_email_set');
+            _go(OnbStep.budget);
+          },
+        );
 
       case OnbStep.budget:
-        return BudgetStep(onDone: (value) async {
-          await _service.saveBudget(value);
-          _track('budget_set', {'bucket': _budgetBucket(value)});
-          _go(OnbStep.expense);
-        });
+        return BudgetStep(
+          onDone: (value) async {
+            await _service.saveBudget(value);
+            _track('budget_set', {'bucket': _budgetBucket(value)});
+            _go(OnbStep.expense);
+          },
+        );
 
       case OnbStep.expense:
         return ExpenseStep(
           onExpense: (amount, category) async {
             await _service.logFirstExpense(amount: amount, category: category);
             _track('first_expense');
-            ref.read(analyticsProvider).track(AnalyticsEvents.expenseLogged,
-                {'source': 'onboarding', 'category': category});
+            ref.read(analyticsProvider).track(AnalyticsEvents.expenseLogged, {
+              'source': 'onboarding',
+              'category': category,
+            });
             _go(OnbStep.week);
           },
           onNoSpend: () async {
             await _service.markNoSpend();
             _track('first_expense', {'no_spend': true});
-            ref
-                .read(analyticsProvider)
-                .track(AnalyticsEvents.noSpendMarked, {'source': 'onboarding'});
+            ref.read(analyticsProvider).track(AnalyticsEvents.noSpendMarked, {
+              'source': 'onboarding',
+            });
             _go(OnbStep.week);
           },
         );

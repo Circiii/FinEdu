@@ -26,7 +26,7 @@ void main() {
 
     await tx.addSaving(amount: 50, category: 'obiectiv', goalId: id);
     await tx.addSaving(amount: 25, category: 'obiectiv', goalId: id);
-    // A saving WITHOUT a goal must not count toward it.
+    // O economie FĂRĂ obiectiv nu are voie să conteze la el.
     await tx.addSaving(amount: 100, category: 'fond_urgenta');
 
     list = await goals.watchWithProgress().first;
@@ -37,8 +37,11 @@ void main() {
 
   test('deleting a saving contribution updates the derived progress', () async {
     final id = await goals.create(name: 'Vacanță', targetAmount: 100);
-    final contribution =
-        await tx.addSaving(amount: 100, category: 'obiectiv', goalId: id);
+    final contribution = await tx.addSaving(
+      amount: 100,
+      category: 'obiectiv',
+      goalId: id,
+    );
 
     var list = await goals.watchWithProgress().first;
     expect(list.single.reached, isTrue);
@@ -55,7 +58,7 @@ void main() {
 
     final list = await goals.watchWithProgress().first;
     expect(list, isEmpty);
-    // The saving transaction itself survives (it is real money set aside).
+    // Tranzacția rămâne, sunt bani puși deoparte cu adevărat.
     final recent = await tx.watchRecent(5).first;
     expect(recent.single.amount, 40);
   });

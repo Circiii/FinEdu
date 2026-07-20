@@ -9,6 +9,7 @@ import '../../../core/ui/acorn.dart';
 import '../../../core/ui/clay.dart';
 import '../../../core/ui/fmt.dart';
 import '../../../core/ui/juice.dart';
+import '../../../core/ui/motion.dart';
 import '../../../core/ui/svg_icon.dart';
 import '../../../core/ui/tokens.dart';
 import '../../../domain/engine/leitner.dart';
@@ -36,7 +37,6 @@ class LearningScreen extends ConsumerWidget {
       backgroundColor: C.bg,
       body: Stack(
         children: [
-          // Ploaia de ghinde din fundal (pictată o dată, cost minim).
           const Positioned.fill(child: AcornRain()),
           Column(
             children: [
@@ -56,14 +56,17 @@ class LearningScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      _hero(
-                        xp,
-                        done.length,
-                        units.fold<int>(0, (n, u) => n + u.lessons.length),
+                      StaggerIn(
+                        index: 0,
+                        child: _hero(
+                          xp,
+                          done.length,
+                          units.fold<int>(0, (n, u) => n + u.lessons.length),
+                        ),
                       ),
                       if (due > 0) ...[
                         const SizedBox(height: 12),
-                        _reviewBanner(context, due),
+                        StaggerIn(index: 1, child: _reviewBanner(context, due)),
                       ],
                       const SizedBox(height: 6),
                       ..._unitCards(context, units, done),
@@ -97,13 +100,17 @@ class LearningScreen extends ConsumerWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                CustomPaint(
-                  size: const Size(78, 78),
-                  painter: _RingPainter(
-                    progress: (inLevel / 300).clamp(0.02, 1.0),
-                    track: Colors.white.withValues(alpha: 0.25),
-                    fill: Colors.white,
-                    stroke: 6,
+                AnimatedFrac(
+                  value: (inLevel / 300).clamp(0.02, 1.0),
+                  duration: const Duration(milliseconds: 900),
+                  builder: (_, v) => CustomPaint(
+                    size: const Size(78, 78),
+                    painter: _RingPainter(
+                      progress: v,
+                      track: Colors.white.withValues(alpha: 0.25),
+                      fill: Colors.white,
+                      stroke: 6,
+                    ),
                   ),
                 ),
                 Container(
@@ -151,10 +158,14 @@ class LearningScreen extends ConsumerWidget {
                   child: Container(
                     height: 9,
                     color: Colors.white.withValues(alpha: 0.25),
-                    child: FractionallySizedBox(
-                      alignment: Alignment.centerLeft,
-                      widthFactor: (inLevel / 300).clamp(0.02, 1.0),
-                      child: Container(color: Colors.white),
+                    child: AnimatedFrac(
+                      value: (inLevel / 300).clamp(0.02, 1.0),
+                      duration: const Duration(milliseconds: 900),
+                      builder: (_, v) => FractionallySizedBox(
+                        alignment: Alignment.centerLeft,
+                        widthFactor: math.max(v, 0.001),
+                        child: Container(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -176,17 +187,14 @@ class LearningScreen extends ConsumerWidget {
   }
 
   Widget _reviewBanner(BuildContext context, int due) {
-    return GestureDetector(
-      onTap: () {
-        Juice.tick();
-        context.push('/review');
-      },
+    return Pressable(
+      onTap: () => context.push('/review'),
       child: ClayCard(
         radius: 18,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
         child: Row(
           children: [
-            Image.asset(Cashy.cashyPoint, width: 40),
+            Floaty(child: Image.asset(Cashy.cashyPoint, width: 40)),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
@@ -279,9 +287,8 @@ class LearningScreen extends ConsumerWidget {
         ? unit.lessons.indexWhere((l) => !done.contains(l.id))
         : -1;
 
-    return GestureDetector(
+    return Pressable(
       onTap: () {
-        Juice.tick();
         if (!unlocked) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -333,13 +340,17 @@ class LearningScreen extends ConsumerWidget {
                         alignment: Alignment.center,
                         children: [
                           if (unlocked)
-                            CustomPaint(
-                              size: const Size(62, 62),
-                              painter: _RingPainter(
-                                progress: doneIn / unit.lessons.length,
-                                track: Colors.white.withValues(alpha: 0.3),
-                                fill: Colors.white,
-                                stroke: 5,
+                            AnimatedFrac(
+                              value: doneIn / unit.lessons.length,
+                              duration: const Duration(milliseconds: 900),
+                              builder: (_, v) => CustomPaint(
+                                size: const Size(62, 62),
+                                painter: _RingPainter(
+                                  progress: v,
+                                  track: Colors.white.withValues(alpha: 0.3),
+                                  fill: Colors.white,
+                                  stroke: 5,
+                                ),
                               ),
                             ),
                           Container(

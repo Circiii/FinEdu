@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
@@ -16,16 +16,19 @@ void main() {
   test('insight cards resolve end-to-end from a seeded db', () async {
     final db = AppDb(NativeDatabase.memory());
     addTearDown(db.close);
-    final container = ProviderContainer(overrides: [
-      appDbProvider.overrideWithValue(db),
-    ]);
+    final container = ProviderContainer(
+      overrides: [appDbProvider.overrideWithValue(db)],
+    );
     addTearDown(container.dispose);
 
-    await db.into(db.localProfiles).insert(
-        LocalProfilesCompanion.insert(monthlyBudget: const Value(800)));
+    await db
+        .into(db.localProfiles)
+        .insert(LocalProfilesCompanion.insert(monthlyBudget: const Value(800)));
     final now = DateTime.now();
     for (var i = 0; i < 6; i++) {
-      await db.into(db.localTransactions).insert(
+      await db
+          .into(db.localTransactions)
+          .insert(
             LocalTransactionsCompanion.insert(
               id: 'tx$i',
               amount: 10.0 + i,
@@ -52,16 +55,20 @@ void main() {
       },
       fireImmediately: true,
     );
-    final cards =
-        await settled.future.timeout(const Duration(seconds: 15));
+    final cards = await settled.future.timeout(const Duration(seconds: 15));
 
     // Cu buget + 6 tranzacții sub ritm, pacing-ul pozitiv trebuie să apară.
     expect(cards, isNotEmpty);
-    final pace = cards.firstWhere((c) => c.ruleKey == 'pace_under',
-        orElse: () => cards.first);
+    final pace = cards.firstWhere(
+      (c) => c.ruleKey == 'pace_under',
+      orElse: () => cards.first,
+    );
     expect(pace.kind, isNot(InsightKind.corrective));
-    expect(pace.body, isNot(contains('{')),
-        reason: 'toate placeholder-ele trebuie umplute');
+    expect(
+      pace.body,
+      isNot(contains('{')),
+      reason: 'toate placeholder-ele trebuie umplute',
+    );
     expect(pace.ctaRoute, startsWith('/'));
 
     // Afișarea s-a înregistrat (cooldown-ul de mâine depinde de asta).
@@ -81,7 +88,10 @@ void main() {
       fireImmediately: true,
     );
     final again = await settled2.future.timeout(const Duration(seconds: 15));
-    expect(again.map((c) => c.id), contains(pace.id),
-        reason: 'cardul de azi nu se auto-suprimă');
+    expect(
+      again.map((c) => c.id),
+      contains(pace.id),
+      reason: 'cardul de azi nu se auto-suprimă',
+    );
   });
 }
